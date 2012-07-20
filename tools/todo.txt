@@ -1,0 +1,217 @@
+* compute partials
+* jacobian; eval @ pt.
+* f2applot?
+
+* columnar fpn / fpnpm output
+* get deg vs. find deg
+* replace some polrat stuff with ED stuff
+
+* ED stuff into regression scripts
+* declare default fpnpoly_t & then set_coeff.  this examines coeff[0]
+  which is still set to default invalid; abend.  to fix, have set_coeff
+  recognize default (invalid) member data.
+
+----------------------------------------------------------------
+* virtuals ... code duplication is getting to be a pain. 
+* fp->fq embed for tmvpoly into utils func
+* tmvpoly zero poly: include a zero monom w/ correct nvars?
+
+* separate homogenize & not.  remove duplicated code.
+  - agff homogenize
+  - zeroset -h
+  - singular points -h: show all evals, show zeroes, show just count
+  - partials -h
+  - eval
+  k agff clump by conjugates
+* genus (using Pluecker formula)
+* list intersection points (needs tarray class ...)
+k points of degree n ...
+* intersection divisors
+* function divisor: div(C, f) w/ f = g/h.  div(f) = sum P - sum Q,
+  where P = C \cap C_g and Q = C \cap C_h (intersection divisors).
+* tmvrat class, w/ scan poly/poly
+* Fq(C): equivalence test: g/h ~ g'/h' iff gh' - g'h in <F>
+  Use Groebner for ideal-membership test?
+
+----------------------------------------------------------------
+* other 2 glist functions
+
+* correct totients for double extensions when inner modulus is reducible.
+  Or caveat emptor.
+! memoize lots of functions -- phi? gcd?
+* fppm log tbl.  needs find_gen & what else?
+
+k bit_matrix_t to accelerate f2pfactor
+
+! other row-red routine for rings (must be EDs).  Needs generic "gcd".
+
+* skip-whitespace blob into linescan.
+
+----------------------------------------------------------------
+k check that each spiff cmd calls the correct usage func.  OR, make it
+  right: put usage func (perh. null) into lookup tbl.
+----------------------------------------------------------------
+* post some tables
+----------------------------------------------------------------
+* conversion:
+
+.   q f2 f2n fp fpn
+q   - .  .   .  .
+f2  - -  .   .  .
+f2n - .  -   .  .
+fp  - .  .   -  .
+fpn - .  .   .  -
+
+----------------------------------------------------------------
+* separate out the split-poly function
+* spiff f*split
+* eigenvalues
+* eigenvectors
+* min pol?
+* jordan form?
+* rational canonical form?
+
+- get matrix
+- form chpol
+- factor chpol
+- find lcm of degrees of factors
+- find irr for splitting extension (search or cpstm?)
+  >> embed, or extend?
+- split chpol over that splitting field; get eigenvalues
+- for each eigenvalue,
+  - compute nullity of A - t I
+  - if nullity != multiplicity, not diag'ble
+
+- for each eigenvalue,
+  - compute kerbas
+  - populate D and P matrices
+- have automated checker
+
+= mx to chpol (have)
+= chpol -> splitter modulus and array of eigenvalues
+= splitter mod & eigenvalues -> diagonalizability test
+= kerbas (have)
+
+----------------------------------------------------------------
+* fp_find_gen to intmod_find_gen
+* modexp method for polys; into p-berl.
+* are iss's really ever needed?  whack 'em.
+* fppoly_random to use set_coeff now.
+* 1x1 ~ scalar in tmat stuff, for benefit of cmd_line_mat_parse.
+* DEBUG -> VERBOSE
+
+----------------------------------------------------------------
+* chpol:
+  > f2   -> f2pr
+  > fp   -> fppr
+  > f2pm -> f2npr
+  > fppm -> fpnpr
+
+* compmx: do remaining classes
+
+----------------------------------------------------------------
+* crt template
+  - vector of moduli
+  - vector of residues
+  - vector of mod_t
+
+* f2px, fppx utils for dir prod, and routines for conversion.
+  > istream -- ?  do I need a new class after all, or just some utilsp routines?
+
+* pluck method for *rat_t, and into det callers.
+
+----------------------------------------------------------------
+k special bit matrix
+* sighdlr in find/rand irrs for status "wiid"
+* rename *linalg.* to something more appropriate.
+* fix tfac binary search on f2pfactor 1e
+
+----------------------------------------------------------------
+! regression tests:
+  - rand det w/ check
+  - rand inv w/ check
+  - rand factor w/ check
+  - auto-test square roots in all poly factor?
+
+----------------------------------------------------------------
+* FF mat ord must be a multiple of ord of det.  Code it up.
+k f2ipm order finder (in C, as well) for non-irr, using CRT + cache?
+k z*list
+
+----------------------------------------------------------------
+? fe list: all, units, generator, order=spec
+? re list: all, monic, irred, prim, show period, show factors, classify
+
+! primitivity testing for all
+! clean up usages
+! check iss.fail() in app mains etc.
+* ffcomp: alg'ms, pfs out of appces & into own sections.
+k scalar * vec op*?
+k vec * matrix op*?
+k bitmatrix to speed up f2pfactor
+
+================================================================
+for ffcomp:
+
+if h^q equiv h mod f, then f = prod c in Fq gcd(f, h-c)
+pf: Easily, RHS divides LHS.  h-c's are rel prime so prod c in Fq gcd(f,h-c)
+is (?) gcd(f, prod(h-c)).  Now, prod c in Fq (h-c) is h^q - h (pv!).  Since
+this is equiv 0 mod f, done.
+
+How to find such f-reducers?  Use lin alg.
+h(x)=sum i=0 n-1 a_i x^i
+h(x)^q = h(x^q) = sum i=0 n-1 a_i x^{iq}
+w/r/t s.b., (a_{n-1} .. a_0) = B (a_{n-1} - a_0)
+Solve for nullspace of (B-I)(a_{n-1}, ..., a_0)
+
+What is B?  Show by example.
+
+5
+.  n=5
+^4+1 (7 * b).  n=5
+x^2 = 0015+x^4+1 (7 * b).  n=5
+x^4 = 10000
+x^6 = 10011
+x^8 = 11101
+
+a_4 x^4 + a_3 x^3 + a_2 x^2 + a_1 x + a_0 x
+= a_4(x^4+x^3+x^2+1)
++ a_3(x^4+x+1)
++ a_2(x^4)
++ a_1(x^2)
++ a_0(1)
+
+[ a_4 ]
+[ a_3 ]
+[ a_2 ]
+[ a_1 ]
+[ a_0 ]
+
+B
+[ 1 1 1 0 0 ]
+[ 1 0 0 0 0 ]
+[ 1 0 0 1 0 ]
+[ 1 1 0 0 0 ]
+[ 1 1 0 0 1 ]
+
+(n-1-j)th column is x^{jq} mod f
+
+B-I
+[ 0 1 1 0 0 ]
+[ 1 1 0 0 0 ]
+[ 1 0 1 1 0 ]
+[ 1 1 0 1 0 ]
+[ 1 1 0 0 0 ]
+
+1 0 1 0 0 (row echelon)
+0 1 1 0 0
+0 0 0 1 0
+0 0 0 0 0
+0 0 0 0 0
+
+1 1 1 0 0 (kerbas)
+0 0 0 0 1
+
+check 1c^2 equiv 1c mod 31
+
+... etc.

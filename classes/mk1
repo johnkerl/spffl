@@ -1,0 +1,6 @@
+file=ttmv10.cpp
+if [ $# -eq 1 ]; then
+	file=$1
+fi
+
+g++ -O3 -Wall -Werror -I$HOME/bin/sp/inc $file -L$HOME/bin/sp -lspffl -lm

@@ -1,0 +1,189 @@
+// ================================================================
+// Copyright (c) 2004 John Kerl.
+// kerl.john.r@gmail.com
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+//
+// This program is free software; you can redistribute it and/or modify it under
+// the terms of the GNU General Public License as published by the Free Software
+// Foundation; either version 2 of the License, or (at your option) any later
+// version.
+//
+// This program is distributed in the hope that it will be useful, but WITHOUT
+// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+// FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+// details.
+//
+// You should have received a copy of the GNU General Public License along with
+// this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+// Place, Suite 330, Boston, MA  02111-1307  USA
+// ================================================================
+
+#include <unistd.h>
+#include <sys/time.h>
+#include "psdes.h"
+
+// ================================================================
+static unsigned non_reentrant_state0 = 0;
+static unsigned non_reentrant_state1 = 0;
+static unsigned non_reentrant_seeded = 0;
+
+// ----------------------------------------------------------------
+unsigned iran32(void)
+{
+	if (!non_reentrant_seeded)
+		sran32_tod();
+	return iran32_r(&non_reentrant_state0, &non_reentrant_state1);
+}
+
+// ----------------------------------------------------------------
+void iran64(unsigned * pout0, unsigned * pout1)
+{
+	if (!non_reentrant_seeded)
+		sran32_tod();
+	return iran64_r(pout0, pout1,
+		&non_reentrant_state0, &non_reentrant_state1);
+}
+
+// ----------------------------------------------------------------
+float fran32(void)
+{
+	if (!non_reentrant_seeded)
+		sran32_tod();
+	return fran32_r(&non_reentrant_state0, &non_reentrant_state1);
+}
+
+// ---------------------------------------------------------------;-
+void sran32(unsigned s)
+{
+	non_reentrant_state0 = 0;
+	non_reentrant_state1 = s;
+	non_reentrant_seeded = 1;
+}
+
+// ---------------------------------------------------------------;-
+void sran32b(unsigned s0, unsigned s1)
+{
+	non_reentrant_state0 = s0;
+	non_reentrant_state1 = s1;
+	non_reentrant_seeded = 1;
+}
+
+// ----------------------------------------------------------------
+void sran32_tod(void)
+{
+	struct timeval tod;
+	(void)gettimeofday(&tod, 0);
+	non_reentrant_state0 = getpid() ^ tod.tv_usec;
+	non_reentrant_state1 = tod.tv_sec ^ (tod.tv_usec * tod.tv_usec + 1);
+	non_reentrant_seeded = 1;
+}
+
+// ================================================================
+unsigned iran32_r(unsigned * pstate0, unsigned * pstate1)
+{
+	unsigned word0  = *pstate0;
+	unsigned word1  = *pstate1;
+	psdes_hash_64(&word0, &word1);
+
+	(*pstate1)++;
+	if (*pstate1 == 0)
+		(*pstate0)++;
+
+	// Return low 32 bits of hash output; discard high 32 bits.
+	return word1;
+}
+
+// ----------------------------------------------------------------
+void iran64_r(unsigned * pout0, unsigned * pout1,
+	unsigned * pstate0, unsigned * pstate1)
+{
+	*pout0 = *pstate0;
+	*pout1 = *pstate1;
+	psdes_hash_64(pout0, pout1);
+
+	(*pstate1)++;
+	if (*pstate1 == 0)
+		(*pstate0)++;
+}
+
+// ----------------------------------------------------------------
+float fran32_r(unsigned * pstate0, unsigned * pstate1)
+{
+	static unsigned jflone  = 0x3f800000;
+	static unsigned jflmask = 0x007fffff;
+	unsigned word1 = iran32_r(pstate0, pstate1);
+	// IEEE bit-bang
+	unsigned bits = jflone | (jflmask & word1);
+	return (*(float *)&bits) - 1.0;
+}
+
+// ----------------------------------------------------------------
+void sran32_tod_r(unsigned * pstate0, unsigned * pstate1)
+{
+	struct timeval tod;
+	(void)gettimeofday(&tod, 0);
+	*pstate0 = getpid() ^ tod.tv_usec;
+	*pstate1 = tod.tv_sec ^ (tod.tv_usec * tod.tv_usec + 1);
+}
+
+// ----------------------------------------------------------------
+// A 64-bit in-place hash, loosely inspired by DES.
+// From _Numerical Recipes in C_.
+//
+// This is a 4-round Feistel network with the following function on
+// the right-hand member R:
+//
+// * XOR one constant into R.
+// * Split into high and low 16-bit halves; remember these as iah and ial
+// * Square each, forming two 32-bit products
+// * Invert the bits in the high square
+// * Add the inverted high square to the lower square, forming a
+//   32-bit sum
+// * Swap high and low 16-bit halves
+// * XOR in another constant
+// * Add the 32-bit product of iah and ial from above
+
+#define NITER 4
+
+void psdes_hash_64(
+	unsigned * pword0,
+	unsigned * pword1)
+{
+	unsigned i;  // Round counter
+	unsigned iswap, ia, iah, ial, ib, ic; // Intermediate values
+	static unsigned c1[NITER] = {
+		0xbaa96887, 0x1e17d32c, 0x03bcdc3c, 0x0f33d1b2 };
+	static unsigned c2[NITER] = {
+		0x4b0f3b58, 0xe874f0c3, 0x6955c5a6, 0x55a7ca46 };
+
+	for (i = 0; i < NITER; i++) {
+		iswap = *pword1;
+
+		ia  = iswap ^ c1[i];
+		ial = ia & 0xffff;
+		iah = ia >> 16;
+		ib  = ial * ial + ~(iah * iah);
+		ic  = (ib >> 16) | ((ib & 0xffff) << 16);
+		*pword1 = (*pword0) ^ ((ic ^ c2[i]) + ial * iah);
+
+		*pword0 = iswap;
+	}
+}

@@ -1,0 +1,8 @@
+gcc -Wall \
+	-I../../utils \
+	-I.. \
+	tmod.cpp \
+	../mod_t.cpp \
+	../../utils/phi.cpp \
+	../../utils/gcd.cpp \
+	-lstdc++

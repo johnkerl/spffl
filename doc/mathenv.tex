@@ -1,0 +1,114 @@
+%====================================================================
+%
+%  mathenv.tex  math environments  version 0.00
+%
+%====================================================================
+
+\usepackage{ifthen}
+
+\theoremstyle{plain}
+%\newtheorem{thm}{Theorem}[subsection]
+\newtheorem{thm}[equation]{Theorem}
+\newtheorem{cor}[equation]{Corollary}
+\newtheorem{lem}[equation]{Lemma}
+\newtheorem{prop}[equation]{Proposition}
+\newtheorem{ax}[equation]{Axiom}
+\newtheorem*{thm*}{Theorem}
+\newtheorem*{cor*}{Corollary}
+\newtheorem*{lem*}{Lemma}
+\newtheorem*{prop*}{Proposition}
+\newtheorem*{ax*}{Axiom}
+
+\theoremstyle{definition}
+\newtheorem{defn}[equation]{Definition}
+\newtheorem{problem}{Problem}
+\newtheorem*{defn*}{Definition}
+\newtheorem*{problem*}{Problem}
+\newtheorem{ex}[equation]{Example}
+\newtheorem{exs}[equation]{Examples}
+\newtheorem*{ex*}{Example}
+\newtheorem*{exs*}{Examples}
+
+%\theoremstyle{remark}
+\newtheorem{rem}[equation]{Remark}
+\newtheorem*{rem*}{Remark}
+\newtheorem{aside}[equation]{Aside}
+\newtheorem*{aside*}{Aside}
+\newtheorem{intuition}[equation]{Intuition}
+\newtheorem*{intuition*}{Intuition}
+\newtheorem{notn}[equation]{Notation}
+\newtheorem*{notn*}{Notation}
+\newtheorem{conv}[equation]{Convention}
+\newtheorem*{conv*}{Convention}
+\newtheorem{interp}[equation]{Interpretation}
+\newtheorem*{interp*}{Interpretation}
+\newtheorem{mnem}[equation]{Mnemonic}
+\newtheorem*{mnem*}{Mnemonic}
+\newtheorem{exer}[equation]{Exercise}
+\newtheorem*{exer*}{Exercise}
+\newtheorem{conjecture}[equation]{Conjecture}
+\newtheorem*{conjecture*}{Conjecture}
+
+%\numberwithin{equation}{subsection}
+%\numberwithin{equation}{section}
+
+%\newcommand{\beginex}{\begin{ex}$\blacktriangleright$ }
+%\newcommand{\mendex}{\hfill$\blacktriangleleft$\end{ex}}
+\newcommand{\beginex}{\begin{ex}$\rhd$ }
+\newcommand{\mendex}{\hfill$\lhd$\end{ex}}
+
+%--------------------------------------------------------------------
+%
+%\newenvironment{problem}[1][]
+% {\noindent{\bf#1.\ }}
+% {}
+%
+%--------------------------------------------------------------------
+
+\newenvironment{answer}[1][Answer]
+  {\begin{proof}[#1]}
+  {\renewcommand{\qedsymbol}{}\end{proof}}
+
+\newenvironment{solution}[1][Solution]
+  {\begin{proof}[#1]}
+  {\renewcommand{\qedsymbol}{\ensuremath{\Diamond}}\end{proof}}
+
+\newcounter{ppart}
+\newenvironment{parts}
+ {\begin{list}{\textup(\alph{ppart}\textup)\hfill}
+   {\usecounter{ppart}
+    \settowidth{\labelwidth}{\textup(m\textup)}
+    \setlength{\leftmargin}{0cm} 
+    \setlength{\rightmargin}{0cm}
+    \setlength{\itemindent}{2em}
+    \setlength{\labelsep}{\itemindent}
+    \addtolength{\labelsep}{-\labelwidth}
+    \renewcommand{\makelabel}[1]{\ifthenelse
+     {\equal{##1}{}}
+     {\textup{(\alph{ppart})}\hfill}
+     {\textup{##1}\hfill}}
+   }
+ }
+ {\end{list}}
+
+%\renewcommand{\labelenumi}{(\roman{enumi})}
+
+\newcommand{\secref}[1]{Section~\textup{\ref{#1}}}
+\newcommand{\thmref}[1]{Theorem~\textup{\ref{#1}}}
+\newcommand{\corref}[1]{Corollary~\textup{\ref{#1}}}
+\newcommand{\lemref}[1]{Lemma~\textup{\ref{#1}}}
+\newcommand{\propref}[1]{Proposition~\textup{\ref{#1}}}
+\newcommand{\defnref}[1]{Definition~\textup{\ref{#1}}}
+\newcommand{\remref}[1]{Remark~\textup{\ref{#1}}}
+\newcommand{\exref}[1]{Example~\textup{\ref{#1}}}
+\newcommand{\exsref}[1]{Examples~\textup{\ref{#1}}}
+\newcommand{\axref}[1]{Axiom~\textup{\ref{#1}}}
+\newcommand{\itemref}[1]{\textup{{\ref{#1}}}}
+
+% Vim 7.0 syntax highlighting doesn't seem to kick in unless the .tex
+% file has at least one begin-end pair in it.  Go figure.
+\newenvironment{vim_bug_workaround}
+	{}
+
+%====================================================================
+

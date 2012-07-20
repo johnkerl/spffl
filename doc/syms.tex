@@ -1,0 +1,104 @@
+
+\newcommand*{\bfidx}[1]{\index{#1}\textbf{#1}}
+\newcommand*{\bfidxtwo}[2]{\textbf{#1}\index{#2}}
+\newcommand*{\bfidxaux}[2]{\index{#1}\index{#2}\textbf{#1}}
+\newcommand*{\emphidx}[1]{\index{#1}\emph{#1}}
+\newcommand*{\plainidx}[1]{\index{#1}#1}
+
+\newcommand{\modp}{\,(\mathrm{mod } \,p)}
+\newcommand{\veps}{\varepsilon}
+\newcommand{\modfive}{\,(\mathrm{mod } \,5)}
+\newcommand{\Fpx}{\F_p^\times}
+\newcommand{\Fpd}{\F_{p^d}}
+\newcommand{\Fq}{\F_q}
+
+
+\newcommand*{\rowvectwo}[2]{\begin{pmatrix}#1 & #2 \end{pmatrix}}
+\newcommand*{\rowvecthree}[3]{\begin{pmatrix}#1 & #2 & #3\end{pmatrix}}
+
+\newcommand*{\colvecone}[1]{\left(\begin{array}{r} #1 \end{array}\right)}
+\newcommand*{\colvectwo}[2]{\left(\begin{array}{r} #1 \\ #2 \end{array}\right)}
+\newcommand*{\colvecthree}[3]{\left(\begin{array}{r} #1 \\ #2 \\ #3\end{array}\right)}
+\newcommand*{\colvecfour}[4]{\left(\begin{array}{r} #1 \\ #2 \\ #3 \\ #4\end{array}\right)}
+
+\newcommand*{\collvecone}[1]{\left(\begin{array}{l} #1 \end{array}\right)}
+\newcommand*{\collvectwo}[2]{\left(\begin{array}{l} #1 \\ #2 \end{array}\right)}
+\newcommand*{\collvecthree}[3]{\left(\begin{array}{l} #1 \\ #2 \\ #3\end{array}\right)}
+\newcommand*{\collvecfour}[4]{\left(\begin{array}{l} #1 \\ #2 \\ #3 \\ #4\end{array}\right)}
+
+\newcommand*{\colcvecone}[1]{\left(\begin{array}{c} #1 \end{array}\right)}
+\newcommand*{\colcvectwo}[2]{\left(\begin{array}{c} #1 \\ #2 \end{array}\right)}
+\newcommand*{\colcvecthree}[3]{\left(\begin{array}{c} #1 \\ #2 \\ #3\end{array}\right)}
+\newcommand*{\colcvecfour}[4]{\left(\begin{array}{c} #1 \\ #2 \\ #3 \\ #4\end{array}\right)}
+
+\newcommand*{\colrvecone}[1]{\left(\begin{array}{r} #1 \end{array}\right)}
+\newcommand*{\colrvectwo}[2]{\left(\begin{array}{r} #1 \\ #2 \end{array}\right)}
+\newcommand*{\colrvecthree}[3]{\left(\begin{array}{r} #1 \\ #2 \\ #3\end{array}\right)}
+\newcommand*{\colrvecfour}[4]{\left(\begin{array}{r} #1 \\ #2 \\ #3 \\ #4\end{array}\right)}
+
+
+%% ----------------------------------------------------------------
+% Parenthesized matrix with left alignment.
+\newcommand*{\plmatrix}[1]{
+	\left(\begin{array}{llllllllllll}
+		#1
+	\end{array}\right)
+}
+
+% Parenthesized matrix with centered alignment.
+\newcommand*{\pcmatrix}[1]{
+	\left(\begin{array}{cccccccccccc}
+		#1
+	\end{array}\right)
+}
+
+% Parenthesized matrix with right alignment.
+\newcommand*{\prmatrix}[1]{
+	\left(\begin{array}{rrrrrrrrrrrr}
+		#1
+	\end{array}\right)
+}
+
+%% ----------------------------------------------------------------
+% Bracketed matrix with left alignment.
+\newcommand*{\blmatrix}[1]{
+	\left[\begin{array}{llllllllllll}
+		#1
+	\end{array}\right]
+}
+
+% Bracketed matrix with centered alignment.
+\newcommand*{\bcmatrix}[1]{
+	\left[\begin{array}{cccccccccccc}
+		#1
+	\end{array}\right]
+}
+
+% Bracketed matrix with right alignment.
+\newcommand*{\brmatrix}[1]{
+	\left[\begin{array}{rrrrrrrrrrrr}
+		#1
+	\end{array}\right]
+}
+
+%% ----------------------------------------------------------------
+% Unbracketed matrix with left alignment.
+\newcommand*{\nlmatrix}[1]{
+	\begin{array}{llllllllllll}
+		#1
+	\end{array}
+}
+
+% Unbracketed matrix with centered alignment.
+\newcommand*{\ncmatrix}[1]{
+	\begin{array}{cccccccccccc}
+		#1
+	\end{array}
+}
+
+% Unbracketed matrix with right alignment.
+\newcommand*{\nrmatrix}[1]{
+	\begin{array}{rrrrrrrrrrrr}
+		#1
+	\end{array}
+}

@@ -1,0 +1,599 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="description"
+        content="A C++ library for finite fields over small primes.">
+  <meta name="keywords" content="finite field, finite fields, source code,
+  	library">
+  <title>SPFFL</title>
+</head>
+
+<body bgcolor="#ffffff" link="#993333" vlink="#888888" alink="#cc3333">
+
+<h1> <h2> <font color="#993333">
+SPFFL
+</font> </h2> </h1>
+
+<!-- ================================================================ -->
+<p>
+
+<ul>
+<li><a href="#what"> <b>What is SPFFL?</b></a>
+<li><a href="#where"> <b>Where is SPFFL?</b></a>
+<li><a href="#why"> <b>Why SPFFL?</b></a>
+<li><a href="#status"> <b>Status</b></a>
+<li><a href="#availability"> <b>Availability</b></a>
+<li><a href="#summary_of_data_types"> <b>Summary of data types</b></a>
+<li><a href="#data_types_in_detail"> <b>Data types in detail</b></a>
+<li><a href="#summary_of_features"> <b>Summary of features</b></a>
+<li><a href="#features_in_detail"> <b>Features in detail</b></a>
+<li><a href="#examples"> <b>Examples</b></a>
+<li><a href="#todo"> <b>To do</b></a>
+<li><a href="#contact"> <b>Contact information</b></a>
+</ul>
+
+<!-- ---------------------------------------------------------------- -->
+<p>
+<hr>
+<font color="#993333">
+<b>What is SPFFL?</b>
+</font>
+<a id="what">
+
+<p>
+SPFFL (pronounced <i>spiffle</i>) is a small-prime finite-field library, where
+small means 32 bits or less.  Polynomials may have arbitrary degree, as limited
+by machine resources.
+
+<!-- ---------------------------------------------------------------- -->
+<p>
+<hr>
+<font color="#993333">
+<b>Where is SPFFL?</b>
+</font>
+
+<a id="where">
+
+<p>
+The source directory is <a href="..">math.arizona.edu/~kerl/src/spffl</a>.
+A tar file is located at
+<a href="../../spffl.tgz">math.arizona.edu/~kerl/src/spffl.tgz</a>.
+
+<!-- ---------------------------------------------------------------- -->
+<p>
+<hr>
+<font color="#993333">
+<b>Why SPFFL?</b>
+</font>
+<a id="why">
+
+<p>
+There are numerous other software packages for doing arithmetic over finite
+fields, e.g. Pari/GP, Shoup's NTL, Mathematica, etc.  Pluses and minuses of
+SPFFL are as follows:
+
+<ul>
+<p><li> My single most important reason for writing SPFFL was to learn by doing.
+	I encourage you to do the same.  Nonetheless, SPFFL is available on
+	an as-is basis for anyone who would like to learn from it.
+<p><li> SPFFL has I/O in a very compact format (examples are below).
+<p><li> Special cases are made for <i>p</i>=2.  This increases computation
+	speed, and also permits an even more compact, hexadecimal I/O format.
+<p><li> SPFFL aims for reasonable performance, but clarity of implementation is
+	just as important.  You will not find cutting-edge algorithms
+	implemented here.  SPFFL grew out of my desire for a simple desk
+	calculator (cf. the Unix <tt>bc</tt> command) which would support
+	finite-field arithmetic.  Its main purpose remains that of automating
+	simple computations.
+<p><li> Unlike Shoup's NTL, there is no global modulus:  each intmod or polymod
+	has its own modulus, leading to a more elegant user experience.
+<p><li> I limit <i>p</i> to 32 bits.  This reduces required storage space,
+	and also removes the need for third-party (or my own)
+	arbitrary-precision integer arithmetic, along with the concomitant
+	hard problem of factoring large integers.  Any prime of 32 bits
+	or less will have a prime factor of 16 bits or less.  There are
+	6542 primes of 16 bits or less, which may be stored in a table.
+	Thus, 32-bit integer factorization is trivial.  The down side of
+	this is that SPFFL is unsuitable for finite fields
+	<b>F</b><sub><i>p</i></sub> for large <i>p</i>, e.g. in cryptographic
+	applications.
+<p><li> SPFFL does use dynamic memory allocation, which permits arbitrary-degree
+	polynomials (as limited by machine resources).  However, it cleans up
+	after itself as it runs, via properly coded constructors and
+	destructors, so it has no need for garbage collection,
+	user tweaking via <tt>allocatemem()</tt> calls, etc.
+<p><li> Unlike computer-algebra tools such as Mathematica, Maple, or GAP,
+	SPFFL is not monolithic, and does not have startup time measured
+	in seconds.  Thus, it permits shell scripting in which executables
+	are repeatedly invoked.
+<p><li> Since the source code is my own, I can make it run on any platform
+	I port it to, and I do not need to pay license fees.
+<p><li> SPFFL's data types are not recursive.  If you want to make a matrix of
+	matrices, or use triple field extensions, you must create new C++
+	classes.
+
+<p><li> SPFFL has no scripting language of its own.  While SPFFL is a
+	subroutine library, there is also a <tt>spiff</tt> executable which
+	provides a command-line interface to most routines.  <tt>spiff</tt>
+	includes a simple expression parser, while variables, looping, and file I/O
+	are provided by the shell.  This offloads the script processing onto the
+	shell, which already exists, freeing me from needing to re-invent the
+	wheel, and allowing me to focus on SPFFL's core mathematical competency.
+	Examples are shown below; the following example prints a multiplication
+	table for <b>F</b><sub>7</sub>.
+
+	<p>Script file:
+
+<pre>
+        #!/bin/sh
+        p=7
+        elements="`spiff fplist -a $p`"
+        for a in $elements
+        do
+                for b in $elements
+                do
+                        c=`spiff fpop $p $a . $b`
+                        echo -n " $c"
+                done
+                echo ""
+        done
+</pre>
+
+	<p>Output:
+
+<pre>
+        0  0  0  0  0  0  0
+        0  1  2  3  4  5  6
+        0  2  4  6  1  3  5
+        0  3  6  2  5  1  4
+        0  4  1  5  2  6  3
+        0  5  3  1  6  4  2
+        0  6  5  4  3  2  1
+</pre>
+
+
+	<!--
+	<p> My philosophy on scripting languages as follows.  C/C++ and other
+	high-level languages are very powerful.  The time you take to learn a
+	HLL will pay itself back many times over.  Sometimes we want to create
+	scripts, though, either out of fear of HLLs, or simply because we don't
+	want to run the compiler every time we want to multiply two
+	polynomials.  For a computer-algebra system with long startup time, it
+	is not feasible to repeatedly invoke the executable.  So, every CAS has
+	its own language.  In my experience, these languages are idiosyncratic
+	(every one is different), and they never seem to have all the features
+	one would expect from a mature HLL.  As well, someone must take the
+	time to design the grammar, implement the parser, work out the bugs,
+	etc.  instead of using their time to implement mathematical algorithms.
+	Users are always wanting more features in the scripting language,
+	including access to shell commands for reading and writing their data
+	files, a way to link in Perl, etc. etc.
+
+	<p> Because <tt>spiff</tt> has a short startup time and because it is
+	designed for compact I/O, it is feasible to script <tt>spiff</tt> (or
+	any other executables you create).  This offloads all the sophisticated
+	processing onto the shell, which already exists and already has all the
+	support you could want for file I/O, etc.  Thus SPFFL does not need to
+	reinvent the wheel.
+	-->
+
+</ul>
+
+<!-- ---------------------------------------------------------------- -->
+<p>
+<hr>
+<font color="#993333">
+<b>Status</b>
+</font>
+<a id="status">
+
+<p>
+SPFFL is a work in progress, and will remain so for as long as I can think
+of algorithms to implement.  There is very little documentation.
+
+<!-- ---------------------------------------------------------------- -->
+<p>
+<hr>
+<font color="#993333">
+<b>Availability</b>
+</font>
+<a id="availability">
+
+<p> SPFFL is released under the terms of the GNU General Public License (GPL).
+Please see the file <tt>COPYING</tt> for more details.  Also please visit <a
+href="http://www.gnu.org">www.gnu.org</a>.
+
+<p> SPFFL has been run on Linux 2.4 and Solaris 5.8, compiled by GCC 3.3 and
+above.  It uses C++ templates; it uses GCC's <tt>long long</tt> in a few spots.
+It should run on any Unix with a GCC.
+
+<!-- ---------------------------------------------------------------- -->
+<p>
+<hr>
+<font color="#993333">
+<b>Summary of data types</b>
+</font>
+<a id="summary_of_data_types">
+
+<p>
+Data types include:
+
+<ul>
+<li> Integers, residue class rings (finite fields when the modulus is a
+	prime number), quotient fields (small rationals).
+<li> Polynomials with coefficients in <b>F</b><sub><i>p</i></sub>.
+<li> Residue class rings for polynomials with coefficients in
+	<b>F</b><sub><i>p</i></sub> (finite fields when the modulus is an
+	irreducible polynomial), quotient fields (rational functions).
+<li> Polynomials with coefficients in <b>F</b><sub><i>q</i></sub>.
+<li> Residue class rings for polynomials with coefficients in
+	<b>F</b><sub><i>q</i></sub> (finite fields when the modulus is an
+	irreducible polynomial), quotient fields (rational functions).
+</ul>
+
+<p>
+Thus, double extensions are supported, with tools for embedding double
+extensions into single extensions.
+
+<!-- ---------------------------------------------------------------- -->
+<p>
+<hr>
+<font color="#993333">
+<b>Data types in detail</b>
+</font>
+<a id="data_types_in_detail">
+
+<p>
+<table border=1>
+
+<tr>
+	<th>C++ data type</th>
+	<th><tt>spiff</tt> prefix</th>
+	<th>Notation</th>
+	<th>Description</th>
+</tr>
+<tr><td colspan=4> &nbsp;</td></tr>
+
+<tr>
+	<td><tt>int</tt></td>
+	<td><tt>z</tt></td>
+	<td><b>Z</b></td>
+	<td>Ring</td>
+</tr>
+<tr>
+	<td><tt>bit_t</tt></td>
+	<td><tt>f2</tt></td>
+	<td><b>Z</b>/&lt;2&gt; = <b>F</b><sub>2</sub></td>
+	<td>Residue field, <i>p</i>=2</td>
+</tr>
+<tr>
+	<td><tt>intmod_t</tt></td>
+	<td><tt>fp</tt></td>
+	<td><b>Z</b>/&lt;<i>p</i>&gt; = <b>F</b><sub><i>p</i></sub></td>
+	<td>Residue field</td>
+</tr>
+<tr>
+	<td><tt>intrat_t</tt></td>
+	<td><tt>q</tt></td>
+	<td><b>Q</b></td>
+	<td>Quotient field</td>
+</tr>
+<tr><td colspan=4> &nbsp;</td></tr>
+
+<tr>
+	<td><tt>f2poly_t</tt></td>
+	<td><tt>f2p</tt></td>
+	<td><b>F</b><sub>2</sub>[<i>x</i>]</td>
+	<td>Ring</td>
+</tr>
+<tr>
+	<td><tt>f2polymod_t</tt></td>
+	<td><tt>f2pm</tt></td>
+	<td><b>F</b><sub>2</sub>[<i>x</i>]/&lt;<i>f</i>(<i>x</i>)&gt; =
+		<b>F</b><sub>2<sup><i>n</i></sup></sub></td>
+	<td>Residue field</td>
+</tr>
+<tr>
+	<td><tt>f2polyrat_t</tt></td>
+	<td><tt>f2pr</tt></td>
+	<td><b>F</b><sub>2</sub>(<i>x</i>)</td>
+	<td>Quotient field</td>
+</tr>
+<tr><td colspan=4> &nbsp;</td></tr>
+
+<tr>
+	<td><tt>fppoly_t</tt></td>
+	<td><tt>fpp</tt></td>
+	<td><b>F</b><sub><i>p</i></sub>[<i>x</i>]</td>
+	<td>Ring</td>
+</tr>
+<tr>
+	<td><tt>fppolymod_t</tt></td>
+	<td><tt>fppm</tt></td>
+	<!--
+	<td><b>F</b><sub><i>p</i></sub>[<i>x</i>] /
+		&lt;<i>f</i>(<i>x</i>)&gt;</td>
+	-->
+	<td><b>F</b><sub><i>p</i></sub>[<i>x</i>]/&lt;<i>f</i>(<i>x</i>)&gt; =
+		<b>F</b><sub><i>p</i><sup><i>n</i></sup></sub></td>
+	<td>Residue field</td>
+</tr>
+<tr>
+	<td><tt>fppolyrat_t</tt></td>
+	<td><tt>fppr</tt></td>
+	<td><b>F</b><sub><i>p</i></sub>(<i>x</i>)</td>
+	<td>Quotient field</td>
+</tr>
+<tr><td colspan=4> &nbsp;</td></tr>
+
+<tr>
+	<td><tt>f2npoly_t</tt></td>
+	<td><tt>f2np</tt></td>
+	<td><b>F</b><sub>2<sup><i>n</i></sup></sub>[<i>y</i>]</td>
+	<td>Ring</td>
+</tr>
+<tr>
+	<td><tt>f2npolymod_t</tt></td>
+	<td><tt>f2npm</tt></td>
+	<td><b>F</b><sub>2<sup><i>n</i></sup></sub>[<i>y</i>]
+		/ &lt;<i>g</i>(<i>y</i>)&gt; </td>
+	<td>Residue field</td>
+</tr>
+<tr>
+	<td><tt>f2npolyrat_t</tt></td>
+	<td><tt>f2npr</tt></td>
+	<td><b>F</b><sub>2<sup><i>n</i></sup></sub>(<i>y</i>)</td>
+	<td>Quotient field</td>
+</tr>
+<tr><td colspan=4> &nbsp;</td></tr>
+
+<tr>
+	<td><tt>fpnpoly_t</tt></td>
+	<td><tt>fpnp</tt></td>
+	<td><b>F</b><sub><i>p</i><sup><i>n</i></sup></sub>[<i>y</i>]</td>
+	<td>Ring</td>
+</tr>
+<tr>
+	<td><tt>fpnpolymod_t</tt></td>
+	<td><tt>fpnpm</tt></td>
+	<td><b>F</b><sub><i>p</i><sup><i>n</i></sup></sub>[<i>y</i>]
+		/ &lt;<i>g</i>(<i>y</i>)&gt; </td>
+	<td>Residue field</td>
+</tr>
+<tr>
+	<td><tt>fpnpolyrat_t</tt></td>
+	<td><tt>fpnpr</tt></td>
+	<td><b>F</b><sub><i>p</i><sup><i>n</i></sup></sub>(<i>y</i>)</td>
+	<td>Quotient field</td>
+</tr>
+
+</table>
+
+<!-- ---------------------------------------------------------------- -->
+<p>
+<hr>
+<font color="#993333">
+<b>Summary of features</b>
+</font>
+<a id="summary_of_features">
+
+<p>
+Features include:
+
+<ul>
+<li> Arithmetic for integers and polynomial rings, residue class rings/fields,
+	and quotient fields.
+<li> Generation of random elements.
+<li> GCD, LCM, totient.
+<li> Irreducibility testing, factorization (Berlekamp).
+<li> Periods of polynomials.
+<li> Printing of tables.
+<li> Discrete log (Shanks).
+<li> Matrix arithmetic for all data types.
+<li> Computation of row echelon form, determinant, matrix inverse.
+<li> Diagonalizability testing for matrices over finite fields
+	(under construction).
+<li> Jordan normal form and rational canonical form for matrices over finite
+	fields (to be implemented).
+<li> Computation of eigenspaces and generalized eigenspaces for matrices
+	over finite fields (under construction).
+</ul>
+
+<!-- ---------------------------------------------------------------- -->
+<hr>
+<font color="#993333">
+<b>Features in detail</b>
+</font>
+<a id="features_in_detail">
+
+<p>
+<pre>
+Key:
+  o means coded
+  . means not coded yet
+  - means not applicable or not interesting.
+
+Rings:
+
+cmd/type   z    f2p  f2np fpp  fpnp
+---------- ---- ---- ---- ---- ----
+op         o    o    o    o    .
+eval       -    o    o    o    .
+rand       -    o    o    o    .
+deg        -    o    o    o    .
+gcd        o    o    o    o    .
+lcm        o    o    o    o    .
+totient    o    o    o    o    .
+test       o    o    o    o    .
+find       -    o    o    o    .
+period     -    o    .    .    .
+factor     o    o    o    o    .
+divisors   o    o    o    o    .
+list       -    o    o    o    .
+compmx     -    o    o    o    .
+
+----------------------------------------------------------------
+Fields:
+
+cmd/type q    fp   f2   f2pm f2pr f2npm f2npr fppm fppr fpnpm fpnpr
+-------- ---- ---- ---- ---- ---- ----- ----- ---- ---- ----- -----
+op       o    o    .    o    o    o     o     o    o    .     .
+tbl      -    o    -    o    -    o     -     o    -    .     -
+ord      -    o    -    o    -    o     -     r    -    .     -
+findgen  -    o    -    o    -    o     -     .    -    .     -
+log      -    o    -    o    -    o     -     .    -    .     -
+rand     -    o    o    o    o    o     .     o    .    .     .
+chpol    -    -    -    o    -    -     -     .    -    -     -
+minpol   -    -    -    o    -    -     -     .    -    -     -
+list     -    o    -    o    -    o     -     o    -    .     -
+matop    o    o    o    o    o    o     o     o    o    .     .
+matord   -    o    o    o    -    .     -     o    -    .     .
+matrand  -    o    o    o    o    .     .     o    .    .     .
+matchpol -    o    o    o    -    -     -     .    -    -     -
+dable    .    .    .    .    .    .     .     .    .    .     .
+eisys    .    .    .    .    .    .     .     .    .    .     .
+jordan   .    .    .    .    .    .     .     .    .    .     .
+ratcanon .    .    .    .    .    .     .     .    .    .     .
+</pre>
+
+<!-- ---------------------------------------------------------------- -->
+<p>
+<hr>
+<font color="#993333">
+<b>Examples</b>
+</font>
+<a id="examples">
+
+<p>
+<i>to do</i>: many more
+
+<pre>
+bash$ f=`spiff f2pop 2 ^ 64 - 2`
+
+bash$ spiff f2pfactor $f
+2 3 7 b d 43 49 57 5b 61 67 6d 73 75
+
+bash$ spiff f2pmtbl 13 .
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 1 2 3 4 5 6 7 8 9 a b c d e f
+0 2 4 6 8 a c e 3 1 7 5 b 9 f d
+0 3 6 5 c f a 9 b 8 d e 7 4 1 2
+0 4 8 c 3 7 b f 6 2 e a 5 1 d 9
+0 5 a f 7 2 d 8 e b 4 1 9 c 3 6
+0 6 c a b d 7 1 5 3 9 f e 8 2 4
+0 7 e 9 f 8 1 6 d a 3 4 2 5 c b
+0 8 3 b 6 e 5 d c 4 f 7 a 2 9 1
+0 9 1 8 2 b 3 a 4 d 5 c 6 f 7 e
+0 a 7 d e 4 9 3 f 5 8 2 1 b 6 c
+0 b 5 e a 1 f 4 7 c 2 9 d 6 8 3
+0 c b 7 5 9 e 2 a 6 1 d f 3 4 8
+0 d 9 4 1 c 8 5 2 f b 6 3 e a 7
+0 e f 1 d 3 2 c 9 7 6 8 4 a b 5
+0 f d 2 9 6 4 b 1 e c 3 8 7 5 a
+
+m=13
+for r in `spiff f2pmlist -a $m`
+do
+	spiff f2pmchpol $m $r
+done
+
+1:0:0:0:0
+1:0:0:0:1
+1:0:0:1:1
+1:0:0:1:1
+1:0:0:1:1
+1:0:0:1:1
+1:0:1:0:1
+1:0:1:0:1
+1:1:1:1:1
+1:1:0:0:1
+1:1:1:1:1
+1:1:0:0:1
+1:1:1:1:1
+1:1:0:0:1
+1:1:0:0:1
+1:1:1:1:1
+
+spiff f2pperiod `spiff f2plist 4`
+10:  0
+11:  4
+12:  0
+13: 15
+14:  0
+15:  6
+16:  0
+17:  7
+18:  0
+19: 15
+1a:  0
+1b:  6
+1c:  0
+1d:  7
+1e:  0
+1f:  5
+
+spiff fpord  35 `spiff fplist -u 35`
+ 1:  1
+ 2: 12
+ 3: 12
+ 4:  6
+ 6:  2
+ 8:  4
+ 9:  6
+11:  3
+12: 12
+13:  4
+16:  3
+17: 12
+18: 12
+19:  6
+22:  4
+23: 12
+24:  6
+26:  6
+27:  4
+29:  2
+31:  6
+32: 12
+33: 12
+34:  2
+
+</pre>
+
+
+
+<!-- ---------------------------------------------------------------- -->
+<p>
+<hr>
+<font color="#993333">
+<b>To do</b>
+</font>
+<a id="todo">
+
+<p>
+<ul>
+<li> links both ways between spffl and ffcomp
+<li> examples
+<li> compilation instructions
+</ul>
+
+<!-- ---------------------------------------------------------------- -->
+<p>
+<hr>
+<font color="#993333">
+<b>Contact information</b>
+</font>
+<a id="contact">
+
+<p> John Kerl
+<br><a href="http://math.arizona.edu/~kerl">math.arizona.edu/~kerl</a>
+<br> <a href="mailto:kerl.john.r@gmail.com">
+	kerl.john.r@gmail.com</a>
+
+<!-- ================================================================ -->
+<hr>
+<i> Last updated: 2004-08-14 </i>
+</body>
+</html>
+

@@ -1,0 +1,1 @@
+g++ -c -I../utils -I../classes ../classes/bit_matrix_t.cpp

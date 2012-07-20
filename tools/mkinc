@@ -1,0 +1,17 @@
+#!/bin/sh
+
+SPINC=$HOME/bin/sp/inc
+SPH=$SPINC/libspffl.h
+
+mkdir -p ${SPINC}
+cp ../classes/*.h ${SPINC}
+cp ../utils/*.h ${SPINC}
+
+echo "#ifndef LIBSPFFL_H" >  $SPH
+echo "#define LIBSPFFL_H" >> $SPH
+for x in `ls $SPINC/*.h | grep -v teiginfo`
+do
+	y=`basename $x`
+	echo "#include \"$y\"" >> $SPH
+done
+echo "#endif // LIBSPFFL_H" >> $SPH

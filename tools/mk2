@@ -1,0 +1,13 @@
+g++ -g \
+	-I../utils -I../classes \
+	../classes/fpnpolymod_t.cpp \
+	../classes/fpnpoly_t.cpp \
+	../classes/fppolymod_t.cpp \
+	../classes/fppoly_t.cpp \
+	../classes/intmod_t.cpp \
+	../classes/rsstring_t.cpp \
+	../utils/tokenize.cpp \
+	../utils/linescan.cpp \
+	../utils/int_totient.cpp \
+	../utils/int_gcd.cpp \
+	single.cpp

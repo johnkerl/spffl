@@ -1,0 +1,14 @@
+# ----------------------------------------------------------------
+:var=SPBIN=$(HOME)/bin/sp
+:include_dir=$(SPBIN)/inc
+:define=F2POLY_SMALL
+
+# ----------------------------------------------------------------
+:builder=.cpp=g++ -Wall -Werror -O2
+#:linker=g++ -L$(SPBIN)/dynamic
+:linker=g++ -L$(SPBIN)/static
+:misc_lflag=-lspfflf
+:install_dir=$HOME/bin/sp
+
+# ----------------------------------------------------------------
+agff.cpp

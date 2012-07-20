@@ -1,0 +1,475 @@
+%====================================================================
+% This is a LaTeX-2e document
+%====================================================================
+
+\documentclass[10pt]{article}
+\parindent=0pt \parskip=8pt
+
+\usepackage{verbatim}
+\usepackage{fullpage}
+
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage[mathscr]{eucal}
+
+\usepackage{makeidx}
+\numberwithin{equation}{subsection}
+%\numberwithin{equation}{section}
+\input{isomath}
+\input{mathenv}
+\input{syms}
+\usepackage{graphicx}
+\usepackage{psfrag}
+
+\makeindex
+
+\usepackage{hyperref}
+\usepackage{ifpdf}
+
+\ifpdf
+\pdfinfo{
+/Author (John Kerl)
+/Title  (The Berlekamp algorithm)
+}
+\fi
+
+%--------------------------------------------------------------------
+\begin{document}
+\title{The Berlekamp algorithm}
+\author{John Kerl}
+\date{\today}
+
+\maketitle
+\begin{abstract}
+We describe Berlekamp's algorithm for efficient factorization of polynomials
+over finite fields $\Fq$.  For simplicity, we restrict the examples to base
+fields $\Fp$ where $p$ is prime.  Xref to Lidl and Niederreiter.
+\end{abstract}
+
+\addcontentsline{toc}{section}{Contents}
+\tableofcontents
+
+%% ================================================================
+\newpage
+\section{Examples}
+
+To fix ideas, we list fourth-degree polynomials over $\F_2$, along with their
+factorizations.
+
+For example, $x^4 + 1$ is a fourth-degree polynomial with coefficients 0 or 1,
+with coefficient arithmetic done mod 2.  This factors as $(x^2+1)^2$, which in
+turn factors as $(x+1)^4$.  So, $x^4+1$ is \emphidx{reducible}.
+
+By contrast, $x^4+x+1$ has no non-trivial factors; we say that it is
+\emphidx{reducible}.  How can I be so sure of that statement?  Well, since
+degree four is small, we can do an explicit search.  For larger degree's,
+Berlekamp's algorithm is a powerful way to factor polynomials over $\Fq$.  Note
+that we don't have such a powerful algorithm for polynomials with coefficients
+in $\Q$, or for integers.  (Some cryptosystems, such as RSA, are in fact
+designed around the difficulty of integer factorization.)
+
+Let's see why $x^4+x+1$ is irreducible over $\F_2$.  If it has a non-trivial
+factor, i.e. a factor with degree greater than or equal to one, one factor must
+have degree 1, 2, or 3.  There are two degree-one polynomials over $\F_2$:  $x$
+and $x+1$.  There are four degree-two polynomials: $x^2$, $x^2+1$, $x^2+x$, and
+$x^2+x+1$.  There are eight degree-three polynomials, $x^3$ through
+$x^3+x^2+x+1$.  So, all we need to do is use long division, dividing $x^4+x+1$
+by each of these fourteen possible divisors.  If none of them goes into
+$x^4+x+1$ with a zero remainder, then $x^4+x+1$ is irreducible.  (This is
+similar to trial division for integers:  given an integer $n$, the most naive
+factorization algorithm is to try dividing $n$ by every integer $2 \le d < n$.
+Improvements are possible, of course, but that's the very most naive method.)
+
+For shorthand, we'll often write polynomials with their coefficients only, in
+descending order of degrees of terms.  For example, $x^4+1 = 10001$ and
+$x^4+x+1=10011$.
+
+%Here are all the fourth-degree polynomials over $\F_2$ along
+%with their factorizations (which you can check by multiplying them back out):
+%\begin{align*}
+%	10000 &= 10^2   & 10100 &= 11^2\cdot 10^2   & 11000 &= 11\cdot 10^3   & 11100 &= 111 \cdot 10^2   \\
+%	10001 &= 11^2   & 10101 &= xxx   & 11001 &= xxx   & 11101 &= xxx   \\
+%	10010 &= xxx   & 10110 &= xxx   & 11010 &= xxx   & 11110 &= xxx   \\
+%	10011 &= xxx   & 10111 &= xxx   & 11011 &= xxx   & 11111 &= 11111   \\
+%\end{align*}
+
+%% ================================================================
+\newpage
+\section{Squarefree preparation}
+
+xxx show where the algorithm requires that.
+
+Monicity.
+
+$g = \gcd(f,f')$
+
+If $g$ has degree 0, input is squarefree, and is ready for Berlekamp.
+
+If $f' = 0$:  the input is a perfect $p$th power.  Get the $p$th root.
+Maybe recurse in case the root is itself a $p$th power.
+
+Else, recurse on $g$ and $f/g$.
+
+%% ================================================================
+\newpage
+\section{Berlekamp's algorithm}
+
+%% ================================================================
+\newpage
+\section{Example}
+
+Given squarefree $f(x)$, we want to find polynomials $h(x)$
+such that $h^q \equiv h \mod f$.  Take $f = x^5+x^4+1 =
+110001 = 111 \cdot 1011$.  The degree of $f$ is 5.  By
+explicit search, we can find the following polynomials $h$
+of degree $< 5$ such that $h^2 \equiv h \mod f$ (Lidl and
+Niederreiter call these ``f-reducing polynomials''): 0, 1,
+11100, 11101.
+
+To avoid having to do a search, we use linear algebra instead.
+\begin{align*}
+	f &= x^5+x^4+1 = 110001 \\
+	x^0 &\equiv 00001 \mod f \\
+	x^2 &\equiv 00100 \mod f \\
+	x^4 &\equiv 10000 \mod f \\
+	x^6 &\equiv 10011 \mod f \\
+	x^8 &\equiv 11111 \mod f.
+\end{align*}
+\begin{align*}
+h   &= a_4 x^4 + a_3 x^3 + a_2 x^2 + a_1 x   + a_0 \\
+h^2 &= a_4 x^8 + a_3 x^6 + a_2 x^4 + a_1 x^2 + a_0 \\
+    &= a_4(x^4+x^3+x^2+x+1) + a_3(x^4+x+1) + a_2(x^4) + a_1(x^2) + a_0(1) \\
+%
+%
+\bcmatrix{
+	a_4 \\
+	a_3 \\
+	a_2 \\
+	a_1 \\
+	a_0 \\
+}
+&=
+\bcmatrix{
+1 & 1 & 1 & 0 & 0 \\
+1 & 0 & 0 & 0 & 0 \\
+1 & 0 & 0 & 1 & 0 \\
+1 & 1 & 0 & 0 & 0 \\
+1 & 1 & 0 & 0 & 1 \\
+}
+\cdot
+\bcmatrix{
+	a_4 \\
+	a_3 \\
+	a_2 \\
+	a_1 \\
+	a_0 \\
+} \\
+%
+\bcmatrix{
+	0 \\
+	0 \\
+	0 \\
+	0 \\
+	0 \\
+}
+&=
+\bcmatrix{
+0 & 1 & 1 & 0 & 0 \\
+1 & 1 & 0 & 0 & 0 \\
+1 & 0 & 1 & 1 & 0 \\
+1 & 1 & 0 & 1 & 0 \\
+1 & 1 & 0 & 0 & 0 \\
+}
+\cdot
+\bcmatrix{
+	a_4 \\
+	a_3 \\
+	a_2 \\
+	a_1 \\
+	a_0 \\
+}.
+\end{align*}
+Call the matrix B.  Its $(n-1-j)$th column is $x^{jq} \mod f$.  Put $B-I$ in
+row-echelon form to obtain
+\begin{align*}
+\bcmatrix{
+	1 & 0 & 1 & 0 & 0 \\
+	0 & 1 & 1 & 0 & 0 \\
+	0 & 0 & 0 & 1 & 0 \\
+	0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 \\
+	}
+\end{align*}
+with kernel basis
+\begin{align*}
+	(1,1,1,0,0), \qquad (0,0,0,0,1).
+\end{align*}
+These are $h_1 = 11100$ and $h_2 = 1$, respectively.  Compute $\gcd(f, h_1) = 111$ and
+$\gcd(f, h_1+1) = 1011$ to obtain non-trivial factors of $f$.
+
+%static void fppoly_berlekamp(
+%	fppoly_t   f,
+%	tfacinfo<fppoly_t> & rfinfo,
+%	int recurse)
+%{
+%	int n  = f.find_degree();
+%	int p = f.get_char();
+%	intmod_t zero(0, p);
+%	intmod_t one(1, p);
+%	fppoly_t x(one, zero);
+%	fppoly_t xp;
+%	fppoly_t xpi = one;
+%	fppoly_t f1, f2;
+%	int i, j, row, rank, dimker;
+%
+%	xp = x;
+%	for (int i = 1; i < p; i++)
+%		xp = (xp * x) % f;
+%
+%	tmatrix<intmod_t> BI(n, n);
+%
+%	if (n < 2) {
+%		rfinfo.insert_factor(f);
+%		return;
+%	}
+%
+%	// Populate the B matrix.
+%	for (j = 0; j < n; j++) {
+%		for (i = 0; i < n; i++) {
+%			BI[n-1-i][n-1-j] = xpi.get_coeff(i);
+%		}
+%		xpi = (xpi * xp) % f;
+%	}
+%
+%	// Form B - I.
+%	for (i = 0; i < n; i++)
+%		BI[i][i] -= one;
+%
+%	BI.row_echelon_form();
+%
+%	rank = BI.get_rank_rr();
+%	dimker = n - rank;
+%
+%	if (dimker == 1) {
+%		rfinfo.insert_factor(f);
+%		return;
+%	}
+%
+%	// Find a basis for the nullspace of B - I.
+%	tmatrix<intmod_t> nullspace_basis;
+%	if (!BI.get_kernel_basis(nullspace_basis, zero, one)) {
+%		std::cerr << "Coding error: file "
+%			<< __FILE__ << " line "
+%			<< __LINE__ << "\n";
+%		exit(1);
+%	}
+%	if (nullspace_basis.get_num_rows() != dimker) {
+%		std::cerr << "Coding error: file "
+%			<< __FILE__ << " line "
+%			<< __LINE__ << "\n";
+%		exit(1);
+%	}
+%
+%	int got_it = 0;
+%	for (row = 0; row <  dimker && !got_it; row++) {
+%		fppoly_t h = fppoly_from_vector(nullspace_basis[row], n);
+%		if (h == 1)
+%			continue;
+%
+%		for (int c = 0; c < p; c++) {
+%			fppoly_t hc = h - f.prime_sfld_elt(c);
+%			f1 = f.gcd(hc);
+%			int f1d = f1.find_degree();
+%			int fd  = f.find_degree();
+%			if ((0 < f1d) && (f1d < fd)) {
+%				got_it = 1;
+%				break;
+%			}
+%		}
+%	}
+%
+%	if (!got_it) {
+%		// No non-trivial factors found.
+%		std::cerr << "Coding error: file "
+%			<< __FILE__ << " line "
+%			<< __LINE__ << "\n";
+%		exit(1);
+%	}
+%
+%	f2 = f / f1;
+%
+%	// Input was already made monic, so these factors should
+%	// be as well.
+%	f1 /= f1.get_coeff(f1.find_degree());
+%	f2 /= f2.get_coeff(f2.find_degree());
+%
+%	// The nullity of B-I is the number of irreducible
+%	// factors of r.  If the nullity is 2, we have a
+%	// pair of factors which are both irreducible and
+%	// so we don't need to recurse.
+%	if (dimker == 2) {
+%		rfinfo.insert_factor(f1);
+%		rfinfo.insert_factor(f2);
+%	}
+%	else if (!recurse) {
+%		rfinfo.insert_factor(f1);
+%		rfinfo.insert_factor(f2);
+%	}
+%	else {
+%		fppoly_pre_berlekamp(f1, rfinfo, recurse);
+%		fppoly_pre_berlekamp(f2, rfinfo, recurse);
+%	}
+%}
+
+
+
+
+%static void f2poly_berlekamp(
+%	f2poly_t   f,
+%	tfacinfo<f2poly_t> & rfinfo,
+%	int recurse)
+%{
+%	int n  = f.find_degree();
+%	f2poly_t x(1, 0);
+%	f2poly_t x2 = (x * x) % f;
+%	f2poly_t x2i(1);
+%	int i, j, row, rank, dimker;
+%	//bit_t zero(0);
+%	//bit_t one(1);
+%
+%	tmatrix<bit_t> BI(n, n);
+%
+%	if (n < 2) {
+%		rfinfo.insert_factor(f);
+%		return;
+%	}
+%
+%	// Populate the B matrix.
+%	for (j = 0; j < n; j++) {
+%		for (i = 0; i < n; i++) {
+%			BI[n-1-i][n-1-j] = bit_t(x2i.bit_at(i));
+%		}
+%		x2i = (x2i * x2) % f;
+%	}
+%
+%	// Form B - I.
+%	for (i = 0; i < n; i++) {
+%		BI[i][i] = BI[i][i] - one;
+%	}
+%
+%	BI.row_echelon_form();
+%
+%	rank = BI.get_rank_rr();
+%	dimker = n - rank;
+%
+%	if (dimker == 1) {
+%		rfinfo.insert_factor(f);
+%		return;
+%	}
+%
+%	// Find a basis for the nullspace of B - I.
+%	tmatrix<bit_t> nullspace_basis;
+%
+%	int got = BI.get_kernel_basis(nullspace_basis, zero, one);
+%
+%	if (!got) {
+%		std::cerr << "Coding error: file "
+%			<< __FILE__ << " line "
+%			<< __LINE__ << "\n";
+%		exit(1);
+%	}
+%	if (nullspace_basis.get_num_rows() != dimker) {
+%		std::cerr << "Coding error: file "
+%			<< __FILE__ << " line "
+%			<< __LINE__ << "\n";
+%		exit(1);
+%	}
+%
+%	// For each h in the nullspace basis, form
+%	//   f1 = gcd(f, h)
+%	//   f2 = gcd(f, h-1)
+%	// Now, the polynomial h=1 is always in the nullspace, in which case
+%	// f1 = 1 and f2 = f, which results in a trivial factorization.  Any
+%	// of the other h's will work fine, producing a non-trivial
+%	// factorization of f into two factors.  (Note that either or both
+%	// of them may be reducible, in which we'll need to apply this
+%	// algorithm recursively until we're down to irreducible factors.)
+%	// Here, for the sake of illustration, is what happens with all the
+%	// h's, even though we need only one of them (with f = 703):
+%
+%	//h=001
+%	//  f1: 001
+%	//  f2: 70e = 2 3 7 b d
+%	//h=102     = 2 3 b d
+%	//  f1: 102 = 2 3 b d
+%	//  f2: 007 = 7
+%	//h=284     = 2 2 7 3b
+%	//  f1: 00e = 2 7
+%	//  f2: 081 = 3 b d
+%	//h=0e8     = 2 2 2 3 b
+%	//  f1: 03a = 2 3 b
+%	//  f2: 023 = 7 d
+%	//h=310     = 2 2 2 2 7 b
+%	//  f1: 062 = 2 7 b
+%	//  f2: 017 = 3 d
+%
+%	for (row = 0; row <  dimker; row++) {
+%		f2poly_t h, hc;
+%		h = f2poly_from_vector(nullspace_basis[row], n);
+%		hc = h + f2poly_t(1);
+%
+%		f2poly_t check1 = (h  * h)  % f;
+%		f2poly_t check2 = (hc * hc) % f;
+%		if ((h != check1) || (hc != check2)) {
+%			std::cerr << "Coding error: file "
+%				<< __FILE__ << " line "
+%				<< __LINE__ << "\n";
+%			std::cerr << "  h  = " << h
+%				<< "  h^2  = " << check1 << "\n";
+%			std::cerr << "  hc = " << hc
+%				<< "  hc^2 = " << check2 << "\n";
+%			exit(1);
+%		}
+%
+%		f2poly_t f1 = f.gcd(h);
+%		f2poly_t f2 = f.gcd(hc);
+%
+%		if ((f1 == 1) || (f2 == 1))
+%			continue;
+%
+%		// The nullity of B-I is the number of irreducible
+%		// factors of f.  If the nullity is 2, we have a
+%		// pair of factors which are both irreducible and
+%		// so we don't need to recurse.
+%		if (dimker == 2) {
+%			rfinfo.insert_factor(f1);
+%			rfinfo.insert_factor(f2);
+%		}
+%		else if (!recurse) {
+%			rfinfo.insert_factor(f1);
+%			rfinfo.insert_factor(f2);
+%		}
+%		else {
+%			f2poly_pre_berlekamp(f1, rfinfo, recurse);
+%			f2poly_pre_berlekamp(f2, rfinfo, recurse);
+%		}
+%		return;
+%	}
+%	std::cerr << "Coding error: file "
+%		<< __FILE__ << " line "
+%		<< __LINE__ << "\n";
+%	exit(1);
+%}
+
+%% ================================================================
+\newpage
+\section{Complexity analysis}
+
+\section*{}
+\addcontentsline{toc}{section}{References}
+xxx
+
+\section*{}
+\addcontentsline{toc}{section}{Index}
+\printindex
+
+\end{document}
