@@ -1,6 +1,6 @@
 # ================================================================
 # Makefile for project spiff
-# Automatically generated from "spiff.mki" at Tue Aug  3 20:56:35 2010
+# Automatically generated from "spiff.mki" at Tue Jan 22 14:57:42 2013
 
 # yamm v1.0
 # John Kerl

@@ -41,16 +41,16 @@
 
 #include "intfc.h"
 
-unsigned find_msb_16(
+unsigned find_msb_pos_16(
 	unsigned short n);
-unsigned find_msb_32(
+unsigned find_msb_pos_32(
 	unsigned n);
-unsigned find_msb_64(
+unsigned find_msb_pos_64(
 	unsigned long long n);
 
-unsigned find_lsb_32(
+unsigned find_lsb_pos_32(
 	unsigned n);
-unsigned find_lsb_64(
+unsigned find_lsb_pos_64(
 	unsigned long long n);
 
 // want_ceil is either IFLOOR or ICEIL

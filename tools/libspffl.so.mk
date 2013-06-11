@@ -1,6 +1,6 @@
 # ================================================================
 # Makefile for project libspffl.so
-# Automatically generated from "libspffl.so.mki" at Sun Oct 24 20:07:39 2010
+# Automatically generated from "libspffl.so.mki" at Tue Jan 22 14:57:42 2013
 
 # yamm v1.0
 # John Kerl
@@ -74,7 +74,7 @@ $(SPBIN)/sobjs/fpnpolymod_t.o:  ../classes/fpnpoly_t.h ../classes/fpnpolymod_t.c
 $(SPBIN)/sobjs/linescan.o:  ../utils/linescan.cpp ../utils/linescan.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/linescan.cpp -o $(SPBIN)/sobjs/linescan.o
 
-$(SPBIN)/sobjs/log2.o:  ../utils/intfc.h ../utils/log2.cpp ../utils/log2.h ../utils/msb_table.h
+$(SPBIN)/sobjs/log2.o:  ../utils/intfc.h ../utils/log2.cpp ../utils/log2.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/log2.cpp -o $(SPBIN)/sobjs/log2.o
 
 $(SPBIN)/sobjs/log10.o:  ../utils/intfc.h ../utils/log10.cpp ../utils/log10.h

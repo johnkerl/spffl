@@ -771,7 +771,7 @@ int f2poly_t::find_degree(void) const
 {
 	for (int i = this->num_parts - 1; i >= 0; i--) {
 		if (this->parts[i])
-			return find_msb_32(this->parts[i])
+			return find_msb_pos_32(this->parts[i])
 				+ (i << F2POLY_PART_LOG);
 	}
 	return 0; // Zero polynomial.

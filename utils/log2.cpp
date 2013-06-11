@@ -37,166 +37,110 @@
 // ================================================================
 
 #include "log2.h"
-#include "msb_table.h"
-
-static int u4_table[] = {
-	0, /* 0x0 */ 0, /* 0x1 */ 1, /* 0x2 */ 1, /* 0x3 */
-	2, /* 0x4 */ 2, /* 0x5 */ 2, /* 0x6 */ 2, /* 0x7 */
-	3, /* 0x8 */ 3, /* 0x9 */ 3, /* 0xa */ 3, /* 0xb */
-	3, /* 0xc */ 3, /* 0xd */ 3, /* 0xe */ 3, /* 0xf */
-};
-
-static int l4_table[] = {
-	0, /* 0x0 */ 0, /* 0x1 */ 1, /* 0x2 */ 0, /* 0x3 */
-	2, /* 0x4 */ 0, /* 0x5 */ 1, /* 0x6 */ 0, /* 0x7 */
-	3, /* 0x8 */ 0, /* 0x9 */ 1, /* 0xa */ 0, /* 0xb */
-	2, /* 0xc */ 0, /* 0xd */ 1, /* 0xe */ 0, /* 0xf */
-};
 
 // ----------------------------------------------------------------
-unsigned find_msb_16(
-	unsigned short n)
+// aggregate-magic pop count:
+//static unsigned ones32(unsigned n)
+//{
+//	n -= ((n >> 1) & 0x55555555);
+//	n = (((n >> 2) & 0x33333333) + (n & 0x33333333));
+//	n = (((n >> 4) + n) & 0x0f0f0f0f);
+//	n += (n >> 8);
+//	n += (n >> 16);
+//	return n & 0x0000003f;
+//}
+
+// MIT HAKMEM pop count:
+static unsigned find_ones_32(unsigned n)
 {
-	unsigned rv = 0;
-	unsigned short upper;
-	unsigned un = (unsigned) n;
+	unsigned r = n - ((n >> 1) & 033333333333) - ((n >> 2) & 011111111111);
+	return ((r + (r >> 3)) & 030707070707) % 63;
+}
 
-	if (un < MSB_TABLE_SIZE)
-		return msb_table[n];
-
-	upper = n >> 8;
-	if (upper) {
-		rv += 8;
-		n = upper;
-	}
-	else
-		n &= 0xff;
-
-	upper = n >> 4;
-	if (upper) {
-		rv += 4;
-		n = upper;
-	}
-	else
-		n &= 0x0f;
-
-	rv += u4_table[n];
-	return rv;
+static unsigned find_floor_log2_32(unsigned n)
+{
+     n |= (n >> 1);
+     n |= (n >> 2);
+     n |= (n >> 4);
+     n |= (n >> 8);
+     n |= (n >> 16);
+     return find_ones_32(n) - 1; // If log(0) is to be -1
 }
 
 // ----------------------------------------------------------------
+unsigned short find_msb_16(
+	unsigned short n)
+{
+	n |= (n >> 1);
+	n |= (n >> 2);
+	n |= (n >> 4);
+	n |= (n >> 8);
+	return n & ~(n >> 1) ;
+}
+
 unsigned find_msb_32(
 	unsigned n)
 {
-
-	// // aggregate.org/MAGIC
-	// unsigned int
-	// msb32(register unsigned int x)
-	// {
-	//	x |= (x >> 1);
-	//	x |= (x >> 2);
-	//	x |= (x >> 4);
-	//	x |= (x >> 8);
-	//	x |= (x >> 16);
-	//	return(x & ~(x >> 1));
-	// }
-
-	unsigned rv = 0;
-	unsigned upper;
-
-	if (n < MSB_TABLE_SIZE)
-		return msb_table[n];
-
-	upper = n >> 16;
-	if (upper) {
-		rv += 16;
-		n = upper;
-	}
-	else
-		n &= 0xffff;
-
-	upper = n >> 8;
-	if (upper) {
-		rv += 8;
-		n = upper;
-	}
-	else
-		n &= 0xff;
-
-	upper = n >> 4;
-	if (upper) {
-		rv += 4;
-		n = upper;
-	}
-	else
-		n &= 0x0f;
-
-	rv += u4_table[n];
-	return rv;
+	n |= (n >> 1);
+	n |= (n >> 2);
+	n |= (n >> 4);
+	n |= (n >> 8);
+	n |= (n >> 16);
+	return n & ~(n >> 1) ;
 }
 
-// ----------------------------------------------------------------
-unsigned find_msb_64(
+unsigned long long find_msb_64(
 	unsigned long long n)
 {
-	unsigned upper = n >> 32;
-
-	if (n < MSB_TABLE_SIZE)
-		return msb_table[n];
-
-	if (upper)
-		return find_msb_32(upper) + 32;
-	else
-		return find_msb_32((unsigned)n);
+	n |= (n >> 1);
+	n |= (n >> 2);
+	n |= (n >> 4);
+	n |= (n >> 8);
+	n |= (n >> 16);
+	n |= (n >> 32);
+	return n & ~(n >> 1) ;
 }
 
-// ----------------------------------------------------------------
+unsigned short find_lsb_16(
+	unsigned short n)
+{
+	return n & -n;
+}
+
 unsigned find_lsb_32(
 	unsigned n)
 {
-	unsigned rv = 0;
-	unsigned lower;
+	return n & -n;
+}
 
-	lower = n & 0xffff;
-	if (lower) {
-		n = lower;
-	}
-	else {
-		n >>= 16;
-		rv += 16;
-	}
-
-	lower = n & 0xff;
-	if (lower) {
-		n = lower;
-	}
-	else {
-		n >>= 8;
-		rv += 8;
-	}
-
-	lower = n & 0xf;
-	if (lower) {
-		n = lower;
-	}
-	else {
-		n >>= 4;
-		rv += 4;
-	}
-
-	rv += l4_table[n];
-	return rv;
+unsigned long long find_lsb_64(
+	unsigned long long n)
+{
+	return (n & -n);
 }
 
 // ----------------------------------------------------------------
-unsigned find_lsb_64(
+unsigned find_msb_pos_16(
+	unsigned short n)
+{
+	return find_floor_log2_32(find_msb_16(n));
+}
+
+unsigned find_msb_pos_32(unsigned n)
+{
+	return find_floor_log2_32(find_msb_32(n));
+}
+
+unsigned find_lsb_pos_32(unsigned n)
+{
+	return find_floor_log2_32(find_lsb_32(n));
+}
+
+// ----------------------------------------------------------------
+unsigned find_msb_pos_64(
 	unsigned long long n)
 {
-	unsigned lower = n;
-	if (lower)
-		return find_lsb_32(lower);
-	else
-		return find_lsb_32((unsigned)(n >> 32)) + 32;
+	return find_floor_log2_32(find_msb_64(n));
 }
 
 // ----------------------------------------------------------------
@@ -234,23 +178,3 @@ unsigned long long calc_log2_unsigned_ll(
 			return l+1;
 	}
 }
-
-// ----------------------------------------------------------------
-#ifdef MAKE_MSB_TABLES
-#include <stdio.h>
-int main(void)
-{
-	unsigned n = 65536;
-	printf("unsigned msb_table[] = {\n");
-	for (unsigned i = 0; i < n; i++) {
-		unsigned pos = find_msb_32((unsigned short)i);
-		if ((i & 3) == 0)
-			printf("\t");
-		printf("%2u /*%4u*/,", pos, i);
-		if ((i & 3) == 3)
-			printf("\n");
-	}
-	printf("};\n");
-	printf("#define MSB_TABLE_SIZE (sizeof(msb_table)/sizeof(msb_table[0]))\n");
-}
-#endif

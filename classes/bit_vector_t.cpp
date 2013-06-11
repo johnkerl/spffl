@@ -430,7 +430,7 @@ int bit_vector_t::find_leader_pos(
 {
 	for (int i = 0; i < this->num_words; i++) {
 		if (this->words[i]) {
-			rpos = (31 - find_msb_32(this->words[i])) + (i << BITS_SHIFT);
+			rpos = (31 - find_msb_pos_32(this->words[i])) + (i << BITS_SHIFT);
 			return 1;
 		}
 	}

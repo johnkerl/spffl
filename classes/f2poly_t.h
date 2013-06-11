@@ -296,7 +296,7 @@ inline int f2poly_t::zcount_one_bits(void)
 
 inline int f2poly_t::find_degree(void) const
 {
-	return find_msb_32(this->bits);
+	return find_msb_pos_32(this->bits);
 }
 
 inline int f2poly_t::operator==(int v) const
