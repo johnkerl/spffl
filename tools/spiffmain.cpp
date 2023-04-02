@@ -4391,11 +4391,7 @@ lookup_t lookups[] =
 static void main_usage(char * argv0)
 {
 	std::cerr << "Usage: " << argv0 << " {cmd} {command-specific arguments ...}\n";
-	int num_lookups =  sizeof(lookups) / sizeof(lookups[0]);
-	for (int i = 0; i < num_lookups; i++) {
-		if (lookups[i].name == NULL) {
-			break;
-		}
+	for (int i = 0; lookups[i].name; i++) {
 		std::cerr << " " << lookups[i].name;
 	}
 	std::cerr << "\n";

@@ -1,6 +1,6 @@
 # ================================================================
 # Makefile for project libspffl.so
-# Automatically generated from "libspffl.so.mki" at Sat Apr  1 18:14:35 2023
+# Automatically generated from "libspffl.so.mki" at Sun Apr  2 00:20:43 2023
 
 # yamm v1.0
 # John Kerl
@@ -95,7 +95,7 @@ $(SPBIN)/sobjs/int_power.o:  ../utils/int_power.cpp ../utils/int_power.h
 $(SPBIN)/sobjs/int_sqrt.o:  ../utils/int_sqrt.cpp ../utils/int_sqrt.h ../utils/intfc.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/int_sqrt.cpp -o $(SPBIN)/sobjs/int_sqrt.o
 
-$(SPBIN)/sobjs/moebius.o:  ../classes/tfacinfo.h ../classes/tmatrix.h ../classes/tvector.h ../utils/int_factor.h ../utils/linescan.h ../utils/moebius.cpp ../utils/moebius.h ../utils/tokenize.h
+$(SPBIN)/sobjs/moebius.o:  ../classes/tfacinfo.h ../classes/tmatrix.h ../classes/tvector.h ../utils/int_factor.h ../utils/int_gcd.h ../utils/linescan.h ../utils/moebius.cpp ../utils/moebius.h ../utils/tokenize.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/moebius.cpp -o $(SPBIN)/sobjs/moebius.o
 
 $(SPBIN)/sobjs/isprime.o:  ../utils/isprime.cpp ../utils/isprime.h ../utils/primes16.h
@@ -113,7 +113,7 @@ $(SPBIN)/sobjs/psdes.o:  ../utils/psdes.cpp ../utils/psdes.h
 $(SPBIN)/sobjs/int_random.o:  ../utils/int_random.cpp ../utils/int_random.h ../utils/psdes.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/int_random.cpp -o $(SPBIN)/sobjs/int_random.o
 
-$(SPBIN)/sobjs/int_factor.o:  ../classes/tfacinfo.h ../classes/tmatrix.h ../classes/tvector.h ../utils/int_factor.cpp ../utils/int_factor.h ../utils/linescan.h ../utils/primes16.h ../utils/tokenize.h
+$(SPBIN)/sobjs/int_factor.o:  ../classes/tfacinfo.h ../classes/tmatrix.h ../classes/tvector.h ../utils/int_factor.cpp ../utils/int_factor.h ../utils/int_gcd.h ../utils/linescan.h ../utils/primes16.h ../utils/tokenize.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/int_factor.cpp -o $(SPBIN)/sobjs/int_factor.o
 
 $(SPBIN)/sobjs/primes16.o:  ../utils/primes16.cpp
@@ -131,61 +131,61 @@ $(SPBIN)/sobjs/fp_scan_tuples.o:  ../classes/intmod_t.h ../utils/fp_scan_tuples.
 $(SPBIN)/sobjs/ft_scan_tuples.o:  ../classes/bit_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../utils/count_bits.h ../utils/ft_scan_tuples.cpp ../utils/ft_scan_tuples.h ../utils/intfc.h ../utils/log2.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/ft_scan_tuples.cpp -o $(SPBIN)/sobjs/ft_scan_tuples.o
 
-$(SPBIN)/sobjs/f2poly_factor.o:  ../classes/bit_matrix_t.h ../classes/bit_t.h ../classes/bit_vector_t.h ../classes/f2poly_t.h ../classes/tfacinfo.h ../classes/tmatrix.h ../classes/tvector.h ../utils/count_bits.h ../utils/f2poly_factor.cpp ../utils/f2poly_factor.h ../utils/f2poly_random.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/tokenize.h
+$(SPBIN)/sobjs/f2poly_factor.o:  ../classes/bit_matrix_t.h ../classes/bit_t.h ../classes/bit_vector_t.h ../classes/f2poly_t.h ../classes/tfacinfo.h ../classes/tmatrix.h ../classes/tvector.h ../utils/count_bits.h ../utils/f2poly_factor.cpp ../utils/f2poly_factor.h ../utils/f2poly_random.h ../utils/int_gcd.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/tokenize.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/f2poly_factor.cpp -o $(SPBIN)/sobjs/f2poly_factor.o
 
 $(SPBIN)/sobjs/f2poly_random.o:  ../classes/bit_t.h ../classes/f2poly_t.h ../utils/count_bits.h ../utils/f2poly_random.cpp ../utils/f2poly_random.h ../utils/int_random.h ../utils/intfc.h ../utils/log2.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/f2poly_random.cpp -o $(SPBIN)/sobjs/f2poly_random.o
 
-$(SPBIN)/sobjs/f2poly_totient.o:  ../classes/bit_t.h ../classes/f2poly_t.h ../classes/tfacinfo.h ../classes/tmatrix.h ../classes/tvector.h ../utils/count_bits.h ../utils/f2poly_factor.h ../utils/f2poly_totient.cpp ../utils/f2poly_totient.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/tokenize.h
+$(SPBIN)/sobjs/f2poly_totient.o:  ../classes/bit_t.h ../classes/f2poly_t.h ../classes/tfacinfo.h ../classes/tmatrix.h ../classes/tvector.h ../utils/count_bits.h ../utils/f2poly_factor.h ../utils/f2poly_totient.cpp ../utils/f2poly_totient.h ../utils/int_gcd.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/tokenize.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/f2poly_totient.cpp -o $(SPBIN)/sobjs/f2poly_totient.o
 
 $(SPBIN)/sobjs/f2polymod_random.o:  ../classes/bit_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../utils/count_bits.h ../utils/f2poly_random.h ../utils/f2polymod_random.cpp ../utils/f2polymod_random.h ../utils/int_random.h ../utils/intfc.h ../utils/log2.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/f2polymod_random.cpp -o $(SPBIN)/sobjs/f2polymod_random.o
 
-$(SPBIN)/sobjs/f2polymod_units.o:  ../classes/bit_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../classes/tfacinfo.h ../classes/tmatrix.h ../classes/tvector.h ../utils/count_bits.h ../utils/f2poly_factor.h ../utils/f2poly_random.h ../utils/f2poly_totient.h ../utils/f2polymod_units.cpp ../utils/f2polymod_units.h ../utils/int_factor.h ../utils/int_sqrt.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/tokenize.h
+$(SPBIN)/sobjs/f2polymod_units.o:  ../classes/bit_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../classes/tfacinfo.h ../classes/tmatrix.h ../classes/tvector.h ../utils/count_bits.h ../utils/f2poly_factor.h ../utils/f2poly_random.h ../utils/f2poly_totient.h ../utils/f2polymod_units.cpp ../utils/f2polymod_units.h ../utils/int_factor.h ../utils/int_gcd.h ../utils/int_sqrt.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/tokenize.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/f2polymod_units.cpp -o $(SPBIN)/sobjs/f2polymod_units.o
 
-$(SPBIN)/sobjs/f2polymod_convert.o:  ../classes/bit_t.h ../classes/f2npoly_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../classes/tfacinfo.h ../classes/tmatrix.h ../classes/tvector.h ../utils/count_bits.h ../utils/f2linalg.h ../utils/f2npoly_factor.h ../utils/f2polymod_convert.cpp ../utils/f2polymod_convert.h ../utils/f2polymod_units.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/tokenize.h
+$(SPBIN)/sobjs/f2polymod_convert.o:  ../classes/bit_t.h ../classes/f2npoly_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../classes/tfacinfo.h ../classes/tmatrix.h ../classes/tvector.h ../utils/count_bits.h ../utils/f2linalg.h ../utils/f2npoly_factor.h ../utils/f2polymod_convert.cpp ../utils/f2polymod_convert.h ../utils/f2polymod_units.h ../utils/int_gcd.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/tokenize.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/f2polymod_convert.cpp -o $(SPBIN)/sobjs/f2polymod_convert.o
 
-$(SPBIN)/sobjs/f2npoly_factor.o:  ../classes/bit_t.h ../classes/f2npoly_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../classes/tfacinfo.h ../classes/tmatrix.h ../classes/tvector.h ../utils/count_bits.h ../utils/f2npoly_factor.cpp ../utils/f2npoly_factor.h ../utils/f2npoly_random.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/tokenize.h
+$(SPBIN)/sobjs/f2npoly_factor.o:  ../classes/bit_t.h ../classes/f2npoly_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../classes/tfacinfo.h ../classes/tmatrix.h ../classes/tvector.h ../utils/count_bits.h ../utils/f2npoly_factor.cpp ../utils/f2npoly_factor.h ../utils/f2npoly_random.h ../utils/int_gcd.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/tokenize.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/f2npoly_factor.cpp -o $(SPBIN)/sobjs/f2npoly_factor.o
 
 $(SPBIN)/sobjs/f2npoly_random.o:  ../classes/bit_t.h ../classes/f2npoly_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../utils/count_bits.h ../utils/f2npoly_random.cpp ../utils/f2npoly_random.h ../utils/f2polymod_random.h ../utils/intfc.h ../utils/log2.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/f2npoly_random.cpp -o $(SPBIN)/sobjs/f2npoly_random.o
 
-$(SPBIN)/sobjs/f2npoly_totient.o:  ../classes/bit_t.h ../classes/f2npoly_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../classes/tfacinfo.h ../classes/tmatrix.h ../classes/tvector.h ../utils/count_bits.h ../utils/f2npoly_factor.h ../utils/f2npoly_totient.cpp ../utils/f2npoly_totient.h ../utils/int_power.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/tokenize.h
+$(SPBIN)/sobjs/f2npoly_totient.o:  ../classes/bit_t.h ../classes/f2npoly_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../classes/tfacinfo.h ../classes/tmatrix.h ../classes/tvector.h ../utils/count_bits.h ../utils/f2npoly_factor.h ../utils/f2npoly_totient.cpp ../utils/f2npoly_totient.h ../utils/int_gcd.h ../utils/int_power.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/tokenize.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/f2npoly_totient.cpp -o $(SPBIN)/sobjs/f2npoly_totient.o
 
 $(SPBIN)/sobjs/f2npolymod_random.o:  ../classes/bit_t.h ../classes/f2npoly_t.h ../classes/f2npolymod_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../utils/count_bits.h ../utils/f2npoly_random.h ../utils/f2npolymod_random.cpp ../utils/f2npolymod_random.h ../utils/intfc.h ../utils/log2.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/f2npolymod_random.cpp -o $(SPBIN)/sobjs/f2npolymod_random.o
 
-$(SPBIN)/sobjs/f2npolymod_units.o:  ../classes/bit_t.h ../classes/f2npoly_t.h ../classes/f2npolymod_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../classes/tfacinfo.h ../classes/tmatrix.h ../classes/tvector.h ../utils/count_bits.h ../utils/f2npoly_totient.h ../utils/f2npolymod_units.cpp ../utils/f2npolymod_units.h ../utils/int_factor.h ../utils/int_sqrt.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/tokenize.h
+$(SPBIN)/sobjs/f2npolymod_units.o:  ../classes/bit_t.h ../classes/f2npoly_t.h ../classes/f2npolymod_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../classes/tfacinfo.h ../classes/tmatrix.h ../classes/tvector.h ../utils/count_bits.h ../utils/f2npoly_totient.h ../utils/f2npolymod_units.cpp ../utils/f2npolymod_units.h ../utils/int_factor.h ../utils/int_gcd.h ../utils/int_sqrt.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/tokenize.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/f2npolymod_units.cpp -o $(SPBIN)/sobjs/f2npolymod_units.o
 
-$(SPBIN)/sobjs/fppoly_factor.o:  ../classes/fppoly_t.h ../classes/intmod_t.h ../classes/tfacinfo.h ../classes/tmatrix.h ../classes/tvector.h ../utils/fppoly_factor.cpp ../utils/fppoly_factor.h ../utils/fppoly_random.h ../utils/int_totient.h ../utils/linescan.h ../utils/tokenize.h
+$(SPBIN)/sobjs/fppoly_factor.o:  ../classes/fppoly_t.h ../classes/intmod_t.h ../classes/tfacinfo.h ../classes/tmatrix.h ../classes/tvector.h ../utils/fppoly_factor.cpp ../utils/fppoly_factor.h ../utils/fppoly_random.h ../utils/int_gcd.h ../utils/int_totient.h ../utils/linescan.h ../utils/tokenize.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/fppoly_factor.cpp -o $(SPBIN)/sobjs/fppoly_factor.o
 
 $(SPBIN)/sobjs/fppoly_random.o:  ../classes/fppoly_t.h ../classes/intmod_t.h ../utils/fppoly_random.cpp ../utils/fppoly_random.h ../utils/int_totient.h ../utils/intmod_random.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/fppoly_random.cpp -o $(SPBIN)/sobjs/fppoly_random.o
 
-$(SPBIN)/sobjs/fppoly_totient.o:  ../classes/fppoly_t.h ../classes/intmod_t.h ../classes/tfacinfo.h ../classes/tmatrix.h ../classes/tvector.h ../utils/fppoly_factor.h ../utils/fppoly_totient.cpp ../utils/fppoly_totient.h ../utils/int_power.h ../utils/int_totient.h ../utils/linescan.h ../utils/tokenize.h
+$(SPBIN)/sobjs/fppoly_totient.o:  ../classes/fppoly_t.h ../classes/intmod_t.h ../classes/tfacinfo.h ../classes/tmatrix.h ../classes/tvector.h ../utils/fppoly_factor.h ../utils/fppoly_totient.cpp ../utils/fppoly_totient.h ../utils/int_gcd.h ../utils/int_power.h ../utils/int_totient.h ../utils/linescan.h ../utils/tokenize.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/fppoly_totient.cpp -o $(SPBIN)/sobjs/fppoly_totient.o
 
 $(SPBIN)/sobjs/fppolymod_random.o:  ../classes/fppoly_t.h ../classes/fppolymod_t.h ../classes/intmod_t.h ../utils/fppoly_random.h ../utils/fppolymod_random.cpp ../utils/fppolymod_random.h ../utils/int_totient.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/fppolymod_random.cpp -o $(SPBIN)/sobjs/fppolymod_random.o
 
-$(SPBIN)/sobjs/f2linalg.o:  ../classes/bit_t.h ../classes/f2npoly_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../classes/tmatrix.h ../utils/count_bits.h ../utils/f2linalg.cpp ../utils/f2linalg.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/tokenize.h
+$(SPBIN)/sobjs/f2linalg.o:  ../classes/bit_t.h ../classes/f2npoly_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../classes/tmatrix.h ../utils/count_bits.h ../utils/f2linalg.cpp ../utils/f2linalg.h ../utils/int_gcd.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/tokenize.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/f2linalg.cpp -o $(SPBIN)/sobjs/f2linalg.o
 
-$(SPBIN)/sobjs/fplinalg.o:  ../classes/fpnpoly_t.h ../classes/fppoly_t.h ../classes/fppolymod_t.h ../classes/intmod_t.h ../classes/tmatrix.h ../utils/fplinalg.cpp ../utils/fplinalg.h ../utils/int_totient.h ../utils/linescan.h ../utils/tokenize.h
+$(SPBIN)/sobjs/fplinalg.o:  ../classes/fpnpoly_t.h ../classes/fppoly_t.h ../classes/fppolymod_t.h ../classes/intmod_t.h ../classes/tmatrix.h ../utils/fplinalg.cpp ../utils/fplinalg.h ../utils/int_gcd.h ../utils/int_totient.h ../utils/linescan.h ../utils/tokenize.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/fplinalg.cpp -o $(SPBIN)/sobjs/fplinalg.o
 
 $(SPBIN)/sobjs/f2pmlinalg.o:  ../classes/bit_t.h ../classes/f2npoly_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../classes/tfacinfo.h ../classes/tmatrix.h ../classes/tvector.h ../utils/count_bits.h ../utils/f2npoly_factor.h ../utils/f2pmlinalg.cpp ../utils/f2pmlinalg.h ../utils/f2poly_factor.h ../utils/f2polymod_convert.h ../utils/f2polymod_units.h ../utils/int_gcd.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/tokenize.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/f2pmlinalg.cpp -o $(SPBIN)/sobjs/f2pmlinalg.o
 
-$(SPBIN)/sobjs/spminchar.o:  ../classes/bit_matrix_t.h ../classes/bit_t.h ../classes/bit_vector_t.h ../classes/f2npoly_t.h ../classes/f2npolymod_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../classes/fppoly_t.h ../classes/fppolymod_t.h ../classes/intmod_t.h ../classes/tmatrix.h ../utils/count_bits.h ../utils/int_totient.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/spminchar.cpp ../utils/spminchar.h ../utils/tokenize.h
+$(SPBIN)/sobjs/spminchar.o:  ../classes/bit_matrix_t.h ../classes/bit_t.h ../classes/bit_vector_t.h ../classes/f2npoly_t.h ../classes/f2npolymod_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../classes/fppoly_t.h ../classes/fppolymod_t.h ../classes/intmod_t.h ../classes/tmatrix.h ../utils/count_bits.h ../utils/int_gcd.h ../utils/int_totient.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/spminchar.cpp ../utils/spminchar.h ../utils/tokenize.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/spminchar.cpp -o $(SPBIN)/sobjs/spminchar.o
 
 $(SPBIN)/sobjs/sp_list_elts.o:  ../classes/bit_t.h ../classes/f2npoly_t.h ../classes/f2npolymod_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../classes/fppoly_t.h ../classes/fppolymod_t.h ../classes/intmod_t.h ../classes/tmatrix.h ../classes/tvector.h ../utils/count_bits.h ../utils/f2npoly_totient.h ../utils/f2poly_totient.h ../utils/fppoly_totient.h ../utils/int_gcd.h ../utils/int_power.h ../utils/int_totient.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/sp_list_elts.cpp ../utils/sp_list_elts.h ../utils/tokenize.h
@@ -200,10 +200,10 @@ $(SPBIN)/sobjs/cyclopoly.o:  ../classes/bit_t.h ../classes/f2npoly_t.h ../classe
 $(SPBIN)/sobjs/qff.o:  ../classes/bit_t.h ../classes/f2npoly_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../classes/fpnpoly_t.h ../classes/fppoly_t.h ../classes/fppolymod_t.h ../classes/intmod_t.h ../classes/intrat_t.h ../classes/qpoly_t.h ../utils/count_bits.h ../utils/int_totient.h ../utils/intfc.h ../utils/log2.h ../utils/qff.cpp ../utils/qff.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/qff.cpp -o $(SPBIN)/sobjs/qff.o
 
-$(SPBIN)/sobjs/tmvpolyscan.o:  ../classes/bit_t.h ../classes/f2npoly_t.h ../classes/f2npolymod_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../classes/fppoly_t.h ../classes/fppolymod_t.h ../classes/intmod_t.h ../classes/tmatrix.h ../classes/tmvpoly.h ../classes/tvector.h ../utils/count_bits.h ../utils/int_totient.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/tmvpolyscan.cpp ../utils/tmvpolyscan.h ../utils/tokenize.h
+$(SPBIN)/sobjs/tmvpolyscan.o:  ../classes/bit_t.h ../classes/f2npoly_t.h ../classes/f2npolymod_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../classes/fppoly_t.h ../classes/fppolymod_t.h ../classes/intmod_t.h ../classes/tmatrix.h ../classes/tmvpoly.h ../classes/tvector.h ../utils/count_bits.h ../utils/int_gcd.h ../utils/int_totient.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/tmvpolyscan.cpp ../utils/tmvpolyscan.h ../utils/tokenize.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/tmvpolyscan.cpp -o $(SPBIN)/sobjs/tmvpolyscan.o
 
-$(SPBIN)/sobjs/tmvratscan.o:  ../classes/bit_t.h ../classes/f2npoly_t.h ../classes/f2npolymod_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../classes/fppoly_t.h ../classes/fppolymod_t.h ../classes/intmod_t.h ../classes/tmatrix.h ../classes/tmvpoly.h ../classes/tmvrat.h ../classes/tvector.h ../utils/count_bits.h ../utils/int_totient.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/tmvpolyscan.h ../utils/tmvratscan.cpp ../utils/tmvratscan.h ../utils/tokenize.h
+$(SPBIN)/sobjs/tmvratscan.o:  ../classes/bit_t.h ../classes/f2npoly_t.h ../classes/f2npolymod_t.h ../classes/f2poly_t.h ../classes/f2polymod_t.h ../classes/fppoly_t.h ../classes/fppolymod_t.h ../classes/intmod_t.h ../classes/tmatrix.h ../classes/tmvpoly.h ../classes/tmvrat.h ../classes/tvector.h ../utils/count_bits.h ../utils/int_gcd.h ../utils/int_totient.h ../utils/intfc.h ../utils/linescan.h ../utils/log2.h ../utils/tmvpolyscan.h ../utils/tmvratscan.cpp ../utils/tmvratscan.h ../utils/tokenize.h
 	g++ -Wall -O2 -shared $(COMPILE_FLAGS)  ../utils/tmvratscan.cpp -o $(SPBIN)/sobjs/tmvratscan.o
 
 OBJS = \

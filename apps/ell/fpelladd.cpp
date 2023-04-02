@@ -11,7 +11,7 @@ static void usage(char * argv0)
 
 // ----------------------------------------------------------------
 static void check_point(
-	char   * desc,
+	const char * desc,
 	intmod_t a,
 	intmod_t b,
 	intmod_t c,
