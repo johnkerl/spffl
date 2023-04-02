@@ -5,7 +5,7 @@
 // ================================================================
 
 #include "log2.h"
-#include "msb_table.h"
+// XXX #include "msb_table.h"
 
 static int u4_table[] = {
 	0, /* 0x0 */ 0, /* 0x1 */ 1, /* 0x2 */ 1, /* 0x3 */
@@ -29,8 +29,9 @@ unsigned find_msb_16(
 	unsigned short upper;
 	unsigned un = (unsigned) n;
 
-	if (un < MSB_TABLE_SIZE)
-		return msb_table[n];
+    // XXX
+	//if (un < MSB_TABLE_SIZE)
+	//	return msb_table[n];
 
 	upper = n >> 8;
 	if (upper) {
@@ -72,8 +73,8 @@ unsigned find_msb_32(
 	unsigned rv = 0;
 	unsigned upper;
 
-	if (n < MSB_TABLE_SIZE)
-		return msb_table[n];
+//	if (n < MSB_TABLE_SIZE)
+//		return msb_table[n];
 
 	upper = n >> 16;
 	if (upper) {
@@ -109,8 +110,8 @@ unsigned find_msb_64(
 {
 	unsigned upper = n >> 32;
 
-	if (n < MSB_TABLE_SIZE)
-		return msb_table[n];
+//	if (n < MSB_TABLE_SIZE)
+//		return msb_table[n];
 
 	if (upper)
 		return find_msb_32(upper) + 32;

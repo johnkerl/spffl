@@ -13,16 +13,17 @@
 #include "tvector.h"
 #include "linescan.h"
 #include "tokenize.h"
+#include "int_gcd.h"
 
 template <typename element_type> class tmatrix;
 
 template <typename element_type>
-std::ostream & operator<< (
+static std::ostream & operator<< (
 	std::ostream & os,
 	const tmatrix<element_type> &);
 
 template <typename element_type>
-std::istream & operator>> (
+static std::istream & operator>> (
 	std::istream & is,
 	tmatrix<element_type> &);
 

@@ -26,11 +26,11 @@ template <typename ktype> class tmvpoly;
 template <typename ktype> class tmvmonom;
 
 template <typename ktype>
-std::ostream & operator<< (std::ostream & os,
+static std::ostream & operator<< (std::ostream & os,
 	const tmvpoly<ktype> & poly);
 
 template <typename ktype>
-std::ostream & operator<< (std::ostream & os,
+static std::ostream & operator<< (std::ostream & os,
 	const tmvmonom<ktype> & poly);
 
 // ================================================================

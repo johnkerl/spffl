@@ -13,7 +13,7 @@
 
 template <class ktype> class tmvrat;
 template <class ktype>
-std::ostream & operator<< (std::ostream & os,
+static std::ostream & operator<< (std::ostream & os,
 	const tmvrat<ktype> & rat);
 
 // ================================================================

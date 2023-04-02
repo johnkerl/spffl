@@ -13,22 +13,23 @@
 template <class element_type> class tvector;
 template <class element_type> class tmatrix;
 #include "tmatrix.h"
+#include "int_gcd.h"
 
 template<class element_type>
 static int tvqcmp(const void * pv1, const void * pv2);
 
 template<class element_type>
-std::ostream & operator<< (
+static std::ostream & operator<< (
 	std::ostream & os,
 	const tvector<element_type> & v);
 
 template<class element_type>
-std::istream & operator>> (
+static std::istream & operator>> (
 	std::istream & is,
 	tvector<element_type> & v);
 
 template<class element_type>
-std::istringstream & operator>> (
+static std::istringstream & operator>> (
 	std::istringstream & iss,
 	tvector<element_type> & v);
 

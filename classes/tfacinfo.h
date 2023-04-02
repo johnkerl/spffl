@@ -20,7 +20,7 @@ template <class element_type>
 class tfacinfo;
 
 template <class element_type>
-std::ostream & operator<< (
+static std::ostream & operator<< (
 	std::ostream & os,
 	const tfacinfo<element_type> & v);
 
