@@ -1,6 +1,6 @@
 # ================================================================
 # Makefile for project spiffsf
-# Automatically generated from "spiffsf.mki" at Sun Apr  2 00:20:43 2023
+# Automatically generated from "spiffsf.mki" at Tue Apr  4 10:14:43 2023
 
 # yamm v1.0
 # John Kerl
