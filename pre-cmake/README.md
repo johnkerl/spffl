@@ -3,7 +3,7 @@ For documentation please see https://github.com/johnkerl/spffl/wiki
 # Setup disclaimer
 
 This project was for self-education, as well as software support for my
-master's thesis (http://johnkerl.org/doc/kerl-ma-thesis-gc.pdf).  My efforts at
+master's thesis (https://johnkerl.org/doc/kerl-ma-thesis-gc.pdf).  My efforts at
 portability were minimal.  Nonetheless Linux/x86 (which was my environment) has
 become a broad standard.
 
