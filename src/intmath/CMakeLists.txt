@@ -6,6 +6,7 @@ add_library(${PROJECT_NAME}
   int_power.cpp
   int_sqrt.cpp
   int_gcd.cpp
+  int_totient.cpp
 )
 add_library(sub::lib1 ALIAS ${PROJECT_NAME})
 
