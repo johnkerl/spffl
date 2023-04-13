@@ -7,8 +7,12 @@ add_library(${PROJECT_NAME}
   int_sqrt.cpp
   int_gcd.cpp
   int_totient.cpp
+  primes16.cpp
+  isprime.cpp
+  log2.cpp
+  log10.cpp
 )
-add_library(sub::lib1 ALIAS ${PROJECT_NAME})
+#add_library(sub::lib1 ALIAS ${PROJECT_NAME})
 
 target_include_directories( ${PROJECT_NAME}
     PUBLIC ${PROJECT_SOURCE_DIR}/include

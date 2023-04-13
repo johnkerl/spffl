@@ -26,7 +26,8 @@ unsigned calc_log2_unsigned(
 	unsigned n,
 	int want_ceil);
 
-unsigned long long calc_log2_floor_unsigned_ll(
+// TODO: rename
+unsigned long long calc_log2_unsigned_ll(
 	unsigned long long n,
 	int want_ceil);
 

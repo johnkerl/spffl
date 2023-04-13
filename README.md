@@ -12,10 +12,10 @@ from [yamm](https://github.com/johnkerl/scripts/blob/main/fundam/yamm) to [cmake
 # Setup
 
 ```
-cmake -B build'
-cmake --build build'
-cmake --build build --target test'
-cmake --build build --target install' # <-- WIP as of 2023-03-13
+cmake -B build
+cmake --build build
+cmake --build build --target test
+cmake --build build --target install # <-- WIP as of 2023-03-13
 ```
 
 TODO: more here about tests, libraries, and executables.

@@ -45,6 +45,9 @@ add_executable(test_intmath
   test_power.cpp
   test_sqrt.cpp
   test_totient.cpp
+  test_primes.cpp
+  test_log2.cpp
+  test_log10.cpp
 )
 target_include_directories(test_intmath
   PRIVATE

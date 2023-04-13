@@ -29,7 +29,7 @@ unsigned find_msb_16(
 	unsigned short upper;
 	unsigned un = (unsigned) n;
 
-    // XXX
+  // XXX
 	//if (un < MSB_TABLE_SIZE)
 	//	return msb_table[n];
 
