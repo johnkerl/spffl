@@ -16,6 +16,8 @@ int int_gcd(
 	int a,
 	int b);
 
+// a * m + b * n = gcd(a, b)
+// TODO: switch from pointer to reference
 int int_ext_gcd(
 	int a,
 	int b,

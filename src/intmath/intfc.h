@@ -7,6 +7,7 @@
 #ifndef INTFC_H
 #define INTFC_H
 
+// TODO: enum interface
 #define IFLOOR 0
 #define ICEIL  1
 
