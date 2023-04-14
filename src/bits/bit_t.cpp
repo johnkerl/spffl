@@ -17,7 +17,7 @@ std::ostream & operator<<(std::ostream & os, const bit_t & a)
 }
 
 // ----------------------------------------------------------------
-#define EOF -1
+#define SEOF -1
 std::istream & operator>>(std::istream & is, bit_t & a)
 {
 	unsigned r;
@@ -25,7 +25,7 @@ std::istream & operator>>(std::istream & is, bit_t & a)
 
 	// Skip over whitespace.
 	c = is.peek();
-	if (c == EOF) {
+	if (c == SEOF) {
 		is.setstate(std::ios::failbit);
 		return is;
 	}
@@ -33,7 +33,7 @@ std::istream & operator>>(std::istream & is, bit_t & a)
 		is.ignore(1, c);
 		c = is.peek();
 	}
-	if (c == EOF) {
+	if (c == SEOF) {
 		is.setstate(std::ios::failbit);
 		return is;
 	}

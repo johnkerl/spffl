@@ -39,17 +39,6 @@ BIT RANDOM
 k ./utils/psdes.h
 
 ----------------------------------------------------------------
-INTERNAL-ONLY
-
-  ./classes/cmps.h
-
-  ./utils/tokenize.h
-  ./utils/linescan.h
-  ./classes/rsstring_t.h
-
-  ./utils/count_bits.h
-
-----------------------------------------------------------------
 ALGEBRAIC TYPES
 
   ./classes/bit_t.h
@@ -80,6 +69,17 @@ ALGEBRAIC TYPES
 
   ./classes/tmvpoly.h
   ./classes/tmvrat.h
+
+----------------------------------------------------------------
+INTERNAL-ONLY?
+
+  ./classes/cmps.h
+
+  ./utils/tokenize.h
+  ./utils/linescan.h
+  ./classes/rsstring_t.h
+
+  ./utils/count_bits.h
 
 ----------------------------------------------------------------
 TBF

@@ -9,7 +9,6 @@
 
 #include <iostream>
 #include "bit_vector_t.h"
-#include "linescan.h"
 
 class bit_matrix_t
 {

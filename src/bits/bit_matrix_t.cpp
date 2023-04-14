@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "bit_matrix_t.h"
+#include "linescan.h"
 
 // ----------------------------------------------------------------
 bit_matrix_t::bit_matrix_t(int init_num_rows, int init_num_cols)
@@ -206,6 +207,7 @@ std::ostream & operator<< (
 }
 
 // ----------------------------------------------------------------
+#define SEOF -1
 std::istream & operator>> (
 	std::istream & is,
 	bit_matrix_t & m)
@@ -267,7 +269,7 @@ std::istream & operator>> (
 		m.num_rows++;
 	}
 
-	if (is.peek() == EOF)
+	if (is.peek() == SEOF)
 		is.setstate(std::ios::eofbit);
 
 	if (m.num_rows == 0) {
