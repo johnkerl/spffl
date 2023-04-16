@@ -88,8 +88,8 @@ TBF
 ----------------------------------------------------------------
 CONTAINERS
 
+k ./classes/tfacinfo.h
   ./classes/teiginfo.h
-  ./classes/tfacinfo.h
 
 ----------------------------------------------------------------
 INT FACTORIZATION
@@ -101,13 +101,13 @@ INT FACTORIZATION
 ----------------------------------------------------------------
 ALGEBRAIC-TYPE FACTORIZATION
 
-  ./utils/fppoly_factor.h
   ./utils/f2poly_factor.h
   ./utils/f2npoly_factor.h
+  ./utils/fppoly_factor.h
 
-  ./utils/fppoly_totient.h
   ./utils/f2poly_totient.h
   ./utils/f2npoly_totient.h
+  ./utils/fppoly_totient.h
 
 ----------------------------------------------------------------
 ALGEBRAIC-TYPE RANDOM
