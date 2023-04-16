@@ -5,6 +5,15 @@ project(polynomials)
 add_library(${PROJECT_NAME}
   f2poly_t.cpp
   fppoly_t.cpp
+
+  f2polymod_t.cpp
+  fppolymod_t.cpp
+
+  f2npoly_t.cpp
+  fpnpoly_t.cpp
+
+  f2npolymod_t.cpp
+  fpnpolymod_t.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
