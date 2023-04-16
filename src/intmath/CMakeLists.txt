@@ -14,6 +14,6 @@ add_library(${PROJECT_NAME}
   int_totient.cpp
 )
 
-target_include_directories( ${PROJECT_NAME}
+target_include_directories(${PROJECT_NAME}
     PUBLIC ${PROJECT_SOURCE_DIR}/include
 )

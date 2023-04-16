@@ -1,3 +1,4 @@
+project(test_intmath)
 
 # ----------------------------------------------------------------
 # catch2 has a set-but-unused-variable warning as of MacOS 13.3.
@@ -49,11 +50,11 @@ add_executable(test_intmath
   test_log2.cpp
   test_log10.cpp
 )
-target_include_directories(test_intmath
+target_include_directories(${PROJECT_NAME}
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/../../src/intmath
 )
-target_link_libraries(test_intmath PRIVATE
+target_link_libraries(${PROJECT_NAME} PRIVATE
     intmath Catch2::Catch2WithMain
 )
 
