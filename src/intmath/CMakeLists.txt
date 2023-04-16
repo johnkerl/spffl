@@ -11,6 +11,7 @@ add_library(${PROJECT_NAME}
   isprime.cpp
   log2.cpp
   log10.cpp
+  intmod_t.cpp
 )
 
 target_include_directories( ${PROJECT_NAME}

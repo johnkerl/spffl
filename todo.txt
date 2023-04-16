@@ -50,19 +50,18 @@ k ./classes/tvector.h
 k ./classes/tmatrix.h
 
   ./classes/f2poly_t.h
-  ./classes/f2polymod_t.h
-  ./classes/f2polyrat_t.h
-
   ./classes/f2npoly_t.h
-  ./classes/f2npolymod_t.h
-  ./classes/f2npolyrat_t.h
-
   ./classes/fppoly_t.h
-  ./classes/fppolymod_t.h
-  ./classes/fppolyrat_t.h
-
   ./classes/fpnpoly_t.h
+
+  ./classes/f2polymod_t.h
+  ./classes/f2npolymod_t.h
+  ./classes/fppolymod_t.h
   ./classes/fpnpolymod_t.h
+
+  ./classes/f2polyrat_t.h
+  ./classes/f2npolyrat_t.h
+  ./classes/fppolyrat_t.h
 
   ./classes/intmod_t.h
   ./classes/intrat_t.h

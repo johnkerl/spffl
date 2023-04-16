@@ -9,7 +9,7 @@
 #include "cmps.h"
 #include "tokenize.h"
 #include "rsstring_t.h"
-#define EOF -1
+#define SEOF -1
 
 // ----------------------------------------------------------------
 fppoly_t::fppoly_t(void)
@@ -881,7 +881,7 @@ std::istream & operator>>(
 	// Skip over whitespace.
 	c = is.peek();
 
-	if (c == EOF) {
+	if (c == SEOF) {
 		is.setstate(std::ios::failbit);
 		return is;
 	}
@@ -890,7 +890,7 @@ std::istream & operator>>(
 		c = is.peek();
 	}
 
-	if (c == EOF) {
+	if (c == SEOF) {
 		is.setstate(std::ios::failbit);
 		return is;
 	}
@@ -899,7 +899,7 @@ std::istream & operator>>(
 		c = is.get();
 		rss.append_char(c);
 		c = is.peek();
-		if (c == EOF) {
+		if (c == SEOF) {
 			is.setstate(std::ios::eofbit);
 			break;
 		}
@@ -926,7 +926,7 @@ std::istream & operator>>(
 //	rsstring_t rss;
 //
 //	char c = iss.peek();
-//	if (c == EOF) {
+//	if (c == SEOF) {
 //		iss.setstate(std::ios::failbit);
 //		return iss;
 //	}
@@ -934,7 +934,7 @@ std::istream & operator>>(
 //		c = iss.get();
 //		rss.append_char(c);
 //		c = iss.peek();
-//		if (c == EOF) {
+//		if (c == SEOF) {
 //			iss.setstate(std::ios::eofbit);
 //			break;
 //		}

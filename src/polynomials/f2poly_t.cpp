@@ -7,7 +7,7 @@
 #include <ctype.h>
 #include "f2poly_t.h"
 #include "cmps.h"
-#define EOF -1
+#define SEOF -1
 
 // ----------------------------------------------------------------
 #ifndef F2POLY_SMALL
@@ -986,7 +986,7 @@ std::istringstream & operator>>(
 	// Skip over whitespace.
 	c = iss.peek();
 
-	if (c == EOF) {
+	if (c == SEOF) {
 		iss.setstate(std::ios::failbit);
 		return iss;
 	}
@@ -995,7 +995,7 @@ std::istringstream & operator>>(
 		c = iss.peek();
 	}
 
-	if (c == EOF) {
+	if (c == SEOF) {
 		iss.setstate(std::ios::failbit);
 		return iss;
 	}
@@ -1016,7 +1016,7 @@ std::istringstream & operator>>(
 
 	if (num_nybbles == 0)
 		iss.setstate(std::ios::failbit);
-	if (c == EOF)
+	if (c == SEOF)
 		iss.setstate(std::ios::eofbit);
 
 	return iss;
