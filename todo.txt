@@ -21,6 +21,14 @@
 * CI setup
 
 ================================================================
+INTERNAL-ONLY
+
+  ./classes/cmps.h
+  ./utils/tokenize.h
+  ./utils/linescan.h
+  ./classes/rsstring_t.h
+
+----------------------------------------------------------------
 INTEGER ARITHMETIC
 
 k ./utils/int_sqrt.h
@@ -32,6 +40,7 @@ k ./utils/primes16.h
 k ./utils/isprime.h
 k ./utils/log2.h
 k ./utils/log10.h
+k ./classes/intmod_t.h
 
 ----------------------------------------------------------------
 BIT RANDOM
@@ -49,36 +58,28 @@ k ./classes/bit_matrix_t.h
 k ./classes/tvector.h
 k ./classes/tmatrix.h
 
-  ./classes/f2poly_t.h
-  ./classes/f2npoly_t.h
-  ./classes/fppoly_t.h
-  ./classes/fpnpoly_t.h
+k ./classes/f2poly_t.h
+k ./classes/fppoly_t.h
 
   ./classes/f2polymod_t.h
-  ./classes/f2npolymod_t.h
   ./classes/fppolymod_t.h
+
+  ./classes/f2npoly_t.h
+  ./classes/fpnpoly_t.h
+
+  ./classes/f2npolymod_t.h
   ./classes/fpnpolymod_t.h
 
   ./classes/f2polyrat_t.h
   ./classes/f2npolyrat_t.h
   ./classes/fppolyrat_t.h
 
-  ./classes/intmod_t.h
   ./classes/intrat_t.h
 
   ./classes/qpoly_t.h
 
   ./classes/tmvpoly.h
   ./classes/tmvrat.h
-
-----------------------------------------------------------------
-INTERNAL-ONLY?
-
-  ./classes/cmps.h
-
-  ./utils/tokenize.h
-  ./utils/linescan.h
-  ./classes/rsstring_t.h
 
 ----------------------------------------------------------------
 TBF
