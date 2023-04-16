@@ -41,11 +41,13 @@ k ./utils/psdes.h
 ----------------------------------------------------------------
 ALGEBRAIC TYPES
 
-  ./classes/bit_t.h
-  ./classes/bit_vector_t.h
-  ./classes/bit_matrix_t.h
-  ./classes/tvector.h
-  ./classes/tmatrix.h
+k ./utils/count_bits.h
+k ./classes/bit_t.h
+k ./classes/bit_vector_t.h
+k ./classes/bit_matrix_t.h
+
+k ./classes/tvector.h
+k ./classes/tmatrix.h
 
   ./classes/f2poly_t.h
   ./classes/f2polymod_t.h
@@ -78,8 +80,6 @@ INTERNAL-ONLY?
   ./utils/tokenize.h
   ./utils/linescan.h
   ./classes/rsstring_t.h
-
-  ./utils/count_bits.h
 
 ----------------------------------------------------------------
 TBF
