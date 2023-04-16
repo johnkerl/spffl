@@ -23,10 +23,10 @@
 ================================================================
 INTERNAL-ONLY
 
-  ./classes/cmps.h
-  ./utils/tokenize.h
-  ./utils/linescan.h
-  ./classes/rsstring_t.h
+k ./classes/cmps.h
+k ./utils/tokenize.h
+k ./utils/linescan.h
+k ./classes/rsstring_t.h
 
 ----------------------------------------------------------------
 INTEGER ARITHMETIC
@@ -94,34 +94,34 @@ k ./classes/tfacinfo.h
 ----------------------------------------------------------------
 INT FACTORIZATION
 
-  ./utils/int_factor.h
+k ./utils/int_factor.h
 
   ./utils/moebius.h
 
 ----------------------------------------------------------------
 ALGEBRAIC-TYPE FACTORIZATION
 
-  ./utils/f2poly_factor.h
-  ./utils/f2npoly_factor.h
-  ./utils/fppoly_factor.h
+k ./utils/f2poly_factor.h
+k ./utils/f2npoly_factor.h
+k ./utils/fppoly_factor.h
 
-  ./utils/f2poly_totient.h
-  ./utils/f2npoly_totient.h
-  ./utils/fppoly_totient.h
+k ./utils/f2poly_totient.h
+k ./utils/f2npoly_totient.h
+k ./utils/fppoly_totient.h
 
 ----------------------------------------------------------------
 ALGEBRAIC-TYPE RANDOM
 
-  ./utils/int_random.h
-  ./utils/intmod_random.h
+k ./utils/int_random.h
+k ./utils/intmod_random.h
 
-  ./utils/f2poly_random.h
-  ./utils/f2polymod_random.h
-  ./utils/f2npoly_random.h
-  ./utils/f2npolymod_random.h
+k ./utils/f2poly_random.h
+k ./utils/f2polymod_random.h
+k ./utils/f2npoly_random.h
+k ./utils/f2npolymod_random.h
 
-  ./utils/fppoly_random.h
-  ./utils/fppolymod_random.h
+k ./utils/fppoly_random.h
+k ./utils/fppolymod_random.h
 
 ----------------------------------------------------------------
 I/O
@@ -151,7 +151,7 @@ TBF
 ----------------------------------------------------------------
 CLI
 
-  ./classes/tstack.h
+k ./classes/tstack.h
 
   ./classes/cmdlineedmatops.h
   ./classes/cmdlinematops.h

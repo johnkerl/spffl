@@ -7,6 +7,11 @@ add_library(${PROJECT_NAME}
   f2npoly_factor.cpp
   fppoly_factor.cpp
   int_factor.cpp
+
+  f2npoly_totient.cpp
+  f2poly_totient.cpp
+  fppoly_totient.cpp
+  # int_totient.cpp is in intmath
 )
 
 target_include_directories(${PROJECT_NAME}
