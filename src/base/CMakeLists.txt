@@ -5,4 +5,5 @@ project(base)
 add_library(${PROJECT_NAME}
   tokenize.cpp
   rsstring_t.cpp
+  linescan.cpp
 )

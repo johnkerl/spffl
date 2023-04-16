@@ -5,6 +5,8 @@ project(spiff)
 add_executable(
     spiff
     spiffmain.cpp
+    z_handlers.cpp
+    f2poly_handlers.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
