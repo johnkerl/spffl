@@ -7,6 +7,7 @@ add_executable(
     spiffmain.cpp
     z_handlers.cpp
     q_handlers.cpp
+    f2_handlers.cpp
     f2poly_handlers.cpp
     f2polymod_handlers.cpp
     f2npoly_handlers.cpp

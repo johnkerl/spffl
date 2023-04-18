@@ -11,6 +11,7 @@
 #include "handlers.h"
 #include "z_handlers.h"
 #include "q_handlers.h"
+#include "f2_handlers.h"
 #include "f2poly_handlers.h"
 #include "f2polymod_handlers.h"
 #include "f2npoly_handlers.h"
@@ -46,14 +47,14 @@ lookup_t lookups[] =
 	{"qcyclo",         qcyclo_main,         qcyclo_usage},
 	{"qpop",           qpop_main,           0 /*qcyclo_usage*/},
 
-//	{"f2op",           f2op_main,           0 /*f2op_usage*/},
-//	{"f2random",       f2random_main,       f2random_usage},
+	{"f2op",           f2op_main,           0 /*f2op_usage*/},
+	{"f2random",       f2random_main,       f2random_usage},
 
-//	{"f2vecop",        f2vecop_main,        0 /*f2vecop_usage*/},
-//	{"f2matop",        f2matop_main,        0 /*f2matop_usage*/},
-//	{"f2matchpol",     f2matchpol_main,     f2matchpol_usage},
-//	{"f2matord",       f2matord_main,       f2matord_usage},
-//	{"f2matrandom",    f2matrandom_main,    f2matrandom_usage},
+	{"f2vecop",        f2vecop_main,        0 /*f2vecop_usage*/},
+	{"f2matop",        f2matop_main,        0 /*f2matop_usage*/},
+	{"f2matchpol",     f2matchpol_main,     f2matchpol_usage},
+	{"f2matord",       f2matord_main,       f2matord_usage},
+	{"f2matrandom",    f2matrandom_main,    f2matrandom_usage},
 
 	{"f2plist",        f2plist_main,        f2plist_usage},
 	{"f2pop",          f2pop_main,          0 /*f2pop_usage*/},
