@@ -5,16 +5,24 @@ project(spiff)
 add_executable(
     spiff
     spiffmain.cpp
+
     z_handlers.cpp
     q_handlers.cpp
+
     f2_handlers.cpp
+
     f2poly_handlers.cpp
     f2polymod_handlers.cpp
+
     f2npoly_handlers.cpp
     f2npolymod_handlers.cpp
+
     fp_handlers.cpp
+
     fppoly_handlers.cpp
     fppolymod_handlers.cpp
+
+    fpnpoly_handlers.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

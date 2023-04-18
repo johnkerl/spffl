@@ -14,14 +14,20 @@
 #include "q_handlers.h"
 
 #include "f2_handlers.h"
+
 #include "f2poly_handlers.h"
 #include "f2polymod_handlers.h"
+
 #include "f2npoly_handlers.h"
 #include "f2npolymod_handlers.h"
 
 #include "fp_handlers.h"
+
 #include "fppoly_handlers.h"
+
 #include "fppolymod_handlers.h"
+
+#include "fpnpoly_handlers.h"
 
 // ----------------------------------------------------------------
 // TODO: add another level here
@@ -186,36 +192,36 @@ lookup_t lookups[] =
 
 //	{"fpprmatop",      fpprmatop_main,      fpprmatop_usage},
 
-//	{"fpnpop",         fpnpop_main,         fpnpop_usage},
-//	{"fpnpmatop",      fpnpmatop_main,      fpnpmatop_usage},
-//	{"fpnpgcd",        fpnpgcd_main,        fpnpgcd_usage},
-//	{"fpnpqp",         fpnpqp_main,         fpnpqp_usage},
+	{"fpnpop",         fpnpop_main,         fpnpop_usage},
+	{"fpnpmatop",      fpnpmatop_main,      fpnpmatop_usage},
+	{"fpnpgcd",        fpnpgcd_main,        fpnpgcd_usage},
+	{"fpnpqp",         fpnpqp_main,         fpnpqp_usage},
 
-//	// To do:
-//	//{"fpnplist",        fpnplist_main,        fpnplist_usage},
-//	//{"fpnpcompmx",      fpnpcompmx_main,      fpnpcompmx_usage},
-//	//{"fpnpdeg",         fpnpdeg_main,         fpnpdeg_usage},
-//	//{"fpnplcm",         fpnplcm_main,         fpnplcm_usage},
-//	//{"fpnptotient",     fpnptotient_main,     fpnptotient_usage},
-//	//{"fpnptest",        fpnptest_main,        fpnptest_usage},
-//	//{"fpnpfind",        fpnpfind_main,        fpnpfind_usage},
-//	//{"fpnpfactor",      fpnpfactor_main,      fpnpfactor_usage},
-//	//{"fpnpdivisors",    fpnpdivisors_main,    fpnpdivisors_usage},
-//	//{"fpnpeval",        fpnpeval_main,        fpnpeval_usage},
-//	//{"fpnprandom",      fpnprandom_main,      fpnprandom_usage},
+	// To do:
+	//{"fpnplist",        fpnplist_main,        fpnplist_usage},
+	//{"fpnpcompmx",      fpnpcompmx_main,      fpnpcompmx_usage},
+	//{"fpnpdeg",         fpnpdeg_main,         fpnpdeg_usage},
+	//{"fpnplcm",         fpnplcm_main,         fpnplcm_usage},
+	//{"fpnptotient",     fpnptotient_main,     fpnptotient_usage},
+	//{"fpnptest",        fpnptest_main,        fpnptest_usage},
+	//{"fpnpfind",        fpnpfind_main,        fpnpfind_usage},
+	//{"fpnpfactor",      fpnpfactor_main,      fpnpfactor_usage},
+	//{"fpnpdivisors",    fpnpdivisors_main,    fpnpdivisors_usage},
+	//{"fpnpeval",        fpnpeval_main,        fpnpeval_usage},
+	//{"fpnprandom",      fpnprandom_main,      fpnprandom_usage},
 
 //	{"fpnpmop",        fpnpmop_main,        fpnpmop_usage},
 //	{"fpnpmmatop",     fpnpmmatop_main,     fpnpmmatop_usage},
 
-//	// To do:
-//	//{"fpnpmlist",       fpnpmlist_main,       fpnpmlist_usage},
-//	//{"fpnpmtbl",        fpnpmtbl_main,        fpnpmtbl_usage},
-//	//{"fpnpmord",        fpnpmord_main,        fpnpmord_usage},
-//	//{"fpnpmchpol",      fpnpmchpol_main,      fpnpmchpol_usage},
-//	//{"fpnpmminpol",     fpnpmminpol_main,     fpnpmminpol_usage},
-//	//{"fpnpmrandom",     fpnpmrandom_main,     fpnpmrandom_usage},
-//
-//	//{"fpnpmmatrandom",  fpnpmmatrandom_main,  fpnpmmatrandom_usage},
+	// To do:
+	//{"fpnpmlist",       fpnpmlist_main,       fpnpmlist_usage},
+	//{"fpnpmtbl",        fpnpmtbl_main,        fpnpmtbl_usage},
+	//{"fpnpmord",        fpnpmord_main,        fpnpmord_usage},
+	//{"fpnpmchpol",      fpnpmchpol_main,      fpnpmchpol_usage},
+	//{"fpnpmminpol",     fpnpmminpol_main,     fpnpmminpol_usage},
+	//{"fpnpmrandom",     fpnpmrandom_main,     fpnpmrandom_usage},
+
+	//{"fpnpmmatrandom",  fpnpmmatrandom_main,  fpnpmmatrandom_usage},
 
 	{0, 0, 0} // MUST be null-terminated.
 };
