@@ -9,13 +9,17 @@
 #include "cmdinterp.h"
 
 #include "handlers.h"
+
 #include "z_handlers.h"
 #include "q_handlers.h"
+
 #include "f2_handlers.h"
 #include "f2poly_handlers.h"
 #include "f2polymod_handlers.h"
 #include "f2npoly_handlers.h"
 #include "f2npolymod_handlers.h"
+
+#include "fp_handlers.h"
 
 // ----------------------------------------------------------------
 // TODO: add another level here
@@ -131,21 +135,21 @@ lookup_t lookups[] =
 //	{"f2nprop",        f2nprop_main,        f2nprop_usage},
 //	{"f2nprmatop",     f2nprmatop_main,     f2nprmatop_usage},
 
-//	{"fplist",         fplist_main,         fplist_usage},
-//	{"fpop",           fpop_main,           fpop_usage},
-//	{"fptbl",          fptbl_main,          fptbl_usage},
-//	{"fpord",          fpord_main,          fpord_usage},
-//	{"fpmaxord",       fpmaxord_main,       fpmaxord_usage},
-//	{"fporbit",        fporbit_main,         fporbit_usage},
-//	{"fpfindgen",      fpfindgen_main,      fpfindgen_usage},
-//	{"fplog",          fplog_main,          fplog_usage},
-//	{"fprandom",       fprandom_main,       fprandom_usage},
+	{"fplist",         fplist_main,         fplist_usage},
+	{"fpop",           fpop_main,           fpop_usage},
+	{"fptbl",          fptbl_main,          fptbl_usage},
+	{"fpord",          fpord_main,          fpord_usage},
+	{"fpmaxord",       fpmaxord_main,       fpmaxord_usage},
+	{"fporbit",        fporbit_main,         fporbit_usage},
+	{"fpfindgen",      fpfindgen_main,      fpfindgen_usage},
+	{"fplog",          fplog_main,          fplog_usage},
+	{"fprandom",       fprandom_main,       fprandom_usage},
 
-//	{"fpmatop",        fpmatop_main,        fpmatop_usage},
-//	{"fpvecop",        fpvecop_main,        fpvecop_usage},
-//	{"fpmatchpol",     fpmatchpol_main,     fpmatchpol_usage},
-//	{"fpmatord",       fpmatord_main,       fpmatord_usage},
-//	{"fpmatrandom",    fpmatrandom_main,    fpmatrandom_usage},
+	{"fpmatop",        fpmatop_main,        fpmatop_usage},
+	{"fpvecop",        fpvecop_main,        fpvecop_usage},
+	{"fpmatchpol",     fpmatchpol_main,     fpmatchpol_usage},
+	{"fpmatord",       fpmatord_main,       fpmatord_usage},
+	{"fpmatrandom",    fpmatrandom_main,    fpmatrandom_usage},
 
 //	{"fpplist",        fpplist_main,        fpplist_usage},
 //	{"fppop",          fppop_main,          fppop_usage},

@@ -12,6 +12,7 @@ add_executable(
     f2polymod_handlers.cpp
     f2npoly_handlers.cpp
     f2npolymod_handlers.cpp
+    fp_handlers.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
