@@ -1,25 +1,22 @@
 cmake_minimum_required (VERSION 3.24)
 
-project(rationals)
+project(qcyclo)
 
 add_library(${PROJECT_NAME}
-  f2npolyrat_t.cpp
-  f2polyrat_t.cpp
-  fppolyrat_t.cpp
-  intrat_t.cpp
-  qpoly_t.cpp
+  qff.cpp
+  cyclopoly.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
   PUBLIC ${PROJECT_SOURCE_DIR}/include
-  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../src/base
-  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../src/intmath
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../src/bits
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../src/intmath
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../src/polynomials
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../src/rationals
 )
 target_link_libraries(${PROJECT_NAME} PRIVATE
-    base
-    intmath
     bits
+    intmath
     polynomials
+    rationals
 )

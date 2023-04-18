@@ -10,6 +10,7 @@
 
 #include "handlers.h"
 #include "z_handlers.h"
+#include "q_handlers.h"
 #include "f2poly_handlers.h"
 #include "f2polymod_handlers.h"
 
@@ -36,12 +37,12 @@ lookup_t lookups[] =
 	{"zdivisors",      zdivisors_main,      zdivisors_usage},
 	{"zmatop",         zmatop_main,         0 /*zmatop_usage*/},
 
-//	{"qop",            qop_main,            0 /*qop_usage*/},
-//	{"qvecop",         qvecop_main,         0 /*qvecop_usage*/},
-//	{"qmatop",         qmatop_main,         0 /*qmatop_usage*/},
-//
-//	{"qcyclo",         qcyclo_main,         qcyclo_usage},
-//	{"qpop",           qpop_main,           0 /*qcyclo_usage*/},
+	{"qop",            qop_main,            0 /*qop_usage*/},
+	{"qvecop",         qvecop_main,         0 /*qvecop_usage*/},
+	{"qmatop",         qmatop_main,         0 /*qmatop_usage*/},
+
+	{"qcyclo",         qcyclo_main,         qcyclo_usage},
+	{"qpop",           qpop_main,           0 /*qcyclo_usage*/},
 
 //	{"f2op",           f2op_main,           0 /*f2op_usage*/},
 //	{"f2random",       f2random_main,       f2random_usage},
@@ -80,13 +81,13 @@ lookup_t lookups[] =
 	{"f2pmconvert",    f2pmconvert_main,    f2pmconvert_usage},
 	{"f2pmrandom",     f2pmrandom_main,     f2pmrandom_usage},
 
-//	{"f2pmmatop",      f2pmmatop_main,      f2pmmatop_usage},
-//	{"f2pmvecop",      f2pmvecop_main,      f2pmvecop_usage},
-//	{"f2pmmatsolve",   f2pmmatsolve_main,   f2pmmatsolve_usage},
-//	{"f2pmmatchpol",   f2pmmatchpol_main,   f2pmmatchpol_usage},
-//	{"f2pmmatdable",   f2pmmatdable_main,   f2pmmatdable_usage},
-//	{"f2pmmatord",     f2pmmatord_main,     f2pmmatord_usage},
-//	{"f2pmmatrandom",  f2pmmatrandom_main,  f2pmmatrandom_usage},
+	{"f2pmmatop",      f2pmmatop_main,      f2pmmatop_usage},
+	{"f2pmvecop",      f2pmvecop_main,      f2pmvecop_usage},
+	{"f2pmmatsolve",   f2pmmatsolve_main,   f2pmmatsolve_usage},
+	{"f2pmmatchpol",   f2pmmatchpol_main,   f2pmmatchpol_usage},
+	{"f2pmmatdable",   f2pmmatdable_main,   f2pmmatdable_usage},
+	{"f2pmmatord",     f2pmmatord_main,     f2pmmatord_usage},
+	{"f2pmmatrandom",  f2pmmatrandom_main,  f2pmmatrandom_usage},
 
 //	{"f2prop",         f2prop_main,         0 /*f2prop_usage*/},
 //	{"f2prrandom",     f2prrandom_main,     f2prrandom_usage},

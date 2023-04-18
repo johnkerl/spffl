@@ -6,6 +6,7 @@ add_executable(
     spiff
     spiffmain.cpp
     z_handlers.cpp
+    q_handlers.cpp
     f2poly_handlers.cpp
     f2polymod_handlers.cpp
 )
@@ -17,6 +18,7 @@ target_include_directories(${PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/../../src/intmath
     ${CMAKE_CURRENT_SOURCE_DIR}/../../src/polynomials
     ${CMAKE_CURRENT_SOURCE_DIR}/../../src/rationals
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../src/qcyclo
     ${CMAKE_CURRENT_SOURCE_DIR}/../../src/random
     ${CMAKE_CURRENT_SOURCE_DIR}/../../src/factorization
     ${CMAKE_CURRENT_SOURCE_DIR}/../../src/units
@@ -33,6 +35,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     intmath
     polynomials
     rationals
+    qcyclo
     random
     factorization
     units
