@@ -1,0 +1,44 @@
+================================================================
+* cmake (non-install) structure
+  k initial lib skeleton
+  k initial test skeleton
+  k initial exe skeleton
+* commenting pass
+* renaming pass
+* int -> bool pass
+* unsigned -> uint32_t etc pass
+* pointer -> reference pass
+* namespacing pass: int_gcd -> spffl::intmath::int_gcd etc
+* STL replacements
+  o pointer+length to std::vec/std::span
+  o bitvec to STL -- ?
+  o more std::vec
+  o ...
+* core-guidelines pass
+* install target
+* internal/external installs (if any internal api at all ...)
+* clang-format
+* CI setup
+
+----------------------------------------------------------------
+TBF
+
+  ./classes/qpoly_t.h
+
+  ./classes/tmvpoly.h
+  ./classes/tmvrat.h
+
+  ./utils/cyclopoly.h
+
+  ./classes/teiginfo.h
+
+  ./utils/moebius.h
+
+  ./utils/fp_scan_tuples.h
+  ./utils/ft_scan_tuples.h
+  ./utils/tmvpolyscan.h
+  ./utils/tmvratscan.h
+
+  ./utils/qff.h
+  ./utils/sp_list_elts.h
+  ./utils/spminchar.h
