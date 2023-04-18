@@ -52,4 +52,7 @@ int f2pcompmx_main(int argc, char ** argv, usage_t * pusage);
 
 int f2pmatop_main(int argc, char ** argv, usage_t * pusage);
 
+void f2pqp_usage(char * argv0);
+int f2pqp_main(int argc, char ** argv, usage_t * pusage);
+
 #endif // F2POLY_HANDLERS_H

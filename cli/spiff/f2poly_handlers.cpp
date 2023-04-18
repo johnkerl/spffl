@@ -15,6 +15,7 @@
 #include "sp_list_elts.h"
 #include "f2linalg.h"
 #include "cmdlineedmatops.h"
+#include "qff.h"
 
 void f2plist_usage(char * argv0)
 {
@@ -440,5 +441,26 @@ int f2pcompmx_main(int argc, char ** argv, usage_t * pusage)
 int f2pmatop_main(int argc, char ** argv, usage_t * pusage)
 {
 	ed_cmd_line_mat_parse<f2poly_t>(argc-1, argv+1, f2poly_t(0), f2poly_t(1));
+	return 0;
+}
+
+void f2pqp_usage(char * argv0)
+{
+	std::cerr << "Usage: " << argv0 << " {qpolys ...}\n";
+	exit(1);
+}
+
+int f2pqp_main(int argc, char ** argv, usage_t * pusage)
+{
+	qpoly_t qp;
+	f2poly_t f2p;
+	if (argc < 2)
+		pusage(argv[0]);
+	for (int argi = 1; argi < argc; argi++) {
+		if (!qp.from_string(argv[argi]))
+			pusage(argv[0]);
+		f2p = f2poly_from_qpoly(qp);
+		std::cout << f2p << std::endl;
+	}
 	return 0;
 }

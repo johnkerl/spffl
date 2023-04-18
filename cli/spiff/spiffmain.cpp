@@ -20,6 +20,7 @@
 #include "f2npolymod_handlers.h"
 
 #include "fp_handlers.h"
+#include "fppoly_handlers.h"
 
 // ----------------------------------------------------------------
 // TODO: add another level here
@@ -151,21 +152,21 @@ lookup_t lookups[] =
 	{"fpmatord",       fpmatord_main,       fpmatord_usage},
 	{"fpmatrandom",    fpmatrandom_main,    fpmatrandom_usage},
 
-//	{"fpplist",        fpplist_main,        fpplist_usage},
-//	{"fppop",          fppop_main,          fppop_usage},
-//	{"fppmatop",       fppmatop_main,       fppmatop_usage},
-//	{"fppcompmx",      fppcompmx_main,      fppcompmx_usage},
-//	{"fppdeg",         fppdeg_main,         fppdeg_usage},
-//	{"fppgcd",         fppgcd_main,         fppgcd_usage},
-//	{"fpplcm",         fpplcm_main,         fpplcm_usage},
-//	{"fpptotient",     fpptotient_main,     fpptotient_usage},
-//	{"fpptest",        fpptest_main,        fpptest_usage},
-//	{"fppfind",        fppfind_main,        fppfind_usage},
-//	{"fppfactor",      fppfactor_main,      fppfactor_usage},
-//	{"fppdivisors",    fppdivisors_main,    fppdivisors_usage},
-//	{"fppeval",        fppeval_main,        fppeval_usage},
-//	{"fpprandom",      fpprandom_main,      fpprandom_usage},
-//	{"fppqp",          fppqp_main,          fppqp_usage},
+	{"fpplist",        fpplist_main,        fpplist_usage},
+	{"fppop",          fppop_main,          fppop_usage},
+	{"fppmatop",       fppmatop_main,       fppmatop_usage},
+	{"fppcompmx",      fppcompmx_main,      fppcompmx_usage},
+	{"fppdeg",         fppdeg_main,         fppdeg_usage},
+	{"fppgcd",         fppgcd_main,         fppgcd_usage},
+	{"fpplcm",         fpplcm_main,         fpplcm_usage},
+	{"fpptotient",     fpptotient_main,     fpptotient_usage},
+	{"fpptest",        fpptest_main,        fpptest_usage},
+	{"fppfind",        fppfind_main,        fppfind_usage},
+	{"fppfactor",      fppfactor_main,      fppfactor_usage},
+	{"fppdivisors",    fppdivisors_main,    fppdivisors_usage},
+	{"fppeval",        fppeval_main,        fppeval_usage},
+	{"fpprandom",      fpprandom_main,      fpprandom_usage},
+	{"fppqp",          fppqp_main,          fppqp_usage},
 
 //	{"fppmlist",       fppmlist_main,       fppmlist_usage},
 //	{"fppmop",         fppmop_main,         fppmop_usage},
