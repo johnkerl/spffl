@@ -20,6 +20,7 @@
 
 #include "f2npoly_handlers.h"
 #include "f2npolymod_handlers.h"
+#include "f2polyrat_handlers.h"
 
 #include "fp_handlers.h"
 
@@ -105,10 +106,10 @@ lookup_t lookups[] =
 	{"f2pmmatord",     f2pmmatord_main,     f2pmmatord_usage},
 	{"f2pmmatrandom",  f2pmmatrandom_main,  f2pmmatrandom_usage},
 
-//	{"f2prop",         f2prop_main,         0 /*f2prop_usage*/},
-//	{"f2prrandom",     f2prrandom_main,     f2prrandom_usage},
-//	{"f2prmatop",      f2prmatop_main,      0 /*f2prmatop_usage*/},
-//	{"f2prmatrandom",  f2prmatrandom_main,  f2prmatrandom_usage},
+	{"f2prop",         f2prop_main,         0 /*f2prop_usage*/},
+	{"f2prrandom",     f2prrandom_main,     f2prrandom_usage},
+	{"f2prmatop",      f2prmatop_main,      0 /*f2prmatop_usage*/},
+	{"f2prmatrandom",  f2prmatrandom_main,  f2prmatrandom_usage},
 
 	{"f2nplist",       f2nplist_main,       f2nplist_usage},
 	{"f2npop",         f2npop_main,         f2npop_usage},

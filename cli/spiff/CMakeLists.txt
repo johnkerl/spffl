@@ -13,6 +13,7 @@ add_executable(
 
     f2poly_handlers.cpp
     f2polymod_handlers.cpp
+    f2polyrat_handlers.cpp
 
     f2npoly_handlers.cpp
     f2npolymod_handlers.cpp
