@@ -10,6 +10,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <string.h>
 template <class element_type> class tvector;
 template <class element_type> class tmatrix;
 #include "tmatrix.h"

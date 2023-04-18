@@ -1,3 +1,4 @@
+#include <string.h>
 #include "f2polymod_handlers.h"
 #include "cmdlineops.h"
 #include "cmdlinematops.h"

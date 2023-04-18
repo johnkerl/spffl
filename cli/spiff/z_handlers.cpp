@@ -4,6 +4,8 @@
 // Please see LICENSE.txt.
 // ================================================================
 
+#include <string.h>
+
 #include "z_handlers.h"
 
 #include "int_gcd.h"

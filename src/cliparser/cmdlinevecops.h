@@ -20,6 +20,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <string.h>
 #include "tvector.h"
 #include "tstack.h"
 

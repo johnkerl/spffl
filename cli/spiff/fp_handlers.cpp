@@ -1,3 +1,4 @@
+#include <string.h>
 #include "fp_handlers.h"
 #include "intmod_t.h"
 #include "intmod_random.h"
