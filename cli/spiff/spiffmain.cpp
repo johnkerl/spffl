@@ -11,6 +11,7 @@
 #include "handlers.h"
 #include "z_handlers.h"
 #include "f2poly_handlers.h"
+#include "f2polymod_handlers.h"
 
 // ----------------------------------------------------------------
 // TODO: add another level here
@@ -33,7 +34,7 @@ lookup_t lookups[] =
 	{"zlist",          zlist_main,          zlist_usage},
 	{"zfactor",        zfactor_main,        zfactor_usage},
 	{"zdivisors",      zdivisors_main,      zdivisors_usage},
-//	{"zmatop",         zmatop_main,         0 /*zmatop_usage*/},
+	{"zmatop",         zmatop_main,         0 /*zmatop_usage*/},
 
 //	{"qop",            qop_main,            0 /*qop_usage*/},
 //	{"qvecop",         qvecop_main,         0 /*qvecop_usage*/},
@@ -51,33 +52,33 @@ lookup_t lookups[] =
 //	{"f2matord",       f2matord_main,       f2matord_usage},
 //	{"f2matrandom",    f2matrandom_main,    f2matrandom_usage},
 
-	//{"f2plist",        f2plist_main,        f2plist_usage},
+	{"f2plist",        f2plist_main,        f2plist_usage},
 	{"f2pop",          f2pop_main,          0 /*f2pop_usage*/},
 	{"f2pdeg",         f2pdeg_main,         f2pdeg_usage},
 	{"f2pgcd",         f2pgcd_main,         f2pgcd_usage},
 	{"f2plcm",         f2plcm_main,         f2plcm_usage},
 	{"f2ptotient",     f2ptotient_main,     f2ptotient_usage},
-	//{"f2ptest",        f2ptest_main,        f2ptest_usage},
-	//{"f2pfind",        f2pfind_main,        f2pfind_usage},
-	//{"f2pperiod",      f2pperiod_main,      f2pperiod_usage},
+	{"f2ptest",        f2ptest_main,        f2ptest_usage},
+	{"f2pfind",        f2pfind_main,        f2pfind_usage},
+	{"f2pperiod",      f2pperiod_main,      f2pperiod_usage},
 	{"f2pfactor",      f2pfactor_main,      f2pfactor_usage},
 	{"f2pdivisors",    f2pdivisors_main,    f2pdivisors_usage},
 	{"f2peval",        f2peval_main,        f2peval_usage},
 	{"f2prandom",      f2prandom_main,      f2prandom_usage},
 	//{"f2pqp",          f2pqp_main,          f2pqp_usage},
-	//{"f2pmatop",       f2pmatop_main,       0 /*f2pmatop_usage*/},
-	//{"f2pcompmx",      f2pcompmx_main,      f2pcompmx_usage},
+	{"f2pmatop",       f2pmatop_main,       0 /*f2pmatop_usage*/},
+	{"f2pcompmx",      f2pcompmx_main,      f2pcompmx_usage},
 
-//	{"f2pmlist",       f2pmlist_main,       f2pmlist_usage},
-//	{"f2pmop",         f2pmop_main,         f2pmop_usage},
-//	{"f2pmtbl",        f2pmtbl_main,        f2pmtbl_usage},
-//	{"f2pmord",        f2pmord_main,        f2pmord_usage},
-//	{"f2pmfindgen",    f2pmfindgen_main,    f2pmfindgen_usage},
-//	{"f2pmlog",        f2pmlog_main,        f2pmlog_usage},
-//	{"f2pmchpol",      f2pmchpol_main,      f2pmchpol_usage},
-//	{"f2pmminpol",     f2pmminpol_main,     f2pmminpol_usage},
-//	{"f2pmconvert",    f2pmconvert_main,    f2pmconvert_usage},
-//	{"f2pmrandom",     f2pmrandom_main,     f2pmrandom_usage},
+	{"f2pmlist",       f2pmlist_main,       f2pmlist_usage},
+	{"f2pmop",         f2pmop_main,         f2pmop_usage},
+	{"f2pmtbl",        f2pmtbl_main,        f2pmtbl_usage},
+	{"f2pmord",        f2pmord_main,        f2pmord_usage},
+	{"f2pmfindgen",    f2pmfindgen_main,    f2pmfindgen_usage},
+	{"f2pmlog",        f2pmlog_main,        f2pmlog_usage},
+	{"f2pmchpol",      f2pmchpol_main,      f2pmchpol_usage},
+	{"f2pmminpol",     f2pmminpol_main,     f2pmminpol_usage},
+	{"f2pmconvert",    f2pmconvert_main,    f2pmconvert_usage},
+	{"f2pmrandom",     f2pmrandom_main,     f2pmrandom_usage},
 
 //	{"f2pmmatop",      f2pmmatop_main,      f2pmmatop_usage},
 //	{"f2pmvecop",      f2pmvecop_main,      f2pmvecop_usage},
@@ -210,7 +211,7 @@ lookup_t lookups[] =
 };
 
 // ----------------------------------------------------------------
-static void main_usage(char * argv0)
+void main_usage(char * argv0)
 {
 	std::cerr << "Usage: " << argv0 << " {cmd} {command-specific arguments ...}\n";
 	for (int i = 0; lookups[i].name; i++) {

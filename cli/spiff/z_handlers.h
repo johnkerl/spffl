@@ -35,6 +35,6 @@ int zfactor_main(int argc, char ** argv, usage_t * pusage);
 void zdivisors_usage(char * argv0);
 int zdivisors_main(int argc, char ** argv, usage_t * pusage);
 
-//int zmatop_main(int argc, char ** argv, usage_t * pusage);
+int zmatop_main(int argc, char ** argv, usage_t * pusage);
 
 #endif // Z_HANDLERS_H

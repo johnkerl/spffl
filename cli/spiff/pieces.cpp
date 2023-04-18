@@ -58,48 +58,40 @@
 //
 //#include "qff.h"
 //#include "cyclopoly.h"
-//
-//#define TBL_TYPE_PLUS     10
-//#define TBL_TYPE_MINUS    11
-//#define TBL_TYPE_MUL      12
-//#define TBL_TYPE_UNIT_MUL 13
-//#define TBL_TYPE_UNIT_DIV 14
-//#define TBL_TYPE_LOG      15
-//#define TBL_TYPE_ALOG     16
 
 //// ================================================================
-//static int qop_main(int argc, char ** argv, usage_t * pusage)
+//int qop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	cmd_line_parse<intrat_t>(argc-1, argv+1, intrat_t(0), intrat_t(1));
 //	return 0;
 //}
 //
-//static int qmatop_main(int argc, char ** argv, usage_t * pusage)
+//int qmatop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	cmd_line_mat_parse<intrat_t>(argc-1, argv+1, intrat_t(0), intrat_t(1));
 //	return 0;
 //}
 //
-//static int qvecop_main(int argc, char ** argv, usage_t * pusage)
+//int qvecop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	cmd_line_vec_parse<intrat_t>(argc-1, argv+1, intrat_t(0), intrat_t(1));
 //	return 0;
 //}
 //
-//static void qcyclo_usage(char * argv0)
+//void qcyclo_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {n}\n";
 //	exit(1);
 //}
 //
-//static int qpop_main(int argc, char ** argv, usage_t * pusage)
+//int qpop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	cmd_line_parse<qpoly_t>(argc-1, argv+1,
 //		qpoly_t(intrat_t(0)), qpoly_t(intrat_t(1)));
 //	return 0;
 //}
 //
-//static int qcyclo_main(int argc, char ** argv, usage_t * pusage)
+//int qcyclo_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int n;
 //	if (argc < 2)
@@ -112,19 +104,19 @@
 //	return 0;
 //}
 
-//static int f2op_main(int argc, char ** argv, usage_t * pusage)
+//int f2op_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	cmd_line_parse<bit_t>(argc-1, argv+1, bit_t(0), bit_t(1));
 //	return 0;
 //}
 //
-//static void f2random_usage(char * argv0)
+//void f2random_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " [count]\n";
 //	exit(1);
 //}
 //
-//static int f2random_main(int argc, char ** argv, usage_t * pusage)
+//int f2random_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int count = 1;
 //
@@ -141,25 +133,25 @@
 //	return 0;
 //}
 //
-//static int f2matop_main(int argc, char ** argv, usage_t * pusage)
+//int f2matop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	cmd_line_mat_parse<bit_t>(argc-1, argv+1, bit_t(0), bit_t(1));
 //	return 0;
 //}
 //
-//static int f2vecop_main(int argc, char ** argv, usage_t * pusage)
+//int f2vecop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	cmd_line_vec_parse<bit_t>(argc-1, argv+1, bit_t(0), bit_t(1));
 //	return 0;
 //}
 //
-//static void f2matchpol_usage(char * argv0)
+//void f2matchpol_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {goes here}\n";
 //	exit(1);
 //}
 //
-//static int f2matchpol_main(int argc, char ** argv, usage_t * pusage)
+//int f2matchpol_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	tmatrix<bit_t> A;
 //
@@ -174,13 +166,13 @@
 //	return 0;
 //}
 //
-//static void f2matord_usage(char * argv0)
+//void f2matord_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {goes here}\n";
 //	exit(1);
 //}
 //
-//static int f2matord_main(int argc, char ** argv, usage_t * pusage)
+//int f2matord_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	tmatrix<bit_t> A;
 //
@@ -216,13 +208,13 @@
 //	return 0;
 //}
 //
-//static void f2matrandom_usage(char * argv0)
+//void f2matrandom_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {# rows} {# cols}\n";
 //	exit(1);
 //}
 //
-//static int f2matrandom_main(int argc, char ** argv, usage_t * pusage)
+//int f2matrandom_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int nr, nc;
 //
@@ -241,13 +233,13 @@
 //	return 0;
 //}
 
-//static void f2pqp_usage(char * argv0)
+//void f2pqp_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {qpolys ...}\n";
 //	exit(1);
 //}
 //
-//static int f2pqp_main(int argc, char ** argv, usage_t * pusage)
+//int f2pqp_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	qpoly_t qp;
 //	f2poly_t f2p;
@@ -262,609 +254,20 @@
 //	return 0;
 //}
 
-//static void f2pmlist_usage(char * argv0)
-//{
-//	std::cerr << "Usage: " << argv0 << " [-a|-u] {m}\n";
-//	exit(1);
-//}
-//
-//int f2pmlist_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	sp_list_type_t type = SP_LIST_ALL;
-//	f2poly_t m;
-//	if (argc == 3) {
-//		if (strcmp(argv[1], "-a") == 0)
-//			type = SP_LIST_ALL;
-//		else if (strcmp(argv[1], "-u") == 0)
-//			type = SP_LIST_UNITS;
-//		else if (strcmp(argv[1], "-nu") == 0)
-//			type = SP_LIST_NON_UNITS;
-//		else
-//			pusage(argv[0]);
-//		if (!m.from_string(argv[2]))
-//			pusage(argv[0]);
-//		tvector<f2polymod_t> elts = f2polymod_list(m, type);
-//		elts.crout(std::cout);
-//	}
-//	else if (argc == 4) {
-//		f2polymod_t g;
-//		if (strcmp(argv[1], "-m") == 0)
-//			type = SP_LIST_MULTIPLES;
-//		else if (strcmp(argv[1], "-rp") == 0)
-//			type = SP_LIST_REL_PRIME;
-//		else
-//			pusage(argv[0]);
-//		if (!m.from_string(argv[3]))
-//			pusage(argv[0]);
-//		if (!g.from_string(argv[2], m))
-//			pusage(argv[0]);
-//		tvector<f2polymod_t> elts = f2polymod_glist(g, type);
-//		elts.crout(std::cout);
-//	}
-//	else {
-//		pusage(argv[0]);
-//	}
-//	return 0;
-//}
-//
-//static void f2pmop_usage(char * argv0)
-//{
-//	std::cerr << "Usage: " << argv0 << " {m} {a} {b}\n";
-//	exit(1);
-//}
-//
-//static int f2pmop_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	f2poly_t m;
-//	if (argc < 2)
-//		pusage(argv[0]);
-//	if (!m.from_string(argv[1]))
-//		pusage(argv[0]);
-//	cmd_line_parse<f2polymod_t>(argc-2, argv+2,
-//		f2polymod_t(f2poly_t(0), m),
-//		f2polymod_t(f2poly_t(1), m));
-//	return 0;
-//}
-//
-//static void f2pmtbl_usage(char * argv0)
-//{
-//	std::cerr << "Usage: " << argv0 << " {m} {+|-|*|u*|/|log[:g]|alog[:g]}\n";
-//	exit(1);
-//}
-//
-//static int f2pmtbl_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	f2poly_t m;
-//	f2polymod_t g;
-//	int tbl_type = TBL_TYPE_PLUS;
-//	if (argc != 3)
-//		pusage(argv[0]);
-//	if (!m.from_string(argv[1]))
-//		pusage(argv[0]);
-//
-//	if (strcmp(argv[2], "+") == 0)
-//		tbl_type = TBL_TYPE_PLUS;
-//	else if (strcmp(argv[2], "-") == 0)
-//		tbl_type = TBL_TYPE_MINUS;
-//	else if (strcmp(argv[2], "*") == 0)
-//		tbl_type = TBL_TYPE_MUL;
-//	else if (strcmp(argv[2], ".") == 0)
-//		tbl_type = TBL_TYPE_MUL;
-//	else if (strcmp(argv[2], "u*") == 0)
-//		tbl_type = TBL_TYPE_UNIT_MUL;
-//	else if (strcmp(argv[2], "u.") == 0)
-//		tbl_type = TBL_TYPE_UNIT_MUL;
-//	else if (strcmp(argv[2], "/") == 0)
-//		tbl_type = TBL_TYPE_UNIT_DIV;
-//
-//	else if (strncmp(argv[2], "log:", 4) == 0) {
-//		if (!g.from_string(&argv[2][4], m))
-//			pusage(argv[0]);
-//		tbl_type = TBL_TYPE_LOG;
-//	}
-//	else if (strcmp(argv[2], "log") == 0) {
-//		if (!f2polymod_find_generator(m, g)) {
-//			std::cerr << "Couldn't find generator mod "
-//				<< m << std::endl;
-//			exit(1);
-//		}
-//		tbl_type = TBL_TYPE_LOG;
-//	}
-//	else if (strncmp(argv[2], "alog:", 5) == 0) {
-//		if (!g.from_string(&argv[2][5], m))
-//			pusage(argv[0]);
-//		tbl_type = TBL_TYPE_ALOG;
-//	}
-//	else if (strcmp(argv[2], "alog") == 0) {
-//		if (!f2polymod_find_generator(m, g)) {
-//			std::cerr << "Couldn't find generator mod "
-//				<< m << std::endl;
-//			exit(1);
-//		}
-//		tbl_type = TBL_TYPE_ALOG;
-//	}
-//	else
-//		pusage(argv[0]);
-//
-//	tvector<f2polymod_t> elts;
-//	if ((tbl_type == TBL_TYPE_UNIT_MUL)
-//	|| (tbl_type == TBL_TYPE_UNIT_DIV)
-//	|| (tbl_type == TBL_TYPE_LOG)
-//	|| (tbl_type == TBL_TYPE_ALOG))
-//		elts = f2polymod_list(m, SP_LIST_UNITS);
-//	else
-//		elts = f2polymod_list(m, SP_LIST_ALL);
-//	int n = elts.get_num_elements();
-//
-//	if (tbl_type == TBL_TYPE_LOG) {
-//		std::cout << "element power\n";
-//		std::cout << "------- -----\n";
-//		for (int i = 0; i < n; i++) {
-//			int e = f2polymod_log(g, elts[i]);
-//			std::cout << elts[i] << " " << e << std::endl;
-//		}
-//		return 0;
-//	}
-//	if (tbl_type == TBL_TYPE_ALOG) {
-//		std::cout << "power element\n";
-//		std::cout << "----- -------\n";
-//		f2polymod_t gp = g / g;
-//		for (int i = 0; i < n; i++) {
-//			std::cout << i << " " << gp << std::endl;
-//			gp *= g;
-//		}
-//		return 0;
-//	}
-//
-//	f2polymod_t a, b, c;
-//
-//	for (int i = 0; i < n; i++) {
-//		a = elts[i];
-//		for (int j = 0; j < n; j++) {
-//			b = elts[j];
-//			switch (tbl_type) {
-//			case TBL_TYPE_PLUS:     c = a + b; break;
-//			case TBL_TYPE_MINUS:    c = a - b; break;
-//			case TBL_TYPE_MUL:      c = a * b; break;
-//			case TBL_TYPE_UNIT_MUL: c = a * b; break;
-//			case TBL_TYPE_UNIT_DIV: c = a / b; break;
-//			}
-//			if (j > 0)
-//				std::cout << " ";
-//			std::cout << c;
-//		}
-//		std::cout << std::endl;
-//	}
-//
-//	return 0;
-//}
-//
-//static void f2pmord_usage(char * argv0)
-//{
-//	std::cerr << "Usage: " << argv0 << " {m} {a}\n";
-//	exit(1);
-//}
-//
-//static int f2pmord_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	f2poly_t m;
-//	f2polymod_t a;
-//	if (argc < 3)
-//		pusage(argv[0]);
-//	if (!m.from_string(argv[1]))
-//		pusage(argv[0]);
-//	for (int argi = 2; argi < argc; argi++) {
-//		if (!a.from_string(argv[argi], m))
-//			pusage(argv[0]);
-//		if (argc > 3)
-//			std::cout << a << ": ";
-//		std::cout << f2polymod_order(a) << std::endl;
-//	}
-//	return 0;
-//}
-//
-//static void f2pmfindgen_usage(char * argv0)
-//{
-//	std::cerr << "Usage: " << argv0 << " {m}\n";
-//	exit(1);
-//}
-//
-//static int f2pmfindgen_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	f2poly_t m;
-//	f2polymod_t g;
-//	int rv = 0;
-//	if (argc < 2)
-//		pusage(argv[0]);
-//	for (int argi = 1; argi < argc; argi++) {
-//		if (!m.from_string(argv[argi]))
-//			pusage(argv[0]);
-//		if (argc > 2)
-//			std::cout << m << ": ";
-//		if (f2polymod_find_generator(m, g)) {
-//			std::cout << g << std::endl;
-//		}
-//		else {
-//			std::cout << "Generator not found.\n";
-//			rv = 1;
-//		}
-//	}
-//	return rv;
-//}
-//
-//static void f2pmlog_usage(char * argv0)
-//{
-//	std::cerr << "Usage: " << argv0 << " {m} {g} {a}\n";
-//	exit(1);
-//}
-//
-//static int f2pmlog_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	f2poly_t m;
-//	f2polymod_t g, a;
-//	if (argc < 4)
-//		pusage(argv[0]);
-//	if (!m.from_string(argv[1]))
-//		pusage(argv[0]);
-//	if (!g.from_string(argv[2], m))
-//		pusage(argv[0]);
-//	for (int argi = 3; argi < argc; argi++) {
-//		if (!a.from_string(argv[argi], m))
-//			pusage(argv[0]);
-//		if (argc > 4)
-//			std::cout << a << ": ";
-//		std::cout << f2polymod_log(g, a) << std::endl;
-//	}
-//	return 0;
-//}
-//
-//static void f2pmchpol_usage(char * argv0)
-//{
-//	std::cerr << "Usage: " << argv0 << " {m} {residues ...}\n";
-//	exit(1);
-//}
-//
-//static int f2pmchpol_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	f2poly_t m;
-//	f2polymod_t a;
-//
-//	if (argc < 3)
-//		pusage(argv[0]);
-//	if (!m.from_string(argv[1]))
-//		pusage(argv[0]);
-//	for (int argi = 2; argi < argc; argi++) {
-//		if (!a.from_string(argv[argi], m))
-//			pusage(argv[0]);
-//		f2poly_t cp = f2pm_char_poly(a);
-//		if (argc > 3)
-//			std::cout << a << ": ";
-//		std::cout << cp << std::endl;
-//	}
-//
-//	return 0;
-//}
-//
-//static void f2pmminpol_usage(char * argv0)
-//{
-//	std::cerr << "Usage: " << argv0 << " {m} {residues ...}\n";
-//	exit(1);
-//}
-//
-//static int f2pmminpol_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	f2poly_t m;
-//	f2polymod_t a;
-//
-//	if (argc < 3)
-//		pusage(argv[0]);
-//	if (!m.from_string(argv[1]))
-//		pusage(argv[0]);
-//	for (int argi = 2; argi < argc; argi++) {
-//		if (!a.from_string(argv[argi], m))
-//			pusage(argv[0]);
-//		f2poly_t mp = f2pm_min_poly(a);
-//		if (argc > 3)
-//			std::cout << a << ": ";
-//		std::cout << mp << std::endl;
-//	}
-//
-//	return 0;
-//}
-//
-//static void f2pmconvert_usage(char * argv0)
-//{
-//	std::cerr << "Usage: " << argv0 << " {m1} {m2} {residues ...}\n";
-//	exit(1);
-//}
-//
-//static int f2pmconvert_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	f2poly_t m1, m2;
-//	f2polymod_t a1, a2, g1, g2;
-//
-//	if (argc < 4)
-//		pusage(argv[0]);
-//	if (!m1.from_string(argv[1]))
-//		pusage(argv[0]);
-//	if (!m2.from_string(argv[2]))
-//		pusage(argv[0]);
-//	if (!f2polymod_find_generator(m1, g1)) {
-//		std::cerr << "Can't find generator mod " << m1 << ".\n";
-//		exit(1);
-//	}
-//	if (!f2polymod_convert_prep(g1, m2, g2)) {
-//		std::cerr << "Can't find generator mod " << m2 << ".\n";
-//		exit(1);
-//	}
-//	for (int argi = 3; argi < argc; argi++) {
-//		if (!a1.from_string(argv[argi], m1))
-//			pusage(argv[0]);
-//		a2 = f2polymod_convert_scalar(g1, g2, a1);
-//		if (argc > 4)
-//			std::cout << a1 << ": ";
-//		std::cout << a2 << std::endl;
-//	}
-//
-//	return 0;
-//}
-//
-//static void f2pmrandom_usage(char * argv0)
-//{
-//	std::cerr << "Usage: " << argv0 << " {m} [count]\n";
-//	exit(1);
-//}
-//
-//static int f2pmrandom_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	f2poly_t m;
-//	int count = 1;
-//
-//	if ((argc != 2) && (argc != 3))
-//		pusage(argv[0]);
-//	if (!m.from_string(argv[1]))
-//		pusage(argv[0]);
-//	if (argc == 3) {
-//		if (sscanf(argv[2], "%d", &count) != 1)
-//			pusage(argv[0]);
-//	}
-//
-//	for (int i = 0; i < count; i++)
-//		std::cout << f2polymod_random(m) << std::endl;
-//
-//	return 0;
-//}
-//
-//static void f2pmmatop_usage(char * argv0)
-//{
-//	std::cerr << "Usage: " << argv0 << " {m} {goes here}\n";
-//	exit(1);
-//}
-//
-//static int f2pmmatop_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	f2poly_t m = 0;
-//	f2polymod_t zero, one;
-//
-//	if (argc < 2)
-//		pusage(argv[0]);
-//	if (!m.from_string(argv[1]))
-//		pusage(argv[0]);
-//	zero = f2polymod_t(m.prime_sfld_elt(0), m);
-//	one  = f2polymod_t(m.prime_sfld_elt(1), m);
-//	cmd_line_mat_parse<f2polymod_t>(argc-2, argv+2, zero, one);
-//	return 0;
-//}
-//
-//static void f2pmvecop_usage(char * argv0)
-//{
-//	std::cerr << "Usage: " << argv0 << " {m} {goes here}\n";
-//	exit(1);
-//}
-//
-//static int f2pmvecop_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	f2poly_t m = 0;
-//	f2polymod_t zero, one;
-//
-//	if (argc < 2)
-//		pusage(argv[0]);
-//	if (!m.from_string(argv[1]))
-//		pusage(argv[0]);
-//	zero = f2polymod_t(m.prime_sfld_elt(0), m);
-//	one  = f2polymod_t(m.prime_sfld_elt(1), m);
-//	cmd_line_vec_parse<f2polymod_t>(argc-2, argv+2, zero, one);
-//	return 0;
-//}
-//
-//static void f2pmmatsolve_usage(char * argv0)
-//{
-//	std::cerr << "Usage: " << argv0 << " {m} {A} {b}\n";
-//	std::cerr << "Solves A x = b for x, only when a unique solution exists.\n";
-//	exit(1);
-//}
-//
-//static int f2pmmatsolve_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	f2poly_t m = 0;
-//	f2polymod_t zero, one;
-//
-//	if (argc != 4)
-//		pusage(argv[0]);
-//	if (!m.from_string(argv[1]))
-//		pusage(argv[0]);
-//
-//	zero = f2polymod_t(m.prime_sfld_elt(0), m);
-//	one  = f2polymod_t(m.prime_sfld_elt(1), m);
-//
-//	tmatrix<f2polymod_t> A;
-//	tvector<f2polymod_t> x;
-//	tvector<f2polymod_t> b;
-//
-//	A = f2polymod_t(zero);
-//	b = f2polymod_t(zero);
-//	if (!A.load_from_file(argv[2]))
-//		pusage(argv[0]);
-//	if (!b.load_from_file(argv[3]))
-//		pusage(argv[0]);
-//
-//	if (!A.solve_unique(x, b, zero, one)) {
-//		std::cerr << "No unique solution.\n";
-//		return 1;
-//	}
-//	std::cout << x << std::endl;
-//	return 0;
-//}
-//
-//static void f2pmmatchpol_usage(char * argv0)
-//{
-//	std::cerr << "Usage: " << argv0 << " {m} {goes here}\n";
-//	exit(1);
-//}
-//
-//static int f2pmmatchpol_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	f2poly_t m;
-//	tmatrix<f2polymod_t> A;
-//
-//	if (argc != 3)
-//		pusage(argv[0]);
-//	if (!m.from_string(argv[1]))
-//		pusage(argv[0]);
-//	A = f2polymod_t(f2poly_t(0), m);
-//	if (!A.load_from_file(argv[2]))
-//		pusage(argv[0]);
-//
-//	f2npoly_t chpol = f2pm_char_poly(A);
-//	std::cout << chpol << std::endl;
-//
-//	return 0;
-//}
-//
-//static void f2pmmatdable_usage(char * argv0)
-//{
-//	std::cerr << "Usage: " << argv0 << " {m} {goes here}\n";
-//	exit(1);
-//}
-//
-//static int f2pmmatdable_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	f2poly_t m;
-//	tmatrix<f2polymod_t> A;
-//
-//	if (argc != 3)
-//		pusage(argv[0]);
-//	if (!m.from_string(argv[1]))
-//		pusage(argv[0]);
-//	A = f2polymod_t(f2poly_t(0), m);
-//	if (!A.load_from_file(argv[2]))
-//		pusage(argv[0]);
-//
-//	f2poly_t splitter_modulus;
-//	tvector<f2polymod_t> eigenvalues;
-//	if (f2pm_matrix_is_dable(A, splitter_modulus, eigenvalues))
-//		std::cout << "Diagonalizable.\n";
-//	else
-//		std::cout << "Non-diagonalizable.\n";
-//	std::cout << std::endl;
-//	std::cout << "Splitter modulus: " << splitter_modulus << std::endl;
-//	std::cout << "Eigenvalues:\n";
-//	int nei = eigenvalues.get_num_elements();
-//	for (int i = 0; i < nei; i++) {
-//		std::cout << "  " << eigenvalues[i] << std::endl;
-//	}
-//
-//	return 0;
-//}
-//
-//static void f2pmmatord_usage(char * argv0)
-//{
-//	std::cerr << "Usage: " << argv0 << " {m} {goes here}\n";
-//	exit(1);
-//}
-//
-//static int f2pmmatord_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	f2poly_t m;
-//	tmatrix<f2polymod_t> A;
-//
-//	if (argc != 2)
-//		pusage(argv[0]);
-//
-//	if (!m.from_string(argv[1]))
-//		pusage(argv[0]);
-//
-//	f2polymod_t zero(f2poly_t(0), m);
-//	f2polymod_t one (f2poly_t(1), m);
-//
-//	A = zero;
-//	std::cin >> A;
-//	f2polymod_t d = A.det();
-//
-//	if (d == zero) {
-//		std::cout << 0 << std::endl;
-//	}
-//	else {
-//		tmatrix<f2polymod_t> I = A.make_I(zero, one);
-//		int order;
-//		tmatrix<f2polymod_t> Apower = A;
-//
-//		for (order = 1; ; order++) {
-//			if (Apower == I) {
-//				std::cout << order << std::endl;
-//				return 0;
-//			}
-//			Apower *= A;
-//		}
-//
-//		std::cout << order << std::endl;
-//	}
-//
-//	return 0;
-//}
-//
-//static void f2pmmatrandom_usage(char * argv0)
-//{
-//	std::cerr << "Usage: " << argv0 << " {m} {# rows} {# cols}\n";
-//	exit(1);
-//}
-//
-//static int f2pmmatrandom_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	f2poly_t m;
-//	int nr, nc;
-//
-//	if (argc != 4)
-//		pusage(argv[0]);
-//
-//	if (!m.from_string(argv[1]))
-//		pusage(argv[0]);
-//	if (sscanf(argv[2], "%d", &nr) != 1)
-//		pusage(argv[0]);
-//	if (sscanf(argv[3], "%d", &nc) != 1)
-//		pusage(argv[0]);
-//	tmatrix<f2polymod_t> A(nr, nc);
-//	for (int i = 0; i < nr; i++)
-//		for (int j = 0; j < nc; j++)
-//			A[i][j] = f2polymod_random(m);
-//	std::cout << A;
-//	return 0;
-//}
-//
-//static int f2prop_main(int argc, char ** argv, usage_t * pusage)
+//int f2prop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	cmd_line_parse<f2polyrat_t>(argc-1, argv+1,
 //		f2polyrat_t(0), f2polyrat_t(1));
 //	return 0;
 //}
 //
-//static void f2prrandom_usage(char * argv0)
+//void f2prrandom_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {deg} [count]\n";
 //	exit(1);
 //}
 //
-//static int f2prrandom_main(int argc, char ** argv, usage_t * pusage)
+//int f2prrandom_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int deg, count = 1;
 //
@@ -891,20 +294,20 @@
 //	return 0;
 //}
 //
-//static int f2prmatop_main(int argc, char ** argv, usage_t * pusage)
+//int f2prmatop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	cmd_line_mat_parse<f2polyrat_t>(argc-1, argv+1,
 //		f2polyrat_t(f2poly_t(0)), f2polyrat_t(f2poly_t(1)));
 //	return 0;
 //}
 //
-//static void f2prmatrandom_usage(char * argv0)
+//void f2prmatrandom_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {deg} {num_rows} {num_cols}\n";
 //	exit(1);
 //}
 //
-//static int f2prmatrandom_main(int argc, char ** argv, usage_t * pusage)
+//int f2prmatrandom_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int deg, nr, nc;
 //
@@ -935,7 +338,7 @@
 //	return 0;
 //}
 //
-//static void f2nplist_usage(char * argv0)
+//void f2nplist_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {m} {deglo[-deghi]}\n";
 //	exit(1);
@@ -963,13 +366,13 @@
 //	return 0;
 //}
 //
-//static void f2npop_usage(char * argv0)
+//void f2npop_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {m} {...}\n";
 //	exit(1);
 //}
 //
-//static int f2npop_main(int argc, char ** argv, usage_t * pusage)
+//int f2npop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t m;
 //	if (argc < 2)
@@ -982,13 +385,13 @@
 //	return 0;
 //}
 //
-//static void f2npmatop_usage(char * argv0)
+//void f2npmatop_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {m} {...}\n";
 //	exit(1);
 //}
 //
-//static int f2npmatop_main(int argc, char ** argv, usage_t * pusage)
+//int f2npmatop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t m;
 //	if (argc < 2)
@@ -1001,13 +404,13 @@
 //	return 0;
 //}
 //
-//static void f2npdeg_usage(char * argv0)
+//void f2npdeg_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {m} {polys ...}\n";
 //	exit(1);
 //}
 //
-//static int f2npdeg_main(int argc, char ** argv, usage_t * pusage)
+//int f2npdeg_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t m;
 //	if (argc < 2)
@@ -1026,13 +429,13 @@
 //	return 0;
 //}
 //
-//static void f2npgcd_usage(char * argv0)
+//void f2npgcd_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " [-e] {m} {a} {b}\n";
 //	exit(1);
 //}
 //
-//static int f2npgcd_main(int argc, char ** argv, usage_t * pusage)
+//int f2npgcd_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t m;
 //	f2npoly_t a, b, g, r, s;
@@ -1079,13 +482,13 @@
 //	return 0;
 //}
 //
-//static void f2nplcm_usage(char * argv0)
+//void f2nplcm_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {m} {polys ...}\n";
 //	exit(1);
 //}
 //
-//static int f2nplcm_main(int argc, char ** argv, usage_t * pusage)
+//int f2nplcm_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t m;
 //	f2npoly_t a, l;
@@ -1106,13 +509,13 @@
 //	return 0;
 //}
 //
-//static void f2nptotient_usage(char * argv0)
+//void f2nptotient_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {m} {polys ...}\n";
 //	exit(1);
 //}
 //
-//static int f2nptotient_main(int argc, char ** argv, usage_t * pusage)
+//int f2nptotient_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t m;
 //	f2npoly_t a;
@@ -1132,13 +535,13 @@
 //	return 0;
 //}
 //
-//static void f2nptest_usage(char * argv0)
+//void f2nptest_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {m} {polys ...}\n";
 //	exit(1);
 //}
 //
-//static int f2nptest_main(int argc, char ** argv, usage_t * pusage)
+//int f2nptest_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t m;
 //	if (argc < 2)
@@ -1160,13 +563,13 @@
 //	return 0;
 //}
 //
-//static void f2npfind_usage(char * argv0)
+//void f2npfind_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " [-1|-r] {m} {deglo[-deghi]}\n";
 //	exit(1);
 //}
 //
-//static int f2npfind_main(int argc, char ** argv, usage_t * pusage)
+//int f2npfind_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int do_random = 0, deglo, deghi;
 //	f2poly_t m;
@@ -1200,13 +603,13 @@
 //	return 0;
 //}
 //
-//static void f2npfactor_usage(char * argv0)
+//void f2npfactor_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {m} {polys ...}\n";
 //	exit(1);
 //}
 //
-//static int f2npfactor_main(int argc, char ** argv, usage_t * pusage)
+//int f2npfactor_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t m;
 //	if (argc < 2)
@@ -1237,13 +640,13 @@
 //	return 0;
 //}
 //
-//static void f2npdivisors_usage(char * argv0)
+//void f2npdivisors_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " [-mp] {m} {polys ...}\n";
 //	exit(1);
 //}
 //
-//static int f2npdivisors_main(int argc, char ** argv, usage_t * pusage)
+//int f2npdivisors_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t m;
 //	f2npoly_t a;
@@ -1287,13 +690,13 @@
 //	return 0;
 //}
 //
-//static void f2npeval_usage(char * argv0)
+//void f2npeval_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {m} {f} {elements of Fq ...}\n";
 //	exit(1);
 //}
 //
-//static int f2npeval_main(int argc, char ** argv, usage_t * pusage)
+//int f2npeval_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t m;
 //	f2npoly_t f;
@@ -1315,13 +718,13 @@
 //	return 0;
 //}
 //
-//static void f2nprandom_usage(char * argv0)
+//void f2nprandom_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {m} {deg} [count]\n";
 //	exit(1);
 //}
 //
-//static int f2nprandom_main(int argc, char ** argv, usage_t * pusage)
+//int f2nprandom_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t m;
 //	int deg, count = 1;
@@ -1343,13 +746,13 @@
 //	return 0;
 //}
 //
-//static void f2npcompmx_usage(char * argv0)
+//void f2npcompmx_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {m} {poly}\n";
 //	exit(1);
 //}
 //
-//static int f2npcompmx_main(int argc, char ** argv, usage_t * pusage)
+//int f2npcompmx_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t m;
 //	f2npoly_t chpol;
@@ -1367,13 +770,13 @@
 //	return 0;
 //}
 //
-//static void f2npqp_usage(char * argv0)
+//void f2npqp_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {m} {qpolys ...}\n";
 //	exit(1);
 //}
 //
-//static int f2npqp_main(int argc, char ** argv, usage_t * pusage)
+//int f2npqp_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t m;
 //	qpoly_t qp;
@@ -1391,13 +794,13 @@
 //	return 0;
 //}
 //
-//static void f2nprop_usage(char * argv0)
+//void f2nprop_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {m} {...}\n";
 //	exit(1);
 //}
 //
-//static int f2nprop_main(int argc, char ** argv, usage_t * pusage)
+//int f2nprop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t m;
 //	if (argc < 2)
@@ -1410,7 +813,7 @@
 //	return 0;
 //}
 //
-//static void f2npmlist_usage(char * argv0)
+//void f2npmlist_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " [-a|-u] {im} {om}\n";
 //	exit(1);
@@ -1440,13 +843,13 @@
 //	return 0;
 //}
 //
-//static void f2npmop_usage(char * argv0)
+//void f2npmop_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {inner m} {outer m} {...}\n";
 //	exit(1);
 //}
 //
-//static int f2npmop_main(int argc, char ** argv, usage_t * pusage)
+//int f2npmop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t im;
 //	f2npoly_t om;
@@ -1463,14 +866,14 @@
 //}
 //
 //
-//static void f2npmtbl_usage(char * argv0)
+//void f2npmtbl_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0
 //		<< " {im} {om} {+|-|*|u*|/|log[:g]|alog[:g]}\n";
 //	exit(1);
 //}
 //
-//static int f2npmtbl_main(int argc, char ** argv, usage_t * pusage)
+//int f2npmtbl_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t im;
 //	f2npoly_t om;
@@ -1580,13 +983,13 @@
 //	return 0;
 //}
 //
-//static void f2npmord_usage(char * argv0)
+//void f2npmord_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {im} {om} {a}\n";
 //	exit(1);
 //}
 //
-//static int f2npmord_main(int argc, char ** argv, usage_t * pusage)
+//int f2npmord_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t im;
 //	f2npoly_t om;
@@ -1607,13 +1010,13 @@
 //	return 0;
 //}
 //
-//static void f2npmfindgen_usage(char * argv0)
+//void f2npmfindgen_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {im} {om}\n";
 //	exit(1);
 //}
 //
-//static int f2npmfindgen_main(int argc, char ** argv, usage_t * pusage)
+//int f2npmfindgen_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t im;
 //	f2npoly_t om;
@@ -1639,13 +1042,13 @@
 //	return rv;
 //}
 //
-//static void f2npmlog_usage(char * argv0)
+//void f2npmlog_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {im} {om} {g} {a}\n";
 //	exit(1);
 //}
 //
-//static int f2npmlog_main(int argc, char ** argv, usage_t * pusage)
+//int f2npmlog_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t im;
 //	f2npoly_t om;
@@ -1668,13 +1071,13 @@
 //	return 0;
 //}
 //
-//static void f2npmchpol_usage(char * argv0)
+//void f2npmchpol_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {im} {m} {residues ...}\n";
 //	exit(1);
 //}
 //
-//static int f2npmchpol_main(int argc, char ** argv, usage_t * pusage)
+//int f2npmchpol_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t im;
 //	f2npoly_t m;
@@ -1698,13 +1101,13 @@
 //	return 0;
 //}
 //
-//static void f2npmminpol_usage(char * argv0)
+//void f2npmminpol_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {im} {m} {residues ...}\n";
 //	exit(1);
 //}
 //
-//static int f2npmminpol_main(int argc, char ** argv, usage_t * pusage)
+//int f2npmminpol_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t im;
 //	f2npoly_t m;
@@ -1728,13 +1131,13 @@
 //	return 0;
 //}
 //
-//static void f2npmrandom_usage(char * argv0)
+//void f2npmrandom_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {inner m} {outer m} [count]\n";
 //	exit(1);
 //}
 //
-//static int f2npmrandom_main(int argc, char ** argv, usage_t * pusage)
+//int f2npmrandom_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t im;
 //	f2npoly_t om;
@@ -1757,13 +1160,13 @@
 //	return 0;
 //}
 //
-//static void f2npmmatop_usage(char * argv0)
+//void f2npmmatop_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {inner m} {outer m} {...}\n";
 //	exit(1);
 //}
 //
-//static int f2npmmatop_main(int argc, char ** argv, usage_t * pusage)
+//int f2npmmatop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t im;
 //	f2npoly_t om;
@@ -1779,13 +1182,13 @@
 //	return 0;
 //}
 //
-//static void f2npmvecop_usage(char * argv0)
+//void f2npmvecop_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {inner m} {outer m} {...}\n";
 //	exit(1);
 //}
 //
-//static int f2npmvecop_main(int argc, char ** argv, usage_t * pusage)
+//int f2npmvecop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t im;
 //	f2npoly_t om;
@@ -1801,14 +1204,14 @@
 //	return 0;
 //}
 //
-//static void f2npmmatrandom_usage(char * argv0)
+//void f2npmmatrandom_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0
 //		<< " {inner m} {outer m} {# rows} {# cols}\n";
 //	exit(1);
 //}
 //
-//static int f2npmmatrandom_main(int argc, char ** argv, usage_t * pusage)
+//int f2npmmatrandom_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t im;
 //	f2npoly_t om;
@@ -1834,13 +1237,13 @@
 //	return 0;
 //}
 //
-//static void f2nprmatop_usage(char * argv0)
+//void f2nprmatop_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {inner m} {...}\n";
 //	exit(1);
 //}
 //
-//static int f2nprmatop_main(int argc, char ** argv, usage_t * pusage)
+//int f2nprmatop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	f2poly_t m;
 //	if (argc < 2)
@@ -1853,7 +1256,7 @@
 //	return 0;
 //}
 //
-//static void fplist_usage(char * argv0)
+//void fplist_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " [-a|-u] {p}\n";
 //	exit(1);
@@ -1899,13 +1302,13 @@
 //	}
 //	return 0;
 //}
-//static void fpop_usage(char * argv0)
+//void fpop_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {...}\n";
 //	exit(1);
 //}
 //
-//static int fpop_main(int argc, char ** argv, usage_t * pusage)
+//int fpop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	if (argc < 2)
@@ -1917,13 +1320,13 @@
 //	return 0;
 //}
 //
-//static void fptbl_usage(char * argv0)
+//void fptbl_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {+|-|*|u*|/|log[:g]|alog[:g]}\n";
 //	exit(1);
 //}
 //
-//static int fptbl_main(int argc, char ** argv, usage_t * pusage)
+//int fptbl_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	int tbl_type = TBL_TYPE_PLUS;
@@ -2031,13 +1434,13 @@
 //	return 0;
 //}
 //
-//static void fpord_usage(char * argv0)
+//void fpord_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {a}\n";
 //	exit(1);
 //}
 //
-//static int fpord_main(int argc, char ** argv, usage_t * pusage)
+//int fpord_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	intmod_t a;
@@ -2055,13 +1458,13 @@
 //	return 0;
 //}
 //
-//static void fpmaxord_usage(char * argv0)
+//void fpmaxord_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p}\n";
 //	exit(1);
 //}
 //
-//static int fpmaxord_main(int argc, char ** argv, usage_t * pusage)
+//int fpmaxord_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	if (argc != 2)
@@ -2080,13 +1483,13 @@
 //	return 0;
 //}
 //
-//static void fporbit_usage(char * argv0)
+//void fporbit_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {a} [a0]\n";
 //	exit(1);
 //}
 //
-//static int fporbit_main(int argc, char ** argv, usage_t * pusage)
+//int fporbit_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p, a, apower;
 //	int a0 = 1;
@@ -2129,13 +1532,13 @@
 //	return 0;
 //}
 //
-//static void fpfindgen_usage(char * argv0)
+//void fpfindgen_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p}\n";
 //	exit(1);
 //}
 //
-//static int fpfindgen_main(int argc, char ** argv, usage_t * pusage)
+//int fpfindgen_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	intmod_t g;
@@ -2158,13 +1561,13 @@
 //	return rv;
 //}
 //
-//static void fplog_usage(char * argv0)
+//void fplog_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {g} {a}\n";
 //	exit(1);
 //}
 //
-//static int fplog_main(int argc, char ** argv, usage_t * pusage)
+//int fplog_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	intmod_t g, a;
@@ -2184,13 +1587,13 @@
 //	return 0;
 //}
 //
-//static void fprandom_usage(char * argv0)
+//void fprandom_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {m} [count]\n";
 //	exit(1);
 //}
 //
-//static int fprandom_main(int argc, char ** argv, usage_t * pusage)
+//int fprandom_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int m, count = 1;
 //
@@ -2209,13 +1612,13 @@
 //	return 0;
 //}
 //
-//static void fpmatop_usage(char * argv0)
+//void fpmatop_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {goes here}\n";
 //	exit(1);
 //}
 //
-//static int fpmatop_main(int argc, char ** argv, usage_t * pusage)
+//int fpmatop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p = 0;
 //	if (argc < 2)
@@ -2227,13 +1630,13 @@
 //	return 0;
 //}
 //
-//static void fpvecop_usage(char * argv0)
+//void fpvecop_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {goes here}\n";
 //	exit(1);
 //}
 //
-//static int fpvecop_main(int argc, char ** argv, usage_t * pusage)
+//int fpvecop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p = 0;
 //	if (argc < 2)
@@ -2245,13 +1648,13 @@
 //	return 0;
 //}
 //
-//static void fpmatchpol_usage(char * argv0)
+//void fpmatchpol_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {goes here}\n";
 //	exit(1);
 //}
 //
-//static int fpmatchpol_main(int argc, char ** argv, usage_t * pusage)
+//int fpmatchpol_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	tmatrix<intmod_t> A;
@@ -2270,13 +1673,13 @@
 //	return 0;
 //}
 //
-//static void fpmatord_usage(char * argv0)
+//void fpmatord_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {goes here}\n";
 //	exit(1);
 //}
 //
-//static int fpmatord_main(int argc, char ** argv, usage_t * pusage)
+//int fpmatord_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	tmatrix<intmod_t> A;
@@ -2315,13 +1718,13 @@
 //	return 0;
 //}
 //
-//static void fpmatrandom_usage(char * argv0)
+//void fpmatrandom_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {# rows} {# cols}\n";
 //	exit(1);
 //}
 //
-//static int fpmatrandom_main(int argc, char ** argv, usage_t * pusage)
+//int fpmatrandom_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p, nr, nc;
 //
@@ -2342,7 +1745,7 @@
 //	return 0;
 //}
 //
-//static void fpplist_usage(char * argv0)
+//void fpplist_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {deglo[-deghi]}\n";
 //	exit(1);
@@ -2368,13 +1771,13 @@
 //	return 0;
 //}
 //
-//static void fppop_usage(char * argv0)
+//void fppop_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {polys ...}\n";
 //	exit(1);
 //}
 //
-//static int fppop_main(int argc, char ** argv, usage_t * pusage)
+//int fppop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	if (argc < 2)
@@ -2386,13 +1789,13 @@
 //	return 0;
 //}
 //
-//static void fppmatop_usage(char * argv0)
+//void fppmatop_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {polys ...}\n";
 //	exit(1);
 //}
 //
-//static int fppmatop_main(int argc, char ** argv, usage_t * pusage)
+//int fppmatop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	if (argc < 2)
@@ -2404,13 +1807,13 @@
 //	return 0;
 //}
 //
-//static void fppcompmx_usage(char * argv0)
+//void fppcompmx_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {poly}\n";
 //	exit(1);
 //}
 //
-//static int fppcompmx_main(int argc, char ** argv, usage_t * pusage)
+//int fppcompmx_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	fppoly_t chpol;
@@ -2428,13 +1831,13 @@
 //	return 0;
 //}
 //
-//static void fppdeg_usage(char * argv0)
+//void fppdeg_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {polys ...}\n";
 //	exit(1);
 //}
 //
-//static int fppdeg_main(int argc, char ** argv, usage_t * pusage)
+//int fppdeg_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	if (argc < 2)
@@ -2453,13 +1856,13 @@
 //	return 0;
 //}
 //
-//static void fppgcd_usage(char * argv0)
+//void fppgcd_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} [-e] {a} {b}\n";
 //	exit(1);
 //}
 //
-//static int fppgcd_main(int argc, char ** argv, usage_t * pusage)
+//int fppgcd_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	fppoly_t a, b, g, r, s;
@@ -2498,13 +1901,13 @@
 //	return 0;
 //}
 //
-//static void fpplcm_usage(char * argv0)
+//void fpplcm_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {polys ...}\n";
 //	exit(1);
 //}
 //
-//static int fpplcm_main(int argc, char ** argv, usage_t * pusage)
+//int fpplcm_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	fppoly_t a, l;
@@ -2525,13 +1928,13 @@
 //	return 0;
 //}
 //
-//static void fpptotient_usage(char * argv0)
+//void fpptotient_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {polys ...}\n";
 //	exit(1);
 //}
 //
-//static int fpptotient_main(int argc, char ** argv, usage_t * pusage)
+//int fpptotient_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	fppoly_t a;
@@ -2551,13 +1954,13 @@
 //	return 0;
 //}
 //
-//static void fpptest_usage(char * argv0)
+//void fpptest_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {polys ...}\n";
 //	exit(1);
 //}
 //
-//static int fpptest_main(int argc, char ** argv, usage_t * pusage)
+//int fpptest_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	if (argc < 2)
@@ -2579,13 +1982,13 @@
 //	return 0;
 //}
 //
-//static void fppfind_usage(char * argv0)
+//void fppfind_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " [-1|-r] {p} {deglo[-deghi]}\n";
 //	exit(1);
 //}
 //
-//static int fppfind_main(int argc, char ** argv, usage_t * pusage)
+//int fppfind_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int do_random = 0, deglo, deghi;
 //	int p;
@@ -2619,13 +2022,13 @@
 //	return 0;
 //}
 //
-//static void fppfactor_usage(char * argv0)
+//void fppfactor_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {polys ...}\n";
 //	exit(1);
 //}
 //
-//static int fppfactor_main(int argc, char ** argv, usage_t * pusage)
+//int fppfactor_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	fppoly_t a;
@@ -2655,13 +2058,13 @@
 //	return 0;
 //}
 //
-//static void fppdivisors_usage(char * argv0)
+//void fppdivisors_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " [-mp] {p} {polys ...}\n";
 //	exit(1);
 //}
 //
-//static int fppdivisors_main(int argc, char ** argv, usage_t * pusage)
+//int fppdivisors_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	fppoly_t a;
@@ -2704,13 +2107,13 @@
 //	return 0;
 //}
 //
-//static void fppeval_usage(char * argv0)
+//void fppeval_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {f} {elements of Fp ...}\n";
 //	exit(1);
 //}
 //
-//static int fppeval_main(int argc, char ** argv, usage_t * pusage)
+//int fppeval_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	fppoly_t f;
@@ -2732,13 +2135,13 @@
 //	return 0;
 //}
 //
-//static void fpprandom_usage(char * argv0)
+//void fpprandom_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {deg} [count]\n";
 //	exit(1);
 //}
 //
-//static int fpprandom_main(int argc, char ** argv, usage_t * pusage)
+//int fpprandom_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p, deg, count = 1;
 //
@@ -2759,13 +2162,13 @@
 //	return 0;
 //}
 //
-//static void fppqp_usage(char * argv0)
+//void fppqp_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {qpolys ...}\n";
 //	exit(1);
 //}
 //
-//static int fppqp_main(int argc, char ** argv, usage_t * pusage)
+//int fppqp_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	qpoly_t qp;
@@ -2783,7 +2186,7 @@
 //	return 0;
 //}
 //
-//static void fppmlist_usage(char * argv0)
+//void fppmlist_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " [-a|-u] {p} {m}\n";
 //	exit(1);
@@ -2813,13 +2216,13 @@
 //	return 0;
 //}
 //
-//static void fppmop_usage(char * argv0)
+//void fppmop_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {m} {...}\n";
 //	exit(1);
 //}
 //
-//static int fppmop_main(int argc, char ** argv, usage_t * pusage)
+//int fppmop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	fppoly_t m;
@@ -2836,13 +2239,13 @@
 //	return 0;
 //}
 //
-//static void fppmtbl_usage(char * argv0)
+//void fppmtbl_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {m} {+|-|*|u*|/}\n";
 //	exit(1);
 //}
 //
-//static int fppmtbl_main(int argc, char ** argv, usage_t * pusage)
+//int fppmtbl_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	fppoly_t m;
@@ -2957,7 +2360,7 @@
 //	return 0;
 //}
 //
-//static int fppmmatop_main(int argc, char ** argv, usage_t * pusage)
+//int fppmmatop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	fppoly_t m;
@@ -2974,7 +2377,7 @@
 //	return 0;
 //}
 //
-//static int fppmvecop_main(int argc, char ** argv, usage_t * pusage)
+//int fppmvecop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	fppoly_t m;
@@ -2991,13 +2394,13 @@
 //	return 0;
 //}
 //
-//static void fppmmatord_usage(char * argv0)
+//void fppmmatord_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {m} {goes here}\n";
 //	exit(1);
 //}
 //
-//static int fppmmatord_main(int argc, char ** argv, usage_t * pusage)
+//int fppmmatord_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	fppoly_t m;
@@ -3040,13 +2443,13 @@
 //	return 0;
 //}
 //
-//static void fppmmatrandom_usage(char * argv0)
+//void fppmmatrandom_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {m} {# rows} {# cols}\n";
 //	exit(1);
 //}
 //
-//static int fppmmatrandom_main(int argc, char ** argv, usage_t * pusage)
+//int fppmmatrandom_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p, nr, nc;
 //	fppoly_t m;
@@ -3071,13 +2474,13 @@
 //	return 0;
 //}
 //
-//static void fppmord_usage(char * argv0)
+//void fppmord_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {m} {a}\n";
 //	exit(1);
 //}
 //
-//static int fppmord_main(int argc, char ** argv, usage_t * pusage)
+//int fppmord_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	fppoly_t m;
@@ -3117,13 +2520,13 @@
 //	return 0;
 //}
 //
-//static void fppmchpol_usage(char * argv0)
+//void fppmchpol_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {m} {residues ...}\n";
 //	exit(1);
 //}
 //
-//static int fppmchpol_main(int argc, char ** argv, usage_t * pusage)
+//int fppmchpol_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	fppoly_t m;
@@ -3147,13 +2550,13 @@
 //	return 0;
 //}
 //
-//static void fppmminpol_usage(char * argv0)
+//void fppmminpol_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {m} {residues ...}\n";
 //	exit(1);
 //}
 //
-//static int fppmminpol_main(int argc, char ** argv, usage_t * pusage)
+//int fppmminpol_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	fppoly_t m;
@@ -3177,13 +2580,13 @@
 //	return 0;
 //}
 //
-//static void fppmrandom_usage(char * argv0)
+//void fppmrandom_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {m} [count]\n";
 //	exit(1);
 //}
 //
-//static int fppmrandom_main(int argc, char ** argv, usage_t * pusage)
+//int fppmrandom_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p, count = 1;
 //	fppoly_t m;
@@ -3205,13 +2608,13 @@
 //	return 0;
 //}
 //
-//static void fpprop_usage(char * argv0)
+//void fpprop_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {...}\n";
 //	exit(1);
 //}
 //
-//static int fpprop_main(int argc, char ** argv, usage_t * pusage)
+//int fpprop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	if (argc < 2)
@@ -3224,13 +2627,13 @@
 //	return 0;
 //}
 //
-//static void fpprmatop_usage(char * argv0)
+//void fpprmatop_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {...}\n";
 //	exit(1);
 //}
 //
-//static int fpprmatop_main(int argc, char ** argv, usage_t * pusage)
+//int fpprmatop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	if (argc < 2)
@@ -3244,13 +2647,13 @@
 //}
 //
 //// ----------------------------------------------------------------
-//static void fpnpop_usage(char * argv0)
+//void fpnpop_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {im} {...}\n";
 //	exit(1);
 //}
 //
-//static int fpnpop_main(int argc, char ** argv, usage_t * pusage)
+//int fpnpop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	fppoly_t im;
@@ -3267,13 +2670,13 @@
 //}
 //
 //// ----------------------------------------------------------------
-//static void fpnpmatop_usage(char * argv0)
+//void fpnpmatop_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {im} {...}\n";
 //	exit(1);
 //}
 //
-//static int fpnpmatop_main(int argc, char ** argv, usage_t * pusage)
+//int fpnpmatop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	fppoly_t im;
@@ -3289,13 +2692,13 @@
 //	return 0;
 //}
 //
-//static void fpnpgcd_usage(char * argv0)
+//void fpnpgcd_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " [-e] {p} {im} {a} {b}\n";
 //	exit(1);
 //}
 //
-//static int fpnpgcd_main(int argc, char ** argv, usage_t * pusage)
+//int fpnpgcd_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	fppoly_t im;
@@ -3339,13 +2742,13 @@
 //	return 0;
 //}
 //
-//static void fpnpqp_usage(char * argv0)
+//void fpnpqp_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {m} {qpolys ...}\n";
 //	exit(1);
 //}
 //
-//static int fpnpqp_main(int argc, char ** argv, usage_t * pusage)
+//int fpnpqp_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	fppoly_t m;
@@ -3367,13 +2770,13 @@
 //}
 //
 //// ----------------------------------------------------------------
-//static void fpnpmop_usage(char * argv0)
+//void fpnpmop_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {im} {om} {...}\n";
 //	exit(1);
 //}
 //
-//static int fpnpmop_main(int argc, char ** argv, usage_t * pusage)
+//int fpnpmop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	fppoly_t im;
@@ -3393,13 +2796,13 @@
 //}
 //
 //// ----------------------------------------------------------------
-//static void fpnpmmatop_usage(char * argv0)
+//void fpnpmmatop_usage(char * argv0)
 //{
 //	std::cerr << "Usage: " << argv0 << " {p} {im} {om} {...}\n";
 //	exit(1);
 //}
 //
-//static int fpnpmmatop_main(int argc, char ** argv, usage_t * pusage)
+//int fpnpmmatop_main(int argc, char ** argv, usage_t * pusage)
 //{
 //	int p;
 //	fppoly_t im;

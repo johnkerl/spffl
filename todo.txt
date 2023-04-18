@@ -20,142 +20,25 @@
 * clang-format
 * CI setup
 
-================================================================
-INTERNAL-ONLY
-
-k ./classes/cmps.h
-k ./utils/tokenize.h
-k ./utils/linescan.h
-k ./classes/rsstring_t.h
-
 ----------------------------------------------------------------
-INTEGER ARITHMETIC
-
-k ./utils/int_sqrt.h
-k ./utils/int_gcd.h
-k ./utils/int_power.h
-k ./utils/int_totient.h
-k ./utils/intfc.h
-k ./utils/primes16.h
-k ./utils/isprime.h
-k ./utils/log2.h
-k ./utils/log10.h
-k ./classes/intmod_t.h
-
-----------------------------------------------------------------
-BIT RANDOM
-
-k ./utils/psdes.h
-
-----------------------------------------------------------------
-ALGEBRAIC TYPES
-
-k ./utils/count_bits.h
-k ./classes/bit_t.h
-k ./classes/bit_vector_t.h
-k ./classes/bit_matrix_t.h
-
-k ./classes/tvector.h
-k ./classes/tmatrix.h
-
-k ./classes/f2poly_t.h
-k ./classes/fppoly_t.h
-
-k ./classes/f2polymod_t.h
-k ./classes/fppolymod_t.h
-
-k ./classes/f2npoly_t.h
-k ./classes/fpnpoly_t.h
-
-k ./classes/f2npolymod_t.h
-k ./classes/fpnpolymod_t.h
-
-k ./classes/f2polyrat_t.h
-k ./classes/f2npolyrat_t.h
-k ./classes/fppolyrat_t.h
-k ./classes/intrat_t.h
+TBF
 
   ./classes/qpoly_t.h
 
   ./classes/tmvpoly.h
   ./classes/tmvrat.h
 
-----------------------------------------------------------------
-TBF
-
   ./utils/cyclopoly.h
 
-----------------------------------------------------------------
-CONTAINERS
-
-k ./classes/tfacinfo.h
   ./classes/teiginfo.h
 
-----------------------------------------------------------------
-INT FACTORIZATION
-
-k ./utils/int_factor.h
-
   ./utils/moebius.h
-
-----------------------------------------------------------------
-ALGEBRAIC-TYPE FACTORIZATION
-
-k ./utils/f2poly_factor.h
-k ./utils/f2npoly_factor.h
-k ./utils/fppoly_factor.h
-
-k ./utils/f2poly_totient.h
-k ./utils/f2npoly_totient.h
-k ./utils/fppoly_totient.h
-
-----------------------------------------------------------------
-ALGEBRAIC-TYPE RANDOM
-
-k ./utils/int_random.h
-k ./utils/intmod_random.h
-
-k ./utils/f2poly_random.h
-k ./utils/f2polymod_random.h
-k ./utils/f2npoly_random.h
-k ./utils/f2npolymod_random.h
-
-k ./utils/fppoly_random.h
-k ./utils/fppolymod_random.h
-
-----------------------------------------------------------------
-I/O
 
   ./utils/fp_scan_tuples.h
   ./utils/ft_scan_tuples.h
   ./utils/tmvpolyscan.h
   ./utils/tmvratscan.h
 
-----------------------------------------------------------------
-TBF
-
-  ./utils/fp_units.h
-  ./utils/f2polymod_units.h
-  ./utils/f2npolymod_units.h
-
-  ./utils/f2linalg.h
-  ./utils/f2pmlinalg.h
-  ./utils/fplinalg.h
-
-  ./utils/f2polymod_convert.h
-
   ./utils/qff.h
   ./utils/sp_list_elts.h
   ./utils/spminchar.h
-
-----------------------------------------------------------------
-CLI
-
-k ./classes/tstack.h
-
-  ./classes/cmdlineedmatops.h
-  ./classes/cmdlinematops.h
-  ./classes/cmdlineops.h
-  ./classes/cmdlinevecops.h
-  ./utils/cmdinterp.h
-

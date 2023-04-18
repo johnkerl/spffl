@@ -11,33 +11,36 @@
 #include "f2poly_random.h"
 #include "f2poly_factor.h"
 #include "f2poly_totient.h"
-//#include "f2linalg.h"
+#include "f2polymod_units.h"
+#include "sp_list_elts.h"
+#include "f2linalg.h"
+#include "cmdlineedmatops.h"
 
-//static void f2plist_usage(char * argv0)
-//{
-//	std::cerr << "Usage: " << argv0 << " {deglo[-deghi]}\n";
-//	exit(1);
-//}
+void f2plist_usage(char * argv0)
+{
+	std::cerr << "Usage: " << argv0 << " {deglo[-deghi]}\n";
+	exit(1);
+}
 
-//int f2plist_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	int deglo, deghi;
-//	if (argc != 2)
-//		pusage(argv[0]);
-//
-//	if (sscanf(argv[1], "%d-%d", &deglo, &deghi) == 2)
-//		;
-//	else if (sscanf(argv[1], "%d", &deglo) == 1)
-//		deghi = deglo;
-//	else
-//		pusage(argv[0]);
-//
-//	for (int deg = deglo; deg <= deghi; deg++) {
-//		tvector<f2poly_t> elts = f2poly_list(deg);
-//		elts.crout(std::cout);
-//	}
-//	return 0;
-//}
+int f2plist_main(int argc, char ** argv, usage_t * pusage)
+{
+	int deglo, deghi;
+	if (argc != 2)
+		pusage(argv[0]);
+
+	if (sscanf(argv[1], "%d-%d", &deglo, &deghi) == 2)
+		;
+	else if (sscanf(argv[1], "%d", &deglo) == 1)
+		deghi = deglo;
+	else
+		pusage(argv[0]);
+
+	for (int deg = deglo; deg <= deghi; deg++) {
+		tvector<f2poly_t> elts = f2poly_list(deg);
+		elts.crout(std::cout);
+	}
+	return 0;
+}
 
 int f2pop_main(int argc, char ** argv, usage_t * pusage)
 {
@@ -159,138 +162,138 @@ int f2ptotient_main(int argc, char ** argv, usage_t * pusage)
 	return 0;
 }
 
-//static void f2ptest_usage(char * argv0)
-//{
-//	std::cerr << "Usage: " << argv0 << " {-i|-p|-ip} {polys ...}\n";
-//	std::cerr << "-i: irreducible; -p: primitive.\n";
-//	exit(1);
-//}
+void f2ptest_usage(char * argv0)
+{
+	std::cerr << "Usage: " << argv0 << " {-i|-p|-ip} {polys ...}\n";
+	std::cerr << "-i: irreducible; -p: primitive.\n";
+	exit(1);
+}
 
-//static int f2ptest_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	int do_irr = 0, do_prim = 0;
-//	if (argc < 3)
-//		pusage(argv[0]);
-//
-//	if (strcmp(argv[1], "-i") == 0) {
-//		do_irr  = 1;
-//		do_prim = 0;
-//	}
-//	else if (strcmp(argv[1], "-p") == 0) {
-//		do_irr  = 0;
-//		do_prim = 1;
-//	}
-//	else if (strcmp(argv[1], "-ip") == 0) {
-//		do_irr  = 1;
-//		do_prim = 1;
-//	}
-//	else {
-//		pusage(argv[0]);
-//	}
-//
-//	for (int argi = 2; argi < argc; argi++) {
-//		f2poly_t a;
-//		if (!a.from_string(argv[argi]))
-//			pusage(argv[0]);
-//		if (argc > 2)
-//			std::cout << a << ": ";
-//		if (do_irr) {
-//			if (f2poly_is_irreducible(a))
-//				std::cout << "IRREDUCIBLE";
-//			else
-//				std::cout << "reducible";
-//		}
-//		if (do_irr && do_prim)
-//			std::cout << " ";
-//		if (do_prim) {
-//			if (f2poly_is_primitive(a))
-//				std::cout << "PRIMITIVE";
-//			else
-//				std::cout << "imprimitive";
-//		}
-//		std::cout << std::endl;
-//	}
-//	return 0;
-//}
+int f2ptest_main(int argc, char ** argv, usage_t * pusage)
+{
+	int do_irr = 0, do_prim = 0;
+	if (argc < 3)
+		pusage(argv[0]);
 
-//static void f2pfind_usage(char * argv0)
-//{
-//	std::cerr << "Usage: " << argv0 << " {-1|-r} {-i|-p|-ip} {deglo[-deghi]}\n";
-//	std::cerr << "-1: lowest degree; -r: random\n";
-//	std::cerr << "-i: irreducible; -p: primitive\n";
-//	exit(1);
-//}
+	if (strcmp(argv[1], "-i") == 0) {
+		do_irr  = 1;
+		do_prim = 0;
+	}
+	else if (strcmp(argv[1], "-p") == 0) {
+		do_irr  = 0;
+		do_prim = 1;
+	}
+	else if (strcmp(argv[1], "-ip") == 0) {
+		do_irr  = 1;
+		do_prim = 1;
+	}
+	else {
+		pusage(argv[0]);
+	}
 
-//static int f2pfind_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	int do_random = 0, deglo, deghi;
-//	int do_irr = 0, do_prim = 0;
-//
-//	if (argc != 4)
-//		pusage(argv[0]);
-//	if (strcmp(argv[1], "-1") == 0)
-//		do_random = 0;
-//	else if (strcmp(argv[1], "-r") == 0)
-//		do_random = 1;
-//	else
-//		pusage(argv[0]);
-//
-//	if (strcmp(argv[2], "-i") == 0) {
-//		do_irr  = 1;
-//		do_prim = 0;
-//	}
-//	else if (strcmp(argv[2], "-p") == 0) {
-//		do_irr  = 0;
-//		do_prim = 1;
-//	}
-//	else if (strcmp(argv[2], "-ip") == 0) {
-//		do_irr  = 1;
-//		do_prim = 1;
-//	}
-//	else {
-//		pusage(argv[0]);
-//	}
-//
-//	if (sscanf(argv[3], "%d-%d", &deglo, &deghi) == 2)
-//		;
-//	else if (sscanf(argv[3], "%d", &deglo) == 1)
-//		deghi = deglo;
-//	else
-//		pusage(argv[0]);
-//
-//	for (int deg = deglo; deg <= deghi; deg++) {
-//		f2poly_t a;
-//		if (do_prim) {
-//			a = do_random ? f2poly_random_prim(deg, do_irr)
-//				: f2poly_find_prim(deg, do_irr);
-//		}
-//		else {
-//			a = do_random ? f2poly_random_irr(deg)
-//				: f2poly_find_irr(deg);
-//		}
-//		std::cout << a << std::endl;
-//	}
-//	return 0;
-//}
+	for (int argi = 2; argi < argc; argi++) {
+		f2poly_t a;
+		if (!a.from_string(argv[argi]))
+			pusage(argv[0]);
+		if (argc > 2)
+			std::cout << a << ": ";
+		if (do_irr) {
+			if (f2poly_is_irreducible(a))
+				std::cout << "IRREDUCIBLE";
+			else
+				std::cout << "reducible";
+		}
+		if (do_irr && do_prim)
+			std::cout << " ";
+		if (do_prim) {
+			if (f2poly_is_primitive(a))
+				std::cout << "PRIMITIVE";
+			else
+				std::cout << "imprimitive";
+		}
+		std::cout << std::endl;
+	}
+	return 0;
+}
 
-//static void f2pperiod_usage(char * argv0)
-//{
-//	std::cerr << "Usage: " << argv0 << " {polys ...}\n";
-//	exit(1);
-//}
+void f2pfind_usage(char * argv0)
+{
+	std::cerr << "Usage: " << argv0 << " {-1|-r} {-i|-p|-ip} {deglo[-deghi]}\n";
+	std::cerr << "-1: lowest degree; -r: random\n";
+	std::cerr << "-i: irreducible; -p: primitive\n";
+	exit(1);
+}
 
-//static int f2pperiod_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	f2poly_t a;
-//	for (int argi = 1; argi < argc; argi++) {
-//		if (!a.from_string(argv[argi]))
-//			pusage(argv[0]);
-//		if (argc > 2)
-//			std::cout << a << ": ";
-//		std::cout << f2poly_period(a) << std::endl;
-//	}
-//	return 0;
-//}
+int f2pfind_main(int argc, char ** argv, usage_t * pusage)
+{
+	int do_random = 0, deglo, deghi;
+	int do_irr = 0, do_prim = 0;
+
+	if (argc != 4)
+		pusage(argv[0]);
+	if (strcmp(argv[1], "-1") == 0)
+		do_random = 0;
+	else if (strcmp(argv[1], "-r") == 0)
+		do_random = 1;
+	else
+		pusage(argv[0]);
+
+	if (strcmp(argv[2], "-i") == 0) {
+		do_irr  = 1;
+		do_prim = 0;
+	}
+	else if (strcmp(argv[2], "-p") == 0) {
+		do_irr  = 0;
+		do_prim = 1;
+	}
+	else if (strcmp(argv[2], "-ip") == 0) {
+		do_irr  = 1;
+		do_prim = 1;
+	}
+	else {
+		pusage(argv[0]);
+	}
+
+	if (sscanf(argv[3], "%d-%d", &deglo, &deghi) == 2)
+		;
+	else if (sscanf(argv[3], "%d", &deglo) == 1)
+		deghi = deglo;
+	else
+		pusage(argv[0]);
+
+	for (int deg = deglo; deg <= deghi; deg++) {
+		f2poly_t a;
+		if (do_prim) {
+			a = do_random ? f2poly_random_prim(deg, do_irr)
+				: f2poly_find_prim(deg, do_irr);
+		}
+		else {
+			a = do_random ? f2poly_random_irr(deg)
+				: f2poly_find_irr(deg);
+		}
+		std::cout << a << std::endl;
+	}
+	return 0;
+}
+
+void f2pperiod_usage(char * argv0)
+{
+	std::cerr << "Usage: " << argv0 << " {polys ...}\n";
+	exit(1);
+}
+
+int f2pperiod_main(int argc, char ** argv, usage_t * pusage)
+{
+	f2poly_t a;
+	for (int argi = 1; argi < argc; argi++) {
+		if (!a.from_string(argv[argi]))
+			pusage(argv[0]);
+		if (argc > 2)
+			std::cout << a << ": ";
+		std::cout << f2poly_period(a) << std::endl;
+	}
+	return 0;
+}
 
 void f2pfactor_usage(char * argv0)
 {
@@ -413,29 +416,29 @@ int f2prandom_main(int argc, char ** argv, usage_t * pusage)
 	return 0;
 }
 
-//static void f2pcompmx_usage(char * argv0)
-//{
-//	std::cerr << "Usage: " << argv0 << " {f2 chpoly}\n";
-//	exit(1);
-//}
-//
-//static int f2pcompmx_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	f2poly_t chpol;
-//
-//	if (argc != 2)
-//		pusage(argv[0]);
-//	if (!chpol.from_string(argv[1]))
-//		pusage(argv[0]);
-//
-//	tmatrix<bit_t> A = f2_companion_matrix(chpol);
-//	std::cout << A << std::endl;
-//
-//	return 0;
-//}
+void f2pcompmx_usage(char * argv0)
+{
+	std::cerr << "Usage: " << argv0 << " {f2 chpoly}\n";
+	exit(1);
+}
 
-//static int f2pmatop_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	ed_cmd_line_mat_parse<f2poly_t>(argc-1, argv+1, f2poly_t(0), f2poly_t(1));
-//	return 0;
-//}
+int f2pcompmx_main(int argc, char ** argv, usage_t * pusage)
+{
+	f2poly_t chpol;
+
+	if (argc != 2)
+		pusage(argv[0]);
+	if (!chpol.from_string(argv[1]))
+		pusage(argv[0]);
+
+	tmatrix<bit_t> A = f2_companion_matrix(chpol);
+	std::cout << A << std::endl;
+
+	return 0;
+}
+
+int f2pmatop_main(int argc, char ** argv, usage_t * pusage)
+{
+	ed_cmd_line_mat_parse<f2poly_t>(argc-1, argv+1, f2poly_t(0), f2poly_t(1));
+	return 0;
+}

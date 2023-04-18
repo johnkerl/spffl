@@ -220,7 +220,7 @@ static void emit(
 		msiform = V_V_OP;
 		break;
 
-	case L_DET:
+	case L_DET: // TODO: defined in cmdlintmatops.h -- needs some common define location ...
 		msiform = S_V_OP;
 		break;
 

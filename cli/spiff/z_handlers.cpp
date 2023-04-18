@@ -11,6 +11,7 @@
 #include "isprime.h"
 #include "int_factor.h"
 #include "tfacinfo.h"
+#include "cmdlineedmatops.h"
 
 int zop_main(int argc, char ** argv, usage_t * pusage)
 {
@@ -267,8 +268,8 @@ int zdivisors_main(int argc, char ** argv, usage_t * pusage)
 	return 0;
 }
 
-//int zmatop_main(int argc, char ** argv, usage_t * pusage)
-//{
-//	ed_cmd_line_mat_parse<int>(argc-1, argv+1, 0, 1);
-//	return 0;
-//}
+int zmatop_main(int argc, char ** argv, usage_t * pusage)
+{
+	ed_cmd_line_mat_parse<int>(argc-1, argv+1, 0, 1);
+	return 0;
+}
