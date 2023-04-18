@@ -4,6 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
+#include <string.h>
 #include "f2poly_handlers.h"
 
 #include "f2poly_t.h"

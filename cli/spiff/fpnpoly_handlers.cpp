@@ -1,3 +1,4 @@
+#include <string.h>
 #include "fpnpoly_handlers.h"
 #include "fpnpoly_t.h"
 #include "cmdlineedmatops.h"

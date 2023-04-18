@@ -1,3 +1,5 @@
+#include <string.h>
+
 #include "fppolymod_handlers.h"
 #include "fppolymod_t.h"
 #include "fppolymod_random.h"

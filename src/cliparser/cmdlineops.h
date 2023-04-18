@@ -20,6 +20,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <string.h>
 #include "tstack.h"
 
 template <class element_type>

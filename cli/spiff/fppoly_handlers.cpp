@@ -1,3 +1,4 @@
+#include <string.h>
 #include "fppoly_handlers.h"
 #include "fppoly_t.h"
 #include "fppoly_factor.h"

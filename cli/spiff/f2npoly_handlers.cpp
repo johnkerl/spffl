@@ -1,3 +1,4 @@
+#include <string.h>
 #include "f2npoly_handlers.h"
 #include "cmdlineops.h"
 #include "cmdlinematops.h"
