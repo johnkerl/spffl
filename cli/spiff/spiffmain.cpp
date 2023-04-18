@@ -21,6 +21,7 @@
 
 #include "fp_handlers.h"
 #include "fppoly_handlers.h"
+#include "fppolymod_handlers.h"
 
 // ----------------------------------------------------------------
 // TODO: add another level here
@@ -168,18 +169,18 @@ lookup_t lookups[] =
 	{"fpprandom",      fpprandom_main,      fpprandom_usage},
 	{"fppqp",          fppqp_main,          fppqp_usage},
 
-//	{"fppmlist",       fppmlist_main,       fppmlist_usage},
-//	{"fppmop",         fppmop_main,         fppmop_usage},
-//	{"fppmtbl",        fppmtbl_main,        fppmtbl_usage},
-//	{"fppmord",        fppmord_main,        fppmord_usage},
-//	{"fppmchpol",      fppmchpol_main,      fppmchpol_usage},
-//	{"fppmminpol",     fppmminpol_main,     fppmminpol_usage},
-//	{"fppmrandom",     fppmrandom_main,     fppmrandom_usage},
+	{"fppmlist",       fppmlist_main,       fppmlist_usage},
+	{"fppmop",         fppmop_main,         fppmop_usage},
+	{"fppmtbl",        fppmtbl_main,        fppmtbl_usage},
+	{"fppmord",        fppmord_main,        fppmord_usage},
+	{"fppmchpol",      fppmchpol_main,      fppmchpol_usage},
+	{"fppmminpol",     fppmminpol_main,     fppmminpol_usage},
+	{"fppmrandom",     fppmrandom_main,     fppmrandom_usage},
 
-//	{"fppmmatop",      fppmmatop_main,      0 /*fppmmatop_usage*/},
-//	{"fppmvecop",      fppmvecop_main,      0 /*fppmvecop_usage*/},
-//	{"fppmmatord",     fppmmatord_main,     fppmmatord_usage},
-//	{"fppmmatrandom",  fppmmatrandom_main,  fppmmatrandom_usage},
+	{"fppmmatop",      fppmmatop_main,      0 /*fppmmatop_usage*/},
+	{"fppmvecop",      fppmvecop_main,      0 /*fppmvecop_usage*/},
+	{"fppmmatord",     fppmmatord_main,     fppmmatord_usage},
+	{"fppmmatrandom",  fppmmatrandom_main,  fppmmatrandom_usage},
 
 //	{"fpprop",         fpprop_main,         fpprop_usage},
 
