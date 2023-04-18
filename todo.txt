@@ -23,13 +23,8 @@
 ----------------------------------------------------------------
 TBF
 
-  ./classes/qpoly_t.h
-
   ./classes/tmvpoly.h
   ./classes/tmvrat.h
-
-  ./utils/cyclopoly.h
-
   ./classes/teiginfo.h
 
   ./utils/moebius.h
@@ -38,7 +33,3 @@ TBF
   ./utils/ft_scan_tuples.h
   ./utils/tmvpolyscan.h
   ./utils/tmvratscan.h
-
-  ./utils/qff.h
-  ./utils/sp_list_elts.h
-  ./utils/spminchar.h
