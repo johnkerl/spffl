@@ -13,6 +13,8 @@
 #include "q_handlers.h"
 #include "f2poly_handlers.h"
 #include "f2polymod_handlers.h"
+#include "f2npoly_handlers.h"
+#include "f2npolymod_handlers.h"
 
 // ----------------------------------------------------------------
 // TODO: add another level here
@@ -95,35 +97,35 @@ lookup_t lookups[] =
 //	{"f2prmatop",      f2prmatop_main,      0 /*f2prmatop_usage*/},
 //	{"f2prmatrandom",  f2prmatrandom_main,  f2prmatrandom_usage},
 
-//	{"f2nplist",       f2nplist_main,       f2nplist_usage},
-//	{"f2npop",         f2npop_main,         f2npop_usage},
-//	{"f2npmatop",      f2npmatop_main,      f2npmatop_usage},
-//	{"f2npdeg",        f2npdeg_main,        f2npdeg_usage},
-//	{"f2npgcd",        f2npgcd_main,        f2npgcd_usage},
-//	{"f2nplcm",        f2nplcm_main,        f2nplcm_usage},
-//	{"f2nptotient",    f2nptotient_main,    f2nptotient_usage},
-//	{"f2nptest",       f2nptest_main,       f2nptest_usage},
-//	{"f2npfind",       f2npfind_main,       f2npfind_usage},
-//	{"f2npfactor",     f2npfactor_main,     f2npfactor_usage},
-//	{"f2npdivisors",   f2npdivisors_main,   f2npdivisors_usage},
-//	{"f2npeval",       f2npeval_main,       f2npeval_usage},
-//	{"f2nprandom",     f2nprandom_main,     f2nprandom_usage},
-//	{"f2npcompmx",     f2npcompmx_main,     f2npcompmx_usage},
+	{"f2nplist",       f2nplist_main,       f2nplist_usage},
+	{"f2npop",         f2npop_main,         f2npop_usage},
+	{"f2npmatop",      f2npmatop_main,      f2npmatop_usage},
+	{"f2npdeg",        f2npdeg_main,        f2npdeg_usage},
+	{"f2npgcd",        f2npgcd_main,        f2npgcd_usage},
+	{"f2nplcm",        f2nplcm_main,        f2nplcm_usage},
+	{"f2nptotient",    f2nptotient_main,    f2nptotient_usage},
+	{"f2nptest",       f2nptest_main,       f2nptest_usage},
+	{"f2npfind",       f2npfind_main,       f2npfind_usage},
+	{"f2npfactor",     f2npfactor_main,     f2npfactor_usage},
+	{"f2npdivisors",   f2npdivisors_main,   f2npdivisors_usage},
+	{"f2npeval",       f2npeval_main,       f2npeval_usage},
+	{"f2nprandom",     f2nprandom_main,     f2nprandom_usage},
+	{"f2npcompmx",     f2npcompmx_main,     f2npcompmx_usage},
 
-//	{"f2npmlist",      f2npmlist_main,      f2npmlist_usage},
-//	{"f2npmop",        f2npmop_main,        f2npmop_usage},
-//	{"f2npmtbl",       f2npmtbl_main,       f2npmtbl_usage},
-//	{"f2npmord",       f2npmord_main,       f2npmord_usage},
-//	{"f2npmfindgen",   f2npmfindgen_main,   f2npmfindgen_usage},
-//	{"f2npmlog",       f2npmlog_main,       f2npmlog_usage},
-//	{"f2npmchpol",     f2npmchpol_main,     f2npmchpol_usage},
-//	{"f2npmminpol",    f2npmminpol_main,    f2npmminpol_usage},
-//	{"f2npmrandom",    f2npmrandom_main,    f2npmrandom_usage},
-//	{"f2npqp",         f2npqp_main,         f2npqp_usage},
+	{"f2npmlist",      f2npmlist_main,      f2npmlist_usage},
+	{"f2npmop",        f2npmop_main,        f2npmop_usage},
+	{"f2npmtbl",       f2npmtbl_main,       f2npmtbl_usage},
+	{"f2npmord",       f2npmord_main,       f2npmord_usage},
+	{"f2npmfindgen",   f2npmfindgen_main,   f2npmfindgen_usage},
+	{"f2npmlog",       f2npmlog_main,       f2npmlog_usage},
+	{"f2npmchpol",     f2npmchpol_main,     f2npmchpol_usage},
+	{"f2npmminpol",    f2npmminpol_main,    f2npmminpol_usage},
+	{"f2npmrandom",    f2npmrandom_main,    f2npmrandom_usage},
+	{"f2npqp",         f2npqp_main,         f2npqp_usage},
 
-//	{"f2npmmatop",     f2npmmatop_main,     f2npmmatop_usage},
-//	{"f2npmvecop",     f2npmvecop_main,     f2npmvecop_usage},
-//	{"f2npmmatrandom", f2npmmatrandom_main, f2npmmatrandom_usage},
+	{"f2npmmatop",     f2npmmatop_main,     f2npmmatop_usage},
+	{"f2npmvecop",     f2npmvecop_main,     f2npmvecop_usage},
+	{"f2npmmatrandom", f2npmmatrandom_main, f2npmmatrandom_usage},
 
 //	{"f2nprop",        f2nprop_main,        f2nprop_usage},
 //	{"f2nprmatop",     f2nprmatop_main,     f2nprmatop_usage},
