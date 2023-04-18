@@ -17,10 +17,11 @@
 
 #include "f2poly_handlers.h"
 #include "f2polymod_handlers.h"
+#include "f2polyrat_handlers.h"
 
 #include "f2npoly_handlers.h"
 #include "f2npolymod_handlers.h"
-#include "f2polyrat_handlers.h"
+#include "f2npolyrat_handlers.h"
 
 #include "fp_handlers.h"
 
@@ -141,8 +142,8 @@ lookup_t lookups[] =
 	{"f2npmvecop",     f2npmvecop_main,     f2npmvecop_usage},
 	{"f2npmmatrandom", f2npmmatrandom_main, f2npmmatrandom_usage},
 
-//	{"f2nprop",        f2nprop_main,        f2nprop_usage},
-//	{"f2nprmatop",     f2nprmatop_main,     f2nprmatop_usage},
+	{"f2nprop",        f2nprop_main,        f2nprop_usage},
+	{"f2nprmatop",     f2nprmatop_main,     f2nprmatop_usage},
 
 	{"fplist",         fplist_main,         fplist_usage},
 	{"fpop",           fpop_main,           fpop_usage},
@@ -220,7 +221,6 @@ lookup_t lookups[] =
 	//{"fpnpmchpol",      fpnpmchpol_main,      fpnpmchpol_usage},
 	//{"fpnpmminpol",     fpnpmminpol_main,     fpnpmminpol_usage},
 	//{"fpnpmrandom",     fpnpmrandom_main,     fpnpmrandom_usage},
-
 	//{"fpnpmmatrandom",  fpnpmmatrandom_main,  fpnpmmatrandom_usage},
 
 	{0, 0, 0} // MUST be null-terminated.
