@@ -24,10 +24,11 @@
 #include "fp_handlers.h"
 
 #include "fppoly_handlers.h"
-
 #include "fppolymod_handlers.h"
+#include "fppolyrat_handlers.h"
 
 #include "fpnpoly_handlers.h"
+#include "fpnpolymod_handlers.h"
 
 // ----------------------------------------------------------------
 // TODO: add another level here
@@ -81,7 +82,7 @@ lookup_t lookups[] =
 	{"f2pdivisors",    f2pdivisors_main,    f2pdivisors_usage},
 	{"f2peval",        f2peval_main,        f2peval_usage},
 	{"f2prandom",      f2prandom_main,      f2prandom_usage},
-	//{"f2pqp",          f2pqp_main,          f2pqp_usage},
+	{"f2pqp",          f2pqp_main,          f2pqp_usage},
 	{"f2pmatop",       f2pmatop_main,       0 /*f2pmatop_usage*/},
 	{"f2pcompmx",      f2pcompmx_main,      f2pcompmx_usage},
 
@@ -106,7 +107,6 @@ lookup_t lookups[] =
 
 //	{"f2prop",         f2prop_main,         0 /*f2prop_usage*/},
 //	{"f2prrandom",     f2prrandom_main,     f2prrandom_usage},
-
 //	{"f2prmatop",      f2prmatop_main,      0 /*f2prmatop_usage*/},
 //	{"f2prmatrandom",  f2prmatrandom_main,  f2prmatrandom_usage},
 
@@ -188,9 +188,8 @@ lookup_t lookups[] =
 	{"fppmmatord",     fppmmatord_main,     fppmmatord_usage},
 	{"fppmmatrandom",  fppmmatrandom_main,  fppmmatrandom_usage},
 
-//	{"fpprop",         fpprop_main,         fpprop_usage},
-
-//	{"fpprmatop",      fpprmatop_main,      fpprmatop_usage},
+	{"fpprop",         fpprop_main,         fpprop_usage},
+	{"fpprmatop",      fpprmatop_main,      fpprmatop_usage},
 
 	{"fpnpop",         fpnpop_main,         fpnpop_usage},
 	{"fpnpmatop",      fpnpmatop_main,      fpnpmatop_usage},
@@ -210,8 +209,8 @@ lookup_t lookups[] =
 	//{"fpnpeval",        fpnpeval_main,        fpnpeval_usage},
 	//{"fpnprandom",      fpnprandom_main,      fpnprandom_usage},
 
-//	{"fpnpmop",        fpnpmop_main,        fpnpmop_usage},
-//	{"fpnpmmatop",     fpnpmmatop_main,     fpnpmmatop_usage},
+	{"fpnpmop",        fpnpmop_main,        fpnpmop_usage},
+	{"fpnpmmatop",     fpnpmmatop_main,     fpnpmmatop_usage},
 
 	// To do:
 	//{"fpnpmlist",       fpnpmlist_main,       fpnpmlist_usage},
