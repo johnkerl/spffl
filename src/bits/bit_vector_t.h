@@ -35,6 +35,7 @@
 #define NWORDS_FROM_NBITS(nb) (((nb) + BITS_PER_WORD - 1) >> BITS_SHIFT)
 
 #include "bit_t.h"
+#include <cstdint>
 #include <fstream>
 #include <iostream>
 #include <sstream>

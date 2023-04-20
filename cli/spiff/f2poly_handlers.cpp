@@ -204,7 +204,8 @@ void f2pfind_usage(char *argv0) {
 }
 
 int f2pfind_main(int argc, char **argv, usage_t *pusage) {
-  bool do_random = false, deglo, deghi;
+  bool do_random = false;
+  int deglo, deghi;
   bool do_irr = false, do_prim = false;
 
   if (argc != 4)

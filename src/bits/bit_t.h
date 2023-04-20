@@ -7,6 +7,7 @@
 #ifndef BIT_T_H
 #define BIT_T_H
 
+#include <cstdint>
 #include <iomanip>
 #include <iostream>
 #include <sstream>
@@ -133,7 +134,7 @@ public:
   int from_string(char *string);
 
 private:
-  unsigned char residue;
+  uint8_t residue;
 };
 
 #endif // BIT_T_H
