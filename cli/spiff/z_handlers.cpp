@@ -35,7 +35,7 @@ int zgcd_main(int argc, char **argv, usage_t *pusage) {
     if (sscanf(argv[3], "%d", &b) != 1)
       pusage(argv[0]);
 
-    g = int_ext_gcd(a, b, &r, &s);
+    g = int_ext_gcd(a, b, r, s);
     std::cout << g << " = " << r << " * " << a << " + " << s << " * " << b
               << std::endl;
 
