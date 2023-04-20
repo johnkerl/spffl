@@ -7,11 +7,11 @@
 #ifndef CMPS_H
 #define CMPS_H
 
-#define CMP_LT  20
-#define CMP_LE  21
-#define CMP_EQ  22
-#define CMP_NE  23
-#define CMP_GE  24
-#define CMP_GT  25
+#define CMP_LT 20
+#define CMP_LE 21
+#define CMP_EQ 22
+#define CMP_NE 23
+#define CMP_GE 24
+#define CMP_GT 25
 
 #endif // CMPS_H

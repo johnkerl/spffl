@@ -7,14 +7,8 @@
 #ifndef TOKENIZE_H
 #define TOKENIZE_H
 
-int tokenize(
-	char        * line,
-	const char  * seps,
-	char       ** argv,
-	int           max_arguments);
+int tokenize(char *line, const char *seps, char **argv, int max_arguments);
 
-int count_tokens(
-	char       * line,
-	const char * seps);
+int count_tokens(char *line, const char *seps);
 
 #endif // TOKENIZE_H

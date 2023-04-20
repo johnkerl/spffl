@@ -8,7 +8,6 @@
 #define INT_SQRT_H
 #include "intfc.h"
 // TODO: enum interface
-int int_sqrt(
-	int n,
-	int want_ceil); // either IFLOOR or ICEIL
-#endif // INT_SQRT_H
+int int_sqrt(int n,
+             int want_ceil); // either IFLOOR or ICEIL
+#endif                       // INT_SQRT_H

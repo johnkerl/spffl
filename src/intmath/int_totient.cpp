@@ -4,20 +4,19 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "int_gcd.h"
 #include "int_totient.h"
+#include "int_gcd.h"
 
 // ----------------------------------------------------------------
-int int_totient(int n)
-{
-	int phi = 0;
-	int i;
+int int_totient(int n) {
+  int phi = 0;
+  int i;
 
-	phi = 0;
-	for (i = 1; i < n; i++) {
-		if (int_gcd(n, i) == 1)
-			phi++;
-	}
+  phi = 0;
+  for (i = 1; i < n; i++) {
+    if (int_gcd(n, i) == 1)
+      phi++;
+  }
 
-	return phi;
+  return phi;
 }

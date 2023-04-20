@@ -9,6 +9,6 @@
 
 // TODO: enum interface
 #define IFLOOR 0
-#define ICEIL  1
+#define ICEIL 1
 
 #endif // INTFC_H

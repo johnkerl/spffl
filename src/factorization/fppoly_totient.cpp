@@ -39,21 +39,18 @@
 #include "fppoly_factor.h"
 #include "int_power.h"
 
-int fppoly_totient(
-	fppoly_t f)
-{
-	int rv = 1;
-	int p = f.get_char();
-	tfacinfo<fppoly_t> finfo = fppoly_factor(f);
-	int nf = finfo.get_num_distinct();
+int fppoly_totient(fppoly_t f) {
+  int rv = 1;
+  int p = f.get_char();
+  tfacinfo<fppoly_t> finfo = fppoly_factor(f);
+  int nf = finfo.get_num_distinct();
 
-	for (int i = 0; i < nf; i++) {
-		fppoly_t fi = finfo.get_ith_factor(i);
-		int ei = finfo.get_ith_count(i);
-		int di = fi.find_degree();
-		rv *= int_power(p, di * (ei - 1)) *
-			(int_power(p, di) - 1);
-	}
+  for (int i = 0; i < nf; i++) {
+    fppoly_t fi = finfo.get_ith_factor(i);
+    int ei = finfo.get_ith_count(i);
+    int di = fi.find_degree();
+    rv *= int_power(p, di * (ei - 1)) * (int_power(p, di) - 1);
+  }
 
-	return rv;
+  return rv;
 }

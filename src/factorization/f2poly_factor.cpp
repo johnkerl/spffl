@@ -18,97 +18,80 @@
 #include "tmatrix.h"
 #endif
 
+static void f2poly_pre_berlekamp(f2poly_t f, tfacinfo<f2poly_t> &rfinfo,
+                                 int recurse);
 
-static void f2poly_pre_berlekamp(
-	f2poly_t f,
-	tfacinfo<f2poly_t> & rfinfo,
-	int recurse);
-
-static void f2poly_berlekamp(
-	f2poly_t f,
-	tfacinfo<f2poly_t> & rfinfo,
-	int recurse);
+static void f2poly_berlekamp(f2poly_t f, tfacinfo<f2poly_t> &rfinfo,
+                             int recurse);
 
 f2poly_t f2poly_from_vector(
 #ifdef USE_BIT_MATRIX
-	bit_vector_t & v,
+    bit_vector_t &v,
 #else
-	tvector<bit_t> & v,
+    tvector<bit_t> &v,
 #endif
-	int n);
+    int n);
 
 // ----------------------------------------------------------------
-tfacinfo<f2poly_t> f2poly_factor(
-	f2poly_t f)
-{
-	tfacinfo<f2poly_t> finfo;
-	if (f.find_degree() == 0) {
-		finfo.insert_unit(f);
-		return finfo;
-	}
-	f2poly_pre_berlekamp(f, finfo, 1);
-	return finfo;
+tfacinfo<f2poly_t> f2poly_factor(f2poly_t f) {
+  tfacinfo<f2poly_t> finfo;
+  if (f.find_degree() == 0) {
+    finfo.insert_unit(f);
+    return finfo;
+  }
+  f2poly_pre_berlekamp(f, finfo, 1);
+  return finfo;
 }
 
 // ----------------------------------------------------------------
-static void f2poly_pre_berlekamp(
-	f2poly_t   f,
-	tfacinfo<f2poly_t> & rfinfo,
-	int recurse)
-{
-	f2poly_t d = f.deriv();
-	f2poly_t g = f.gcd(d);
+static void f2poly_pre_berlekamp(f2poly_t f, tfacinfo<f2poly_t> &rfinfo,
+                                 int recurse) {
+  f2poly_t d = f.deriv();
+  f2poly_t g = f.gcd(d);
 
 #ifdef F2POLY_FACTOR_DEBUG
-	std::cout << "\n";
-	std::cout << "f2poly_pre_berlekamp input = " << f
-		<< "  f' = " << d
-		<< "  (f,f') = " << g
-		<< "\n";
+  std::cout << "\n";
+  std::cout << "f2poly_pre_berlekamp input = " << f << "  f' = " << d
+            << "  (f,f') = " << g << "\n";
 #endif
 
-	if (g == 0) {
-		if (f != 0) {
-			std::cerr << "Coding error: file "
-				<< __FILE__ << " line "
-				<< __LINE__ << "\n";
-			exit(1);
-		}
+  if (g == 0) {
+    if (f != 0) {
+      std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
+                << "\n";
+      exit(1);
+    }
 #ifdef F2POLY_FACTOR_DEBUG
-		std::cout << "g=0 f=0 insert " << f << "\n";
+    std::cout << "g=0 f=0 insert " << f << "\n";
 #endif
-		rfinfo.insert_factor(f);
-		return;
-	}
-	else if (g == 1) {
-		// Input is squarefree.
-		f2poly_berlekamp(f, rfinfo, recurse);
-	}
-	else if (d == 0) {
-		// Input is a perfect square
-		f2poly_t s;
-		tfacinfo<f2poly_t> sfinfo;
-		if (!f.square_root(s)) {
-			std::cerr << "Coding error: file "
-				<< __FILE__ << " line "
-				<< __LINE__ << "\n";
-			exit(1);
-		}
+    rfinfo.insert_factor(f);
+    return;
+  } else if (g == 1) {
+    // Input is squarefree.
+    f2poly_berlekamp(f, rfinfo, recurse);
+  } else if (d == 0) {
+    // Input is a perfect square
+    f2poly_t s;
+    tfacinfo<f2poly_t> sfinfo;
+    if (!f.square_root(s)) {
+      std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
+                << "\n";
+      exit(1);
+    }
 
-		// Multiplicity is p only if degree is > 0.
-		f2poly_pre_berlekamp(s, sfinfo, recurse);
-		if (f.find_degree() > 0)
-			sfinfo.exp_all(2);
-		rfinfo.merge(sfinfo);
+    // Multiplicity is p only if degree is > 0.
+    f2poly_pre_berlekamp(s, sfinfo, recurse);
+    if (f.find_degree() > 0)
+      sfinfo.exp_all(2);
+    rfinfo.merge(sfinfo);
 #ifdef F2POLY_FACTOR_DEBUG
-		std::cout << "square insert " << sfinfo << "\n";
+    std::cout << "square insert " << sfinfo << "\n";
 #endif
-	}
-	else {
-		f2poly_t q = f / g;
-		f2poly_pre_berlekamp(g, rfinfo, recurse);
-		f2poly_pre_berlekamp(q, rfinfo, recurse);
-	}
+  } else {
+    f2poly_t q = f / g;
+    f2poly_pre_berlekamp(g, rfinfo, recurse);
+    f2poly_pre_berlekamp(q, rfinfo, recurse);
+  }
 }
 
 // ----------------------------------------------------------------
@@ -162,218 +145,203 @@ static void f2poly_pre_berlekamp(
 // These are h1 = 1c and h2 = 1, respectively.  Compute gcd(f, h1) = 7 and
 // gcd(f, h1+1) = b to obtain non-trivial factors of f.
 
-static void f2poly_berlekamp(
-	f2poly_t   f,
-	tfacinfo<f2poly_t> & rfinfo,
-	int recurse)
-{
-	int n  = f.find_degree();
-	f2poly_t x(1, 0);
-	f2poly_t x2 = (x * x) % f;
-	f2poly_t x2i(1);
-	int i, j, row, rank, dimker;
-	//bit_t zero(0);
-	//bit_t one(1);
+static void f2poly_berlekamp(f2poly_t f, tfacinfo<f2poly_t> &rfinfo,
+                             int recurse) {
+  int n = f.find_degree();
+  f2poly_t x(1, 0);
+  f2poly_t x2 = (x * x) % f;
+  f2poly_t x2i(1);
+  int i, j, row, rank, dimker;
+  // bit_t zero(0);
+  // bit_t one(1);
 
 #ifdef F2POLY_FACTOR_DEBUG
-	std::cout << "\n";
-	std::cout << "f2poly_berlekamp input = " << f << "\n";
+  std::cout << "\n";
+  std::cout << "f2poly_berlekamp input = " << f << "\n";
 #endif
 #ifdef USE_BIT_MATRIX
-	bit_matrix_t BI(n, n);
+  bit_matrix_t BI(n, n);
 #else
-	tmatrix<bit_t> BI(n, n);
+  tmatrix<bit_t> BI(n, n);
 #endif
 
-	if (n < 2) {
-		rfinfo.insert_factor(f);
+  if (n < 2) {
+    rfinfo.insert_factor(f);
 #ifdef F2POLY_FACTOR_DEBUG
-		std::cout << "n<2 insert " << f << "\n";
+    std::cout << "n<2 insert " << f << "\n";
 #endif
-		return;
-	}
+    return;
+  }
 
-	// Populate the B matrix.
-	for (j = 0; j < n; j++) {
-		for (i = 0; i < n; i++) {
+  // Populate the B matrix.
+  for (j = 0; j < n; j++) {
+    for (i = 0; i < n; i++) {
 #ifdef USE_BIT_MATRIX
-			BI[n-1-i].set(n-1-j, bit_t(x2i.bit_at(i)));
+      BI[n - 1 - i].set(n - 1 - j, bit_t(x2i.bit_at(i)));
 #else
-			BI[n-1-i][n-1-j] = bit_t(x2i.bit_at(i));
+      BI[n - 1 - i][n - 1 - j] = bit_t(x2i.bit_at(i));
 #endif
-		}
-		x2i = (x2i * x2) % f;
-	}
+    }
+    x2i = (x2i * x2) % f;
+  }
 
 #ifdef F2POLY_FACTOR_DEBUG
-	std::cout << "B =\n" << BI << "\n";
+  std::cout << "B =\n" << BI << "\n";
 #endif
 
-	// Form B - I.
-	for (i = 0; i < n; i++) {
+  // Form B - I.
+  for (i = 0; i < n; i++) {
 #ifdef USE_BIT_MATRIX
-		BI[i].toggle_element(i);
+    BI[i].toggle_element(i);
 #else
-		BI[i][i] = BI[i][i] - one;
+    BI[i][i] = BI[i][i] - one;
 #endif
-	}
+  }
 
 #ifdef F2POLY_FACTOR_DEBUG
-	std::cout << "B-I =\n" << BI << "\n";
+  std::cout << "B-I =\n" << BI << "\n";
 #endif
 
-	BI.row_echelon_form();
+  BI.row_echelon_form();
 
 #ifdef F2POLY_FACTOR_DEBUG
-	std::cout << "B-I, rr =\n" << BI << "\n";
+  std::cout << "B-I, rr =\n" << BI << "\n";
 #endif
 
-	rank = BI.get_rank_rr();
-	dimker = n - rank;
+  rank = BI.get_rank_rr();
+  dimker = n - rank;
 
-	if (dimker == 1) {
+  if (dimker == 1) {
 #ifdef F2POLY_FACTOR_DEBUG
-		std::cout << "dimker=1 insert " << f << "\n";
+    std::cout << "dimker=1 insert " << f << "\n";
 #endif
-		rfinfo.insert_factor(f);
-		return;
-	}
+    rfinfo.insert_factor(f);
+    return;
+  }
 
-	// Find a basis for the nullspace of B - I.
+  // Find a basis for the nullspace of B - I.
 #ifdef USE_BIT_MATRIX
-	bit_matrix_t nullspace_basis;
+  bit_matrix_t nullspace_basis;
 #else
-	tmatrix<bit_t> nullspace_basis;
+  tmatrix<bit_t> nullspace_basis;
 #endif
 
 #ifdef USE_BIT_MATRIX
-	int got = BI.get_kernel_basis(nullspace_basis);
+  int got = BI.get_kernel_basis(nullspace_basis);
 #else
-	int got = BI.get_kernel_basis(nullspace_basis, zero, one);
+  int got = BI.get_kernel_basis(nullspace_basis, zero, one);
 #endif
 
-	if (!got) {
-		std::cerr << "Coding error: file "
-			<< __FILE__ << " line "
-			<< __LINE__ << "\n";
-		exit(1);
-	}
-	if (nullspace_basis.get_num_rows() != dimker) {
-		std::cerr << "Coding error: file "
-			<< __FILE__ << " line "
-			<< __LINE__ << "\n";
-		exit(1);
-	}
+  if (!got) {
+    std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
+              << "\n";
+    exit(1);
+  }
+  if (nullspace_basis.get_num_rows() != dimker) {
+    std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
+              << "\n";
+    exit(1);
+  }
 #ifdef F2POLY_FACTOR_DEBUG
-	std::cout << "nullity = " << dimker << "\n";
-	std::cout << "nullspace basis =\n" << nullspace_basis << "\n";
+  std::cout << "nullity = " << dimker << "\n";
+  std::cout << "nullspace basis =\n" << nullspace_basis << "\n";
 #endif // F2POLY_FACTOR_DEBUG
 
-	// For each h in the nullspace basis, form
-	//   f1 = gcd(f, h)
-	//   f2 = gcd(f, h-1)
-	// Now, the polynomial h=1 is always in the nullspace, in which case
-	// f1 = 1 and f2 = f, which results in a trivial factorization.  Any
-	// of the other h's will work fine, producing a non-trivial
-	// factorization of f into two factors.  (Note that either or both
-	// of them may be reducible, in which we'll need to apply this
-	// algorithm recursively until we're down to irreducible factors.)
-	// Here, for the sake of illustration, is what happens with all the
-	// h's, even though we need only one of them (with f = 703):
+  // For each h in the nullspace basis, form
+  //   f1 = gcd(f, h)
+  //   f2 = gcd(f, h-1)
+  // Now, the polynomial h=1 is always in the nullspace, in which case
+  // f1 = 1 and f2 = f, which results in a trivial factorization.  Any
+  // of the other h's will work fine, producing a non-trivial
+  // factorization of f into two factors.  (Note that either or both
+  // of them may be reducible, in which we'll need to apply this
+  // algorithm recursively until we're down to irreducible factors.)
+  // Here, for the sake of illustration, is what happens with all the
+  // h's, even though we need only one of them (with f = 703):
 
-	//h=001
-	//  f1: 001
-	//  f2: 70e = 2 3 7 b d
-	//h=102     = 2 3 b d
-	//  f1: 102 = 2 3 b d
-	//  f2: 007 = 7
-	//h=284     = 2 2 7 3b
-	//  f1: 00e = 2 7
-	//  f2: 081 = 3 b d
-	//h=0e8     = 2 2 2 3 b
-	//  f1: 03a = 2 3 b
-	//  f2: 023 = 7 d
-	//h=310     = 2 2 2 2 7 b
-	//  f1: 062 = 2 7 b
-	//  f2: 017 = 3 d
+  // h=001
+  //   f1: 001
+  //   f2: 70e = 2 3 7 b d
+  // h=102     = 2 3 b d
+  //   f1: 102 = 2 3 b d
+  //   f2: 007 = 7
+  // h=284     = 2 2 7 3b
+  //   f1: 00e = 2 7
+  //   f2: 081 = 3 b d
+  // h=0e8     = 2 2 2 3 b
+  //   f1: 03a = 2 3 b
+  //   f2: 023 = 7 d
+  // h=310     = 2 2 2 2 7 b
+  //   f1: 062 = 2 7 b
+  //   f2: 017 = 3 d
 
-	for (row = 0; row <  dimker; row++) {
-		f2poly_t h, hc;
-		h = f2poly_from_vector(nullspace_basis[row], n);
-		hc = h + f2poly_t(1);
+  for (row = 0; row < dimker; row++) {
+    f2poly_t h, hc;
+    h = f2poly_from_vector(nullspace_basis[row], n);
+    hc = h + f2poly_t(1);
 
-		f2poly_t check1 = (h  * h)  % f;
-		f2poly_t check2 = (hc * hc) % f;
-		if ((h != check1) || (hc != check2)) {
-			std::cerr << "Coding error: file "
-				<< __FILE__ << " line "
-				<< __LINE__ << "\n";
-			std::cerr << "  h  = " << h
-				<< "  h^2  = " << check1 << "\n";
-			std::cerr << "  hc = " << hc
-				<< "  hc^2 = " << check2 << "\n";
-			exit(1);
-		}
+    f2poly_t check1 = (h * h) % f;
+    f2poly_t check2 = (hc * hc) % f;
+    if ((h != check1) || (hc != check2)) {
+      std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
+                << "\n";
+      std::cerr << "  h  = " << h << "  h^2  = " << check1 << "\n";
+      std::cerr << "  hc = " << hc << "  hc^2 = " << check2 << "\n";
+      exit(1);
+    }
 
-		f2poly_t f1 = f.gcd(h);
-		f2poly_t f2 = f.gcd(hc);
+    f2poly_t f1 = f.gcd(h);
+    f2poly_t f2 = f.gcd(hc);
 
 #ifdef F2POLY_FACTOR_DEBUG
-		std::cout << "h  = " << h  << "  hc = " << hc << "\n";
-		std::cout << "f1 = " << f1 << "  f2 = " << f2 << "\n";
+    std::cout << "h  = " << h << "  hc = " << hc << "\n";
+    std::cout << "f1 = " << f1 << "  f2 = " << f2 << "\n";
 #endif // F2POLY_FACTOR_DEBUG
 
-		if ((f1 == 1) || (f2 == 1))
-			continue;
+    if ((f1 == 1) || (f2 == 1))
+      continue;
 
-		// The nullity of B-I is the number of irreducible
-		// factors of f.  If the nullity is 2, we have a
-		// pair of factors which are both irreducible and
-		// so we don't need to recurse.
-		if (dimker == 2) {
+    // The nullity of B-I is the number of irreducible
+    // factors of f.  If the nullity is 2, we have a
+    // pair of factors which are both irreducible and
+    // so we don't need to recurse.
+    if (dimker == 2) {
 #ifdef F2POLY_FACTOR_DEBUG
-			std::cout << "dimker=2 insert "
-				<< f1 << ", " << f2 << "\n";
+      std::cout << "dimker=2 insert " << f1 << ", " << f2 << "\n";
 #endif
-			rfinfo.insert_factor(f1);
-			rfinfo.insert_factor(f2);
-		}
-		else if (!recurse) {
+      rfinfo.insert_factor(f1);
+      rfinfo.insert_factor(f2);
+    } else if (!recurse) {
 #ifdef F2POLY_FACTOR_DEBUG
-			std::cout << "dimker=2 insert "
-				<< f1 << ", " << f2 << "\n";
+      std::cout << "dimker=2 insert " << f1 << ", " << f2 << "\n";
 #endif
-			rfinfo.insert_factor(f1);
-			rfinfo.insert_factor(f2);
-		}
-		else {
-			f2poly_pre_berlekamp(f1, rfinfo, recurse);
-			f2poly_pre_berlekamp(f2, rfinfo, recurse);
-		}
-		return;
-	}
-	std::cerr << "Coding error: file "
-		<< __FILE__ << " line "
-		<< __LINE__ << "\n";
-	exit(1);
+      rfinfo.insert_factor(f1);
+      rfinfo.insert_factor(f2);
+    } else {
+      f2poly_pre_berlekamp(f1, rfinfo, recurse);
+      f2poly_pre_berlekamp(f2, rfinfo, recurse);
+    }
+    return;
+  }
+  std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
+            << "\n";
+  exit(1);
 }
 
 // ----------------------------------------------------------------
 f2poly_t f2poly_from_vector(
 #ifdef USE_BIT_MATRIX
-	bit_vector_t & v,
+    bit_vector_t &v,
 #else
-	tvector<bit_t> & v,
+    tvector<bit_t> &v,
 #endif
-	int n)
-{
-	f2poly_t f(0);
-	for (int i = 0; i < n; i++)
-		if (v.get(n-1-i) == 1)
-			f.set_bit(i);
-	return f;
+    int n) {
+  f2poly_t f(0);
+  for (int i = 0; i < n; i++)
+    if (v.get(n - 1 - i) == 1)
+      f.set_bit(i);
+  return f;
 }
-
 
 //// ----------------------------------------------------------------
 //// Given the prime factorization p1^m1 ... pk^mk of n, how to enumerate all
@@ -396,7 +364,7 @@ f2poly_t f2poly_from_vector(
 ////	2^3 3^1   24
 ////	2^3 3^2   72
 //
-//unsigned f2poly_num_divisors(
+// unsigned f2poly_num_divisors(
 //	f2poly_factor_info_t * pfinfo)
 //{
 //	unsigned rv;
@@ -421,7 +389,7 @@ f2poly_t f2poly_from_vector(
 //// See comments to the above.  k is treated as a multibase representation
 //// over the bases mi+1.
 //
-//f2poly_t f2poly_kth_divisor(
+// f2poly_t f2poly_kth_divisor(
 //	f2poly_factor_info_t * pfinfo,
 //	unsigned k)
 //{
@@ -446,7 +414,7 @@ f2poly_t f2poly_from_vector(
 //// ----------------------------------------------------------------
 //// The caller must free the return value.
 //
-//f2poly_t * f2poly_get_all_divisors(
+// f2poly_t * f2poly_get_all_divisors(
 //	f2poly_t * pr,
 //	unsigned * pnum_divisors)
 //{
@@ -468,77 +436,71 @@ f2poly_t f2poly_from_vector(
 //}
 
 // ----------------------------------------------------------------
-int f2poly_is_irreducible(
-	f2poly_t f)
-{
-	tfacinfo<f2poly_t> finfo;
+int f2poly_is_irreducible(f2poly_t f) {
+  tfacinfo<f2poly_t> finfo;
 
-	int d = f.find_degree();
-	if (d == 0)
-		return 0;
-	if (d == 1)
-		return 1;
+  int d = f.find_degree();
+  if (d == 0)
+    return 0;
+  if (d == 1)
+    return 1;
 
-	f2poly_pre_berlekamp(f, finfo, 0);
+  f2poly_pre_berlekamp(f, finfo, 0);
 
 #ifdef FPPOLY_FACTOR_DEBUG
-	std::cout << "f2pirr: input = " << f << "\n";
-	std::cout << "factors = " << finfo << "\n";
-	std::cout << "# factors = " << finfo.get_num_factors() << "\n";
-#endif// FPPOLY_FACTOR_DEBUG
+  std::cout << "f2pirr: input = " << f << "\n";
+  std::cout << "factors = " << finfo << "\n";
+  std::cout << "# factors = " << finfo.get_num_factors() << "\n";
+#endif // FPPOLY_FACTOR_DEBUG
 
-	if (finfo.get_num_factors() == 1)
-		return 1;
-	else
-		return 0;
+  if (finfo.get_num_factors() == 1)
+    return 1;
+  else
+    return 0;
 }
 
 // ----------------------------------------------------------------
 // Lexically lowest
-f2poly_t f2poly_find_irr(
-	int degree)
-{
-	f2poly_t rv(0);
-	rv.set_bit(degree);
-	rv.set_bit(0);
+f2poly_t f2poly_find_irr(int degree) {
+  f2poly_t rv(0);
+  rv.set_bit(degree);
+  rv.set_bit(0);
 
-	if (degree < 1) {
-		std::cout << "f2poly_find_irr:  degree must be positive; got "
-			<< degree << ".\n";
-		exit(1);
-	}
+  if (degree < 1) {
+    std::cout << "f2poly_find_irr:  degree must be positive; got " << degree
+              << ".\n";
+    exit(1);
+  }
 
-	while (rv.find_degree() == degree) {
-		if (f2poly_is_irreducible(rv))
-			return rv;
-		rv.increment();
-		rv.increment();
-	}
+  while (rv.find_degree() == degree) {
+    if (f2poly_is_irreducible(rv))
+      return rv;
+    rv.increment();
+    rv.increment();
+  }
 
-	// There are irreducibles of all positive degrees, so it is
-	// an error if we failed to find one.
-	std::cout << "f2poly_find_irr:  coding error.\n";
-	exit(1);
+  // There are irreducibles of all positive degrees, so it is
+  // an error if we failed to find one.
+  std::cout << "f2poly_find_irr:  coding error.\n";
+  exit(1);
 
-	return rv;
+  return rv;
 }
 
 // ----------------------------------------------------------------
-f2poly_t f2poly_random_irr(
-	int degree)
-{
-	f2poly_t rv;
+f2poly_t f2poly_random_irr(int degree) {
+  f2poly_t rv;
 
-	if (degree < 1) {
-		std::cout << "f2poly_random_irr:  degree must be positive; got "
-			<< degree << ".\n";
-		exit(1);
-	}
+  if (degree < 1) {
+    std::cout << "f2poly_random_irr:  degree must be positive; got " << degree
+              << ".\n";
+    exit(1);
+  }
 
-	for (;;) {
-		rv = f2poly_random(degree);
-		rv.set_bit(0);
-		if (f2poly_is_irreducible(rv))
-			return rv;
-	}
+  for (;;) {
+    rv = f2poly_random(degree);
+    rv.set_bit(0);
+    if (f2poly_is_irreducible(rv))
+      return rv;
+  }
 }
