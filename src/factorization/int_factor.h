@@ -7,6 +7,5 @@
 #ifndef INT_FACTOR_H
 #define INT_FACTOR_H
 #include "tfacinfo.h"
-tfacinfo<int> int_factor(
-	int n);
+tfacinfo<int> int_factor(int n);
 #endif // INT_FACTOR_H

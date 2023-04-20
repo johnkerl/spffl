@@ -38,19 +38,17 @@
 #include "f2poly_totient.h"
 #include "f2poly_factor.h"
 
-int f2poly_totient(
-	f2poly_t f)
-{
-	int rv = 1;
-	tfacinfo<f2poly_t> finfo = f2poly_factor(f);
-	int nf = finfo.get_num_distinct();
+int f2poly_totient(f2poly_t f) {
+  int rv = 1;
+  tfacinfo<f2poly_t> finfo = f2poly_factor(f);
+  int nf = finfo.get_num_distinct();
 
-	for (int i = 0; i < nf; i++) {
-		f2poly_t fi = finfo.get_ith_factor(i);
-		int ei = finfo.get_ith_count(i);
-		int di = fi.find_degree();
-		rv *= (1 << (di * (ei-1))) * ((1 << di) -1);
-	}
+  for (int i = 0; i < nf; i++) {
+    f2poly_t fi = finfo.get_ith_factor(i);
+    int ei = finfo.get_ith_count(i);
+    int di = fi.find_degree();
+    rv *= (1 << (di * (ei - 1))) * ((1 << di) - 1);
+  }
 
-	return rv;
+  return rv;
 }

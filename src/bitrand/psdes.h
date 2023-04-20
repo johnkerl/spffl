@@ -137,45 +137,43 @@
 unsigned iran32(void);
 
 // Uniformly distributed pseudorandom 64-bit integer.
-void     iran64(unsigned * pout0, unsigned * pout1);
+void iran64(unsigned *pout0, unsigned *pout1);
 
 // Uniformly distributed single-precision float between 0.0 and 1.0.
-float    fran32(void);
+float fran32(void);
 
 // Sets lower 32 bits of generator state to the specified value, and sets
 // the upper 32 bits of generator state to 0.
-void     sran32(unsigned s);
+void sran32(unsigned s);
 
 // Sets all 64 bits of generator state to the specified values.
-void     sran32b(unsigned s0, unsigned s1);
+void sran32b(unsigned s0, unsigned s1);
 
 // Sets all 64 bits of generator state to the values dependent on the
 // Unix PID, time of day in seconds, and time of day in microseconds.
-void     sran32_tod(void);
+void sran32_tod(void);
 
 // ----------------------------------------------------------------
 // These versions are reentrant.
 
 // Uniformly distributed pseudorandom 32-bit integer.
-unsigned iran32_r(unsigned * pstate0, unsigned * pstate1);
+unsigned iran32_r(unsigned *pstate0, unsigned *pstate1);
 
 // Uniformly distributed pseudorandom 64-bit integer.
-void     iran64_r(unsigned * pout0, unsigned * pout1,
-	unsigned * pstate0, unsigned * pstate1);
+void iran64_r(unsigned *pout0, unsigned *pout1, unsigned *pstate0,
+              unsigned *pstate1);
 
 // Uniformly distributed single-precision float between 0.0 and 1.0.
-float    fran32_r(unsigned * pstate0, unsigned * pstate1);
+float fran32_r(unsigned *pstate0, unsigned *pstate1);
 
 // There is no sran32_r() function.  You own the state variables and may
 // assign to them whatever values you wish.
 
 // This puts time-of-day information into your state variables.
-void     sran32_tod_r(unsigned * pstate0, unsigned * pstate1void);
+void sran32_tod_r(unsigned *pstate0, unsigned *pstate1void);
 
 // ----------------------------------------------------------------
 // This is the 64-bit pseudo-DES in-place hash.
-void psdes_hash_64(
-	unsigned * pword0,
-	unsigned * pword1);
+void psdes_hash_64(unsigned *pword0, unsigned *pword1);
 
 #endif // PSDES_H

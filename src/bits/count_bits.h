@@ -7,8 +7,6 @@
 #ifndef COUNT_BITS_H
 #define COUNT_BITS_H
 
-int count_one_bits(
-	unsigned char * p,
-	int nbytes);
+int count_one_bits(unsigned char *p, int nbytes);
 
 #endif // COUNT_BITS_H

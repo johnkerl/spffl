@@ -7,23 +7,17 @@
 #ifndef FPLINALG_H
 #define FPLINALG_H
 
-#include "tmatrix.h"
 #include "fppoly_t.h"
+#include "tmatrix.h"
 #if 0
 #include "fpnpoly_t.h"
 #endif
 
-tvector<intmod_t>
-fp_vector_from_base_rep(
-	int base_rep,
-	int p,
-	int len);
+tvector<intmod_t> fp_vector_from_base_rep(int base_rep, int p, int len);
 
-fppoly_t fp_char_poly(
-	tmatrix<intmod_t> & A);
+fppoly_t fp_char_poly(tmatrix<intmod_t> &A);
 
-tmatrix<intmod_t> fp_companion_matrix(
-	fppoly_t chpol);
+tmatrix<intmod_t> fp_companion_matrix(fppoly_t chpol);
 
 #if 0
 fpnpoly_t fppolymod_min_poly(

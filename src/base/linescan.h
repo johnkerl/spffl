@@ -8,8 +8,8 @@
 #define LINESCAN_H
 
 // Removes trailing CR, if any.  (The name "chomp" comes from Perl.)
-void chomp(char * line);
+void chomp(char *line);
 
-int is_whitespace_line(char * line);
+int is_whitespace_line(char *line);
 
 #endif // LINESCAN_H

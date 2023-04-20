@@ -9,15 +9,13 @@
 #include "int_random.h"
 
 // ----------------------------------------------------------------
-f2polymod_t f2polymod_random(f2poly_t m)
-{
-	int deg = m.find_degree();
-	if (deg < 1) {
-		std::cerr << "f2polymod_random:  degree ("
-			<< deg << ") of " << m
-			<< " should be >= 1.\n";
-		exit(1);
-	}
+f2polymod_t f2polymod_random(f2poly_t m) {
+  int deg = m.find_degree();
+  if (deg < 1) {
+    std::cerr << "f2polymod_random:  degree (" << deg << ") of " << m
+              << " should be >= 1.\n";
+    exit(1);
+  }
 
-	return f2polymod_t(f2poly_random(deg), m);
+  return f2polymod_t(f2poly_random(deg), m);
 }

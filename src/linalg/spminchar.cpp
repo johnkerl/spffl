@@ -4,54 +4,51 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include <iostream>
 #include "spminchar.h"
+#include <iostream>
 
-#include "tmatrix.h"
 #include "bit_matrix_t.h"
+#include "tmatrix.h"
 
 // ----------------------------------------------------------------
-int f2pm_froblen(f2polymod_t a)
-{
-	int rv = 0;
-	f2polymod_t ap = a;
+int f2pm_froblen(f2polymod_t a) {
+  int rv = 0;
+  f2polymod_t ap = a;
 
-	do {
-		rv++;
-		ap = ap * ap;
-	} while (ap != a);
+  do {
+    rv++;
+    ap = ap * ap;
+  } while (ap != a);
 
-	return rv;
+  return rv;
 }
 
 // ----------------------------------------------------------------
-int f2npm_froblen(f2npolymod_t a)
-{
-	int rv = 0;
-	int q  = 1 << a.get_residue().get_coeff(0).get_modulus().find_degree();
-	f2npolymod_t ap = a;
+int f2npm_froblen(f2npolymod_t a) {
+  int rv = 0;
+  int q = 1 << a.get_residue().get_coeff(0).get_modulus().find_degree();
+  f2npolymod_t ap = a;
 
-	do {
-		rv++;
-		ap = ap.exp(q);
-	} while (ap != a);
+  do {
+    rv++;
+    ap = ap.exp(q);
+  } while (ap != a);
 
-	return rv;
+  return rv;
 }
 
 // ----------------------------------------------------------------
-int fppm_froblen(fppolymod_t a)
-{
-	int rv = 0;
-	int p = a.get_char();
-	fppolymod_t ap = a;
+int fppm_froblen(fppolymod_t a) {
+  int rv = 0;
+  int p = a.get_char();
+  fppolymod_t ap = a;
 
-	do {
-		rv++;
-		ap = ap.exp(p);
-	} while (ap != a);
+  do {
+    rv++;
+    ap = ap.exp(p);
+  } while (ap != a);
 
-	return rv;
+  return rv;
 }
 
 // ----------------------------------------------------------------
@@ -90,133 +87,127 @@ int fppm_froblen(fppolymod_t a)
 // x^4 + x^3 + 1 is the minimal polynomial for 1011 = u^3 + u + 1.
 
 // ----------------------------------------------------------------
-f2poly_t f2pm_min_poly(f2polymod_t a)
-{
-	f2poly_t m = a.get_modulus();
-	f2polymod_t ap = a.prime_sfld_elt(1);
-	int n = m.find_degree();
-	int l = f2pm_froblen(a);
-	bit_matrix_t A(n,l+1);
-	for (int j = 0; j <= l; j++) {
-		for (int i = 0; i < n; i++) {
-			f2poly_t apr = ap.get_residue();
-			A[i].set(j, apr.bit_at(i));
-		}
-		ap *= a;
-	}
-	bit_matrix_t B;
-	if (!A.get_kernel_basis(B)) {
-		std::cerr << "poo!\n";
-		exit(1);
-	}
-	if (B.get_rank_rr() != 1) {
-		std::cerr << "double poo!\n";
-		std::cerr << B << "\n";
-		exit(1);
-	}
-	f2poly_t p;
-	for (int j = 0; j <= l; j++)
-		if (B[0].get(j) == 1)
-			p.set_bit(j);
-	return p;
+f2poly_t f2pm_min_poly(f2polymod_t a) {
+  f2poly_t m = a.get_modulus();
+  f2polymod_t ap = a.prime_sfld_elt(1);
+  int n = m.find_degree();
+  int l = f2pm_froblen(a);
+  bit_matrix_t A(n, l + 1);
+  for (int j = 0; j <= l; j++) {
+    for (int i = 0; i < n; i++) {
+      f2poly_t apr = ap.get_residue();
+      A[i].set(j, apr.bit_at(i));
+    }
+    ap *= a;
+  }
+  bit_matrix_t B;
+  if (!A.get_kernel_basis(B)) {
+    std::cerr << "poo!\n";
+    exit(1);
+  }
+  if (B.get_rank_rr() != 1) {
+    std::cerr << "double poo!\n";
+    std::cerr << B << "\n";
+    exit(1);
+  }
+  f2poly_t p;
+  for (int j = 0; j <= l; j++)
+    if (B[0].get(j) == 1)
+      p.set_bit(j);
+  return p;
 }
 
 // ----------------------------------------------------------------
-f2npoly_t f2npm_min_poly(f2npolymod_t a)
-{
-	f2npoly_t m = a.get_modulus();
-	f2npolymod_t ap = a.prime_sfld_elt(1);
-	f2polymod_t zero = a.get_residue().get_coeff(0).prime_sfld_elt(0);
-	f2polymod_t one  = a.get_residue().get_coeff(0).prime_sfld_elt(1);
-	int n = m.find_degree();
-	int l = f2npm_froblen(a);
-	tmatrix<f2polymod_t> A(zero, n, l+1);
-	for (int j = 0; j <= l; j++) {
-		for (int i = 0; i < n; i++) {
-			f2npoly_t apr = ap.get_residue();
-			A[i][j] = apr.get_coeff(i);
-		}
-		ap *= a;
-	}
-	tmatrix<f2polymod_t> B;
-	if (!A.get_kernel_basis(B, zero, one)) {
-		std::cerr << "poo!\n";
-		exit(1);
-	}
-	if (B.get_rank_rr() != 1) {
-		std::cerr << "double poo!\n";
-		std::cerr << B << "\n";
-		exit(1);
-	}
-	f2npoly_t mp;
-	for (int j = 0; j <= l; j++)
-		mp.set_coeff(j, B[0][j]);
-	return mp;
+f2npoly_t f2npm_min_poly(f2npolymod_t a) {
+  f2npoly_t m = a.get_modulus();
+  f2npolymod_t ap = a.prime_sfld_elt(1);
+  f2polymod_t zero = a.get_residue().get_coeff(0).prime_sfld_elt(0);
+  f2polymod_t one = a.get_residue().get_coeff(0).prime_sfld_elt(1);
+  int n = m.find_degree();
+  int l = f2npm_froblen(a);
+  tmatrix<f2polymod_t> A(zero, n, l + 1);
+  for (int j = 0; j <= l; j++) {
+    for (int i = 0; i < n; i++) {
+      f2npoly_t apr = ap.get_residue();
+      A[i][j] = apr.get_coeff(i);
+    }
+    ap *= a;
+  }
+  tmatrix<f2polymod_t> B;
+  if (!A.get_kernel_basis(B, zero, one)) {
+    std::cerr << "poo!\n";
+    exit(1);
+  }
+  if (B.get_rank_rr() != 1) {
+    std::cerr << "double poo!\n";
+    std::cerr << B << "\n";
+    exit(1);
+  }
+  f2npoly_t mp;
+  for (int j = 0; j <= l; j++)
+    mp.set_coeff(j, B[0][j]);
+  return mp;
 }
 
 // ----------------------------------------------------------------
-fppoly_t fppm_min_poly(fppolymod_t a)
-{
-	fppoly_t m = a.get_modulus();
-	fppolymod_t ap = a.prime_sfld_elt(1);
-	int p = a.get_char();
-	intmod_t zero(0, p);
-	intmod_t one (1, p);
-	int n = m.find_degree();
-	int l = fppm_froblen(a);
-	tmatrix<intmod_t> A(zero, n, l+1);
-	for (int j = 0; j <= l; j++) {
-		for (int i = 0; i < n; i++) {
-			fppoly_t apr = ap.get_residue();
-			A[i][j] = apr.get_coeff(i);
-		}
-		ap *= a;
-	}
-	tmatrix<intmod_t> B;
-	if (!A.get_kernel_basis(B, zero, one)) {
-		std::cerr << "poo!\n";
-		exit(1);
-	}
-	if (B.get_rank_rr() != 1) {
-		std::cerr << "double poo!\n";
-		std::cerr << B << "\n";
-		exit(1);
-	}
-	fppoly_t mp;
-	for (int j = 0; j <= l; j++)
-		mp.set_coeff(j, B[0][j]);
-	return mp;
+fppoly_t fppm_min_poly(fppolymod_t a) {
+  fppoly_t m = a.get_modulus();
+  fppolymod_t ap = a.prime_sfld_elt(1);
+  int p = a.get_char();
+  intmod_t zero(0, p);
+  intmod_t one(1, p);
+  int n = m.find_degree();
+  int l = fppm_froblen(a);
+  tmatrix<intmod_t> A(zero, n, l + 1);
+  for (int j = 0; j <= l; j++) {
+    for (int i = 0; i < n; i++) {
+      fppoly_t apr = ap.get_residue();
+      A[i][j] = apr.get_coeff(i);
+    }
+    ap *= a;
+  }
+  tmatrix<intmod_t> B;
+  if (!A.get_kernel_basis(B, zero, one)) {
+    std::cerr << "poo!\n";
+    exit(1);
+  }
+  if (B.get_rank_rr() != 1) {
+    std::cerr << "double poo!\n";
+    std::cerr << B << "\n";
+    exit(1);
+  }
+  fppoly_t mp;
+  for (int j = 0; j <= l; j++)
+    mp.set_coeff(j, B[0][j]);
+  return mp;
 }
 
 // ----------------------------------------------------------------
-f2poly_t f2pm_char_poly(f2polymod_t a)
-{
-	f2poly_t mp = f2pm_min_poly(a);
-	f2poly_t m = a.get_modulus();
-	int n = m.find_degree();
-	int l = f2pm_froblen(a);
-	f2poly_t cp = mp.exp(n/l);
-	return cp;
+f2poly_t f2pm_char_poly(f2polymod_t a) {
+  f2poly_t mp = f2pm_min_poly(a);
+  f2poly_t m = a.get_modulus();
+  int n = m.find_degree();
+  int l = f2pm_froblen(a);
+  f2poly_t cp = mp.exp(n / l);
+  return cp;
 }
 
 // ----------------------------------------------------------------
-f2npoly_t f2npm_char_poly(f2npolymod_t a)
-{
-	f2npoly_t mp = f2npm_min_poly(a);
-	f2npoly_t m = a.get_modulus();
-	int n = m.find_degree();
-	int l = f2npm_froblen(a);
-	f2npoly_t cp = mp.exp(n/l);
-	return cp;
+f2npoly_t f2npm_char_poly(f2npolymod_t a) {
+  f2npoly_t mp = f2npm_min_poly(a);
+  f2npoly_t m = a.get_modulus();
+  int n = m.find_degree();
+  int l = f2npm_froblen(a);
+  f2npoly_t cp = mp.exp(n / l);
+  return cp;
 }
 
 // ----------------------------------------------------------------
-fppoly_t fppm_char_poly(fppolymod_t a)
-{
-	fppoly_t mp = fppm_min_poly(a);
-	fppoly_t m = a.get_modulus();
-	int n = m.find_degree();
-	int l = fppm_froblen(a);
-	fppoly_t cp = mp.exp(n/l);
-	return cp;
+fppoly_t fppm_char_poly(fppolymod_t a) {
+  fppoly_t mp = fppm_min_poly(a);
+  fppoly_t m = a.get_modulus();
+  int n = m.find_degree();
+  int l = fppm_froblen(a);
+  fppoly_t cp = mp.exp(n / l);
+  return cp;
 }

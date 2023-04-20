@@ -3,6 +3,10 @@ k cmake (non-install) structure
   k initial lib skeleton
   k initial test skeleton
   k initial exe skeleton
+k formatting pass
+  clang-format -i $(find src  -name '*.h' -o -name '*.cpp')
+  clang-format -i $(find cli  -name '*.h' -o -name '*.cpp')
+  clang-format -i $(find test -name '*.h' -o -name '*.cpp')
 * ctest pass(es)
 * commenting pass
 * renaming pass
