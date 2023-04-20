@@ -63,11 +63,11 @@ std::ostream &operator<<(std::ostream &os, const intmod_t &a) {
 }
 
 // ----------------------------------------------------------------
-#define SEOF -1
+#define EOF -1
 std::istream &operator>>(std::istream &is, intmod_t &a) {
   // Skip over whitespace.
   int c = is.peek();
-  if (c == SEOF) {
+  if (c == EOF) {
     is.setstate(std::ios::failbit);
     return is;
   }
@@ -75,7 +75,7 @@ std::istream &operator>>(std::istream &is, intmod_t &a) {
     is.ignore(1, c);
     c = is.peek();
   }
-  if (c == SEOF) {
+  if (c == EOF) {
     is.setstate(std::ios::failbit);
     return is;
   }

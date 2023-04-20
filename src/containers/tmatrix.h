@@ -1653,7 +1653,6 @@ static std::istream &operator>>(std::istream &is, tmatrix<element_type> &m) {
     m.num_rows++;
   }
 
-  // xxx temp
   if (is.peek() == EOF)
     is.setstate(std::ios::eofbit);
 
