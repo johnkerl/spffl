@@ -1,8 +1,9 @@
 ================================================================
-* cmake (non-install) structure
+k cmake (non-install) structure
   k initial lib skeleton
   k initial test skeleton
   k initial exe skeleton
+* ctest pass(es)
 * commenting pass
 * renaming pass
 * int -> bool pass
