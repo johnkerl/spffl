@@ -154,19 +154,19 @@ void f2ptest_usage(char *argv0) {
 }
 
 int f2ptest_main(int argc, char **argv, usage_t *pusage) {
-  int do_irr = 0, do_prim = 0;
+  bool do_irr = false, do_prim = false;
   if (argc < 3)
     pusage(argv[0]);
 
   if (strcmp(argv[1], "-i") == 0) {
-    do_irr = 1;
-    do_prim = 0;
+    do_irr = true;
+    do_prim = false;
   } else if (strcmp(argv[1], "-p") == 0) {
-    do_irr = 0;
-    do_prim = 1;
+    do_irr = false;
+    do_prim = true;
   } else if (strcmp(argv[1], "-ip") == 0) {
-    do_irr = 1;
-    do_prim = 1;
+    do_irr = true;
+    do_prim = true;
   } else {
     pusage(argv[0]);
   }
@@ -204,27 +204,27 @@ void f2pfind_usage(char *argv0) {
 }
 
 int f2pfind_main(int argc, char **argv, usage_t *pusage) {
-  int do_random = 0, deglo, deghi;
-  int do_irr = 0, do_prim = 0;
+  bool do_random = false, deglo, deghi;
+  bool do_irr = false, do_prim = false;
 
   if (argc != 4)
     pusage(argv[0]);
   if (strcmp(argv[1], "-1") == 0)
-    do_random = 0;
+    do_random = false;
   else if (strcmp(argv[1], "-r") == 0)
-    do_random = 1;
+    do_random = true;
   else
     pusage(argv[0]);
 
   if (strcmp(argv[2], "-i") == 0) {
-    do_irr = 1;
-    do_prim = 0;
+    do_irr = true;
+    do_prim = false;
   } else if (strcmp(argv[2], "-p") == 0) {
-    do_irr = 0;
-    do_prim = 1;
+    do_irr = false;
+    do_prim = true;
   } else if (strcmp(argv[2], "-ip") == 0) {
-    do_irr = 1;
-    do_prim = 1;
+    do_irr = true;
+    do_prim = true;
   } else {
     pusage(argv[0]);
   }

@@ -161,7 +161,7 @@ public:
 
 	// ----------------------------------------------------------------
 	// 3 x_0 x_1^4
-	void tex_or_pretty_print(std::ostream & os, int do_tex)
+	void tex_or_pretty_print(std::ostream & os, bool do_tex)
 	{
 		ktype c = this->coeff;
 		ktype zero = c - c;
@@ -714,7 +714,7 @@ friend std::ostream & operator<< <>(std::ostream & os,
 	const tmvpoly & poly);
 
 // ----------------------------------------------------------------
-void tex_or_pretty_print(std::ostream & os, int do_tex)
+void tex_or_pretty_print(std::ostream & os, bool do_tex)
 {
 	for (int i = 0; i < this->nmonoms; i++) {
 		if (i > 0)

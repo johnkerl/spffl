@@ -230,15 +230,16 @@ void fppfind_usage(char *argv0) {
 }
 
 int fppfind_main(int argc, char **argv, usage_t *pusage) {
-  int do_random = 0, deglo, deghi;
+  bool do_random = false;
+  int deglo, deghi;
   int p;
 
   if (argc != 4)
     pusage(argv[0]);
   if (strcmp(argv[1], "-1") == 0)
-    do_random = 0;
+    do_random = false;
   else if (strcmp(argv[1], "-r") == 0)
-    do_random = 1;
+    do_random = true;
   else
     pusage(argv[0]);
   if (sscanf(argv[2], "%d", &p) != 1)

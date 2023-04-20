@@ -73,7 +73,7 @@ tmatrix<intmod_t> fp_companion_matrix(fppoly_t chpol) {
 // ----------------------------------------------------------------
 static fpnpoly_t fppolymod_char_or_min_poly(
 	fppolymod_t a,
-	int do_min)
+	bool do_min)
 {
 	fppoly_t m = a.get_modulus();
 	int p = m.get_char();
