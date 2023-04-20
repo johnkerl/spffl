@@ -10,7 +10,6 @@
 #include "tokenize.h"
 #include <stdlib.h>
 #include <string.h>
-#define EOF -1
 
 // ----------------------------------------------------------------
 qpoly_t::qpoly_t(void) {

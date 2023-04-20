@@ -171,7 +171,6 @@ std::ostream &operator<<(std::ostream &os, const bit_matrix_t &m) {
 }
 
 // ----------------------------------------------------------------
-#define SEOF -1
 std::istream &operator>>(std::istream &is, bit_matrix_t &m) {
   char line[8192];
   const int init_num_rows = 40;
@@ -228,7 +227,7 @@ std::istream &operator>>(std::istream &is, bit_matrix_t &m) {
     m.num_rows++;
   }
 
-  if (is.peek() == SEOF)
+  if (is.peek() == EOF)
     is.setstate(std::ios::eofbit);
 
   if (m.num_rows == 0) {

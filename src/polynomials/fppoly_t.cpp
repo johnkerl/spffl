@@ -9,7 +9,6 @@
 #include "rsstring_t.h"
 #include "tokenize.h"
 #include <string.h>
-#define SEOF -1
 
 // ----------------------------------------------------------------
 fppoly_t::fppoly_t(void) {
@@ -795,7 +794,7 @@ std::istream &operator>>(std::istream &is, fppoly_t &poly) {
   // Skip over whitespace.
   c = is.peek();
 
-  if (c == SEOF) {
+  if (c == EOF) {
     is.setstate(std::ios::failbit);
     return is;
   }
@@ -804,7 +803,7 @@ std::istream &operator>>(std::istream &is, fppoly_t &poly) {
     c = is.peek();
   }
 
-  if (c == SEOF) {
+  if (c == EOF) {
     is.setstate(std::ios::failbit);
     return is;
   }
@@ -813,7 +812,7 @@ std::istream &operator>>(std::istream &is, fppoly_t &poly) {
     c = is.get();
     rss.append_char(c);
     c = is.peek();
-    if (c == SEOF) {
+    if (c == EOF) {
       is.setstate(std::ios::eofbit);
       break;
     }
@@ -839,7 +838,7 @@ std::istream &operator>>(std::istream &is, fppoly_t &poly) {
 //	rsstring_t rss;
 //
 //	char c = iss.peek();
-//	if (c == SEOF) {
+//	if (c == EOF) {
 //		iss.setstate(std::ios::failbit);
 //		return iss;
 //	}
@@ -847,7 +846,7 @@ std::istream &operator>>(std::istream &is, fppoly_t &poly) {
 //		c = iss.get();
 //		rss.append_char(c);
 //		c = iss.peek();
-//		if (c == SEOF) {
+//		if (c == EOF) {
 //			iss.setstate(std::ios::eofbit);
 //			break;
 //		}
