@@ -536,12 +536,12 @@ void qpoly_t::set_coeff(int pos, intrat_t c) {
 
 // ----------------------------------------------------------------
 void qpoly_t::recompute_degree(void) {
-  int is_zero = 1;
+  bool is_zero = true;
   intrat_t zero = this->coeffs[0] - this->coeffs[0];
 
   for (int i = this->degree; i >= 0; i--) {
     if (this->coeffs[i] != zero) {
-      is_zero = 0;
+      is_zero = false;
       this->degree = i;
       break;
     }

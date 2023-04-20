@@ -594,12 +594,12 @@ void fpnpoly_t::set_coeff(int pos, fppolymod_t c) {
 
 // ----------------------------------------------------------------
 void fpnpoly_t::recompute_degree(void) {
-  int is_zero = 1;
+  bool is_zero = true;
   fppolymod_t zero = this->coeffs[0] - this->coeffs[0];
 
   for (int i = this->degree; i >= 0; i--) {
     if (this->coeffs[i] != zero) {
-      is_zero = 0;
+      is_zero = false;
       this->degree = i;
       break;
     }

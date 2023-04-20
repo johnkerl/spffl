@@ -812,15 +812,15 @@ tmvpoly homogenize(void)
 }
 
 // ----------------------------------------------------------------
-int is_homogeneous(void)
+bool is_homogeneous(void)
 {
 	if (this->nmonoms == 0)
-		return 1;
+		return true;
 	int d0 = this->monoms[0].find_degree();
 	for (int i = 1; i < this->nmonoms; i++)
 		if (this->monoms[i].find_degree() != d0)
-			return 0;
-	return 1;
+			return false;
+	return true;
 }
 
 // ----------------------------------------------------------------

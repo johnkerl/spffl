@@ -66,7 +66,7 @@ int tokenize(char *line, const char *seps, char **argv, int max_arguments) {
 // ----------------------------------------------------------------
 int count_tokens(char *line, const char *seps) {
   char *readp;
-  bool inside_token = falsee;
+  bool inside_token = false;
   int argc = 0;
   const char *psep;
   bool is_sep;

@@ -215,7 +215,7 @@ void bit_vector_t::toggle_element(int index) {
 }
 
 // ----------------------------------------------------------------
-int bit_vector_t::is_zero(void) {
+bool bit_vector_t::is_zero(void) {
   for (int i = 0; i < this->num_words; i++)
     if (this->words[i])
       return 0;

@@ -672,12 +672,12 @@ void f2npoly_t::change_modulus(f2poly_t new_modulus) {
 
 // ----------------------------------------------------------------
 void f2npoly_t::recompute_degree(void) {
-  int is_zero = 1;
+  bool is_zero = true;
   f2polymod_t zero = this->coeffs[0] - this->coeffs[0];
 
   for (int i = this->degree; i >= 0; i--) {
     if (this->coeffs[i] != zero) {
-      is_zero = 0;
+      is_zero = false;
       this->degree = i;
       break;
     }

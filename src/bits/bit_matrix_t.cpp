@@ -493,41 +493,41 @@ bit_matrix_t bit_matrix_t::make_I(void) {
 }
 
 // ----------------------------------------------------------------
-int bit_matrix_t::is_zero(void) {
+bool bit_matrix_t::is_zero(void) {
   for (int i = 0; i < this->num_rows; i++)
     if (this->rows[i].is_zero())
-      return 0;
-  return 1;
+      return false;
+  return true;
 }
 
 // ----------------------------------------------------------------
-int bit_matrix_t::is_square(void) {
+bool bit_matrix_t::is_square(void) {
   if (this->num_rows == this->num_cols)
-    return 1;
+    return true;
   else
-    return 0;
+    return false;
 }
 
 // ----------------------------------------------------------------
-int bit_matrix_t::is_I(void) {
+bool bit_matrix_t::is_I(void) {
   int i, j;
 
   if (!this->is_square())
-    return 0;
+    return false;
 
   for (i = 0; i < this->num_rows; i++) {
     if (this->rows[i].get(i) != 1)
-      return 0;
+      return false;
   }
   for (i = 0; i < this->num_rows; i++) {
     for (j = 0; j < i; j++)
       if (this->rows[i].get(j) != 0)
-        return 0;
+        return false;
     for (j = i + 1; j < this->num_cols; j++)
       if (this->rows[i].get(j) != 0)
-        return 0;
+        return false;
   }
-  return 1;
+  return true;
 }
 
 // ----------------------------------------------------------------
