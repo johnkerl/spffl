@@ -65,7 +65,7 @@
 
 // * Non-reentrant version with default seeds:
 //
-//   unsigned rand;
+//   uint32_t rand;
 //   rand = iran32();
 //   rand = iran32();
 //   rand = iran32();
@@ -77,7 +77,7 @@
 
 // * Non-reentrant version with specified seeds:
 //
-//   unsigned rand;
+//   uint32_t rand;
 //   sran32(1);
 //   // Or, sran32b(0, 1);
 //   rand = iran32();
@@ -93,13 +93,13 @@
 
 // * Reentrant version with time-of-day seeds:
 //
-//   unsigned state0, state1, rand;
+//   uint32_t state0, state1, rand;
 //   sran32_tod_r(1, &state0, &state1);
 //   rand = iran32(&state0, &state1);
 //   rand = iran32(&state0, &state1);
 //   rand = iran32(&state0, &state1);
 //
-//   unsigned state0, state1;
+//   uint32_t state0, state1;
 //   float rand;
 //   sran32(1);
 //   rand = fran32(&state0, &state1);
@@ -108,14 +108,14 @@
 
 // * Reentrant version with specified seeds:
 //
-//   unsigned state0, state1, rand;
+//   uint32_t state0, state1, rand;
 //   state0 = 7;
 //   state1 = 8;
 //   rand = iran32(&state0, &state1);
 //   rand = iran32(&state0, &state1);
 //   rand = iran32(&state0, &state1);
 //
-//   unsigned state0, state1;
+//   uint32_t state0, state1;
 //   float rand;
 //   state0 = 7;
 //   state1 = 8;
@@ -127,6 +127,8 @@
 #ifndef PSDES_H
 #define PSDES_H
 
+#include <cstdint>
+
 // ----------------------------------------------------------------
 // These versions are non-reentrant.
 // Usage:  Nominally, just call iran32() or fran32().  They remember whether
@@ -134,20 +136,20 @@
 // only if you want to force the same generator output each time.
 
 // Uniformly distributed pseudorandom 32-bit integer.
-unsigned iran32(void);
+uint32_t iran32(void);
 
 // Uniformly distributed pseudorandom 64-bit integer.
-void iran64(unsigned &out0, unsigned &out1);
+void iran64(uint32_t &out0, uint32_t &out1);
 
 // Uniformly distributed single-precision float between 0.0 and 1.0.
 float fran32(void);
 
 // Sets lower 32 bits of generator state to the specified value, and sets
 // the upper 32 bits of generator state to 0.
-void sran32(unsigned s);
+void sran32(uint32_t s);
 
 // Sets all 64 bits of generator state to the specified values.
-void sran32b(unsigned s0, unsigned s1);
+void sran32b(uint32_t s0, uint32_t s1);
 
 // Sets all 64 bits of generator state to the values dependent on the
 // Unix PID, time of day in seconds, and time of day in microseconds.
@@ -157,22 +159,22 @@ void sran32_tod(void);
 // These versions are reentrant.
 
 // Uniformly distributed pseudorandom 32-bit integer.
-unsigned iran32_r(unsigned &state0, unsigned &state1);
+uint32_t iran32_r(uint32_t &state0, uint32_t &state1);
 
 // Uniformly distributed pseudorandom 64-bit integer.
-void iran64_r(unsigned &out0, unsigned &out1, unsigned &state0, unsigned &state1);
+void iran64_r(uint32_t &out0, uint32_t &out1, uint32_t &state0, uint32_t &state1);
 
 // Uniformly distributed single-precision float between 0.0 and 1.0.
-float fran32_r(unsigned &state0, unsigned &state1);
+float fran32_r(uint32_t &state0, uint32_t &state1);
 
 // There is no sran32_r() function.  You own the state variables and may
 // assign to them whatever values you wish.
 
 // This puts time-of-day information into your state variables.
-void sran32_tod_r(unsigned &state0, unsigned &state1void);
+void sran32_tod_r(uint32_t &state0, uint32_t &state1void);
 
 // ----------------------------------------------------------------
 // This is the 64-bit pseudo-DES in-place hash.
-void psdes_hash_64(unsigned &word0, unsigned &word1);
+void psdes_hash_64(uint32_t &word0, uint32_t &word1);
 
 #endif // PSDES_H
