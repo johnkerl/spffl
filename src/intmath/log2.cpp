@@ -151,30 +151,34 @@ unsigned find_lsb_64(uint64_t n) {
 }
 
 // ----------------------------------------------------------------
-unsigned calc_log2_unsigned(unsigned n, int want_ceil) {
+unsigned calc_log2_unsigned_floor(unsigned n) {
+  unsigned l = find_msb_32(n);
+  return l;
+}
+
+unsigned calc_log2_unsigned_ceil(unsigned n) {
   unsigned l = find_msb_32(n);
 
-  if (want_ceil == IFLOOR) {
+  if (((unsigned)1 << l) == n) {
     return l;
   } else {
-    if (((unsigned)1 << l) == n)
-      return l;
-    else
-      return l + 1;
+    return l + 1;
   }
 }
 
 // ----------------------------------------------------------------
-uint64_t calc_log2_unsigned_ll(uint64_t n, int want_ceil) {
+uint64_t calc_log2_unsigned_ll_floor(uint64_t n) {
+  uint64_t l = (uint64_t)find_msb_64(n);
+  return l;
+}
+
+uint64_t calc_log2_unsigned_ll_ceil(uint64_t n) {
   uint64_t l = (uint64_t)find_msb_64(n);
 
-  if (want_ceil == IFLOOR) {
+  if (((uint64_t)1LL << l) == n) {
     return l;
   } else {
-    if (((uint64_t)1LL << l) == n)
-      return l;
-    else
-      return l + 1;
+    return l + 1;
   }
 }
 

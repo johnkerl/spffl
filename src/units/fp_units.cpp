@@ -98,7 +98,7 @@ int fp_log( // Log base g of a.
     intmod_t g, intmod_t a) {
   int rv = -1;
   int p = g.get_modulus();
-  unsigned k = (unsigned)int_sqrt(p, ICEIL);
+  unsigned k = (unsigned)int_sqrt_ceil(p);
 
   // xxx check gcd(g, p)
   // xxx check gcd(g, a)

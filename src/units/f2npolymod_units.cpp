@@ -115,7 +115,7 @@ int f2npolymod_log( // Log base g of a.
   std::cout << "m = " << m << "\n";
   int n = 1 << m.find_degree();
   std::cout << "n = " << n << "\n";
-  unsigned k = (unsigned)int_sqrt(n, ICEIL);
+  unsigned k = (unsigned)int_sqrt_ceil(n);
   std::cout << "k = " << k << "\n";
 
   // xxx check gcd(g, m)

@@ -8,8 +8,7 @@
 #include <iostream>
 #include <stdlib.h>
 
-// ----------------------------------------------------------------
-int int_sqrt(int nsigned, int want_ceil) {
+static int int_sqrt(int nsigned, bool want_ceil) {
   unsigned n = (unsigned)nsigned;
   unsigned nsv, half_log;
   unsigned lower, upper, diff;
@@ -42,8 +41,16 @@ int int_sqrt(int nsigned, int want_ceil) {
       upper -= half_diff;
     diff = half_diff;
   }
-  if (want_ceil == ICEIL)
+  if (want_ceil)
     return upper;
   else
     return lower;
+}
+
+int int_sqrt_ceil(int nsigned) {
+    return int_sqrt(nsigned, true);
+}
+
+int int_sqrt_floor(int nsigned) {
+    return int_sqrt(nsigned, false);
 }

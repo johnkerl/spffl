@@ -1,9 +1,6 @@
 #ifndef LOG10_H
 #define LOG10_H
 
-#include "intfc.h"
-
-// want_ceil is either IFLOOR or ICEIL
-unsigned calc_log10_unsigned(unsigned n, int want_ceil);
+unsigned calc_log10_unsigned_floor(unsigned n);
 
 #endif // LOG10_H

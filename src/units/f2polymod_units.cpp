@@ -205,7 +205,7 @@ int f2polymod_log( // Log base g of a.
   int rv = -1;
   f2poly_t m = g.get_modulus();
   int n = 1 << m.find_degree();
-  unsigned k = (unsigned)int_sqrt(n, ICEIL);
+  unsigned k = (unsigned)int_sqrt_ceil(n);
 
   // xxx check gcd(g, m)
   // xxx check gcd(g, a)

@@ -11,59 +11,59 @@
 #include <stdlib.h>
 
 // ----------------------------------------------------------------
-int isprime_trial(int n) {
+bool isprime_trial(int n) {
   int d, q;
 
   if (n == -n)
-    return 0;
+    return false;
   else if (n < 0)
     n = -n;
 
   if (n <= 1)
-    return 0;
+    return false;
   else if (n <= 3)
-    return 1;
+    return true;
   else if ((n & 1) == 0)
-    return 0;
+    return false;
 
   for (d = 3, q = n; d <= q; d += 2) {
     q = n / d;
     if (n == q * d)
-      return 0;
+      return false;
   }
 
-  return 1;
+  return true;
 }
 
 // ----------------------------------------------------------------
-int isprime_table(int n) {
+bool isprime_table(int n) {
   int i;
   unsigned un;
 
   if (n == -n)
-    return 0;
+    return false;
   else if (n < 0)
     n = -n;
 
   if (n <= 1)
-    return 0;
+    return false;
 
   un = (unsigned)n;
   for (i = 0; i < numprimes16; i++) {
     if ((un % primes16[i]) == 0) {
       if (un == primes16[i])
-        return 1;
+        return true;
       else
-        return 0;
+        return false;
     }
     if (primes16[i] * primes16[i] > un)
-      return 1;
+      return true;
   }
-  return 1;
+  return true;
 }
 
 // ----------------------------------------------------------------
-int isprime(int n) {
+bool isprime(int n) {
   // return isprime_trial(n);
   return isprime_table(n);
 }
