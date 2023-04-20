@@ -1,6 +1,5 @@
 #include <string.h>
 
-#include "cmdlineedmatops.h"
 #include "cmdlinematops.h"
 #include "cmdlineops.h"
 #include "cmdlinevecops.h"

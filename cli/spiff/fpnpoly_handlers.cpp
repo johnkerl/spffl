@@ -1,5 +1,5 @@
 #include "fpnpoly_handlers.h"
-#include "cmdlineedmatops.h"
+#include "cmdlinematops.h"
 #include "fpnpoly_t.h"
 #include "qff.h"
 #include <string.h>
@@ -42,7 +42,7 @@ int fpnpmatop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   fpnpoly_t zero = fpnpoly_t::prime_sfld_elt(0, im);
   fpnpoly_t one = fpnpoly_t::prime_sfld_elt(1, im);
-  ed_cmd_line_mat_parse<fpnpoly_t>(argc - 3, argv + 3, zero, one);
+  cmd_line_mat_parse<fpnpoly_t>(argc - 3, argv + 3, zero, one);
   return 0;
 }
 
