@@ -32,14 +32,14 @@ int int_gcd(int a, int b) {
 }
 
 // ----------------------------------------------------------------
-int int_ext_gcd(int a, int b, int *pm, int *pn) {
+int int_ext_gcd(int a, int b, int &m, int &n) {
   int mprime, nprime, c, q, r, t, qm, qn;
   int d; // Return value.
 
   // Initialize
   mprime = 1;
-  *pn = 1;
-  *pm = 0;
+  n = 1;
+  m = 0;
   nprime = 0;
   c = a;
   d = b;
@@ -60,14 +60,14 @@ int int_ext_gcd(int a, int b, int *pm, int *pn) {
     d = r;
 
     t = mprime;
-    mprime = *pm;
-    qm = q * *pm;
-    *pm = t - qm;
+    mprime = m;
+    qm = q * m;
+    m = t - qm;
 
     t = nprime;
-    nprime = *pn;
-    qn = q * *pn;
-    *pn = t - qn;
+    nprime = n;
+    qn = q * n;
+    n = t - qn;
   }
   return d;
 }

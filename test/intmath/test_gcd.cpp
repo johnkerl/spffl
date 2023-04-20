@@ -20,38 +20,38 @@ TEST_CASE("int_ext_gcd") {
 
   a = 1;
   b = 1;
-  g = int_ext_gcd(a, b, &m, &n);
+  g = int_ext_gcd(a, b, m, n);
   CHECK(g == 1);
   CHECK(a * m + b * n == g);
 
   a = 2;
   b = 1;
-  g = int_ext_gcd(a, b, &m, &n);
+  g = int_ext_gcd(a, b, m, n);
   CHECK(g == 1);
   CHECK(a * m + b * n == g);
 
   a = 4;
   b = 8;
-  g = int_ext_gcd(a, b, &m, &n);
+  g = int_ext_gcd(a, b, m, n);
   CHECK(g == 4);
   CHECK(a * m + b * n == g);
 
   a = 4;
   b = 6;
-  g = int_ext_gcd(a, b, &m, &n);
+  g = int_ext_gcd(a, b, m, n);
   CHECK(g == 2);
   CHECK(a * m + b * n == g);
 
   a = 1296;
   b = 1728;
-  g = int_ext_gcd(a, b, &m, &n);
+  g = int_ext_gcd(a, b, m, n);
   CHECK(g == 432);
   CHECK(a * m + b * n == g);
 
   // TODO:FIXME
-  // CHECK(int_ext_gcd(0, 0, &m, &n) == 0);
-  // CHECK(int_ext_gcd(0, 123, &m, &n) == 123);
-  // CHECK(int_ext_gcd(123, 0, &m, &n) == 123);
+  // CHECK(int_ext_gcd(0, 0, m, n) == 0);
+  // CHECK(int_ext_gcd(0, 123, m, n) == 123);
+  // CHECK(int_ext_gcd(123, 0, m, n) == 123);
 }
 
 TEST_CASE("int_lcm") {
