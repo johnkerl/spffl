@@ -1,6 +1,5 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "intfc.h"
 #include "log2.h"
 
 TEST_CASE("find_msb_16") {
@@ -85,59 +84,59 @@ TEST_CASE("find_lsb_64") {
 }
 
 TEST_CASE("calc_log2_unsigned") {
-  CHECK(calc_log2_unsigned(0, IFLOOR) == 0);
-  CHECK(calc_log2_unsigned(1, IFLOOR) == 0);
-  CHECK(calc_log2_unsigned(2, IFLOOR) == 1);
-  CHECK(calc_log2_unsigned(3, IFLOOR) == 1);
-  CHECK(calc_log2_unsigned(4, IFLOOR) == 2);
-  CHECK(calc_log2_unsigned(5, IFLOOR) == 2);
-  CHECK(calc_log2_unsigned(0x0000ffff, IFLOOR) == 15);
-  CHECK(calc_log2_unsigned(0x00010000, IFLOOR) == 16);
-  CHECK(calc_log2_unsigned(0x00010001, IFLOOR) == 16);
+  CHECK(calc_log2_unsigned_floor(0) == 0);
+  CHECK(calc_log2_unsigned_floor(1) == 0);
+  CHECK(calc_log2_unsigned_floor(2) == 1);
+  CHECK(calc_log2_unsigned_floor(3) == 1);
+  CHECK(calc_log2_unsigned_floor(4) == 2);
+  CHECK(calc_log2_unsigned_floor(5) == 2);
+  CHECK(calc_log2_unsigned_floor(0x0000ffff) == 15);
+  CHECK(calc_log2_unsigned_floor(0x00010000) == 16);
+  CHECK(calc_log2_unsigned_floor(0x00010001) == 16);
 
-  CHECK(calc_log2_unsigned(0, ICEIL) == 1); // TODO: weird
-  CHECK(calc_log2_unsigned(1, ICEIL) == 0); // TODO: weird
-  CHECK(calc_log2_unsigned(2, ICEIL) == 1);
-  CHECK(calc_log2_unsigned(3, ICEIL) == 2);
-  CHECK(calc_log2_unsigned(4, ICEIL) == 2);
-  CHECK(calc_log2_unsigned(5, ICEIL) == 3);
-  CHECK(calc_log2_unsigned(0x0000ffff, ICEIL) == 16);
-  CHECK(calc_log2_unsigned(0x00010000, ICEIL) == 16);
-  CHECK(calc_log2_unsigned(0x00010001, ICEIL) == 17);
+  CHECK(calc_log2_unsigned_ceil(0) == 1); // TODO: weird
+  CHECK(calc_log2_unsigned_ceil(1) == 0); // TODO: weird
+  CHECK(calc_log2_unsigned_ceil(2) == 1);
+  CHECK(calc_log2_unsigned_ceil(3) == 2);
+  CHECK(calc_log2_unsigned_ceil(4) == 2);
+  CHECK(calc_log2_unsigned_ceil(5) == 3);
+  CHECK(calc_log2_unsigned_ceil(0x0000ffff) == 16);
+  CHECK(calc_log2_unsigned_ceil(0x00010000) == 16);
+  CHECK(calc_log2_unsigned_ceil(0x00010001) == 17);
 }
 
 TEST_CASE("calc_log2_unsigned_ll") {
-  CHECK(calc_log2_unsigned_ll(0, IFLOOR) == 0);
-  CHECK(calc_log2_unsigned_ll(1, IFLOOR) == 0);
-  CHECK(calc_log2_unsigned_ll(2, IFLOOR) == 1);
-  CHECK(calc_log2_unsigned_ll(3, IFLOOR) == 1);
-  CHECK(calc_log2_unsigned_ll(4, IFLOOR) == 2);
-  CHECK(calc_log2_unsigned_ll(5, IFLOOR) == 2);
-  CHECK(calc_log2_unsigned_ll(0x0000ffff, IFLOOR) == 15);
-  CHECK(calc_log2_unsigned_ll(0x00010000, IFLOOR) == 16);
-  CHECK(calc_log2_unsigned_ll(0x00010001, IFLOOR) == 16);
-  CHECK(calc_log2_unsigned_ll(0xffffffff, IFLOOR) == 31);
-  CHECK(calc_log2_unsigned_ll(0x0000000100000000, IFLOOR) == 32);
-  CHECK(calc_log2_unsigned_ll(0x0000000100000001, IFLOOR) == 32);
-  CHECK(calc_log2_unsigned_ll(0x0000ffffabcd0123, IFLOOR) == 47);
-  CHECK(calc_log2_unsigned_ll(0x00010000abcd0123, IFLOOR) == 48);
-  CHECK(calc_log2_unsigned_ll(0x00010001abcd0123, IFLOOR) == 48);
-  CHECK(calc_log2_unsigned_ll(0xffffffffffffffff, IFLOOR) == 63);
+  CHECK(calc_log2_unsigned_ll_floor(0) == 0);
+  CHECK(calc_log2_unsigned_ll_floor(1) == 0);
+  CHECK(calc_log2_unsigned_ll_floor(2) == 1);
+  CHECK(calc_log2_unsigned_ll_floor(3) == 1);
+  CHECK(calc_log2_unsigned_ll_floor(4) == 2);
+  CHECK(calc_log2_unsigned_ll_floor(5) == 2);
+  CHECK(calc_log2_unsigned_ll_floor(0x0000ffff) == 15);
+  CHECK(calc_log2_unsigned_ll_floor(0x00010000) == 16);
+  CHECK(calc_log2_unsigned_ll_floor(0x00010001) == 16);
+  CHECK(calc_log2_unsigned_ll_floor(0xffffffff) == 31);
+  CHECK(calc_log2_unsigned_ll_floor(0x0000000100000000) == 32);
+  CHECK(calc_log2_unsigned_ll_floor(0x0000000100000001) == 32);
+  CHECK(calc_log2_unsigned_ll_floor(0x0000ffffabcd0123) == 47);
+  CHECK(calc_log2_unsigned_ll_floor(0x00010000abcd0123) == 48);
+  CHECK(calc_log2_unsigned_ll_floor(0x00010001abcd0123) == 48);
+  CHECK(calc_log2_unsigned_ll_floor(0xffffffffffffffff) == 63);
 
-  CHECK(calc_log2_unsigned_ll(0, ICEIL) == 1); // TODO: weird
-  CHECK(calc_log2_unsigned_ll(1, ICEIL) == 0); // TODO: weird
-  CHECK(calc_log2_unsigned_ll(2, ICEIL) == 1);
-  CHECK(calc_log2_unsigned_ll(3, ICEIL) == 2);
-  CHECK(calc_log2_unsigned_ll(4, ICEIL) == 2);
-  CHECK(calc_log2_unsigned_ll(5, ICEIL) == 3);
-  CHECK(calc_log2_unsigned_ll(0x0000ffff, ICEIL) == 16);
-  CHECK(calc_log2_unsigned_ll(0x00010000, ICEIL) == 16);
-  CHECK(calc_log2_unsigned_ll(0x00010001, ICEIL) == 17);
-  CHECK(calc_log2_unsigned_ll(0xffffffff, ICEIL) == 32);
-  CHECK(calc_log2_unsigned_ll(0x0000000100000000, ICEIL) == 32);
-  CHECK(calc_log2_unsigned_ll(0x0000000100000001, ICEIL) == 33);
-  CHECK(calc_log2_unsigned_ll(0x0000ffffabcd0123, ICEIL) == 48);
-  CHECK(calc_log2_unsigned_ll(0x00010000abcd0123, ICEIL) == 49);
-  CHECK(calc_log2_unsigned_ll(0x00010001abcd0123, ICEIL) == 49);
-  CHECK(calc_log2_unsigned_ll(0xffffffffffffffff, ICEIL) == 64);
+  CHECK(calc_log2_unsigned_ll_ceil(0) == 1); // TODO: weird
+  CHECK(calc_log2_unsigned_ll_ceil(1) == 0); // TODO: weird
+  CHECK(calc_log2_unsigned_ll_ceil(2) == 1);
+  CHECK(calc_log2_unsigned_ll_ceil(3) == 2);
+  CHECK(calc_log2_unsigned_ll_ceil(4) == 2);
+  CHECK(calc_log2_unsigned_ll_ceil(5) == 3);
+  CHECK(calc_log2_unsigned_ll_ceil(0x0000ffff) == 16);
+  CHECK(calc_log2_unsigned_ll_ceil(0x00010000) == 16);
+  CHECK(calc_log2_unsigned_ll_ceil(0x00010001) == 17);
+  CHECK(calc_log2_unsigned_ll_ceil(0xffffffff) == 32);
+  CHECK(calc_log2_unsigned_ll_ceil(0x0000000100000000) == 32);
+  CHECK(calc_log2_unsigned_ll_ceil(0x0000000100000001) == 33);
+  CHECK(calc_log2_unsigned_ll_ceil(0x0000ffffabcd0123) == 48);
+  CHECK(calc_log2_unsigned_ll_ceil(0x00010000abcd0123) == 49);
+  CHECK(calc_log2_unsigned_ll_ceil(0x00010001abcd0123) == 49);
+  CHECK(calc_log2_unsigned_ll_ceil(0xffffffffffffffff) == 64);
 }

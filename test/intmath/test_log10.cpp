@@ -1,27 +1,26 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "intfc.h"
 #include "log10.h"
 
 TEST_CASE("calc_log10_unsigned") {
-  CHECK(calc_log10_unsigned(0, IFLOOR) == 0);
-  CHECK(calc_log10_unsigned(1, IFLOOR) == 0);
-  CHECK(calc_log10_unsigned(2, IFLOOR) == 0);
-  CHECK(calc_log10_unsigned(3, IFLOOR) == 0);
-  CHECK(calc_log10_unsigned(4, IFLOOR) == 0);
-  CHECK(calc_log10_unsigned(5, IFLOOR) == 0);
+  CHECK(calc_log10_unsigned_floor(0) == 0);
+  CHECK(calc_log10_unsigned_floor(1) == 0);
+  CHECK(calc_log10_unsigned_floor(2) == 0);
+  CHECK(calc_log10_unsigned_floor(3) == 0);
+  CHECK(calc_log10_unsigned_floor(4) == 0);
+  CHECK(calc_log10_unsigned_floor(5) == 0);
 
-  CHECK(calc_log10_unsigned(9, IFLOOR) == 0);
-  CHECK(calc_log10_unsigned(10, IFLOOR) == 1);
-  CHECK(calc_log10_unsigned(11, IFLOOR) == 1);
+  CHECK(calc_log10_unsigned_floor(9) == 0);
+  CHECK(calc_log10_unsigned_floor(10) == 1);
+  CHECK(calc_log10_unsigned_floor(11) == 1);
 
-  CHECK(calc_log10_unsigned(99, IFLOOR) == 1);
-  CHECK(calc_log10_unsigned(100, IFLOOR) == 2);
-  CHECK(calc_log10_unsigned(101, IFLOOR) == 2);
+  CHECK(calc_log10_unsigned_floor(99) == 1);
+  CHECK(calc_log10_unsigned_floor(100) == 2);
+  CHECK(calc_log10_unsigned_floor(101) == 2);
 
-  CHECK(calc_log10_unsigned(999, IFLOOR) == 2);
-  CHECK(calc_log10_unsigned(1000, IFLOOR) == 3);
-  CHECK(calc_log10_unsigned(1001, IFLOOR) == 3);
+  CHECK(calc_log10_unsigned_floor(999) == 2);
+  CHECK(calc_log10_unsigned_floor(1000) == 3);
+  CHECK(calc_log10_unsigned_floor(1001) == 3);
 
   // TODO: test log10 with ICEIL once that's implemented
 }

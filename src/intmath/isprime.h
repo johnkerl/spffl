@@ -7,8 +7,7 @@
 #ifndef ISPRIME_H
 #define ISPRIME_H
 
-// TODO: switch to bool
-int isprime(int m);
-int nthprime(int n);
+bool isprime(int m);
+int  nthprime(int n);
 
 #endif // ISPRIME_H

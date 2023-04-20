@@ -1,7 +1,6 @@
 #include "log10.h"
 
-// ----------------------------------------------------------------
-unsigned calc_log10_unsigned(unsigned n, int want_ceil) {
+unsigned calc_log10_unsigned_floor(unsigned n) {
   unsigned rv = 0;
 
   n /= 10;
@@ -9,7 +8,5 @@ unsigned calc_log10_unsigned(unsigned n, int want_ceil) {
     n /= 10;
     rv++;
   }
-
-  // xxx always returns floor.  fix me.
   return rv;
 }

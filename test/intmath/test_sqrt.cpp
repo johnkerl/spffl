@@ -1,29 +1,28 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include "int_sqrt.h"
-#include "intfc.h"
 
 TEST_CASE("int_sqrt") {
 
-  CHECK(int_sqrt(0, IFLOOR) == 0);
-  CHECK(int_sqrt(1, IFLOOR) == 1);
-  CHECK(int_sqrt(2, IFLOOR) == 1);
-  CHECK(int_sqrt(3, IFLOOR) == 1);
-  CHECK(int_sqrt(4, IFLOOR) == 2);
-  CHECK(int_sqrt(5, IFLOOR) == 2);
-  CHECK(int_sqrt(1048575, IFLOOR) == 1023);
-  CHECK(int_sqrt(1048576, IFLOOR) == 1024);
-  CHECK(int_sqrt(1048577, IFLOOR) == 1024);
+  CHECK(int_sqrt_floor(0) == 0);
+  CHECK(int_sqrt_floor(1) == 1);
+  CHECK(int_sqrt_floor(2) == 1);
+  CHECK(int_sqrt_floor(3) == 1);
+  CHECK(int_sqrt_floor(4) == 2);
+  CHECK(int_sqrt_floor(5) == 2);
+  CHECK(int_sqrt_floor(1048575) == 1023);
+  CHECK(int_sqrt_floor(1048576) == 1024);
+  CHECK(int_sqrt_floor(1048577) == 1024);
 
-  CHECK(int_sqrt(0, ICEIL) == 0);
-  CHECK(int_sqrt(1, ICEIL) == 1);
-  CHECK(int_sqrt(2, ICEIL) == 2);
-  CHECK(int_sqrt(3, ICEIL) == 2);
-  CHECK(int_sqrt(4, ICEIL) == 2);
-  CHECK(int_sqrt(5, ICEIL) == 3);
-  CHECK(int_sqrt(1048575, ICEIL) == 1024);
-  CHECK(int_sqrt(1048576, ICEIL) == 1024);
-  CHECK(int_sqrt(1048577, ICEIL) == 1025);
+  CHECK(int_sqrt_ceil(0) == 0);
+  CHECK(int_sqrt_ceil(1) == 1);
+  CHECK(int_sqrt_ceil(2) == 2);
+  CHECK(int_sqrt_ceil(3) == 2);
+  CHECK(int_sqrt_ceil(4) == 2);
+  CHECK(int_sqrt_ceil(5) == 3);
+  CHECK(int_sqrt_ceil(1048575) == 1024);
+  CHECK(int_sqrt_ceil(1048576) == 1024);
+  CHECK(int_sqrt_ceil(1048577) == 1025);
 
   // TODO: specify handling for negative arguments
 }
