@@ -4,7 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "f2poly_factor.h"
+#include "f2_poly_factor.h"
 #include "f2poly_random.h"
 #include "tfacinfo.h"
 
@@ -33,7 +33,7 @@ f2poly_t f2poly_from_vector(
     int n);
 
 // ----------------------------------------------------------------
-tfacinfo<f2poly_t> f2poly_factor(f2poly_t f) {
+tfacinfo<f2poly_t> f2_poly_factor(f2poly_t f) {
   tfacinfo<f2poly_t> finfo;
   if (f.find_degree() == 0) {
     finfo.insert_unit(f);
@@ -422,7 +422,7 @@ f2poly_t f2poly_from_vector(
 //	unsigned nf, k;
 //	f2poly_t * all_divisors;
 //
-//	f2poly_factor(pr, &finfo);
+//	f2_poly_factor(pr, &finfo);
 //	nf = f2poly_num_divisors(&finfo);
 //	*pnum_divisors = nf;
 //

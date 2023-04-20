@@ -9,7 +9,7 @@
 #include "fppoly_t.h"
 #include "tfacinfo.h"
 
-tfacinfo<fppoly_t> fppoly_factor(fppoly_t f);
+tfacinfo<fppoly_t> fp_poly_factor(fppoly_t f);
 
 int fppoly_is_irreducible(fppoly_t f);
 

@@ -5,9 +5,9 @@
 #include "tmvratscan.h"
 
 #include "f2polymod_t.h"
-#include "f2poly_factor.h"
+#include "f2_poly_factor.h"
 #include "fppolymod_t.h"
-#include "fppoly_factor.h"
+#include "fp_poly_factor.h"
 
 #include "int_power.h"
 #include "sp_list_elts.h"

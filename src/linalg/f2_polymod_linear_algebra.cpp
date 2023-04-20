@@ -5,9 +5,9 @@
 // ================================================================
 
 #include "f2_polymod_linear_algebra.h"
-#include "f2npoly_factor.h"
+#include "f2n_poly_factor.h"
 #include "f2npoly_t.h"
-#include "f2poly_factor.h"
+#include "f2_poly_factor.h"
 #include "f2polymod_convert.h"
 #include "f2polymod_units.h"
 #include "int_gcd.h"
@@ -103,7 +103,7 @@ int f2pm_matrix_is_dable(tmatrix<f2polymod_t> &A,
     std::cout << "chpoly = " << chpol << "\n";
 
   // Factor the char poly into irreducibles over the base field.
-  tfacinfo<f2npoly_t> base_finfo = f2npoly_factor(chpol);
+  tfacinfo<f2npoly_t> base_finfo = f2n_poly_factor(chpol);
 
   if (verbose)
     std::cout << "factors = " << base_finfo << "\n";
@@ -160,7 +160,7 @@ int f2pm_matrix_is_dable(tmatrix<f2polymod_t> &A,
     ext_A = f2polymod_convert_matrix(base_g, ext_g, A);
   }
 
-  tfacinfo<f2npoly_t> ext_finfo = f2npoly_factor(ext_chpol);
+  tfacinfo<f2npoly_t> ext_finfo = f2n_poly_factor(ext_chpol);
 
   int nev = 0;
   for (int i = 0; i < ext_finfo.get_num_distinct(); i++) {

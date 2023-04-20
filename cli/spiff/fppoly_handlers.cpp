@@ -3,10 +3,10 @@
 #include "cmd_line_ops.h"
 #include "cmd_line_vector_ops.h"
 #include "fp_linear_algebra.h"
-#include "fppoly_factor.h"
+#include "fp_poly_factor.h"
 #include "fppoly_random.h"
 #include "fppoly_t.h"
-#include "fppoly_totient.h"
+#include "fp_poly_totient.h"
 #include "qff.h"
 #include "sp_list_elts.h"
 #include <string.h>
@@ -189,7 +189,7 @@ int fpptotient_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = 2; argi < argc; argi++) {
     if (!a.from_string(argv[argi], p))
       pusage(argv[0]);
-    phi = fppoly_totient(a);
+    phi = fp_poly_totient(a);
     if (argc > 3)
       std::cout << a << ": ";
     std::cout << phi << std::endl;
@@ -281,12 +281,12 @@ int fppfactor_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 3)
       std::cout << a << " = ";
-    tfacinfo<fppoly_t> finfo = fppoly_factor(a);
+    tfacinfo<fppoly_t> finfo = fp_poly_factor(a);
     std::cout << finfo << "\n";
 
     fppoly_t check = finfo.unfactor(fppoly_t(intmod_t(1, p)));
     if (check != a) {
-      std::cerr << "Coding error in fppoly_factor.\n";
+      std::cerr << "Coding error in fp_poly_factor.\n";
       std::cerr << "  Input: " << a << "\n";
       std::cerr << "  Check: " << check << "\n";
       std::cerr << "  Factors: " << finfo << "\n";
@@ -321,7 +321,7 @@ int fppdivisors_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if ((argc - argb) > 1)
       std::cout << a << ": ";
-    tfacinfo<fppoly_t> finfo = fppoly_factor(a);
+    tfacinfo<fppoly_t> finfo = fp_poly_factor(a);
     tvector<fppoly_t> divisors;
     if (maximal_proper_only) {
       if (!finfo.get_maximal_proper_divisors(divisors, one)) {

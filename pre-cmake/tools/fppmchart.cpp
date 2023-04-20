@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include "fppolymod_t.h"
-#include "fppoly_factor.h"
+#include "fp_poly_factor.h"
 #include "fppolymod_units.h"
 #include "minimal_and_characteristic_polynomials.h"
 #include "moebius.h"

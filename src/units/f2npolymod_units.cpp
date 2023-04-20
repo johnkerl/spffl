@@ -5,7 +5,7 @@
 // ================================================================
 
 #include "f2npolymod_units.h"
-#include "f2npoly_totient.h"
+#include "f2n_poly_totient.h"
 #include "int_factor.h"
 #include "int_sqrt.h"
 #include "tfacinfo.h"
@@ -31,7 +31,7 @@ int f2npolymod_order(f2npolymod_t a) {
     exit(1);
   }
 
-  int phi = f2npoly_totient(m);
+  int phi = f2n_poly_totient(m);
   tfacinfo<int> finfo = int_factor(phi);
   tvector<int> phi_divisors = finfo.get_all_divisors(1);
   int nd = phi_divisors.get_num_elements();
@@ -62,7 +62,7 @@ int f2npolymod_find_generator(f2npoly_t m, f2npolymod_t &rg) {
               << "must be positive; got " << mdeg << ".\n";
     exit(1);
   }
-  int phi = f2npoly_totient(m);
+  int phi = f2n_poly_totient(m);
 
   while (gres.find_degree() < mdeg) {
     f2npolymod_t g(gres, m);

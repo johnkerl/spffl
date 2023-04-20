@@ -4,8 +4,8 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#ifndef F2NPOLY_TOTIENT_H
-#define F2NPOLY_TOTIENT_H
-#include "f2npoly_t.h"
-int f2npoly_totient(f2npoly_t f);
-#endif // F2NPOLY_TOTIENT_H
+#ifndef FPPOLY_TOTIENT_H
+#define FPPOLY_TOTIENT_H
+#include "fppoly_t.h"
+int fp_poly_totient(fppoly_t f);
+#endif // FPPOLY_TOTIENT_H

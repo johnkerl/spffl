@@ -5,9 +5,9 @@
 // ================================================================
 
 #include "f2polymod_units.h"
-#include "f2poly_factor.h"
+#include "f2_poly_factor.h"
 #include "f2poly_random.h"
-#include "f2poly_totient.h"
+#include "f2_poly_totient.h"
 #include "int_factor.h"
 #include "int_sqrt.h"
 #include "tfacinfo.h"
@@ -30,7 +30,7 @@ int f2polymod_order(f2polymod_t a) {
     exit(1);
   }
 
-  int phi = f2poly_totient(m);
+  int phi = f2_poly_totient(m);
   tfacinfo<int> finfo = int_factor(phi);
   tvector<int> phi_divisors = finfo.get_all_divisors(1);
   int nd = phi_divisors.get_num_elements();
@@ -61,7 +61,7 @@ int f2polymod_find_generator(f2poly_t m, f2polymod_t &rg) {
               << "must be positive; got " << mdeg << ".\n";
     exit(1);
   }
-  int phi = f2poly_totient(m);
+  int phi = f2_poly_totient(m);
 
   while (gres.find_degree() < mdeg) {
     f2polymod_t g(gres, m);
@@ -82,7 +82,7 @@ int f2polymod_find_generator(f2poly_t m, f2polymod_t &rg) {
 
 // ----------------------------------------------------------------
 // The naive test is a one-liner:
-//   return (f2poly_totient(m) == f2poly_period(m));
+//   return (f2_poly_totient(m) == f2poly_period(m));
 // This appears simple, but f2poly_period() will test x^d for all proper
 // divisors of phi(m).  For primitivity, it suffices to check only the
 // *maximal* proper divisors of phi(m).
@@ -96,7 +96,7 @@ int f2poly_is_primitive(f2poly_t m) {
   f2polymod_t rcr1(pol1, m); // Equiv. class of 1 in the residue class ring.
   f2polymod_t rcrx(polx, m);
 
-  int phi = f2poly_totient(m);
+  int phi = f2_poly_totient(m);
   tfacinfo<int> finfo = int_factor(phi);
   tvector<int> mpds;
   if (!finfo.get_maximal_proper_divisors(mpds, 1)) {

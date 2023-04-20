@@ -6,7 +6,7 @@
 
 #include "f2polymod_convert.h"
 #include "f2_linear_algebra.h"
-#include "f2npoly_factor.h"
+#include "f2n_poly_factor.h"
 #include "f2polymod_units.h"
 
 // ----------------------------------------------------------------

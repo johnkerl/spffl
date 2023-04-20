@@ -10,7 +10,7 @@
 #include "tfacinfo.h"
 #include "tvector.h"
 
-tfacinfo<f2npoly_t> f2npoly_factor(f2npoly_t f);
+tfacinfo<f2npoly_t> f2n_poly_factor(f2npoly_t f);
 
 // Without multiplicity.
 int f2npoly_roots(f2npoly_t f, tvector<f2polymod_t> &rroots);

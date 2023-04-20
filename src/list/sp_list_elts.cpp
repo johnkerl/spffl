@@ -5,9 +5,9 @@
 // ================================================================
 
 #include "sp_list_elts.h"
-#include "f2npoly_totient.h"
-#include "f2poly_totient.h"
-#include "fppoly_totient.h"
+#include "f2n_poly_totient.h"
+#include "f2_poly_totient.h"
+#include "fp_poly_totient.h"
 #include "int_gcd.h"
 #include "int_power.h"
 #include "int_totient.h"
@@ -112,9 +112,9 @@ tvector<f2polymod_t> f2polymod_list(f2poly_t m, sp_list_type_t type) {
   if (type == SP_LIST_ALL)
     nel = 1 << deg;
   else if (type == SP_LIST_UNITS)
-    nel = f2poly_totient(m);
+    nel = f2_poly_totient(m);
   else if (type == SP_LIST_NON_UNITS)
-    nel = (1 << deg) - f2poly_totient(m);
+    nel = (1 << deg) - f2_poly_totient(m);
   else {
     std::cerr << "f2polymod_list:  unhandled code option.\n";
     exit(1);
@@ -160,9 +160,9 @@ tvector<f2npolymod_t> f2npolymod_list(f2npoly_t om, sp_list_type_t type) {
   if (type == SP_LIST_ALL)
     nel = 1 << (outerdeg * innerdeg);
   else if (type == SP_LIST_UNITS)
-    nel = f2npoly_totient(om);
+    nel = f2n_poly_totient(om);
   else if (type == SP_LIST_NON_UNITS)
-    nel = (1 << (outerdeg * innerdeg)) - f2npoly_totient(om);
+    nel = (1 << (outerdeg * innerdeg)) - f2n_poly_totient(om);
   else {
     std::cerr << "f2npolymod_list:  unhandled code option.\n";
     exit(1);
@@ -207,9 +207,9 @@ tvector<fppolymod_t> fppolymod_list(fppoly_t m, sp_list_type_t type) {
   if (type == SP_LIST_ALL)
     nel = int_power(p, n);
   else if (type == SP_LIST_UNITS)
-    nel = fppoly_totient(m);
+    nel = fp_poly_totient(m);
   else if (type == SP_LIST_NON_UNITS)
-    nel = int_power(p, n) - fppoly_totient(m);
+    nel = int_power(p, n) - fp_poly_totient(m);
   else {
     std::cerr << "fppolymod_list:  unhandled code option.\n";
     exit(1);

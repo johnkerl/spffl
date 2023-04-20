@@ -9,10 +9,10 @@
 
 #include "cmd_line_matrix_ops.h"
 #include "f2_linear_algebra.h"
-#include "f2poly_factor.h"
+#include "f2_poly_factor.h"
 #include "f2poly_random.h"
 #include "f2poly_t.h"
-#include "f2poly_totient.h"
+#include "f2_poly_totient.h"
 #include "f2polymod_units.h"
 #include "qff.h"
 #include "sp_list_elts.h"
@@ -139,7 +139,7 @@ int f2ptotient_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = 1; argi < argc; argi++) {
     if (!a.from_string(argv[argi]))
       pusage(argv[0]);
-    phi = f2poly_totient(a);
+    phi = f2_poly_totient(a);
     if (argc > 2)
       std::cout << a << ": ";
     std::cout << phi << std::endl;
@@ -279,12 +279,12 @@ int f2pfactor_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 2)
       std::cout << a << " = ";
-    tfacinfo<f2poly_t> finfo = f2poly_factor(a);
+    tfacinfo<f2poly_t> finfo = f2_poly_factor(a);
     std::cout << finfo << std::endl;
 
     f2poly_t check = finfo.unfactor(f2poly_t(1));
     if (check != a) {
-      std::cerr << "Coding error in f2poly_factor.\n";
+      std::cerr << "Coding error in f2_poly_factor.\n";
       std::cerr << "  Input: " << a << std::endl;
       std::cerr << "  Check: " << check << std::endl;
       std::cerr << "  Factors: " << finfo << std::endl;
@@ -312,7 +312,7 @@ int f2pdivisors_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if ((argc - argb) > 1)
       std::cout << a << ": ";
-    tfacinfo<f2poly_t> finfo = f2poly_factor(a);
+    tfacinfo<f2poly_t> finfo = f2_poly_factor(a);
     tvector<f2poly_t> divisors;
     if (maximal_proper_only) {
       if (!finfo.get_maximal_proper_divisors(divisors, f2poly_t(1))) {

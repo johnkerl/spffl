@@ -22,7 +22,7 @@
 #include "f2poly_t.h"
 #include "f2polymod_t.h"
 #include "f2polyrat_t.h"
-#include "f2poly_factor.h"
+#include "f2_poly_factor.h"
 #include "f2poly_random.h"
 #include "f2polymod_random.h"
 #include "f2polymod_units.h"
@@ -35,7 +35,7 @@
 #include "fppoly_t.h"
 #include "fppolymod_t.h"
 #include "fppolyrat_t.h"
-#include "fppoly_factor.h"
+#include "fp_poly_factor.h"
 #include "fppoly_random.h"
 #include "fppolymod_random.h"
 

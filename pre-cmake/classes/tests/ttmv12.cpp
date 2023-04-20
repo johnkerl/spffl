@@ -2,7 +2,7 @@
 #include "tmvpolyscan.h"
 #include "f2polymod_t.h"
 #include "sp_list_elts.h"
-#include "f2poly_factor.h"
+#include "f2_poly_factor.h"
 
 // ----------------------------------------------------------------
 static void usage(char * argv0)

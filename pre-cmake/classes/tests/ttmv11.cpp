@@ -2,7 +2,7 @@
 #include "tmvpolyscan.h"
 #include "fppolymod_t.h"
 #include "sp_list_elts.h"
-#include "fppoly_factor.h"
+#include "fp_poly_factor.h"
 #include "int_power.h"
 
 // ----------------------------------------------------------------

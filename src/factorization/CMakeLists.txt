@@ -3,14 +3,14 @@ cmake_minimum_required (VERSION 3.24)
 project(factorization)
 
 add_library(${PROJECT_NAME}
-  f2poly_factor.cpp
-  f2npoly_factor.cpp
-  fppoly_factor.cpp
+  f2_poly_factor.cpp
+  f2n_poly_factor.cpp
+  fp_poly_factor.cpp
   int_factor.cpp
 
-  f2npoly_totient.cpp
-  f2poly_totient.cpp
-  fppoly_totient.cpp
+  f2n_poly_totient.cpp
+  f2_poly_totient.cpp
+  fp_poly_totient.cpp
   # int_totient.cpp is in intmath
 )
 

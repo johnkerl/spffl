@@ -35,21 +35,19 @@
 
 // which recovers the special case for finite fields.
 
-#include "fppoly_totient.h"
-#include "fppoly_factor.h"
-#include "int_power.h"
+#include "f2_poly_totient.h"
+#include "f2_poly_factor.h"
 
-int fppoly_totient(fppoly_t f) {
+int f2_poly_totient(f2poly_t f) {
   int rv = 1;
-  int p = f.get_char();
-  tfacinfo<fppoly_t> finfo = fppoly_factor(f);
+  tfacinfo<f2poly_t> finfo = f2_poly_factor(f);
   int nf = finfo.get_num_distinct();
 
   for (int i = 0; i < nf; i++) {
-    fppoly_t fi = finfo.get_ith_factor(i);
+    f2poly_t fi = finfo.get_ith_factor(i);
     int ei = finfo.get_ith_count(i);
     int di = fi.find_degree();
-    rv *= int_power(p, di * (ei - 1)) * (int_power(p, di) - 1);
+    rv *= (1 << (di * (ei - 1))) * ((1 << di) - 1);
   }
 
   return rv;
