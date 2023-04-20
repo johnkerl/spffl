@@ -206,15 +206,15 @@ void f2npfind_usage(char *argv0) {
 }
 
 int f2npfind_main(int argc, char **argv, usage_t *pusage) {
-  int do_random = 0, deglo, deghi;
+  bool do_random = false, deglo, deghi;
   f2poly_t m;
 
   if (argc != 4)
     pusage(argv[0]);
   if (strcmp(argv[1], "-1") == 0)
-    do_random = 0;
+    do_random = false;
   else if (strcmp(argv[1], "-r") == 0)
-    do_random = 1;
+    do_random = true;
   else
     pusage(argv[0]);
   if (!m.from_string(argv[2]))

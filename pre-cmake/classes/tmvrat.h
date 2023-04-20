@@ -102,7 +102,7 @@ friend std::ostream & operator<< <>(std::ostream & os,
 	const tmvrat & rat);
 
 // ----------------------------------------------------------------
-void tex_or_pretty_print(std::ostream & os, int do_tex)
+void tex_or_pretty_print(std::ostream & os, bool do_tex)
 {
 	this->numer.tex_or_pretty_print(os, do_tex);
 	os << "/";

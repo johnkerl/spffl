@@ -33,7 +33,7 @@ static tmvpoly<f2polymod_t> F2_Fq_embed(
 }
 
 // ----------------------------------------------------------------
-static int is_canon_rep_hack(
+static bool is_canon_rep_hack(
 	f2polymod_t & X,
 	f2polymod_t & Y,
 	f2polymod_t & Z,
@@ -41,18 +41,18 @@ static int is_canon_rep_hack(
 	f2polymod_t & one)
 {
 	if (Z == one)
-		return 1;
+		return true;
 	if (Z != zero)
-		return 0;
+		return false;
 	if (Y == one)
-		return 1;
+		return true;
 	if (Y != zero)
-		return 0;
+		return false;
 	if (X == one)
-		return 1;
+		return true;
 	if (X != zero)
-		return 0;
-	return 1;
+		return false;
+	return true;
 }
 
 // ----------------------------------------------------------------

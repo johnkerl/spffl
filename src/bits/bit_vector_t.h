@@ -91,7 +91,7 @@ public:
   }
 
   void toggle_element(int index);
-  int is_zero(void);
+  bool is_zero(void);
 
   bit_vector_t operator+(bit_vector_t that);
   bit_vector_t operator-(bit_vector_t that);

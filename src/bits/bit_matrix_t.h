@@ -58,9 +58,9 @@ public:
 
   // Makes an identity matrix with the same dimensions as *this has.
   bit_matrix_t make_I(void);
-  int is_zero(void);
-  int is_square(void);
-  int is_I(void);
+  bool is_zero(void);
+  bool is_square(void);
+  bool is_I(void);
   unsigned **expose(void);
   void swap(int arow, int brow);
 

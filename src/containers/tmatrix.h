@@ -743,47 +743,47 @@ public:
   }
 
   // ----------------------------------------------------------------
-  int is_zero(void) {
+  bool is_zero(void) {
     element_type one;
     if (this->find_one(one))
-      return 0;
+      return false;
     else
-      return 1;
+      return true;
   }
 
   // ----------------------------------------------------------------
-  int is_square(void) {
+  bool is_square(void) {
     if (this->num_rows == this->num_cols)
-      return 1;
+      return true;
     else
-      return 0;
+      return false;
   }
 
   // ----------------------------------------------------------------
-  int is_I(void) {
+  bool is_I(void) {
     int i, j;
 
     if (!this->is_square())
-      return 0;
+      return false;
 
     element_type a = this->rows[0][0];
     element_type zero = a - a;
     element_type one;
     if (!this->find_one(one))
-      return 0;
+      return false;
     for (i = 0; i < this->num_rows; i++) {
       if (this->rows[i][i] != one)
-        return 0;
+        return false;
     }
     for (i = 0; i < this->num_rows; i++) {
       for (j = 0; j < this->num_cols; j++) {
         if (i != j) {
           if (this->rows[i][j] != zero)
-            return 0;
+            return false;
         }
       }
     }
-    return 1;
+    return true;
   }
 
   // ----------------------------------------------------------------

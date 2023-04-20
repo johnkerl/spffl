@@ -17,10 +17,10 @@ void chomp(char *line) {
 }
 
 // ----------------------------------------------------------------
-int is_whitespace_line(char *line) {
+bool is_whitespace_line(char *line) {
   char *p;
   for (p = line; *p; p++)
     if ((*p != ' ') && (*p != '\t'))
-      return 0;
-  return 1;
+      return false;
+  return true;
 }

@@ -26,7 +26,7 @@
 template <class element_type> struct atom_t {
   element_type type_val;
   int int_val;
-  int is_int;
+  bool is_int;
 };
 
 template <class element_type> struct lex_ctx_t {
@@ -218,11 +218,11 @@ static void lexan(lex_ctx_t<element_type> &rlex_ctx) {
     rlex_ctx.token = L_NUM;
     std::istringstream iss(s, std::ios_base::in);
     if (rlex_ctx.in_pow_rhs) {
-      rlex_ctx.atom.is_int = 1;
+      rlex_ctx.atom.is_int = true;
       iss >> rlex_ctx.atom.int_val;
     } else {
       rlex_ctx.atom.type_val = rlex_ctx.zero; // Set modulus
-      rlex_ctx.atom.is_int = 0;
+      rlex_ctx.atom.is_int = false;
       iss >> rlex_ctx.atom.type_val;
     }
     if (iss.fail()) {
@@ -412,10 +412,10 @@ static void emit(lex_ctx_t<element_type> &rlex_ctx,
   case T_T_OP:
   case T_TT_OP:
   case T_TI_OP:
-    c.is_int = 0;
+    c.is_int = false;
     break;
   case I_TT_OP:
-    c.is_int = 1;
+    c.is_int = true;
     break;
   }
   rstack.push(c);

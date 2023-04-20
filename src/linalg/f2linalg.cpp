@@ -79,7 +79,7 @@ tmatrix<bit_t> f2_companion_matrix(f2poly_t chpol) {
 }
 
 // ----------------------------------------------------------------
-static f2npoly_t f2polymod_char_or_min_poly(f2polymod_t a, int do_min) {
+static f2npoly_t f2polymod_char_or_min_poly(f2polymod_t a, bool do_min) {
   f2poly_t m = a.get_modulus();
   int d = m.find_degree();
   f2poly_t r1(1);

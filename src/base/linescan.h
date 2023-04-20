@@ -10,6 +10,6 @@
 // Removes trailing CR, if any.  (The name "chomp" comes from Perl.)
 void chomp(char *line);
 
-int is_whitespace_line(char *line);
+bool is_whitespace_line(char *line);
 
 #endif // LINESCAN_H
