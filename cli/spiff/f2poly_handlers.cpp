@@ -7,7 +7,7 @@
 #include "f2poly_handlers.h"
 #include <string.h>
 
-#include "cmdlineedmatops.h"
+#include "cmdlinematops.h"
 #include "f2linalg.h"
 #include "f2poly_factor.h"
 #include "f2poly_random.h"
@@ -399,7 +399,7 @@ int f2pcompmx_main(int argc, char **argv, usage_t *pusage) {
 }
 
 int f2pmatop_main(int argc, char **argv, usage_t *pusage) {
-  ed_cmd_line_mat_parse<f2poly_t>(argc - 1, argv + 1, f2poly_t(0), f2poly_t(1));
+  cmd_line_mat_parse<f2poly_t>(argc - 1, argv + 1, f2poly_t(0), f2poly_t(1));
   return 0;
 }
 

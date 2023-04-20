@@ -1,5 +1,4 @@
 #include "fppoly_handlers.h"
-#include "cmdlineedmatops.h"
 #include "cmdlinematops.h"
 #include "cmdlineops.h"
 #include "cmdlinevecops.h"
@@ -62,7 +61,7 @@ int fppmatop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (sscanf(argv[1], "%d", &p) != 1)
     pusage(argv[0]);
-  ed_cmd_line_mat_parse<fppoly_t>(argc - 2, argv + 2, fppoly_t(0, p),
+  cmd_line_mat_parse<fppoly_t>(argc - 2, argv + 2, fppoly_t(0, p),
                                   fppoly_t(1, p));
   return 0;
 }

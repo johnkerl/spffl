@@ -1,5 +1,4 @@
 #include "f2npoly_handlers.h"
-#include "cmdlineedmatops.h"
 #include "cmdlinematops.h"
 #include "cmdlineops.h"
 #include "cmdlinevecops.h"
@@ -430,6 +429,6 @@ int f2npmatop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   f2npoly_t zero = f2npoly_t::prime_sfld_elt(0, m);
   f2npoly_t one = f2npoly_t::prime_sfld_elt(1, m);
-  ed_cmd_line_mat_parse<f2npoly_t>(argc - 2, argv + 2, zero, one);
+  cmd_line_mat_parse<f2npoly_t>(argc - 2, argv + 2, zero, one);
   return 0;
 }

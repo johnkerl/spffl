@@ -8,7 +8,7 @@
 
 #include "z_handlers.h"
 
-#include "cmdlineedmatops.h"
+#include "cmdlinematops.h"
 #include "int_factor.h"
 #include "int_gcd.h"
 #include "int_totient.h"
@@ -248,6 +248,6 @@ int zdivisors_main(int argc, char **argv, usage_t *pusage) {
 }
 
 int zmatop_main(int argc, char **argv, usage_t *pusage) {
-  ed_cmd_line_mat_parse<int>(argc - 1, argv + 1, 0, 1);
+  cmd_line_mat_parse<int>(argc - 1, argv + 1, 0, 1);
   return 0;
 }
