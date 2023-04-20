@@ -23,30 +23,30 @@
 // Returns argc
 int tokenize(char *line, const char *seps, char **argv, int max_arguments) {
   char *readp;
-  int inside_token = 0;
+  bool inside_token = false;
   int argc = 0;
   const char *psep;
-  int is_sep;
+  bool is_sep;
 
   for (readp = line; *readp; readp++) {
 
-    is_sep = 0;
+    is_sep = false;
     for (psep = seps; *psep; psep++) {
       if (*readp == *psep) {
-        is_sep = 1;
+        is_sep = true;
         break;
       }
     }
 
     if (is_sep) { // Is a separator
       if (inside_token) {
-        inside_token = 0;
+        inside_token = false;
         *readp = 0;
       }
       // else, whitespace is not copied.
     } else {               // Not a separator
       if (!inside_token) { // Start of token
-        inside_token = 1;
+        inside_token = true;
         if (argc >= max_arguments)
           break;
         argv[argc] = readp;
@@ -66,29 +66,29 @@ int tokenize(char *line, const char *seps, char **argv, int max_arguments) {
 // ----------------------------------------------------------------
 int count_tokens(char *line, const char *seps) {
   char *readp;
-  int inside_token = 0;
+  bool inside_token = falsee;
   int argc = 0;
   const char *psep;
-  int is_sep;
+  bool is_sep;
 
   for (readp = line; *readp; readp++) {
 
-    is_sep = 0;
+    is_sep = false;
     for (psep = seps; *psep; psep++) {
       if (*readp == *psep) {
-        is_sep = 1;
+        is_sep = true;
         break;
       }
     }
 
     if (is_sep) { // Is a separator
       if (inside_token) {
-        inside_token = 0;
+        inside_token = false;
       }
       // else, whitespace is not copied.
     } else {               // Not a separator
       if (!inside_token) { // Start of token
-        inside_token = 1;
+        inside_token = true;
         argc++;
       }
       // else, continuation of token
