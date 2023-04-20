@@ -3,10 +3,10 @@ cmake_minimum_required (VERSION 3.24)
 project(linalg)
 
 add_library(${PROJECT_NAME}
-  f2linalg.cpp
-  f2pmlinalg.cpp
-  fplinalg.cpp
-  spminchar.cpp
+  f2_linear_algebra.cpp
+  f2_polymod_linear_algebra.cpp
+  fp_linear_algebra.cpp
+  minimal_and_characteristic_polynomials.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

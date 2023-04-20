@@ -1,6 +1,6 @@
 #include "q_handlers.h"
-#include "cmdlinematops.h"
-#include "cmdlinevecops.h"
+#include "cmd_line_matrix_ops.h"
+#include "cmd_line_vector_ops.h"
 #include "cyclopoly.h"
 #include "intrat_t.h"
 #include "qpoly_t.h"

@@ -204,7 +204,7 @@ static void veclexan(vec_lex_ctx_t<element_type> &rlex_ctx) {
 					exit(1);
 				}
 #else
-        std::cerr << "cmdlinevecops: file I/O not yet implemented.\n";
+        std::cerr << "cmd_line_vector_ops: file I/O not yet implemented.\n";
         exit(1);
 #endif
       }

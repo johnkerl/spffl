@@ -1,13 +1,13 @@
 #include "f2polymod_handlers.h"
-#include "cmdlinematops.h"
-#include "cmdlineops.h"
-#include "cmdlinevecops.h"
-#include "f2pmlinalg.h"
+#include "cmd_line_matrix_ops.h"
+#include "cmd_line_ops.h"
+#include "cmd_line_vector_ops.h"
+#include "f2_polymod_linear_algebra.h"
 #include "f2polymod_convert.h"
 #include "f2polymod_random.h"
 #include "f2polymod_units.h"
 #include "sp_list_elts.h"
-#include "spminchar.h"
+#include "minimal_and_characteristic_polynomials.h"
 #include "tbl_types.h"
 #include <string.h>
 

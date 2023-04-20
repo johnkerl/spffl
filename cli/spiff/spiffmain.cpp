@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "cmdinterp.h"
+#include "cmd_interp.h"
 
 #include "handlers.h"
 

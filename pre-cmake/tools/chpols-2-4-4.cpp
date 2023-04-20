@@ -9,7 +9,7 @@
 
 #include "tmatrix.h"
 #include "bit_t.h"
-#include "f2linalg.h"
+#include "f2_linear_algebra.h"
 
 // ----------------------------------------------------------------
 int main(int argc, char ** argv)

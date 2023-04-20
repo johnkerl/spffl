@@ -4,7 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "f2pmlinalg.h"
+#include "f2_polymod_linear_algebra.h"
 #include "f2npoly_factor.h"
 #include "f2npoly_t.h"
 #include "f2poly_factor.h"

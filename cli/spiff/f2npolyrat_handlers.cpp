@@ -1,7 +1,7 @@
 #include "f2npolyrat_handlers.h"
-#include "cmdlinematops.h"
-#include "cmdlineops.h"
-#include "cmdlinevecops.h"
+#include "cmd_line_matrix_ops.h"
+#include "cmd_line_ops.h"
+#include "cmd_line_vector_ops.h"
 #include "f2npolyrat_t.h"
 
 void f2nprop_usage(char *argv0) {

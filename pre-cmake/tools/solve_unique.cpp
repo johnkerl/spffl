@@ -27,7 +27,7 @@
 #include "f2polymod_random.h"
 #include "f2polymod_units.h"
 #include "f2polymod_convert.h"
-#include "f2pmlinalg.h"
+#include "f2_polymod_linear_algebra.h"
 
 #include "f2npoly_t.h"
 #include "f2npolymod_t.h"
@@ -42,7 +42,7 @@
 #include "fpnpoly_t.h"
 #include "fpnpolymod_t.h"
 
-#include "cmdlineops.h"
+#include "cmd_line_ops.h"
 
 typedef void usage_t(char * argv0);
 typedef int main_t (int argc, char ** argv, usage_t * pusage);

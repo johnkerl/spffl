@@ -1,7 +1,7 @@
 #include "fpnpolymod_handlers.h"
-#include "cmdlinematops.h"
-#include "cmdlineops.h"
-#include "cmdlinevecops.h"
+#include "cmd_line_matrix_ops.h"
+#include "cmd_line_ops.h"
+#include "cmd_line_vector_ops.h"
 #include "fpnpolymod_t.h"
 
 // ----------------------------------------------------------------

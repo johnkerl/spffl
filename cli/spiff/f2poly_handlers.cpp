@@ -7,8 +7,8 @@
 #include "f2poly_handlers.h"
 #include <string.h>
 
-#include "cmdlinematops.h"
-#include "f2linalg.h"
+#include "cmd_line_matrix_ops.h"
+#include "f2_linear_algebra.h"
 #include "f2poly_factor.h"
 #include "f2poly_random.h"
 #include "f2poly_t.h"

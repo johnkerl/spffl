@@ -4,7 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "spminchar.h"
+#include "minimal_and_characteristic_polynomials.h"
 #include <iostream>
 
 #include "bit_matrix_t.h"

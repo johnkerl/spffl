@@ -4,7 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "fplinalg.h"
+#include "fp_linear_algebra.h"
 #include "fppoly_t.h"
 
 // ----------------------------------------------------------------

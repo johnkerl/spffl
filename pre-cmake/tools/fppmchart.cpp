@@ -10,7 +10,7 @@
 #include "fppolymod_t.h"
 #include "fppoly_factor.h"
 #include "fppolymod_units.h"
-#include "spminchar.h"
+#include "minimal_and_characteristic_polynomials.h"
 #include "moebius.h"
 #include "log10.h"
 #include "calc_power.h"

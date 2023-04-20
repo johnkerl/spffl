@@ -8,7 +8,7 @@
 #include "f2polymod_t.h"
 #include "f2poly_factor.h"
 #include "f2polymod_units.h"
-#include "spminchar.h"
+#include "minimal_and_characteristic_polynomials.h"
 #include "moebius.h"
 #include "log10.h"
 

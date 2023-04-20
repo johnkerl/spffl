@@ -1,7 +1,7 @@
 #include "fppolyrat_handlers.h"
-#include "cmdlinematops.h"
-#include "cmdlineops.h"
-#include "cmdlinevecops.h"
+#include "cmd_line_matrix_ops.h"
+#include "cmd_line_ops.h"
+#include "cmd_line_vector_ops.h"
 #include "fppolyrat_t.h"
 
 void fpprop_usage(char *argv0) {

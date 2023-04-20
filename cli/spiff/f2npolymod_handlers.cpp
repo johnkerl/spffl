@@ -1,14 +1,14 @@
 #include <string.h>
 
-#include "cmdlinematops.h"
-#include "cmdlineops.h"
-#include "cmdlinevecops.h"
+#include "cmd_line_matrix_ops.h"
+#include "cmd_line_ops.h"
+#include "cmd_line_vector_ops.h"
 #include "f2npolymod_handlers.h"
 #include "f2npolymod_random.h"
 #include "f2npolymod_t.h"
 #include "f2npolymod_units.h"
 #include "sp_list_elts.h"
-#include "spminchar.h"
+#include "minimal_and_characteristic_polynomials.h"
 #include "tbl_types.h"
 
 void f2npmlist_usage(char *argv0) {
