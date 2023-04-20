@@ -96,7 +96,7 @@ unsigned find_msb_32(unsigned n) {
 }
 
 // ----------------------------------------------------------------
-unsigned find_msb_64(unsigned long long n) {
+unsigned find_msb_64(uint64_t n) {
   unsigned upper = n >> 32;
 
   //	if (n < MSB_TABLE_SIZE)
@@ -142,7 +142,7 @@ unsigned find_lsb_32(unsigned n) {
 }
 
 // ----------------------------------------------------------------
-unsigned find_lsb_64(unsigned long long n) {
+unsigned find_lsb_64(uint64_t n) {
   unsigned lower = n;
   if (lower)
     return find_lsb_32(lower);
@@ -165,13 +165,13 @@ unsigned calc_log2_unsigned(unsigned n, int want_ceil) {
 }
 
 // ----------------------------------------------------------------
-unsigned long long calc_log2_unsigned_ll(unsigned long long n, int want_ceil) {
-  unsigned long long l = (unsigned long long)find_msb_64(n);
+uint64_t calc_log2_unsigned_ll(uint64_t n, int want_ceil) {
+  uint64_t l = (uint64_t)find_msb_64(n);
 
   if (want_ceil == IFLOOR) {
     return l;
   } else {
-    if (((unsigned long long)1LL << l) == n)
+    if (((uint64_t)1LL << l) == n)
       return l;
     else
       return l + 1;

@@ -18,13 +18,13 @@
 #endif
 
 // ----------------------------------------------------------------
-unsigned get_random_unsigned(void) { return (unsigned)get_random_int(); }
+uint32_t get_random_unsigned(void) { return (uint32_t)get_random_int(); }
 
 // ----------------------------------------------------------------
-unsigned long long get_random_ull(void) {
-  unsigned lo = get_random_unsigned();
-  unsigned hi = get_random_unsigned();
-  return ((unsigned long long)hi << 32) | (unsigned long long)lo;
+uint64_t get_random_ull(void) {
+  uint32_t lo = get_random_unsigned();
+  uint32_t hi = get_random_unsigned();
+  return ((uint64_t)hi << 32) | (uint64_t)lo;
 }
 
 // ----------------------------------------------------------------

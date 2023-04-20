@@ -206,7 +206,8 @@ void f2npfind_usage(char *argv0) {
 }
 
 int f2npfind_main(int argc, char **argv, usage_t *pusage) {
-  bool do_random = false, deglo, deghi;
+  bool do_random = false;
+  int deglo, deghi;
   f2poly_t m;
 
   if (argc != 4)

@@ -8,6 +8,7 @@
 #define BIT_MATRIX_T_H
 
 #include "bit_vector_t.h"
+#include <cstdint>
 #include <iostream>
 
 class bit_matrix_t {
