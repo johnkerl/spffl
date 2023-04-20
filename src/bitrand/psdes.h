@@ -53,7 +53,7 @@
 //
 // * For the reentrant versions, you must seed the generator (i.e. assign
 //   values to the two 32-bit state values) yourself.  For convenience,
-//   a function (sran32_tod_r) is supplied, which you can use to obtain a
+//   a function (sran32_timeofday_r) is supplied, which you can use to obtain a
 //   seed value which will probably be different on each call.
 //
 // * For the non-reentrant version, you may seed the generator if you wish,
@@ -94,7 +94,7 @@
 // * Reentrant version with time-of-day seeds:
 //
 //   uint32_t state0, state1, rand;
-//   sran32_tod_r(1, &state0, &state1);
+//   sran32_timeofday_r(1, &state0, &state1);
 //   rand = iran32(&state0, &state1);
 //   rand = iran32(&state0, &state1);
 //   rand = iran32(&state0, &state1);
@@ -132,7 +132,7 @@
 // ----------------------------------------------------------------
 // These versions are non-reentrant.
 // Usage:  Nominally, just call iran32() or fran32().  They remember whether
-// or not a seed has been supplied, and call sran32_tod() if not.  Use sran32()
+// or not a seed has been supplied, and call sran32_timeofday() if not.  Use sran32()
 // only if you want to force the same generator output each time.
 
 // Uniformly distributed pseudorandom 32-bit integer.
@@ -153,7 +153,7 @@ void sran32b(uint32_t s0, uint32_t s1);
 
 // Sets all 64 bits of generator state to the values dependent on the
 // Unix PID, time of day in seconds, and time of day in microseconds.
-void sran32_tod(void);
+void sran32_timeofday(void);
 
 // ----------------------------------------------------------------
 // These versions are reentrant.
@@ -171,7 +171,7 @@ float fran32_r(uint32_t &state0, uint32_t &state1);
 // assign to them whatever values you wish.
 
 // This puts time-of-day information into your state variables.
-void sran32_tod_r(uint32_t &state0, uint32_t &state1void);
+void sran32_timeofday_r(uint32_t &state0, uint32_t &state1void);
 
 // ----------------------------------------------------------------
 // This is the 64-bit pseudo-DES in-place hash.
