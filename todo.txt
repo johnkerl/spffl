@@ -7,12 +7,12 @@ k formatting pass
   clang-format -i $(find src  -name '*.h' -o -name '*.cpp')
   clang-format -i $(find cli  -name '*.h' -o -name '*.cpp')
   clang-format -i $(find test -name '*.h' -o -name '*.cpp')
+k pointer -> reference pass
 * ctest pass(es)
 * commenting pass
 * renaming pass
 * int -> bool pass
 * unsigned -> uint32_t etc pass
-* pointer -> reference pass
 * namespacing pass: int_gcd -> spffl::intmath::int_gcd etc
 * STL replacements
   o pointer+length to std::vec/std::span
