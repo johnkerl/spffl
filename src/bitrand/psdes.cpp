@@ -17,21 +17,21 @@ static unsigned non_reentrant_seeded = 0;
 unsigned iran32(void) {
   if (!non_reentrant_seeded)
     sran32_tod();
-  return iran32_r(&non_reentrant_state0, &non_reentrant_state1);
+  return iran32_r(non_reentrant_state0, non_reentrant_state1);
 }
 
 // ----------------------------------------------------------------
-void iran64(unsigned *pout0, unsigned *pout1) {
+void iran64(unsigned &out0, unsigned &out1) {
   if (!non_reentrant_seeded)
     sran32_tod();
-  return iran64_r(pout0, pout1, &non_reentrant_state0, &non_reentrant_state1);
+  return iran64_r(out0, out1, non_reentrant_state0, non_reentrant_state1);
 }
 
 // ----------------------------------------------------------------
 float fran32(void) {
   if (!non_reentrant_seeded)
     sran32_tod();
-  return fran32_r(&non_reentrant_state0, &non_reentrant_state1);
+  return fran32_r(non_reentrant_state0, non_reentrant_state1);
 }
 
 // ---------------------------------------------------------------;-
@@ -58,47 +58,47 @@ void sran32_tod(void) {
 }
 
 // ================================================================
-unsigned iran32_r(unsigned *pstate0, unsigned *pstate1) {
-  unsigned word0 = *pstate0;
-  unsigned word1 = *pstate1;
-  psdes_hash_64(&word0, &word1);
+unsigned iran32_r(unsigned &state0, unsigned &state1) {
+  unsigned word0 = state0;
+  unsigned word1 = state1;
+  psdes_hash_64(word0, word1);
 
-  (*pstate1)++;
-  if (*pstate1 == 0)
-    (*pstate0)++;
+  state1++;
+  if (state1 == 0)
+    state0++;
 
   // Return low 32 bits of hash output; discard high 32 bits.
   return word1;
 }
 
 // ----------------------------------------------------------------
-void iran64_r(unsigned *pout0, unsigned *pout1, unsigned *pstate0,
-              unsigned *pstate1) {
-  *pout0 = *pstate0;
-  *pout1 = *pstate1;
-  psdes_hash_64(pout0, pout1);
+void iran64_r(unsigned &out0, unsigned &out1, unsigned &state0,
+              unsigned &state1) {
+  out0 = state0;
+  out1 = state1;
+  psdes_hash_64(out0, out1);
 
-  (*pstate1)++;
-  if (*pstate1 == 0)
-    (*pstate0)++;
+  state1++;
+  if (state1 == 0)
+    state0++;
 }
 
 // ----------------------------------------------------------------
-float fran32_r(unsigned *pstate0, unsigned *pstate1) {
+float fran32_r(unsigned &state0, unsigned &state1) {
   static unsigned jflone = 0x3f800000;
   static unsigned jflmask = 0x007fffff;
-  unsigned word1 = iran32_r(pstate0, pstate1);
+  unsigned word1 = iran32_r(state0, state1);
   // IEEE bit-bang
   unsigned bits = jflone | (jflmask & word1);
   return (*(float *)&bits) - 1.0;
 }
 
 // ----------------------------------------------------------------
-void sran32_tod_r(unsigned *pstate0, unsigned *pstate1) {
+void sran32_tod_r(unsigned &state0, unsigned &state1) {
   struct timeval tod;
   (void)gettimeofday(&tod, 0);
-  *pstate0 = getpid() ^ tod.tv_usec;
-  *pstate1 = tod.tv_sec ^ (tod.tv_usec * tod.tv_usec + 1);
+  state0 = getpid() ^ tod.tv_usec;
+  state1 = tod.tv_sec ^ (tod.tv_usec * tod.tv_usec + 1);
 }
 
 // ----------------------------------------------------------------
@@ -120,22 +120,22 @@ void sran32_tod_r(unsigned *pstate0, unsigned *pstate1) {
 
 #define NITER 4
 
-void psdes_hash_64(unsigned *pword0, unsigned *pword1) {
+void psdes_hash_64(unsigned &word0, unsigned &word1) {
   unsigned i;                           // Round counter
   unsigned iswap, ia, iah, ial, ib, ic; // Intermediate values
   static unsigned c1[NITER] = {0xbaa96887, 0x1e17d32c, 0x03bcdc3c, 0x0f33d1b2};
   static unsigned c2[NITER] = {0x4b0f3b58, 0xe874f0c3, 0x6955c5a6, 0x55a7ca46};
 
   for (i = 0; i < NITER; i++) {
-    iswap = *pword1;
+    iswap = word1;
 
     ia = iswap ^ c1[i];
     ial = ia & 0xffff;
     iah = ia >> 16;
     ib = ial * ial + ~(iah * iah);
     ic = (ib >> 16) | ((ib & 0xffff) << 16);
-    *pword1 = (*pword0) ^ ((ic ^ c2[i]) + ial * iah);
+    word1 = word0 ^ ((ic ^ c2[i]) + ial * iah);
 
-    *pword0 = iswap;
+    word0 = iswap;
   }
 }
