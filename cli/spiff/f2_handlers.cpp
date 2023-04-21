@@ -1,9 +1,9 @@
 #include "f2_handlers.h"
 #include "bit_t.h"
-#include "cmdlinematops.h"
-#include "cmdlinevecops.h"
-#include "f2linalg.h"
-#include "f2poly_t.h"
+#include "cmd_line_matrix_ops.h"
+#include "cmd_line_vector_ops.h"
+#include "f2_linear_algebra.h"
+#include "f2_poly_t.h"
 #include "int_random.h"
 #include "tmatrix.h"
 
@@ -56,7 +56,7 @@ int f2matchpol_main(int argc, char **argv, usage_t *pusage) {
   A = bit_t(0);
   if (!A.load_from_file(argv[1]))
     pusage(argv[0]);
-  f2poly_t chpol = f2_char_poly(A);
+  f2_poly_t chpol = f2_char_poly(A);
   std::cout << chpol << std::endl;
 
   return 0;

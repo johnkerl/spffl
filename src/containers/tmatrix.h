@@ -8,7 +8,7 @@
 #define TMATRIX_H
 
 #include "int_gcd.h"
-#include "linescan.h"
+#include "line_scan.h"
 #include "tokenize.h"
 #include "tvector.h"
 #include <iostream>

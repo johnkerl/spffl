@@ -4,7 +4,7 @@ project(qcyclo)
 
 add_library(${PROJECT_NAME}
   qff.cpp
-  cyclopoly.cpp
+  cyclo_poly.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

@@ -19,30 +19,30 @@
 #include "intrat_t.h"
 #include "intmod_random.h"
 
-#include "f2poly_t.h"
-#include "f2polymod_t.h"
-#include "f2polyrat_t.h"
-#include "f2poly_factor.h"
-#include "f2poly_random.h"
-#include "f2polymod_random.h"
-#include "f2polymod_units.h"
-#include "f2polymod_convert.h"
-#include "f2pmlinalg.h"
+#include "f2_poly_t.h"
+#include "f2_polymod_t.h"
+#include "f2_polyrat_t.h"
+#include "f2_poly_factor.h"
+#include "f2_poly_random.h"
+#include "f2_polymod_random.h"
+#include "f2_polymod_units.h"
+#include "f2_polymod_convert.h"
+#include "f2_polymod_linear_algebra.h"
 
-#include "f2npoly_t.h"
-#include "f2npolymod_t.h"
+#include "f2n_poly_t.h"
+#include "f2n_polymod_t.h"
 
-#include "fppoly_t.h"
-#include "fppolymod_t.h"
-#include "fppolyrat_t.h"
-#include "fppoly_factor.h"
-#include "fppoly_random.h"
-#include "fppolymod_random.h"
+#include "fp_poly_t.h"
+#include "fp_polymod_t.h"
+#include "fp_polyrat_t.h"
+#include "fp_poly_factor.h"
+#include "fp_poly_random.h"
+#include "fp_polymod_random.h"
 
-#include "fpnpoly_t.h"
-#include "fpnpolymod_t.h"
+#include "fpn_poly_t.h"
+#include "fpn_polymod_t.h"
 
-#include "cmdlineops.h"
+#include "cmd_line_ops.h"
 
 typedef void usage_t(char * argv0);
 typedef int main_t (int argc, char ** argv, usage_t * pusage);
@@ -57,23 +57,23 @@ static void f2pmmatsolve_usage(char * argv0)
 
 static int f2pmmatsolve_main(int argc, char ** argv, usage_t * pusage)
 {
-	f2poly_t m = 0;
-	f2polymod_t zero, one;
+	f2_poly_t m = 0;
+	f2_polymod_t zero, one;
 
 	if (argc != 4)
 		pusage(argv[0]);
 	if (!m.from_string(argv[1]))
 		pusage(argv[0]);
 
-	zero = f2polymod_t(m.prime_sfld_elt(0), m);
-	one  = f2polymod_t(m.prime_sfld_elt(1), m);
+	zero = f2_polymod_t(m.prime_sfld_elt(0), m);
+	one  = f2_polymod_t(m.prime_sfld_elt(1), m);
 
-	tmatrix<f2polymod_t> A;
-	tvector<f2polymod_t> x;
-	tvector<f2polymod_t> b;
+	tmatrix<f2_polymod_t> A;
+	tvector<f2_polymod_t> x;
+	tvector<f2_polymod_t> b;
 
-	A = f2polymod_t(zero);
-	b = f2polymod_t(zero);
+	A = f2_polymod_t(zero);
+	b = f2_polymod_t(zero);
 	if (!A.load_from_file(argv[2]))
 		pusage(argv[0]);
 	if (!b.load_from_file(argv[3]))

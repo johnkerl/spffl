@@ -8,11 +8,11 @@
 
 #include "z_handlers.h"
 
-#include "cmdlinematops.h"
+#include "cmd_line_matrix_ops.h"
 #include "int_factor.h"
 #include "int_gcd.h"
 #include "int_totient.h"
-#include "isprime.h"
+#include "is_prime.h"
 #include "tfacinfo.h"
 
 int zop_main(int argc, char **argv, usage_t *pusage) {
@@ -114,7 +114,7 @@ int ztestprime_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 2)
       std::cout << a << ": ";
-    if (isprime(a))
+    if (is_prime(a))
       std::cout << "PRIME\n";
     else
       std::cout << "not prime\n";

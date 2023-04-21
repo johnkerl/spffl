@@ -3,9 +3,9 @@ cmake_minimum_required (VERSION 3.24)
 project(rationals)
 
 add_library(${PROJECT_NAME}
-  f2npolyrat_t.cpp
-  f2polyrat_t.cpp
-  fppolyrat_t.cpp
+  f2n_polyrat_t.cpp
+  f2_polyrat_t.cpp
+  fp_polyrat_t.cpp
   intrat_t.cpp
   qpoly_t.cpp
 )

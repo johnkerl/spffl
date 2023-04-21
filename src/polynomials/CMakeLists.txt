@@ -3,17 +3,17 @@ cmake_minimum_required (VERSION 3.24)
 project(polynomials)
 
 add_library(${PROJECT_NAME}
-  f2poly_t.cpp
-  fppoly_t.cpp
+  f2_poly_t.cpp
+  fp_poly_t.cpp
 
-  f2polymod_t.cpp
-  fppolymod_t.cpp
+  f2_polymod_t.cpp
+  fp_polymod_t.cpp
 
-  f2npoly_t.cpp
-  fpnpoly_t.cpp
+  f2n_poly_t.cpp
+  fpn_poly_t.cpp
 
-  f2npolymod_t.cpp
-  fpnpolymod_t.cpp
+  f2n_polymod_t.cpp
+  fpn_polymod_t.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

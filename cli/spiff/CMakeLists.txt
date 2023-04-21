@@ -4,29 +4,29 @@ project(spiff)
 
 add_executable(
     spiff
-    spiffmain.cpp
+    spiff_main.cpp
 
     z_handlers.cpp
     q_handlers.cpp
 
     f2_handlers.cpp
 
-    f2poly_handlers.cpp
-    f2polymod_handlers.cpp
-    f2polyrat_handlers.cpp
+    f2_poly_handlers.cpp
+    f2_polymod_handlers.cpp
+    f2_polyrat_handlers.cpp
 
-    f2npoly_handlers.cpp
-    f2npolymod_handlers.cpp
-    f2npolyrat_handlers.cpp
+    f2n_poly_handlers.cpp
+    f2n_polymod_handlers.cpp
+    f2n_polyrat_handlers.cpp
 
     fp_handlers.cpp
 
-    fppoly_handlers.cpp
-    fppolymod_handlers.cpp
-    fppolyrat_handlers.cpp
+    fp_poly_handlers.cpp
+    fp_polymod_handlers.cpp
+    fp_polyrat_handlers.cpp
 
-    fpnpoly_handlers.cpp
-    fpnpolymod_handlers.cpp
+    fpn_poly_handlers.cpp
+    fpn_polymod_handlers.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

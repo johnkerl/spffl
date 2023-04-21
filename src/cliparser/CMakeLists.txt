@@ -3,7 +3,7 @@ cmake_minimum_required (VERSION 3.24)
 project(cliparser)
 
 add_library(${PROJECT_NAME}
-  cmdinterp.cpp
+  cmd_interp.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

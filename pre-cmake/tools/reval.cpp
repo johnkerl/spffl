@@ -13,8 +13,8 @@ static void usage(char * argv0)
 // ----------------------------------------------------------------
 int main(int argc, char ** argv)
 {
-	f2poly_t m;
-	tmvrat<f2polymod_t> r;
+	f2_poly_t m;
+	tmvrat<f2_polymod_t> r;
 
 	if (argc < 3)
 		usage(argv[0]);
@@ -27,15 +27,15 @@ int main(int argc, char ** argv)
 
 	if ((argc - 3) != nvars)
 		usage(argv[0]);
-	tvector<f2polymod_t> X(nvars);
+	tvector<f2_polymod_t> X(nvars);
 	int argi, vi;
 	for (argi = 3, vi = 0; argi < argc; argi++, vi++) {
-		f2polymod_t c;
+		f2_polymod_t c;
 		if (!c.from_string(argv[argi], m))
 			usage(argv[0]);
 		X[vi] = c;
 	}
-	f2polymod_t Y = r.eval(X);
+	f2_polymod_t Y = r.eval(X);
 	std::cout << Y << "\n";
 
 	return 0;

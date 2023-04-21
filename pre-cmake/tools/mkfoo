@@ -1,7 +1,7 @@
 g++ -g -I../utils -I../classes \
 	../utils/log2.cpp \
 	../utils/count_bits.cpp \
-	../utils/linescan.cpp \
+	../utils/line_scan.cpp \
 	../utils/int_random.cpp \
 	../utils/psdes.cpp \
 	../classes/bit_vector_t.cpp \

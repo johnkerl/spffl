@@ -5,10 +5,10 @@
 // ================================================================
 
 #include <iostream>
-#include "f2polymod_t.h"
-#include "f2poly_factor.h"
-#include "f2polymod_units.h"
-#include "spminchar.h"
+#include "f2_polymod_t.h"
+#include "f2_poly_factor.h"
+#include "f2_polymod_units.h"
+#include "min_char_polys.h"
 #include "moebius.h"
 #include "log10.h"
 
@@ -24,12 +24,12 @@ typedef struct _opts_t {
 
 // ----------------------------------------------------------------
 typedef struct _f2pm_chart_cell_t {
-	f2polymod_t root;
+	f2_polymod_t root;
 	int         log;
 } f2pm_chart_cell_t;
 
 typedef struct _f2pm_chart_row_t {
-	f2poly_t  min_poly;
+	f2_poly_t  min_poly;
 	int       num_roots;
 	int       order;
 	f2pm_chart_cell_t * cells;
@@ -37,7 +37,7 @@ typedef struct _f2pm_chart_row_t {
 
 typedef struct _f2pm_chart_t {
 	int       num_rows;
-	f2polymod_t g;
+	f2_polymod_t g;
 	f2pm_chart_row_t * rows;
 } f2pm_chart_t;
 
@@ -51,7 +51,7 @@ static int num_irreds_deg_divides(
 
 static void find_irreds(
 	int       n,
-	f2poly_t * pirreds,
+	f2_poly_t * pirreds,
 	int       num_irreds);
 
 static f2pm_chart_t * alloc_f2pm_chart(
@@ -66,18 +66,18 @@ static int f2pm_chart_row_qcmp(
 	const void * pv2);
 
 static void do_f2pm_chart(
-	f2poly_t  m,
+	f2_poly_t  m,
 	int       n,
 	opts_t  * popts);
 
 static void fill_f2pm_chart(
 	f2pm_chart_t * pchart,
-	f2poly_t m,
+	f2_poly_t m,
 	int       n);
 
 static void print_f2pm_chart(
 	f2pm_chart_t * pchart,
-	f2poly_t  m,
+	f2_poly_t  m,
 	int       n,
 	opts_t  * popts);
 
@@ -98,7 +98,7 @@ int main(int argc, char ** argv)
 {
 	int        argi;
 	int        n;
-	f2poly_t  mj;
+	f2_poly_t  mj;
 	int        j;
 	opts_t     opts;
 
@@ -143,7 +143,7 @@ int main(int argc, char ** argv)
 
 		if (sscanf(argv[argi], ":%u", &n) == 1) {
 			int num_irreds = num_irreds_deg_is(n);
-			f2poly_t * pirreds = new f2poly_t[num_irreds];
+			f2_poly_t * pirreds = new f2_poly_t[num_irreds];
 			find_irreds(n, pirreds, num_irreds);
 			for (j = 0; j < num_irreds; j++) {
 				mj = pirreds[j];
@@ -189,14 +189,14 @@ static int num_irreds_deg_divides(
 // ----------------------------------------------------------------
 static void find_irreds(
 	int       n,
-	f2poly_t * pirreds,
+	f2_poly_t * pirreds,
 	int       num_irreds)
 {
 	int count = 0;
-	f2poly_t f, flo, fhi;
+	f2_poly_t f, flo, fhi;
 
-	flo = f2poly_t::from_base_rep(1 << n);
-	fhi = f2poly_t::from_base_rep((1 << n+1) - 1);
+	flo = f2_poly_t::from_base_rep(1 << n);
+	fhi = f2_poly_t::from_base_rep((1 << n+1) - 1);
 	for (f = flo; f <= fhi; f.increment()) {
 		if (!f2poly_is_irreducible(f))
 			continue;
@@ -259,7 +259,7 @@ static int f2pm_chart_row_qcmp(
 
 // ----------------------------------------------------------------
 static void do_f2pm_chart(
-	f2poly_t m,
+	f2_poly_t m,
 	int       n,
 	opts_t  * popts)
 {
@@ -276,13 +276,13 @@ static void do_f2pm_chart(
 // ----------------------------------------------------------------
 static void fill_f2pm_chart(
 	f2pm_chart_t * pchart,
-	f2poly_t m,
+	f2_poly_t m,
 	int       n)
 {
 	int pn1 = (1 << n) - 1;
 	int i, d, pd1, sfld_log, elt_log, orbit_log, j;
 	char * marks;
-	f2polymod_t g, elt;
+	f2_polymod_t g, elt;
 	int    rowi = 0;
 	f2pm_chart_row_t * prow;
 
@@ -344,13 +344,13 @@ static void fill_f2pm_chart(
 // ----------------------------------------------------------------
 static void print_f2pm_chart(
 	f2pm_chart_t * pchart,
-	f2poly_t  m,
+	f2_poly_t  m,
 	int       n,
 	opts_t  * popts)
 {
 	int i, j;
 	f2pm_chart_cell_t * pc;
-	f2polymod_t z;
+	f2_polymod_t z;
 	//int width = calc_log10_unsigned(1<<n, IFLOOR) + 1;
 
 	//std::cout << "Root chart for " << m;
@@ -373,8 +373,8 @@ static void print_f2pm_chart(
 //			// xxx make get-rank function
 //			int nroots = pchart->rows[i].num_roots;
 //			int rank;
-//			f2poly_t * M = malloc_check(
-//				nroots * sizeof(f2poly_t));
+//			f2_poly_t * M = malloc_check(
+//				nroots * sizeof(f2_poly_t));
 //			for (j = 0; j < nroots; j++)
 //				M[j] = pchart->rows[i].cells[j].root;
 //			z2ila_row_echelon_form(M, nroots);

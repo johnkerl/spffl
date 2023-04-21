@@ -12,17 +12,17 @@ static void usage(char * argv0)
 // ----------------------------------------------------------------
 static void check_point(
 	const char   * desc,
-	f2polymod_t a1,
-	f2polymod_t a2,
-	f2polymod_t a3,
-	f2polymod_t a4,
-	f2polymod_t a6,
-	f2polymod_t x,
-	f2polymod_t y,
-	f2polymod_t z)
+	f2_polymod_t a1,
+	f2_polymod_t a2,
+	f2_polymod_t a3,
+	f2_polymod_t a4,
+	f2_polymod_t a6,
+	f2_polymod_t x,
+	f2_polymod_t y,
+	f2_polymod_t z)
 {
-	f2polymod_t f = (y*y + a1*x*y + a3*y*z)*z + x*(x*(x + a2*z) + a4*z) + a6*z;
-	f2polymod_t zero = y - y;
+	f2_polymod_t f = (y*y + a1*x*y + a3*y*z)*z + x*(x*(x + a2*z) + a4*z) + a6*z;
+	f2_polymod_t zero = y - y;
 	if (f != zero) {
 #if 1
 		std::cerr
@@ -55,12 +55,12 @@ static void check_point(
 // ----------------------------------------------------------------
 int main(int argc, char ** argv)
 {
-	f2poly_t m;
-	f2polymod_t a1, a2, a3, a4, a6;
-	f2polymod_t x1, y1, z1;
-	f2polymod_t x2, y2, z2;
-	f2polymod_t x3, y3, z3;
-	f2polymod_t lambda, nu;
+	f2_poly_t m;
+	f2_polymod_t a1, a2, a3, a4, a6;
+	f2_polymod_t x1, y1, z1;
+	f2_polymod_t x2, y2, z2;
+	f2_polymod_t x3, y3, z3;
+	f2_polymod_t lambda, nu;
 
 	if (argc != 5)
 		usage(argv[0]);
@@ -73,8 +73,8 @@ int main(int argc, char ** argv)
 	if (!ft_scan_triple(argv[4], m, x2, y2, z2))
 		usage(argv[0]);
 
-	f2polymod_t zero = f2polymod_t::prime_sfld_elt(0, m);
-	f2polymod_t one  = f2polymod_t::prime_sfld_elt(1, m);
+	f2_polymod_t zero = f2_polymod_t::prime_sfld_elt(0, m);
+	f2_polymod_t one  = f2_polymod_t::prime_sfld_elt(1, m);
 	check_point("input", a1, a2, a3, a4, a6, x1, y1, z1);
 	check_point("input", a1, a2, a3, a4, a6, x2, y2, z2);
 

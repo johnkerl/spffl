@@ -10,17 +10,17 @@ static void usage(char * argv0)
 
 // ----------------------------------------------------------------
 void checkf(
-	f2polymod_t a1,
-	f2polymod_t a2,
-	f2polymod_t a3,
-	f2polymod_t a4,
-	f2polymod_t a6,
-	f2polymod_t x,
-	f2polymod_t y,
-	f2polymod_t z)
+	f2_polymod_t a1,
+	f2_polymod_t a2,
+	f2_polymod_t a3,
+	f2_polymod_t a4,
+	f2_polymod_t a6,
+	f2_polymod_t x,
+	f2_polymod_t y,
+	f2_polymod_t z)
 {
-	f2polymod_t lhs = y*y*z + a1*x*y*z + a3*y*z*z;
-	f2polymod_t rhs = x*x*x + a2*x*x*z + a4*x*z*z + a6*z*z*z;
+	f2_polymod_t lhs = y*y*z + a1*x*y*z + a3*y*z*z;
+	f2_polymod_t rhs = x*x*x + a2*x*x*z + a4*x*z*z + a6*z*z*z;
 	if (lhs == rhs) {
 		std::cout << x << "," << y << "," << z << "\n";
 	}
@@ -29,9 +29,9 @@ void checkf(
 // ----------------------------------------------------------------
 int main(int argc, char ** argv)
 {
-	f2poly_t m;
-	f2polymod_t a1, a2, a3, a4, a6;
-	f2polymod_t x, y, z;
+	f2_poly_t m;
+	f2_polymod_t a1, a2, a3, a4, a6;
+	f2_polymod_t x, y, z;
 
 	if (argc != 3)
 		usage(argv[0]);
@@ -40,15 +40,15 @@ int main(int argc, char ** argv)
 	if (!ft_scan_quintuple(argv[2], m, a1, a2, a3, a4, a6))
 		usage(argv[0]);
 
-	tvector<f2polymod_t> Fq = f2polymod_list(m, SP_LIST_ALL);
+	tvector<f2_polymod_t> Fq = f2polymod_list(m, SP_LIST_ALL);
 	int q = Fq.get_num_elements();
 
 	// x=* y=1 z=0
 	// x=1 y=0 z=0
 	// x=* y=* z=1
 
-	f2polymod_t zero = f2polymod_t::prime_sfld_elt(0, m);
-	f2polymod_t one  = f2polymod_t::prime_sfld_elt(1, m);
+	f2_polymod_t zero = f2_polymod_t::prime_sfld_elt(0, m);
+	f2_polymod_t one  = f2_polymod_t::prime_sfld_elt(1, m);
 
 	y = one;
 	z = zero;

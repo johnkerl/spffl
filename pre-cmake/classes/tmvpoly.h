@@ -18,9 +18,9 @@
 
 #include "bit_t.h"
 #include "intmod_t.h"
-#include "f2polymod_t.h"
-#include "f2npolymod_t.h"
-#include "fppolymod_t.h"
+#include "f2_polymod_t.h"
+#include "f2n_polymod_t.h"
+#include "fp_polymod_t.h"
 
 template <typename ktype> class tmvpoly;
 template <typename ktype> class tmvmonom;

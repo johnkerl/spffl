@@ -3,13 +3,13 @@ cmake_minimum_required (VERSION 3.24)
 project(random)
 
 add_library(${PROJECT_NAME}
-  f2poly_random.cpp
-  f2polymod_random.cpp
-  f2npoly_random.cpp
-  f2npolymod_random.cpp
+  f2_poly_random.cpp
+  f2_polymod_random.cpp
+  f2n_poly_random.cpp
+  f2n_polymod_random.cpp
 
-  fppoly_random.cpp
-  fppolymod_random.cpp
+  fp_poly_random.cpp
+  fp_polymod_random.cpp
 
   int_random.cpp
   intmod_random.cpp

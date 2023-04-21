@@ -7,11 +7,11 @@
 //   "2.3.1.0+4.0.1.1"
 
 int tmvpoly_f2polymod_from_string(
-	tmvpoly<f2polymod_t> & f,
+	tmvpoly<f2_polymod_t> & f,
 	const char            * string,
-	f2poly_t               m)
+	f2_poly_t               m)
 {
-	f = tmvpoly<f2polymod_t>(); // Initialize to the zero polynomial.
+	f = tmvpoly<f2_polymod_t>(); // Initialize to the zero polynomial.
 
 	char  * cpstring = strdup(string);
 	int     nmonoms  = count_tokens((char *)string, "+");
@@ -49,7 +49,7 @@ int tmvpoly_f2polymod_from_string(
 		int   * expts = new int[nvars];
 		(void)tokenize(monomv[i], ".", cvarv, cnvars);
 
-		f2polymod_t coeff;
+		f2_polymod_t coeff;
 		if (!coeff.from_string(cvarv[0], m)) {
 			std::cerr
 				<< "tmvpoly_f2polymod_from_string: couldn't parse \""
@@ -75,7 +75,7 @@ int tmvpoly_f2polymod_from_string(
 				return 0;
 			}
 		}
-		tmvpoly<f2polymod_t> monom(coeff, expts, nvars);
+		tmvpoly<f2_polymod_t> monom(coeff, expts, nvars);
 		f += monom;
 		delete [] cvarv;
 		delete [] expts;
@@ -93,11 +93,11 @@ int tmvpoly_f2polymod_from_string(
 //   "2.3.1.0+4.0.1.1"
 
 int tmvpoly_fppolymod_from_string(
-	tmvpoly<fppolymod_t> & f,
+	tmvpoly<fp_polymod_t> & f,
 	const char           * string,
-	fppoly_t               m)
+	fp_poly_t               m)
 {
-	f = tmvpoly<fppolymod_t>(); // Initialize to the zero polynomial.
+	f = tmvpoly<fp_polymod_t>(); // Initialize to the zero polynomial.
 
 	char  * cpstring = strdup(string);
 	int     nmonoms  = count_tokens((char *)string, "+");
@@ -135,7 +135,7 @@ int tmvpoly_fppolymod_from_string(
 		int   * expts = new int[nvars];
 		(void)tokenize(monomv[i], ".", cvarv, cnvars);
 
-		fppolymod_t coeff;
+		fp_polymod_t coeff;
 		if (!coeff.from_string(cvarv[0], m)) {
 			std::cerr
 				<< "tmvpoly_fppolymod_from_string: couldn't parse \""
@@ -161,7 +161,7 @@ int tmvpoly_fppolymod_from_string(
 				return 0;
 			}
 		}
-		tmvpoly<fppolymod_t> monom(coeff, expts, nvars);
+		tmvpoly<fp_polymod_t> monom(coeff, expts, nvars);
 		f += monom;
 		delete [] cvarv;
 		delete [] expts;

@@ -9,9 +9,9 @@
 //   "2.3.1.0+4.0.1.1"
 
 int tmvrat_f2polymod_from_string(
-	tmvrat<f2polymod_t> & f,
+	tmvrat<f2_polymod_t> & f,
 	char                 * string,
-	f2poly_t               m)
+	f2_poly_t               m)
 {
 	char * cpstring = strdup(string);
 	char * pslash = strchr(cpstring, '/');
@@ -23,7 +23,7 @@ int tmvrat_f2polymod_from_string(
 	*pslash = 0;
 	char * numer_string = cpstring;
 	char * denom_string = pslash + 1;
-	tmvpoly<f2polymod_t> numer, denom;
+	tmvpoly<f2_polymod_t> numer, denom;
 
 	if (!tmvpoly_f2polymod_from_string(numer, numer_string, m)) {
 		free(cpstring);
@@ -34,7 +34,7 @@ int tmvrat_f2polymod_from_string(
 		return 0;
 	}
 
-	tmvrat<f2polymod_t> rv(numer, denom);
+	tmvrat<f2_polymod_t> rv(numer, denom);
 	f = rv;
 	return 1;
 }
@@ -42,8 +42,8 @@ int tmvrat_f2polymod_from_string(
 // ----------------------------------------------------------------
 int tmvrat_f2polymods_from_file(
 	char                           * file_name,
-	tvector< tmvrat<f2polymod_t> > & rats,
-	f2poly_t                         m)
+	tvector< tmvrat<f2_polymod_t> > & rats,
+	f2_poly_t                         m)
 {
 	if ((strcmp(file_name, "-") == 0) || (strcmp(file_name, "@") == 0))
 		return tmvrat_f2polymods_from_stream(std::cin, rats, m);
@@ -69,15 +69,15 @@ int tmvrat_f2polymods_from_file(
 // ----------------------------------------------------------------
 int tmvrat_f2polymods_from_stream(
 	std::istream                   & is,
-	tvector< tmvrat<f2polymod_t> > & rats,
-	f2poly_t                         m)
+	tvector< tmvrat<f2_polymod_t> > & rats,
+	f2_poly_t                         m)
 {
 	char line[2048];
 	int  rv = 1;
 
 	const int init_num_rats = 10;
 	const int more_num_rats = 10;
-	tmvrat<f2polymod_t> * prats = new tmvrat<f2polymod_t>[init_num_rats];
+	tmvrat<f2_polymod_t> * prats = new tmvrat<f2_polymod_t>[init_num_rats];
 	int alloc_num_rats = init_num_rats;
 	int num_rats = 0;
 
@@ -87,7 +87,7 @@ int tmvrat_f2polymods_from_stream(
 
 		if (num_rats >= alloc_num_rats) {
 			alloc_num_rats += more_num_rats;
-			tmvrat<f2polymod_t> * ptemp = new tmvrat<f2polymod_t>[alloc_num_rats];
+			tmvrat<f2_polymod_t> * ptemp = new tmvrat<f2_polymod_t>[alloc_num_rats];
 			for (int i = 0; i < num_rats; i++)
 				ptemp[i] = prats[i];
 			delete [] prats;
@@ -125,7 +125,7 @@ int tmvrat_f2polymods_from_stream(
 		std::cerr << "tmvrat_f2polymods_from_stream >>:  empty file.\n";
 	}
 
-	rats = tvector< tmvrat<f2polymod_t> >(num_rats);
+	rats = tvector< tmvrat<f2_polymod_t> >(num_rats);
 	for (int i = 0; i < num_rats; i++)
 		rats[i] = prats[i];
 	delete [] prats;
@@ -139,9 +139,9 @@ int tmvrat_f2polymods_from_stream(
 //   "2.3.1.0+4.0.1.1"
 
 int tmvrat_fppolymod_from_string(
-	tmvrat<fppolymod_t> & f,
+	tmvrat<fp_polymod_t> & f,
 	char                * string,
-	fppoly_t              m)
+	fp_poly_t              m)
 {
 	char * cpstring = strdup(string);
 	char * pslash = strchr(cpstring, '/');
@@ -153,7 +153,7 @@ int tmvrat_fppolymod_from_string(
 	*pslash = 0;
 	const char * numer_string = cpstring;
 	const char * denom_string = pslash + 1;
-	tmvpoly<fppolymod_t> numer, denom;
+	tmvpoly<fp_polymod_t> numer, denom;
 
 	if (!tmvpoly_fppolymod_from_string(numer, numer_string, m)) {
 		free(cpstring);
@@ -164,7 +164,7 @@ int tmvrat_fppolymod_from_string(
 		return 0;
 	}
 
-	tmvrat<fppolymod_t> rv(numer, denom);
+	tmvrat<fp_polymod_t> rv(numer, denom);
 	f = rv;
 	return 1;
 }

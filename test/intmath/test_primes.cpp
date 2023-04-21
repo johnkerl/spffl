@@ -1,17 +1,17 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "isprime.h"
+#include "is_prime.h"
 
-TEST_CASE("isprime") {
+TEST_CASE("is_prime") {
 
-  CHECK(isprime(0) == 0);
-  CHECK(isprime(1) == 0);
-  CHECK(isprime(2) == 1);
-  CHECK(isprime(3) == 1);
-  CHECK(isprime(4) == 0);
-  CHECK(isprime(5) == 1);
-  CHECK(isprime(127) == 1);
-  CHECK(isprime(2047) == 0);
+  CHECK(is_prime(0) == 0);
+  CHECK(is_prime(1) == 0);
+  CHECK(is_prime(2) == 1);
+  CHECK(is_prime(3) == 1);
+  CHECK(is_prime(4) == 0);
+  CHECK(is_prime(5) == 1);
+  CHECK(is_prime(127) == 1);
+  CHECK(is_prime(2047) == 0);
 
   // TODO: specify handling for negative arguments
   // TODO: check handling for numbers >= 2**32
