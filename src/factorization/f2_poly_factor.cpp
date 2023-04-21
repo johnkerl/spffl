@@ -5,7 +5,7 @@
 // ================================================================
 
 #include "f2_poly_factor.h"
-#include "f2poly_random.h"
+#include "f2_poly_random.h"
 #include "tfacinfo.h"
 
 //#define F2POLY_FACTOR_DEBUG
@@ -18,13 +18,13 @@
 #include "tmatrix.h"
 #endif
 
-static void f2poly_pre_berlekamp(f2poly_t f, tfacinfo<f2poly_t> &rfinfo,
+static void f2poly_pre_berlekamp(f2_poly_t f, tfacinfo<f2_poly_t> &rfinfo,
                                  int recurse);
 
-static void f2poly_berlekamp(f2poly_t f, tfacinfo<f2poly_t> &rfinfo,
+static void f2poly_berlekamp(f2_poly_t f, tfacinfo<f2_poly_t> &rfinfo,
                              int recurse);
 
-f2poly_t f2poly_from_vector(
+f2_poly_t f2poly_from_vector(
 #ifdef USE_BIT_MATRIX
     bit_vector_t &v,
 #else
@@ -33,8 +33,8 @@ f2poly_t f2poly_from_vector(
     int n);
 
 // ----------------------------------------------------------------
-tfacinfo<f2poly_t> f2_poly_factor(f2poly_t f) {
-  tfacinfo<f2poly_t> finfo;
+tfacinfo<f2_poly_t> f2_poly_factor(f2_poly_t f) {
+  tfacinfo<f2_poly_t> finfo;
   if (f.find_degree() == 0) {
     finfo.insert_unit(f);
     return finfo;
@@ -44,10 +44,10 @@ tfacinfo<f2poly_t> f2_poly_factor(f2poly_t f) {
 }
 
 // ----------------------------------------------------------------
-static void f2poly_pre_berlekamp(f2poly_t f, tfacinfo<f2poly_t> &rfinfo,
+static void f2poly_pre_berlekamp(f2_poly_t f, tfacinfo<f2_poly_t> &rfinfo,
                                  int recurse) {
-  f2poly_t d = f.deriv();
-  f2poly_t g = f.gcd(d);
+  f2_poly_t d = f.deriv();
+  f2_poly_t g = f.gcd(d);
 
 #ifdef F2POLY_FACTOR_DEBUG
   std::cout << "\n";
@@ -71,8 +71,8 @@ static void f2poly_pre_berlekamp(f2poly_t f, tfacinfo<f2poly_t> &rfinfo,
     f2poly_berlekamp(f, rfinfo, recurse);
   } else if (d == 0) {
     // Input is a perfect square
-    f2poly_t s;
-    tfacinfo<f2poly_t> sfinfo;
+    f2_poly_t s;
+    tfacinfo<f2_poly_t> sfinfo;
     if (!f.square_root(s)) {
       std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
                 << "\n";
@@ -88,7 +88,7 @@ static void f2poly_pre_berlekamp(f2poly_t f, tfacinfo<f2poly_t> &rfinfo,
     std::cout << "square insert " << sfinfo << "\n";
 #endif
   } else {
-    f2poly_t q = f / g;
+    f2_poly_t q = f / g;
     f2poly_pre_berlekamp(g, rfinfo, recurse);
     f2poly_pre_berlekamp(q, rfinfo, recurse);
   }
@@ -145,12 +145,12 @@ static void f2poly_pre_berlekamp(f2poly_t f, tfacinfo<f2poly_t> &rfinfo,
 // These are h1 = 1c and h2 = 1, respectively.  Compute gcd(f, h1) = 7 and
 // gcd(f, h1+1) = b to obtain non-trivial factors of f.
 
-static void f2poly_berlekamp(f2poly_t f, tfacinfo<f2poly_t> &rfinfo,
+static void f2poly_berlekamp(f2_poly_t f, tfacinfo<f2_poly_t> &rfinfo,
                              int recurse) {
   int n = f.find_degree();
-  f2poly_t x(1, 0);
-  f2poly_t x2 = (x * x) % f;
-  f2poly_t x2i(1);
+  f2_poly_t x(1, 0);
+  f2_poly_t x2 = (x * x) % f;
+  f2_poly_t x2i(1);
   int i, j, row, rank, dimker;
   // bit_t zero(0);
   // bit_t one(1);
@@ -276,12 +276,12 @@ static void f2poly_berlekamp(f2poly_t f, tfacinfo<f2poly_t> &rfinfo,
   //   f2: 017 = 3 d
 
   for (row = 0; row < dimker; row++) {
-    f2poly_t h, hc;
+    f2_poly_t h, hc;
     h = f2poly_from_vector(nullspace_basis[row], n);
-    hc = h + f2poly_t(1);
+    hc = h + f2_poly_t(1);
 
-    f2poly_t check1 = (h * h) % f;
-    f2poly_t check2 = (hc * hc) % f;
+    f2_poly_t check1 = (h * h) % f;
+    f2_poly_t check2 = (hc * hc) % f;
     if ((h != check1) || (hc != check2)) {
       std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
                 << "\n";
@@ -290,8 +290,8 @@ static void f2poly_berlekamp(f2poly_t f, tfacinfo<f2poly_t> &rfinfo,
       exit(1);
     }
 
-    f2poly_t f1 = f.gcd(h);
-    f2poly_t f2 = f.gcd(hc);
+    f2_poly_t f1 = f.gcd(h);
+    f2_poly_t f2 = f.gcd(hc);
 
 #ifdef F2POLY_FACTOR_DEBUG
     std::cout << "h  = " << h << "  hc = " << hc << "\n";
@@ -329,14 +329,14 @@ static void f2poly_berlekamp(f2poly_t f, tfacinfo<f2poly_t> &rfinfo,
 }
 
 // ----------------------------------------------------------------
-f2poly_t f2poly_from_vector(
+f2_poly_t f2poly_from_vector(
 #ifdef USE_BIT_MATRIX
     bit_vector_t &v,
 #else
     tvector<bit_t> &v,
 #endif
     int n) {
-  f2poly_t f(0);
+  f2_poly_t f(0);
   for (int i = 0; i < n; i++)
     if (v.get(n - 1 - i) == 1)
       f.set_bit(i);
@@ -389,12 +389,12 @@ f2poly_t f2poly_from_vector(
 //// See comments to the above.  k is treated as a multibase representation
 //// over the bases mi+1.
 //
-// f2poly_t f2poly_kth_divisor(
+// f2_poly_t f2poly_kth_divisor(
 //	f2poly_factor_info_t * pfinfo,
 //	unsigned k)
 //{
-//	f2poly_t rv;
-//	f2poly_t fp;
+//	f2_poly_t rv;
+//	f2_poly_t fp;
 //	int i;
 //	unsigned base;
 //	unsigned power;
@@ -414,30 +414,30 @@ f2poly_t f2poly_from_vector(
 //// ----------------------------------------------------------------
 //// The caller must free the return value.
 //
-// f2poly_t * f2poly_get_all_divisors(
-//	f2poly_t * pr,
+// f2_poly_t * f2poly_get_all_divisors(
+//	f2_poly_t * pr,
 //	unsigned * pnum_divisors)
 //{
 //	f2poly_factor_info_t finfo;
 //	unsigned nf, k;
-//	f2poly_t * all_divisors;
+//	f2_poly_t * all_divisors;
 //
 //	f2_poly_factor(pr, &finfo);
 //	nf = f2poly_num_divisors(&finfo);
 //	*pnum_divisors = nf;
 //
-//	all_divisors = (f2poly_t *)malloc_check(nf * sizeof(f2poly_t));
+//	all_divisors = (f2_poly_t *)malloc_check(nf * sizeof(f2_poly_t));
 //	for (k = 0; k < nf; k++) {
 //		all_divisors[k] = f2poly_kth_divisor(&finfo, k);
 //	}
-//	qsort(all_divisors, nf, sizeof(f2poly_t), f2poly_qcmp);
+//	qsort(all_divisors, nf, sizeof(f2_poly_t), f2poly_qcmp);
 //
 //	return all_divisors;
 //}
 
 // ----------------------------------------------------------------
-int f2poly_is_irreducible(f2poly_t f) {
-  tfacinfo<f2poly_t> finfo;
+int f2poly_is_irreducible(f2_poly_t f) {
+  tfacinfo<f2_poly_t> finfo;
 
   int d = f.find_degree();
   if (d == 0)
@@ -461,8 +461,8 @@ int f2poly_is_irreducible(f2poly_t f) {
 
 // ----------------------------------------------------------------
 // Lexically lowest
-f2poly_t f2poly_find_irr(int degree) {
-  f2poly_t rv(0);
+f2_poly_t f2poly_find_irr(int degree) {
+  f2_poly_t rv(0);
   rv.set_bit(degree);
   rv.set_bit(0);
 
@@ -488,8 +488,8 @@ f2poly_t f2poly_find_irr(int degree) {
 }
 
 // ----------------------------------------------------------------
-f2poly_t f2poly_random_irr(int degree) {
-  f2poly_t rv;
+f2_poly_t f2poly_random_irr(int degree) {
+  f2_poly_t rv;
 
   if (degree < 1) {
     std::cout << "f2poly_random_irr:  degree must be positive; got " << degree
@@ -498,7 +498,7 @@ f2poly_t f2poly_random_irr(int degree) {
   }
 
   for (;;) {
-    rv = f2poly_random(degree);
+    rv = f2_poly_random(degree);
     rv.set_bit(0);
     if (f2poly_is_irreducible(rv))
       return rv;

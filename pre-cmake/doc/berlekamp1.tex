@@ -207,18 +207,18 @@ These are $h_1 = 11100$ and $h_2 = 1$, respectively.  Compute $\gcd(f, h_1) = 11
 $\gcd(f, h_1+1) = 1011$ to obtain non-trivial factors of $f$.
 
 %static void fppoly_berlekamp(
-%	fppoly_t   f,
-%	tfacinfo<fppoly_t> & rfinfo,
+%	fp_poly_t   f,
+%	tfacinfo<fp_poly_t> & rfinfo,
 %	int recurse)
 %{
 %	int n  = f.find_degree();
 %	int p = f.get_char();
 %	intmod_t zero(0, p);
 %	intmod_t one(1, p);
-%	fppoly_t x(one, zero);
-%	fppoly_t xp;
-%	fppoly_t xpi = one;
-%	fppoly_t f1, f2;
+%	fp_poly_t x(one, zero);
+%	fp_poly_t xp;
+%	fp_poly_t xpi = one;
+%	fp_poly_t f1, f2;
 %	int i, j, row, rank, dimker;
 %
 %	xp = x;
@@ -271,12 +271,12 @@ $\gcd(f, h_1+1) = 1011$ to obtain non-trivial factors of $f$.
 %
 %	int got_it = 0;
 %	for (row = 0; row <  dimker && !got_it; row++) {
-%		fppoly_t h = fppoly_from_vector(nullspace_basis[row], n);
+%		fp_poly_t h = fppoly_from_vector(nullspace_basis[row], n);
 %		if (h == 1)
 %			continue;
 %
 %		for (int c = 0; c < p; c++) {
-%			fppoly_t hc = h - f.prime_sfld_elt(c);
+%			fp_poly_t hc = h - f.prime_sfld_elt(c);
 %			f1 = f.gcd(hc);
 %			int f1d = f1.find_degree();
 %			int fd  = f.find_degree();
@@ -324,14 +324,14 @@ $\gcd(f, h_1+1) = 1011$ to obtain non-trivial factors of $f$.
 
 
 %static void f2poly_berlekamp(
-%	f2poly_t   f,
-%	tfacinfo<f2poly_t> & rfinfo,
+%	f2_poly_t   f,
+%	tfacinfo<f2_poly_t> & rfinfo,
 %	int recurse)
 %{
 %	int n  = f.find_degree();
-%	f2poly_t x(1, 0);
-%	f2poly_t x2 = (x * x) % f;
-%	f2poly_t x2i(1);
+%	f2_poly_t x(1, 0);
+%	f2_poly_t x2 = (x * x) % f;
+%	f2_poly_t x2i(1);
 %	int i, j, row, rank, dimker;
 %	//bit_t zero(0);
 %	//bit_t one(1);
@@ -413,12 +413,12 @@ $\gcd(f, h_1+1) = 1011$ to obtain non-trivial factors of $f$.
 %	//  f2: 017 = 3 d
 %
 %	for (row = 0; row <  dimker; row++) {
-%		f2poly_t h, hc;
+%		f2_poly_t h, hc;
 %		h = f2poly_from_vector(nullspace_basis[row], n);
-%		hc = h + f2poly_t(1);
+%		hc = h + f2_poly_t(1);
 %
-%		f2poly_t check1 = (h  * h)  % f;
-%		f2poly_t check2 = (hc * hc) % f;
+%		f2_poly_t check1 = (h  * h)  % f;
+%		f2_poly_t check2 = (hc * hc) % f;
 %		if ((h != check1) || (hc != check2)) {
 %			std::cerr << "Coding error: file "
 %				<< __FILE__ << " line "
@@ -430,8 +430,8 @@ $\gcd(f, h_1+1) = 1011$ to obtain non-trivial factors of $f$.
 %			exit(1);
 %		}
 %
-%		f2poly_t f1 = f.gcd(h);
-%		f2poly_t f2 = f.gcd(hc);
+%		f2_poly_t f1 = f.gcd(h);
+%		f2_poly_t f2 = f.gcd(hc);
 %
 %		if ((f1 == 1) || (f2 == 1))
 %			continue;

@@ -6,7 +6,7 @@
 #include "fp_linear_algebra.h"
 #include "intmod_random.h"
 #include "intmod_t.h"
-#include "sp_list_elts.h"
+#include "list_elements.h"
 #include "tbl_types.h"
 #include "tmatrix.h"
 #include <string.h>
@@ -396,7 +396,7 @@ int fpmatchpol_main(int argc, char **argv, usage_t *pusage) {
   if (!A.load_from_file(argv[2]))
     pusage(argv[0]);
 
-  fppoly_t chpol = fp_char_poly(A);
+  fp_poly_t chpol = fp_char_poly(A);
   std::cout << chpol << std::endl;
 
   return 0;

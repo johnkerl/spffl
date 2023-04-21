@@ -6,14 +6,14 @@
 
 #include "f2_polymod_linear_algebra.h"
 #include "f2n_poly_factor.h"
-#include "f2npoly_t.h"
+#include "f2n_poly_t.h"
 #include "f2_poly_factor.h"
-#include "f2polymod_convert.h"
-#include "f2polymod_units.h"
+#include "f2_polymod_convert.h"
+#include "f2_polymod_units.h"
 #include "int_gcd.h"
 
 // ----------------------------------------------------------------
-f2npoly_t f2pm_char_poly(tmatrix<f2polymod_t> &A) {
+f2n_poly_t f2pm_char_poly(tmatrix<f2_polymod_t> &A) {
   if (!A.is_square()) {
     std::cerr << "f2pm_char_poly():  non-square input.\n";
     exit(1);
@@ -21,17 +21,17 @@ f2npoly_t f2pm_char_poly(tmatrix<f2polymod_t> &A) {
 
   int i, j;
   int n = A.get_num_rows();
-  tmatrix<f2npoly_t> tI_A(n, n);
-  f2poly_t m = A[0][0].get_modulus();
-  f2polymod_t c1(f2poly_t(1), m);
-  f2polymod_t c0(f2poly_t(0), m);
-  f2npoly_t t(c1, c0);
-  f2npoly_t pol1(c1);
-  f2npoly_t det;
+  tmatrix<f2n_poly_t> tI_A(n, n);
+  f2_poly_t m = A[0][0].get_modulus();
+  f2_polymod_t c1(f2_poly_t(1), m);
+  f2_polymod_t c0(f2_poly_t(0), m);
+  f2n_poly_t t(c1, c0);
+  f2n_poly_t pol1(c1);
+  f2n_poly_t det;
 
   for (i = 0; i < n; i++) {
     for (j = 0; j < n; j++) {
-      tI_A[i][j] = -f2npoly_t(A[i][j]);
+      tI_A[i][j] = -f2n_poly_t(A[i][j]);
       if (i == j)
         tI_A[i][j] += t;
     }
@@ -42,14 +42,14 @@ f2npoly_t f2pm_char_poly(tmatrix<f2polymod_t> &A) {
 }
 
 // ----------------------------------------------------------------
-tmatrix<f2polymod_t> f2np_companion_matrix(f2npoly_t chpol) {
+tmatrix<f2_polymod_t> f2np_companion_matrix(f2n_poly_t chpol) {
   int n = chpol.find_degree();
-  f2poly_t m = chpol.get_coeff(0).get_modulus();
-  f2poly_t zero(0);
-  f2poly_t one(1);
-  f2polymod_t zero_m(zero, m);
-  f2polymod_t one_m(one, m);
-  tmatrix<f2polymod_t> rv(n, n);
+  f2_poly_t m = chpol.get_coeff(0).get_modulus();
+  f2_poly_t zero(0);
+  f2_poly_t one(1);
+  f2_polymod_t zero_m(zero, m);
+  f2_polymod_t one_m(one, m);
+  tmatrix<f2_polymod_t> rv(n, n);
   int i;
 
   // chpol = 10011
@@ -70,20 +70,20 @@ tmatrix<f2polymod_t> f2np_companion_matrix(f2npoly_t chpol) {
 // ----------------------------------------------------------------
 // Diagonalizability test
 
-int f2pm_matrix_is_dable(tmatrix<f2polymod_t> &A,
+int f2pm_matrix_is_dable(tmatrix<f2_polymod_t> &A,
 
                          // int allow_field_extension,
-                         f2poly_t &rext_modulus,
+                         f2_poly_t &rext_modulus,
 
-                         tvector<f2polymod_t> &reigenvalues)
+                         tvector<f2_polymod_t> &reigenvalues)
 // xxx matrix of (row) eigenvectors
 // xxx or, teigen_info template class
 //	num eigenvalues
 //	eigenvalues[]
 //	eigenvectors *
 
-// tmatrix<f2polymod_t> * pD,
-// tmatrix<f2polymod_t> * pP)
+// tmatrix<f2_polymod_t> * pD,
+// tmatrix<f2_polymod_t> * pP)
 
 // int verbose
 {
@@ -97,13 +97,13 @@ int f2pm_matrix_is_dable(tmatrix<f2polymod_t> &A,
   }
 
   // Compute the matrix's characteristic polynomial.
-  f2npoly_t chpol = f2pm_char_poly(A);
+  f2n_poly_t chpol = f2pm_char_poly(A);
 
   if (verbose)
     std::cout << "chpoly = " << chpol << "\n";
 
   // Factor the char poly into irreducibles over the base field.
-  tfacinfo<f2npoly_t> base_finfo = f2n_poly_factor(chpol);
+  tfacinfo<f2n_poly_t> base_finfo = f2n_poly_factor(chpol);
 
   if (verbose)
     std::cout << "factors = " << base_finfo << "\n";
@@ -111,7 +111,7 @@ int f2pm_matrix_is_dable(tmatrix<f2polymod_t> &A,
   // Find the LCM of the degrees of the factors, over the base field.
   int deglcm = 1;
   for (int i = 0; i < base_finfo.get_num_distinct(); i++) {
-    f2npoly_t factor = base_finfo.get_ith_factor(i);
+    f2n_poly_t factor = base_finfo.get_ith_factor(i);
     int deg = factor.find_degree();
     std::cout << "  factor = " << factor << ", deg = " << deg << "\n";
     deglcm = int_lcm(deglcm, deg);
@@ -122,7 +122,7 @@ int f2pm_matrix_is_dable(tmatrix<f2polymod_t> &A,
 
   // Find a modulus for the splitting field of the char poly.
   // The absolute degree is the degree over F2, not over the base field.
-  f2poly_t base_modulus = A[0][0].get_modulus();
+  f2_poly_t base_modulus = A[0][0].get_modulus();
   int base_degree = base_modulus.find_degree();
   int absolute_ext_degree = deglcm * base_degree;
   if ((deglcm == 1) || !allow_field_extension) {
@@ -139,13 +139,13 @@ int f2pm_matrix_is_dable(tmatrix<f2polymod_t> &A,
   }
 
   // Convert chpoly from base field to extension field.
-  f2npoly_t ext_chpol;
-  tmatrix<f2polymod_t> ext_A;
+  f2n_poly_t ext_chpol;
+  tmatrix<f2_polymod_t> ext_A;
   if ((deglcm == 1) || !allow_field_extension) {
     ext_chpol = chpol;
     ext_A = A;
   } else {
-    f2polymod_t base_g, ext_g;
+    f2_polymod_t base_g, ext_g;
 
     if (!f2polymod_find_generator(base_modulus, base_g)) {
       std::cerr << "Can't find generator mod " << base_modulus << ".\n";
@@ -160,19 +160,19 @@ int f2pm_matrix_is_dable(tmatrix<f2polymod_t> &A,
     ext_A = f2polymod_convert_matrix(base_g, ext_g, A);
   }
 
-  tfacinfo<f2npoly_t> ext_finfo = f2n_poly_factor(ext_chpol);
+  tfacinfo<f2n_poly_t> ext_finfo = f2n_poly_factor(ext_chpol);
 
   int nev = 0;
   for (int i = 0; i < ext_finfo.get_num_distinct(); i++) {
-    f2npoly_t factor = ext_finfo.get_ith_factor(i);
+    f2n_poly_t factor = ext_finfo.get_ith_factor(i);
     int d = factor.find_degree();
     if (d == 1)
       nev++;
   }
 
-  reigenvalues = tvector<f2polymod_t>(nev);
+  reigenvalues = tvector<f2_polymod_t>(nev);
   for (int i = 0; i < nev; i++) {
-    f2npoly_t factor = ext_finfo.get_ith_factor(i);
+    f2n_poly_t factor = ext_finfo.get_ith_factor(i);
     int d = factor.find_degree();
     if (d != 1) {
       rv = 0;
@@ -185,7 +185,7 @@ int f2pm_matrix_is_dable(tmatrix<f2polymod_t> &A,
   // Compute nullities and multiplicities for each eigenvalue.
   int n = ext_A.get_num_rows();
   for (int i = 0; i < nev; i++) {
-    tmatrix<f2polymod_t> A_tI(ext_A);
+    tmatrix<f2_polymod_t> A_tI(ext_A);
     A_tI -= reigenvalues[i];
     int rank = A_tI.get_rank();
     int nullity = n - rank;
@@ -199,7 +199,7 @@ int f2pm_matrix_is_dable(tmatrix<f2polymod_t> &A,
       std::cout << "A - " << reigenvalues[i] << " * I =\n" << A_tI << "\n";
     }
 
-    // tmatrix<f2polymod_t> kbi = A_tI.get_kernel_basis();
+    // tmatrix<f2_polymod_t> kbi = A_tI.get_kernel_basis();
     // append to eigenvectors
     // xxx find eigenvectors
     // rr first to avoid redundant cpt'ns (and cmt)
@@ -207,9 +207,9 @@ int f2pm_matrix_is_dable(tmatrix<f2polymod_t> &A,
   }
 
   // if (rv == 1) {
-  //	rD = tmatrix<f2polymod_t>(n, n);
-  //	rP = tmatrix<f2polymod_t>(n, n);
-  //	f2polymod_t zero = splitA[0][0] - splitA[0][0];
+  //	rD = tmatrix<f2_polymod_t>(n, n);
+  //	rP = tmatrix<f2_polymod_t>(n, n);
+  //	f2_polymod_t zero = splitA[0][0] - splitA[0][0];
   //	D = zero;
   //	int k = 0;
   //	for (int i = 0; i < reinfo.get_nev(); i++) {
@@ -221,8 +221,8 @@ int f2pm_matrix_is_dable(tmatrix<f2polymod_t> &A,
   //	}
   //	P = P.transpose();
   //
-  //	tmatrix<f2polymod_t> PD = P * D;
-  //	tmatrix<f2polymod_t> AP = splitA * P;
+  //	tmatrix<f2_polymod_t> PD = P * D;
+  //	tmatrix<f2_polymod_t> AP = splitA * P;
   //	if (PD != AP) {
   //		std::cerr << "f2pm_matrix_is_dable: coding error.\n";
   //		exit(1);
@@ -233,15 +233,15 @@ int f2pm_matrix_is_dable(tmatrix<f2polymod_t> &A,
 }
 
 // ----------------------------------------------------------------
-tvector<f2polymod_t> ft_vector_from_base_rep(int base_rep, f2poly_t m,
+tvector<f2_polymod_t> ft_vector_from_base_rep(int base_rep, f2_poly_t m,
                                              int len) {
-  tvector<f2polymod_t> v(len);
+  tvector<f2_polymod_t> v(len);
   int i;
   int t = 1 << m.find_degree();
 
   for (i = len - 1; i >= 0; i--) {
-    f2poly_t r = f2poly_t::from_base_rep(base_rep % t);
-    v[i] = f2polymod_t(r, m);
+    f2_poly_t r = f2_poly_t::from_base_rep(base_rep % t);
+    v[i] = f2_polymod_t(r, m);
     base_rep /= t;
   }
   return v;

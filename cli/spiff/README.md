@@ -7,20 +7,20 @@ bit_t          f2      Z/<2> = F_2              Residue field, p=2
 intmod_t       fp      Z/<p> = F_p              Residue field
 intrat_t       q       Q                        Quotient field
 //
-f2poly_t       f2p     F2[x]                    Ring
-f2polymod_t    f2pm    F2[x]/<f(x)> = F_{2^n}   Residue field
-f2polyrat_t    f2pr    F2(x)                    Quotient field
+f2_poly_t       f2p     F2[x]                    Ring
+f2_polymod_t    f2pm    F2[x]/<f(x)> = F_{2^n}   Residue field
+f2_polyrat_t    f2pr    F2(x)                    Quotient field
 //
-fppoly_t       fpp     F_p[x]                   Ring
-fppolymod_t    fppm    F_p[x]/<f(x)>            Residue field
-fppolyrat_t    fppr    F_p(x)                   Quotient field
+fp_poly_t       fpp     F_p[x]                   Ring
+fp_polymod_t    fppm    F_p[x]/<f(x)>            Residue field
+fp_polyrat_t    fppr    F_p(x)                   Quotient field
 //
-f2npoly_t      f2np    F_{2^n}[y]               Ring
-f2npolymod_t   f2npm   F_{2^n}[y]/<g(y)>        Residue field
-f2npolyrat_t   f2npr   F_{2^n}(y)               Quotient field
+f2n_poly_t      f2np    F_{2^n}[y]               Ring
+f2n_polymod_t   f2npm   F_{2^n}[y]/<g(y)>        Residue field
+f2n_polyrat_t   f2npr   F_{2^n}(y)               Quotient field
 //
-fpnpoly_t      fpnp    F_{p^n}[y]               Ring
-fpnpolymod_t   fpnpm   F_{p^n}[y]/<g(y)>        Residue field
+fpn_poly_t      fpnp    F_{p^n}[y]               Ring
+fpn_polymod_t   fpnpm   F_{p^n}[y]/<g(y)>        Residue field
 fpnpolyrat_t   fpnpr   F_{p^n}(y)               Quotient field
 
 ----------------------------------------------------------------

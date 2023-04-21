@@ -7,7 +7,7 @@
 * replace some polrat stuff with ED stuff
 
 * ED stuff into regression scripts
-* declare default fpnpoly_t & then set_coeff.  this examines coeff[0]
+* declare default fpn_poly_t & then set_coeff.  this examines coeff[0]
   which is still set to default invalid; abend.  to fix, have set_coeff
   recognize default (invalid) member data.
 
@@ -45,7 +45,7 @@ k bit_matrix_t to accelerate f2pfactor
 
 ! other row-red routine for rings (must be EDs).  Needs generic "gcd".
 
-* skip-whitespace blob into linescan.
+* skip-whitespace blob into line_scan.
 
 ----------------------------------------------------------------
 k check that each spiff cmd calls the correct usage func.  OR, make it
@@ -96,7 +96,7 @@ fpn - .  .   .  -
 * fp_find_gen to intmod_find_gen
 * modexp method for polys; into p-berl.
 * are iss's really ever needed?  whack 'em.
-* fppoly_random to use set_coeff now.
+* fp_poly_random to use set_coeff now.
 * 1x1 ~ scalar in tmat stuff, for benefit of cmd_line_mat_parse.
 * DEBUG -> VERBOSE
 

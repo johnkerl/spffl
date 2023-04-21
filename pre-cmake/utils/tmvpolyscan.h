@@ -3,20 +3,20 @@
 
 #include "bit_t.h"
 #include "intmod_t.h"
-#include "f2polymod_t.h"
-#include "f2npolymod_t.h"
-#include "fppolymod_t.h"
+#include "f2_polymod_t.h"
+#include "f2n_polymod_t.h"
+#include "fp_polymod_t.h"
 #include "tmvpoly.h"
 
 int tmvpoly_f2polymod_from_string(
-	tmvpoly<f2polymod_t> & f,
+	tmvpoly<f2_polymod_t> & f,
 	const char           * string,
-	f2poly_t               m);
+	f2_poly_t               m);
 
 int tmvpoly_fppolymod_from_string(
-	tmvpoly<fppolymod_t> & f,
+	tmvpoly<fp_polymod_t> & f,
 	const char           * string,
-	fppoly_t               m);
+	fp_poly_t               m);
 
 // xxx Code up the remaining data types as well.
 

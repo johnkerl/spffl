@@ -7,10 +7,10 @@
 #error under construction
 
 #include <iostream>
-#include "fppolymod_t.h"
+#include "fp_polymod_t.h"
 #include "fp_poly_factor.h"
 #include "fppolymod_units.h"
-#include "minimal_and_characteristic_polynomials.h"
+#include "min_char_polys.h"
 #include "moebius.h"
 #include "log10.h"
 #include "calc_power.h"
@@ -27,12 +27,12 @@ typedef struct _opts_t {
 
 // ----------------------------------------------------------------
 typedef struct _fppm_chart_cell_t {
-	fppolymod_t root;
+	fp_polymod_t root;
 	int         log;
 } fppm_chart_cell_t;
 
 typedef struct _fppm_chart_row_t {
-	fppoly_t  min_poly;
+	fp_poly_t  min_poly;
 	int       num_roots;
 	int       order;
 	fppm_chart_cell_t * cells;
@@ -40,7 +40,7 @@ typedef struct _fppm_chart_row_t {
 
 typedef struct _fppm_chart_t {
 	int       num_rows;
-	fppolymod_t g;
+	fp_polymod_t g;
 	fppm_chart_row_t * rows;
 } fppm_chart_t;
 
@@ -56,7 +56,7 @@ static int num_irreds_deg_divides(
 static void find_irreds(
 	int        p,
 	int        n,
-	fppoly_t * pirreds,
+	fp_poly_t * pirreds,
 	int        num_irreds);
 
 static fppm_chart_t * alloc_fppm_chart(
@@ -71,20 +71,20 @@ static int fppm_chart_row_qcmp(
 	const void * pv2);
 
 static void do_fppm_chart(
-	fppoly_t  m,
+	fp_poly_t  m,
 	int       p,
 	int       n,
 	opts_t  * popts);
 
 static void fill_fppm_chart(
 	fppm_chart_t * pchart,
-	fppoly_t  m,
+	fp_poly_t  m,
 	int       p,
 	int       n);
 
 static void print_fppm_chart(
 	fppm_chart_t * pchart,
-	fppoly_t  m,
+	fp_poly_t  m,
 	int       p,
 	int       n,
 	opts_t  * popts);
@@ -107,7 +107,7 @@ int main(int argc, char ** argv)
 	int       argi;
 	int       p;
 	int       n;
-	fppoly_t  mj;
+	fp_poly_t  mj;
 	int       j;
 	opts_t    opts;
 
@@ -155,7 +155,7 @@ int main(int argc, char ** argv)
 
 		if (sscanf(argv[argi], ":%u", &n) == 1) {
 			int num_irreds = num_irreds_deg_is(p, n);
-			fppoly_t * pirreds = new fppoly_t[num_irreds];
+			fp_poly_t * pirreds = new fp_poly_t[num_irreds];
 			find_irreds(p, n, pirreds, num_irreds);
 			for (j = 0; j < num_irreds; j++) {
 				mj = pirreds[j];
@@ -204,14 +204,14 @@ static int num_irreds_deg_divides(
 static void find_irreds(
 	int        p,
 	int        n,
-	fppoly_t * pirreds,
+	fp_poly_t * pirreds,
 	int        num_irreds)
 {
 	int count = 0;
-	fppoly_t f, flo, fhi;
+	fp_poly_t f, flo, fhi;
 
-	flo = fppoly_t::from_base_rep(1 << n);
-	fhi = fppoly_t::from_base_rep((1 << n+1) - 1);
+	flo = fp_poly_t::from_base_rep(1 << n);
+	fhi = fp_poly_t::from_base_rep((1 << n+1) - 1);
 	for (f = flo; f <= fhi; f.increment()) {
 		if (!fppoly_is_irreducible(f))
 			continue;
@@ -274,7 +274,7 @@ static int fppm_chart_row_qcmp(
 
 // ----------------------------------------------------------------
 static void do_fppm_chart(
-	fppoly_t  m,
+	fp_poly_t  m,
 	int       p,
 	int       n,
 	opts_t  * popts)
@@ -290,14 +290,14 @@ static void do_fppm_chart(
 // ----------------------------------------------------------------
 static void fill_fppm_chart(
 	fppm_chart_t * pchart,
-	fppoly_t  m,
+	fp_poly_t  m,
 	int       p,
 	int       n)
 {
 	int pn1 = calc_power(p, n) - 1;
 	int i, d, pd1, sfld_log, elt_log, orbit_log, j;
 	char * marks;
-	fppolymod_t g, elt;
+	fp_polymod_t g, elt;
 	int    rowi = 0;
 	fppm_chart_row_t * prow;
 
@@ -359,13 +359,13 @@ static void fill_fppm_chart(
 // ----------------------------------------------------------------
 static void print_fppm_chart(
 	fppm_chart_t * pchart,
-	fppoly_t  m,
+	fp_poly_t  m,
 	int       n,
 	opts_t  * popts)
 {
 	int i, j;
 	fppm_chart_cell_t * pc;
-	fppolymod_t z;
+	fp_polymod_t z;
 	//int width = calc_log10_unsigned(1<<n, IFLOOR) + 1;
 
 	//std::cout << "Root chart for " << m;
@@ -388,8 +388,8 @@ static void print_fppm_chart(
 //			// xxx make get-rank function
 //			int nroots = pchart->rows[i].num_roots;
 //			int rank;
-//			fppoly_t * M = malloc_check(
-//				nroots * sizeof(fppoly_t));
+//			fp_poly_t * M = malloc_check(
+//				nroots * sizeof(fp_poly_t));
 //			for (j = 0; j < nroots; j++)
 //				M[j] = pchart->rows[i].cells[j].root;
 //			z2ila_row_echelon_form(M, nroots);

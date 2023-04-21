@@ -3,8 +3,8 @@ cmake_minimum_required (VERSION 3.24)
 project(units)
 
 add_library(${PROJECT_NAME}
-  f2polymod_units.cpp
-  f2npolymod_units.cpp
+  f2_polymod_units.cpp
+  f2n_polymod_units.cpp
   fp_units.cpp
 )
 

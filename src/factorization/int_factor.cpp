@@ -5,7 +5,7 @@
 // ================================================================
 
 #include "int_factor.h"
-#include "primes16.h"
+#include "primes_16.h"
 #include "tfacinfo.h"
 #include "tmatrix.h"
 
@@ -22,7 +22,7 @@ tfacinfo<int> int_factor(int n) {
   }
 
   for (int i = 0; i < numprimes16; i++) {
-    int p = primes16[i];
+    int p = primes_16[i];
     if (n == 1)
       return finfo;
     if ((n % p) != 0)

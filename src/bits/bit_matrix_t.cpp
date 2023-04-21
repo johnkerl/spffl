@@ -5,7 +5,7 @@
 // ================================================================
 
 #include "bit_matrix_t.h"
-#include "linescan.h"
+#include "line_scan.h"
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>

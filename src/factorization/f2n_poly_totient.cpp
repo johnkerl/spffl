@@ -39,15 +39,15 @@
 #include "f2n_poly_factor.h"
 #include "int_power.h"
 
-int f2n_poly_totient(f2npoly_t f) {
+int f2n_poly_totient(f2n_poly_t f) {
   int rv = 1;
-  f2poly_t m = f.get_coeff(0).get_modulus();
+  f2_poly_t m = f.get_coeff(0).get_modulus();
   int q = 1 << m.find_degree();
-  tfacinfo<f2npoly_t> finfo = f2n_poly_factor(f);
+  tfacinfo<f2n_poly_t> finfo = f2n_poly_factor(f);
   int nf = finfo.get_num_distinct();
 
   for (int i = 0; i < nf; i++) {
-    f2npoly_t fi = finfo.get_ith_factor(i);
+    f2n_poly_t fi = finfo.get_ith_factor(i);
     int ei = finfo.get_ith_count(i);
     int di = fi.find_degree();
     rv *= int_power(q, di * (ei - 1)) * (int_power(q, di) - 1);

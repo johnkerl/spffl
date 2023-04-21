@@ -1,7 +1,7 @@
 #include "q_handlers.h"
 #include "cmd_line_matrix_ops.h"
 #include "cmd_line_vector_ops.h"
-#include "cyclopoly.h"
+#include "cyclo_poly.h"
 #include "intrat_t.h"
 #include "qpoly_t.h"
 

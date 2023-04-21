@@ -16,7 +16,7 @@ int main(int argc, char ** argv)
 {
 	for (int i = 0; i < 65536; i++) {
 		tmatrix<bit_t> A = f2_matrix_from_base_rep(i, 4, 4);
-		f2poly_t d = f2_char_poly(A);
+		f2_poly_t d = f2_char_poly(A);
 		std::cout << d << "\n";
 	}
 	return 0;

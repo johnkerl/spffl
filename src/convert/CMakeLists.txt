@@ -3,7 +3,7 @@ cmake_minimum_required (VERSION 3.24)
 project(convert)
 
 add_library(${PROJECT_NAME}
-  f2polymod_convert.cpp
+  f2_polymod_convert.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

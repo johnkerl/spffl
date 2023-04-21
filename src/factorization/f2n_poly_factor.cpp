@@ -5,36 +5,36 @@
 // ================================================================
 
 #include "f2n_poly_factor.h"
-#include "f2npoly_random.h"
-#include "f2polymod_t.h"
+#include "f2n_poly_random.h"
+#include "f2_polymod_t.h"
 #include "tfacinfo.h"
 #include "tmatrix.h"
 
 //#define F2NPOLY_FACTOR_DEBUG
 
-static void f2npoly_pre_berlekamp(f2npoly_t f, tfacinfo<f2npoly_t> &rfinfo,
+static void f2npoly_pre_berlekamp(f2n_poly_t f, tfacinfo<f2n_poly_t> &rfinfo,
                                   int recurse);
 
-static void f2npoly_berlekamp(f2npoly_t f, tfacinfo<f2npoly_t> &rfinfo,
+static void f2npoly_berlekamp(f2n_poly_t f, tfacinfo<f2n_poly_t> &rfinfo,
                               int recurse);
 
-f2npoly_t f2npoly_from_vector(tvector<f2polymod_t> v, int n);
+f2n_poly_t f2npoly_from_vector(tvector<f2_polymod_t> v, int n);
 
 // ----------------------------------------------------------------
-tfacinfo<f2npoly_t> f2n_poly_factor(f2npoly_t f) {
-  tfacinfo<f2npoly_t> finfo;
+tfacinfo<f2n_poly_t> f2n_poly_factor(f2n_poly_t f) {
+  tfacinfo<f2n_poly_t> finfo;
   int d = f.find_degree();
-  f2polymod_t c0 = f.get_coeff(0);
-  f2poly_t m = c0.get_modulus();
-  f2polymod_t zero = c0.prime_sfld_elt(0);
-  f2polymod_t one = c0.prime_sfld_elt(1);
+  f2_polymod_t c0 = f.get_coeff(0);
+  f2_poly_t m = c0.get_modulus();
+  f2_polymod_t zero = c0.prime_sfld_elt(0);
+  f2_polymod_t one = c0.prime_sfld_elt(1);
 
   if (d == 0) {
     finfo.insert_unit(f);
     return finfo;
   }
 
-  f2polymod_t leader = f.get_coeff(d);
+  f2_polymod_t leader = f.get_coeff(d);
   if ((leader != zero) && (leader != one)) {
     finfo.insert_unit(leader);
     f /= leader;
@@ -45,10 +45,10 @@ tfacinfo<f2npoly_t> f2n_poly_factor(f2npoly_t f) {
 }
 
 // ----------------------------------------------------------------
-static void f2npoly_pre_berlekamp(f2npoly_t f, tfacinfo<f2npoly_t> &rfinfo,
+static void f2npoly_pre_berlekamp(f2n_poly_t f, tfacinfo<f2n_poly_t> &rfinfo,
                                   int recurse) {
-  f2npoly_t d = f.deriv();
-  f2npoly_t g = f.gcd(d);
+  f2n_poly_t d = f.deriv();
+  f2n_poly_t g = f.gcd(d);
 
 #ifdef F2NPOLY_FACTOR_DEBUG
   std::cout << "\n";
@@ -69,9 +69,9 @@ static void f2npoly_pre_berlekamp(f2npoly_t f, tfacinfo<f2npoly_t> &rfinfo,
     f2npoly_berlekamp(f, rfinfo, recurse);
   } else if (d == 0) {
     // Input is a perfect square
-    f2npoly_t s;
-    tfacinfo<f2npoly_t> sfinfo;
-    f2poly_t m = f.get_coeff(0).get_modulus();
+    f2n_poly_t s;
+    tfacinfo<f2n_poly_t> sfinfo;
+    f2_poly_t m = f.get_coeff(0).get_modulus();
     if (!f.square_root(s)) {
       std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
                 << "\n";
@@ -87,7 +87,7 @@ static void f2npoly_pre_berlekamp(f2npoly_t f, tfacinfo<f2npoly_t> &rfinfo,
       sfinfo.exp_all(2);
     rfinfo.merge(sfinfo);
   } else {
-    f2npoly_t q = f / g;
+    f2n_poly_t q = f / g;
 
     // Input was already made monic, so these factors should
     // be as well.
@@ -103,18 +103,18 @@ static void f2npoly_pre_berlekamp(f2npoly_t f, tfacinfo<f2npoly_t> &rfinfo,
 // See my "Computation in finite fields" (ffcomp.pdf) for a full description
 // of this algorithm.  See f2_poly_factor.cpp for some sample data.
 
-static void f2npoly_berlekamp(f2npoly_t f, tfacinfo<f2npoly_t> &rfinfo,
+static void f2npoly_berlekamp(f2n_poly_t f, tfacinfo<f2n_poly_t> &rfinfo,
                               int recurse) {
   int n = f.find_degree();
-  f2polymod_t c0 = f.get_coeff(0);
-  f2poly_t m = c0.get_modulus();
+  f2_polymod_t c0 = f.get_coeff(0);
+  f2_poly_t m = c0.get_modulus();
   int q = 1 << m.find_degree();
-  f2polymod_t zero = c0.prime_sfld_elt(0);
-  f2polymod_t one = c0.prime_sfld_elt(1);
-  f2npoly_t x(one, zero);
-  f2npoly_t xq;
-  f2npoly_t xqi = one;
-  f2npoly_t f1, f2;
+  f2_polymod_t zero = c0.prime_sfld_elt(0);
+  f2_polymod_t one = c0.prime_sfld_elt(1);
+  f2n_poly_t x(one, zero);
+  f2n_poly_t xq;
+  f2n_poly_t xqi = one;
+  f2n_poly_t f1, f2;
   int i, j, row, rank, dimker;
 
   xq = x;
@@ -127,7 +127,7 @@ static void f2npoly_berlekamp(f2npoly_t f, tfacinfo<f2npoly_t> &rfinfo,
   std::cout << "x"
             << " = " << x << "\n";
 #endif
-  tmatrix<f2polymod_t> BI(n, n);
+  tmatrix<f2_polymod_t> BI(n, n);
 
   if (n < 2) {
     rfinfo.insert_factor(f);
@@ -172,7 +172,7 @@ static void f2npoly_berlekamp(f2npoly_t f, tfacinfo<f2npoly_t> &rfinfo,
   }
 
   // Find a basis for the nullspace of B - I.
-  tmatrix<f2polymod_t> nullspace_basis;
+  tmatrix<f2_polymod_t> nullspace_basis;
   if (!BI.get_kernel_basis(nullspace_basis, zero, one)) {
     std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
               << "\n";
@@ -190,7 +190,7 @@ static void f2npoly_berlekamp(f2npoly_t f, tfacinfo<f2npoly_t> &rfinfo,
 
   int got_it = 0;
   for (row = 0; row < dimker && !got_it; row++) {
-    f2npoly_t h = f2npoly_from_vector(nullspace_basis[row], n);
+    f2n_poly_t h = f2npoly_from_vector(nullspace_basis[row], n);
 #ifdef F2NPOLY_FACTOR_DEBUG
     std::cout << "h  = " << h << "\n";
 #endif // F2NPOLY_FACTOR_DEBUG
@@ -198,10 +198,10 @@ static void f2npoly_berlekamp(f2npoly_t f, tfacinfo<f2npoly_t> &rfinfo,
       continue;
 
     for (int c = 0; c < q; c++) {
-      f2poly_t f2pc = f2poly_t::from_base_rep(c);
-      f2polymod_t f2pmc(f2pc, m);
-      f2npoly_t f2npc(f2pmc);
-      f2npoly_t hc = h - f2npc;
+      f2_poly_t f2pc = f2_poly_t::from_base_rep(c);
+      f2_polymod_t f2pmc(f2pc, m);
+      f2n_poly_t f2npc(f2pmc);
+      f2n_poly_t hc = h - f2npc;
       f1 = f.gcd(hc);
 
 #ifdef F2NPOLY_FACTOR_DEBUG
@@ -251,8 +251,8 @@ static void f2npoly_berlekamp(f2npoly_t f, tfacinfo<f2npoly_t> &rfinfo,
 }
 
 // ----------------------------------------------------------------
-f2npoly_t f2npoly_from_vector(tvector<f2polymod_t> v, int n) {
-  f2npoly_t f;
+f2n_poly_t f2npoly_from_vector(tvector<f2_polymod_t> v, int n) {
+  f2n_poly_t f;
   f.set_coeff(0, v[0] - v[0]);
   for (int i = 0; i < n; i++)
     f.set_coeff(n - 1 - i, v[i]);
@@ -260,14 +260,14 @@ f2npoly_t f2npoly_from_vector(tvector<f2polymod_t> v, int n) {
 }
 
 // ----------------------------------------------------------------
-int f2npoly_roots(f2npoly_t f, tvector<f2polymod_t> &rroots) {
-  tfacinfo<f2npoly_t> finfo = f2n_poly_factor(f);
+int f2npoly_roots(f2n_poly_t f, tvector<f2_polymod_t> &rroots) {
+  tfacinfo<f2n_poly_t> finfo = f2n_poly_factor(f);
   int nf = finfo.get_num_distinct();
   int nr = 0;
   int i, j;
 
   for (i = 0; i < nf; i++) {
-    f2npoly_t factor = finfo.get_ith_factor(i);
+    f2n_poly_t factor = finfo.get_ith_factor(i);
     int deg = factor.find_degree();
     if (deg != 1)
       continue;
@@ -280,15 +280,15 @@ int f2npoly_roots(f2npoly_t f, tvector<f2polymod_t> &rroots) {
     return 0;
   }
 
-  tvector<f2polymod_t> rv(nr);
+  tvector<f2_polymod_t> rv(nr);
 
   for (i = 0, j = 0; i < nf; i++) {
-    f2npoly_t factor = finfo.get_ith_factor(i);
+    f2n_poly_t factor = finfo.get_ith_factor(i);
     int deg = factor.find_degree();
     if (deg != 1)
       continue;
-    f2polymod_t c1 = factor.get_coeff(1);
-    f2polymod_t c0 = factor.get_coeff(0);
+    f2_polymod_t c1 = factor.get_coeff(1);
+    f2_polymod_t c0 = factor.get_coeff(0);
     rv[j++] = -c0 / c1;
   }
 
@@ -297,8 +297,8 @@ int f2npoly_roots(f2npoly_t f, tvector<f2polymod_t> &rroots) {
 }
 
 // ----------------------------------------------------------------
-int f2npoly_is_irreducible(f2npoly_t f) {
-  tfacinfo<f2npoly_t> finfo;
+int f2npoly_is_irreducible(f2n_poly_t f) {
+  tfacinfo<f2n_poly_t> finfo;
 
   int d = f.find_degree();
   if (d == 0)
@@ -323,10 +323,10 @@ int f2npoly_is_irreducible(f2npoly_t f) {
 
 // ----------------------------------------------------------------
 // Lexically lowest
-f2npoly_t f2npoly_find_irr(f2poly_t m, int degree) {
-  f2poly_t c0(0), c1(1);
-  f2polymod_t zero(c0, m), one(c1, m);
-  f2npoly_t rv = zero;
+f2n_poly_t f2npoly_find_irr(f2_poly_t m, int degree) {
+  f2_poly_t c0(0), c1(1);
+  f2_polymod_t zero(c0, m), one(c1, m);
+  f2n_poly_t rv = zero;
   rv.set_coeff(degree, one);
 
   if (degree < 1) {
@@ -352,10 +352,10 @@ f2npoly_t f2npoly_find_irr(f2poly_t m, int degree) {
 }
 
 // ----------------------------------------------------------------
-f2npoly_t f2npoly_random_irr(f2poly_t m, int degree) {
-  f2poly_t c0(0);
-  f2polymod_t zero(c0, m);
-  f2npoly_t rv;
+f2n_poly_t f2npoly_random_irr(f2_poly_t m, int degree) {
+  f2_poly_t c0(0);
+  f2_polymod_t zero(c0, m);
+  f2n_poly_t rv;
 
   if (degree < 1) {
     std::cout << "f2npoly_random_irr:  degree must be positive; got " << degree
@@ -364,7 +364,7 @@ f2npoly_t f2npoly_random_irr(f2poly_t m, int degree) {
   }
 
   for (;;) {
-    rv = f2npoly_random(m, degree);
+    rv = f2n_poly_random(m, degree);
     if (rv.get_coeff(0) == zero)
       continue;
     if (f2npoly_is_irreducible(rv)) {

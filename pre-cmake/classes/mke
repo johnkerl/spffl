@@ -1,11 +1,11 @@
-g++ -g -I../utils -I. foo1.cpp  ../utils/linescan.cpp  ../utils/int_gcd.cpp \
+g++ -g -I../utils -I. foo1.cpp  ../utils/line_scan.cpp  ../utils/int_gcd.cpp \
  -o zrred
-g++ -g -I../utils -I. foo2.cpp  ../utils/linescan.cpp  ../utils/int_gcd.cpp \
+g++ -g -I../utils -I. foo2.cpp  ../utils/line_scan.cpp  ../utils/int_gcd.cpp \
  -o zdet
-#g++ -g -I../utils -I. foo3.cpp  ../utils/linescan.cpp  ../utils/int_gcd.cpp \
-#  ../classes/f2poly_t.cpp ../utils/count_bits.cpp ../utils/log2.cpp
-g++ -g -I../utils -I. foo4.cpp  ../utils/linescan.cpp  ../utils/int_gcd.cpp \
-  ../classes/f2poly_t.cpp ../utils/count_bits.cpp ../utils/log2.cpp \
+#g++ -g -I../utils -I. foo3.cpp  ../utils/line_scan.cpp  ../utils/int_gcd.cpp \
+#  ../classes/f2_poly_t.cpp ../utils/count_bits.cpp ../utils/log2.cpp
+g++ -g -I../utils -I. foo4.cpp  ../utils/line_scan.cpp  ../utils/int_gcd.cpp \
+  ../classes/f2_poly_t.cpp ../utils/count_bits.cpp ../utils/log2.cpp \
   -o zrech
 
 #a.out <<@@@

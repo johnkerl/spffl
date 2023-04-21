@@ -6,17 +6,17 @@
 
 #ifndef FPPOLY_FACTOR_H
 #define FPPOLY_FACTOR_H
-#include "fppoly_t.h"
+#include "fp_poly_t.h"
 #include "tfacinfo.h"
 
-tfacinfo<fppoly_t> fp_poly_factor(fppoly_t f);
+tfacinfo<fp_poly_t> fp_poly_factor(fp_poly_t f);
 
-int fppoly_is_irreducible(fppoly_t f);
+int fppoly_is_irreducible(fp_poly_t f);
 
 // Lexically lowest (and therefore monic).
-fppoly_t fppoly_find_irr(int p, int degree);
+fp_poly_t fppoly_find_irr(int p, int degree);
 
 // Monic.
-fppoly_t fppoly_random_irr(int p, int degree);
+fp_poly_t fppoly_random_irr(int p, int degree);
 
 #endif // FPPOLY_FACTOR_H

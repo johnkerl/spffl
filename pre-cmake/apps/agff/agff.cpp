@@ -4,30 +4,30 @@
 #include "tmvrat.h"
 #include "tmvratscan.h"
 
-#include "f2polymod_t.h"
+#include "f2_polymod_t.h"
 #include "f2_poly_factor.h"
-#include "fppolymod_t.h"
+#include "fp_polymod_t.h"
 #include "fp_poly_factor.h"
 
 #include "int_power.h"
-#include "sp_list_elts.h"
+#include "list_elements.h"
 
-// xxx move to f2polymod_convert.cpp
-static tmvpoly<f2polymod_t> F2_Fq_embed(
-	tmvpoly<f2polymod_t> & f,
-	f2polymod_t          & Fq_zero,
-	f2polymod_t          & Fq_one);
+// xxx move to f2_polymod_convert.cpp
+static tmvpoly<f2_polymod_t> F2_Fq_embed(
+	tmvpoly<f2_polymod_t> & f,
+	f2_polymod_t          & Fq_zero,
+	f2_polymod_t          & Fq_one);
 
 // xxx move to fppolymod_convert.cpp
-static tmvpoly<fppolymod_t> Fp_Fq_embed(
-	tmvpoly<fppolymod_t> & f,
-	fppoly_t             & m);
+static tmvpoly<fp_polymod_t> Fp_Fq_embed(
+	tmvpoly<fp_polymod_t> & f,
+	fp_poly_t             & m);
 
-static tvector<f2polymod_t> F2_frob(
-	tvector<f2polymod_t> & v);
+static tvector<f2_polymod_t> F2_frob(
+	tvector<f2_polymod_t> & v);
 
-static tmatrix<f2polymod_t> F2_frobit(
-	tvector<f2polymod_t> & v,
+static tmatrix<f2_polymod_t> F2_frobit(
+	tvector<f2_polymod_t> & v,
 	int                    n);
 
 // ----------------------------------------------------------------
@@ -88,12 +88,12 @@ int f2aplist_main(int argc, char ** argv)
 	if (num_deg <= 0)
 		f2aplist_usage(argv[0]);
 
-	f2poly_t    F2_m    = f2poly_t::from_base_rep(3);
-	f2polymod_t F2_zero = f2polymod_t::prime_sfld_elt(0, F2_m);
-	f2polymod_t F2_one  = f2polymod_t::prime_sfld_elt(1, F2_m);
+	f2_poly_t    F2_m    = f2_poly_t::from_base_rep(3);
+	f2_polymod_t F2_zero = f2_polymod_t::prime_sfld_elt(0, F2_m);
+	f2_polymod_t F2_one  = f2_polymod_t::prime_sfld_elt(1, F2_m);
 
 	// Scan the functions.
-	tvector< tmvpoly<f2polymod_t> > arg_f(num_F);
+	tvector< tmvpoly<f2_polymod_t> > arg_f(num_F);
 	for (argi = argfb, i = 0; i < num_F; i++, argi++) {
 		if (!tmvpoly_f2polymod_from_string(arg_f[i], argv[argi], F2_m)) {
 			std::cerr << "Couldn't scan polynomial.\n";
@@ -113,10 +113,10 @@ int f2aplist_main(int argc, char ** argv)
 	}
 
 	// Include partials, if desired.
-	tvector< tmvpoly<f2polymod_t> > F2_f;
+	tvector< tmvpoly<f2_polymod_t> > F2_f;
 	if (include_partials) {
 		int new_num_F = num_F * (nv + 1);
-		tvector< tmvpoly<f2polymod_t> > temp(new_num_F);
+		tvector< tmvpoly<f2_polymod_t> > temp(new_num_F);
 
 		int k = 0;
 		for (i = 0; i < num_F; i++) {
@@ -142,7 +142,7 @@ int f2aplist_main(int argc, char ** argv)
 	// Scan the degrees.
 	for (argi = argdb; argi < argc; argi++) {
 
-		f2poly_t Fq_m;
+		f2_poly_t Fq_m;
 		if (argv[argi][0] == ':') {
 			// User-specified reductor.
 			if (!Fq_m.from_string(&argv[argi][1])) {
@@ -161,9 +161,9 @@ int f2aplist_main(int argc, char ** argv)
 		int n = Fq_m.find_degree();
 		int q = 1 << n;
 
-		f2polymod_t Fq_zero = f2polymod_t::prime_sfld_elt(0, Fq_m);
-		f2polymod_t Fq_one  = f2polymod_t::prime_sfld_elt(1, Fq_m);
-		tmvpoly<f2polymod_t> Fq_f[num_F];
+		f2_polymod_t Fq_zero = f2_polymod_t::prime_sfld_elt(0, Fq_m);
+		f2_polymod_t Fq_one  = f2_polymod_t::prime_sfld_elt(1, Fq_m);
+		tmvpoly<f2_polymod_t> Fq_f[num_F];
 		for (i = 0; i < num_F; i++)
 			Fq_f[i] = F2_Fq_embed(F2_f[i], Fq_zero, Fq_one);
 
@@ -171,7 +171,7 @@ int f2aplist_main(int argc, char ** argv)
 		"----------------------------------------------------------------\n";
 		std::cout << "m = " << Fq_m << " q = " << q << "\n";
 
-		tmatrix<f2polymod_t> space; // A^n(F_q) or P^n(F_q)
+		tmatrix<f2_polymod_t> space; // A^n(F_q) or P^n(F_q)
 		if (homogenize)
 			space = f2polymod_Pn_list(Fq_m, nv-1);
 		else
@@ -186,7 +186,7 @@ int f2aplist_main(int argc, char ** argv)
 
 			int all_zero = 1;
 			for (i = 0; i < num_F; i++) {
-				f2polymod_t fx = Fq_f[i].eval(space[j]);
+				f2_polymod_t fx = Fq_f[i].eval(space[j]);
 				if (fx != Fq_zero) {
 					all_zero = 0;
 					break;
@@ -198,7 +198,7 @@ int f2aplist_main(int argc, char ** argv)
 				continue;
 			marks[j] = 1;
 
-			tmatrix<f2polymod_t> frobit = F2_frobit(space[j], n);
+			tmatrix<f2_polymod_t> frobit = F2_frobit(space[j], n);
 			int point_degree = frobit.get_num_rows();
 
 			for (i = 0; i < point_degree; i++) {
@@ -263,16 +263,16 @@ int f2apolist_main(int argc, char ** argv)
 	char * fstring = argv[argb];
 	argb++;
 
-	f2poly_t    F2_m    = f2poly_t::from_base_rep(3);
-	f2polymod_t F2_zero = f2polymod_t::prime_sfld_elt(0, F2_m);
-	f2polymod_t F2_one  = f2polymod_t::prime_sfld_elt(1, F2_m);
+	f2_poly_t    F2_m    = f2_poly_t::from_base_rep(3);
+	f2_polymod_t F2_zero = f2_polymod_t::prime_sfld_elt(0, F2_m);
+	f2_polymod_t F2_one  = f2_polymod_t::prime_sfld_elt(1, F2_m);
 
-	tmvpoly<f2polymod_t> F2_f;
+	tmvpoly<f2_polymod_t> F2_f;
 	if (!tmvpoly_f2polymod_from_string(F2_f, fstring, F2_m)) {
 		std::cerr << "Couldn't scan polynomial.\n";
 		exit(1);
 	}
-	tmvpoly<f2polymod_t> F2_F = F2_f.homogenize();
+	tmvpoly<f2_polymod_t> F2_F = F2_f.homogenize();
 
 	std::cout << "f = " << F2_f << "\n";
 	std::cout << "F = " << F2_F << "\n";
@@ -281,7 +281,7 @@ int f2apolist_main(int argc, char ** argv)
 		int num_affine = 0;
 		int num_projective = 0;
 
-		f2poly_t Fq_m;
+		f2_poly_t Fq_m;
 		if (argv[argi][0] == ':') {
 			// User-specified reductor.
 			if (!Fq_m.from_string(&argv[argi][1])) {
@@ -298,11 +298,11 @@ int f2apolist_main(int argc, char ** argv)
 			Fq_m = f2poly_find_irr(deg);
 		}
 
-		f2polymod_t Fq_zero = f2polymod_t::prime_sfld_elt(0, Fq_m);
-		f2polymod_t Fq_one  = f2polymod_t::prime_sfld_elt(1, Fq_m);
+		f2_polymod_t Fq_zero = f2_polymod_t::prime_sfld_elt(0, Fq_m);
+		f2_polymod_t Fq_one  = f2_polymod_t::prime_sfld_elt(1, Fq_m);
 
-		tmvpoly<f2polymod_t> f = F2_Fq_embed(F2_f, Fq_zero, Fq_one);
-		tmvpoly<f2polymod_t> F = f.homogenize();
+		tmvpoly<f2_polymod_t> f = F2_Fq_embed(F2_f, Fq_zero, Fq_one);
+		tmvpoly<f2_polymod_t> F = f.homogenize();
 
 		int q = 2;
 		int n = Fq_m.find_degree();
@@ -321,11 +321,11 @@ int f2apolist_main(int argc, char ** argv)
 			std::cout << "Affine zeroes:\n";
 		}
 
-		tmatrix<f2polymod_t> An_Fq = f2polymod_An_list(Fq_m, nv);
+		tmatrix<f2_polymod_t> An_Fq = f2polymod_An_list(Fq_m, nv);
 		int qn = An_Fq.get_num_rows();
 
 		for (int i = 0; i < qn; i++) {
-			f2polymod_t fx = f.eval(An_Fq[i]);
+			f2_polymod_t fx = f.eval(An_Fq[i]);
 			if (fx == Fq_zero) {
 				if (print_all_elts)
 					std::cout << An_Fq[i] << "\n";
@@ -338,11 +338,11 @@ int f2apolist_main(int argc, char ** argv)
 			std::cout << "Projective zeroes:\n";
 		}
 
-		tmatrix<f2polymod_t> Pn_Fq = f2polymod_Pn_list(Fq_m, nv);
+		tmatrix<f2_polymod_t> Pn_Fq = f2polymod_Pn_list(Fq_m, nv);
 		int oP = Pn_Fq.get_num_rows();
 
 		for (int i = 0; i < oP; i++) {
-			f2polymod_t FX = F.eval(Pn_Fq[i]);
+			f2_polymod_t FX = F.eval(Pn_Fq[i]);
 			if (FX == Fq_zero) {
 				if (print_all_elts)
 					std::cout << Pn_Fq[i] << "\n";
@@ -391,16 +391,16 @@ int f2apsing_main(int argc, char ** argv)
 	char * fstring = argv[argb];
 	argb++;
 
-	f2poly_t    F2_m    = f2poly_t::from_base_rep(3);
-	f2polymod_t F2_zero = f2polymod_t::prime_sfld_elt(0, F2_m);
-	f2polymod_t F2_one  = f2polymod_t::prime_sfld_elt(1, F2_m);
+	f2_poly_t    F2_m    = f2_poly_t::from_base_rep(3);
+	f2_polymod_t F2_zero = f2_polymod_t::prime_sfld_elt(0, F2_m);
+	f2_polymod_t F2_one  = f2_polymod_t::prime_sfld_elt(1, F2_m);
 
-	tmvpoly<f2polymod_t> F2_f;
+	tmvpoly<f2_polymod_t> F2_f;
 	if (!tmvpoly_f2polymod_from_string(F2_f, fstring, F2_m)) {
 		std::cerr << "Couldn't scan polynomial.\n";
 		exit(1);
 	}
-	tmvpoly<f2polymod_t> F2_F = F2_f.homogenize();
+	tmvpoly<f2_polymod_t> F2_F = F2_f.homogenize();
 
 	std::cout << "f = " << F2_f << "\n";
 	for (int j = 0; j < F2_f.get_nvars(); j++)
@@ -413,7 +413,7 @@ int f2apsing_main(int argc, char ** argv)
 		int num_singular_f = 0;
 		int num_singular_F = 0;
 
-		f2poly_t Fq_m;
+		f2_poly_t Fq_m;
 		if (argv[argi][0] == ':') {
 			// User-specified reductor.
 			if (!Fq_m.from_string(&argv[argi][1])) {
@@ -430,11 +430,11 @@ int f2apsing_main(int argc, char ** argv)
 			Fq_m = f2poly_find_irr(deg);
 		}
 
-		f2polymod_t Fq_zero = f2polymod_t::prime_sfld_elt(0, Fq_m);
-		f2polymod_t Fq_one  = f2polymod_t::prime_sfld_elt(1, Fq_m);
+		f2_polymod_t Fq_zero = f2_polymod_t::prime_sfld_elt(0, Fq_m);
+		f2_polymod_t Fq_one  = f2_polymod_t::prime_sfld_elt(1, Fq_m);
 
-		tmvpoly<f2polymod_t> f = F2_Fq_embed(F2_f, Fq_zero, Fq_one);
-		tmvpoly<f2polymod_t> F = f.homogenize();
+		tmvpoly<f2_polymod_t> f = F2_Fq_embed(F2_f, Fq_zero, Fq_one);
+		tmvpoly<f2_polymod_t> F = f.homogenize();
 
 		int q = 2;
 		int n = Fq_m.find_degree();
@@ -453,17 +453,17 @@ int f2apsing_main(int argc, char ** argv)
 			std::cout << "Affine space:\n";
 		}
 
-		tmatrix<f2polymod_t> An_Fq = f2polymod_An_list(Fq_m, nv);
+		tmatrix<f2_polymod_t> An_Fq = f2polymod_An_list(Fq_m, nv);
 		int qn = An_Fq.get_num_rows();
 
-		tmvpoly<f2polymod_t> * funcs = new tmvpoly<f2polymod_t>[nv+1];
+		tmvpoly<f2_polymod_t> * funcs = new tmvpoly<f2_polymod_t>[nv+1];
 		funcs[0] = f;
 		for (int j = 0; j < nv; j++)
 			funcs[j+1] = f.deriv(j);
 		for (int i = 0; i < qn; i++) {
 			int singular_point = 1;
 			for (int j = 0; j <= nv; j++) {
-				f2polymod_t fx = funcs[j].eval(An_Fq[i]);
+				f2_polymod_t fx = funcs[j].eval(An_Fq[i]);
 				if (fx != Fq_zero)
 					singular_point = 0;
 			}
@@ -486,17 +486,17 @@ int f2apsing_main(int argc, char ** argv)
 			std::cout << "Projective space:\n";
 		}
 
-		tmatrix<f2polymod_t> Pn_Fq = f2polymod_Pn_list(Fq_m, nv);
+		tmatrix<f2_polymod_t> Pn_Fq = f2polymod_Pn_list(Fq_m, nv);
 		int oP = Pn_Fq.get_num_rows();
 
-		funcs = new tmvpoly<f2polymod_t>[nv+2];
+		funcs = new tmvpoly<f2_polymod_t>[nv+2];
 		funcs[0] = F;
 		for (int j = 0; j <= nv; j++)
 			funcs[j+1] = F.deriv(j);
 		for (int i = 0; i < oP; i++) {
 			int singular_point = 1;
 			for (int j = 0; j <= nv+1; j++) {
-				f2polymod_t FX = funcs[j].eval(Pn_Fq[i]);
+				f2_polymod_t FX = funcs[j].eval(Pn_Fq[i]);
 				if (FX != Fq_zero)
 					singular_point = 0;
 			}
@@ -562,11 +562,11 @@ int f2apjac_main(int argc, char ** argv)
 	char * fstring = argv[argb];
 	argb++;
 
-	f2poly_t    F2_m    = f2poly_t::from_base_rep(3);
-	f2polymod_t F2_zero = f2polymod_t::prime_sfld_elt(0, F2_m);
-	f2polymod_t F2_one  = f2polymod_t::prime_sfld_elt(1, F2_m);
+	f2_poly_t    F2_m    = f2_poly_t::from_base_rep(3);
+	f2_polymod_t F2_zero = f2_polymod_t::prime_sfld_elt(0, F2_m);
+	f2_polymod_t F2_one  = f2_polymod_t::prime_sfld_elt(1, F2_m);
 
-	tmvpoly<f2polymod_t> F2_f;
+	tmvpoly<f2_polymod_t> F2_f;
 	if (!tmvpoly_f2polymod_from_string(F2_f, fstring, F2_m)) {
 		std::cerr << "Couldn't scan polynomial.\n";
 		exit(1);
@@ -581,7 +581,7 @@ int f2apjac_main(int argc, char ** argv)
 	for (int argi = argb; argi < argc; argi++) {
 		int num_singular_f = 0;
 
-		f2poly_t Fq_m;
+		f2_poly_t Fq_m;
 		if (argv[argi][0] == ':') {
 			// User-specified reductor.
 			if (!Fq_m.from_string(&argv[argi][1])) {
@@ -598,10 +598,10 @@ int f2apjac_main(int argc, char ** argv)
 			Fq_m = f2poly_find_irr(deg);
 		}
 
-		f2polymod_t Fq_zero = f2polymod_t::prime_sfld_elt(0, Fq_m);
-		f2polymod_t Fq_one  = f2polymod_t::prime_sfld_elt(1, Fq_m);
+		f2_polymod_t Fq_zero = f2_polymod_t::prime_sfld_elt(0, Fq_m);
+		f2_polymod_t Fq_one  = f2_polymod_t::prime_sfld_elt(1, Fq_m);
 
-		tmvpoly<f2polymod_t> f = F2_Fq_embed(F2_f, Fq_zero, Fq_one);
+		tmvpoly<f2_polymod_t> f = F2_Fq_embed(F2_f, Fq_zero, Fq_one);
 
 		int q = 2;
 		int n = Fq_m.find_degree();
@@ -620,17 +620,17 @@ int f2apjac_main(int argc, char ** argv)
 			std::cout << "Affine space:\n";
 		}
 
-		tmatrix<f2polymod_t> An_Fq = f2polymod_An_list(Fq_m, nv);
+		tmatrix<f2_polymod_t> An_Fq = f2polymod_An_list(Fq_m, nv);
 		int qn = An_Fq.get_num_rows();
 
-		tmvpoly<f2polymod_t> * funcs = new tmvpoly<f2polymod_t>[nv+1];
+		tmvpoly<f2_polymod_t> * funcs = new tmvpoly<f2_polymod_t>[nv+1];
 		funcs[0] = f;
 		for (int j = 0; j < nv; j++)
 			funcs[j+1] = f.deriv(j);
 		for (int i = 0; i < qn; i++) {
 			int singular_point = 1;
 			for (int j = 0; j <= nv; j++) {
-				f2polymod_t fx = funcs[j].eval(An_Fq[i]);
+				f2_polymod_t fx = funcs[j].eval(An_Fq[i]);
 				if (fx != Fq_zero)
 					singular_point = 0;
 			}
@@ -653,17 +653,17 @@ int f2apjac_main(int argc, char ** argv)
 			std::cout << "Projective space:\n";
 		}
 
-		tmatrix<f2polymod_t> Pn_Fq = f2polymod_Pn_list(Fq_m, nv);
+		tmatrix<f2_polymod_t> Pn_Fq = f2polymod_Pn_list(Fq_m, nv);
 		int oP = Pn_Fq.get_num_rows();
 
-		funcs = new tmvpoly<f2polymod_t>[nv+2];
+		funcs = new tmvpoly<f2_polymod_t>[nv+2];
 		funcs[0] = F;
 		for (int j = 0; j <= nv; j++)
 			funcs[j+1] = F.deriv(j);
 		for (int i = 0; i < oP; i++) {
 			int singular_point = 1;
 			for (int j = 0; j <= nv+1; j++) {
-				f2polymod_t FX = funcs[j].eval(Pn_Fq[i]);
+				f2_polymod_t FX = funcs[j].eval(Pn_Fq[i]);
 				if (FX != Fq_zero)
 					singular_point = 0;
 			}
@@ -732,14 +732,14 @@ int fpaplist_main(int argc, char ** argv)
 	const char * fstring = argv[argb];
 	argb++;
 
-	fppoly_t Fp_m = fppoly_find_irr(p, 1);
+	fp_poly_t Fp_m = fppoly_find_irr(p, 1);
 
-	tmvpoly<fppolymod_t> Fp_f;
+	tmvpoly<fp_polymod_t> Fp_f;
 	if (!tmvpoly_fppolymod_from_string(Fp_f, fstring, Fp_m)) {
 		std::cerr << "Couldn't scan polynomial.\n";
 		exit(1);
 	}
-	tmvpoly<fppolymod_t> Fp_F = Fp_f.homogenize();
+	tmvpoly<fp_polymod_t> Fp_F = Fp_f.homogenize();
 
 	std::cout << "f = " << Fp_f << "\n";
 	for (int j = 0; j < Fp_f.get_nvars(); j++)
@@ -755,7 +755,7 @@ int fpaplist_main(int argc, char ** argv)
 		int num_affine = 0;
 		int num_projective = 0;
 
-		fppoly_t Fq_m;
+		fp_poly_t Fq_m;
 		if (argv[argi][0] == ':') {
 			// User-specified reductor.
 			if (!Fq_m.from_string(&argv[argi][1], p)) {
@@ -771,9 +771,9 @@ int fpaplist_main(int argc, char ** argv)
 			}
 			Fq_m = fppoly_find_irr(p, deg);
 		}
-		fppolymod_t Fq_zero = fppolymod_t::prime_sfld_elt(0, Fq_m);
-		tmvpoly<fppolymod_t> f = Fp_Fq_embed(Fp_f, Fq_m);
-		tmvpoly<fppolymod_t> F = f.homogenize();
+		fp_polymod_t Fq_zero = fp_polymod_t::prime_sfld_elt(0, Fq_m);
+		tmvpoly<fp_polymod_t> f = Fp_Fq_embed(Fp_f, Fq_m);
+		tmvpoly<fp_polymod_t> F = f.homogenize();
 		int q = p;
 		int n = Fq_m.find_degree();
 		int nv = f.get_nvars();
@@ -791,11 +791,11 @@ int fpaplist_main(int argc, char ** argv)
 			std::cout << "Affine zeroes:\n";
 		}
 
-		tmatrix<fppolymod_t> An_Fq = fppolymod_An_list(Fq_m, nv);
+		tmatrix<fp_polymod_t> An_Fq = fppolymod_An_list(Fq_m, nv);
 		int qn = An_Fq.get_num_rows();
 
 		for (int i = 0; i < qn; i++) {
-			fppolymod_t fx = f.eval(An_Fq[i]);
+			fp_polymod_t fx = f.eval(An_Fq[i]);
 			if (fx == Fq_zero) {
 				if (print_all_elts)
 					std::cout << An_Fq[i] << "\n";
@@ -808,11 +808,11 @@ int fpaplist_main(int argc, char ** argv)
 			std::cout << "Projective zeroes:\n";
 		}
 
-		tmatrix<fppolymod_t> Pn_Fq = fppolymod_Pn_list(Fq_m, nv);
+		tmatrix<fp_polymod_t> Pn_Fq = fppolymod_Pn_list(Fq_m, nv);
 		int oP = Pn_Fq.get_num_rows();
 
 		for (int i = 0; i < oP; i++) {
-			fppolymod_t FX = F.eval(Pn_Fq[i]);
+			fp_polymod_t FX = F.eval(Pn_Fq[i]);
 			if (FX == Fq_zero) {
 				if (print_all_elts)
 					std::cout << Pn_Fq[i] << "\n";
@@ -865,14 +865,14 @@ int fpapsing_main(int argc, char ** argv)
 	char * fstring = argv[argb];
 	argb++;
 
-	fppoly_t Fp_m = fppoly_find_irr(p, 1);
+	fp_poly_t Fp_m = fppoly_find_irr(p, 1);
 
-	tmvpoly<fppolymod_t> Fp_f;
+	tmvpoly<fp_polymod_t> Fp_f;
 	if (!tmvpoly_fppolymod_from_string(Fp_f, fstring, Fp_m)) {
 		std::cerr << "Couldn't scan polynomial.\n";
 		exit(1);
 	}
-	tmvpoly<fppolymod_t> Fp_F = Fp_f.homogenize();
+	tmvpoly<fp_polymod_t> Fp_F = Fp_f.homogenize();
 	std::cout << "f = " << Fp_f << "\n";
 	std::cout << "F = " << Fp_F << "\n";
 
@@ -880,7 +880,7 @@ int fpapsing_main(int argc, char ** argv)
 		int num_singular_f = 0;
 		int num_singular_F = 0;
 
-		fppoly_t Fq_m;
+		fp_poly_t Fq_m;
 		if (argv[argi][0] == ':') {
 			// User-specified reductor.
 			if (!Fq_m.from_string(&argv[argi][1], p)) {
@@ -896,11 +896,11 @@ int fpapsing_main(int argc, char ** argv)
 			}
 			Fq_m = fppoly_find_irr(p, deg);
 		}
-		fppolymod_t Fq_zero = fppolymod_t::prime_sfld_elt(0, Fq_m);
-		fppolymod_t Fq_one  = fppolymod_t::prime_sfld_elt(1, Fq_m);
+		fp_polymod_t Fq_zero = fp_polymod_t::prime_sfld_elt(0, Fq_m);
+		fp_polymod_t Fq_one  = fp_polymod_t::prime_sfld_elt(1, Fq_m);
 
-		tmvpoly<fppolymod_t> f = Fp_Fq_embed(Fp_f, Fq_m);
-		tmvpoly<fppolymod_t> F = f.homogenize();
+		tmvpoly<fp_polymod_t> f = Fp_Fq_embed(Fp_f, Fq_m);
+		tmvpoly<fp_polymod_t> F = f.homogenize();
 		int q = p;
 		int n = Fq_m.find_degree();
 		int nv = f.get_nvars();
@@ -918,17 +918,17 @@ int fpapsing_main(int argc, char ** argv)
 			std::cout << "Affine space:\n";
 		}
 
-		tmatrix<fppolymod_t> An_Fq = fppolymod_An_list(Fq_m, nv);
+		tmatrix<fp_polymod_t> An_Fq = fppolymod_An_list(Fq_m, nv);
 		int qn = An_Fq.get_num_rows();
 
-		tmvpoly<fppolymod_t> * funcs = new tmvpoly<fppolymod_t>[nv+1];
+		tmvpoly<fp_polymod_t> * funcs = new tmvpoly<fp_polymod_t>[nv+1];
 		funcs[0] = f;
 		for (int j = 0; j < nv; j++)
 			funcs[j+1] = f.deriv(j);
 		for (int i = 0; i < qn; i++) {
 			int singular_point = 1;
 			for (int j = 0; j <= nv; j++) {
-				fppolymod_t fx = funcs[j].eval(An_Fq[i]);
+				fp_polymod_t fx = funcs[j].eval(An_Fq[i]);
 				if (fx != Fq_zero)
 					singular_point = 0;
 			}
@@ -951,17 +951,17 @@ int fpapsing_main(int argc, char ** argv)
 			std::cout << "Projective space:\n";
 		}
 
-		tmatrix<fppolymod_t> Pn_Fq = fppolymod_Pn_list(Fq_m, nv);
+		tmatrix<fp_polymod_t> Pn_Fq = fppolymod_Pn_list(Fq_m, nv);
 		int oP = Pn_Fq.get_num_rows();
 
-		funcs = new tmvpoly<fppolymod_t>[nv+2];
+		funcs = new tmvpoly<fp_polymod_t>[nv+2];
 		funcs[0] = F;
 		for (int j = 0; j <= nv; j++)
 			funcs[j+1] = F.deriv(j);
 		for (int i = 0; i < oP; i++) {
 			int singular_point = 1;
 			for (int j = 0; j <= nv+1; j++) {
-				fppolymod_t FX = funcs[j].eval(Pn_Fq[i]);
+				fp_polymod_t FX = funcs[j].eval(Pn_Fq[i]);
 				if (FX != Fq_zero)
 					singular_point = 0;
 			}
@@ -1001,9 +1001,9 @@ static void f2nmvpeval_usage(char * argv0)
 // ----------------------------------------------------------------
 int f2nmvpeval_main(int argc, char ** argv)
 {
-	f2poly_t m;
-	tmvpoly<f2polymod_t> f;
-	f2polymod_t zero;
+	f2_poly_t m;
+	tmvpoly<f2_polymod_t> f;
+	f2_polymod_t zero;
 
 	if (argc < 4)
 		f2nmvpeval_usage(argv[0]);
@@ -1011,11 +1011,11 @@ int f2nmvpeval_main(int argc, char ** argv)
 		f2nmvpeval_usage(argv[0]);
 	if (!tmvpoly_f2polymod_from_string(f, argv[2], m))
 		f2nmvpeval_usage(argv[0]);
-	zero = f2polymod_t::prime_sfld_elt(0, m);
+	zero = f2_polymod_t::prime_sfld_elt(0, m);
 
 	for (int argi = 3; argi < argc; argi++) {
-		tvector<f2polymod_t> c(zero, 1);
-		f2polymod_t fc;
+		tvector<f2_polymod_t> c(zero, 1);
+		f2_polymod_t fc;
 
 		std::istringstream iss(argv[argi], std::ios_base::in);
 		iss >> c;
@@ -1040,9 +1040,9 @@ static void f2nmvreval_usage(char * argv0)
 // ----------------------------------------------------------------
 int f2nmvreval_main(int argc, char ** argv)
 {
-	f2poly_t m;
-	tmvrat<f2polymod_t> f;
-	f2polymod_t zero;
+	f2_poly_t m;
+	tmvrat<f2_polymod_t> f;
+	f2_polymod_t zero;
 
 	if (argc < 4)
 		f2nmvreval_usage(argv[0]);
@@ -1050,11 +1050,11 @@ int f2nmvreval_main(int argc, char ** argv)
 		f2nmvreval_usage(argv[0]);
 	if (!tmvrat_f2polymod_from_string(f, argv[2], m))
 		f2nmvreval_usage(argv[0]);
-	zero = f2polymod_t::prime_sfld_elt(0, m);
+	zero = f2_polymod_t::prime_sfld_elt(0, m);
 
 	for (int argi = 3; argi < argc; argi++) {
-		tvector<f2polymod_t> c(zero, 1);
-		f2polymod_t fc;
+		tvector<f2_polymod_t> c(zero, 1);
+		f2_polymod_t fc;
 
 		std::istringstream iss(argv[argi], std::ios_base::in);
 		iss >> c;
@@ -1070,15 +1070,15 @@ int f2nmvreval_main(int argc, char ** argv)
 }
 
 // ----------------------------------------------------------------
-static tmvpoly<f2polymod_t> F2_Fq_embed(
-	tmvpoly<f2polymod_t> & f,
-	f2polymod_t          & Fq_zero,
-	f2polymod_t          & Fq_one)
+static tmvpoly<f2_polymod_t> F2_Fq_embed(
+	tmvpoly<f2_polymod_t> & f,
+	f2_polymod_t          & Fq_zero,
+	f2_polymod_t          & Fq_one)
 {
 	int nm = f.get_num_monoms();
-	tmvpoly<f2polymod_t> g(f);
+	tmvpoly<f2_polymod_t> g(f);
 	for (int i = 0; i < nm; i++) {
-		f2polymod_t c = g.get_coeff(i);
+		f2_polymod_t c = g.get_coeff(i);
 		if (c == 0)
 			c = Fq_zero;
 		else if (c == 1)
@@ -1093,26 +1093,26 @@ static tmvpoly<f2polymod_t> F2_Fq_embed(
 }
 
 // ----------------------------------------------------------------
-static tmvpoly<fppolymod_t> Fp_Fq_embed(
-	tmvpoly<fppolymod_t> & f,
-	fppoly_t             & m)
+static tmvpoly<fp_polymod_t> Fp_Fq_embed(
+	tmvpoly<fp_polymod_t> & f,
+	fp_poly_t             & m)
 {
 	int nm = f.get_num_monoms();
-	tmvpoly<fppolymod_t> g(f);
+	tmvpoly<fp_polymod_t> g(f);
 	for (int i = 0; i < nm; i++) {
-		fppolymod_t c = g.get_coeff(i);
+		fp_polymod_t c = g.get_coeff(i);
 		int liftc = c.get_residue().get_coeff(0).get_residue();
-		fppolymod_t cn = fppolymod_t::prime_sfld_elt(liftc, m);
+		fp_polymod_t cn = fp_polymod_t::prime_sfld_elt(liftc, m);
 		g.set_coeff(i, cn);
 	}
 	return g;
 }
 
 // ----------------------------------------------------------------
-static tvector<f2polymod_t> F2_frob(
-	tvector<f2polymod_t> & v)
+static tvector<f2_polymod_t> F2_frob(
+	tvector<f2_polymod_t> & v)
 {
-	tvector<f2polymod_t> sv(v);
+	tvector<f2_polymod_t> sv(v);
 	int nel = v.get_num_elements();
 	for (int i = 0; i < nel; i++)
 		sv[i] = v[i].exp(2);
@@ -1120,12 +1120,12 @@ static tvector<f2polymod_t> F2_frob(
 }
 
 // ----------------------------------------------------------------
-static tmatrix<f2polymod_t> F2_frobit(
-	tvector<f2polymod_t> & v,
+static tmatrix<f2_polymod_t> F2_frobit(
+	tvector<f2_polymod_t> & v,
 	int                    n)
 {
 	int nv = v.get_num_elements();
-	tmatrix<f2polymod_t> frobit(n, nv);
+	tmatrix<f2_polymod_t> frobit(n, nv);
 	int point_degree = 1;
 
 	frobit[0] = v;

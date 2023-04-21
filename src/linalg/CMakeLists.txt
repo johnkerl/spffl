@@ -6,7 +6,7 @@ add_library(${PROJECT_NAME}
   f2_linear_algebra.cpp
   f2_polymod_linear_algebra.cpp
   fp_linear_algebra.cpp
-  minimal_and_characteristic_polynomials.cpp
+  min_char_polys.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
