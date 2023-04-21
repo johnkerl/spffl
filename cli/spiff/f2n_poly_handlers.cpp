@@ -427,18 +427,8 @@ int f2npmatop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (!m.from_string(argv[1]))
     pusage(argv[0]);
-<<<<<<< HEAD:cli/spiff/f2npoly_handlers.cpp
-  f2npoly_t zero = f2npoly_t::prime_sfld_elt(0, m);
-  f2npoly_t one = f2npoly_t::prime_sfld_elt(1, m);
-  cmd_line_mat_parse<f2npoly_t>(argc - 2, argv + 2, zero, one);
-||||||| parent of bfba4fd (More underscores in names):cli/spiff/f2npoly_handlers.cpp
-  f2npoly_t zero = f2npoly_t::prime_sfld_elt(0, m);
-  f2npoly_t one = f2npoly_t::prime_sfld_elt(1, m);
-  ed_cmd_line_mat_parse<f2npoly_t>(argc - 2, argv + 2, zero, one);
-=======
   f2n_poly_t zero = f2n_poly_t::prime_sfld_elt(0, m);
   f2n_poly_t one = f2n_poly_t::prime_sfld_elt(1, m);
-  ed_cmd_line_mat_parse<f2n_poly_t>(argc - 2, argv + 2, zero, one);
->>>>>>> bfba4fd (More underscores in names):cli/spiff/f2n_poly_handlers.cpp
+  cmd_line_mat_parse<f2n_poly_t>(argc - 2, argv + 2, zero, one);
   return 0;
 }

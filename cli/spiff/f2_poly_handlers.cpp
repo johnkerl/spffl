@@ -399,13 +399,7 @@ int f2pcompmx_main(int argc, char **argv, usage_t *pusage) {
 }
 
 int f2pmatop_main(int argc, char **argv, usage_t *pusage) {
-<<<<<<< HEAD:cli/spiff/f2poly_handlers.cpp
-  cmd_line_mat_parse<f2poly_t>(argc - 1, argv + 1, f2poly_t(0), f2poly_t(1));
-||||||| parent of bfba4fd (More underscores in names):cli/spiff/f2poly_handlers.cpp
-  ed_cmd_line_mat_parse<f2poly_t>(argc - 1, argv + 1, f2poly_t(0), f2poly_t(1));
-=======
-  ed_cmd_line_mat_parse<f2_poly_t>(argc - 1, argv + 1, f2_poly_t(0), f2_poly_t(1));
->>>>>>> bfba4fd (More underscores in names):cli/spiff/f2_poly_handlers.cpp
+  cmd_line_mat_parse<f2_poly_t>(argc - 1, argv + 1, f2_poly_t(0), f2_poly_t(1));
   return 0;
 }
 

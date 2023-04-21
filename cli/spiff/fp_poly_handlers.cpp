@@ -61,16 +61,8 @@ int fppmatop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (sscanf(argv[1], "%d", &p) != 1)
     pusage(argv[0]);
-<<<<<<< HEAD:cli/spiff/fppoly_handlers.cpp
-  cmd_line_mat_parse<fppoly_t>(argc - 2, argv + 2, fppoly_t(0, p),
-                                  fppoly_t(1, p));
-||||||| parent of bfba4fd (More underscores in names):cli/spiff/fppoly_handlers.cpp
-  ed_cmd_line_mat_parse<fppoly_t>(argc - 2, argv + 2, fppoly_t(0, p),
-                                  fppoly_t(1, p));
-=======
-  ed_cmd_line_mat_parse<fp_poly_t>(argc - 2, argv + 2, fp_poly_t(0, p),
+  cmd_line_mat_parse<fp_poly_t>(argc - 2, argv + 2, fp_poly_t(0, p),
                                   fp_poly_t(1, p));
->>>>>>> bfba4fd (More underscores in names):cli/spiff/fp_poly_handlers.cpp
   return 0;
 }
 

@@ -40,19 +40,9 @@ int fpnpmatop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (!im.from_string(argv[2], p))
     pusage(argv[0]);
-<<<<<<< HEAD:cli/spiff/fpnpoly_handlers.cpp
-  fpnpoly_t zero = fpnpoly_t::prime_sfld_elt(0, im);
-  fpnpoly_t one = fpnpoly_t::prime_sfld_elt(1, im);
-  cmd_line_mat_parse<fpnpoly_t>(argc - 3, argv + 3, zero, one);
-||||||| parent of bfba4fd (More underscores in names):cli/spiff/fpnpoly_handlers.cpp
-  fpnpoly_t zero = fpnpoly_t::prime_sfld_elt(0, im);
-  fpnpoly_t one = fpnpoly_t::prime_sfld_elt(1, im);
-  ed_cmd_line_mat_parse<fpnpoly_t>(argc - 3, argv + 3, zero, one);
-=======
   fpn_poly_t zero = fpn_poly_t::prime_sfld_elt(0, im);
   fpn_poly_t one = fpn_poly_t::prime_sfld_elt(1, im);
-  ed_cmd_line_mat_parse<fpn_poly_t>(argc - 3, argv + 3, zero, one);
->>>>>>> bfba4fd (More underscores in names):cli/spiff/fpn_poly_handlers.cpp
+  cmd_line_mat_parse<fpn_poly_t>(argc - 3, argv + 3, zero, one);
   return 0;
 }
 
