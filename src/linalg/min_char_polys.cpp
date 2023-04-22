@@ -92,7 +92,7 @@ f2_poly_t f2pm_min_poly(f2_polymod_t a) {
   f2_polymod_t ap = a.prime_sfld_elt(1);
   int n = m.find_degree();
   int l = f2pm_froblen(a);
-  bit_matrix_t A(n, l + 1);
+  spffl::bits::bit_matrix_t A(n, l + 1);
   for (int j = 0; j <= l; j++) {
     for (int i = 0; i < n; i++) {
       f2_poly_t apr = ap.get_residue();
@@ -100,7 +100,7 @@ f2_poly_t f2pm_min_poly(f2_polymod_t a) {
     }
     ap *= a;
   }
-  bit_matrix_t B;
+  spffl::bits::bit_matrix_t B;
   if (!A.get_kernel_basis(B)) {
     std::cerr << "poo!\n";
     exit(1);

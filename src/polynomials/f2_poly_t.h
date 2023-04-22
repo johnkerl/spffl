@@ -71,7 +71,7 @@ public:
   f2_poly_t deriv(void);
   int square_root(f2_poly_t &rroot);
   int eval(int c);
-  bit_t eval(bit_t c);
+  spffl::bits::bit_t eval(spffl::bits::bit_t c);
   int zcount_one_bits(void);
 
   int find_degree(void) const; // deg(0) is defined to be 0.
@@ -97,7 +97,7 @@ public:
   // This facilitates nice tabular output in certain situations.
   void dprint(std::ostream &os, int deg) const;
 
-  void set_coeff(int pos, bit_t b);
+  void set_coeff(int pos, spffl::bits::bit_t b);
   void set_bit(int pos);
   int bit_at(int pos) const;
 
@@ -255,7 +255,7 @@ inline void f2_poly_t::set_bit(int deg) {
   this->bits |= 1 << deg;
 }
 
-inline void f2_poly_t::set_coeff(int deg, bit_t b) {
+inline void f2_poly_t::set_coeff(int deg, spffl::bits::bit_t b) {
   this->bounds_check(deg);
   if (b.get_residue())
     this->bits |= 1 << deg;

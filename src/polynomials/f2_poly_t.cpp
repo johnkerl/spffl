@@ -621,7 +621,7 @@ int f2_poly_t::square_root(f2_poly_t &rroot) {
 #endif
 
 // ----------------------------------------------------------------
-bit_t f2_poly_t::eval(bit_t c) { return bit_t(this->eval(c.get_residue())); }
+spffl::bits::bit_t f2_poly_t::eval(spffl::bits::bit_t c) { return spffl::bits::bit_t(this->eval(c.get_residue())); }
 
 // ----------------------------------------------------------------
 #ifndef F2POLY_SMALL
@@ -636,7 +636,7 @@ int f2_poly_t::eval(int c) {
 // ----------------------------------------------------------------
 #ifndef F2POLY_SMALL
 int f2_poly_t::zcount_one_bits(void) {
-  return 1 & count_one_bits((unsigned char *)this->parts,
+  return 1 & spffl::bits::count_one_bits((unsigned char *)this->parts,
                             this->num_parts * sizeof(this->parts[0]));
 }
 #endif
@@ -1108,7 +1108,7 @@ void f2_poly_t::set_bit(int pos) {
 #endif
 
 #ifndef F2POLY_SMALL
-void f2_poly_t::set_coeff(int pos, bit_t b) {
+void f2_poly_t::set_coeff(int pos, spffl::bits::bit_t b) {
   int which_part = pos >> F2POLY_PART_LOG;
   int which_bit = pos & F2POLY_PART_MASK;
 

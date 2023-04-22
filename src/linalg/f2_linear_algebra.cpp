@@ -8,22 +8,22 @@
 #include "f2_poly_t.h"
 
 // ----------------------------------------------------------------
-tvector<bit_t> f2_vector_from_base_rep(int base_rep, int len) {
-  tvector<bit_t> v(len);
+tvector<spffl::bits::bit_t> f2_vector_from_base_rep(int base_rep, int len) {
+  tvector<spffl::bits::bit_t> v(len);
   for (int i = len - 1; i >= 0; i--) {
-    v[i] = bit_t(base_rep & 1);
+    v[i] = spffl::bits::bit_t(base_rep & 1);
     base_rep >>= 1;
   }
   return v;
 }
 
 // ----------------------------------------------------------------
-tmatrix<bit_t> f2_matrix_from_base_rep(int base_rep, int num_rows,
+tmatrix<spffl::bits::bit_t> f2_matrix_from_base_rep(int base_rep, int num_rows,
                                        int num_cols) {
-  tmatrix<bit_t> A(num_rows, num_cols);
+  tmatrix<spffl::bits::bit_t> A(num_rows, num_cols);
   for (int i = num_rows - 1; i >= 0; i--) {
     for (int j = num_cols - 1; j >= 0; j--) {
-      A[i][j] = bit_t(base_rep & 1);
+      A[i][j] = spffl::bits::bit_t(base_rep & 1);
       base_rep >>= 1;
     }
   }
@@ -31,7 +31,7 @@ tmatrix<bit_t> f2_matrix_from_base_rep(int base_rep, int num_rows,
 }
 
 // ----------------------------------------------------------------
-f2_poly_t f2_char_poly(tmatrix<bit_t> &A) {
+f2_poly_t f2_char_poly(tmatrix<spffl::bits::bit_t> &A) {
   if (!A.is_square()) {
     std::cerr << "f2_char_poly():  non-square input.\n";
     exit(1);
@@ -57,9 +57,9 @@ f2_poly_t f2_char_poly(tmatrix<bit_t> &A) {
 }
 
 // ----------------------------------------------------------------
-tmatrix<bit_t> f2_companion_matrix(f2_poly_t chpol) {
+tmatrix<spffl::bits::bit_t> f2_companion_matrix(f2_poly_t chpol) {
   int n = chpol.find_degree();
-  tmatrix<bit_t> rv(n, n);
+  tmatrix<spffl::bits::bit_t> rv(n, n);
   int i;
 
   // chpol = 13 = 10011
@@ -68,12 +68,12 @@ tmatrix<bit_t> f2_companion_matrix(f2_poly_t chpol) {
   // 0 1 0 0
   // 0 0 1 0
 
-  rv = bit_t(0);
+  rv = spffl::bits::bit_t(0);
   for (i = 1; i < n; i++)
-    rv[i][i - 1] = bit_t(1);
+    rv[i][i - 1] = spffl::bits::bit_t(1);
   for (i = 0; i < n; i++)
     if (chpol.bit_at(i))
-      rv[0][n - 1 - i] = bit_t(1);
+      rv[0][n - 1 - i] = spffl::bits::bit_t(1);
 
   return rv;
 }

@@ -340,7 +340,7 @@ void f2peval_usage(char *argv0) {
 
 int f2peval_main(int argc, char **argv, usage_t *pusage) {
   f2_poly_t f;
-  bit_t a, b;
+  spffl::bits::bit_t a, b;
 
   if (argc < 3)
     pusage(argv[0]);
@@ -392,7 +392,7 @@ int f2pcompmx_main(int argc, char **argv, usage_t *pusage) {
   if (!chpol.from_string(argv[1]))
     pusage(argv[0]);
 
-  tmatrix<bit_t> A = f2_companion_matrix(chpol);
+  tmatrix<spffl::bits::bit_t> A = f2_companion_matrix(chpol);
   std::cout << A << std::endl;
 
   return 0;

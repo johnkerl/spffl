@@ -8,7 +8,7 @@
 #include "intrat_t.h"
 #include "qpoly_t.h"
 
-bit_t bit_from_rat(intrat_t r);
+spffl::bits::bit_t bit_from_rat(intrat_t r);
 spffl::intmath::intmod_t intmod_from_rat(intrat_t r, int p);
 
 f2_poly_t f2poly_from_qpoly(qpoly_t q);

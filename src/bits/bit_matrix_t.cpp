@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+namespace spffl::bits {
 
 // ----------------------------------------------------------------
 bit_matrix_t::bit_matrix_t(int init_num_rows, int init_num_cols) {
@@ -898,3 +899,5 @@ void bit_matrix_t::check_dims(bit_matrix_t that, char *msg) {
     exit(1);
   }
 }
+
+} // namespace

@@ -1,9 +1,9 @@
 #include "qff.h"
 
 // ----------------------------------------------------------------
-bit_t bit_from_rat(intrat_t r) {
-  bit_t numer(r.get_numerator());
-  bit_t denom(r.get_denominator());
+spffl::bits::bit_t bit_from_rat(intrat_t r) {
+  spffl::bits::bit_t numer(r.get_numerator());
+  spffl::bits::bit_t denom(r.get_denominator());
   return numer / denom;
 }
 

@@ -26,9 +26,9 @@ static void f2poly_berlekamp(f2_poly_t f, tfacinfo<f2_poly_t> &rfinfo,
 
 f2_poly_t f2poly_from_vector(
 #ifdef USE_BIT_MATRIX
-    bit_vector_t &v,
+    spffl::bits::bit_vector_t &v,
 #else
-    tvector<bit_t> &v,
+    tvector<spffl::bits::bit_t> &v,
 #endif
     int n);
 
@@ -152,17 +152,17 @@ static void f2poly_berlekamp(f2_poly_t f, tfacinfo<f2_poly_t> &rfinfo,
   f2_poly_t x2 = (x * x) % f;
   f2_poly_t x2i(1);
   int i, j, row, rank, dimker;
-  // bit_t zero(0);
-  // bit_t one(1);
+  // spffl::bits::bit_t zero(0);
+  // spffl::bits::bit_t one(1);
 
 #ifdef F2POLY_FACTOR_DEBUG
   std::cout << "\n";
   std::cout << "f2poly_berlekamp input = " << f << "\n";
 #endif
 #ifdef USE_BIT_MATRIX
-  bit_matrix_t BI(n, n);
+  spffl::bits::bit_matrix_t BI(n, n);
 #else
-  tmatrix<bit_t> BI(n, n);
+  tmatrix<spffl::bits::bit_t> BI(n, n);
 #endif
 
   if (n < 2) {
@@ -177,9 +177,9 @@ static void f2poly_berlekamp(f2_poly_t f, tfacinfo<f2_poly_t> &rfinfo,
   for (j = 0; j < n; j++) {
     for (i = 0; i < n; i++) {
 #ifdef USE_BIT_MATRIX
-      BI[n - 1 - i].set(n - 1 - j, bit_t(x2i.bit_at(i)));
+      BI[n - 1 - i].set(n - 1 - j, spffl::bits::bit_t(x2i.bit_at(i)));
 #else
-      BI[n - 1 - i][n - 1 - j] = bit_t(x2i.bit_at(i));
+      BI[n - 1 - i][n - 1 - j] = spffl::bits::bit_t(x2i.bit_at(i));
 #endif
     }
     x2i = (x2i * x2) % f;
@@ -221,9 +221,9 @@ static void f2poly_berlekamp(f2_poly_t f, tfacinfo<f2_poly_t> &rfinfo,
 
   // Find a basis for the nullspace of B - I.
 #ifdef USE_BIT_MATRIX
-  bit_matrix_t nullspace_basis;
+  spffl::bits::bit_matrix_t nullspace_basis;
 #else
-  tmatrix<bit_t> nullspace_basis;
+  tmatrix<spffl::bits::bit_t> nullspace_basis;
 #endif
 
 #ifdef USE_BIT_MATRIX
@@ -331,9 +331,9 @@ static void f2poly_berlekamp(f2_poly_t f, tfacinfo<f2_poly_t> &rfinfo,
 // ----------------------------------------------------------------
 f2_poly_t f2poly_from_vector(
 #ifdef USE_BIT_MATRIX
-    bit_vector_t &v,
+    spffl::bits::bit_vector_t &v,
 #else
-    tvector<bit_t> &v,
+    tvector<spffl::bits::bit_t> &v,
 #endif
     int n) {
   f2_poly_t f(0);

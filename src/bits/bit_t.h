@@ -13,6 +13,8 @@
 #include <sstream>
 #include <stdlib.h>
 
+namespace spffl::bits {
+
 // Bit operations are more efficiently done a machine word at a time.
 // This class exists solely to be able to re-use code by using the tmatrix
 // template class.
@@ -136,5 +138,7 @@ public:
 private:
   uint8_t residue;
 };
+
+} // namespace
 
 #endif // BIT_T_H

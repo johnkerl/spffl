@@ -9,6 +9,8 @@
 #include "log2.h"
 #include <string.h>
 
+namespace spffl::bits {
+
 // ----------------------------------------------------------------
 bit_vector_t::bit_vector_t(void) {
   this->words = 0;
@@ -406,3 +408,5 @@ int main(void) {
   return 0;
 }
 #endif
+
+} // namespace
