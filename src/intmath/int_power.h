@@ -6,5 +6,7 @@
 
 #ifndef INT_POWER_H
 #define INT_POWER_H
+namespace spffl::intmath {
 int int_power(int b, int e);
+} // namespace
 #endif // INT_POWER_H

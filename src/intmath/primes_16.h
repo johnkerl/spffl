@@ -6,7 +6,9 @@
 
 #ifndef PRIMES16_H
 #define PRIMES16_H
+namespace spffl::intmath {
 // TODO: convert to std::span
 extern unsigned primes_16[];
 extern int numprimes16;
+} // namespace
 #endif // PRIMES16_H

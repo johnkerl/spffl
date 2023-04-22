@@ -6,8 +6,8 @@
 
 #include "int_totient.h"
 #include "int_gcd.h"
+namespace spffl::intmath {
 
-// ----------------------------------------------------------------
 int int_totient(int n) {
   int phi = 0;
   int i;
@@ -20,3 +20,5 @@ int int_totient(int n) {
 
   return phi;
 }
+
+} // namespace

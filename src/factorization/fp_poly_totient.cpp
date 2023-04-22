@@ -49,7 +49,7 @@ int fp_poly_totient(fp_poly_t f) {
     fp_poly_t fi = finfo.get_ith_factor(i);
     int ei = finfo.get_ith_count(i);
     int di = fi.find_degree();
-    rv *= int_power(p, di * (ei - 1)) * (int_power(p, di) - 1);
+    rv *= spffl::intmath::int_power(p, di * (ei - 1)) * (spffl::intmath::int_power(p, di) - 1);
   }
 
   return rv;

@@ -323,7 +323,7 @@ void intrat_t::simplify(void) {
     this->numer = -this->numer;
     this->denom = -this->denom;
   }
-  g = int_gcd(this->numer, this->denom);
+  g = spffl::intmath::int_gcd(this->numer, this->denom);
   this->numer /= g;
   this->denom /= g;
 }

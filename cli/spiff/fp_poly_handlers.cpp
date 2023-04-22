@@ -82,7 +82,7 @@ int fppcompmx_main(int argc, char **argv, usage_t *pusage) {
   if (!chpol.from_string(argv[2], p))
     pusage(argv[0]);
 
-  tmatrix<intmod_t> A = fp_companion_matrix(chpol);
+  tmatrix<spffl::intmath::intmod_t> A = fp_companion_matrix(chpol);
   std::cout << A << "\n";
 
   return 0;
@@ -284,7 +284,7 @@ int fppfactor_main(int argc, char **argv, usage_t *pusage) {
     tfacinfo<fp_poly_t> finfo = fp_poly_factor(a);
     std::cout << finfo << "\n";
 
-    fp_poly_t check = finfo.unfactor(fp_poly_t(intmod_t(1, p)));
+    fp_poly_t check = finfo.unfactor(fp_poly_t(spffl::intmath::intmod_t(1, p)));
     if (check != a) {
       std::cerr << "Coding error in fp_poly_factor.\n";
       std::cerr << "  Input: " << a << "\n";
@@ -315,7 +315,7 @@ int fppdivisors_main(int argc, char **argv, usage_t *pusage) {
   if (sscanf(argv[argb], "%d", &p) != 1)
     pusage(argv[0]);
   argb++;
-  fp_poly_t one(intmod_t(1, p));
+  fp_poly_t one(spffl::intmath::intmod_t(1, p));
   for (int argi = argb; argi < argc; argi++) {
     if (!a.from_string(argv[argi], p))
       pusage(argv[0]);
@@ -350,7 +350,7 @@ void fppeval_usage(char *argv0) {
 int fppeval_main(int argc, char **argv, usage_t *pusage) {
   int p;
   fp_poly_t f;
-  intmod_t a, b;
+  spffl::intmath::intmod_t a, b;
 
   if (argc < 4)
     pusage(argv[0]);

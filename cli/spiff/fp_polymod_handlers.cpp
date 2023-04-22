@@ -319,8 +319,8 @@ int fppmord_main(int argc, char **argv, usage_t *pusage) {
     return 0;
   }
 
-  fp_polymod_t zero(intmod_t(0, p), m);
-  fp_polymod_t one(intmod_t(1, p), m);
+  fp_polymod_t zero(spffl::intmath::intmod_t(0, p), m);
+  fp_polymod_t one(spffl::intmath::intmod_t(1, p), m);
   int order;
   fp_polymod_t apower = a;
 

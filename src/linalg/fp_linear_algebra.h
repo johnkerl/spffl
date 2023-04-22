@@ -13,11 +13,11 @@
 #include "fpn_poly_t.h"
 #endif
 
-tvector<intmod_t> fp_vector_from_base_rep(int base_rep, int p, int len);
+tvector<spffl::intmath::intmod_t> fp_vector_from_base_rep(int base_rep, int p, int len);
 
-fp_poly_t fp_char_poly(tmatrix<intmod_t> &A);
+fp_poly_t fp_char_poly(tmatrix<spffl::intmath::intmod_t> &A);
 
-tmatrix<intmod_t> fp_companion_matrix(fp_poly_t chpol);
+tmatrix<spffl::intmath::intmod_t> fp_companion_matrix(fp_poly_t chpol);
 
 #if 0
 fpn_poly_t fppolymod_min_poly(

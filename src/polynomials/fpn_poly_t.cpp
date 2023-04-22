@@ -118,7 +118,7 @@ fpn_poly_t fpn_poly_t::prime_sfld_elt(int v) const {
 
 fpn_poly_t fpn_poly_t::prime_sfld_elt(int v, fp_poly_t m) {
   int p = m.get_coeff(0).get_modulus();
-  return fpn_poly_t(fp_polymod_t(fp_poly_t(intmod_t(v, p)), m));
+  return fpn_poly_t(fp_polymod_t(fp_poly_t(spffl::intmath::intmod_t(v, p)), m));
 }
 
 // ----------------------------------------------------------------
@@ -234,7 +234,7 @@ fpn_poly_t fpn_poly_t::operator*(fp_polymod_t a) {
 }
 
 // ----------------------------------------------------------------
-fpn_poly_t fpn_poly_t::operator*(intmod_t a) {
+fpn_poly_t fpn_poly_t::operator*(spffl::intmath::intmod_t a) {
   fpn_poly_t rv = *this;
   for (int i = 0; i <= rv.degree; i++)
     rv.coeffs[i] *= a;
@@ -508,7 +508,7 @@ fpn_poly_t fpn_poly_t::deriv(void) {
   int p = this->get_char();
   rv.degree--;
   for (int i = 1; i <= this->degree; i++)
-    rv.coeffs[i - 1] = this->coeffs[i] * intmod_t(i, p);
+    rv.coeffs[i - 1] = this->coeffs[i] * spffl::intmath::intmod_t(i, p);
   rv.recompute_degree();
   return rv;
 }

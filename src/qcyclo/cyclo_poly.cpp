@@ -102,7 +102,7 @@ int main(void) {
   int p = 3;
   int nmax = 30;
   f2_poly_t m2 = f2_poly_t::from_base_rep(0x13);
-  fp_poly_t mp(intmod_t(1, 3), intmod_t(0, 3), intmod_t(2, 3), intmod_t(1, 3));
+  fp_poly_t mp(spffl::intmath::intmod_t(1, 3), spffl::intmath::intmod_t(0, 3), spffl::intmath::intmod_t(2, 3), spffl::intmath::intmod_t(1, 3));
 
   for (int n = 1; n < nmax; n++)
     std::cout << n << ": " << get_cyclo_qpoly(n) << "\n";

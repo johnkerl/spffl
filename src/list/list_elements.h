@@ -26,12 +26,12 @@ tvector<f2_poly_t> f2poly_list(int deg);
 tvector<f2n_poly_t> f2npoly_list(f2_poly_t m, int deg);
 tvector<fp_poly_t> fppoly_list(int p, int deg);
 
-tvector<intmod_t> intmod_list(int p, sp_list_type_t type);
+tvector<spffl::intmath::intmod_t> intmod_list(int p, sp_list_type_t type);
 tvector<f2_polymod_t> f2polymod_list(f2_poly_t m, sp_list_type_t);
 tvector<f2n_polymod_t> f2npolymod_list(f2n_poly_t m, sp_list_type_t);
 tvector<fp_polymod_t> fppolymod_list(fp_poly_t m, sp_list_type_t);
 
-tvector<intmod_t> intmod_glist(intmod_t g, sp_list_type_t type);
+tvector<spffl::intmath::intmod_t> intmod_glist(spffl::intmath::intmod_t g, sp_list_type_t type);
 tvector<f2_polymod_t> f2polymod_glist(f2_polymod_t g, sp_list_type_t);
 tvector<f2n_polymod_t> f2npolymod_glist(f2n_polymod_t g, sp_list_type_t);
 tvector<fp_polymod_t> fppolymod_glist(fp_polymod_t g, sp_list_type_t);

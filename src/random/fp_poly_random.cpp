@@ -14,11 +14,11 @@ fp_poly_t fp_poly_random(int p, int deg) {
     exit(1);
   }
 
-  intmod_t zero(0, p);
-  intmod_t one(1, p);
+  spffl::intmath::intmod_t zero(0, p);
+  spffl::intmath::intmod_t one(1, p);
   fp_poly_t rv(zero);
   for (int i = deg; i >= 0; i--) {
-    intmod_t c = intmod_random(p);
+    spffl::intmath::intmod_t c = intmod_random(p);
     if ((i == deg) && (c == zero))
       c = one;
     rv.set_coeff(i, c);

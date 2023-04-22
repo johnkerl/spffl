@@ -8,6 +8,8 @@
 #include <iomanip>
 #include <iostream>
 
+namespace spffl::intmath {
+
 // ----------------------------------------------------------------
 intmod_t intmod_t::prime_sfld_elt(int v) const {
   int p = this->get_modulus();
@@ -63,7 +65,6 @@ std::ostream &operator<<(std::ostream &os, const intmod_t &a) {
 }
 
 // ----------------------------------------------------------------
-#define EOF -1
 std::istream &operator>>(std::istream &is, intmod_t &a) {
   // Skip over whitespace.
   int c = is.peek();
@@ -184,3 +185,5 @@ int intmod_t::get_residue(void) const { return this->residue; }
 
 // ----------------------------------------------------------------
 int intmod_t::get_modulus(void) const { return this->modulus; }
+
+} // namespace

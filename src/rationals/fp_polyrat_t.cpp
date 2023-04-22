@@ -44,7 +44,7 @@ fp_polyrat_t fp_polyrat_t::prime_sfld_elt(int v) const {
 // ----------------------------------------------------------------
 // This is a static method.
 fp_polyrat_t fp_polyrat_t::prime_sfld_elt(int v, int p) {
-  return fp_polyrat_t(fp_poly_t(intmod_t(v, p)));
+  return fp_polyrat_t(fp_poly_t(spffl::intmath::intmod_t(v, p)));
 }
 
 // ----------------------------------------------------------------
@@ -230,8 +230,8 @@ std::istringstream &operator>>(std::istringstream &iss, fp_polyrat_t &a) {
 
 // ----------------------------------------------------------------
 int fp_polyrat_t::from_string(char *string, int p) {
-  this->numer = fp_poly_t(intmod_t(0, p));
-  this->denom = fp_poly_t(intmod_t(1, p));
+  this->numer = fp_poly_t(spffl::intmath::intmod_t(0, p));
+  this->denom = fp_poly_t(spffl::intmath::intmod_t(1, p));
   std::istringstream iss(string, std::ios_base::in);
   iss >> *this;
   return iss.fail() ? 0 : 1;

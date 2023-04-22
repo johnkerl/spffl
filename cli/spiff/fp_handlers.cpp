@@ -32,10 +32,10 @@ int fplist_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (sscanf(argv[2], "%d", &m) != 1)
       pusage(argv[0]);
-    tvector<intmod_t> elts = intmod_list(m, type);
+    tvector<spffl::intmath::intmod_t> elts = intmod_list(m, type);
     elts.crout(std::cout);
   } else if (argc == 4) {
-    intmod_t g;
+    spffl::intmath::intmod_t g;
     if (strcmp(argv[1], "-m") == 0)
       type = SP_LIST_MULTIPLES;
     else if (strcmp(argv[1], "-rp") == 0)
@@ -46,7 +46,7 @@ int fplist_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (!g.from_string(argv[2], m))
       pusage(argv[0]);
-    tvector<intmod_t> elts = intmod_glist(g, type);
+    tvector<spffl::intmath::intmod_t> elts = intmod_glist(g, type);
     elts.crout(std::cout);
   } else {
     pusage(argv[0]);
@@ -64,7 +64,7 @@ int fpop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (sscanf(argv[1], "%d", &p) != 1)
     pusage(argv[0]);
-  cmd_line_parse<intmod_t>(argc - 2, argv + 2, intmod_t(0, p), intmod_t(1, p));
+  cmd_line_parse<spffl::intmath::intmod_t>(argc - 2, argv + 2, spffl::intmath::intmod_t(0, p), spffl::intmath::intmod_t(1, p));
   return 0;
 }
 
@@ -76,7 +76,7 @@ void fptbl_usage(char *argv0) {
 int fptbl_main(int argc, char **argv, usage_t *pusage) {
   int p;
   int tbl_type = TBL_TYPE_PLUS;
-  intmod_t g;
+  spffl::intmath::intmod_t g;
 
   if (argc != 3)
     pusage(argv[0]);
@@ -121,7 +121,7 @@ int fptbl_main(int argc, char **argv, usage_t *pusage) {
   } else
     pusage(argv[0]);
 
-  tvector<intmod_t> elts;
+  tvector<spffl::intmath::intmod_t> elts;
   if ((tbl_type == TBL_TYPE_UNIT_MUL) || (tbl_type == TBL_TYPE_UNIT_DIV) ||
       (tbl_type == TBL_TYPE_LOG) || (tbl_type == TBL_TYPE_ALOG))
     elts = intmod_list(p, SP_LIST_UNITS);
@@ -141,7 +141,7 @@ int fptbl_main(int argc, char **argv, usage_t *pusage) {
   if (tbl_type == TBL_TYPE_ALOG) {
     std::cout << "power element\n";
     std::cout << "----- -------\n";
-    intmod_t gp = g / g;
+    spffl::intmath::intmod_t gp = g / g;
     for (int i = 0; i < n; i++) {
       std::cout << i << " " << gp << "\n";
       gp *= g;
@@ -149,7 +149,7 @@ int fptbl_main(int argc, char **argv, usage_t *pusage) {
     return 0;
   }
 
-  intmod_t a, b, c;
+  spffl::intmath::intmod_t a, b, c;
 
   for (int i = 0; i < n; i++) {
     a = elts[i];
@@ -189,7 +189,7 @@ void fpord_usage(char *argv0) {
 
 int fpord_main(int argc, char **argv, usage_t *pusage) {
   int p;
-  intmod_t a;
+  spffl::intmath::intmod_t a;
   if (argc < 3)
     pusage(argv[0]);
   if (sscanf(argv[1], "%d", &p) != 1)
@@ -215,7 +215,7 @@ int fpmaxord_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (sscanf(argv[1], "%d", &p) != 1)
     pusage(argv[0]);
-  tvector<intmod_t> elts = intmod_list(p, SP_LIST_UNITS);
+  tvector<spffl::intmath::intmod_t> elts = intmod_list(p, SP_LIST_UNITS);
   int n = elts.get_num_elements();
   int max = 0;
   for (int i = 0; i < n; i++) {
@@ -281,7 +281,7 @@ void fpfindgen_usage(char *argv0) {
 
 int fpfindgen_main(int argc, char **argv, usage_t *pusage) {
   int p;
-  intmod_t g;
+  spffl::intmath::intmod_t g;
   int rv = 0;
   if (argc < 2)
     pusage(argv[0]);
@@ -307,7 +307,7 @@ void fplog_usage(char *argv0) {
 
 int fplog_main(int argc, char **argv, usage_t *pusage) {
   int p;
-  intmod_t g, a;
+  spffl::intmath::intmod_t g, a;
   if (argc < 4)
     pusage(argv[0]);
   if (sscanf(argv[1], "%d", &p) != 1)
@@ -358,8 +358,8 @@ int fpmatop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (sscanf(argv[1], "%d", &p) != 1)
     pusage(argv[0]);
-  cmd_line_mat_parse<intmod_t>(argc - 2, argv + 2, intmod_t(0, p),
-                               intmod_t(1, p));
+  cmd_line_mat_parse<spffl::intmath::intmod_t>(argc - 2, argv + 2, spffl::intmath::intmod_t(0, p),
+                               spffl::intmath::intmod_t(1, p));
   return 0;
 }
 
@@ -374,8 +374,8 @@ int fpvecop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (sscanf(argv[1], "%d", &p) != 1)
     pusage(argv[0]);
-  cmd_line_vec_parse<intmod_t>(argc - 2, argv + 2, intmod_t(0, p),
-                               intmod_t(1, p));
+  cmd_line_vec_parse<spffl::intmath::intmod_t>(argc - 2, argv + 2, spffl::intmath::intmod_t(0, p),
+                               spffl::intmath::intmod_t(1, p));
   return 0;
 }
 
@@ -386,13 +386,13 @@ void fpmatchpol_usage(char *argv0) {
 
 int fpmatchpol_main(int argc, char **argv, usage_t *pusage) {
   int p;
-  tmatrix<intmod_t> A;
+  tmatrix<spffl::intmath::intmod_t> A;
 
   if (argc != 3)
     pusage(argv[0]);
   if (sscanf(argv[1], "%d", &p) != 1)
     pusage(argv[0]);
-  A = intmod_t(0, p);
+  A = spffl::intmath::intmod_t(0, p);
   if (!A.load_from_file(argv[2]))
     pusage(argv[0]);
 
@@ -409,26 +409,26 @@ void fpmatord_usage(char *argv0) {
 
 int fpmatord_main(int argc, char **argv, usage_t *pusage) {
   int p;
-  tmatrix<intmod_t> A;
+  tmatrix<spffl::intmath::intmod_t> A;
 
   if (argc != 2)
     pusage(argv[0]);
 
   if (sscanf(argv[1], "%d", &p) != 1)
     pusage(argv[0]);
-  intmod_t zero(0, p);
-  intmod_t one(1, p);
+  spffl::intmath::intmod_t zero(0, p);
+  spffl::intmath::intmod_t one(1, p);
 
   A = zero;
   std::cin >> A;
-  intmod_t d = A.det();
+  spffl::intmath::intmod_t d = A.det();
 
   if (d == zero) {
     std::cout << 0 << std::endl;
   } else {
-    tmatrix<intmod_t> I = A.make_I(zero, one);
+    tmatrix<spffl::intmath::intmod_t> I = A.make_I(zero, one);
     int order;
-    tmatrix<intmod_t> Apower = A;
+    tmatrix<spffl::intmath::intmod_t> Apower = A;
 
     for (order = 1;; order++) {
       if (Apower == I) {
@@ -461,7 +461,7 @@ int fpmatrandom_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (sscanf(argv[3], "%d", &nc) != 1)
     pusage(argv[0]);
-  tmatrix<intmod_t> A(nr, nc);
+  tmatrix<spffl::intmath::intmod_t> A(nr, nc);
   for (int i = 0; i < nr; i++)
     for (int j = 0; j < nc; j++)
       A[i][j] = intmod_random(p);

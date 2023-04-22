@@ -35,7 +35,7 @@ int zgcd_main(int argc, char **argv, usage_t *pusage) {
     if (sscanf(argv[3], "%d", &b) != 1)
       pusage(argv[0]);
 
-    g = int_ext_gcd(a, b, r, s);
+    g = spffl::intmath::int_ext_gcd(a, b, r, s);
     std::cout << g << " = " << r << " * " << a << " + " << s << " * " << b
               << std::endl;
 
@@ -54,7 +54,7 @@ int zgcd_main(int argc, char **argv, usage_t *pusage) {
     for (int argi = 2; argi < argc; argi++) {
       if (sscanf(argv[argi], "%d", &a) != 1)
         pusage(argv[0]);
-      g = int_gcd(g, a);
+      g = spffl::intmath::int_gcd(g, a);
     }
     std::cout << g << std::endl;
   }
@@ -76,7 +76,7 @@ int zlcm_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = 2; argi < argc; argi++) {
     if (sscanf(argv[argi], "%d", &a) != 1)
       pusage(argv[0]);
-    l = int_lcm(l, a);
+    l = spffl::intmath::int_lcm(l, a);
   }
   std::cout << l << std::endl;
   return 0;
@@ -94,7 +94,7 @@ int ztotient_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = 1; argi < argc; argi++) {
     if (sscanf(argv[argi], "%d", &a) != 1)
       pusage(argv[0]);
-    phi = int_totient(a);
+    phi = spffl::intmath::int_totient(a);
     if (argc > 2)
       std::cout << a << ": ";
     std::cout << phi << std::endl;
@@ -114,7 +114,7 @@ int ztestprime_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 2)
       std::cout << a << ": ";
-    if (is_prime(a))
+    if (spffl::intmath::is_prime(a))
       std::cout << "PRIME\n";
     else
       std::cout << "not prime\n";
@@ -139,7 +139,7 @@ int nthprime_main(int argc, char **argv, usage_t *pusage) {
     else
       pusage(argv[0]);
     for (int n = lo; n <= hi; n++) {
-      std::cout << nthprime(n) << std::endl;
+      std::cout << spffl::intmath::nth_prime(n) << std::endl;
     }
   }
   return 0;

@@ -114,7 +114,7 @@ int f2pm_matrix_is_dable(tmatrix<f2_polymod_t> &A,
     f2n_poly_t factor = base_finfo.get_ith_factor(i);
     int deg = factor.find_degree();
     std::cout << "  factor = " << factor << ", deg = " << deg << "\n";
-    deglcm = int_lcm(deglcm, deg);
+    deglcm = spffl::intmath::int_lcm(deglcm, deg);
   }
 
   if (verbose)

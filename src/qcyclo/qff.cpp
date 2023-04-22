@@ -8,9 +8,9 @@ bit_t bit_from_rat(intrat_t r) {
 }
 
 // ----------------------------------------------------------------
-intmod_t intmod_from_rat(intrat_t r, int p) {
-  intmod_t numer(r.get_numerator(), p);
-  intmod_t denom(r.get_denominator(), p);
+spffl::intmath::intmod_t intmod_from_rat(intrat_t r, int p) {
+  spffl::intmath::intmod_t numer(r.get_numerator(), p);
+  spffl::intmath::intmod_t denom(r.get_denominator(), p);
 
   return numer / denom;
 }
@@ -39,7 +39,7 @@ f2n_poly_t f2npoly_from_qpoly(qpoly_t q, f2_poly_t im) {
   int d = q.find_degree();
   for (int i = d; i >= 0; i--) {
     // xxx unimpl
-    intmod_t m = intmod_from_rat(q.get_coeff(i), 2);
+    spffl::intmath::intmod_t m = intmod_from_rat(q.get_coeff(i), 2);
     f2_polymod_t c = f2_polymod_t::prime_sfld_elt(m.get_residue(), im);
     rv.set_coeff(i, c);
   }
@@ -50,12 +50,12 @@ f2n_poly_t f2npoly_from_qpoly(qpoly_t q, f2_poly_t im) {
 fpn_poly_t fpnpoly_from_qpoly(qpoly_t q, fp_poly_t im) {
   int d = q.find_degree();
   int p = im.get_char();
-  intmod_t z0(0, p);
+  spffl::intmath::intmod_t z0(0, p);
   fp_poly_t z1(z0);
   fp_polymod_t z2(z0, im);
   fpn_poly_t rv(z2);
   for (int i = d; i >= 0; i--) {
-    intmod_t m = intmod_from_rat(q.get_coeff(i), p);
+    spffl::intmath::intmod_t m = intmod_from_rat(q.get_coeff(i), p);
     fp_polymod_t c = fp_polymod_t::prime_sfld_elt(m.get_residue(), im);
     rv.set_coeff(i, c);
   }

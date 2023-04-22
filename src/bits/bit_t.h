@@ -17,7 +17,7 @@
 // This class exists solely to be able to re-use code by using the tmatrix
 // template class.
 //
-// The same functionality is provided as with intmod_t, using modulus 2.
+// The same functionality is provided as with spffl::intmath::intmod_t, using modulus 2.
 // However, the current is more efficient since it eschews the C mod operator,
 // which is time-expensive at the instruction level.
 

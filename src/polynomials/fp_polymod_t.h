@@ -28,7 +28,7 @@ public:
   fp_polymod_t operator-(void);
   fp_polymod_t operator*(fp_polymod_t that);
   fp_polymod_t operator*(int a); // Repeated addition.
-  fp_polymod_t operator*(intmod_t a);
+  fp_polymod_t operator*(spffl::intmath::intmod_t a);
   fp_polymod_t operator/(fp_polymod_t that);
   fp_polymod_t operator%(fp_polymod_t that);
   int recip(fp_polymod_t &rinv);
@@ -44,7 +44,7 @@ public:
   fp_polymod_t &operator-=(fp_polymod_t that);
   fp_polymod_t &operator*=(fp_polymod_t that);
   fp_polymod_t &operator*=(int a);
-  fp_polymod_t &operator*=(intmod_t a);
+  fp_polymod_t &operator*=(spffl::intmath::intmod_t a);
   fp_polymod_t &operator/=(fp_polymod_t that);
   fp_polymod_t &operator%=(fp_polymod_t that);
 

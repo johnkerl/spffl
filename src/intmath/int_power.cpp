@@ -4,6 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
+namespace spffl::intmath {
 #include "int_power.h"
 
 // ----------------------------------------------------------------
@@ -19,3 +20,5 @@ int int_power(int b, int e) {
   }
   return rv;
 }
+
+} // namespace

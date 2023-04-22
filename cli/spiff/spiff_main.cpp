@@ -50,7 +50,7 @@ lookup_t lookups[] = {
     {"zlcm", zlcm_main, zlcm_usage},
     {"ztotient", ztotient_main, ztotient_usage},
     {"ztestprime", ztestprime_main, ztestprime_usage},
-    {"nthprime", nthprime_main, nthprime_usage},
+    {"spffl::intmath::nth_prime", nthprime_main, nthprime_usage},
     {"zlist", zlist_main, zlist_usage},
     {"zfactor", zfactor_main, zfactor_usage},
     {"zdivisors", zdivisors_main, zdivisors_usage},

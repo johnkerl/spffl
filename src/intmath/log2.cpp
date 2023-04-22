@@ -5,6 +5,7 @@
 // ================================================================
 
 #include "log2.h"
+namespace spffl::intmath {
 // XXX #include "msb_table.h"
 
 static int u4_table[] = {
@@ -200,3 +201,5 @@ int main(void) {
   printf("#define MSB_TABLE_SIZE (sizeof(msb_table)/sizeof(msb_table[0]))\n");
 }
 #endif
+
+} // namespace

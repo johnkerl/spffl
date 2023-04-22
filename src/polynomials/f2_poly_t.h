@@ -211,7 +211,7 @@ inline int f2_poly_t::zcount_one_bits(void) {
   return 1 & count_one_bits((unsigned char *)&this->bits, sizeof(this->bits));
 }
 
-inline int f2_poly_t::find_degree(void) const { return find_msb_32(this->bits); }
+inline int f2_poly_t::find_degree(void) const { return spffl::intmath::find_msb_32(this->bits); }
 
 inline int f2_poly_t::operator==(int v) const {
   return this->bits == (unsigned)(v & 1);

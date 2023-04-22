@@ -6,5 +6,7 @@
 
 #ifndef INT_TOTIENT_H
 #define INT_TOTIENT_H
+namespace spffl::intmath {
 int int_totient(int n);
+} // namespace
 #endif // INT_TOTIENT_H

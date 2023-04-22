@@ -16,7 +16,6 @@ std::ostream &operator<<(std::ostream &os, const bit_t &a) {
 }
 
 // ----------------------------------------------------------------
-#define EOF -1
 std::istream &operator>>(std::istream &is, bit_t &a) {
   unsigned r;
   int c;

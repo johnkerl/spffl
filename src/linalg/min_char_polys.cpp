@@ -154,11 +154,11 @@ fp_poly_t fppm_min_poly(fp_polymod_t a) {
   fp_poly_t m = a.get_modulus();
   fp_polymod_t ap = a.prime_sfld_elt(1);
   int p = a.get_char();
-  intmod_t zero(0, p);
-  intmod_t one(1, p);
+  spffl::intmath::intmod_t zero(0, p);
+  spffl::intmath::intmod_t one(1, p);
   int n = m.find_degree();
   int l = fppm_froblen(a);
-  tmatrix<intmod_t> A(zero, n, l + 1);
+  tmatrix<spffl::intmath::intmod_t> A(zero, n, l + 1);
   for (int j = 0; j <= l; j++) {
     for (int i = 0; i < n; i++) {
       fp_poly_t apr = ap.get_residue();
@@ -166,7 +166,7 @@ fp_poly_t fppm_min_poly(fp_polymod_t a) {
     }
     ap *= a;
   }
-  tmatrix<intmod_t> B;
+  tmatrix<spffl::intmath::intmod_t> B;
   if (!A.get_kernel_basis(B, zero, one)) {
     std::cerr << "poo!\n";
     exit(1);
