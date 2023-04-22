@@ -7,6 +7,8 @@
 #include "line_scan.h"
 #include <string.h>
 
+namespace spffl::base {
+
 // ----------------------------------------------------------------
 // Removes trailing CR, if any.  (The name "chomp" comes from Perl.)
 void chomp(char *line) {
@@ -24,3 +26,5 @@ bool is_whitespace_line(char *line) {
       return false;
   return true;
 }
+
+} // namespace

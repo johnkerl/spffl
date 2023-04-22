@@ -788,7 +788,7 @@ std::ostream &operator<<(std::ostream &os, const fp_poly_t &poly) {
 
 std::istream &operator>>(std::istream &is, fp_poly_t &poly) {
   int p = poly.get_char();
-  rsstring_t rss;
+  spffl::base::rsstring_t rss;
   char c;
 
   // Skip over whitespace.
@@ -835,7 +835,7 @@ std::istream &operator>>(std::istream &is, fp_poly_t &poly) {
 //	fp_poly_t & poly)
 //{
 //	int p = poly.get_char();
-//	rsstring_t rss;
+//	spffl::base::rsstring_t rss;
 //
 //	char c = iss.peek();
 //	if (c == EOF) {
@@ -892,7 +892,7 @@ int fp_poly_t::from_string(char *string, int p) {
   } else {
     char *dup = strdup(string);
     char **argv = new char *[num_commas + 1];
-    int argc = tokenize(dup, ",", argv, num_commas + 1);
+    int argc = spffl::base::tokenize(dup, ",", argv, num_commas + 1);
     if (argc < 1) {
       // Needs an error message, but this coding error is
       // unlikely since we already counted commas.

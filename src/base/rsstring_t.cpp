@@ -9,6 +9,7 @@
 
 #define INIT_SIZE 128
 #define INCR_SIZE 128
+namespace spffl::base {
 
 // ----------------------------------------------------------------
 rsstring_t::rsstring_t(void) {
@@ -77,3 +78,5 @@ void rsstring_t::make_room(int len) {
   strcpy(this->buffer, temp);
   delete[] temp;
 }
+
+} // namespace

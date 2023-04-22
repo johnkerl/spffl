@@ -207,7 +207,7 @@ std::istream &operator>>(std::istream &is, bit_matrix_t &m) {
 
     // Allow multiple matrices in the same stream, delimited by
     // carriage returns.
-    if (is_whitespace_line(line)) {
+    if (spffl::base::is_whitespace_line(line)) {
       if (m.num_rows == 0)
         continue;
       else

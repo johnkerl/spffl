@@ -788,7 +788,7 @@ int fpn_poly_t::from_string(char *string, fp_poly_t m) {
 
   char *dup = strdup(string);
   char **argv = new char *[num_colons + 1];
-  int argc = tokenize(dup, ":", argv, num_colons + 1);
+  int argc = spffl::base::tokenize(dup, ":", argv, num_colons + 1);
   if (argc < 1) {
     // Needs an error message, but this coding error is
     // unlikely since we already counted colons.
