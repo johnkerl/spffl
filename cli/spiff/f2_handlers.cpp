@@ -8,7 +8,7 @@
 #include "tmatrix.h"
 
 int f2op_main(int argc, char **argv, usage_t *pusage) {
-  cmd_line_parse<spffl::bits::bit_t>(argc - 1, argv + 1, spffl::bits::bit_t(0), spffl::bits::bit_t(1));
+  spffl::cliparser::cmd_line_parse<spffl::bits::bit_t>(argc - 1, argv + 1, spffl::bits::bit_t(0), spffl::bits::bit_t(1));
   return 0;
 }
 
@@ -34,12 +34,12 @@ int f2random_main(int argc, char **argv, usage_t *pusage) {
 }
 
 int f2matop_main(int argc, char **argv, usage_t *pusage) {
-  cmd_line_mat_parse<spffl::bits::bit_t>(argc - 1, argv + 1, spffl::bits::bit_t(0), spffl::bits::bit_t(1));
+  spffl::cliparser::cmd_line_mat_parse<spffl::bits::bit_t>(argc - 1, argv + 1, spffl::bits::bit_t(0), spffl::bits::bit_t(1));
   return 0;
 }
 
 int f2vecop_main(int argc, char **argv, usage_t *pusage) {
-  cmd_line_vec_parse<spffl::bits::bit_t>(argc - 1, argv + 1, spffl::bits::bit_t(0), spffl::bits::bit_t(1));
+  spffl::cliparser::cmd_line_vec_parse<spffl::bits::bit_t>(argc - 1, argv + 1, spffl::bits::bit_t(0), spffl::bits::bit_t(1));
   return 0;
 }
 

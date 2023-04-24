@@ -16,7 +16,7 @@ int f2nprop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   spffl::rationals::f2n_polyrat_t zero = spffl::rationals::f2n_polyrat_t::prime_sfld_elt(0, m);
   spffl::rationals::f2n_polyrat_t one = spffl::rationals::f2n_polyrat_t::prime_sfld_elt(1, m);
-  cmd_line_parse<spffl::rationals::f2n_polyrat_t>(argc - 2, argv + 2, zero, one);
+  spffl::cliparser::cmd_line_parse<spffl::rationals::f2n_polyrat_t>(argc - 2, argv + 2, zero, one);
   return 0;
 }
 
@@ -33,6 +33,6 @@ int f2nprmatop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   spffl::rationals::f2n_polyrat_t zero = spffl::rationals::f2n_polyrat_t::prime_sfld_elt(0, m);
   spffl::rationals::f2n_polyrat_t one = spffl::rationals::f2n_polyrat_t::prime_sfld_elt(1, m);
-  cmd_line_mat_parse<spffl::rationals::f2n_polyrat_t>(argc - 2, argv + 2, zero, one);
+  spffl::cliparser::cmd_line_mat_parse<spffl::rationals::f2n_polyrat_t>(argc - 2, argv + 2, zero, one);
   return 0;
 }

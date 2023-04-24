@@ -42,7 +42,7 @@ int f2plist_main(int argc, char **argv, usage_t *pusage) {
 }
 
 int f2pop_main(int argc, char **argv, usage_t *pusage) {
-  cmd_line_parse<spffl::polynomials::f2_poly_t>(argc - 1, argv + 1, spffl::polynomials::f2_poly_t(0), spffl::polynomials::f2_poly_t(1));
+  spffl::cliparser::cmd_line_parse<spffl::polynomials::f2_poly_t>(argc - 1, argv + 1, spffl::polynomials::f2_poly_t(0), spffl::polynomials::f2_poly_t(1));
   return 0;
 }
 
@@ -399,7 +399,7 @@ int f2pcompmx_main(int argc, char **argv, usage_t *pusage) {
 }
 
 int f2pmatop_main(int argc, char **argv, usage_t *pusage) {
-  cmd_line_mat_parse<spffl::polynomials::f2_poly_t>(argc - 1, argv + 1, spffl::polynomials::f2_poly_t(0), spffl::polynomials::f2_poly_t(1));
+  spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::f2_poly_t>(argc - 1, argv + 1, spffl::polynomials::f2_poly_t(0), spffl::polynomials::f2_poly_t(1));
   return 0;
 }
 

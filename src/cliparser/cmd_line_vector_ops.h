@@ -24,6 +24,8 @@
 #include <string.h>
 #include <string>
 
+namespace spffl::cliparser {
+
 template <class element_type> struct vecatom_t {
   tvector<element_type> vec_val;
   element_type scalar_val;
@@ -561,5 +563,7 @@ void cmd_line_vec_parse(int argc, char **argv, element_type zero,
     match<element_type>(lex_ctx, L_EOL);
   }
 }
+
+} // namespace
 
 #endif // CMDLINEVECOPS_H

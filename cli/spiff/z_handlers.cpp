@@ -16,7 +16,7 @@
 #include "tfacinfo.h"
 
 int zop_main(int argc, char **argv, usage_t *pusage) {
-  cmd_line_parse<int>(argc - 1, argv + 1, 0, 1);
+  spffl::cliparser::cmd_line_parse<int>(argc - 1, argv + 1, 0, 1);
   return 0;
 }
 
@@ -248,6 +248,6 @@ int zdivisors_main(int argc, char **argv, usage_t *pusage) {
 }
 
 int zmatop_main(int argc, char **argv, usage_t *pusage) {
-  cmd_line_mat_parse<int>(argc - 1, argv + 1, 0, 1);
+  spffl::cliparser::cmd_line_mat_parse<int>(argc - 1, argv + 1, 0, 1);
   return 0;
 }

@@ -6,6 +6,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+namespace spffl::cliparser {
+
 #define LBRK "{"
 #define RBRK "}"
 
@@ -174,3 +176,5 @@ void cmd_interpolate(char *exename, int &argc, char **&argv) {
     cmd_interpolate_once(exename, argc, argv, interpolated);
   } while (interpolated);
 }
+
+} // namespace

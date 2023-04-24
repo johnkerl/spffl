@@ -244,7 +244,7 @@ int main(int argc, char **argv) {
 
   // Recursively invokes this program to handle {} pairs, e.g.
   //   spiff f2pdeg { f2pfactor { f2pop 2 ^ 127 - 1 } }
-  cmd_interpolate(exename, argc, argv);
+  spffl::cliparser::cmd_interpolate(exename, argc, argv);
 
   if (argc < 1)
     main_usage(exename);

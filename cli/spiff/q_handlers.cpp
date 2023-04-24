@@ -6,17 +6,17 @@
 #include "qpoly_t.h"
 
 int qop_main(int argc, char **argv, usage_t *pusage) {
-  cmd_line_parse<spffl::rationals::intrat_t>(argc - 1, argv + 1, spffl::rationals::intrat_t(0), spffl::rationals::intrat_t(1));
+  spffl::cliparser::cmd_line_parse<spffl::rationals::intrat_t>(argc - 1, argv + 1, spffl::rationals::intrat_t(0), spffl::rationals::intrat_t(1));
   return 0;
 }
 
 int qmatop_main(int argc, char **argv, usage_t *pusage) {
-  cmd_line_mat_parse<spffl::rationals::intrat_t>(argc - 1, argv + 1, spffl::rationals::intrat_t(0), spffl::rationals::intrat_t(1));
+  spffl::cliparser::cmd_line_mat_parse<spffl::rationals::intrat_t>(argc - 1, argv + 1, spffl::rationals::intrat_t(0), spffl::rationals::intrat_t(1));
   return 0;
 }
 
 int qvecop_main(int argc, char **argv, usage_t *pusage) {
-  cmd_line_vec_parse<spffl::rationals::intrat_t>(argc - 1, argv + 1, spffl::rationals::intrat_t(0), spffl::rationals::intrat_t(1));
+  spffl::cliparser::cmd_line_vec_parse<spffl::rationals::intrat_t>(argc - 1, argv + 1, spffl::rationals::intrat_t(0), spffl::rationals::intrat_t(1));
   return 0;
 }
 
@@ -26,7 +26,7 @@ void qcyclo_usage(char *argv0) {
 }
 
 int qpop_main(int argc, char **argv, usage_t *pusage) {
-  cmd_line_parse<spffl::rationals::qpoly_t>(argc - 1, argv + 1, spffl::rationals::qpoly_t(spffl::rationals::intrat_t(0)),
+  spffl::cliparser::cmd_line_parse<spffl::rationals::qpoly_t>(argc - 1, argv + 1, spffl::rationals::qpoly_t(spffl::rationals::intrat_t(0)),
                           spffl::rationals::qpoly_t(spffl::rationals::intrat_t(1)));
   return 0;
 }

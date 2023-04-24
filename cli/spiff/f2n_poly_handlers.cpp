@@ -52,7 +52,7 @@ int f2npop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   spffl::polynomials::f2n_poly_t zero = spffl::polynomials::f2n_poly_t::prime_sfld_elt(0, m);
   spffl::polynomials::f2n_poly_t one = spffl::polynomials::f2n_poly_t::prime_sfld_elt(1, m);
-  cmd_line_parse<spffl::polynomials::f2n_poly_t>(argc - 2, argv + 2, zero, one);
+  spffl::cliparser::cmd_line_parse<spffl::polynomials::f2n_poly_t>(argc - 2, argv + 2, zero, one);
   return 0;
 }
 
@@ -429,6 +429,6 @@ int f2npmatop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   spffl::polynomials::f2n_poly_t zero = spffl::polynomials::f2n_poly_t::prime_sfld_elt(0, m);
   spffl::polynomials::f2n_poly_t one = spffl::polynomials::f2n_poly_t::prime_sfld_elt(1, m);
-  cmd_line_mat_parse<spffl::polynomials::f2n_poly_t>(argc - 2, argv + 2, zero, one);
+  spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::f2n_poly_t>(argc - 2, argv + 2, zero, one);
   return 0;
 }

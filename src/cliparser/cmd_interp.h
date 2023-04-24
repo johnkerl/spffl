@@ -1,6 +1,8 @@
 #ifndef CMDINTERP_H
 #define CMDINTERP_H
 
+namespace spffl::cliparser {
+
 void cmd_interpolate(char *exename, int &argc, char **&argv);
 
 // Example:  If exename is "proggy" and argc, argv are "a b { c d e }", this
@@ -26,5 +28,7 @@ void cmd_interpolate(char *exename, int &argc, char **&argv);
 //
 //     return 0;
 // }
+
+} // namespace
 
 #endif // CMDINTERP_H

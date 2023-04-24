@@ -46,7 +46,7 @@ int fppop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (sscanf(argv[1], "%d", &p) != 1)
     pusage(argv[0]);
-  cmd_line_parse<spffl::polynomials::fp_poly_t>(argc - 2, argv + 2, spffl::polynomials::fp_poly_t(0, p), spffl::polynomials::fp_poly_t(1, p));
+  spffl::cliparser::cmd_line_parse<spffl::polynomials::fp_poly_t>(argc - 2, argv + 2, spffl::polynomials::fp_poly_t(0, p), spffl::polynomials::fp_poly_t(1, p));
   return 0;
 }
 
@@ -61,7 +61,7 @@ int fppmatop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (sscanf(argv[1], "%d", &p) != 1)
     pusage(argv[0]);
-  cmd_line_mat_parse<spffl::polynomials::fp_poly_t>(argc - 2, argv + 2, spffl::polynomials::fp_poly_t(0, p),
+  spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::fp_poly_t>(argc - 2, argv + 2, spffl::polynomials::fp_poly_t(0, p),
                                   spffl::polynomials::fp_poly_t(1, p));
   return 0;
 }

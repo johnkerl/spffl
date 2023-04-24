@@ -63,7 +63,7 @@ int f2pmop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (!m.from_string(argv[1]))
     pusage(argv[0]);
-  cmd_line_parse<spffl::polynomials::f2_polymod_t>(argc - 2, argv + 2, spffl::polynomials::f2_polymod_t(spffl::polynomials::f2_poly_t(0), m),
+  spffl::cliparser::cmd_line_parse<spffl::polynomials::f2_polymod_t>(argc - 2, argv + 2, spffl::polynomials::f2_polymod_t(spffl::polynomials::f2_poly_t(0), m),
                               spffl::polynomials::f2_polymod_t(spffl::polynomials::f2_poly_t(1), m));
   return 0;
 }
@@ -377,7 +377,7 @@ int f2pmmatop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   zero = spffl::polynomials::f2_polymod_t(m.prime_sfld_elt(0), m);
   one = spffl::polynomials::f2_polymod_t(m.prime_sfld_elt(1), m);
-  cmd_line_mat_parse<spffl::polynomials::f2_polymod_t>(argc - 2, argv + 2, zero, one);
+  spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::f2_polymod_t>(argc - 2, argv + 2, zero, one);
   return 0;
 }
 
@@ -396,7 +396,7 @@ int f2pmvecop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   zero = spffl::polynomials::f2_polymod_t(m.prime_sfld_elt(0), m);
   one = spffl::polynomials::f2_polymod_t(m.prime_sfld_elt(1), m);
-  cmd_line_vec_parse<spffl::polynomials::f2_polymod_t>(argc - 2, argv + 2, zero, one);
+  spffl::cliparser::cmd_line_vec_parse<spffl::polynomials::f2_polymod_t>(argc - 2, argv + 2, zero, one);
   return 0;
 }
 
