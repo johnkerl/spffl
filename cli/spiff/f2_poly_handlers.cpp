@@ -409,7 +409,7 @@ void f2pqp_usage(char *argv0) {
 }
 
 int f2pqp_main(int argc, char **argv, usage_t *pusage) {
-  qpoly_t qp;
+  spffl::rationals::qpoly_t qp;
   spffl::polynomials::f2_poly_t f2p;
   if (argc < 2)
     pusage(argv[0]);

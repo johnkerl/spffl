@@ -11,6 +11,8 @@
 #include <iostream>
 #include <sstream>
 
+namespace spffl::rationals {
+
 class intrat_t {
 public:
   intrat_t(int numerator, int denominator);
@@ -58,5 +60,7 @@ private:
 
   void simplify();
 };
+
+} // namespace
 
 #endif // INTRAT_T_H

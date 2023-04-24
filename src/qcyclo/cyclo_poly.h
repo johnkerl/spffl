@@ -7,7 +7,7 @@
 #include "fp_poly_t.h"
 #include "qpoly_t.h"
 
-qpoly_t get_cyclo_qpoly(int n);
+spffl::rationals::qpoly_t get_cyclo_qpoly(int n);
 spffl::polynomials::f2_poly_t get_cyclo_f2poly(int n);
 spffl::polynomials::fp_poly_t get_cyclo_fppoly(int n, int p);
 spffl::polynomials::f2n_poly_t get_cyclo_f2npoly(int n, spffl::polynomials::f2_poly_t im);

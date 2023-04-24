@@ -6,8 +6,8 @@
 #include "f2_polyrat_t.h"
 
 int f2prop_main(int argc, char **argv, usage_t *pusage) {
-  cmd_line_parse<f2_polyrat_t>(argc - 1, argv + 1, f2_polyrat_t(0),
-                              f2_polyrat_t(1));
+  cmd_line_parse<spffl::rationals::f2_polyrat_t>(argc - 1, argv + 1, spffl::rationals::f2_polyrat_t(0),
+                              spffl::rationals::f2_polyrat_t(1));
   return 0;
 }
 
@@ -35,7 +35,7 @@ int f2prrandom_main(int argc, char **argv, usage_t *pusage) {
     spffl::polynomials::f2_poly_t denom = f2_poly_random(deg);
     if (denom == zero)
       denom = one;
-    f2_polyrat_t q(numer, denom);
+    spffl::rationals::f2_polyrat_t q(numer, denom);
     std::cout << q << std::endl;
   }
 
@@ -43,8 +43,8 @@ int f2prrandom_main(int argc, char **argv, usage_t *pusage) {
 }
 
 int f2prmatop_main(int argc, char **argv, usage_t *pusage) {
-  cmd_line_mat_parse<f2_polyrat_t>(argc - 1, argv + 1, f2_polyrat_t(spffl::polynomials::f2_poly_t(0)),
-                                  f2_polyrat_t(spffl::polynomials::f2_poly_t(1)));
+  cmd_line_mat_parse<spffl::rationals::f2_polyrat_t>(argc - 1, argv + 1, spffl::rationals::f2_polyrat_t(spffl::polynomials::f2_poly_t(0)),
+                                  spffl::rationals::f2_polyrat_t(spffl::polynomials::f2_poly_t(1)));
   return 0;
 }
 
@@ -65,7 +65,7 @@ int f2prmatrandom_main(int argc, char **argv, usage_t *pusage) {
   if (sscanf(argv[3], "%d", &nc) != 1)
     pusage(argv[0]);
 
-  tmatrix<f2_polyrat_t> A(nr, nc);
+  tmatrix<spffl::rationals::f2_polyrat_t> A(nr, nc);
 
   spffl::polynomials::f2_poly_t zero(0);
   spffl::polynomials::f2_poly_t one(1);
@@ -75,7 +75,7 @@ int f2prmatrandom_main(int argc, char **argv, usage_t *pusage) {
       spffl::polynomials::f2_poly_t denom = f2_poly_random(deg);
       if (denom == zero)
         denom = one;
-      A[i][j] = f2_polyrat_t(numer, denom);
+      A[i][j] = spffl::rationals::f2_polyrat_t(numer, denom);
     }
   }
   std::cout << A << std::endl;

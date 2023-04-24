@@ -9,6 +9,8 @@
 #include <iomanip>
 #include <iostream>
 
+namespace spffl::rationals {
+
 // ----------------------------------------------------------------
 f2_polyrat_t::f2_polyrat_t(spffl::polynomials::f2_poly_t numerator, spffl::polynomials::f2_poly_t denominator) {
   this->numer = numerator;
@@ -335,3 +337,5 @@ void f2_polyrat_t::simplify(void) {
   this->numer /= g;
   this->denom /= g;
 }
+
+} // namespace

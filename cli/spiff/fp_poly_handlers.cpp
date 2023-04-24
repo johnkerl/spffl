@@ -400,7 +400,7 @@ void fppqp_usage(char *argv0) {
 
 int fppqp_main(int argc, char **argv, usage_t *pusage) {
   int p;
-  qpoly_t qp;
+  spffl::rationals::qpoly_t qp;
   spffl::polynomials::fp_poly_t fpp;
   if (argc < 3)
     pusage(argv[0]);

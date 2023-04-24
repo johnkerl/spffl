@@ -1,14 +1,14 @@
 #include "qff.h"
 
 // ----------------------------------------------------------------
-spffl::bits::bit_t bit_from_rat(intrat_t r) {
+spffl::bits::bit_t bit_from_rat(spffl::rationals::intrat_t r) {
   spffl::bits::bit_t numer(r.get_numerator());
   spffl::bits::bit_t denom(r.get_denominator());
   return numer / denom;
 }
 
 // ----------------------------------------------------------------
-spffl::intmath::intmod_t intmod_from_rat(intrat_t r, int p) {
+spffl::intmath::intmod_t intmod_from_rat(spffl::rationals::intrat_t r, int p) {
   spffl::intmath::intmod_t numer(r.get_numerator(), p);
   spffl::intmath::intmod_t denom(r.get_denominator(), p);
 
@@ -16,7 +16,7 @@ spffl::intmath::intmod_t intmod_from_rat(intrat_t r, int p) {
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2_poly_t f2poly_from_qpoly(qpoly_t q) {
+spffl::polynomials::f2_poly_t f2poly_from_qpoly(spffl::rationals::qpoly_t q) {
   spffl::polynomials::f2_poly_t rv;
   int d = q.find_degree();
   for (int i = d; i >= 0; i--)
@@ -25,7 +25,7 @@ spffl::polynomials::f2_poly_t f2poly_from_qpoly(qpoly_t q) {
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::fp_poly_t fppoly_from_qpoly(qpoly_t q, int p) {
+spffl::polynomials::fp_poly_t fppoly_from_qpoly(spffl::rationals::qpoly_t q, int p) {
   spffl::polynomials::fp_poly_t rv;
   int d = q.find_degree();
   for (int i = d; i >= 0; i--)
@@ -34,7 +34,7 @@ spffl::polynomials::fp_poly_t fppoly_from_qpoly(qpoly_t q, int p) {
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2n_poly_t f2npoly_from_qpoly(qpoly_t q, spffl::polynomials::f2_poly_t im) {
+spffl::polynomials::f2n_poly_t f2npoly_from_qpoly(spffl::rationals::qpoly_t q, spffl::polynomials::f2_poly_t im) {
   spffl::polynomials::f2n_poly_t rv;
   int d = q.find_degree();
   for (int i = d; i >= 0; i--) {
@@ -47,7 +47,7 @@ spffl::polynomials::f2n_poly_t f2npoly_from_qpoly(qpoly_t q, spffl::polynomials:
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::fpn_poly_t fpnpoly_from_qpoly(qpoly_t q, spffl::polynomials::fp_poly_t im) {
+spffl::polynomials::fpn_poly_t fpnpoly_from_qpoly(spffl::rationals::qpoly_t q, spffl::polynomials::fp_poly_t im) {
   int d = q.find_degree();
   int p = im.get_char();
   spffl::intmath::intmod_t z0(0, p);

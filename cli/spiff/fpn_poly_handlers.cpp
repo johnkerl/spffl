@@ -96,7 +96,7 @@ void fpnpqp_usage(char *argv0) {
 int fpnpqp_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t m;
-  qpoly_t qp;
+  spffl::rationals::qpoly_t qp;
   spffl::polynomials::fpn_poly_t fpnp;
   if (argc < 4)
     pusage(argv[0]);

@@ -11,6 +11,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+namespace spffl::rationals {
+
 // ----------------------------------------------------------------
 qpoly_t::qpoly_t(void) {
   intrat_t zero(0);
@@ -771,3 +773,5 @@ void qpoly_t::promote_and_add(intrat_t c0) {
   this->promote();
   this->coeffs[0] = c0;
 }
+
+} // namespace
