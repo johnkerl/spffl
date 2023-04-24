@@ -28,11 +28,11 @@ int f2prrandom_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
   }
 
-  f2_poly_t zero(0);
-  f2_poly_t one(1);
+  spffl::polynomials::f2_poly_t zero(0);
+  spffl::polynomials::f2_poly_t one(1);
   for (int i = 0; i < count; i++) {
-    f2_poly_t numer = f2_poly_random(deg);
-    f2_poly_t denom = f2_poly_random(deg);
+    spffl::polynomials::f2_poly_t numer = f2_poly_random(deg);
+    spffl::polynomials::f2_poly_t denom = f2_poly_random(deg);
     if (denom == zero)
       denom = one;
     f2_polyrat_t q(numer, denom);
@@ -43,8 +43,8 @@ int f2prrandom_main(int argc, char **argv, usage_t *pusage) {
 }
 
 int f2prmatop_main(int argc, char **argv, usage_t *pusage) {
-  cmd_line_mat_parse<f2_polyrat_t>(argc - 1, argv + 1, f2_polyrat_t(f2_poly_t(0)),
-                                  f2_polyrat_t(f2_poly_t(1)));
+  cmd_line_mat_parse<f2_polyrat_t>(argc - 1, argv + 1, f2_polyrat_t(spffl::polynomials::f2_poly_t(0)),
+                                  f2_polyrat_t(spffl::polynomials::f2_poly_t(1)));
   return 0;
 }
 
@@ -67,12 +67,12 @@ int f2prmatrandom_main(int argc, char **argv, usage_t *pusage) {
 
   tmatrix<f2_polyrat_t> A(nr, nc);
 
-  f2_poly_t zero(0);
-  f2_poly_t one(1);
+  spffl::polynomials::f2_poly_t zero(0);
+  spffl::polynomials::f2_poly_t one(1);
   for (int i = 0; i < nr; i++) {
     for (int j = 0; j < nc; j++) {
-      f2_poly_t numer = f2_poly_random(deg);
-      f2_poly_t denom = f2_poly_random(deg);
+      spffl::polynomials::f2_poly_t numer = f2_poly_random(deg);
+      spffl::polynomials::f2_poly_t denom = f2_poly_random(deg);
       if (denom == zero)
         denom = one;
       A[i][j] = f2_polyrat_t(numer, denom);

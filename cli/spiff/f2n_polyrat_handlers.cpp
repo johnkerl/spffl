@@ -9,7 +9,7 @@ void f2nprop_usage(char *argv0) {
   exit(1);
 }
 int f2nprop_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t m;
+  spffl::polynomials::f2_poly_t m;
   if (argc < 2)
     pusage(argv[0]);
   if (!m.from_string(argv[1]))
@@ -26,7 +26,7 @@ void f2nprmatop_usage(char *argv0) {
 }
 
 int f2nprmatop_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t m;
+  spffl::polynomials::f2_poly_t m;
   if (argc < 2)
     pusage(argv[0]);
   if (!m.from_string(argv[1]))

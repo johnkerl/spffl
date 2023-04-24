@@ -7,5 +7,5 @@
 #ifndef FPPOLY_TOTIENT_H
 #define FPPOLY_TOTIENT_H
 #include "fp_poly_t.h"
-int fp_poly_totient(fp_poly_t f);
+int fp_poly_totient(spffl::polynomials::fp_poly_t f);
 #endif // FPPOLY_TOTIENT_H

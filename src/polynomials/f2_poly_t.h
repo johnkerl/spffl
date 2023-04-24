@@ -16,6 +16,7 @@
 #include <iostream>
 #include <sstream>
 
+namespace spffl::polynomials {
 // One may uncomment this, and/or use -DF2POLY_SMALL on the compile line.
 //#define F2POLY_SMALL
 
@@ -124,9 +125,6 @@ private:
 #endif
   void debug_print(std::ostream &os);
 };
-
-// Same as the gcd method, but overloaded.  This is important for template use.
-f2_poly_t gcd(f2_poly_t a, f2_poly_t b);
 
 // ================================================================
 #ifdef F2POLY_SMALL
@@ -269,6 +267,11 @@ inline void f2_poly_t::bounds_check(int deg) const {
 }
 
 #endif // F2POLY_SMALL
+
+} // namespace
+
+// Same as the gcd method, but overloaded.  This is important for template use.
+spffl::polynomials::f2_poly_t gcd(spffl::polynomials::f2_poly_t a, spffl::polynomials::f2_poly_t b);
 
 // ================================================================
 #endif // F2POLY_T_H

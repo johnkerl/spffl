@@ -14,8 +14,8 @@
 
 class f2_polyrat_t {
 public:
-  f2_polyrat_t(f2_poly_t numerator, f2_poly_t denominator);
-  f2_polyrat_t(f2_poly_t numerator);
+  f2_polyrat_t(spffl::polynomials::f2_poly_t numerator, spffl::polynomials::f2_poly_t denominator);
+  f2_polyrat_t(spffl::polynomials::f2_poly_t numerator);
   f2_polyrat_t(int inumer);
   f2_polyrat_t(void);
   f2_polyrat_t(const f2_polyrat_t &that);
@@ -25,7 +25,7 @@ public:
   int get_char(void);
 
   f2_polyrat_t &operator=(f2_polyrat_t that);
-  f2_polyrat_t &operator=(f2_poly_t numer);
+  f2_polyrat_t &operator=(spffl::polynomials::f2_poly_t numer);
   f2_polyrat_t operator+(f2_polyrat_t that) const;
   f2_polyrat_t operator-(f2_polyrat_t that) const;
   f2_polyrat_t operator-(void) const;
@@ -47,20 +47,20 @@ public:
 
   int operator==(f2_polyrat_t that) const;
   int operator!=(f2_polyrat_t that) const;
-  int operator==(f2_poly_t that) const;
-  int operator!=(f2_poly_t that) const;
+  int operator==(spffl::polynomials::f2_poly_t that) const;
+  int operator!=(spffl::polynomials::f2_poly_t that) const;
 
   int operator<(f2_polyrat_t that) const;
   int operator>(f2_polyrat_t that) const;
   int operator<=(f2_polyrat_t that) const;
   int operator>=(f2_polyrat_t that) const;
 
-  f2_poly_t get_numerator(void) const;
-  f2_poly_t get_denominator(void) const;
+  spffl::polynomials::f2_poly_t get_numerator(void) const;
+  spffl::polynomials::f2_poly_t get_denominator(void) const;
 
 private:
-  f2_poly_t numer;
-  f2_poly_t denom;
+  spffl::polynomials::f2_poly_t numer;
+  spffl::polynomials::f2_poly_t denom;
 
   void simplify();
 };

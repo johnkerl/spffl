@@ -13,14 +13,14 @@
 #include "int_totient.h"
 
 // ----------------------------------------------------------------
-tvector<f2_poly_t> f2poly_list(int deg) {
+tvector<spffl::polynomials::f2_poly_t> f2poly_list(int deg) {
   int nel = 1 << deg;
-  tvector<f2_poly_t> rv(nel);
+  tvector<spffl::polynomials::f2_poly_t> rv(nel);
 
   int i;
-  f2_poly_t min(0);
-  f2_poly_t max(0);
-  f2_poly_t r;
+  spffl::polynomials::f2_poly_t min(0);
+  spffl::polynomials::f2_poly_t max(0);
+  spffl::polynomials::f2_poly_t r;
   min.set_bit(deg);
   max.set_bit(deg + 1);
 
@@ -31,18 +31,18 @@ tvector<f2_poly_t> f2poly_list(int deg) {
 }
 
 // ----------------------------------------------------------------
-tvector<f2n_poly_t> f2npoly_list(f2_poly_t im, int outerdeg) {
+tvector<spffl::polynomials::f2n_poly_t> f2npoly_list(spffl::polynomials::f2_poly_t im, int outerdeg) {
   int innerdeg = im.find_degree();
   int q = 1 << innerdeg;
   int nel = (q - 1) * spffl::intmath::int_power(q, outerdeg);
-  tvector<f2n_poly_t> rv(nel);
+  tvector<spffl::polynomials::f2n_poly_t> rv(nel);
 
   int i;
-  f2_polymod_t zero(f2_poly_t(0), im);
-  f2_polymod_t one(f2_poly_t(1), im);
-  f2n_poly_t r;
-  f2n_poly_t min(zero);
-  f2n_poly_t max(zero);
+  spffl::polynomials::f2_polymod_t zero(spffl::polynomials::f2_poly_t(0), im);
+  spffl::polynomials::f2_polymod_t one(spffl::polynomials::f2_poly_t(1), im);
+  spffl::polynomials::f2n_poly_t r;
+  spffl::polynomials::f2n_poly_t min(zero);
+  spffl::polynomials::f2n_poly_t max(zero);
   min.set_coeff(outerdeg, one);
   max.set_coeff(outerdeg + 1, one);
 
@@ -53,15 +53,15 @@ tvector<f2n_poly_t> f2npoly_list(f2_poly_t im, int outerdeg) {
 }
 
 // ----------------------------------------------------------------
-tvector<fp_poly_t> fppoly_list(int p, int deg) {
+tvector<spffl::polynomials::fp_poly_t> fppoly_list(int p, int deg) {
   int nel = (p - 1) * spffl::intmath::int_power(p, deg);
-  tvector<fp_poly_t> rv(nel);
+  tvector<spffl::polynomials::fp_poly_t> rv(nel);
 
   int i;
   spffl::intmath::intmod_t zero(0, p), one(1, p);
-  fp_poly_t min(zero);
-  fp_poly_t max(zero);
-  fp_poly_t r;
+  spffl::polynomials::fp_poly_t min(zero);
+  spffl::polynomials::fp_poly_t max(zero);
+  spffl::polynomials::fp_poly_t r;
 
   min.set_coeff(deg, one);
   max.set_coeff(deg + 1, one);
@@ -106,7 +106,7 @@ tvector<spffl::intmath::intmod_t> intmod_list(int p, sp_list_type_t type) {
 }
 
 // ----------------------------------------------------------------
-tvector<f2_polymod_t> f2polymod_list(f2_poly_t m, sp_list_type_t type) {
+tvector<spffl::polynomials::f2_polymod_t> f2polymod_list(spffl::polynomials::f2_poly_t m, sp_list_type_t type) {
   int deg = m.find_degree();
   int nel;
   if (type == SP_LIST_ALL)
@@ -119,41 +119,41 @@ tvector<f2_polymod_t> f2polymod_list(f2_poly_t m, sp_list_type_t type) {
     std::cerr << "f2polymod_list:  unhandled code option.\n";
     exit(1);
   }
-  tvector<f2_polymod_t> rv(nel);
+  tvector<spffl::polynomials::f2_polymod_t> rv(nel);
 
   int i;
-  f2_poly_t zero(0);
-  f2_poly_t min(0);
-  f2_poly_t max(0);
-  f2_poly_t r;
+  spffl::polynomials::f2_poly_t zero(0);
+  spffl::polynomials::f2_poly_t min(0);
+  spffl::polynomials::f2_poly_t max(0);
+  spffl::polynomials::f2_poly_t r;
   max.set_bit(deg);
 
   if (type == SP_LIST_UNITS) {
     for (r = min, i = 0; r < max; r.increment()) {
-      f2_poly_t g = r.gcd(m);
+      spffl::polynomials::f2_poly_t g = r.gcd(m);
       if ((g.find_degree() == 0) && (g != zero)) {
-        rv[i++] = f2_polymod_t(r, m);
+        rv[i++] = spffl::polynomials::f2_polymod_t(r, m);
       }
     }
   } else if (type == SP_LIST_NON_UNITS) {
     for (r = min, i = 0; r < max; r.increment()) {
-      f2_poly_t g = r.gcd(m);
+      spffl::polynomials::f2_poly_t g = r.gcd(m);
       if ((g.find_degree() != 0) || (g == zero)) {
-        rv[i++] = f2_polymod_t(r, m);
+        rv[i++] = spffl::polynomials::f2_polymod_t(r, m);
       }
     }
   } else {
     for (r = min, i = 0; r < max; r.increment(), i++)
-      rv[i] = f2_polymod_t(r, m);
+      rv[i] = spffl::polynomials::f2_polymod_t(r, m);
   }
 
   return rv;
 }
 
 // ----------------------------------------------------------------
-tvector<f2n_polymod_t> f2npolymod_list(f2n_poly_t om, sp_list_type_t type) {
-  f2_polymod_t c0 = om.get_coeff(0);
-  f2_poly_t im = c0.get_modulus();
+tvector<spffl::polynomials::f2n_polymod_t> f2npolymod_list(spffl::polynomials::f2n_poly_t om, sp_list_type_t type) {
+  spffl::polynomials::f2_polymod_t c0 = om.get_coeff(0);
+  spffl::polynomials::f2_poly_t im = c0.get_modulus();
   int outerdeg = om.find_degree();
   int innerdeg = im.find_degree();
   int nel;
@@ -167,40 +167,40 @@ tvector<f2n_polymod_t> f2npolymod_list(f2n_poly_t om, sp_list_type_t type) {
     std::cerr << "f2npolymod_list:  unhandled code option.\n";
     exit(1);
   }
-  tvector<f2n_polymod_t> rv(nel);
+  tvector<spffl::polynomials::f2n_polymod_t> rv(nel);
 
   int i;
-  f2_polymod_t zero = c0.prime_sfld_elt(0);
-  f2_polymod_t one = c0.prime_sfld_elt(1);
-  f2n_poly_t min(zero);
-  f2n_poly_t max(zero);
-  f2n_poly_t r;
+  spffl::polynomials::f2_polymod_t zero = c0.prime_sfld_elt(0);
+  spffl::polynomials::f2_polymod_t one = c0.prime_sfld_elt(1);
+  spffl::polynomials::f2n_poly_t min(zero);
+  spffl::polynomials::f2n_poly_t max(zero);
+  spffl::polynomials::f2n_poly_t r;
   max.set_coeff(outerdeg, one);
 
   if (type == SP_LIST_UNITS) {
     for (r = min, i = 0; r < max; r.increment()) {
-      f2n_poly_t g = r.gcd(om);
+      spffl::polynomials::f2n_poly_t g = r.gcd(om);
       if ((g.find_degree() == 0) && (g != zero)) {
-        rv[i++] = f2n_polymod_t(r, om);
+        rv[i++] = spffl::polynomials::f2n_polymod_t(r, om);
       }
     }
   } else if (type == SP_LIST_NON_UNITS) {
     for (r = min, i = 0; r < max; r.increment()) {
-      f2n_poly_t g = r.gcd(om);
+      spffl::polynomials::f2n_poly_t g = r.gcd(om);
       if ((g.find_degree() != 0) || (g == zero)) {
-        rv[i++] = f2n_polymod_t(r, om);
+        rv[i++] = spffl::polynomials::f2n_polymod_t(r, om);
       }
     }
   } else {
     for (r = min, i = 0; r < max; r.increment(), i++)
-      rv[i] = f2n_polymod_t(r, om);
+      rv[i] = spffl::polynomials::f2n_polymod_t(r, om);
   }
 
   return rv;
 }
 
 // ----------------------------------------------------------------
-tvector<fp_polymod_t> fppolymod_list(fp_poly_t m, sp_list_type_t type) {
+tvector<spffl::polynomials::fp_polymod_t> fppolymod_list(spffl::polynomials::fp_poly_t m, sp_list_type_t type) {
   int p = m.get_char();
   int n = m.find_degree();
   int nel;
@@ -214,63 +214,63 @@ tvector<fp_polymod_t> fppolymod_list(fp_poly_t m, sp_list_type_t type) {
     std::cerr << "fppolymod_list:  unhandled code option.\n";
     exit(1);
   }
-  tvector<fp_polymod_t> rv(nel);
+  tvector<spffl::polynomials::fp_polymod_t> rv(nel);
 
   int i;
   spffl::intmath::intmod_t zero(0, p), one(1, p);
-  fp_poly_t min(zero);
-  fp_poly_t max(zero);
-  fp_poly_t r;
+  spffl::polynomials::fp_poly_t min(zero);
+  spffl::polynomials::fp_poly_t max(zero);
+  spffl::polynomials::fp_poly_t r;
   max.set_coeff(n, one);
 
   if (type == SP_LIST_UNITS) {
     for (r = min, i = 0; r < max; r.increment()) {
-      fp_poly_t g = r.gcd(m);
+      spffl::polynomials::fp_poly_t g = r.gcd(m);
       if ((g.find_degree() == 0) && (g != zero)) {
-        rv[i++] = fp_polymod_t(r, m);
+        rv[i++] = spffl::polynomials::fp_polymod_t(r, m);
       }
     }
   } else if (type == SP_LIST_NON_UNITS) {
     for (r = min, i = 0; r < max; r.increment()) {
-      fp_poly_t g = r.gcd(m);
+      spffl::polynomials::fp_poly_t g = r.gcd(m);
       if ((g.find_degree() != 0) || (g == zero)) {
-        rv[i++] = fp_polymod_t(r, m);
+        rv[i++] = spffl::polynomials::fp_polymod_t(r, m);
       }
     }
   } else {
     for (r = min, i = 0; r < max; r.increment(), i++)
-      rv[i] = fp_polymod_t(r, m);
+      rv[i] = spffl::polynomials::fp_polymod_t(r, m);
   }
 
   return rv;
 }
 
 // ----------------------------------------------------------------
-tvector<f2_polymod_t> f2polymod_glist(f2_polymod_t g, sp_list_type_t type) {
-  f2_poly_t m = g.get_modulus();
-  f2_poly_t gres = g.get_residue();
-  f2_poly_t gr = m.gcd(gres);
+tvector<spffl::polynomials::f2_polymod_t> f2polymod_glist(spffl::polynomials::f2_polymod_t g, sp_list_type_t type) {
+  spffl::polynomials::f2_poly_t m = g.get_modulus();
+  spffl::polynomials::f2_poly_t gres = g.get_residue();
+  spffl::polynomials::f2_poly_t gr = m.gcd(gres);
   int deg = m.find_degree();
   int maxnel = 1 << deg;
-  tvector<f2_polymod_t> rv(maxnel);
+  tvector<spffl::polynomials::f2_polymod_t> rv(maxnel);
   int nel = 0;
-  f2_poly_t r;
-  f2_poly_t zero(0);
-  f2_poly_t min(0);
-  f2_poly_t max(0);
+  spffl::polynomials::f2_poly_t r;
+  spffl::polynomials::f2_poly_t zero(0);
+  spffl::polynomials::f2_poly_t min(0);
+  spffl::polynomials::f2_poly_t max(0);
   max.set_bit(deg);
 
   if (type == SP_LIST_MULTIPLES) {
     for (r = min; r < max; r.increment())
       if ((r % gr) == zero)
-        rv[nel++] = f2_polymod_t(r, m);
+        rv[nel++] = spffl::polynomials::f2_polymod_t(r, m);
   }
 
   else if (type == SP_LIST_REL_PRIME) {
     for (r = min; r < max; r.increment()) {
-      f2_poly_t d = r.gcd(gr);
+      spffl::polynomials::f2_poly_t d = r.gcd(gr);
       if ((d.find_degree() == 0) && (d != zero)) {
-        rv[nel++] = f2_polymod_t(r, m);
+        rv[nel++] = spffl::polynomials::f2_polymod_t(r, m);
       }
     }
   }
@@ -303,14 +303,14 @@ tvector<spffl::intmath::intmod_t> intmod_glist(spffl::intmath::intmod_t g, sp_li
 }
 
 // ----------------------------------------------------------------
-tmatrix<f2_polymod_t> f2polymod_An_list(f2_poly_t m, int n) {
+tmatrix<spffl::polynomials::f2_polymod_t> f2polymod_An_list(spffl::polynomials::f2_poly_t m, int n) {
   int d = m.find_degree();
   int q = 1 << d;
   int qn = spffl::intmath::int_power(q, n);
-  tmatrix<f2_polymod_t> rv(qn, n);
+  tmatrix<spffl::polynomials::f2_polymod_t> rv(qn, n);
   int i, j;
 
-  tvector<f2_polymod_t> Fq = f2polymod_list(m, SP_LIST_ALL);
+  tvector<spffl::polynomials::f2_polymod_t> Fq = f2polymod_list(m, SP_LIST_ALL);
 
   for (i = 0; i < qn; i++) {
     int baserep = i;
@@ -330,18 +330,18 @@ tmatrix<f2_polymod_t> f2polymod_An_list(f2_poly_t m, int n) {
 //   (1:0:0) q^0
 // # = q^0 + q^2
 
-tmatrix<f2_polymod_t> f2polymod_Pn_list(f2_poly_t m, int n) {
+tmatrix<spffl::polynomials::f2_polymod_t> f2polymod_Pn_list(spffl::polynomials::f2_poly_t m, int n) {
   int i, j, k;
   int d = m.find_degree();
   int q = 1 << d;
-  tvector<f2_polymod_t> Fq = f2polymod_list(m, SP_LIST_ALL);
-  f2_polymod_t zero = f2_polymod_t::prime_sfld_elt(0, m);
-  f2_polymod_t one = f2_polymod_t::prime_sfld_elt(1, m);
+  tvector<spffl::polynomials::f2_polymod_t> Fq = f2polymod_list(m, SP_LIST_ALL);
+  spffl::polynomials::f2_polymod_t zero = spffl::polynomials::f2_polymod_t::prime_sfld_elt(0, m);
+  spffl::polynomials::f2_polymod_t one = spffl::polynomials::f2_polymod_t::prime_sfld_elt(1, m);
 
   int oP = 0;
   for (k = 0; k <= n; k++)
     oP += spffl::intmath::int_power(q, k);
-  tmatrix<f2_polymod_t> rv(oP, n + 1);
+  tmatrix<spffl::polynomials::f2_polymod_t> rv(oP, n + 1);
 
   int didx = 0;
   for (k = 0; k <= n; k++) {
@@ -368,15 +368,15 @@ tmatrix<f2_polymod_t> f2polymod_Pn_list(f2_poly_t m, int n) {
 }
 
 // ----------------------------------------------------------------
-tmatrix<fp_polymod_t> fppolymod_An_list(fp_poly_t m, int n) {
+tmatrix<spffl::polynomials::fp_polymod_t> fppolymod_An_list(spffl::polynomials::fp_poly_t m, int n) {
   int d = m.find_degree();
   int p = m.get_char();
   int q = spffl::intmath::int_power(p, d);
   int qn = spffl::intmath::int_power(q, n);
-  tmatrix<fp_polymod_t> rv(qn, n);
+  tmatrix<spffl::polynomials::fp_polymod_t> rv(qn, n);
   int i, j;
 
-  tvector<fp_polymod_t> Fq = fppolymod_list(m, SP_LIST_ALL);
+  tvector<spffl::polynomials::fp_polymod_t> Fq = fppolymod_list(m, SP_LIST_ALL);
 
   for (i = 0; i < qn; i++) {
     int baserep = i;
@@ -396,19 +396,19 @@ tmatrix<fp_polymod_t> fppolymod_An_list(fp_poly_t m, int n) {
 //   (1:0:0) q^0
 // # = q^0 + q^2
 
-tmatrix<fp_polymod_t> fppolymod_Pn_list(fp_poly_t m, int n) {
+tmatrix<spffl::polynomials::fp_polymod_t> fppolymod_Pn_list(spffl::polynomials::fp_poly_t m, int n) {
   int i, j, k;
   int d = m.find_degree();
   int p = m.get_char();
   int q = spffl::intmath::int_power(p, d);
-  tvector<fp_polymod_t> Fq = fppolymod_list(m, SP_LIST_ALL);
-  fp_polymod_t zero = fp_polymod_t::prime_sfld_elt(0, m);
-  fp_polymod_t one = fp_polymod_t::prime_sfld_elt(1, m);
+  tvector<spffl::polynomials::fp_polymod_t> Fq = fppolymod_list(m, SP_LIST_ALL);
+  spffl::polynomials::fp_polymod_t zero = spffl::polynomials::fp_polymod_t::prime_sfld_elt(0, m);
+  spffl::polynomials::fp_polymod_t one = spffl::polynomials::fp_polymod_t::prime_sfld_elt(1, m);
 
   int oP = 0;
   for (k = 0; k <= n; k++)
     oP += spffl::intmath::int_power(q, k);
-  tmatrix<fp_polymod_t> rv(oP, n + 1);
+  tmatrix<spffl::polynomials::fp_polymod_t> rv(oP, n + 1);
 
   int didx = 0;
   for (k = 0; k <= n; k++) {

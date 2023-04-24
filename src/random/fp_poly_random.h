@@ -7,5 +7,5 @@
 #ifndef FPPOLY_RANDOM_H
 #define FPPOLY_RANDOM_H
 #include "fp_poly_t.h"
-fp_poly_t fp_poly_random(int p, int deg);
+spffl::polynomials::fp_poly_t fp_poly_random(int p, int deg);
 #endif // FPPOLY_RANDOM_H

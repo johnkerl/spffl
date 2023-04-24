@@ -11,16 +11,16 @@
 #include "f2_polymod_t.h"
 #include "fp_polymod_t.h"
 
-int f2pm_froblen(f2_polymod_t a);
-int f2npm_froblen(f2n_polymod_t a);
-int fppm_froblen(fp_polymod_t a);
+int f2pm_froblen(spffl::polynomials::f2_polymod_t a);
+int f2npm_froblen(spffl::polynomials::f2n_polymod_t a);
+int fppm_froblen(spffl::polynomials::fp_polymod_t a);
 
-f2_poly_t f2pm_min_poly(f2_polymod_t a);
-f2n_poly_t f2npm_min_poly(f2n_polymod_t a);
-fp_poly_t fppm_min_poly(fp_polymod_t a);
+spffl::polynomials::f2_poly_t f2pm_min_poly(spffl::polynomials::f2_polymod_t a);
+spffl::polynomials::f2n_poly_t f2npm_min_poly(spffl::polynomials::f2n_polymod_t a);
+spffl::polynomials::fp_poly_t fppm_min_poly(spffl::polynomials::fp_polymod_t a);
 
-f2_poly_t f2pm_char_poly(f2_polymod_t a);
-f2n_poly_t f2npm_char_poly(f2n_polymod_t a);
-fp_poly_t fppm_char_poly(fp_polymod_t a);
+spffl::polynomials::f2_poly_t f2pm_char_poly(spffl::polynomials::f2_polymod_t a);
+spffl::polynomials::f2n_poly_t f2npm_char_poly(spffl::polynomials::f2n_polymod_t a);
+spffl::polynomials::fp_poly_t fppm_char_poly(spffl::polynomials::fp_polymod_t a);
 
 #endif // SPMINCHAR_H

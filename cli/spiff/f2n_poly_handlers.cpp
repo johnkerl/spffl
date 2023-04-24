@@ -19,7 +19,7 @@ void f2nplist_usage(char *argv0) {
 }
 
 int f2nplist_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t m;
+  spffl::polynomials::f2_poly_t m;
   int deglo, deghi;
   if (argc != 3)
     pusage(argv[0]);
@@ -33,7 +33,7 @@ int f2nplist_main(int argc, char **argv, usage_t *pusage) {
   else
     pusage(argv[0]);
   for (int deg = deglo; deg <= deghi; deg++) {
-    tvector<f2n_poly_t> elts = f2npoly_list(m, deg);
+    tvector<spffl::polynomials::f2n_poly_t> elts = f2npoly_list(m, deg);
     elts.crout(std::cout);
   }
   return 0;
@@ -45,14 +45,14 @@ void f2npop_usage(char *argv0) {
 }
 
 int f2npop_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t m;
+  spffl::polynomials::f2_poly_t m;
   if (argc < 2)
     pusage(argv[0]);
   if (!m.from_string(argv[1]))
     pusage(argv[0]);
-  f2n_poly_t zero = f2n_poly_t::prime_sfld_elt(0, m);
-  f2n_poly_t one = f2n_poly_t::prime_sfld_elt(1, m);
-  cmd_line_parse<f2n_poly_t>(argc - 2, argv + 2, zero, one);
+  spffl::polynomials::f2n_poly_t zero = spffl::polynomials::f2n_poly_t::prime_sfld_elt(0, m);
+  spffl::polynomials::f2n_poly_t one = spffl::polynomials::f2n_poly_t::prime_sfld_elt(1, m);
+  cmd_line_parse<spffl::polynomials::f2n_poly_t>(argc - 2, argv + 2, zero, one);
   return 0;
 }
 
@@ -62,14 +62,14 @@ void f2npdeg_usage(char *argv0) {
 }
 
 int f2npdeg_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t m;
+  spffl::polynomials::f2_poly_t m;
   if (argc < 2)
     pusage(argv[0]);
   if (!m.from_string(argv[1]))
     pusage(argv[0]);
 
   for (int argi = 2; argi < argc; argi++) {
-    f2n_poly_t a;
+    spffl::polynomials::f2n_poly_t a;
     if (!a.from_string(argv[argi], m))
       pusage(argv[0]);
     if (argc > 3)
@@ -85,8 +85,8 @@ void f2npgcd_usage(char *argv0) {
 }
 
 int f2npgcd_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t m;
-  f2n_poly_t a, b, g, r, s;
+  spffl::polynomials::f2_poly_t m;
+  spffl::polynomials::f2n_poly_t a, b, g, r, s;
 
   if (argc == 4) {
     if (!m.from_string(argv[1]))
@@ -112,7 +112,7 @@ int f2npgcd_main(int argc, char **argv, usage_t *pusage) {
     std::cout << g << " = " << r << " * " << a << " + " << s << " * " << b
               << std::endl;
 
-    f2n_poly_t check = a * r + b * s;
+    spffl::polynomials::f2n_poly_t check = a * r + b * s;
     if (g != check) {
       std::cerr << "Coding error in extended GCD.\n";
       exit(1);
@@ -130,8 +130,8 @@ void f2nplcm_usage(char *argv0) {
 }
 
 int f2nplcm_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t m;
-  f2n_poly_t a, l;
+  spffl::polynomials::f2_poly_t m;
+  spffl::polynomials::f2n_poly_t a, l;
 
   if (argc < 3)
     pusage(argv[0]);
@@ -155,8 +155,8 @@ void f2nptotient_usage(char *argv0) {
 }
 
 int f2nptotient_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t m;
-  f2n_poly_t a;
+  spffl::polynomials::f2_poly_t m;
+  spffl::polynomials::f2n_poly_t a;
   int phi;
   if (argc < 3)
     pusage(argv[0]);
@@ -179,14 +179,14 @@ void f2nptest_usage(char *argv0) {
 }
 
 int f2nptest_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t m;
+  spffl::polynomials::f2_poly_t m;
   if (argc < 2)
     pusage(argv[0]);
   if (!m.from_string(argv[1]))
     pusage(argv[0]);
 
   for (int argi = 2; argi < argc; argi++) {
-    f2n_poly_t a;
+    spffl::polynomials::f2n_poly_t a;
     if (!a.from_string(argv[argi], m))
       pusage(argv[0]);
     if (argc > 3)
@@ -207,7 +207,7 @@ void f2npfind_usage(char *argv0) {
 int f2npfind_main(int argc, char **argv, usage_t *pusage) {
   bool do_random = false;
   int deglo, deghi;
-  f2_poly_t m;
+  spffl::polynomials::f2_poly_t m;
 
   if (argc != 4)
     pusage(argv[0]);
@@ -228,7 +228,7 @@ int f2npfind_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
 
   for (int deg = deglo; deg <= deghi; deg++) {
-    f2n_poly_t a;
+    spffl::polynomials::f2n_poly_t a;
     if (do_random)
       a = f2npoly_random_irr(m, deg);
     else
@@ -244,24 +244,24 @@ void f2npfactor_usage(char *argv0) {
 }
 
 int f2npfactor_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t m;
+  spffl::polynomials::f2_poly_t m;
   if (argc < 2)
     pusage(argv[0]);
   if (!m.from_string(argv[1]))
     pusage(argv[0]);
 
   for (int argi = 2; argi < argc; argi++) {
-    f2n_poly_t a;
+    spffl::polynomials::f2n_poly_t a;
     if (!a.from_string(argv[argi], m))
       pusage(argv[0]);
     if (argc > 3)
       std::cout << a << " = ";
-    tfacinfo<f2n_poly_t> finfo = f2n_poly_factor(a);
+    tfacinfo<spffl::polynomials::f2n_poly_t> finfo = f2n_poly_factor(a);
     std::cout << finfo << std::endl;
 
-    f2_poly_t z(1);
-    f2n_poly_t one(f2_polymod_t(z, m));
-    f2n_poly_t check = finfo.unfactor(one);
+    spffl::polynomials::f2_poly_t z(1);
+    spffl::polynomials::f2n_poly_t one(spffl::polynomials::f2_polymod_t(z, m));
+    spffl::polynomials::f2n_poly_t check = finfo.unfactor(one);
     if (check != a) {
       std::cerr << "Coding error in f2n_poly_factor.\n";
       std::cerr << "  Input: " << a << std::endl;
@@ -279,8 +279,8 @@ void f2npdivisors_usage(char *argv0) {
 }
 
 int f2npdivisors_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t m;
-  f2n_poly_t a;
+  spffl::polynomials::f2_poly_t m;
+  spffl::polynomials::f2n_poly_t a;
   int argb = 1;
   int maximal_proper_only = 0;
   if ((argc >= 2) && (strcmp(argv[1], "-mp") == 0)) {
@@ -292,15 +292,15 @@ int f2npdivisors_main(int argc, char **argv, usage_t *pusage) {
   if (!m.from_string(argv[argb]))
     pusage(argv[0]);
   argb++;
-  f2_polymod_t c1(f2_poly_t(1), m);
-  f2n_poly_t one(c1);
+  spffl::polynomials::f2_polymod_t c1(spffl::polynomials::f2_poly_t(1), m);
+  spffl::polynomials::f2n_poly_t one(c1);
   for (int argi = argb; argi < argc; argi++) {
     if (!a.from_string(argv[argi], m))
       pusage(argv[0]);
     if ((argc - argb) > 1)
       std::cout << a << ": ";
-    tfacinfo<f2n_poly_t> finfo = f2n_poly_factor(a);
-    tvector<f2n_poly_t> divisors;
+    tfacinfo<spffl::polynomials::f2n_poly_t> finfo = f2n_poly_factor(a);
+    tvector<spffl::polynomials::f2n_poly_t> divisors;
     if (maximal_proper_only) {
       if (!finfo.get_maximal_proper_divisors(divisors, one)) {
         std::cout << "(none)\n";
@@ -326,9 +326,9 @@ void f2npeval_usage(char *argv0) {
 }
 
 int f2npeval_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t m;
-  f2n_poly_t f;
-  f2_polymod_t a, b;
+  spffl::polynomials::f2_poly_t m;
+  spffl::polynomials::f2n_poly_t f;
+  spffl::polynomials::f2_polymod_t a, b;
 
   if (argc < 4)
     pusage(argv[0]);
@@ -352,7 +352,7 @@ void f2nprandom_usage(char *argv0) {
 }
 
 int f2nprandom_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t m;
+  spffl::polynomials::f2_poly_t m;
   int deg, count = 1;
 
   if ((argc != 3) && (argc != 4))
@@ -378,8 +378,8 @@ void f2npcompmx_usage(char *argv0) {
 }
 
 int f2npcompmx_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t m;
-  f2n_poly_t chpol;
+  spffl::polynomials::f2_poly_t m;
+  spffl::polynomials::f2n_poly_t chpol;
 
   if (argc != 3)
     pusage(argv[0]);
@@ -388,7 +388,7 @@ int f2npcompmx_main(int argc, char **argv, usage_t *pusage) {
   if (!chpol.from_string(argv[2], m))
     pusage(argv[0]);
 
-  tmatrix<f2_polymod_t> A = f2np_companion_matrix(chpol);
+  tmatrix<spffl::polynomials::f2_polymod_t> A = f2np_companion_matrix(chpol);
   std::cout << A << std::endl;
 
   return 0;
@@ -400,9 +400,9 @@ void f2npqp_usage(char *argv0) {
 }
 
 int f2npqp_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t m;
+  spffl::polynomials::f2_poly_t m;
   qpoly_t qp;
-  f2n_poly_t f2np;
+  spffl::polynomials::f2n_poly_t f2np;
   if (argc < 3)
     pusage(argv[0]);
   if (!m.from_string(argv[1]))
@@ -422,13 +422,13 @@ void f2npmatop_usage(char *argv0) {
 }
 
 int f2npmatop_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t m;
+  spffl::polynomials::f2_poly_t m;
   if (argc < 2)
     pusage(argv[0]);
   if (!m.from_string(argv[1]))
     pusage(argv[0]);
-  f2n_poly_t zero = f2n_poly_t::prime_sfld_elt(0, m);
-  f2n_poly_t one = f2n_poly_t::prime_sfld_elt(1, m);
-  cmd_line_mat_parse<f2n_poly_t>(argc - 2, argv + 2, zero, one);
+  spffl::polynomials::f2n_poly_t zero = spffl::polynomials::f2n_poly_t::prime_sfld_elt(0, m);
+  spffl::polynomials::f2n_poly_t one = spffl::polynomials::f2n_poly_t::prime_sfld_elt(1, m);
+  cmd_line_mat_parse<spffl::polynomials::f2n_poly_t>(argc - 2, argv + 2, zero, one);
   return 0;
 }

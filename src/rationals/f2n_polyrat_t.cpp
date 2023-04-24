@@ -10,14 +10,14 @@
 #include <iostream>
 
 // ----------------------------------------------------------------
-f2n_polyrat_t::f2n_polyrat_t(f2n_poly_t numerator, f2n_poly_t denominator) {
+f2n_polyrat_t::f2n_polyrat_t(spffl::polynomials::f2n_poly_t numerator, spffl::polynomials::f2n_poly_t denominator) {
   this->numer = numerator;
   this->denom = denominator;
   this->simplify();
 }
 
 // ----------------------------------------------------------------
-f2n_polyrat_t::f2n_polyrat_t(f2n_poly_t numerator) {
+f2n_polyrat_t::f2n_polyrat_t(spffl::polynomials::f2n_poly_t numerator) {
   this->numer = numerator;
   this->denom = numerator.prime_sfld_elt(1);
   this->simplify();
@@ -37,14 +37,14 @@ f2n_polyrat_t::~f2n_polyrat_t(void) {}
 
 // ----------------------------------------------------------------
 f2n_polyrat_t f2n_polyrat_t::prime_sfld_elt(int v) const {
-  f2n_poly_t a = this->numer.prime_sfld_elt(v);
+  spffl::polynomials::f2n_poly_t a = this->numer.prime_sfld_elt(v);
   return f2n_polyrat_t(a);
 }
 
 // ----------------------------------------------------------------
 // This is a static method.
-f2n_polyrat_t f2n_polyrat_t::prime_sfld_elt(int v, f2_poly_t m) {
-  return f2n_polyrat_t(f2n_poly_t::prime_sfld_elt(v, m));
+f2n_polyrat_t f2n_polyrat_t::prime_sfld_elt(int v, spffl::polynomials::f2_poly_t m) {
+  return f2n_polyrat_t(spffl::polynomials::f2n_poly_t::prime_sfld_elt(v, m));
 }
 
 // ----------------------------------------------------------------
@@ -58,7 +58,7 @@ f2n_polyrat_t &f2n_polyrat_t::operator=(f2n_polyrat_t that) {
 }
 
 // ----------------------------------------------------------------
-f2n_polyrat_t &f2n_polyrat_t::operator=(f2n_poly_t numerator) {
+f2n_polyrat_t &f2n_polyrat_t::operator=(spffl::polynomials::f2n_poly_t numerator) {
   this->numer = numerator;
   this->denom = numerator.prime_sfld_elt(1);
   this->simplify();
@@ -229,9 +229,9 @@ std::istringstream &operator>>(std::istringstream &iss, f2n_polyrat_t &a) {
 }
 
 // ----------------------------------------------------------------
-int f2n_polyrat_t::from_string(char *string, f2_poly_t m) {
-  this->numer = f2n_poly_t(f2_polymod_t(f2_poly_t(0), m));
-  this->denom = f2n_poly_t(f2_polymod_t(f2_poly_t(1), m));
+int f2n_polyrat_t::from_string(char *string, spffl::polynomials::f2_poly_t m) {
+  this->numer = spffl::polynomials::f2n_poly_t(spffl::polynomials::f2_polymod_t(spffl::polynomials::f2_poly_t(0), m));
+  this->denom = spffl::polynomials::f2n_poly_t(spffl::polynomials::f2_polymod_t(spffl::polynomials::f2_poly_t(1), m));
   std::istringstream iss(string, std::ios_base::in);
   iss >> *this;
   return iss.fail() ? 0 : 1;
@@ -284,14 +284,14 @@ int f2n_polyrat_t::operator!=(f2n_polyrat_t that) const {
 }
 
 // ----------------------------------------------------------------
-int f2n_polyrat_t::operator==(f2n_poly_t that) const {
+int f2n_polyrat_t::operator==(spffl::polynomials::f2n_poly_t that) const {
   if (this->denom != this->numer.prime_sfld_elt(1))
     return 0;
   return this->numer == that;
 }
 
 // ----------------------------------------------------------------
-int f2n_polyrat_t::operator!=(f2n_poly_t that) const { return !(*this == that); }
+int f2n_polyrat_t::operator!=(spffl::polynomials::f2n_poly_t that) const { return !(*this == that); }
 
 // ----------------------------------------------------------------
 int f2n_polyrat_t::operator<(f2n_polyrat_t that) const {
@@ -314,17 +314,17 @@ int f2n_polyrat_t::operator>=(f2n_polyrat_t that) const {
 }
 
 // ----------------------------------------------------------------
-f2n_poly_t f2n_polyrat_t::get_numerator(void) const { return this->numer; }
+spffl::polynomials::f2n_poly_t f2n_polyrat_t::get_numerator(void) const { return this->numer; }
 
 // ----------------------------------------------------------------
-f2n_poly_t f2n_polyrat_t::get_denominator(void) const { return this->denom; }
+spffl::polynomials::f2n_poly_t f2n_polyrat_t::get_denominator(void) const { return this->denom; }
 
 // ----------------------------------------------------------------
 // * Check denominator != 0
 // * Divide numerator and denominator by their GCD
 
 void f2n_polyrat_t::simplify(void) {
-  f2n_poly_t g;
+  spffl::polynomials::f2n_poly_t g;
   if (this->denom == 0) {
     std::cerr << "rat: Divide by zero.\n";
     exit(1);

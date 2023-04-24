@@ -13,6 +13,8 @@
 #include <iomanip>
 #include <iostream>
 
+namespace spffl::polynomials {
+
 class fp_poly_t {
 public:
   fp_poly_t(void);
@@ -104,7 +106,9 @@ private:
   void recompute_degree();
 };
 
+} // namespace
+
 // Same as the gcd method, but overloaded.  This is important for template use.
-fp_poly_t gcd(fp_poly_t a, fp_poly_t b);
+spffl::polynomials::fp_poly_t gcd(spffl::polynomials::fp_poly_t a, spffl::polynomials::fp_poly_t b);
 
 #endif // FPPOLY_T_H

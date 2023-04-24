@@ -56,7 +56,7 @@ int f2matchpol_main(int argc, char **argv, usage_t *pusage) {
   A = spffl::bits::bit_t(0);
   if (!A.load_from_file(argv[1]))
     pusage(argv[0]);
-  f2_poly_t chpol = f2_char_poly(A);
+  spffl::polynomials::f2_poly_t chpol = f2_char_poly(A);
   std::cout << chpol << std::endl;
 
   return 0;

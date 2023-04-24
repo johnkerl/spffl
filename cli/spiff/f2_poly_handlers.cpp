@@ -35,14 +35,14 @@ int f2plist_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
 
   for (int deg = deglo; deg <= deghi; deg++) {
-    tvector<f2_poly_t> elts = f2poly_list(deg);
+    tvector<spffl::polynomials::f2_poly_t> elts = f2poly_list(deg);
     elts.crout(std::cout);
   }
   return 0;
 }
 
 int f2pop_main(int argc, char **argv, usage_t *pusage) {
-  cmd_line_parse<f2_poly_t>(argc - 1, argv + 1, f2_poly_t(0), f2_poly_t(1));
+  cmd_line_parse<spffl::polynomials::f2_poly_t>(argc - 1, argv + 1, spffl::polynomials::f2_poly_t(0), spffl::polynomials::f2_poly_t(1));
   return 0;
 }
 
@@ -52,7 +52,7 @@ void f2pdeg_usage(char *argv0) {
 }
 
 int f2pdeg_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t a;
+  spffl::polynomials::f2_poly_t a;
   for (int argi = 1; argi < argc; argi++) {
     if (!a.from_string(argv[argi]))
       pusage(argv[0]);
@@ -70,7 +70,7 @@ void f2pgcd_usage(char *argv0) {
 
 int f2pgcd_main(int argc, char **argv, usage_t *pusage) {
   if ((argc >= 2) && (strcmp(argv[1], "-e") == 0)) {
-    f2_poly_t a, b, g, r, s;
+    spffl::polynomials::f2_poly_t a, b, g, r, s;
     if (argc != 4)
       pusage(argv[0]);
     if (!a.from_string(argv[2]))
@@ -82,13 +82,13 @@ int f2pgcd_main(int argc, char **argv, usage_t *pusage) {
     std::cout << g << " = " << r << " * " << a << " + " << s << " * " << b
               << std::endl;
 
-    f2_poly_t check = a * r + b * s;
+    spffl::polynomials::f2_poly_t check = a * r + b * s;
     if (g != check) {
       std::cerr << "Coding error in extended GCD.\n";
       exit(1);
     }
   } else {
-    f2_poly_t a, g;
+    spffl::polynomials::f2_poly_t a, g;
     if (argc < 2)
       pusage(argv[0]);
     if (!a.from_string(argv[1]))
@@ -110,7 +110,7 @@ void f2plcm_usage(char *argv0) {
 }
 
 int f2plcm_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t a, l;
+  spffl::polynomials::f2_poly_t a, l;
 
   if (argc < 2)
     pusage(argv[0]);
@@ -132,7 +132,7 @@ void f2ptotient_usage(char *argv0) {
 }
 
 int f2ptotient_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t a;
+  spffl::polynomials::f2_poly_t a;
   int phi;
   if (argc < 2)
     pusage(argv[0]);
@@ -172,7 +172,7 @@ int f2ptest_main(int argc, char **argv, usage_t *pusage) {
   }
 
   for (int argi = 2; argi < argc; argi++) {
-    f2_poly_t a;
+    spffl::polynomials::f2_poly_t a;
     if (!a.from_string(argv[argi]))
       pusage(argv[0]);
     if (argc > 2)
@@ -238,7 +238,7 @@ int f2pfind_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
 
   for (int deg = deglo; deg <= deghi; deg++) {
-    f2_poly_t a;
+    spffl::polynomials::f2_poly_t a;
     if (do_prim) {
       a = do_random ? f2poly_random_prim(deg, do_irr)
                     : f2poly_find_prim(deg, do_irr);
@@ -256,7 +256,7 @@ void f2pperiod_usage(char *argv0) {
 }
 
 int f2pperiod_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t a;
+  spffl::polynomials::f2_poly_t a;
   for (int argi = 1; argi < argc; argi++) {
     if (!a.from_string(argv[argi]))
       pusage(argv[0]);
@@ -273,16 +273,16 @@ void f2pfactor_usage(char *argv0) {
 }
 
 int f2pfactor_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t a;
+  spffl::polynomials::f2_poly_t a;
   for (int argi = 1; argi < argc; argi++) {
     if (!a.from_string(argv[argi]))
       pusage(argv[0]);
     if (argc > 2)
       std::cout << a << " = ";
-    tfacinfo<f2_poly_t> finfo = f2_poly_factor(a);
+    tfacinfo<spffl::polynomials::f2_poly_t> finfo = f2_poly_factor(a);
     std::cout << finfo << std::endl;
 
-    f2_poly_t check = finfo.unfactor(f2_poly_t(1));
+    spffl::polynomials::f2_poly_t check = finfo.unfactor(spffl::polynomials::f2_poly_t(1));
     if (check != a) {
       std::cerr << "Coding error in f2_poly_factor.\n";
       std::cerr << "  Input: " << a << std::endl;
@@ -300,7 +300,7 @@ void f2pdivisors_usage(char *argv0) {
 }
 
 int f2pdivisors_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t a;
+  spffl::polynomials::f2_poly_t a;
   int argb = 1;
   int maximal_proper_only = 0;
   if ((argc >= 2) && (strcmp(argv[1], "-mp") == 0)) {
@@ -312,15 +312,15 @@ int f2pdivisors_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if ((argc - argb) > 1)
       std::cout << a << ": ";
-    tfacinfo<f2_poly_t> finfo = f2_poly_factor(a);
-    tvector<f2_poly_t> divisors;
+    tfacinfo<spffl::polynomials::f2_poly_t> finfo = f2_poly_factor(a);
+    tvector<spffl::polynomials::f2_poly_t> divisors;
     if (maximal_proper_only) {
-      if (!finfo.get_maximal_proper_divisors(divisors, f2_poly_t(1))) {
+      if (!finfo.get_maximal_proper_divisors(divisors, spffl::polynomials::f2_poly_t(1))) {
         std::cout << "(none)\n";
         continue;
       }
     } else {
-      divisors = finfo.get_all_divisors(f2_poly_t(1));
+      divisors = finfo.get_all_divisors(spffl::polynomials::f2_poly_t(1));
     }
     int nd = divisors.get_num_elements();
     for (int k = 0; k < nd; k++) {
@@ -339,7 +339,7 @@ void f2peval_usage(char *argv0) {
 }
 
 int f2peval_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t f;
+  spffl::polynomials::f2_poly_t f;
   spffl::bits::bit_t a, b;
 
   if (argc < 3)
@@ -385,7 +385,7 @@ void f2pcompmx_usage(char *argv0) {
 }
 
 int f2pcompmx_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t chpol;
+  spffl::polynomials::f2_poly_t chpol;
 
   if (argc != 2)
     pusage(argv[0]);
@@ -399,7 +399,7 @@ int f2pcompmx_main(int argc, char **argv, usage_t *pusage) {
 }
 
 int f2pmatop_main(int argc, char **argv, usage_t *pusage) {
-  cmd_line_mat_parse<f2_poly_t>(argc - 1, argv + 1, f2_poly_t(0), f2_poly_t(1));
+  cmd_line_mat_parse<spffl::polynomials::f2_poly_t>(argc - 1, argv + 1, spffl::polynomials::f2_poly_t(0), spffl::polynomials::f2_poly_t(1));
   return 0;
 }
 
@@ -410,7 +410,7 @@ void f2pqp_usage(char *argv0) {
 
 int f2pqp_main(int argc, char **argv, usage_t *pusage) {
   qpoly_t qp;
-  f2_poly_t f2p;
+  spffl::polynomials::f2_poly_t f2p;
   if (argc < 2)
     pusage(argv[0]);
   for (int argi = 1; argi < argc; argi++) {

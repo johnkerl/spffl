@@ -8,6 +8,8 @@
 #include "cmps.h"
 #include <ctype.h>
 
+namespace spffl::polynomials {
+
 // ----------------------------------------------------------------
 #ifndef F2POLY_SMALL
 // Parts are 32-bit unsigned integers.
@@ -421,9 +423,6 @@ f2_poly_t f2_poly_t::gcd(f2_poly_t &that) {
   }
   return d;
 }
-
-// ----------------------------------------------------------------
-f2_poly_t gcd(f2_poly_t a, f2_poly_t b) { return a.gcd(b); }
 
 // ----------------------------------------------------------------
 // Blankinship's algorithm.
@@ -1169,3 +1168,8 @@ void f2_poly_t::bounds_check_abend(int deg) const {
   }
 }
 #endif
+
+} // namespace
+
+// ----------------------------------------------------------------
+spffl::polynomials::f2_poly_t gcd(spffl::polynomials::f2_poly_t a, spffl::polynomials::f2_poly_t b) { return a.gcd(b); }

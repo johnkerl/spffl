@@ -38,13 +38,13 @@
 #include "f2_poly_totient.h"
 #include "f2_poly_factor.h"
 
-int f2_poly_totient(f2_poly_t f) {
+int f2_poly_totient(spffl::polynomials::f2_poly_t f) {
   int rv = 1;
-  tfacinfo<f2_poly_t> finfo = f2_poly_factor(f);
+  tfacinfo<spffl::polynomials::f2_poly_t> finfo = f2_poly_factor(f);
   int nf = finfo.get_num_distinct();
 
   for (int i = 0; i < nf; i++) {
-    f2_poly_t fi = finfo.get_ith_factor(i);
+    spffl::polynomials::f2_poly_t fi = finfo.get_ith_factor(i);
     int ei = finfo.get_ith_count(i);
     int di = fi.find_degree();
     rv *= (1 << (di * (ei - 1))) * ((1 << di) - 1);

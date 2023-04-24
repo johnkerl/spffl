@@ -12,16 +12,16 @@ void fpnpop_usage(char *argv0) {
 
 int fpnpop_main(int argc, char **argv, usage_t *pusage) {
   int p;
-  fp_poly_t im;
+  spffl::polynomials::fp_poly_t im;
   if (argc < 3)
     pusage(argv[0]);
   if (sscanf(argv[1], "%d", &p) != 1)
     pusage(argv[0]);
   if (!im.from_string(argv[2], p))
     pusage(argv[0]);
-  fpn_poly_t zero = fpn_poly_t::prime_sfld_elt(0, im);
-  fpn_poly_t one = fpn_poly_t::prime_sfld_elt(1, im);
-  cmd_line_parse<fpn_poly_t>(argc - 3, argv + 3, zero, one);
+  spffl::polynomials::fpn_poly_t zero = spffl::polynomials::fpn_poly_t::prime_sfld_elt(0, im);
+  spffl::polynomials::fpn_poly_t one = spffl::polynomials::fpn_poly_t::prime_sfld_elt(1, im);
+  cmd_line_parse<spffl::polynomials::fpn_poly_t>(argc - 3, argv + 3, zero, one);
   return 0;
 }
 
@@ -33,16 +33,16 @@ void fpnpmatop_usage(char *argv0) {
 
 int fpnpmatop_main(int argc, char **argv, usage_t *pusage) {
   int p;
-  fp_poly_t im;
+  spffl::polynomials::fp_poly_t im;
   if (argc < 3)
     pusage(argv[0]);
   if (sscanf(argv[1], "%d", &p) != 1)
     pusage(argv[0]);
   if (!im.from_string(argv[2], p))
     pusage(argv[0]);
-  fpn_poly_t zero = fpn_poly_t::prime_sfld_elt(0, im);
-  fpn_poly_t one = fpn_poly_t::prime_sfld_elt(1, im);
-  cmd_line_mat_parse<fpn_poly_t>(argc - 3, argv + 3, zero, one);
+  spffl::polynomials::fpn_poly_t zero = spffl::polynomials::fpn_poly_t::prime_sfld_elt(0, im);
+  spffl::polynomials::fpn_poly_t one = spffl::polynomials::fpn_poly_t::prime_sfld_elt(1, im);
+  cmd_line_mat_parse<spffl::polynomials::fpn_poly_t>(argc - 3, argv + 3, zero, one);
   return 0;
 }
 
@@ -53,8 +53,8 @@ void fpnpgcd_usage(char *argv0) {
 
 int fpnpgcd_main(int argc, char **argv, usage_t *pusage) {
   int p;
-  fp_poly_t im;
-  fpn_poly_t a, b, g, r, s;
+  spffl::polynomials::fp_poly_t im;
+  spffl::polynomials::fpn_poly_t a, b, g, r, s;
 
   if (argc == 5) {
     if (sscanf(argv[1], "%d", &p) != 1)
@@ -95,9 +95,9 @@ void fpnpqp_usage(char *argv0) {
 
 int fpnpqp_main(int argc, char **argv, usage_t *pusage) {
   int p;
-  fp_poly_t m;
+  spffl::polynomials::fp_poly_t m;
   qpoly_t qp;
-  fpn_poly_t fpnp;
+  spffl::polynomials::fpn_poly_t fpnp;
   if (argc < 4)
     pusage(argv[0]);
   if (sscanf(argv[1], "%d", &p) != 1)

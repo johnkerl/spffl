@@ -9,6 +9,8 @@
 #include "tokenize.h"
 #include <string.h>
 
+namespace spffl::polynomials {
+
 // ----------------------------------------------------------------
 fpn_poly_t::fpn_poly_t(void) {
   fp_polymod_t a; // Use default constructor.
@@ -421,9 +423,6 @@ fpn_poly_t fpn_poly_t::gcd(fpn_poly_t &that) {
   }
   return d;
 }
-
-// ----------------------------------------------------------------
-fpn_poly_t gcd(fpn_poly_t a, fpn_poly_t b) { return a.gcd(b); }
 
 // ----------------------------------------------------------------
 // Blankinship's algorithm.
@@ -839,3 +838,8 @@ void fpn_poly_t::promote_and_add(fp_polymod_t c0) {
   this->promote();
   this->coeffs[0] = c0;
 }
+
+} // namespace
+
+// ----------------------------------------------------------------
+spffl::polynomials::fpn_poly_t gcd(spffl::polynomials::fpn_poly_t a, spffl::polynomials::fpn_poly_t b) { return a.gcd(b); }

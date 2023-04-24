@@ -9,14 +9,14 @@
 #include "fp_poly_t.h"
 #include "tfacinfo.h"
 
-tfacinfo<fp_poly_t> fp_poly_factor(fp_poly_t f);
+tfacinfo<spffl::polynomials::fp_poly_t> fp_poly_factor(spffl::polynomials::fp_poly_t f);
 
-int fppoly_is_irreducible(fp_poly_t f);
+int fppoly_is_irreducible(spffl::polynomials::fp_poly_t f);
 
 // Lexically lowest (and therefore monic).
-fp_poly_t fppoly_find_irr(int p, int degree);
+spffl::polynomials::fp_poly_t fppoly_find_irr(int p, int degree);
 
 // Monic.
-fp_poly_t fppoly_random_irr(int p, int degree);
+spffl::polynomials::fp_poly_t fppoly_random_irr(int p, int degree);
 
 #endif // FPPOLY_FACTOR_H

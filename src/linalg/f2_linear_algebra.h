@@ -17,12 +17,12 @@ tvector<spffl::bits::bit_t> f2_vector_from_base_rep(int base_rep, int len);
 tmatrix<spffl::bits::bit_t> f2_matrix_from_base_rep(int base_rep, int num_rows,
                                        int num_cols);
 
-f2_poly_t f2_char_poly(tmatrix<spffl::bits::bit_t> &A);
+spffl::polynomials::f2_poly_t f2_char_poly(tmatrix<spffl::bits::bit_t> &A);
 
-tmatrix<spffl::bits::bit_t> f2_companion_matrix(f2_poly_t chpol);
+tmatrix<spffl::bits::bit_t> f2_companion_matrix(spffl::polynomials::f2_poly_t chpol);
 
-f2n_poly_t f2polymod_min_poly(f2_polymod_t a);
+spffl::polynomials::f2n_poly_t f2polymod_min_poly(spffl::polynomials::f2_polymod_t a);
 
-f2n_poly_t f2polymod_char_poly(f2_polymod_t a);
+spffl::polynomials::f2n_poly_t f2polymod_char_poly(spffl::polynomials::f2_polymod_t a);
 
 #endif // F2LINALG_H

@@ -8,6 +8,8 @@
 #include <iomanip>
 #include <iostream>
 
+namespace spffl::polynomials {
+
 // ----------------------------------------------------------------
 fp_polymod_t::fp_polymod_t(fp_poly_t arg_residue, fp_poly_t arg_modulus) {
   this->residue = arg_residue;
@@ -333,3 +335,5 @@ void fp_polymod_t::check_moduli(fp_polymod_t &that) const {
     exit(1);
   }
 }
+
+} // namespace

@@ -10,14 +10,14 @@
 #include <iostream>
 
 // ----------------------------------------------------------------
-f2_polyrat_t::f2_polyrat_t(f2_poly_t numerator, f2_poly_t denominator) {
+f2_polyrat_t::f2_polyrat_t(spffl::polynomials::f2_poly_t numerator, spffl::polynomials::f2_poly_t denominator) {
   this->numer = numerator;
   this->denom = denominator;
   this->simplify();
 }
 
 // ----------------------------------------------------------------
-f2_polyrat_t::f2_polyrat_t(f2_poly_t numerator) {
+f2_polyrat_t::f2_polyrat_t(spffl::polynomials::f2_poly_t numerator) {
   this->numer = numerator;
   this->denom = 1;
   this->simplify();
@@ -25,7 +25,7 @@ f2_polyrat_t::f2_polyrat_t(f2_poly_t numerator) {
 
 // ----------------------------------------------------------------
 f2_polyrat_t::f2_polyrat_t(int inumer) {
-  this->numer = f2_poly_t(inumer);
+  this->numer = spffl::polynomials::f2_poly_t(inumer);
   this->denom = 1;
   this->simplify();
 }
@@ -64,7 +64,7 @@ f2_polyrat_t &f2_polyrat_t::operator=(f2_polyrat_t that) {
 }
 
 // ----------------------------------------------------------------
-f2_polyrat_t &f2_polyrat_t::operator=(f2_poly_t numerator) {
+f2_polyrat_t &f2_polyrat_t::operator=(spffl::polynomials::f2_poly_t numerator) {
   this->numer = numerator;
   this->denom = 1;
   this->simplify();
@@ -286,14 +286,14 @@ int f2_polyrat_t::operator==(f2_polyrat_t that) const {
 int f2_polyrat_t::operator!=(f2_polyrat_t that) const { return !(*this == that); }
 
 // ----------------------------------------------------------------
-int f2_polyrat_t::operator==(f2_poly_t that) const {
-  if (this->denom != f2_poly_t(1))
+int f2_polyrat_t::operator==(spffl::polynomials::f2_poly_t that) const {
+  if (this->denom != spffl::polynomials::f2_poly_t(1))
     return 0;
   return this->numer == that;
 }
 
 // ----------------------------------------------------------------
-int f2_polyrat_t::operator!=(f2_poly_t that) const { return !(*this == that); }
+int f2_polyrat_t::operator!=(spffl::polynomials::f2_poly_t that) const { return !(*this == that); }
 
 // ----------------------------------------------------------------
 int f2_polyrat_t::operator<(f2_polyrat_t that) const {
@@ -316,17 +316,17 @@ int f2_polyrat_t::operator>=(f2_polyrat_t that) const {
 }
 
 // ----------------------------------------------------------------
-f2_poly_t f2_polyrat_t::get_numerator(void) const { return this->numer; }
+spffl::polynomials::f2_poly_t f2_polyrat_t::get_numerator(void) const { return this->numer; }
 
 // ----------------------------------------------------------------
-f2_poly_t f2_polyrat_t::get_denominator(void) const { return this->denom; }
+spffl::polynomials::f2_poly_t f2_polyrat_t::get_denominator(void) const { return this->denom; }
 
 // ----------------------------------------------------------------
 // * Check denominator != 0
 // * Divide numerator and denominator by their GCD
 
 void f2_polyrat_t::simplify(void) {
-  f2_poly_t g;
+  spffl::polynomials::f2_poly_t g;
   if (this->denom == 0) {
     std::cerr << "rat: Divide by zero.\n";
     exit(1);
