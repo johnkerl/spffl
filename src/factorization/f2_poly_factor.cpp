@@ -498,7 +498,7 @@ spffl::polynomials::f2_poly_t f2poly_random_irr(int degree) {
   }
 
   for (;;) {
-    rv = f2_poly_random(degree);
+    rv = spffl::random::f2_poly_random(degree);
     rv.set_bit(0);
     if (f2poly_is_irreducible(rv))
       return rv;

@@ -342,7 +342,7 @@ int fprandom_main(int argc, char **argv, usage_t *pusage) {
   }
 
   for (int i = 0; i < count; i++)
-    std::cout << intmod_random(m) << std::endl;
+    std::cout << spffl::random::intmod_random(m) << std::endl;
 
   return 0;
 }
@@ -464,7 +464,7 @@ int fpmatrandom_main(int argc, char **argv, usage_t *pusage) {
   tmatrix<spffl::intmath::intmod_t> A(nr, nc);
   for (int i = 0; i < nr; i++)
     for (int j = 0; j < nc; j++)
-      A[i][j] = intmod_random(p);
+      A[i][j] = spffl::random::intmod_random(p);
   std::cout << A;
   return 0;
 }

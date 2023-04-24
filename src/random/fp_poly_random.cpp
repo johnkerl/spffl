@@ -7,6 +7,8 @@
 #include "fp_poly_random.h"
 #include "intmod_random.h"
 
+namespace spffl::random {
+
 // ----------------------------------------------------------------
 spffl::polynomials::fp_poly_t fp_poly_random(int p, int deg) {
   if (deg < 0) {
@@ -25,3 +27,5 @@ spffl::polynomials::fp_poly_t fp_poly_random(int p, int deg) {
   }
   return rv;
 }
+
+} // namespace

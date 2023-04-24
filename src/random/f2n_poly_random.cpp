@@ -7,6 +7,8 @@
 #include "f2n_poly_random.h"
 #include "f2_polymod_random.h"
 
+namespace spffl::random {
+
 // ----------------------------------------------------------------
 spffl::polynomials::f2n_poly_t f2n_poly_random(spffl::polynomials::f2_poly_t m, int deg) {
   if (deg < 0) {
@@ -28,3 +30,5 @@ spffl::polynomials::f2n_poly_t f2n_poly_random(spffl::polynomials::f2_poly_t m, 
   }
   return rv;
 }
+
+} // namespace

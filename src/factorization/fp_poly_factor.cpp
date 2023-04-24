@@ -316,7 +316,7 @@ spffl::polynomials::fp_poly_t fppoly_random_irr(int p, int degree) {
   }
 
   for (;;) {
-    rv = fp_poly_random(p, degree);
+    rv = spffl::random::fp_poly_random(p, degree);
     if (rv.get_coeff(0) == zero)
       continue;
     if (fppoly_is_irreducible(rv)) {

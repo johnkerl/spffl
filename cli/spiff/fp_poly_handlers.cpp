@@ -388,7 +388,7 @@ int fpprandom_main(int argc, char **argv, usage_t *pusage) {
   }
 
   for (int i = 0; i < count; i++)
-    std::cout << fp_poly_random(p, deg) << std::endl;
+    std::cout << spffl::random::fp_poly_random(p, deg) << std::endl;
 
   return 0;
 }

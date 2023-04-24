@@ -374,7 +374,7 @@ int f2prandom_main(int argc, char **argv, usage_t *pusage) {
   }
 
   for (int i = 0; i < count; i++)
-    std::cout << f2_poly_random(deg) << std::endl;
+    std::cout << spffl::random::f2_poly_random(deg) << std::endl;
 
   return 0;
 }

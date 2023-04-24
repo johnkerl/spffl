@@ -28,7 +28,7 @@ int f2random_main(int argc, char **argv, usage_t *pusage) {
   }
 
   for (int i = 0; i < count; i++)
-    std::cout << (get_random_int() & 1) << std::endl;
+    std::cout << (spffl::random::get_random_int() & 1) << std::endl;
 
   return 0;
 }
@@ -119,7 +119,7 @@ int f2matrandom_main(int argc, char **argv, usage_t *pusage) {
   tmatrix<spffl::bits::bit_t> A(nr, nc);
   for (int i = 0; i < nr; i++)
     for (int j = 0; j < nc; j++)
-      A[i][j] = spffl::bits::bit_t(get_random_unsigned() & 1);
+      A[i][j] = spffl::bits::bit_t(spffl::random::get_random_unsigned() & 1);
   std::cout << A;
   return 0;
 }

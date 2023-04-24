@@ -7,6 +7,8 @@
 #include "intmod_random.h"
 #include "int_random.h"
 
+namespace spffl::random {
+
 // ----------------------------------------------------------------
 spffl::intmath::intmod_t intmod_random(int m) {
   if (m < 2) {
@@ -15,3 +17,5 @@ spffl::intmath::intmod_t intmod_random(int m) {
   }
   return spffl::intmath::intmod_t(get_random_int(), m);
 }
+
+} // namespace

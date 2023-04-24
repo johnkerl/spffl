@@ -31,8 +31,8 @@ int f2prrandom_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t zero(0);
   spffl::polynomials::f2_poly_t one(1);
   for (int i = 0; i < count; i++) {
-    spffl::polynomials::f2_poly_t numer = f2_poly_random(deg);
-    spffl::polynomials::f2_poly_t denom = f2_poly_random(deg);
+    spffl::polynomials::f2_poly_t numer = spffl::random::f2_poly_random(deg);
+    spffl::polynomials::f2_poly_t denom = spffl::random::f2_poly_random(deg);
     if (denom == zero)
       denom = one;
     spffl::rationals::f2_polyrat_t q(numer, denom);
@@ -71,8 +71,8 @@ int f2prmatrandom_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t one(1);
   for (int i = 0; i < nr; i++) {
     for (int j = 0; j < nc; j++) {
-      spffl::polynomials::f2_poly_t numer = f2_poly_random(deg);
-      spffl::polynomials::f2_poly_t denom = f2_poly_random(deg);
+      spffl::polynomials::f2_poly_t numer = spffl::random::f2_poly_random(deg);
+      spffl::polynomials::f2_poly_t denom = spffl::random::f2_poly_random(deg);
       if (denom == zero)
         denom = one;
       A[i][j] = spffl::rationals::f2_polyrat_t(numer, denom);

@@ -357,7 +357,7 @@ int f2pmrandom_main(int argc, char **argv, usage_t *pusage) {
   }
 
   for (int i = 0; i < count; i++)
-    std::cout << f2_polymod_random(m) << std::endl;
+    std::cout << spffl::random::f2_polymod_random(m) << std::endl;
 
   return 0;
 }
@@ -558,7 +558,7 @@ int f2pmmatrandom_main(int argc, char **argv, usage_t *pusage) {
   tmatrix<spffl::polynomials::f2_polymod_t> A(nr, nc);
   for (int i = 0; i < nr; i++)
     for (int j = 0; j < nc; j++)
-      A[i][j] = f2_polymod_random(m);
+      A[i][j] = spffl::random::f2_polymod_random(m);
   std::cout << A;
   return 0;
 }

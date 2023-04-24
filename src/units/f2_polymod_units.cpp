@@ -168,7 +168,7 @@ spffl::polynomials::f2_poly_t f2poly_random_prim(int degree, int need_irr) {
   }
 
   for (;;) {
-    rv = f2_poly_random(degree);
+    rv = spffl::random::f2_poly_random(degree);
     if (f2poly_is_primitive(rv)) {
       if (!need_irr || f2poly_is_irreducible(rv))
         return rv;

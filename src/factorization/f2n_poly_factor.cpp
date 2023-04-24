@@ -364,7 +364,7 @@ spffl::polynomials::f2n_poly_t f2npoly_random_irr(spffl::polynomials::f2_poly_t 
   }
 
   for (;;) {
-    rv = f2n_poly_random(m, degree);
+    rv = spffl::random::f2n_poly_random(m, degree);
     if (rv.get_coeff(0) == zero)
       continue;
     if (f2npoly_is_irreducible(rv)) {
