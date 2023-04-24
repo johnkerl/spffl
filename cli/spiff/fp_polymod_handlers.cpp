@@ -356,7 +356,7 @@ int fppmchpol_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = 3; argi < argc; argi++) {
     if (!a.from_string(argv[argi], m))
       pusage(argv[0]);
-    spffl::polynomials::fp_poly_t cp = fppm_char_poly(a);
+    spffl::polynomials::fp_poly_t cp = spffl::linalg::fppm_char_poly(a);
     if (argc > 4)
       std::cout << a << ": ";
     std::cout << cp << "\n";
@@ -384,7 +384,7 @@ int fppmminpol_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = 3; argi < argc; argi++) {
     if (!a.from_string(argv[argi], m))
       pusage(argv[0]);
-    spffl::polynomials::fp_poly_t cp = fppm_min_poly(a);
+    spffl::polynomials::fp_poly_t cp = spffl::linalg::fppm_min_poly(a);
     if (argc > 4)
       std::cout << a << ": ";
     std::cout << cp << "\n";

@@ -10,6 +10,8 @@
 #include "f2n_poly_t.h"
 #include "tmatrix.h"
 
+namespace spffl::linalg {
+
 spffl::polynomials::f2n_poly_t f2pm_char_poly(tmatrix<spffl::polynomials::f2_polymod_t> &A);
 
 tmatrix<spffl::polynomials::f2_polymod_t> f2np_companion_matrix(spffl::polynomials::f2n_poly_t chpol);
@@ -22,5 +24,7 @@ int f2pm_matrix_is_dable(tmatrix<spffl::polynomials::f2_polymod_t> &A, spffl::po
                          tvector<spffl::polynomials::f2_polymod_t> &reigenvalues);
 
 tvector<spffl::polynomials::f2_polymod_t> ft_vector_from_base_rep(int base_rep, spffl::polynomials::f2_poly_t m, int len);
+
+} // namespace
 
 #endif // F2PMLINALG_H

@@ -388,7 +388,7 @@ int f2npcompmx_main(int argc, char **argv, usage_t *pusage) {
   if (!chpol.from_string(argv[2], m))
     pusage(argv[0]);
 
-  tmatrix<spffl::polynomials::f2_polymod_t> A = f2np_companion_matrix(chpol);
+  tmatrix<spffl::polynomials::f2_polymod_t> A = spffl::linalg::f2np_companion_matrix(chpol);
   std::cout << A << std::endl;
 
   return 0;

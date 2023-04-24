@@ -10,7 +10,7 @@
 #include "f2_polymod_t.h"
 #include "tmatrix.h"
 
-namespace spffl::units {
+namespace spffl::linalg {
 
 int f2polymod_convert_prep(spffl::polynomials::f2_polymod_t g1, spffl::polynomials::f2_poly_t m2, spffl::polynomials::f2_polymod_t &rg2);
 

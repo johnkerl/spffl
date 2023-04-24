@@ -9,7 +9,7 @@
 #include "f2n_poly_factor.h"
 #include "f2_polymod_units.h"
 
-namespace spffl::units {
+namespace spffl::linalg {
 
 // ----------------------------------------------------------------
 int f2polymod_convert_prep(spffl::polynomials::f2_polymod_t g1, spffl::polynomials::f2_poly_t m2, spffl::polynomials::f2_polymod_t &rg2) {
@@ -34,7 +34,7 @@ spffl::polynomials::f2_polymod_t f2polymod_convert_scalar(spffl::polynomials::f2
   if (a1 == zero1)
     return zero2;
   else
-    return g2.exp(f2polymod_log(g1, a1));
+    return g2.exp(spffl::units::f2polymod_log(g1, a1));
 }
 
 // ----------------------------------------------------------------

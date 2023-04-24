@@ -276,7 +276,7 @@ int f2npmchpol_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = 3; argi < argc; argi++) {
     if (!a.from_string(argv[argi], m))
       pusage(argv[0]);
-    spffl::polynomials::f2n_poly_t cp = f2npm_char_poly(a);
+    spffl::polynomials::f2n_poly_t cp = spffl::linalg::f2npm_char_poly(a);
     if (argc > 4)
       std::cout << a << ": ";
     std::cout << cp << "\n";
@@ -304,7 +304,7 @@ int f2npmminpol_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = 3; argi < argc; argi++) {
     if (!a.from_string(argv[argi], m))
       pusage(argv[0]);
-    spffl::polynomials::f2n_poly_t mp = f2npm_min_poly(a);
+    spffl::polynomials::f2n_poly_t mp = spffl::linalg::f2npm_min_poly(a);
     if (argc > 4)
       std::cout << a << ": ";
     std::cout << mp << "\n";

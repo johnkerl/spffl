@@ -7,6 +7,8 @@
 #include "fp_linear_algebra.h"
 #include "fp_poly_t.h"
 
+namespace spffl::linalg {
+
 // ----------------------------------------------------------------
 tvector<spffl::intmath::intmod_t> fp_vector_from_base_rep(int base_rep, int p, int len) {
   tvector<spffl::intmath::intmod_t> v(len);
@@ -108,3 +110,5 @@ spffl::polynomials::fpn_poly_t fppolymod_min_poly(
 	return fppolymod_char_or_min_poly(a, 1);
 }
 #endif
+
+} // namespace

@@ -12,6 +12,8 @@
 #include "f2_polymod_units.h"
 #include "int_gcd.h"
 
+namespace spffl::linalg {
+
 // ----------------------------------------------------------------
 spffl::polynomials::f2n_poly_t f2pm_char_poly(tmatrix<spffl::polynomials::f2_polymod_t> &A) {
   if (!A.is_square()) {
@@ -151,13 +153,13 @@ int f2pm_matrix_is_dable(tmatrix<spffl::polynomials::f2_polymod_t> &A,
       std::cerr << "Can't find generator mod " << base_modulus << ".\n";
       exit(1);
     }
-    if (!spffl::units::f2polymod_convert_prep(base_g, rext_modulus, ext_g)) {
+    if (!f2polymod_convert_prep(base_g, rext_modulus, ext_g)) {
       std::cerr << "Can't find generator mod " << rext_modulus << ".\n";
       exit(1);
     }
 
-    ext_chpol = spffl::units::f2polymod_convert_poly(base_g, ext_g, chpol);
-    ext_A = spffl::units::f2polymod_convert_matrix(base_g, ext_g, A);
+    ext_chpol = f2polymod_convert_poly(base_g, ext_g, chpol);
+    ext_A = f2polymod_convert_matrix(base_g, ext_g, A);
   }
 
   tfacinfo<spffl::polynomials::f2n_poly_t> ext_finfo = spffl::factorization::f2n_poly_factor(ext_chpol);
@@ -246,3 +248,5 @@ tvector<spffl::polynomials::f2_polymod_t> ft_vector_from_base_rep(int base_rep, 
   }
   return v;
 }
+
+} // namespace

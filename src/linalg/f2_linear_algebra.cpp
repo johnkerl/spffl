@@ -7,6 +7,8 @@
 #include "f2_linear_algebra.h"
 #include "f2_poly_t.h"
 
+namespace spffl::linalg {
+
 // ----------------------------------------------------------------
 tvector<spffl::bits::bit_t> f2_vector_from_base_rep(int base_rep, int len) {
   tvector<spffl::bits::bit_t> v(len);
@@ -107,3 +109,5 @@ spffl::polynomials::f2n_poly_t f2polymod_char_poly(spffl::polynomials::f2_polymo
 spffl::polynomials::f2n_poly_t f2polymod_min_poly(spffl::polynomials::f2_polymod_t a) {
   return f2polymod_char_or_min_poly(a, 1);
 }
+
+} // namespace

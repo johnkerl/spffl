@@ -10,6 +10,8 @@
 #include "bit_matrix_t.h"
 #include "tmatrix.h"
 
+namespace spffl::linalg {
+
 // ----------------------------------------------------------------
 int f2pm_froblen(spffl::polynomials::f2_polymod_t a) {
   int rv = 0;
@@ -211,3 +213,5 @@ spffl::polynomials::fp_poly_t fppm_char_poly(spffl::polynomials::fp_polymod_t a)
   spffl::polynomials::fp_poly_t cp = mp.exp(n / l);
   return cp;
 }
+
+} // namespace

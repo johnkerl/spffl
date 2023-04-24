@@ -392,7 +392,7 @@ int f2pcompmx_main(int argc, char **argv, usage_t *pusage) {
   if (!chpol.from_string(argv[1]))
     pusage(argv[0]);
 
-  tmatrix<spffl::bits::bit_t> A = f2_companion_matrix(chpol);
+  tmatrix<spffl::bits::bit_t> A = spffl::linalg::f2_companion_matrix(chpol);
   std::cout << A << std::endl;
 
   return 0;

@@ -396,7 +396,7 @@ int fpmatchpol_main(int argc, char **argv, usage_t *pusage) {
   if (!A.load_from_file(argv[2]))
     pusage(argv[0]);
 
-  spffl::polynomials::fp_poly_t chpol = fp_char_poly(A);
+  spffl::polynomials::fp_poly_t chpol = spffl::linalg::fp_char_poly(A);
   std::cout << chpol << std::endl;
 
   return 0;

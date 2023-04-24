@@ -82,7 +82,7 @@ int fppcompmx_main(int argc, char **argv, usage_t *pusage) {
   if (!chpol.from_string(argv[2], p))
     pusage(argv[0]);
 
-  tmatrix<spffl::intmath::intmod_t> A = fp_companion_matrix(chpol);
+  tmatrix<spffl::intmath::intmod_t> A = spffl::linalg::fp_companion_matrix(chpol);
   std::cout << A << "\n";
 
   return 0;

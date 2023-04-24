@@ -269,7 +269,7 @@ int f2pmchpol_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = 2; argi < argc; argi++) {
     if (!a.from_string(argv[argi], m))
       pusage(argv[0]);
-    spffl::polynomials::f2_poly_t cp = f2pm_char_poly(a);
+    spffl::polynomials::f2_poly_t cp = spffl::linalg::f2pm_char_poly(a);
     if (argc > 3)
       std::cout << a << ": ";
     std::cout << cp << std::endl;
@@ -294,7 +294,7 @@ int f2pmminpol_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = 2; argi < argc; argi++) {
     if (!a.from_string(argv[argi], m))
       pusage(argv[0]);
-    spffl::polynomials::f2_poly_t mp = f2pm_min_poly(a);
+    spffl::polynomials::f2_poly_t mp = spffl::linalg::f2pm_min_poly(a);
     if (argc > 3)
       std::cout << a << ": ";
     std::cout << mp << std::endl;
@@ -322,14 +322,14 @@ int f2pmconvert_main(int argc, char **argv, usage_t *pusage) {
     std::cerr << "Can't find generator mod " << m1 << ".\n";
     exit(1);
   }
-  if (!spffl::units::f2polymod_convert_prep(g1, m2, g2)) {
+  if (!spffl::linalg::f2polymod_convert_prep(g1, m2, g2)) {
     std::cerr << "Can't find generator mod " << m2 << ".\n";
     exit(1);
   }
   for (int argi = 3; argi < argc; argi++) {
     if (!a1.from_string(argv[argi], m1))
       pusage(argv[0]);
-    a2 = spffl::units::f2polymod_convert_scalar(g1, g2, a1);
+    a2 = spffl::linalg::f2polymod_convert_scalar(g1, g2, a1);
     if (argc > 4)
       std::cout << a1 << ": ";
     std::cout << a2 << std::endl;
@@ -454,7 +454,7 @@ int f2pmmatchpol_main(int argc, char **argv, usage_t *pusage) {
   if (!A.load_from_file(argv[2]))
     pusage(argv[0]);
 
-  spffl::polynomials::f2n_poly_t chpol = f2pm_char_poly(A);
+  spffl::polynomials::f2n_poly_t chpol = spffl::linalg::f2pm_char_poly(A);
   std::cout << chpol << std::endl;
 
   return 0;
@@ -479,7 +479,7 @@ int f2pmmatdable_main(int argc, char **argv, usage_t *pusage) {
 
   spffl::polynomials::f2_poly_t splitter_modulus;
   tvector<spffl::polynomials::f2_polymod_t> eigenvalues;
-  if (f2pm_matrix_is_dable(A, splitter_modulus, eigenvalues))
+  if (spffl::linalg::f2pm_matrix_is_dable(A, splitter_modulus, eigenvalues))
     std::cout << "Diagonalizable.\n";
   else
     std::cout << "Non-diagonalizable.\n";
