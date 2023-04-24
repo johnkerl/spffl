@@ -29,7 +29,7 @@ int fpplist_main(int argc, char **argv, usage_t *pusage) {
   else
     pusage(argv[0]);
   for (int deg = deglo; deg <= deghi; deg++) {
-    tvector<spffl::polynomials::fp_poly_t> elts = fppoly_list(p, deg);
+    tvector<spffl::polynomials::fp_poly_t> elts = spffl::list::fppoly_list(p, deg);
     elts.crout(std::cout);
   }
   return 0;

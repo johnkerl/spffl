@@ -17,17 +17,17 @@ void fplist_usage(char *argv0) {
 }
 
 int fplist_main(int argc, char **argv, usage_t *pusage) {
-  sp_list_type_t type = SP_LIST_ALL;
+  spffl::list::sp_list_type_t type = spffl::list::SP_LIST_ALL;
   int m;
   // -g
   // -o {spec}
   if (argc == 3) {
     if (strcmp(argv[1], "-a") == 0)
-      type = SP_LIST_ALL;
+      type = spffl::list::SP_LIST_ALL;
     else if (strcmp(argv[1], "-u") == 0)
-      type = SP_LIST_UNITS;
+      type = spffl::list::SP_LIST_UNITS;
     else if (strcmp(argv[1], "-nu") == 0)
-      type = SP_LIST_NON_UNITS;
+      type = spffl::list::SP_LIST_NON_UNITS;
     else
       pusage(argv[0]);
     if (sscanf(argv[2], "%d", &m) != 1)
@@ -37,9 +37,9 @@ int fplist_main(int argc, char **argv, usage_t *pusage) {
   } else if (argc == 4) {
     spffl::intmath::intmod_t g;
     if (strcmp(argv[1], "-m") == 0)
-      type = SP_LIST_MULTIPLES;
+      type = spffl::list::SP_LIST_MULTIPLES;
     else if (strcmp(argv[1], "-rp") == 0)
-      type = SP_LIST_REL_PRIME;
+      type = spffl::list::SP_LIST_REL_PRIME;
     else
       pusage(argv[0]);
     if (sscanf(argv[3], "%d", &m) != 1)
@@ -124,9 +124,9 @@ int fptbl_main(int argc, char **argv, usage_t *pusage) {
   tvector<spffl::intmath::intmod_t> elts;
   if ((tbl_type == TBL_TYPE_UNIT_MUL) || (tbl_type == TBL_TYPE_UNIT_DIV) ||
       (tbl_type == TBL_TYPE_LOG) || (tbl_type == TBL_TYPE_ALOG))
-    elts = intmod_list(p, SP_LIST_UNITS);
+    elts = intmod_list(p, spffl::list::SP_LIST_UNITS);
   else
-    elts = intmod_list(p, SP_LIST_ALL);
+    elts = intmod_list(p, spffl::list::SP_LIST_ALL);
   int n = elts.get_num_elements();
 
   if (tbl_type == TBL_TYPE_LOG) {
@@ -215,7 +215,7 @@ int fpmaxord_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (sscanf(argv[1], "%d", &p) != 1)
     pusage(argv[0]);
-  tvector<spffl::intmath::intmod_t> elts = intmod_list(p, SP_LIST_UNITS);
+  tvector<spffl::intmath::intmod_t> elts = intmod_list(p, spffl::list::SP_LIST_UNITS);
   int n = elts.get_num_elements();
   int max = 0;
   for (int i = 0; i < n; i++) {

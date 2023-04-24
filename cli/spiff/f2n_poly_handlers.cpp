@@ -33,7 +33,7 @@ int f2nplist_main(int argc, char **argv, usage_t *pusage) {
   else
     pusage(argv[0]);
   for (int deg = deglo; deg <= deghi; deg++) {
-    tvector<spffl::polynomials::f2n_poly_t> elts = f2npoly_list(m, deg);
+    tvector<spffl::polynomials::f2n_poly_t> elts = spffl::list::f2npoly_list(m, deg);
     elts.crout(std::cout);
   }
   return 0;

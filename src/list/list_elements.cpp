@@ -12,6 +12,8 @@
 #include "int_power.h"
 #include "int_totient.h"
 
+namespace spffl::list {
+
 // ----------------------------------------------------------------
 tvector<spffl::polynomials::f2_poly_t> f2poly_list(int deg) {
   int nel = 1 << deg;
@@ -433,3 +435,5 @@ tmatrix<spffl::polynomials::fp_polymod_t> fppolymod_Pn_list(spffl::polynomials::
 
   return rv;
 }
+
+} // namespace

@@ -18,15 +18,15 @@ void fppmlist_usage(char *argv0) {
 int fppmlist_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t m;
-  sp_list_type_t type = SP_LIST_ALL;
+  spffl::list::sp_list_type_t type = spffl::list::SP_LIST_ALL;
   if (argc != 4)
     pusage(argv[0]);
   if (strcmp(argv[1], "-a") == 0)
-    type = SP_LIST_ALL;
+    type = spffl::list::SP_LIST_ALL;
   else if (strcmp(argv[1], "-u") == 0)
-    type = SP_LIST_UNITS;
+    type = spffl::list::SP_LIST_UNITS;
   else if (strcmp(argv[1], "-nu") == 0)
-    type = SP_LIST_NON_UNITS;
+    type = spffl::list::SP_LIST_NON_UNITS;
   else
     pusage(argv[0]);
   if (sscanf(argv[2], "%d", &p) != 1)
@@ -126,9 +126,9 @@ int fppmtbl_main(int argc, char **argv, usage_t *pusage) {
   tvector<spffl::polynomials::fp_polymod_t> elts;
   if ((tbl_type == TBL_TYPE_UNIT_MUL) || (tbl_type == TBL_TYPE_UNIT_DIV) ||
       (tbl_type == TBL_TYPE_LOG) || (tbl_type == TBL_TYPE_ALOG))
-    elts = fppolymod_list(m, SP_LIST_UNITS);
+    elts = fppolymod_list(m, spffl::list::SP_LIST_UNITS);
   else
-    elts = fppolymod_list(m, SP_LIST_ALL);
+    elts = fppolymod_list(m, spffl::list::SP_LIST_ALL);
   int n = elts.get_num_elements();
 
 #if 0

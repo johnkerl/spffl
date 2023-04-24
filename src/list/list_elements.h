@@ -13,6 +13,8 @@
 #include "intmod_t.h"
 #include "tvector.h"
 
+namespace spffl::list {
+
 enum sp_list_type_t {
   SP_LIST_ALL,
   SP_LIST_UNITS,
@@ -48,5 +50,7 @@ tmatrix<spffl::polynomials::f2_polymod_t> f2polymod_Pn_list(spffl::polynomials::
 tmatrix<spffl::polynomials::fp_polymod_t> fppolymod_Pn_list(spffl::polynomials::fp_poly_t m, int n);
 
 // xxx do it for for other types too
+
+} // namespace
 
 #endif // SP_LIST_ELTS_H
