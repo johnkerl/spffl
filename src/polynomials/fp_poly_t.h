@@ -13,17 +13,19 @@
 #include <iomanip>
 #include <iostream>
 
+namespace spffl::polynomials {
+
 class fp_poly_t {
 public:
   fp_poly_t(void);
 
-  fp_poly_t(intmod_t c0);
-  fp_poly_t(intmod_t c1, intmod_t c0);
-  fp_poly_t(intmod_t c2, intmod_t c1, intmod_t c0);
-  fp_poly_t(intmod_t c3, intmod_t c2, intmod_t c1, intmod_t c0);
-  fp_poly_t(intmod_t c4, intmod_t c3, intmod_t c2, intmod_t c1, intmod_t c0);
-  fp_poly_t(intmod_t c5, intmod_t c4, intmod_t c3, intmod_t c2, intmod_t c1,
-           intmod_t c0);
+  fp_poly_t(spffl::intmath::intmod_t c0);
+  fp_poly_t(spffl::intmath::intmod_t c1, spffl::intmath::intmod_t c0);
+  fp_poly_t(spffl::intmath::intmod_t c2, spffl::intmath::intmod_t c1, spffl::intmath::intmod_t c0);
+  fp_poly_t(spffl::intmath::intmod_t c3, spffl::intmath::intmod_t c2, spffl::intmath::intmod_t c1, spffl::intmath::intmod_t c0);
+  fp_poly_t(spffl::intmath::intmod_t c4, spffl::intmath::intmod_t c3, spffl::intmath::intmod_t c2, spffl::intmath::intmod_t c1, spffl::intmath::intmod_t c0);
+  fp_poly_t(spffl::intmath::intmod_t c5, spffl::intmath::intmod_t c4, spffl::intmath::intmod_t c3, spffl::intmath::intmod_t c2, spffl::intmath::intmod_t c1,
+           spffl::intmath::intmod_t c0);
 
   fp_poly_t(int c0, int m);
   fp_poly_t(int c1, int c0, int m);
@@ -41,25 +43,25 @@ public:
 
   fp_poly_t &operator=(fp_poly_t that);
   fp_poly_t operator+(fp_poly_t that) const;
-  fp_poly_t operator+(intmod_t a) const;
+  fp_poly_t operator+(spffl::intmath::intmod_t a) const;
   fp_poly_t operator-(fp_poly_t that) const;
-  fp_poly_t operator-(intmod_t a) const;
+  fp_poly_t operator-(spffl::intmath::intmod_t a) const;
   fp_poly_t operator-(void) const;
   fp_poly_t operator*(fp_poly_t that) const;
-  fp_poly_t operator*(intmod_t a);
+  fp_poly_t operator*(spffl::intmath::intmod_t a);
   fp_poly_t operator/(fp_poly_t that);
   fp_poly_t operator%(fp_poly_t that);
-  fp_poly_t operator/(intmod_t a);
+  fp_poly_t operator/(spffl::intmath::intmod_t a);
 
   fp_poly_t &operator+=(fp_poly_t that);
-  fp_poly_t &operator+=(intmod_t a);
+  fp_poly_t &operator+=(spffl::intmath::intmod_t a);
   fp_poly_t &operator-=(fp_poly_t that);
-  fp_poly_t &operator-=(intmod_t a);
+  fp_poly_t &operator-=(spffl::intmath::intmod_t a);
   fp_poly_t &operator*=(fp_poly_t that);
-  fp_poly_t &operator*=(intmod_t a);
+  fp_poly_t &operator*=(spffl::intmath::intmod_t a);
   fp_poly_t &operator/=(fp_poly_t &that);
   fp_poly_t &operator%=(fp_poly_t &that);
-  fp_poly_t &operator/=(intmod_t a);
+  fp_poly_t &operator/=(spffl::intmath::intmod_t a);
 
   void quot_and_rem(fp_poly_t &that, fp_poly_t &rquot, fp_poly_t &rrem);
   fp_poly_t gcd(fp_poly_t &that);
@@ -67,11 +69,11 @@ public:
   fp_poly_t exp(int power);
   fp_poly_t deriv(void);
   int pth_root(fp_poly_t &rroot);
-  intmod_t eval(intmod_t c);
+  spffl::intmath::intmod_t eval(spffl::intmath::intmod_t c);
 
   int find_degree(void) const; // deg(0) is defined to be 0.
-  intmod_t get_coeff(int deg) const;
-  void set_coeff(int pos, intmod_t c);
+  spffl::intmath::intmod_t get_coeff(int deg) const;
+  void set_coeff(int pos, spffl::intmath::intmod_t c);
 
   int operator==(int v) const;
   int operator!=(int v) const;
@@ -93,10 +95,10 @@ public:
   int from_string(char *string, int p);
 
   void promote(void);
-  void promote_and_add(intmod_t c0);
+  void promote_and_add(spffl::intmath::intmod_t c0);
 
 private:
-  intmod_t *coeffs;
+  spffl::intmath::intmod_t *coeffs;
   int degree;
 
   int cmp(int cmp, fp_poly_t &that) const;
@@ -104,7 +106,9 @@ private:
   void recompute_degree();
 };
 
+} // namespace
+
 // Same as the gcd method, but overloaded.  This is important for template use.
-fp_poly_t gcd(fp_poly_t a, fp_poly_t b);
+spffl::polynomials::fp_poly_t gcd(spffl::polynomials::fp_poly_t a, spffl::polynomials::fp_poly_t b);
 
 #endif // FPPOLY_T_H

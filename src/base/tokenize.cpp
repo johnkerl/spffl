@@ -11,6 +11,8 @@
 // 2001/08/22
 // ================================================================
 
+namespace spffl::base {
+
 #include "tokenize.h"
 
 // ----------------------------------------------------------------
@@ -100,3 +102,5 @@ int count_tokens(char *line, const char *seps) {
   }
   return argc;
 }
+
+} // namespace

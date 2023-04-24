@@ -11,6 +11,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+namespace spffl::rationals {
+
 // ----------------------------------------------------------------
 qpoly_t::qpoly_t(void) {
   intrat_t zero(0);
@@ -649,7 +651,7 @@ std::ostream &operator<<(std::ostream &os, const qpoly_t &poly) {
 
 // ----------------------------------------------------------------
 std::istream &operator>>(std::istream &is, qpoly_t &poly) {
-  rsstring_t rss;
+  spffl::base::rsstring_t rss;
   char c;
 
   // Skip over whitespace.
@@ -719,7 +721,7 @@ int qpoly_t::from_string(char *string) {
   } else {
     char *dup = strdup(string);
     char **argv = new char *[num_commas + 1];
-    int argc = tokenize(dup, ",", argv, num_commas + 1);
+    int argc = spffl::base::tokenize(dup, ",", argv, num_commas + 1);
     if (argc < 1) {
       // Needs an error message, but this coding error is
       // unlikely since we already counted commas.
@@ -771,3 +773,5 @@ void qpoly_t::promote_and_add(intrat_t c0) {
   this->promote();
   this->coeffs[0] = c0;
 }
+
+} // namespace

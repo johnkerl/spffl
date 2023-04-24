@@ -10,30 +10,32 @@
 #include "tfacinfo.h"
 #include "tmatrix.h"
 
+namespace spffl::factorization {
+
 //#define FPPOLY_FACTOR_DEBUG
 
-static void fppoly_pre_berlekamp(fp_poly_t f, tfacinfo<fp_poly_t> &rfinfo,
+static void fppoly_pre_berlekamp(spffl::polynomials::fp_poly_t f, tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo,
                                  int recurse);
 
-static void fppoly_berlekamp(fp_poly_t f, tfacinfo<fp_poly_t> &rfinfo,
+static void fppoly_berlekamp(spffl::polynomials::fp_poly_t f, tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo,
                              int recurse);
 
-fp_poly_t fppoly_from_vector(tvector<intmod_t> v, int n);
+spffl::polynomials::fp_poly_t fppoly_from_vector(tvector<spffl::intmath::intmod_t> v, int n);
 
 // ----------------------------------------------------------------
-tfacinfo<fp_poly_t> fp_poly_factor(fp_poly_t f) {
-  tfacinfo<fp_poly_t> finfo;
+tfacinfo<spffl::polynomials::fp_poly_t> fp_poly_factor(spffl::polynomials::fp_poly_t f) {
+  tfacinfo<spffl::polynomials::fp_poly_t> finfo;
   int d = f.find_degree();
   int p = f.get_char();
-  intmod_t zero(0, p);
-  intmod_t one(1, p);
+  spffl::intmath::intmod_t zero(0, p);
+  spffl::intmath::intmod_t one(1, p);
 
   if (d == 0) {
     finfo.insert_unit(f);
     return finfo;
   }
 
-  intmod_t leader = f.get_coeff(d);
+  spffl::intmath::intmod_t leader = f.get_coeff(d);
   if ((leader != zero) && (leader != one)) {
     finfo.insert_unit(leader);
     f /= leader;
@@ -44,10 +46,10 @@ tfacinfo<fp_poly_t> fp_poly_factor(fp_poly_t f) {
 }
 
 // ----------------------------------------------------------------
-static void fppoly_pre_berlekamp(fp_poly_t f, tfacinfo<fp_poly_t> &rfinfo,
+static void fppoly_pre_berlekamp(spffl::polynomials::fp_poly_t f, tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo,
                                  int recurse) {
-  fp_poly_t d = f.deriv();
-  fp_poly_t g = f.gcd(d);
+  spffl::polynomials::fp_poly_t d = f.deriv();
+  spffl::polynomials::fp_poly_t g = f.gcd(d);
 
 #ifdef FPPOLY_FACTOR_DEBUG
   std::cout << "\n";
@@ -68,8 +70,8 @@ static void fppoly_pre_berlekamp(fp_poly_t f, tfacinfo<fp_poly_t> &rfinfo,
     fppoly_berlekamp(f, rfinfo, recurse);
   } else if (d == 0) {
     // Input is a perfect pth power
-    fp_poly_t s;
-    tfacinfo<fp_poly_t> sfinfo;
+    spffl::polynomials::fp_poly_t s;
+    tfacinfo<spffl::polynomials::fp_poly_t> sfinfo;
     int p = f.get_char();
     if (!f.pth_root(s)) {
       std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
@@ -83,7 +85,7 @@ static void fppoly_pre_berlekamp(fp_poly_t f, tfacinfo<fp_poly_t> &rfinfo,
       sfinfo.exp_all(p);
     rfinfo.merge(sfinfo);
   } else {
-    fp_poly_t q = f / g;
+    spffl::polynomials::fp_poly_t q = f / g;
 
     // Input was already made monic, so these factors should
     // be as well.
@@ -99,16 +101,16 @@ static void fppoly_pre_berlekamp(fp_poly_t f, tfacinfo<fp_poly_t> &rfinfo,
 // See my "Computation in finite fields" (ffcomp.pdf) for a full description
 // of this algorithm.  See f2_poly_factor.cpp for some sample data.
 
-static void fppoly_berlekamp(fp_poly_t f, tfacinfo<fp_poly_t> &rfinfo,
+static void fppoly_berlekamp(spffl::polynomials::fp_poly_t f, tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo,
                              int recurse) {
   int n = f.find_degree();
   int p = f.get_char();
-  intmod_t zero(0, p);
-  intmod_t one(1, p);
-  fp_poly_t x(one, zero);
-  fp_poly_t xp;
-  fp_poly_t xpi = one;
-  fp_poly_t f1, f2;
+  spffl::intmath::intmod_t zero(0, p);
+  spffl::intmath::intmod_t one(1, p);
+  spffl::polynomials::fp_poly_t x(one, zero);
+  spffl::polynomials::fp_poly_t xp;
+  spffl::polynomials::fp_poly_t xpi = one;
+  spffl::polynomials::fp_poly_t f1, f2;
   int i, j, row, rank, dimker;
 
   xp = x;
@@ -121,7 +123,7 @@ static void fppoly_berlekamp(fp_poly_t f, tfacinfo<fp_poly_t> &rfinfo,
   std::cout << "x"
             << " = " << x << "\n";
 #endif
-  tmatrix<intmod_t> BI(n, n);
+  tmatrix<spffl::intmath::intmod_t> BI(n, n);
 
   if (n < 2) {
     rfinfo.insert_factor(f);
@@ -166,7 +168,7 @@ static void fppoly_berlekamp(fp_poly_t f, tfacinfo<fp_poly_t> &rfinfo,
   }
 
   // Find a basis for the nullspace of B - I.
-  tmatrix<intmod_t> nullspace_basis;
+  tmatrix<spffl::intmath::intmod_t> nullspace_basis;
   if (!BI.get_kernel_basis(nullspace_basis, zero, one)) {
     std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
               << "\n";
@@ -184,7 +186,7 @@ static void fppoly_berlekamp(fp_poly_t f, tfacinfo<fp_poly_t> &rfinfo,
 
   int got_it = 0;
   for (row = 0; row < dimker && !got_it; row++) {
-    fp_poly_t h = fppoly_from_vector(nullspace_basis[row], n);
+    spffl::polynomials::fp_poly_t h = fppoly_from_vector(nullspace_basis[row], n);
 #ifdef FPPOLY_FACTOR_DEBUG
     std::cout << "h  = " << h << "\n";
 #endif // FPPOLY_FACTOR_DEBUG
@@ -192,7 +194,7 @@ static void fppoly_berlekamp(fp_poly_t f, tfacinfo<fp_poly_t> &rfinfo,
       continue;
 
     for (int c = 0; c < p; c++) {
-      fp_poly_t hc = h - f.prime_sfld_elt(c);
+      spffl::polynomials::fp_poly_t hc = h - f.prime_sfld_elt(c);
       f1 = f.gcd(hc);
 #ifdef FPPOLY_FACTOR_DEBUG
       std::cout << "hc  = " << hc << "  f1 = " << f1 << "\n";
@@ -241,8 +243,8 @@ static void fppoly_berlekamp(fp_poly_t f, tfacinfo<fp_poly_t> &rfinfo,
 }
 
 // ----------------------------------------------------------------
-fp_poly_t fppoly_from_vector(tvector<intmod_t> v, int n) {
-  fp_poly_t f;
+spffl::polynomials::fp_poly_t fppoly_from_vector(tvector<spffl::intmath::intmod_t> v, int n) {
+  spffl::polynomials::fp_poly_t f;
   f.set_coeff(0, v[0] - v[0]);
   for (int i = 0; i < n; i++)
     f.set_coeff(n - 1 - i, v[i]);
@@ -250,8 +252,8 @@ fp_poly_t fppoly_from_vector(tvector<intmod_t> v, int n) {
 }
 
 // ----------------------------------------------------------------
-int fppoly_is_irreducible(fp_poly_t f) {
-  tfacinfo<fp_poly_t> finfo;
+int fppoly_is_irreducible(spffl::polynomials::fp_poly_t f) {
+  tfacinfo<spffl::polynomials::fp_poly_t> finfo;
 
   int d = f.find_degree();
   if (d == 0)
@@ -276,9 +278,9 @@ int fppoly_is_irreducible(fp_poly_t f) {
 
 // ----------------------------------------------------------------
 // Lexically lowest
-fp_poly_t fppoly_find_irr(int p, int degree) {
-  intmod_t zero(0, p), one(1, p);
-  fp_poly_t rv = zero;
+spffl::polynomials::fp_poly_t fppoly_find_irr(int p, int degree) {
+  spffl::intmath::intmod_t zero(0, p), one(1, p);
+  spffl::polynomials::fp_poly_t rv = zero;
   rv.set_coeff(degree, one);
 
   if (degree < 1) {
@@ -305,9 +307,9 @@ fp_poly_t fppoly_find_irr(int p, int degree) {
 }
 
 // ----------------------------------------------------------------
-fp_poly_t fppoly_random_irr(int p, int degree) {
-  intmod_t zero(0, p);
-  fp_poly_t rv;
+spffl::polynomials::fp_poly_t fppoly_random_irr(int p, int degree) {
+  spffl::intmath::intmod_t zero(0, p);
+  spffl::polynomials::fp_poly_t rv;
 
   if (degree < 1) {
     std::cout << "fppoly_random_irr:  degree must be positive; got " << degree
@@ -316,7 +318,7 @@ fp_poly_t fppoly_random_irr(int p, int degree) {
   }
 
   for (;;) {
-    rv = fp_poly_random(p, degree);
+    rv = spffl::random::fp_poly_random(p, degree);
     if (rv.get_coeff(0) == zero)
       continue;
     if (fppoly_is_irreducible(rv)) {
@@ -325,3 +327,5 @@ fp_poly_t fppoly_random_irr(int p, int degree) {
     }
   }
 }
+
+} // namespace

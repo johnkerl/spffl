@@ -17,23 +17,23 @@ void fppmlist_usage(char *argv0) {
 
 int fppmlist_main(int argc, char **argv, usage_t *pusage) {
   int p;
-  fp_poly_t m;
-  sp_list_type_t type = SP_LIST_ALL;
+  spffl::polynomials::fp_poly_t m;
+  spffl::list::sp_list_type_t type = spffl::list::SP_LIST_ALL;
   if (argc != 4)
     pusage(argv[0]);
   if (strcmp(argv[1], "-a") == 0)
-    type = SP_LIST_ALL;
+    type = spffl::list::SP_LIST_ALL;
   else if (strcmp(argv[1], "-u") == 0)
-    type = SP_LIST_UNITS;
+    type = spffl::list::SP_LIST_UNITS;
   else if (strcmp(argv[1], "-nu") == 0)
-    type = SP_LIST_NON_UNITS;
+    type = spffl::list::SP_LIST_NON_UNITS;
   else
     pusage(argv[0]);
   if (sscanf(argv[2], "%d", &p) != 1)
     pusage(argv[0]);
   if (!m.from_string(argv[3], p))
     pusage(argv[0]);
-  tvector<fp_polymod_t> elts = fppolymod_list(m, type);
+  tvector<spffl::polynomials::fp_polymod_t> elts = fppolymod_list(m, type);
   elts.crout(std::cout);
   return 0;
 }
@@ -45,7 +45,7 @@ void fppmop_usage(char *argv0) {
 
 int fppmop_main(int argc, char **argv, usage_t *pusage) {
   int p;
-  fp_poly_t m;
+  spffl::polynomials::fp_poly_t m;
 
   if (argc < 3)
     pusage(argv[0]);
@@ -53,9 +53,9 @@ int fppmop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (!m.from_string(argv[2], p))
     pusage(argv[0]);
-  cmd_line_parse<fp_polymod_t>(argc - 3, argv + 3,
-                              fp_polymod_t::prime_sfld_elt(0, m),
-                              fp_polymod_t::prime_sfld_elt(1, m));
+  spffl::cliparser::cmd_line_parse<spffl::polynomials::fp_polymod_t>(argc - 3, argv + 3,
+                              spffl::polynomials::fp_polymod_t::prime_sfld_elt(0, m),
+                              spffl::polynomials::fp_polymod_t::prime_sfld_elt(1, m));
   return 0;
 }
 
@@ -66,8 +66,8 @@ void fppmtbl_usage(char *argv0) {
 
 int fppmtbl_main(int argc, char **argv, usage_t *pusage) {
   int p;
-  fp_poly_t m;
-  fp_polymod_t g;
+  spffl::polynomials::fp_poly_t m;
+  spffl::polynomials::fp_polymod_t g;
 
   int tbl_type = TBL_TYPE_PLUS;
   if (argc != 4)
@@ -123,12 +123,12 @@ int fppmtbl_main(int argc, char **argv, usage_t *pusage) {
   else
     pusage(argv[0]);
 
-  tvector<fp_polymod_t> elts;
+  tvector<spffl::polynomials::fp_polymod_t> elts;
   if ((tbl_type == TBL_TYPE_UNIT_MUL) || (tbl_type == TBL_TYPE_UNIT_DIV) ||
       (tbl_type == TBL_TYPE_LOG) || (tbl_type == TBL_TYPE_ALOG))
-    elts = fppolymod_list(m, SP_LIST_UNITS);
+    elts = fppolymod_list(m, spffl::list::SP_LIST_UNITS);
   else
-    elts = fppolymod_list(m, SP_LIST_ALL);
+    elts = fppolymod_list(m, spffl::list::SP_LIST_ALL);
   int n = elts.get_num_elements();
 
 #if 0
@@ -144,7 +144,7 @@ int fppmtbl_main(int argc, char **argv, usage_t *pusage) {
 	if (tbl_type == TBL_TYPE_ALOG) {
 		std::cout << "power element\n";
 		std::cout << "----- -------\n";
-		fp_polymod_t gp = g / g;
+		spffl::polynomials::fp_polymod_t gp = g / g;
 		for (int i = 0; i < n; i++) {
 			std::cout << i << " " << gp << "\n";
 			gp *= g;
@@ -153,7 +153,7 @@ int fppmtbl_main(int argc, char **argv, usage_t *pusage) {
 	}
 #endif
 
-  fp_polymod_t a, b, c;
+  spffl::polynomials::fp_polymod_t a, b, c;
 
   for (int i = 0; i < n; i++) {
     a = elts[i];
@@ -188,7 +188,7 @@ int fppmtbl_main(int argc, char **argv, usage_t *pusage) {
 
 int fppmmatop_main(int argc, char **argv, usage_t *pusage) {
   int p;
-  fp_poly_t m;
+  spffl::polynomials::fp_poly_t m;
 
   if (argc < 3)
     pusage(argv[0]);
@@ -196,15 +196,15 @@ int fppmmatop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (!m.from_string(argv[2], p))
     pusage(argv[0]);
-  cmd_line_mat_parse<fp_polymod_t>(argc - 3, argv + 3,
-                                  fp_polymod_t::prime_sfld_elt(0, m),
-                                  fp_polymod_t::prime_sfld_elt(1, m));
+  spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::fp_polymod_t>(argc - 3, argv + 3,
+                                  spffl::polynomials::fp_polymod_t::prime_sfld_elt(0, m),
+                                  spffl::polynomials::fp_polymod_t::prime_sfld_elt(1, m));
   return 0;
 }
 
 int fppmvecop_main(int argc, char **argv, usage_t *pusage) {
   int p;
-  fp_poly_t m;
+  spffl::polynomials::fp_poly_t m;
 
   if (argc < 3)
     pusage(argv[0]);
@@ -212,9 +212,9 @@ int fppmvecop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (!m.from_string(argv[2], p))
     pusage(argv[0]);
-  cmd_line_vec_parse<fp_polymod_t>(argc - 3, argv + 3,
-                                  fp_polymod_t::prime_sfld_elt(0, m),
-                                  fp_polymod_t::prime_sfld_elt(1, m));
+  spffl::cliparser::cmd_line_vec_parse<spffl::polynomials::fp_polymod_t>(argc - 3, argv + 3,
+                                  spffl::polynomials::fp_polymod_t::prime_sfld_elt(0, m),
+                                  spffl::polynomials::fp_polymod_t::prime_sfld_elt(1, m));
   return 0;
 }
 
@@ -225,7 +225,7 @@ void fppmmatord_usage(char *argv0) {
 
 int fppmmatord_main(int argc, char **argv, usage_t *pusage) {
   int p;
-  fp_poly_t m;
+  spffl::polynomials::fp_poly_t m;
 
   if ((argc != 3) && (argc != 4))
     pusage(argv[0]);
@@ -235,20 +235,20 @@ int fppmmatord_main(int argc, char **argv, usage_t *pusage) {
   if (!m.from_string(argv[2], p))
     pusage(argv[0]);
 
-  fp_polymod_t zero = fp_polymod_t::prime_sfld_elt(0, m);
-  fp_polymod_t one = fp_polymod_t::prime_sfld_elt(1, m);
+  spffl::polynomials::fp_polymod_t zero = spffl::polynomials::fp_polymod_t::prime_sfld_elt(0, m);
+  spffl::polynomials::fp_polymod_t one = spffl::polynomials::fp_polymod_t::prime_sfld_elt(1, m);
 
-  tmatrix<fp_polymod_t> A;
+  tmatrix<spffl::polynomials::fp_polymod_t> A;
   A = zero;
   std::cin >> A;
-  fp_polymod_t d = A.det();
+  spffl::polynomials::fp_polymod_t d = A.det();
 
   if (d == zero) {
     std::cout << 0 << std::endl;
   } else {
-    tmatrix<fp_polymod_t> I = A.make_I(zero, one);
+    tmatrix<spffl::polynomials::fp_polymod_t> I = A.make_I(zero, one);
     int order;
-    tmatrix<fp_polymod_t> Apower = A;
+    tmatrix<spffl::polynomials::fp_polymod_t> Apower = A;
 
     for (order = 1;; order++) {
       if (Apower == I) {
@@ -271,7 +271,7 @@ void fppmmatrandom_usage(char *argv0) {
 
 int fppmmatrandom_main(int argc, char **argv, usage_t *pusage) {
   int p, nr, nc;
-  fp_poly_t m;
+  spffl::polynomials::fp_poly_t m;
 
   if (argc != 5)
     pusage(argv[0]);
@@ -285,10 +285,10 @@ int fppmmatrandom_main(int argc, char **argv, usage_t *pusage) {
   if (sscanf(argv[4], "%d", &nc) != 1)
     pusage(argv[0]);
 
-  tmatrix<fp_polymod_t> A(nr, nc);
+  tmatrix<spffl::polynomials::fp_polymod_t> A(nr, nc);
   for (int i = 0; i < nr; i++)
     for (int j = 0; j < nc; j++)
-      A[i][j] = fp_polymod_random(m);
+      A[i][j] = spffl::random::fp_polymod_random(m);
   std::cout << A;
   return 0;
 }
@@ -300,8 +300,8 @@ void fppmord_usage(char *argv0) {
 
 int fppmord_main(int argc, char **argv, usage_t *pusage) {
   int p;
-  fp_poly_t m;
-  fp_polymod_t a;
+  spffl::polynomials::fp_poly_t m;
+  spffl::polynomials::fp_polymod_t a;
 
   if (argc != 4)
     pusage(argv[0]);
@@ -313,16 +313,16 @@ int fppmord_main(int argc, char **argv, usage_t *pusage) {
   if (!a.from_string(argv[3], m))
     pusage(argv[0]);
 
-  fp_polymod_t ai;
+  spffl::polynomials::fp_polymod_t ai;
   if (!a.recip(ai)) {
     std::cout << 0 << std::endl;
     return 0;
   }
 
-  fp_polymod_t zero(intmod_t(0, p), m);
-  fp_polymod_t one(intmod_t(1, p), m);
+  spffl::polynomials::fp_polymod_t zero(spffl::intmath::intmod_t(0, p), m);
+  spffl::polynomials::fp_polymod_t one(spffl::intmath::intmod_t(1, p), m);
   int order;
-  fp_polymod_t apower = a;
+  spffl::polynomials::fp_polymod_t apower = a;
 
   for (order = 1;; order++) {
     if (apower == one) {
@@ -344,8 +344,8 @@ void fppmchpol_usage(char *argv0) {
 
 int fppmchpol_main(int argc, char **argv, usage_t *pusage) {
   int p;
-  fp_poly_t m;
-  fp_polymod_t a;
+  spffl::polynomials::fp_poly_t m;
+  spffl::polynomials::fp_polymod_t a;
 
   if (argc < 4)
     pusage(argv[0]);
@@ -356,7 +356,7 @@ int fppmchpol_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = 3; argi < argc; argi++) {
     if (!a.from_string(argv[argi], m))
       pusage(argv[0]);
-    fp_poly_t cp = fppm_char_poly(a);
+    spffl::polynomials::fp_poly_t cp = spffl::linalg::fppm_char_poly(a);
     if (argc > 4)
       std::cout << a << ": ";
     std::cout << cp << "\n";
@@ -372,8 +372,8 @@ void fppmminpol_usage(char *argv0) {
 
 int fppmminpol_main(int argc, char **argv, usage_t *pusage) {
   int p;
-  fp_poly_t m;
-  fp_polymod_t a;
+  spffl::polynomials::fp_poly_t m;
+  spffl::polynomials::fp_polymod_t a;
 
   if (argc < 4)
     pusage(argv[0]);
@@ -384,7 +384,7 @@ int fppmminpol_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = 3; argi < argc; argi++) {
     if (!a.from_string(argv[argi], m))
       pusage(argv[0]);
-    fp_poly_t cp = fppm_min_poly(a);
+    spffl::polynomials::fp_poly_t cp = spffl::linalg::fppm_min_poly(a);
     if (argc > 4)
       std::cout << a << ": ";
     std::cout << cp << "\n";
@@ -400,7 +400,7 @@ void fppmrandom_usage(char *argv0) {
 
 int fppmrandom_main(int argc, char **argv, usage_t *pusage) {
   int p, count = 1;
-  fp_poly_t m;
+  spffl::polynomials::fp_poly_t m;
 
   if ((argc != 3) && (argc != 4))
     pusage(argv[0]);
@@ -414,7 +414,7 @@ int fppmrandom_main(int argc, char **argv, usage_t *pusage) {
   }
 
   for (int i = 0; i < count; i++)
-    std::cout << fp_polymod_random(m) << std::endl;
+    std::cout << spffl::random::fp_polymod_random(m) << std::endl;
 
   return 0;
 }

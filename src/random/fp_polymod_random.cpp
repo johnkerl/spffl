@@ -7,8 +7,10 @@
 #include "fp_polymod_random.h"
 #include "fp_poly_random.h"
 
+namespace spffl::random {
+
 // ----------------------------------------------------------------
-fp_polymod_t fp_polymod_random(fp_poly_t m) {
+spffl::polynomials::fp_polymod_t fp_polymod_random(spffl::polynomials::fp_poly_t m) {
   int deg = m.find_degree();
   if (deg < 1) {
     std::cerr << "fp_polymod_random:  degree (" << deg << ") of " << m
@@ -16,5 +18,7 @@ fp_polymod_t fp_polymod_random(fp_poly_t m) {
     exit(1);
   }
   int p = m.get_char();
-  return fp_polymod_t(fp_poly_random(p, deg), m);
+  return spffl::polynomials::fp_polymod_t(fp_poly_random(p, deg), m);
 }
+
+} // namespace

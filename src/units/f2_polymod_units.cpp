@@ -13,16 +13,18 @@
 #include "tfacinfo.h"
 #include "tvector.h"
 
+namespace spffl::units {
+
 // ----------------------------------------------------------------
 // The simplest algorithm is to loop over all possible exponents from 1
 // to the order of the unit group.  Instead, we use Lagrange's theorem,
 // testing only divisors of the order of the unit group.
 
-int f2polymod_order(f2_polymod_t a) {
-  f2_poly_t pol1(1);
-  f2_poly_t r = a.get_residue();
-  f2_poly_t m = a.get_modulus();
-  f2_poly_t g = r.gcd(m);
+int f2polymod_order(spffl::polynomials::f2_polymod_t a) {
+  spffl::polynomials::f2_poly_t pol1(1);
+  spffl::polynomials::f2_poly_t r = a.get_residue();
+  spffl::polynomials::f2_poly_t m = a.get_modulus();
+  spffl::polynomials::f2_poly_t g = r.gcd(m);
 
   if (g != pol1) {
     std::cerr << "f2polymod_order:  zero or zero divisor " << r << " mod " << m
@@ -30,16 +32,16 @@ int f2polymod_order(f2_polymod_t a) {
     exit(1);
   }
 
-  int phi = f2_poly_totient(m);
-  tfacinfo<int> finfo = int_factor(phi);
+  int phi = spffl::factorization::f2_poly_totient(m);
+  tfacinfo<int> finfo = spffl::factorization::int_factor(phi);
   tvector<int> phi_divisors = finfo.get_all_divisors(1);
   int nd = phi_divisors.get_num_elements();
-  f2_polymod_t one(pol1, m);
+  spffl::polynomials::f2_polymod_t one(pol1, m);
 
   // The output from get_all_divisors is guaranteed to be sorted up.
   // Thus, here we will find the *least* exponent e such that a^e = 1.
   for (int i = 0; i < nd; i++) {
-    f2_polymod_t ap = a.exp(phi_divisors[i]);
+    spffl::polynomials::f2_polymod_t ap = a.exp(phi_divisors[i]);
     if (ap == one)
       return phi_divisors[i];
   }
@@ -52,19 +54,19 @@ int f2polymod_order(f2_polymod_t a) {
 }
 
 // ----------------------------------------------------------------
-int f2polymod_find_generator(f2_poly_t m, f2_polymod_t &rg) {
+int f2polymod_find_generator(spffl::polynomials::f2_poly_t m, spffl::polynomials::f2_polymod_t &rg) {
   int mdeg = m.find_degree();
-  f2_poly_t gres(1);
+  spffl::polynomials::f2_poly_t gres(1);
 
   if (mdeg < 1) {
     std::cout << "f2polymod_find_generator:  modulus degree "
               << "must be positive; got " << mdeg << ".\n";
     exit(1);
   }
-  int phi = f2_poly_totient(m);
+  int phi = spffl::factorization::f2_poly_totient(m);
 
   while (gres.find_degree() < mdeg) {
-    f2_polymod_t g(gres, m);
+    spffl::polynomials::f2_polymod_t g(gres, m);
     if (f2polymod_order(g) == phi) {
       rg = g;
       return 1;
@@ -82,22 +84,22 @@ int f2polymod_find_generator(f2_poly_t m, f2_polymod_t &rg) {
 
 // ----------------------------------------------------------------
 // The naive test is a one-liner:
-//   return (f2_poly_totient(m) == f2poly_period(m));
+//   return (spffl::factorization::f2_poly_totient(m) == f2poly_period(m));
 // This appears simple, but f2poly_period() will test x^d for all proper
 // divisors of phi(m).  For primitivity, it suffices to check only the
 // *maximal* proper divisors of phi(m).
 
-int f2poly_is_primitive(f2_poly_t m) {
-  f2_poly_t pol1(1); // 1 as a polynomial.
-  f2_poly_t polx(1, 0);
+int f2poly_is_primitive(spffl::polynomials::f2_poly_t m) {
+  spffl::polynomials::f2_poly_t pol1(1); // 1 as a polynomial.
+  spffl::polynomials::f2_poly_t polx(1, 0);
   if (polx.gcd(m) != pol1)
     return 0;
 
-  f2_polymod_t rcr1(pol1, m); // Equiv. class of 1 in the residue class ring.
-  f2_polymod_t rcrx(polx, m);
+  spffl::polynomials::f2_polymod_t rcr1(pol1, m); // Equiv. class of 1 in the residue class ring.
+  spffl::polynomials::f2_polymod_t rcrx(polx, m);
 
-  int phi = f2_poly_totient(m);
-  tfacinfo<int> finfo = int_factor(phi);
+  int phi = spffl::factorization::f2_poly_totient(m);
+  tfacinfo<int> finfo = spffl::factorization::int_factor(phi);
   tvector<int> mpds;
   if (!finfo.get_maximal_proper_divisors(mpds, 1)) {
     // x or x+1 in F2[x].  The former case was already ruled out; the
@@ -106,13 +108,13 @@ int f2poly_is_primitive(f2_poly_t m) {
   }
   int nmpd = mpds.get_num_elements();
   for (int i = 0; i < nmpd; i++) {
-    f2_polymod_t rcrxpower = rcrx.exp(mpds[i]);
+    spffl::polynomials::f2_polymod_t rcrxpower = rcrx.exp(mpds[i]);
     if (rcrxpower == rcr1)
       return 0;
   }
 
   // This can happen when m is reducible.
-  f2_polymod_t rcrxpower = rcrx.exp(phi);
+  spffl::polynomials::f2_polymod_t rcrxpower = rcrx.exp(phi);
   if (rcrxpower != rcr1)
     return 0;
 
@@ -120,18 +122,18 @@ int f2poly_is_primitive(f2_poly_t m) {
 }
 
 // ----------------------------------------------------------------
-int f2poly_period(f2_poly_t m) {
-  f2_poly_t x(1, 0);
-  f2_poly_t one(1);
+int f2poly_period(spffl::polynomials::f2_poly_t m) {
+  spffl::polynomials::f2_poly_t x(1, 0);
+  spffl::polynomials::f2_poly_t one(1);
   if (x.gcd(m) != one)
     return 0;
-  return f2polymod_order(f2_polymod_t(x, m));
+  return f2polymod_order(spffl::polynomials::f2_polymod_t(x, m));
 }
 
 // ----------------------------------------------------------------
 // Lexically lowest
-f2_poly_t f2poly_find_prim(int degree, int need_irr) {
-  f2_poly_t rv(0);
+spffl::polynomials::f2_poly_t f2poly_find_prim(int degree, int need_irr) {
+  spffl::polynomials::f2_poly_t rv(0);
   rv.set_bit(degree);
   rv.set_bit(0);
 
@@ -143,7 +145,7 @@ f2_poly_t f2poly_find_prim(int degree, int need_irr) {
 
   while (rv.find_degree() == degree) {
     if (f2poly_is_primitive(rv)) {
-      if (!need_irr || f2poly_is_irreducible(rv))
+      if (!need_irr || spffl::factorization::f2poly_is_irreducible(rv))
         return rv;
     }
     rv.increment();
@@ -158,8 +160,8 @@ f2_poly_t f2poly_find_prim(int degree, int need_irr) {
 }
 
 // ----------------------------------------------------------------
-f2_poly_t f2poly_random_prim(int degree, int need_irr) {
-  f2_poly_t rv;
+spffl::polynomials::f2_poly_t f2poly_random_prim(int degree, int need_irr) {
+  spffl::polynomials::f2_poly_t rv;
 
   if (degree < 1) {
     std::cout << "f2poly_random_prim:  degree must be positive; "
@@ -168,9 +170,9 @@ f2_poly_t f2poly_random_prim(int degree, int need_irr) {
   }
 
   for (;;) {
-    rv = f2_poly_random(degree);
+    rv = spffl::random::f2_poly_random(degree);
     if (f2poly_is_primitive(rv)) {
-      if (!need_irr || f2poly_is_irreducible(rv))
+      if (!need_irr || spffl::factorization::f2poly_is_irreducible(rv))
         return rv;
     }
   }
@@ -186,7 +188,7 @@ f2_poly_t f2poly_random_prim(int degree, int need_irr) {
 // This cuts the naive search (which is O(n)) down to a search of O(sqrt(n)).
 
 typedef struct _poly_and_index_t {
-  f2_polymod_t elt;
+  spffl::polynomials::f2_polymod_t elt;
   int idx;
 } poly_and_index_t;
 
@@ -201,11 +203,11 @@ static int poly_and_index_qcmp(const void *pv1, const void *pv2) {
 }
 
 int f2polymod_log( // Log base g of a.
-    f2_polymod_t g, f2_polymod_t a) {
+    spffl::polynomials::f2_polymod_t g, spffl::polynomials::f2_polymod_t a) {
   int rv = -1;
-  f2_poly_t m = g.get_modulus();
+  spffl::polynomials::f2_poly_t m = g.get_modulus();
   int n = 1 << m.find_degree();
-  unsigned k = (unsigned)int_sqrt_ceil(n);
+  unsigned k = (unsigned)spffl::intmath::int_sqrt_ceil(n);
 
   // xxx check gcd(g, m)
   // xxx check gcd(g, a)
@@ -213,13 +215,13 @@ int f2polymod_log( // Log base g of a.
   poly_and_index_t *agni = new poly_and_index_t[k];
   poly_and_index_t *gkj = new poly_and_index_t[k];
 
-  f2_polymod_t ginv;
+  spffl::polynomials::f2_polymod_t ginv;
   if (!g.recip(ginv)) {
     std::cerr << "f2polymod_log:  g="
               << " is a zero divisor.\n";
     exit(1);
   }
-  f2_polymod_t gk = g.exp(k);
+  spffl::polynomials::f2_polymod_t gk = g.exp(k);
   unsigned i, j;
 
   agni[0].elt = a;
@@ -261,3 +263,5 @@ int f2polymod_log( // Log base g of a.
   delete[] gkj;
   return rv;
 }
+
+} // namespace

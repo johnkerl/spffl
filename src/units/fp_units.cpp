@@ -12,15 +12,17 @@
 #include "tfacinfo.h"
 #include "tvector.h"
 
+namespace spffl::units {
+
 // ----------------------------------------------------------------
 // The simplest algorithm is to loop over all possible exponents from 1
 // to the order of the unit group.  Instead, we use Lagrange's theorem,
 // testing only divisors of the order of the unit group.
 
-int fp_order(intmod_t a) {
+int fp_order(spffl::intmath::intmod_t a) {
   int r = a.get_residue();
   int p = a.get_modulus();
-  int g = int_gcd(r, p);
+  int g = spffl::intmath::int_gcd(r, p);
 
   if (g != 1) {
     std::cerr << "fp_order:  zero or zero divisor " << r << " mod " << p
@@ -28,16 +30,16 @@ int fp_order(intmod_t a) {
     exit(1);
   }
 
-  int phi = int_totient(p);
-  tfacinfo<int> finfo = int_factor(phi);
+  int phi = spffl::intmath::int_totient(p);
+  tfacinfo<int> finfo = spffl::factorization::int_factor(phi);
   tvector<int> phi_divisors = finfo.get_all_divisors(1);
   int nd = phi_divisors.get_num_elements();
-  intmod_t one(1, p);
+  spffl::intmath::intmod_t one(1, p);
 
   // The output from get_all_divisors is guaranteed to be sorted up.
   // Thus, here we will find the *least* exponent e such that a^e = 1.
   for (int i = 0; i < nd; i++) {
-    intmod_t ap = a.exp(phi_divisors[i]);
+    spffl::intmath::intmod_t ap = a.exp(phi_divisors[i]);
     if (ap == one)
       return phi_divisors[i];
   }
@@ -50,15 +52,15 @@ int fp_order(intmod_t a) {
 }
 
 // ----------------------------------------------------------------
-int fp_find_generator(int p, intmod_t &rg) {
+int fp_find_generator(int p, spffl::intmath::intmod_t &rg) {
   int gres;
-  int phi = int_totient(p);
+  int phi = spffl::intmath::int_totient(p);
 
   for (gres = 1; gres < p; gres++) {
-    if (int_gcd(gres, p) != 1)
+    if (spffl::intmath::int_gcd(gres, p) != 1)
       continue;
 
-    intmod_t g(gres, p);
+    spffl::intmath::intmod_t g(gres, p);
     if (fp_order(g) == phi) {
       rg = g;
       return 1;
@@ -80,7 +82,7 @@ int fp_find_generator(int p, intmod_t &rg) {
 // This cuts the naive search (which is O(n)) down to a search of O(sqrt(n)).
 
 typedef struct _poly_and_index_t {
-  intmod_t elt;
+  spffl::intmath::intmod_t elt;
   int idx;
 } poly_and_index_t;
 
@@ -95,10 +97,10 @@ static int poly_and_index_qcmp(const void *pv1, const void *pv2) {
 }
 
 int fp_log( // Log base g of a.
-    intmod_t g, intmod_t a) {
+    spffl::intmath::intmod_t g, spffl::intmath::intmod_t a) {
   int rv = -1;
   int p = g.get_modulus();
-  unsigned k = (unsigned)int_sqrt_ceil(p);
+  unsigned k = (unsigned)spffl::intmath::int_sqrt_ceil(p);
 
   // xxx check gcd(g, p)
   // xxx check gcd(g, a)
@@ -106,13 +108,13 @@ int fp_log( // Log base g of a.
   poly_and_index_t *agni = new poly_and_index_t[k];
   poly_and_index_t *gkj = new poly_and_index_t[k];
 
-  intmod_t ginv;
+  spffl::intmath::intmod_t ginv;
   if (!g.recip(ginv)) {
     std::cerr << "fp_log:  g="
               << " is a zero divisor.\n";
     exit(1);
   }
-  intmod_t gk = g.exp(k);
+  spffl::intmath::intmod_t gk = g.exp(k);
   unsigned i, j;
 
   agni[0].elt = a;
@@ -152,5 +154,7 @@ int fp_log( // Log base g of a.
 
   delete[] agni;
   delete[] gkj;
-  return rv % int_totient(p);
+  return rv % spffl::intmath::int_totient(p);
 }
+
+} // namespace

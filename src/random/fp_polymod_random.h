@@ -7,5 +7,7 @@
 #ifndef FPPOLYMOD_RANDOM_H
 #define FPPOLYMOD_RANDOM_H
 #include "fp_polymod_t.h"
-fp_polymod_t fp_polymod_random(fp_poly_t m);
+namespace spffl::random {
+spffl::polynomials::fp_polymod_t fp_polymod_random(spffl::polynomials::fp_poly_t m);
+} // namespace
 #endif // FPPOLYMOD_RANDOM_H

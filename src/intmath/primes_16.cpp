@@ -6,6 +6,8 @@
 
 // Primes up to 2^16, calculated by Pari.
 
+namespace spffl::intmath {
+
 unsigned primes_16[] = {
     2,     3,     5,     7,     11,    13,    17,    19,    23,    29,    31,
     37,    41,    43,    47,    53,    59,    61,    67,    71,    73,    79,
@@ -604,3 +606,5 @@ unsigned primes_16[] = {
     65423, 65437, 65447, 65449, 65479, 65497, 65519, 65521};
 // This is 6542, i.e. 65521 is the 6542nd prime.
 unsigned numprimes16 = sizeof(primes_16) / sizeof(primes_16[0]);
+
+} // namespace

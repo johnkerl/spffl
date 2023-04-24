@@ -9,6 +9,8 @@
 #include "tfacinfo.h"
 #include "tmatrix.h"
 
+namespace spffl::factorization {
+
 // ----------------------------------------------------------------
 tfacinfo<int> int_factor(int n) {
   tfacinfo<int> finfo;
@@ -21,8 +23,8 @@ tfacinfo<int> int_factor(int n) {
     n = -n; // Breaks at MIN_INT; I don't care.
   }
 
-  for (int i = 0; i < numprimes16; i++) {
-    int p = primes_16[i];
+  for (int i = 0; i < spffl::intmath::numprimes16; i++) {
+    int p = spffl::intmath::primes_16[i];
     if (n == 1)
       return finfo;
     if ((n % p) != 0)
@@ -38,3 +40,5 @@ tfacinfo<int> int_factor(int n) {
     finfo.insert_factor(n);
   return finfo;
 }
+
+} // namespace

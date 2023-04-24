@@ -129,6 +129,8 @@
 
 #include <cstdint>
 
+namespace spffl::bitrand {
+
 // ----------------------------------------------------------------
 // These versions are non-reentrant.
 // Usage:  Nominally, just call iran32() or fran32().  They remember whether
@@ -176,5 +178,7 @@ void sran32_timeofday_r(uint32_t &state0, uint32_t &state1void);
 // ----------------------------------------------------------------
 // This is the 64-bit pseudo-DES in-place hash.
 void psdes_hash_64(uint32_t &word0, uint32_t &word1);
+
+} // namespace
 
 #endif // PSDES_H

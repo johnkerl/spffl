@@ -13,6 +13,8 @@
 #include <iomanip>
 #include <iostream>
 
+namespace spffl::polynomials {
+
 class fpn_poly_t {
 public:
   fpn_poly_t(void);
@@ -43,7 +45,7 @@ public:
   fpn_poly_t operator-(void) const;
   fpn_poly_t operator*(fpn_poly_t that) const;
   fpn_poly_t operator*(fp_polymod_t a);
-  fpn_poly_t operator*(intmod_t a);
+  fpn_poly_t operator*(spffl::intmath::intmod_t a);
   fpn_poly_t operator/(fpn_poly_t that);
   fpn_poly_t operator%(fpn_poly_t that);
   fpn_poly_t operator/(fp_polymod_t a);
@@ -99,7 +101,9 @@ private:
   void recompute_degree();
 };
 
+} // namespace
+
 // Same as the gcd method, but overloaded.  This is important for template use.
-fpn_poly_t gcd(fpn_poly_t a, fpn_poly_t b);
+spffl::polynomials::fpn_poly_t gcd(spffl::polynomials::fpn_poly_t a, spffl::polynomials::fpn_poly_t b);
 
 #endif // FPNPOLY_T_H

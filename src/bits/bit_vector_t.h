@@ -7,6 +7,14 @@
 #ifndef BIT_VECTOR_T_H
 #define BIT_VECTOR_T_H
 
+#include "bit_t.h"
+#include <cstdint>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+
+namespace spffl::bits {
+
 #define BITS_PER_WORD (8 * sizeof(unsigned))
 
 #define WORD_MASK (BITS_PER_WORD - 1)
@@ -33,12 +41,6 @@
   (wordptr[WORD_INDEX_FROM_BIT_INDEX(bi)] ^= (1 << WORD_POS_FROM_BIT_INDEX(bi)))
 
 #define NWORDS_FROM_NBITS(nb) (((nb) + BITS_PER_WORD - 1) >> BITS_SHIFT)
-
-#include "bit_t.h"
-#include <cstdint>
-#include <fstream>
-#include <iostream>
-#include <sstream>
 
 class bit_vector_t {
 public:
@@ -139,5 +141,7 @@ private:
   void bounds_check(int index);
   void trim(void);
 };
+
+} // namespace
 
 #endif // BIT_VECTOR_T_H

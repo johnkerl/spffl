@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+namespace spffl::intmath {
+
 // ----------------------------------------------------------------
 bool isprime_trial(int n) {
   int d, q;
@@ -69,13 +71,15 @@ int is_prime(int n) {
 }
 
 // ----------------------------------------------------------------
-int nthprime(int n) {
+int nth_prime(int n) {
   if (n > numprimes16) {
-    std::cerr << "nthprime:  n=" << n << " past end of table.\n";
+    std::cerr << "nth_prime:  n=" << n << " past end of table.\n";
     exit(1);
   } else if (n < 1) {
-    std::cerr << "nthprime:  n=" << n << " should have been positive.\n";
+    std::cerr << "nth_prime:  n=" << n << " should have been positive.\n";
     exit(1);
   }
   return (int)primes_16[n - 1];
 }
+
+} // namespace

@@ -9,6 +9,8 @@
 #include "tokenize.h"
 #include <string.h>
 
+namespace spffl::polynomials {
+
 // ----------------------------------------------------------------
 f2n_poly_t::f2n_poly_t(void) {
   f2_polymod_t invalid(f2_poly_t(0), f2_poly_t(1));
@@ -488,9 +490,6 @@ f2n_poly_t f2n_poly_t::gcd(f2n_poly_t &that) {
 }
 
 // ----------------------------------------------------------------
-f2n_poly_t gcd(f2n_poly_t a, f2n_poly_t b) { return a.gcd(b); }
-
-// ----------------------------------------------------------------
 // Blankinship's algorithm.
 
 f2n_poly_t f2n_poly_t::ext_gcd(f2n_poly_t &that, f2n_poly_t &rm, f2n_poly_t &rn) {
@@ -905,7 +904,7 @@ int f2n_poly_t::from_string(char *string, f2_poly_t m) {
 
   char *dup = strdup(string);
   char **argv = new char *[num_colons + 1];
-  int argc = tokenize(dup, ":", argv, num_colons + 1);
+  int argc = spffl::base::tokenize(dup, ":", argv, num_colons + 1);
   if (argc < 1) {
     // Needs an error message, but this coding error is
     // unlikely since we already counted colons.
@@ -956,3 +955,8 @@ void f2n_poly_t::promote_and_add(f2_polymod_t c0) {
   this->promote();
   this->coeffs[0] = c0;
 }
+
+} // namespace
+
+// ----------------------------------------------------------------
+spffl::polynomials::f2n_poly_t gcd(spffl::polynomials::f2n_poly_t a, spffl::polynomials::f2n_poly_t b) { return a.gcd(b); }

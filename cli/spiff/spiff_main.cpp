@@ -50,7 +50,7 @@ lookup_t lookups[] = {
     {"zlcm", zlcm_main, zlcm_usage},
     {"ztotient", ztotient_main, ztotient_usage},
     {"ztestprime", ztestprime_main, ztestprime_usage},
-    {"nthprime", nthprime_main, nthprime_usage},
+    {"spffl::intmath::nth_prime", nthprime_main, nthprime_usage},
     {"zlist", zlist_main, zlist_usage},
     {"zfactor", zfactor_main, zfactor_usage},
     {"zdivisors", zdivisors_main, zdivisors_usage},
@@ -244,7 +244,7 @@ int main(int argc, char **argv) {
 
   // Recursively invokes this program to handle {} pairs, e.g.
   //   spiff f2pdeg { f2pfactor { f2pop 2 ^ 127 - 1 } }
-  cmd_interpolate(exename, argc, argv);
+  spffl::cliparser::cmd_interpolate(exename, argc, argv);
 
   if (argc < 1)
     main_usage(exename);

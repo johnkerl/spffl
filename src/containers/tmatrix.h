@@ -204,10 +204,10 @@ public:
 
     if (strchr(pinnerstart, '[')) {
       // There are nested brackets.
-      this->num_rows = count_tokens(pinnerstart, "[");
+      this->num_rows = spffl::base::count_tokens(pinnerstart, "[");
       this->rows = new tvector<element_type>[this->num_rows];
       char **stringv = new char *[this->num_rows];
-      (void)tokenize(pinnerstart, "[", stringv, this->num_rows);
+      (void)spffl::base::tokenize(pinnerstart, "[", stringv, this->num_rows);
 
       for (int i = 0; i < this->num_rows; i++) {
         char *rowcopy = new char[strlen(stringv[i]) + 2];
@@ -1629,7 +1629,7 @@ static std::istream &operator>>(std::istream &is, tmatrix<element_type> &m) {
 
     // Allow multiple matrices in the same stream, delimited by
     // carriage returns.
-    if (is_whitespace_line(pline)) {
+    if (spffl::base::is_whitespace_line(pline)) {
       if (m.num_rows == 0)
         continue;
       else

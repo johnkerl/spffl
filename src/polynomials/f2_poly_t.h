@@ -16,6 +16,7 @@
 #include <iostream>
 #include <sstream>
 
+namespace spffl::polynomials {
 // One may uncomment this, and/or use -DF2POLY_SMALL on the compile line.
 //#define F2POLY_SMALL
 
@@ -71,7 +72,7 @@ public:
   f2_poly_t deriv(void);
   int square_root(f2_poly_t &rroot);
   int eval(int c);
-  bit_t eval(bit_t c);
+  spffl::bits::bit_t eval(spffl::bits::bit_t c);
   int zcount_one_bits(void);
 
   int find_degree(void) const; // deg(0) is defined to be 0.
@@ -97,7 +98,7 @@ public:
   // This facilitates nice tabular output in certain situations.
   void dprint(std::ostream &os, int deg) const;
 
-  void set_coeff(int pos, bit_t b);
+  void set_coeff(int pos, spffl::bits::bit_t b);
   void set_bit(int pos);
   int bit_at(int pos) const;
 
@@ -124,9 +125,6 @@ private:
 #endif
   void debug_print(std::ostream &os);
 };
-
-// Same as the gcd method, but overloaded.  This is important for template use.
-f2_poly_t gcd(f2_poly_t a, f2_poly_t b);
 
 // ================================================================
 #ifdef F2POLY_SMALL
@@ -211,7 +209,7 @@ inline int f2_poly_t::zcount_one_bits(void) {
   return 1 & count_one_bits((unsigned char *)&this->bits, sizeof(this->bits));
 }
 
-inline int f2_poly_t::find_degree(void) const { return find_msb_32(this->bits); }
+inline int f2_poly_t::find_degree(void) const { return spffl::intmath::find_msb_32(this->bits); }
 
 inline int f2_poly_t::operator==(int v) const {
   return this->bits == (unsigned)(v & 1);
@@ -255,7 +253,7 @@ inline void f2_poly_t::set_bit(int deg) {
   this->bits |= 1 << deg;
 }
 
-inline void f2_poly_t::set_coeff(int deg, bit_t b) {
+inline void f2_poly_t::set_coeff(int deg, spffl::bits::bit_t b) {
   this->bounds_check(deg);
   if (b.get_residue())
     this->bits |= 1 << deg;
@@ -269,6 +267,11 @@ inline void f2_poly_t::bounds_check(int deg) const {
 }
 
 #endif // F2POLY_SMALL
+
+} // namespace
+
+// Same as the gcd method, but overloaded.  This is important for template use.
+spffl::polynomials::f2_poly_t gcd(spffl::polynomials::f2_poly_t a, spffl::polynomials::f2_poly_t b);
 
 // ================================================================
 #endif // F2POLY_T_H

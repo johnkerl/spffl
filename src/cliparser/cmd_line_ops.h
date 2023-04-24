@@ -23,6 +23,8 @@
 #include <sstream>
 #include <string.h>
 
+namespace spffl::cliparser {
+
 template <class element_type> struct atom_t {
   element_type type_val;
   int int_val;
@@ -643,5 +645,7 @@ void cmd_line_parse(int argc, char **argv, element_type zero,
     match<element_type>(lex_ctx, L_EOL);
   }
 }
+
+} // namespace
 
 #endif // CMDLINEOPS_H

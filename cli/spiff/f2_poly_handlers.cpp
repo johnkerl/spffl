@@ -35,14 +35,14 @@ int f2plist_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
 
   for (int deg = deglo; deg <= deghi; deg++) {
-    tvector<f2_poly_t> elts = f2poly_list(deg);
+    tvector<spffl::polynomials::f2_poly_t> elts = spffl::list::f2poly_list(deg);
     elts.crout(std::cout);
   }
   return 0;
 }
 
 int f2pop_main(int argc, char **argv, usage_t *pusage) {
-  cmd_line_parse<f2_poly_t>(argc - 1, argv + 1, f2_poly_t(0), f2_poly_t(1));
+  spffl::cliparser::cmd_line_parse<spffl::polynomials::f2_poly_t>(argc - 1, argv + 1, spffl::polynomials::f2_poly_t(0), spffl::polynomials::f2_poly_t(1));
   return 0;
 }
 
@@ -52,7 +52,7 @@ void f2pdeg_usage(char *argv0) {
 }
 
 int f2pdeg_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t a;
+  spffl::polynomials::f2_poly_t a;
   for (int argi = 1; argi < argc; argi++) {
     if (!a.from_string(argv[argi]))
       pusage(argv[0]);
@@ -70,7 +70,7 @@ void f2pgcd_usage(char *argv0) {
 
 int f2pgcd_main(int argc, char **argv, usage_t *pusage) {
   if ((argc >= 2) && (strcmp(argv[1], "-e") == 0)) {
-    f2_poly_t a, b, g, r, s;
+    spffl::polynomials::f2_poly_t a, b, g, r, s;
     if (argc != 4)
       pusage(argv[0]);
     if (!a.from_string(argv[2]))
@@ -82,13 +82,13 @@ int f2pgcd_main(int argc, char **argv, usage_t *pusage) {
     std::cout << g << " = " << r << " * " << a << " + " << s << " * " << b
               << std::endl;
 
-    f2_poly_t check = a * r + b * s;
+    spffl::polynomials::f2_poly_t check = a * r + b * s;
     if (g != check) {
       std::cerr << "Coding error in extended GCD.\n";
       exit(1);
     }
   } else {
-    f2_poly_t a, g;
+    spffl::polynomials::f2_poly_t a, g;
     if (argc < 2)
       pusage(argv[0]);
     if (!a.from_string(argv[1]))
@@ -110,7 +110,7 @@ void f2plcm_usage(char *argv0) {
 }
 
 int f2plcm_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t a, l;
+  spffl::polynomials::f2_poly_t a, l;
 
   if (argc < 2)
     pusage(argv[0]);
@@ -132,14 +132,14 @@ void f2ptotient_usage(char *argv0) {
 }
 
 int f2ptotient_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t a;
+  spffl::polynomials::f2_poly_t a;
   int phi;
   if (argc < 2)
     pusage(argv[0]);
   for (int argi = 1; argi < argc; argi++) {
     if (!a.from_string(argv[argi]))
       pusage(argv[0]);
-    phi = f2_poly_totient(a);
+    phi = spffl::factorization::f2_poly_totient(a);
     if (argc > 2)
       std::cout << a << ": ";
     std::cout << phi << std::endl;
@@ -172,13 +172,13 @@ int f2ptest_main(int argc, char **argv, usage_t *pusage) {
   }
 
   for (int argi = 2; argi < argc; argi++) {
-    f2_poly_t a;
+    spffl::polynomials::f2_poly_t a;
     if (!a.from_string(argv[argi]))
       pusage(argv[0]);
     if (argc > 2)
       std::cout << a << ": ";
     if (do_irr) {
-      if (f2poly_is_irreducible(a))
+      if (spffl::factorization::f2poly_is_irreducible(a))
         std::cout << "IRREDUCIBLE";
       else
         std::cout << "reducible";
@@ -186,7 +186,7 @@ int f2ptest_main(int argc, char **argv, usage_t *pusage) {
     if (do_irr && do_prim)
       std::cout << " ";
     if (do_prim) {
-      if (f2poly_is_primitive(a))
+      if (spffl::units::f2poly_is_primitive(a))
         std::cout << "PRIMITIVE";
       else
         std::cout << "imprimitive";
@@ -238,12 +238,12 @@ int f2pfind_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
 
   for (int deg = deglo; deg <= deghi; deg++) {
-    f2_poly_t a;
+    spffl::polynomials::f2_poly_t a;
     if (do_prim) {
-      a = do_random ? f2poly_random_prim(deg, do_irr)
-                    : f2poly_find_prim(deg, do_irr);
+      a = do_random ? spffl::units::f2poly_random_prim(deg, do_irr)
+                    : spffl::units::f2poly_find_prim(deg, do_irr);
     } else {
-      a = do_random ? f2poly_random_irr(deg) : f2poly_find_irr(deg);
+      a = do_random ? spffl::factorization::f2poly_random_irr(deg) : spffl::factorization::f2poly_find_irr(deg);
     }
     std::cout << a << std::endl;
   }
@@ -256,13 +256,13 @@ void f2pperiod_usage(char *argv0) {
 }
 
 int f2pperiod_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t a;
+  spffl::polynomials::f2_poly_t a;
   for (int argi = 1; argi < argc; argi++) {
     if (!a.from_string(argv[argi]))
       pusage(argv[0]);
     if (argc > 2)
       std::cout << a << ": ";
-    std::cout << f2poly_period(a) << std::endl;
+    std::cout << spffl::units::f2poly_period(a) << std::endl;
   }
   return 0;
 }
@@ -273,18 +273,18 @@ void f2pfactor_usage(char *argv0) {
 }
 
 int f2pfactor_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t a;
+  spffl::polynomials::f2_poly_t a;
   for (int argi = 1; argi < argc; argi++) {
     if (!a.from_string(argv[argi]))
       pusage(argv[0]);
     if (argc > 2)
       std::cout << a << " = ";
-    tfacinfo<f2_poly_t> finfo = f2_poly_factor(a);
+    tfacinfo<spffl::polynomials::f2_poly_t> finfo = spffl::factorization::f2_poly_factor(a);
     std::cout << finfo << std::endl;
 
-    f2_poly_t check = finfo.unfactor(f2_poly_t(1));
+    spffl::polynomials::f2_poly_t check = finfo.unfactor(spffl::polynomials::f2_poly_t(1));
     if (check != a) {
-      std::cerr << "Coding error in f2_poly_factor.\n";
+      std::cerr << "Coding error in spffl::factorization::f2_poly_factor.\n";
       std::cerr << "  Input: " << a << std::endl;
       std::cerr << "  Check: " << check << std::endl;
       std::cerr << "  Factors: " << finfo << std::endl;
@@ -300,7 +300,7 @@ void f2pdivisors_usage(char *argv0) {
 }
 
 int f2pdivisors_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t a;
+  spffl::polynomials::f2_poly_t a;
   int argb = 1;
   int maximal_proper_only = 0;
   if ((argc >= 2) && (strcmp(argv[1], "-mp") == 0)) {
@@ -312,15 +312,15 @@ int f2pdivisors_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if ((argc - argb) > 1)
       std::cout << a << ": ";
-    tfacinfo<f2_poly_t> finfo = f2_poly_factor(a);
-    tvector<f2_poly_t> divisors;
+    tfacinfo<spffl::polynomials::f2_poly_t> finfo = spffl::factorization::f2_poly_factor(a);
+    tvector<spffl::polynomials::f2_poly_t> divisors;
     if (maximal_proper_only) {
-      if (!finfo.get_maximal_proper_divisors(divisors, f2_poly_t(1))) {
+      if (!finfo.get_maximal_proper_divisors(divisors, spffl::polynomials::f2_poly_t(1))) {
         std::cout << "(none)\n";
         continue;
       }
     } else {
-      divisors = finfo.get_all_divisors(f2_poly_t(1));
+      divisors = finfo.get_all_divisors(spffl::polynomials::f2_poly_t(1));
     }
     int nd = divisors.get_num_elements();
     for (int k = 0; k < nd; k++) {
@@ -339,8 +339,8 @@ void f2peval_usage(char *argv0) {
 }
 
 int f2peval_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t f;
-  bit_t a, b;
+  spffl::polynomials::f2_poly_t f;
+  spffl::bits::bit_t a, b;
 
   if (argc < 3)
     pusage(argv[0]);
@@ -374,7 +374,7 @@ int f2prandom_main(int argc, char **argv, usage_t *pusage) {
   }
 
   for (int i = 0; i < count; i++)
-    std::cout << f2_poly_random(deg) << std::endl;
+    std::cout << spffl::random::f2_poly_random(deg) << std::endl;
 
   return 0;
 }
@@ -385,21 +385,21 @@ void f2pcompmx_usage(char *argv0) {
 }
 
 int f2pcompmx_main(int argc, char **argv, usage_t *pusage) {
-  f2_poly_t chpol;
+  spffl::polynomials::f2_poly_t chpol;
 
   if (argc != 2)
     pusage(argv[0]);
   if (!chpol.from_string(argv[1]))
     pusage(argv[0]);
 
-  tmatrix<bit_t> A = f2_companion_matrix(chpol);
+  tmatrix<spffl::bits::bit_t> A = spffl::linalg::f2_companion_matrix(chpol);
   std::cout << A << std::endl;
 
   return 0;
 }
 
 int f2pmatop_main(int argc, char **argv, usage_t *pusage) {
-  cmd_line_mat_parse<f2_poly_t>(argc - 1, argv + 1, f2_poly_t(0), f2_poly_t(1));
+  spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::f2_poly_t>(argc - 1, argv + 1, spffl::polynomials::f2_poly_t(0), spffl::polynomials::f2_poly_t(1));
   return 0;
 }
 
@@ -409,14 +409,14 @@ void f2pqp_usage(char *argv0) {
 }
 
 int f2pqp_main(int argc, char **argv, usage_t *pusage) {
-  qpoly_t qp;
-  f2_poly_t f2p;
+  spffl::rationals::qpoly_t qp;
+  spffl::polynomials::f2_poly_t f2p;
   if (argc < 2)
     pusage(argv[0]);
   for (int argi = 1; argi < argc; argi++) {
     if (!qp.from_string(argv[argi]))
       pusage(argv[0]);
-    f2p = f2poly_from_qpoly(qp);
+    f2p = spffl::qcyclo::f2poly_from_qpoly(qp);
     std::cout << f2p << std::endl;
   }
   return 0;

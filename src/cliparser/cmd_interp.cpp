@@ -6,6 +6,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+namespace spffl::cliparser {
+
 #define LBRK "{"
 #define RBRK "}"
 
@@ -108,10 +110,10 @@ static void replace(char *exename, int argcin, char **argvin, int &argcout,
   }
   pclose(pipe);
 
-  argcout = count_tokens(buf, " \t");
+  argcout = spffl::base::count_tokens(buf, " \t");
   argvout = (char **)malloc(argcout * sizeof(char *));
 
-  int check = tokenize(buf, " \t", argvout, argcout);
+  int check = spffl::base::tokenize(buf, " \t", argvout, argcout);
   if (check != argcout) {
     std::cerr << "Coding error in replace.\n";
     exit(1);
@@ -174,3 +176,5 @@ void cmd_interpolate(char *exename, int &argc, char **&argv) {
     cmd_interpolate_once(exename, argc, argv, interpolated);
   } while (interpolated);
 }
+
+} // namespace

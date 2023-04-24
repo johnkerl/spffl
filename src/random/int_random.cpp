@@ -17,6 +17,8 @@
 #define BUFSZ 10000
 #endif
 
+namespace spffl::random {
+
 // ----------------------------------------------------------------
 uint32_t get_random_unsigned(void) { return (uint32_t)get_random_int(); }
 
@@ -57,5 +59,7 @@ int get_random_int(void) {
   return rv;
 }
 #else
-int get_random_int(void) { return iran32(); }
+int get_random_int(void) { return spffl::bitrand::iran32(); }
 #endif // USE_DEV_URANDOM
+
+} // namespace

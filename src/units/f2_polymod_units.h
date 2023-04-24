@@ -8,27 +8,31 @@
 #define F2POLYMOD_UNITS_H
 #include "f2_polymod_t.h"
 
-int f2polymod_order(f2_polymod_t a);
+namespace spffl::units {
+
+int f2polymod_order(spffl::polynomials::f2_polymod_t a);
 
 // The function return value is 1 if a generator was found, 0 otherwise.
 // In the former case, rg holds the found generator.
-int f2polymod_find_generator(f2_poly_t m, f2_polymod_t &rg);
+int f2polymod_find_generator(spffl::polynomials::f2_poly_t m, spffl::polynomials::f2_polymod_t &rg);
 
 // Returns 1 if x generates the multiplicative group.  An irreducibility
 // test is not done.
-int f2poly_is_primitive(f2_poly_t m);
+int f2poly_is_primitive(spffl::polynomials::f2_poly_t m);
 
-int f2poly_period(f2_poly_t m);
+int f2poly_period(spffl::polynomials::f2_poly_t m);
 
 // Lexically lowest.
-f2_poly_t f2poly_find_prim(int degree, int need_irr);
+spffl::polynomials::f2_poly_t f2poly_find_prim(int degree, int need_irr);
 
-f2_poly_t f2poly_random_prim(int degree, int need_irr);
+spffl::polynomials::f2_poly_t f2poly_random_prim(int degree, int need_irr);
 
 // Log base g of a, using Shanks' algorithm.
 //
 // Warning:  We assume that g is a generator.  We do not test this, not
 // only for efficiency, but in case the caller is working within a subfield.
-int f2polymod_log(f2_polymod_t g, f2_polymod_t a);
+int f2polymod_log(spffl::polynomials::f2_polymod_t g, spffl::polynomials::f2_polymod_t a);
+
+} // namespace
 
 #endif // F2POLYMOD_UNITS_H

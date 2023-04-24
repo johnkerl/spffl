@@ -24,6 +24,8 @@
 #include <string.h>
 #include <string>
 
+namespace spffl::cliparser {
+
 template <class element_type> struct matatom_t {
   tmatrix<element_type> mat_val;
   element_type scalar_val;
@@ -705,5 +707,7 @@ void cmd_line_mat_parse(int argc, char **argv, element_type zero,
     match<element_type>(lex_ctx, L_EOL);
   }
 }
+
+} // namespace
 
 #endif // CMDLINEEDMATOPS_H

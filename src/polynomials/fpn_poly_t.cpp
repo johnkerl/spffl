@@ -9,6 +9,8 @@
 #include "tokenize.h"
 #include <string.h>
 
+namespace spffl::polynomials {
+
 // ----------------------------------------------------------------
 fpn_poly_t::fpn_poly_t(void) {
   fp_polymod_t a; // Use default constructor.
@@ -118,7 +120,7 @@ fpn_poly_t fpn_poly_t::prime_sfld_elt(int v) const {
 
 fpn_poly_t fpn_poly_t::prime_sfld_elt(int v, fp_poly_t m) {
   int p = m.get_coeff(0).get_modulus();
-  return fpn_poly_t(fp_polymod_t(fp_poly_t(intmod_t(v, p)), m));
+  return fpn_poly_t(fp_polymod_t(fp_poly_t(spffl::intmath::intmod_t(v, p)), m));
 }
 
 // ----------------------------------------------------------------
@@ -234,7 +236,7 @@ fpn_poly_t fpn_poly_t::operator*(fp_polymod_t a) {
 }
 
 // ----------------------------------------------------------------
-fpn_poly_t fpn_poly_t::operator*(intmod_t a) {
+fpn_poly_t fpn_poly_t::operator*(spffl::intmath::intmod_t a) {
   fpn_poly_t rv = *this;
   for (int i = 0; i <= rv.degree; i++)
     rv.coeffs[i] *= a;
@@ -423,9 +425,6 @@ fpn_poly_t fpn_poly_t::gcd(fpn_poly_t &that) {
 }
 
 // ----------------------------------------------------------------
-fpn_poly_t gcd(fpn_poly_t a, fpn_poly_t b) { return a.gcd(b); }
-
-// ----------------------------------------------------------------
 // Blankinship's algorithm.
 
 fpn_poly_t fpn_poly_t::ext_gcd(fpn_poly_t &that, fpn_poly_t &rm, fpn_poly_t &rn) {
@@ -508,7 +507,7 @@ fpn_poly_t fpn_poly_t::deriv(void) {
   int p = this->get_char();
   rv.degree--;
   for (int i = 1; i <= this->degree; i++)
-    rv.coeffs[i - 1] = this->coeffs[i] * intmod_t(i, p);
+    rv.coeffs[i - 1] = this->coeffs[i] * spffl::intmath::intmod_t(i, p);
   rv.recompute_degree();
   return rv;
 }
@@ -788,7 +787,7 @@ int fpn_poly_t::from_string(char *string, fp_poly_t m) {
 
   char *dup = strdup(string);
   char **argv = new char *[num_colons + 1];
-  int argc = tokenize(dup, ":", argv, num_colons + 1);
+  int argc = spffl::base::tokenize(dup, ":", argv, num_colons + 1);
   if (argc < 1) {
     // Needs an error message, but this coding error is
     // unlikely since we already counted colons.
@@ -839,3 +838,8 @@ void fpn_poly_t::promote_and_add(fp_polymod_t c0) {
   this->promote();
   this->coeffs[0] = c0;
 }
+
+} // namespace
+
+// ----------------------------------------------------------------
+spffl::polynomials::fpn_poly_t gcd(spffl::polynomials::fpn_poly_t a, spffl::polynomials::fpn_poly_t b) { return a.gcd(b); }

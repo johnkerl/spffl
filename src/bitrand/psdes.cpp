@@ -8,6 +8,7 @@
 #include <sys/time.h>
 #include <cstdint>
 #include <unistd.h>
+namespace spffl::bitrand {
 
 // ================================================================
 static uint32_t non_reentrant_state0 = 0;
@@ -139,3 +140,5 @@ void psdes_hash_64(uint32_t &word0, uint32_t &word1) {
     word0 = iswap;
   }
 }
+
+} // namespace

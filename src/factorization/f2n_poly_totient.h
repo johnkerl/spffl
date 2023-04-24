@@ -7,5 +7,11 @@
 #ifndef F2NPOLY_TOTIENT_H
 #define F2NPOLY_TOTIENT_H
 #include "f2n_poly_t.h"
-int f2n_poly_totient(f2n_poly_t f);
+
+namespace spffl::factorization {
+
+int f2n_poly_totient(spffl::polynomials::f2n_poly_t f);
+
+} // namespace
+
 #endif // F2NPOLY_TOTIENT_H

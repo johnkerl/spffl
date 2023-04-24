@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
     usage(argv[0]);
   }
 
-  g = int_gcd(a, b);
+  g = spffl::intmath::int_gcd(a, b);
 
   printf("%d\n", g);
 

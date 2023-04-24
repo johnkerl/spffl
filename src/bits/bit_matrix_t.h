@@ -10,6 +10,7 @@
 #include "bit_vector_t.h"
 #include <cstdint>
 #include <iostream>
+namespace spffl::bits {
 
 class bit_matrix_t {
 public:
@@ -113,5 +114,7 @@ private:
   // This is a private auxiliary function for the exp() method.
   bit_matrix_t posexp(int power, bit_matrix_t &I);
 };
+
+} // namespace
 
 #endif // BIT_MATRIX_T_H

@@ -8,8 +8,10 @@
 #include "f2_poly_random.h"
 #include "int_random.h"
 
+namespace spffl::random {
+
 // ----------------------------------------------------------------
-f2_polymod_t f2_polymod_random(f2_poly_t m) {
+spffl::polynomials::f2_polymod_t f2_polymod_random(spffl::polynomials::f2_poly_t m) {
   int deg = m.find_degree();
   if (deg < 1) {
     std::cerr << "f2_polymod_random:  degree (" << deg << ") of " << m
@@ -17,5 +19,7 @@ f2_polymod_t f2_polymod_random(f2_poly_t m) {
     exit(1);
   }
 
-  return f2_polymod_t(f2_poly_random(deg), m);
+  return spffl::polynomials::f2_polymod_t(f2_poly_random(deg), m);
 }
+
+} // namespace

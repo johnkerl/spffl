@@ -11,6 +11,8 @@
 #include <iomanip>
 #include <iostream>
 
+namespace spffl::polynomials {
+
 class fpn_polymod_t {
 public:
   fpn_polymod_t(fpn_poly_t residue, fpn_poly_t modulus);
@@ -66,5 +68,7 @@ private:
 
   void check_moduli(fpn_polymod_t &that) const;
 };
+
+} // namespace
 
 #endif // FPNPOLYMOD_T_H

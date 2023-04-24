@@ -6,6 +6,8 @@
 
 #include "count_bits.h"
 
+namespace spffl::bits {
+
 static unsigned char byte_num_one_bits[] = {
     0 /*00*/, 1 /*01*/, 1 /*02*/, 2 /*03*/, 1 /*04*/, 2 /*05*/, 2 /*06*/,
     3 /*07*/, 1 /*08*/, 2 /*09*/, 2 /*0a*/, 3 /*0b*/, 2 /*0c*/, 3 /*0d*/,
@@ -91,3 +93,5 @@ int main(void) {
   return 0;
 }
 #endif // MAKE_TABLE
+
+} // namespace

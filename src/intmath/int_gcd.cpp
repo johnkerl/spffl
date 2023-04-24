@@ -6,6 +6,8 @@
 
 #include "int_gcd.h"
 
+namespace spffl::intmath {
+
 // ----------------------------------------------------------------
 int int_gcd(int a, int b) {
   int r;
@@ -77,3 +79,5 @@ int int_lcm(int a, int b) { return (a * b) / int_gcd(a, b); }
 
 // ----------------------------------------------------------------
 int gcd(int a, int b) { return int_gcd(a, b); }
+
+} // namespace

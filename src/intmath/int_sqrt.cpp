@@ -8,6 +8,8 @@
 #include <iostream>
 #include <stdlib.h>
 
+namespace spffl::intmath {
+
 static int int_sqrt(int nsigned, bool want_ceil) {
   unsigned n = (unsigned)nsigned;
   unsigned nsv, half_log;
@@ -54,3 +56,5 @@ int int_sqrt_ceil(int nsigned) {
 int int_sqrt_floor(int nsigned) {
     return int_sqrt(nsigned, false);
 }
+
+} // namespace

@@ -15,6 +15,8 @@
 #include <iomanip>
 #include <iostream>
 
+namespace spffl::rationals {
+
 class qpoly_t {
 public:
   qpoly_t(void);
@@ -90,5 +92,7 @@ private:
   void bounds_check(int deg) const;
   void recompute_degree();
 };
+
+} // namespace
 
 #endif // QPOLY_T_H

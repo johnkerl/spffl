@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+namespace spffl::bits {
 
 // ----------------------------------------------------------------
 bit_matrix_t::bit_matrix_t(int init_num_rows, int init_num_cols) {
@@ -207,7 +208,7 @@ std::istream &operator>>(std::istream &is, bit_matrix_t &m) {
 
     // Allow multiple matrices in the same stream, delimited by
     // carriage returns.
-    if (is_whitespace_line(line)) {
+    if (spffl::base::is_whitespace_line(line)) {
       if (m.num_rows == 0)
         continue;
       else
@@ -898,3 +899,5 @@ void bit_matrix_t::check_dims(bit_matrix_t that, char *msg) {
     exit(1);
   }
 }
+
+} // namespace

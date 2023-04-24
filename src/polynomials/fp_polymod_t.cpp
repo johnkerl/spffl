@@ -8,6 +8,8 @@
 #include <iomanip>
 #include <iostream>
 
+namespace spffl::polynomials {
+
 // ----------------------------------------------------------------
 fp_polymod_t::fp_polymod_t(fp_poly_t arg_residue, fp_poly_t arg_modulus) {
   this->residue = arg_residue;
@@ -100,7 +102,7 @@ fp_polymod_t fp_polymod_t::operator*(int a) {
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t fp_polymod_t::operator*(intmod_t a) {
+fp_polymod_t fp_polymod_t::operator*(spffl::intmath::intmod_t a) {
   fp_polymod_t rv(*this);
   rv.modulus *= a;
   return rv;
@@ -146,7 +148,7 @@ int fp_polymod_t::recip(fp_polymod_t &rinv) {
   }
 
   // Ext. GCD actually returns a scalar multiple of 1.  Divide this out.
-  intmod_t c0i;
+  spffl::intmath::intmod_t c0i;
   if (!g.get_coeff(0).recip(c0i)) {
     std::cerr << "fp_polymod_t::recip:  zero or zero divisor "
               << " in GCD " << g << ".\n";
@@ -259,7 +261,7 @@ fp_polymod_t &fp_polymod_t::operator*=(int a) {
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t &fp_polymod_t::operator*=(intmod_t a) {
+fp_polymod_t &fp_polymod_t::operator*=(spffl::intmath::intmod_t a) {
   *this = *this * a;
   return *this;
 }
@@ -333,3 +335,5 @@ void fp_polymod_t::check_moduli(fp_polymod_t &that) const {
     exit(1);
   }
 }
+
+} // namespace

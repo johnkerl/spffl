@@ -12,10 +12,12 @@
 #include <iostream>
 #include <sstream>
 
+namespace spffl::rationals {
+
 class fp_polyrat_t {
 public:
-  fp_polyrat_t(fp_poly_t numerator, fp_poly_t denominator);
-  fp_polyrat_t(fp_poly_t numerator);
+  fp_polyrat_t(spffl::polynomials::fp_poly_t numerator, spffl::polynomials::fp_poly_t denominator);
+  fp_polyrat_t(spffl::polynomials::fp_poly_t numerator);
   fp_polyrat_t(void);
   fp_polyrat_t(const fp_polyrat_t &that);
   ~fp_polyrat_t(void);
@@ -25,7 +27,7 @@ public:
   int get_char(void);
 
   fp_polyrat_t &operator=(fp_polyrat_t that);
-  fp_polyrat_t &operator=(fp_poly_t numer);
+  fp_polyrat_t &operator=(spffl::polynomials::fp_poly_t numer);
   fp_polyrat_t operator+(fp_polyrat_t that) const;
   fp_polyrat_t operator-(fp_polyrat_t that) const;
   fp_polyrat_t operator-(void) const;
@@ -47,22 +49,24 @@ public:
 
   int operator==(fp_polyrat_t that) const;
   int operator!=(fp_polyrat_t that) const;
-  int operator==(fp_poly_t that) const;
-  int operator!=(fp_poly_t that) const;
+  int operator==(spffl::polynomials::fp_poly_t that) const;
+  int operator!=(spffl::polynomials::fp_poly_t that) const;
 
   int operator<(fp_polyrat_t that) const;
   int operator>(fp_polyrat_t that) const;
   int operator<=(fp_polyrat_t that) const;
   int operator>=(fp_polyrat_t that) const;
 
-  fp_poly_t get_numerator(void) const;
-  fp_poly_t get_denominator(void) const;
+  spffl::polynomials::fp_poly_t get_numerator(void) const;
+  spffl::polynomials::fp_poly_t get_denominator(void) const;
 
 private:
-  fp_poly_t numer;
-  fp_poly_t denom;
+  spffl::polynomials::fp_poly_t numer;
+  spffl::polynomials::fp_poly_t denom;
 
   void simplify();
 };
+
+} // namespace
 
 #endif // FPPOLYRAT_T_H

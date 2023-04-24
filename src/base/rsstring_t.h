@@ -8,6 +8,7 @@
 #define RSSTRING_T_H
 
 // This is just a simple class for a resizable string.
+namespace spffl::base {
 
 class rsstring_t {
 public:
@@ -29,5 +30,7 @@ private:
 
   void make_room(int len);
 };
+
+}
 
 #endif // RSSTRING_T_H

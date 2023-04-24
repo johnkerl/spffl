@@ -11,6 +11,8 @@
 #include <iomanip>
 #include <iostream>
 
+namespace spffl::polynomials {
+
 class f2_polymod_t {
 public:
   f2_polymod_t(f2_poly_t residue, f2_poly_t modulus);
@@ -73,5 +75,7 @@ inline f2_polymod_t::f2_polymod_t(void) {
 }
 
 inline f2_polymod_t::~f2_polymod_t(void) {}
+
+} // namespace
 
 #endif // F2POLYMOD_T_H

@@ -9,15 +9,17 @@
 #include <iomanip>
 #include <iostream>
 
+namespace spffl::rationals {
+
 // ----------------------------------------------------------------
-fp_polyrat_t::fp_polyrat_t(fp_poly_t numerator, fp_poly_t denominator) {
+fp_polyrat_t::fp_polyrat_t(spffl::polynomials::fp_poly_t numerator, spffl::polynomials::fp_poly_t denominator) {
   this->numer = numerator;
   this->denom = denominator;
   this->simplify();
 }
 
 // ----------------------------------------------------------------
-fp_polyrat_t::fp_polyrat_t(fp_poly_t numerator) {
+fp_polyrat_t::fp_polyrat_t(spffl::polynomials::fp_poly_t numerator) {
   this->numer = numerator;
   this->denom = numerator.prime_sfld_elt(1);
   this->simplify();
@@ -37,14 +39,14 @@ fp_polyrat_t::~fp_polyrat_t(void) {}
 
 // ----------------------------------------------------------------
 fp_polyrat_t fp_polyrat_t::prime_sfld_elt(int v) const {
-  fp_poly_t a = this->numer.prime_sfld_elt(v);
+  spffl::polynomials::fp_poly_t a = this->numer.prime_sfld_elt(v);
   return fp_polyrat_t(a);
 }
 
 // ----------------------------------------------------------------
 // This is a static method.
 fp_polyrat_t fp_polyrat_t::prime_sfld_elt(int v, int p) {
-  return fp_polyrat_t(fp_poly_t(intmod_t(v, p)));
+  return fp_polyrat_t(spffl::polynomials::fp_poly_t(spffl::intmath::intmod_t(v, p)));
 }
 
 // ----------------------------------------------------------------
@@ -58,7 +60,7 @@ fp_polyrat_t &fp_polyrat_t::operator=(fp_polyrat_t that) {
 }
 
 // ----------------------------------------------------------------
-fp_polyrat_t &fp_polyrat_t::operator=(fp_poly_t numerator) {
+fp_polyrat_t &fp_polyrat_t::operator=(spffl::polynomials::fp_poly_t numerator) {
   this->numer = numerator;
   this->denom = numerator.prime_sfld_elt(1);
   this->simplify();
@@ -230,8 +232,8 @@ std::istringstream &operator>>(std::istringstream &iss, fp_polyrat_t &a) {
 
 // ----------------------------------------------------------------
 int fp_polyrat_t::from_string(char *string, int p) {
-  this->numer = fp_poly_t(intmod_t(0, p));
-  this->denom = fp_poly_t(intmod_t(1, p));
+  this->numer = spffl::polynomials::fp_poly_t(spffl::intmath::intmod_t(0, p));
+  this->denom = spffl::polynomials::fp_poly_t(spffl::intmath::intmod_t(1, p));
   std::istringstream iss(string, std::ios_base::in);
   iss >> *this;
   return iss.fail() ? 0 : 1;
@@ -282,14 +284,14 @@ int fp_polyrat_t::operator==(fp_polyrat_t that) const {
 int fp_polyrat_t::operator!=(fp_polyrat_t that) const { return !(*this == that); }
 
 // ----------------------------------------------------------------
-int fp_polyrat_t::operator==(fp_poly_t that) const {
+int fp_polyrat_t::operator==(spffl::polynomials::fp_poly_t that) const {
   if (this->denom != this->numer.prime_sfld_elt(1))
     return 0;
   return this->numer == that;
 }
 
 // ----------------------------------------------------------------
-int fp_polyrat_t::operator!=(fp_poly_t that) const { return !(*this == that); }
+int fp_polyrat_t::operator!=(spffl::polynomials::fp_poly_t that) const { return !(*this == that); }
 
 // ----------------------------------------------------------------
 int fp_polyrat_t::operator<(fp_polyrat_t that) const {
@@ -312,17 +314,17 @@ int fp_polyrat_t::operator>=(fp_polyrat_t that) const {
 }
 
 // ----------------------------------------------------------------
-fp_poly_t fp_polyrat_t::get_numerator(void) const { return this->numer; }
+spffl::polynomials::fp_poly_t fp_polyrat_t::get_numerator(void) const { return this->numer; }
 
 // ----------------------------------------------------------------
-fp_poly_t fp_polyrat_t::get_denominator(void) const { return this->denom; }
+spffl::polynomials::fp_poly_t fp_polyrat_t::get_denominator(void) const { return this->denom; }
 
 // ----------------------------------------------------------------
 // * Check denominator != 0
 // * Divide numerator and denominator by their GCD
 
 void fp_polyrat_t::simplify(void) {
-  fp_poly_t g;
+  spffl::polynomials::fp_poly_t g;
   if (this->denom == 0) {
     std::cerr << "rat: Divide by zero.\n";
     exit(1);
@@ -331,3 +333,5 @@ void fp_polyrat_t::simplify(void) {
   this->numer /= g;
   this->denom /= g;
 }
+
+} // namespace
