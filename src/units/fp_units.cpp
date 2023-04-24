@@ -29,7 +29,7 @@ int fp_order(spffl::intmath::intmod_t a) {
   }
 
   int phi = spffl::intmath::int_totient(p);
-  tfacinfo<int> finfo = int_factor(phi);
+  tfacinfo<int> finfo = spffl::factorization::int_factor(phi);
   tvector<int> phi_divisors = finfo.get_all_divisors(1);
   int nd = phi_divisors.get_num_elements();
   spffl::intmath::intmod_t one(1, p);

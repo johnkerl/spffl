@@ -10,6 +10,8 @@
 #include "tfacinfo.h"
 #include "tvector.h"
 
+namespace spffl::factorization {
+
 tfacinfo<spffl::polynomials::f2n_poly_t> f2n_poly_factor(spffl::polynomials::f2n_poly_t f);
 
 // Without multiplicity.
@@ -22,5 +24,7 @@ spffl::polynomials::f2n_poly_t f2npoly_find_irr(spffl::polynomials::f2_poly_t m,
 
 // Monic.
 spffl::polynomials::f2n_poly_t f2npoly_random_irr(spffl::polynomials::f2_poly_t m, int degree);
+
+} // namespace
 
 #endif // F2NPOLY_FACTOR_H

@@ -10,6 +10,8 @@
 #include "tfacinfo.h"
 #include "tmatrix.h"
 
+namespace spffl::factorization {
+
 //#define FPPOLY_FACTOR_DEBUG
 
 static void fppoly_pre_berlekamp(spffl::polynomials::fp_poly_t f, tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo,
@@ -325,3 +327,5 @@ spffl::polynomials::fp_poly_t fppoly_random_irr(int p, int degree) {
     }
   }
 }
+
+} // namespace

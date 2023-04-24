@@ -18,6 +18,8 @@
 #include "tmatrix.h"
 #endif
 
+namespace spffl::factorization {
+
 static void f2poly_pre_berlekamp(spffl::polynomials::f2_poly_t f, tfacinfo<spffl::polynomials::f2_poly_t> &rfinfo,
                                  int recurse);
 
@@ -504,3 +506,5 @@ spffl::polynomials::f2_poly_t f2poly_random_irr(int degree) {
       return rv;
   }
 }
+
+} // namespace

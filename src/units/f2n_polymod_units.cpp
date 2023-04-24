@@ -31,8 +31,8 @@ int f2npolymod_order(spffl::polynomials::f2n_polymod_t a) {
     exit(1);
   }
 
-  int phi = f2n_poly_totient(m);
-  tfacinfo<int> finfo = int_factor(phi);
+  int phi = spffl::factorization::f2n_poly_totient(m);
+  tfacinfo<int> finfo = spffl::factorization::int_factor(phi);
   tvector<int> phi_divisors = finfo.get_all_divisors(1);
   int nd = phi_divisors.get_num_elements();
   spffl::polynomials::f2n_polymod_t one(pol1, m);
@@ -62,7 +62,7 @@ int f2npolymod_find_generator(spffl::polynomials::f2n_poly_t m, spffl::polynomia
               << "must be positive; got " << mdeg << ".\n";
     exit(1);
   }
-  int phi = f2n_poly_totient(m);
+  int phi = spffl::factorization::f2n_poly_totient(m);
 
   while (gres.find_degree() < mdeg) {
     spffl::polynomials::f2n_polymod_t g(gres, m);

@@ -7,5 +7,11 @@
 #ifndef INT_FACTOR_H
 #define INT_FACTOR_H
 #include "tfacinfo.h"
+
+namespace spffl::factorization {
+
 tfacinfo<int> int_factor(int n);
+
+} // namespace
+
 #endif // INT_FACTOR_H

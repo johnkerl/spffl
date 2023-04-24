@@ -39,6 +39,8 @@
 #include "f2n_poly_factor.h"
 #include "int_power.h"
 
+namespace spffl::factorization {
+
 int f2n_poly_totient(spffl::polynomials::f2n_poly_t f) {
   int rv = 1;
   spffl::polynomials::f2_poly_t m = f.get_coeff(0).get_modulus();
@@ -55,3 +57,5 @@ int f2n_poly_totient(spffl::polynomials::f2n_poly_t f) {
 
   return rv;
 }
+
+} // namespace

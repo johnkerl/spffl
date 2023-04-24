@@ -38,6 +38,8 @@
 #include "f2_poly_totient.h"
 #include "f2_poly_factor.h"
 
+namespace spffl::factorization {
+
 int f2_poly_totient(spffl::polynomials::f2_poly_t f) {
   int rv = 1;
   tfacinfo<spffl::polynomials::f2_poly_t> finfo = f2_poly_factor(f);
@@ -52,3 +54,5 @@ int f2_poly_totient(spffl::polynomials::f2_poly_t f) {
 
   return rv;
 }
+
+} // namespace

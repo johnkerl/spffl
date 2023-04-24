@@ -191,7 +191,7 @@ int zfactor_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 2)
       std::cout << a << " = ";
-    tfacinfo<int> finfo = int_factor(a);
+    tfacinfo<int> finfo = spffl::factorization::int_factor(a);
     std::cout << finfo << std::endl;
 
     int check = finfo.unfactor(1);
@@ -226,7 +226,7 @@ int zdivisors_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if ((argc - argb) > 1)
       std::cout << a << ": ";
-    tfacinfo<int> finfo = int_factor(a);
+    tfacinfo<int> finfo = spffl::factorization::int_factor(a);
     tvector<int> divisors;
     if (maximal_proper_only) {
       if (!finfo.get_maximal_proper_divisors(divisors, 1)) {

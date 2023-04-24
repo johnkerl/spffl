@@ -15,7 +15,7 @@ int f2polymod_convert_prep(spffl::polynomials::f2_polymod_t g1, spffl::polynomia
   spffl::polynomials::f2n_poly_t g2_min_poly = g1_min_poly;
   g2_min_poly.change_modulus(m2);
   tvector<spffl::polynomials::f2_polymod_t> roots;
-  if (!f2npoly_roots(g2_min_poly, roots))
+  if (!spffl::factorization::f2npoly_roots(g2_min_poly, roots))
     return 0;
   if (roots.get_num_elements() != g2_min_poly.find_degree())
     return 0;

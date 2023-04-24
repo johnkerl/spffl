@@ -9,6 +9,8 @@
 #include "f2_poly_t.h"
 #include "tfacinfo.h"
 
+namespace spffl::factorization {
+
 tfacinfo<spffl::polynomials::f2_poly_t> f2_poly_factor(spffl::polynomials::f2_poly_t f);
 
 int f2poly_is_irreducible(spffl::polynomials::f2_poly_t f);
@@ -17,5 +19,7 @@ int f2poly_is_irreducible(spffl::polynomials::f2_poly_t f);
 spffl::polynomials::f2_poly_t f2poly_find_irr(int degree);
 
 spffl::polynomials::f2_poly_t f2poly_random_irr(int degree);
+
+} // namespace
 
 #endif // F2POLY_FACTOR_H

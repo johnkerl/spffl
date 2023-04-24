@@ -189,7 +189,7 @@ int fpptotient_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = 2; argi < argc; argi++) {
     if (!a.from_string(argv[argi], p))
       pusage(argv[0]);
-    phi = fp_poly_totient(a);
+    phi = spffl::factorization::fp_poly_totient(a);
     if (argc > 3)
       std::cout << a << ": ";
     std::cout << phi << std::endl;
@@ -215,7 +215,7 @@ int fpptest_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 3)
       std::cout << a << ": ";
-    if (fppoly_is_irreducible(a))
+    if (spffl::factorization::fppoly_is_irreducible(a))
       std::cout << "IRREDUCIBLE\n";
     else
       std::cout << "reducible\n";
@@ -254,9 +254,9 @@ int fppfind_main(int argc, char **argv, usage_t *pusage) {
   for (int deg = deglo; deg <= deghi; deg++) {
     spffl::polynomials::fp_poly_t a;
     if (do_random)
-      a = fppoly_random_irr(p, deg);
+      a = spffl::factorization::fppoly_random_irr(p, deg);
     else
-      a = fppoly_find_irr(p, deg);
+      a = spffl::factorization::fppoly_find_irr(p, deg);
     std::cout << a << "\n";
   }
   return 0;
@@ -281,12 +281,12 @@ int fppfactor_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 3)
       std::cout << a << " = ";
-    tfacinfo<spffl::polynomials::fp_poly_t> finfo = fp_poly_factor(a);
+    tfacinfo<spffl::polynomials::fp_poly_t> finfo = spffl::factorization::fp_poly_factor(a);
     std::cout << finfo << "\n";
 
     spffl::polynomials::fp_poly_t check = finfo.unfactor(spffl::polynomials::fp_poly_t(spffl::intmath::intmod_t(1, p)));
     if (check != a) {
-      std::cerr << "Coding error in fp_poly_factor.\n";
+      std::cerr << "Coding error in spffl::factorization::fp_poly_factor.\n";
       std::cerr << "  Input: " << a << "\n";
       std::cerr << "  Check: " << check << "\n";
       std::cerr << "  Factors: " << finfo << "\n";
@@ -321,7 +321,7 @@ int fppdivisors_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if ((argc - argb) > 1)
       std::cout << a << ": ";
-    tfacinfo<spffl::polynomials::fp_poly_t> finfo = fp_poly_factor(a);
+    tfacinfo<spffl::polynomials::fp_poly_t> finfo = spffl::factorization::fp_poly_factor(a);
     tvector<spffl::polynomials::fp_poly_t> divisors;
     if (maximal_proper_only) {
       if (!finfo.get_maximal_proper_divisors(divisors, one)) {

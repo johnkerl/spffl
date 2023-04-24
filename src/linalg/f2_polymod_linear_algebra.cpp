@@ -103,7 +103,7 @@ int f2pm_matrix_is_dable(tmatrix<spffl::polynomials::f2_polymod_t> &A,
     std::cout << "chpoly = " << chpol << "\n";
 
   // Factor the char poly into irreducibles over the base field.
-  tfacinfo<spffl::polynomials::f2n_poly_t> base_finfo = f2n_poly_factor(chpol);
+  tfacinfo<spffl::polynomials::f2n_poly_t> base_finfo = spffl::factorization::f2n_poly_factor(chpol);
 
   if (verbose)
     std::cout << "factors = " << base_finfo << "\n";
@@ -129,7 +129,7 @@ int f2pm_matrix_is_dable(tmatrix<spffl::polynomials::f2_polymod_t> &A,
     // Use specified modulus if degrees are equal.
     rext_modulus = base_modulus;
   } else {
-    rext_modulus = f2poly_find_irr(absolute_ext_degree);
+    rext_modulus = spffl::factorization::f2poly_find_irr(absolute_ext_degree);
   }
 
   if (verbose) {
@@ -160,7 +160,7 @@ int f2pm_matrix_is_dable(tmatrix<spffl::polynomials::f2_polymod_t> &A,
     ext_A = f2polymod_convert_matrix(base_g, ext_g, A);
   }
 
-  tfacinfo<spffl::polynomials::f2n_poly_t> ext_finfo = f2n_poly_factor(ext_chpol);
+  tfacinfo<spffl::polynomials::f2n_poly_t> ext_finfo = spffl::factorization::f2n_poly_factor(ext_chpol);
 
   int nev = 0;
   for (int i = 0; i < ext_finfo.get_num_distinct(); i++) {

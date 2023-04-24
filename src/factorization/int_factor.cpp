@@ -9,6 +9,8 @@
 #include "tfacinfo.h"
 #include "tmatrix.h"
 
+namespace spffl::factorization {
+
 // ----------------------------------------------------------------
 tfacinfo<int> int_factor(int n) {
   tfacinfo<int> finfo;
@@ -38,3 +40,5 @@ tfacinfo<int> int_factor(int n) {
     finfo.insert_factor(n);
   return finfo;
 }
+
+} // namespace

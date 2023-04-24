@@ -39,6 +39,8 @@
 #include "fp_poly_factor.h"
 #include "int_power.h"
 
+namespace spffl::factorization {
+
 int fp_poly_totient(spffl::polynomials::fp_poly_t f) {
   int rv = 1;
   int p = f.get_char();
@@ -54,3 +56,5 @@ int fp_poly_totient(spffl::polynomials::fp_poly_t f) {
 
   return rv;
 }
+
+} // namespace

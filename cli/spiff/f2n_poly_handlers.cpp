@@ -165,7 +165,7 @@ int f2nptotient_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = 2; argi < argc; argi++) {
     if (!a.from_string(argv[argi], m))
       pusage(argv[0]);
-    phi = f2n_poly_totient(a);
+    phi = spffl::factorization::f2n_poly_totient(a);
     if (argc > 3)
       std::cout << a << ": ";
     std::cout << phi << std::endl;
@@ -191,7 +191,7 @@ int f2nptest_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 3)
       std::cout << a << ": ";
-    if (f2npoly_is_irreducible(a))
+    if (spffl::factorization::f2npoly_is_irreducible(a))
       std::cout << "IRREDUCIBLE\n";
     else
       std::cout << "reducible\n";
@@ -230,9 +230,9 @@ int f2npfind_main(int argc, char **argv, usage_t *pusage) {
   for (int deg = deglo; deg <= deghi; deg++) {
     spffl::polynomials::f2n_poly_t a;
     if (do_random)
-      a = f2npoly_random_irr(m, deg);
+      a = spffl::factorization::f2npoly_random_irr(m, deg);
     else
-      a = f2npoly_find_irr(m, deg);
+      a = spffl::factorization::f2npoly_find_irr(m, deg);
     std::cout << a << std::endl;
   }
   return 0;
@@ -256,14 +256,14 @@ int f2npfactor_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 3)
       std::cout << a << " = ";
-    tfacinfo<spffl::polynomials::f2n_poly_t> finfo = f2n_poly_factor(a);
+    tfacinfo<spffl::polynomials::f2n_poly_t> finfo = spffl::factorization::f2n_poly_factor(a);
     std::cout << finfo << std::endl;
 
     spffl::polynomials::f2_poly_t z(1);
     spffl::polynomials::f2n_poly_t one(spffl::polynomials::f2_polymod_t(z, m));
     spffl::polynomials::f2n_poly_t check = finfo.unfactor(one);
     if (check != a) {
-      std::cerr << "Coding error in f2n_poly_factor.\n";
+      std::cerr << "Coding error in spffl::factorization::f2n_poly_factor.\n";
       std::cerr << "  Input: " << a << std::endl;
       std::cerr << "  Check: " << check << std::endl;
       std::cerr << "  Factors: " << finfo << std::endl;
@@ -299,7 +299,7 @@ int f2npdivisors_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if ((argc - argb) > 1)
       std::cout << a << ": ";
-    tfacinfo<spffl::polynomials::f2n_poly_t> finfo = f2n_poly_factor(a);
+    tfacinfo<spffl::polynomials::f2n_poly_t> finfo = spffl::factorization::f2n_poly_factor(a);
     tvector<spffl::polynomials::f2n_poly_t> divisors;
     if (maximal_proper_only) {
       if (!finfo.get_maximal_proper_divisors(divisors, one)) {

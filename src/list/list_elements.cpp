@@ -112,9 +112,9 @@ tvector<spffl::polynomials::f2_polymod_t> f2polymod_list(spffl::polynomials::f2_
   if (type == SP_LIST_ALL)
     nel = 1 << deg;
   else if (type == SP_LIST_UNITS)
-    nel = f2_poly_totient(m);
+    nel = spffl::factorization::f2_poly_totient(m);
   else if (type == SP_LIST_NON_UNITS)
-    nel = (1 << deg) - f2_poly_totient(m);
+    nel = (1 << deg) - spffl::factorization::f2_poly_totient(m);
   else {
     std::cerr << "f2polymod_list:  unhandled code option.\n";
     exit(1);
@@ -160,9 +160,9 @@ tvector<spffl::polynomials::f2n_polymod_t> f2npolymod_list(spffl::polynomials::f
   if (type == SP_LIST_ALL)
     nel = 1 << (outerdeg * innerdeg);
   else if (type == SP_LIST_UNITS)
-    nel = f2n_poly_totient(om);
+    nel = spffl::factorization::f2n_poly_totient(om);
   else if (type == SP_LIST_NON_UNITS)
-    nel = (1 << (outerdeg * innerdeg)) - f2n_poly_totient(om);
+    nel = (1 << (outerdeg * innerdeg)) - spffl::factorization::f2n_poly_totient(om);
   else {
     std::cerr << "f2npolymod_list:  unhandled code option.\n";
     exit(1);
@@ -207,9 +207,9 @@ tvector<spffl::polynomials::fp_polymod_t> fppolymod_list(spffl::polynomials::fp_
   if (type == SP_LIST_ALL)
     nel = spffl::intmath::int_power(p, n);
   else if (type == SP_LIST_UNITS)
-    nel = fp_poly_totient(m);
+    nel = spffl::factorization::fp_poly_totient(m);
   else if (type == SP_LIST_NON_UNITS)
-    nel = spffl::intmath::int_power(p, n) - fp_poly_totient(m);
+    nel = spffl::intmath::int_power(p, n) - spffl::factorization::fp_poly_totient(m);
   else {
     std::cerr << "fppolymod_list:  unhandled code option.\n";
     exit(1);
