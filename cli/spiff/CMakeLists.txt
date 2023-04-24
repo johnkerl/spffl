@@ -42,7 +42,6 @@ target_include_directories(${PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/../../src/units
     ${CMAKE_CURRENT_SOURCE_DIR}/../../src/list
     ${CMAKE_CURRENT_SOURCE_DIR}/../../src/linalg
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../src/convert
     ${CMAKE_CURRENT_SOURCE_DIR}/../../src/containers
     ${CMAKE_CURRENT_SOURCE_DIR}/../../src/cliparser
     ${CMAKE_CURRENT_SOURCE_DIR}
@@ -59,7 +58,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     units
     list
     linalg
-    convert
     containers
     cliparser
 )

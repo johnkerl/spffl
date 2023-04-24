@@ -13,6 +13,8 @@
 #include "tfacinfo.h"
 #include "tvector.h"
 
+namespace spffl::units {
+
 // ----------------------------------------------------------------
 // The simplest algorithm is to loop over all possible exponents from 1
 // to the order of the unit group.  Instead, we use Lagrange's theorem,
@@ -261,3 +263,5 @@ int f2polymod_log( // Log base g of a.
   delete[] gkj;
   return rv;
 }
+
+} // namespace

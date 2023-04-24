@@ -186,7 +186,7 @@ int f2ptest_main(int argc, char **argv, usage_t *pusage) {
     if (do_irr && do_prim)
       std::cout << " ";
     if (do_prim) {
-      if (f2poly_is_primitive(a))
+      if (spffl::units::f2poly_is_primitive(a))
         std::cout << "PRIMITIVE";
       else
         std::cout << "imprimitive";
@@ -240,8 +240,8 @@ int f2pfind_main(int argc, char **argv, usage_t *pusage) {
   for (int deg = deglo; deg <= deghi; deg++) {
     spffl::polynomials::f2_poly_t a;
     if (do_prim) {
-      a = do_random ? f2poly_random_prim(deg, do_irr)
-                    : f2poly_find_prim(deg, do_irr);
+      a = do_random ? spffl::units::f2poly_random_prim(deg, do_irr)
+                    : spffl::units::f2poly_find_prim(deg, do_irr);
     } else {
       a = do_random ? spffl::factorization::f2poly_random_irr(deg) : spffl::factorization::f2poly_find_irr(deg);
     }
@@ -262,7 +262,7 @@ int f2pperiod_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 2)
       std::cout << a << ": ";
-    std::cout << f2poly_period(a) << std::endl;
+    std::cout << spffl::units::f2poly_period(a) << std::endl;
   }
   return 0;
 }

@@ -7,6 +7,7 @@ add_library(${PROJECT_NAME}
   f2_polymod_linear_algebra.cpp
   fp_linear_algebra.cpp
   min_char_polys.cpp
+  f2_polymod_convert.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

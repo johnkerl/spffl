@@ -102,7 +102,7 @@ int f2pmtbl_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     tbl_type = TBL_TYPE_LOG;
   } else if (strcmp(argv[2], "log") == 0) {
-    if (!f2polymod_find_generator(m, g)) {
+    if (!spffl::units::f2polymod_find_generator(m, g)) {
       std::cerr << "Couldn't find generator mod " << m << std::endl;
       exit(1);
     }
@@ -112,7 +112,7 @@ int f2pmtbl_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     tbl_type = TBL_TYPE_ALOG;
   } else if (strcmp(argv[2], "alog") == 0) {
-    if (!f2polymod_find_generator(m, g)) {
+    if (!spffl::units::f2polymod_find_generator(m, g)) {
       std::cerr << "Couldn't find generator mod " << m << std::endl;
       exit(1);
     }
@@ -132,7 +132,7 @@ int f2pmtbl_main(int argc, char **argv, usage_t *pusage) {
     std::cout << "element power\n";
     std::cout << "------- -----\n";
     for (int i = 0; i < n; i++) {
-      int e = f2polymod_log(g, elts[i]);
+      int e = spffl::units::f2polymod_log(g, elts[i]);
       std::cout << elts[i] << " " << e << std::endl;
     }
     return 0;
@@ -198,7 +198,7 @@ int f2pmord_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 3)
       std::cout << a << ": ";
-    std::cout << f2polymod_order(a) << std::endl;
+    std::cout << spffl::units::f2polymod_order(a) << std::endl;
   }
   return 0;
 }
@@ -219,7 +219,7 @@ int f2pmfindgen_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 2)
       std::cout << m << ": ";
-    if (f2polymod_find_generator(m, g)) {
+    if (spffl::units::f2polymod_find_generator(m, g)) {
       std::cout << g << std::endl;
     } else {
       std::cout << "Generator not found.\n";
@@ -248,7 +248,7 @@ int f2pmlog_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 4)
       std::cout << a << ": ";
-    std::cout << f2polymod_log(g, a) << std::endl;
+    std::cout << spffl::units::f2polymod_log(g, a) << std::endl;
   }
   return 0;
 }
@@ -318,18 +318,18 @@ int f2pmconvert_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (!m2.from_string(argv[2]))
     pusage(argv[0]);
-  if (!f2polymod_find_generator(m1, g1)) {
+  if (!spffl::units::f2polymod_find_generator(m1, g1)) {
     std::cerr << "Can't find generator mod " << m1 << ".\n";
     exit(1);
   }
-  if (!f2polymod_convert_prep(g1, m2, g2)) {
+  if (!spffl::units::f2polymod_convert_prep(g1, m2, g2)) {
     std::cerr << "Can't find generator mod " << m2 << ".\n";
     exit(1);
   }
   for (int argi = 3; argi < argc; argi++) {
     if (!a1.from_string(argv[argi], m1))
       pusage(argv[0]);
-    a2 = f2polymod_convert_scalar(g1, g2, a1);
+    a2 = spffl::units::f2polymod_convert_scalar(g1, g2, a1);
     if (argc > 4)
       std::cout << a1 << ": ";
     std::cout << a2 << std::endl;

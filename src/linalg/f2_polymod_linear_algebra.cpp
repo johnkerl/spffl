@@ -147,17 +147,17 @@ int f2pm_matrix_is_dable(tmatrix<spffl::polynomials::f2_polymod_t> &A,
   } else {
     spffl::polynomials::f2_polymod_t base_g, ext_g;
 
-    if (!f2polymod_find_generator(base_modulus, base_g)) {
+    if (!spffl::units::f2polymod_find_generator(base_modulus, base_g)) {
       std::cerr << "Can't find generator mod " << base_modulus << ".\n";
       exit(1);
     }
-    if (!f2polymod_convert_prep(base_g, rext_modulus, ext_g)) {
+    if (!spffl::units::f2polymod_convert_prep(base_g, rext_modulus, ext_g)) {
       std::cerr << "Can't find generator mod " << rext_modulus << ".\n";
       exit(1);
     }
 
-    ext_chpol = f2polymod_convert_poly(base_g, ext_g, chpol);
-    ext_A = f2polymod_convert_matrix(base_g, ext_g, A);
+    ext_chpol = spffl::units::f2polymod_convert_poly(base_g, ext_g, chpol);
+    ext_A = spffl::units::f2polymod_convert_matrix(base_g, ext_g, A);
   }
 
   tfacinfo<spffl::polynomials::f2n_poly_t> ext_finfo = spffl::factorization::f2n_poly_factor(ext_chpol);

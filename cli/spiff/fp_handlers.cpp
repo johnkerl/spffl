@@ -103,7 +103,7 @@ int fptbl_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     tbl_type = TBL_TYPE_LOG;
   } else if (strcmp(argv[2], "log") == 0) {
-    if (!fp_find_generator(p, g)) {
+    if (!spffl::units::fp_find_generator(p, g)) {
       std::cerr << "Couldn't find generator mod " << p << "\n";
       exit(1);
     }
@@ -113,7 +113,7 @@ int fptbl_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     tbl_type = TBL_TYPE_ALOG;
   } else if (strcmp(argv[2], "alog") == 0) {
-    if (!fp_find_generator(p, g)) {
+    if (!spffl::units::fp_find_generator(p, g)) {
       std::cerr << "Couldn't find generator mod " << p << "\n";
       exit(1);
     }
@@ -133,7 +133,7 @@ int fptbl_main(int argc, char **argv, usage_t *pusage) {
     std::cout << "element power\n";
     std::cout << "------- -----\n";
     for (int i = 0; i < n; i++) {
-      int e = fp_log(g, elts[i]);
+      int e = spffl::units::fp_log(g, elts[i]);
       std::cout << elts[i] << " " << e << "\n";
     }
     return 0;
@@ -199,7 +199,7 @@ int fpord_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 3)
       std::cout << a << ": ";
-    std::cout << fp_order(a) << "\n";
+    std::cout << spffl::units::fp_order(a) << "\n";
   }
   return 0;
 }
@@ -219,7 +219,7 @@ int fpmaxord_main(int argc, char **argv, usage_t *pusage) {
   int n = elts.get_num_elements();
   int max = 0;
   for (int i = 0; i < n; i++) {
-    int cur = fp_order(elts[i]);
+    int cur = spffl::units::fp_order(elts[i]);
     if (cur > max)
       max = cur;
   }
@@ -290,7 +290,7 @@ int fpfindgen_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 2)
       std::cout << p << ": ";
-    if (fp_find_generator(p, g)) {
+    if (spffl::units::fp_find_generator(p, g)) {
       std::cout << g << "\n";
     } else {
       std::cout << "Generator not found.\n";
@@ -319,7 +319,7 @@ int fplog_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 4)
       std::cout << a << ": ";
-    std::cout << fp_log(g, a) << "\n";
+    std::cout << spffl::units::fp_log(g, a) << "\n";
   }
   return 0;
 }

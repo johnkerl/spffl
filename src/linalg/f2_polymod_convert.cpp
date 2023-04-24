@@ -9,6 +9,8 @@
 #include "f2n_poly_factor.h"
 #include "f2_polymod_units.h"
 
+namespace spffl::units {
+
 // ----------------------------------------------------------------
 int f2polymod_convert_prep(spffl::polynomials::f2_polymod_t g1, spffl::polynomials::f2_poly_t m2, spffl::polynomials::f2_polymod_t &rg2) {
   spffl::polynomials::f2n_poly_t g1_min_poly = f2polymod_min_poly(g1);
@@ -55,3 +57,5 @@ tmatrix<spffl::polynomials::f2_polymod_t> f2polymod_convert_matrix(spffl::polyno
       A2[i][j] = f2polymod_convert_scalar(g1, g2, A1[i][j]);
   return A2;
 }
+
+} // namespace

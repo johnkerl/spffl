@@ -8,6 +8,8 @@
 #define F2NPOLYMOD_UNITS_H
 #include "f2n_polymod_t.h"
 
+namespace spffl::units {
+
 int f2npolymod_order(spffl::polynomials::f2n_polymod_t a);
 
 // The function return value is 1 if a generator was found, 0 otherwise.
@@ -19,5 +21,7 @@ int f2npolymod_find_generator(spffl::polynomials::f2n_poly_t m, spffl::polynomia
 // Warning:  We assume that g is a generator.  We do not test this, not
 // only for efficiency, but in case the caller is working within a subfield.
 int f2npolymod_log(spffl::polynomials::f2n_polymod_t g, spffl::polynomials::f2n_polymod_t a);
+
+} // namespace
 
 #endif // F2NPOLYMOD_UNITS_H
