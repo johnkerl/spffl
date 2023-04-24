@@ -1,5 +1,7 @@
 #include "qff.h"
 
+namespace spffl::qcyclo {
+
 // ----------------------------------------------------------------
 spffl::bits::bit_t bit_from_rat(spffl::rationals::intrat_t r) {
   spffl::bits::bit_t numer(r.get_numerator());
@@ -61,3 +63,5 @@ spffl::polynomials::fpn_poly_t fpnpoly_from_qpoly(spffl::rationals::qpoly_t q, s
   }
   return rv;
 }
+
+} // namespace

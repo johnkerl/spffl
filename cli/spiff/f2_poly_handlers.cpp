@@ -416,7 +416,7 @@ int f2pqp_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = 1; argi < argc; argi++) {
     if (!qp.from_string(argv[argi]))
       pusage(argv[0]);
-    f2p = f2poly_from_qpoly(qp);
+    f2p = spffl::qcyclo::f2poly_from_qpoly(qp);
     std::cout << f2p << std::endl;
   }
   return 0;

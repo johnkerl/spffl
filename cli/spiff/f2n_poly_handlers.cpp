@@ -410,7 +410,7 @@ int f2npqp_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = 2; argi < argc; argi++) {
     if (!qp.from_string(argv[argi]))
       pusage(argv[0]);
-    f2np = f2npoly_from_qpoly(qp, m);
+    f2np = spffl::qcyclo::f2npoly_from_qpoly(qp, m);
     std::cout << f2np << std::endl;
   }
   return 0;

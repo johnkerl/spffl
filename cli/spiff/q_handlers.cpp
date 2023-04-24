@@ -38,7 +38,7 @@ int qcyclo_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = 1; argi < argc; argi++) {
     if (sscanf(argv[argi], "%d", &n) != 1)
       pusage(argv[0]);
-    std::cout << get_cyclo_qpoly(n) << std::endl;
+    std::cout << spffl::qcyclo::get_cyclo_qpoly(n) << std::endl;
   }
   return 0;
 }

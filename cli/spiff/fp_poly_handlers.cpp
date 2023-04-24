@@ -409,7 +409,7 @@ int fppqp_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = 2; argi < argc; argi++) {
     if (!qp.from_string(argv[argi]))
       pusage(argv[0]);
-    fpp = fppoly_from_qpoly(qp, p);
+    fpp = spffl::qcyclo::fppoly_from_qpoly(qp, p);
     std::cout << fpp << "\n";
   }
   return 0;
