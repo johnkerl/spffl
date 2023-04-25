@@ -10,9 +10,12 @@ k formatting pass
 k pointer -> reference pass
 * ctest pass(es)
 * commenting pass
-* renaming pass
+~ renaming pass
+  - needs more
 * int -> bool pass
+  - needs more
 * unsigned -> uint32_t etc pass
+  - needs more
 k namespacing pass: int_gcd -> spffl::intmath::int_gcd etc
 * STL replacements
   o pointer+length to std::vec/std::span
