@@ -8,4 +8,4 @@ echo "chpol: $f"
 echo ""
 
 echo -n "factors: "
-spiff f2npfactor 13 $f
+spiff f2n_p_factor 13 $f

@@ -12,12 +12,12 @@ fi
 spiff f2pmmatrandom $m $n $n > a
 chpol=`spiff f2pmmatchpol $m a`
 echo "char poly = $chpol"
-echo "det = " `spiff f2npmatop $m det a`
+echo "det = " `spiff f2n_p_mat_op $m det a`
 echo "A = "
 cat a
 echo ""
 
-for p in `spiff f2npdivisors $m $chpol`
+for p in `spiff f2n_p_divisors $m $chpol`
 do
 	single $m $p a
 done

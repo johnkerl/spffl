@@ -15,7 +15,7 @@ spiff f2_mat_random    126 108 > data/input/f2-mat5.txt
 spiff f2_mat_random    108 123 > data/input/f2-mat6.txt
 
 spiff f2pmmatrandom  11b         48  48 > data/input/f2pm-mat1.txt
-spiff f2npmmatrandom 43 1:0:0:2  12  12 > data/input/f2npm-mat1.txt
+spiff f2n_pm_mat_random 43 1:0:0:2  12  12 > data/input/f2npm-mat1.txt
 spiff fpmatrandom    17         100 100 > data/input/fp-mat1.txt
 spiff fppmmatrandom  11   1,0,9  20  20 > data/input/fppm-mat1.txt
 

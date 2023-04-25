@@ -10,7 +10,7 @@ echo "A = "
 cat a
 echo ""
 
-for p in `spiff f2npdivisors 3 $chpol`
+for p in `spiff f2n_p_divisors 3 $chpol`
 do
 	single 3 $p a
 done

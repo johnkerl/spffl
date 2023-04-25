@@ -17,6 +17,6 @@ do
 	echo -n $f
 	echo -n ": "
 	spiff f2npirr $m $f
-	spiff f2npfactor $m $f
+	spiff f2n_p_factor $m $f
 	echo ""
 done

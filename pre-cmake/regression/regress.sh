@@ -17,7 +17,7 @@ spiff z_divisors  { z_list 1000000 100 } > data/outact/z_divisors-1000000-100.tx
 # Polynomial classification
 
 spiff   f2ptest  -ip { f2plist     0-8 } > data/outact/f2ptest-0-8.txt
-spiffsf f2nptest   7 { f2nplist  7 0-4 } > data/outact/f2nptest-0-8.txt
+spiffsf f2nptest   7 { f2n_p_list  7 0-4 } > data/outact/f2nptest-0-8.txt
 spiff   fpptest    5 { fpplist   5 0-4 } > data/outact/fpptest-0-8.txt
 spiff   f2pperiod    { f2plist     0-8 } > data/outact/f2pperiod-0-8.txt
 
@@ -29,10 +29,10 @@ spiff   f2pmtbl  13        - > data/outact/f2pm-13-sub.txt
 spiff   f2pmtbl  13        . > data/outact/f2pm-13-mul.txt
 spiff   f2pmtbl  13        / > data/outact/f2pm-13-div.txt
 
-spiffsf f2npmtbl 3 1:0:1:2 + > data/outact/f2npm-3-1012-add.txt
-spiffsf f2npmtbl 3 1:0:1:2 - > data/outact/f2npm-3-1012-sub.txt
-spiffsf f2npmtbl 3 1:0:1:2 . > data/outact/f2npm-3-1012-mul.txt
-spiffsf f2npmtbl 3 1:0:1:2 / > data/outact/f2npm-3-1012-div.txt
+spiffsf f2n_pm_tbl 3 1:0:1:2 + > data/outact/f2npm-3-1012-add.txt
+spiffsf f2n_pm_tbl 3 1:0:1:2 - > data/outact/f2npm-3-1012-sub.txt
+spiffsf f2n_pm_tbl 3 1:0:1:2 . > data/outact/f2npm-3-1012-mul.txt
+spiffsf f2n_pm_tbl 3 1:0:1:2 / > data/outact/f2npm-3-1012-div.txt
 
 spiff   fppmtbl  2 1011    + > data/outact/fppm-2-1011-add.txt
 spiff   fppmtbl  2 1011    - > data/outact/fppm-2-1011-sub.txt
@@ -53,11 +53,11 @@ spiff f2ptest -ip { f2plist 0-5 } > data/outact/f2-smpols-test.txt
 spiff f2pgcd        a f           > data/outact/f2-smpols-gcd.txt
 spiff f2plcm        a f           > data/outact/f2-smpols-lcm.txt
 
-spiffsf f2npfactor   b { f2nplist b 0-3 } > data/outact/f2n-smpols-factor.txt
-spiffsf f2npdivisors b { f2nplist b 0-3 } > data/outact/f2n-smpols-divisors.txt
-spiffsf f2nptest     b { f2nplist b 0-3 } > data/outact/f2n-smpols-test.txt
-spiffsf f2npgcd      b   3:4:a 6:7:9      > data/outact/f2n-smpols-gcd.txt
-spiffsf f2nplcm      b   3:4:a 6:7:9      > data/outact/f2n-smpols-lcm.txt
+spiffsf f2n_p_factor   b { f2n_p_list b 0-3 } > data/outact/f2n-smpols-factor.txt
+spiffsf f2n_p_divisors b { f2n_p_list b 0-3 } > data/outact/f2n-smpols-divisors.txt
+spiffsf f2nptest     b { f2n_p_list b 0-3 } > data/outact/f2n-smpols-test.txt
+spiffsf f2n_p_gcd      b   3:4:a 6:7:9      > data/outact/f2n-smpols-gcd.txt
+spiffsf f2n_p_lcm      b   3:4:a 6:7:9      > data/outact/f2n-smpols-lcm.txt
 
 spiffsf fppfactor   7 { fpplist 7 0-3 }   > data/outact/fp-smpols-factor.txt
 spiffsf fppdivisors 7 { fpplist 7 0-3 }   > data/outact/fp-smpols-divisors.txt
@@ -79,16 +79,16 @@ spiff f2plcm \
 	`sed -n 1p data/input/f2-pols.txt` `sed -n 2p data/input/f2-pols.txt` \
 	> data/outact/f2-pols-lcm.txt
 
-spiffsf f2npfactor 13 `cat data/input/f2n-pols.txt` \
+spiffsf f2n_p_factor 13 `cat data/input/f2n-pols.txt` \
 	> data/outact/f2n-pols-factor.txt
-spiffsf f2npdivisors 13 `cat data/input/f2n-pols.txt` \
+spiffsf f2n_p_divisors 13 `cat data/input/f2n-pols.txt` \
 	> data/outact/f2n-pols-divisors.txt
 spiffsf f2nptest 13 `cat data/input/f2n-pols.txt` \
 	> data/outact/f2n-pols-test.txt
-spiffsf f2npgcd 13 \
+spiffsf f2n_p_gcd 13 \
 	`sed -n 1p data/input/f2n-pols.txt` `sed -n 2p data/input/f2n-pols.txt` \
 	> data/outact/f2n-pols-gcd.txt
-spiffsf f2nplcm 13 \
+spiffsf f2n_p_lcm 13 \
 	`sed -n 1p data/input/f2n-pols.txt` `sed -n 2p data/input/f2n-pols.txt` \
 	> data/outact/f2n-pols-lcm.txt
 
@@ -127,9 +127,9 @@ spiffsf f2pmmatop 11b det data/input/f2pm-mat1.txt \
 spiffsf f2pmmatop 11b inv data/input/f2pm-mat1.txt \
 	> data/outact/f2pm-mat-inv-1.txt
 
-spiffsf f2npmmatop 43 1:0:0:2 det data/input/f2npm-mat1.txt \
+spiffsf f2n_pm_mat_op 43 1:0:0:2 det data/input/f2npm-mat1.txt \
 	> data/outact/f2npm-mat-det-1.txt
-spiffsf f2npmmatop 43 1:0:0:2 inv data/input/f2npm-mat1.txt \
+spiffsf f2n_pm_mat_op 43 1:0:0:2 inv data/input/f2npm-mat1.txt \
 	> data/outact/f2npm-mat-inv-1.txt
 
 spiff fpmatop 17 det data/input/fp-mat1.txt > data/outact/fp-mat-det-1.txt
