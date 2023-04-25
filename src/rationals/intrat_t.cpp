@@ -330,4 +330,4 @@ void intrat_t::simplify(void) {
   this->denom /= g;
 }
 
-} // namespace
+} // namespace spffl::rationals

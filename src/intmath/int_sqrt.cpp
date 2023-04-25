@@ -49,12 +49,8 @@ static int int_sqrt(int nsigned, bool want_ceil) {
     return lower;
 }
 
-int int_sqrt_ceil(int nsigned) {
-    return int_sqrt(nsigned, true);
-}
+int int_sqrt_ceil(int nsigned) { return int_sqrt(nsigned, true); }
 
-int int_sqrt_floor(int nsigned) {
-    return int_sqrt(nsigned, false);
-}
+int int_sqrt_floor(int nsigned) { return int_sqrt(nsigned, false); }
 
-} // namespace
+} // namespace spffl::intmath

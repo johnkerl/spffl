@@ -54,7 +54,8 @@ int f2polymod_order(spffl::polynomials::f2_polymod_t a) {
 }
 
 // ----------------------------------------------------------------
-int f2polymod_find_generator(spffl::polynomials::f2_poly_t m, spffl::polynomials::f2_polymod_t &rg) {
+int f2polymod_find_generator(spffl::polynomials::f2_poly_t m,
+                             spffl::polynomials::f2_polymod_t &rg) {
   int mdeg = m.find_degree();
   spffl::polynomials::f2_poly_t gres(1);
 
@@ -95,7 +96,8 @@ int f2poly_is_primitive(spffl::polynomials::f2_poly_t m) {
   if (polx.gcd(m) != pol1)
     return 0;
 
-  spffl::polynomials::f2_polymod_t rcr1(pol1, m); // Equiv. class of 1 in the residue class ring.
+  spffl::polynomials::f2_polymod_t rcr1(
+      pol1, m); // Equiv. class of 1 in the residue class ring.
   spffl::polynomials::f2_polymod_t rcrx(polx, m);
 
   int phi = spffl::factorization::f2_poly_totient(m);
@@ -264,4 +266,4 @@ int f2polymod_log( // Log base g of a.
   return rv;
 }
 
-} // namespace
+} // namespace spffl::units

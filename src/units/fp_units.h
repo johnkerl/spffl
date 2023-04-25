@@ -22,6 +22,6 @@ int fp_find_generator(int p, spffl::intmath::intmod_t &rg);
 // only for efficiency, but in case the caller is working within a subfield.
 int fp_log(spffl::intmath::intmod_t g, spffl::intmath::intmod_t a);
 
-} // namespace
+} // namespace spffl::units
 
 #endif // FP_UNITS_H

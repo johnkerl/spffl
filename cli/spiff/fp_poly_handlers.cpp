@@ -7,8 +7,8 @@
 #include "fp_poly_random.h"
 #include "fp_poly_t.h"
 #include "fp_poly_totient.h"
-#include "qff.h"
 #include "list_elements.h"
+#include "qff.h"
 #include <string.h>
 
 void fpplist_usage(char *argv0) {
@@ -29,7 +29,8 @@ int fpplist_main(int argc, char **argv, usage_t *pusage) {
   else
     pusage(argv[0]);
   for (int deg = deglo; deg <= deghi; deg++) {
-    tvector<spffl::polynomials::fp_poly_t> elts = spffl::list::fppoly_list(p, deg);
+    tvector<spffl::polynomials::fp_poly_t> elts =
+        spffl::list::fppoly_list(p, deg);
     elts.crout(std::cout);
   }
   return 0;
@@ -46,7 +47,9 @@ int fppop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (sscanf(argv[1], "%d", &p) != 1)
     pusage(argv[0]);
-  spffl::cliparser::cmd_line_parse<spffl::polynomials::fp_poly_t>(argc - 2, argv + 2, spffl::polynomials::fp_poly_t(0, p), spffl::polynomials::fp_poly_t(1, p));
+  spffl::cliparser::cmd_line_parse<spffl::polynomials::fp_poly_t>(
+      argc - 2, argv + 2, spffl::polynomials::fp_poly_t(0, p),
+      spffl::polynomials::fp_poly_t(1, p));
   return 0;
 }
 
@@ -61,8 +64,9 @@ int fppmatop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (sscanf(argv[1], "%d", &p) != 1)
     pusage(argv[0]);
-  spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::fp_poly_t>(argc - 2, argv + 2, spffl::polynomials::fp_poly_t(0, p),
-                                  spffl::polynomials::fp_poly_t(1, p));
+  spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::fp_poly_t>(
+      argc - 2, argv + 2, spffl::polynomials::fp_poly_t(0, p),
+      spffl::polynomials::fp_poly_t(1, p));
   return 0;
 }
 
@@ -82,7 +86,8 @@ int fppcompmx_main(int argc, char **argv, usage_t *pusage) {
   if (!chpol.from_string(argv[2], p))
     pusage(argv[0]);
 
-  tmatrix<spffl::intmath::intmod_t> A = spffl::linalg::fp_companion_matrix(chpol);
+  tmatrix<spffl::intmath::intmod_t> A =
+      spffl::linalg::fp_companion_matrix(chpol);
   std::cout << A << "\n";
 
   return 0;
@@ -281,10 +286,12 @@ int fppfactor_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 3)
       std::cout << a << " = ";
-    tfacinfo<spffl::polynomials::fp_poly_t> finfo = spffl::factorization::fp_poly_factor(a);
+    tfacinfo<spffl::polynomials::fp_poly_t> finfo =
+        spffl::factorization::fp_poly_factor(a);
     std::cout << finfo << "\n";
 
-    spffl::polynomials::fp_poly_t check = finfo.unfactor(spffl::polynomials::fp_poly_t(spffl::intmath::intmod_t(1, p)));
+    spffl::polynomials::fp_poly_t check = finfo.unfactor(
+        spffl::polynomials::fp_poly_t(spffl::intmath::intmod_t(1, p)));
     if (check != a) {
       std::cerr << "Coding error in spffl::factorization::fp_poly_factor.\n";
       std::cerr << "  Input: " << a << "\n";
@@ -321,7 +328,8 @@ int fppdivisors_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if ((argc - argb) > 1)
       std::cout << a << ": ";
-    tfacinfo<spffl::polynomials::fp_poly_t> finfo = spffl::factorization::fp_poly_factor(a);
+    tfacinfo<spffl::polynomials::fp_poly_t> finfo =
+        spffl::factorization::fp_poly_factor(a);
     tvector<spffl::polynomials::fp_poly_t> divisors;
     if (maximal_proper_only) {
       if (!finfo.get_maximal_proper_divisors(divisors, one)) {

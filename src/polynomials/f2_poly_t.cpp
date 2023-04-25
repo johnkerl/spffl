@@ -306,7 +306,8 @@ f2_poly_t &f2_poly_t::operator%=(f2_poly_t &that) {
 // dividend = *this
 // divisor  =  that
 
-void f2_poly_t::quot_and_rem(f2_poly_t &that, f2_poly_t &rquot, f2_poly_t &rrem) {
+void f2_poly_t::quot_and_rem(f2_poly_t &that, f2_poly_t &rquot,
+                             f2_poly_t &rrem) {
   int dividend_l1_pos;
   int divisor_l1_pos;
   int l1_diff;
@@ -355,7 +356,8 @@ void f2_poly_t::quot_and_rem(f2_poly_t &that, f2_poly_t &rquot, f2_poly_t &rrem)
 #endif
 
 #ifdef F2POLY_SMALL
-void f2_poly_t::quot_and_rem(f2_poly_t &that, f2_poly_t &rquot, f2_poly_t &rrem) {
+void f2_poly_t::quot_and_rem(f2_poly_t &that, f2_poly_t &rquot,
+                             f2_poly_t &rrem) {
   int dividend_l1_pos;
   int divisor_l1_pos;
   int l1_diff;
@@ -620,7 +622,9 @@ int f2_poly_t::square_root(f2_poly_t &rroot) {
 #endif
 
 // ----------------------------------------------------------------
-spffl::bits::bit_t f2_poly_t::eval(spffl::bits::bit_t c) { return spffl::bits::bit_t(this->eval(c.get_residue())); }
+spffl::bits::bit_t f2_poly_t::eval(spffl::bits::bit_t c) {
+  return spffl::bits::bit_t(this->eval(c.get_residue()));
+}
 
 // ----------------------------------------------------------------
 #ifndef F2POLY_SMALL
@@ -635,8 +639,9 @@ int f2_poly_t::eval(int c) {
 // ----------------------------------------------------------------
 #ifndef F2POLY_SMALL
 int f2_poly_t::zcount_one_bits(void) {
-  return 1 & spffl::bits::count_one_bits((unsigned char *)this->parts,
-                            this->num_parts * sizeof(this->parts[0]));
+  return 1 &
+         spffl::bits::count_one_bits((unsigned char *)this->parts,
+                                     this->num_parts * sizeof(this->parts[0]));
 }
 #endif
 
@@ -645,7 +650,8 @@ int f2_poly_t::zcount_one_bits(void) {
 int f2_poly_t::find_degree(void) const {
   for (int i = this->num_parts - 1; i >= 0; i--) {
     if (this->parts[i])
-      return spffl::intmath::find_msb_32(this->parts[i]) + (i << F2POLY_PART_LOG);
+      return spffl::intmath::find_msb_32(this->parts[i]) +
+             (i << F2POLY_PART_LOG);
   }
   return 0; // Zero polynomial.
 }
@@ -670,9 +676,13 @@ int f2_poly_t::operator!=(f2_poly_t that) const {
   return this->cmp(CMP_NE, that);
 }
 
-int f2_poly_t::operator<(f2_poly_t that) const { return this->cmp(CMP_LT, that); }
+int f2_poly_t::operator<(f2_poly_t that) const {
+  return this->cmp(CMP_LT, that);
+}
 
-int f2_poly_t::operator>(f2_poly_t that) const { return this->cmp(CMP_GT, that); }
+int f2_poly_t::operator>(f2_poly_t that) const {
+  return this->cmp(CMP_GT, that);
+}
 
 int f2_poly_t::operator<=(f2_poly_t that) const {
   return this->cmp(CMP_LE, that);
@@ -1169,7 +1179,10 @@ void f2_poly_t::bounds_check_abend(int deg) const {
 }
 #endif
 
-} // namespace
+} // namespace spffl::polynomials
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2_poly_t gcd(spffl::polynomials::f2_poly_t a, spffl::polynomials::f2_poly_t b) { return a.gcd(b); }
+spffl::polynomials::f2_poly_t gcd(spffl::polynomials::f2_poly_t a,
+                                  spffl::polynomials::f2_poly_t b) {
+  return a.gcd(b);
+}

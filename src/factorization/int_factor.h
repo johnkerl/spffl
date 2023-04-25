@@ -12,6 +12,6 @@ namespace spffl::factorization {
 
 tfacinfo<int> int_factor(int n);
 
-} // namespace
+} // namespace spffl::factorization
 
 #endif // INT_FACTOR_H

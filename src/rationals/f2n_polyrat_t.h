@@ -16,7 +16,8 @@ namespace spffl::rationals {
 
 class f2n_polyrat_t {
 public:
-  f2n_polyrat_t(spffl::polynomials::f2n_poly_t numerator, spffl::polynomials::f2n_poly_t denominator);
+  f2n_polyrat_t(spffl::polynomials::f2n_poly_t numerator,
+                spffl::polynomials::f2n_poly_t denominator);
   f2n_polyrat_t(spffl::polynomials::f2n_poly_t numerator);
   f2n_polyrat_t(void);
   f2n_polyrat_t(const f2n_polyrat_t &that);
@@ -67,6 +68,6 @@ private:
   void simplify();
 };
 
-} // namespace
+} // namespace spffl::rationals
 
 #endif // F2NPOLYRAT_T_H

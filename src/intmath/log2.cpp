@@ -202,4 +202,4 @@ int main(void) {
 }
 #endif
 
-} // namespace
+} // namespace spffl::intmath

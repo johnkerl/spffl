@@ -288,7 +288,9 @@ int fp_polymod_t::operator==(fp_polymod_t that) const {
 }
 
 // ----------------------------------------------------------------
-int fp_polymod_t::operator!=(fp_polymod_t that) const { return !(*this == that); }
+int fp_polymod_t::operator!=(fp_polymod_t that) const {
+  return !(*this == that);
+}
 
 // ----------------------------------------------------------------
 int fp_polymod_t::operator==(int that) const { return this->residue == that; }
@@ -336,4 +338,4 @@ void fp_polymod_t::check_moduli(fp_polymod_t &that) const {
   }
 }
 
-} // namespace
+} // namespace spffl::polynomials

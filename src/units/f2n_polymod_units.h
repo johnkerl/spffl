@@ -14,14 +14,16 @@ int f2npolymod_order(spffl::polynomials::f2n_polymod_t a);
 
 // The function return value is 1 if a generator was found, 0 otherwise.
 // In the former case, rg holds the found generator.
-int f2npolymod_find_generator(spffl::polynomials::f2n_poly_t m, spffl::polynomials::f2n_polymod_t &rg);
+int f2npolymod_find_generator(spffl::polynomials::f2n_poly_t m,
+                              spffl::polynomials::f2n_polymod_t &rg);
 
 // Log base g of a, using Shanks' algorithm.
 //
 // Warning:  We assume that g is a generator.  We do not test this, not
 // only for efficiency, but in case the caller is working within a subfield.
-int f2npolymod_log(spffl::polynomials::f2n_polymod_t g, spffl::polynomials::f2n_polymod_t a);
+int f2npolymod_log(spffl::polynomials::f2n_polymod_t g,
+                   spffl::polynomials::f2n_polymod_t a);
 
-} // namespace
+} // namespace spffl::units
 
 #endif // F2NPOLYMOD_UNITS_H

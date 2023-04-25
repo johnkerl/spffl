@@ -48,7 +48,7 @@ fpn_poly_t::fpn_poly_t(fp_polymod_t c2, fp_polymod_t c1, fp_polymod_t c0) {
 
 // ----------------------------------------------------------------
 fpn_poly_t::fpn_poly_t(fp_polymod_t c3, fp_polymod_t c2, fp_polymod_t c1,
-                     fp_polymod_t c0) {
+                       fp_polymod_t c0) {
   this->degree = 3;
   this->coeffs = new fp_polymod_t[this->degree + 1];
   this->coeffs[3] = c3;
@@ -60,7 +60,7 @@ fpn_poly_t::fpn_poly_t(fp_polymod_t c3, fp_polymod_t c2, fp_polymod_t c1,
 
 // ----------------------------------------------------------------
 fpn_poly_t::fpn_poly_t(fp_polymod_t c4, fp_polymod_t c3, fp_polymod_t c2,
-                     fp_polymod_t c1, fp_polymod_t c0) {
+                       fp_polymod_t c1, fp_polymod_t c0) {
   this->degree = 4;
   this->coeffs = new fp_polymod_t[this->degree + 1];
   this->coeffs[4] = c4;
@@ -73,7 +73,7 @@ fpn_poly_t::fpn_poly_t(fp_polymod_t c4, fp_polymod_t c3, fp_polymod_t c2,
 
 // ----------------------------------------------------------------
 fpn_poly_t::fpn_poly_t(fp_polymod_t c5, fp_polymod_t c4, fp_polymod_t c3,
-                     fp_polymod_t c2, fp_polymod_t c1, fp_polymod_t c0) {
+                       fp_polymod_t c2, fp_polymod_t c1, fp_polymod_t c0) {
   this->degree = 5;
   this->coeffs = new fp_polymod_t[this->degree + 1];
   this->coeffs[5] = c5;
@@ -323,7 +323,7 @@ fpn_poly_t &fpn_poly_t::operator/=(fp_polymod_t a) {
 
 // ----------------------------------------------------------------
 void fpn_poly_t::quot_and_rem(fpn_poly_t &that, fpn_poly_t &rquot,
-                             fpn_poly_t &rrem) {
+                              fpn_poly_t &rrem) {
   fp_polymod_t zero = this->coeffs[0] - this->coeffs[0];
 
   if (that == zero) {
@@ -427,7 +427,8 @@ fpn_poly_t fpn_poly_t::gcd(fpn_poly_t &that) {
 // ----------------------------------------------------------------
 // Blankinship's algorithm.
 
-fpn_poly_t fpn_poly_t::ext_gcd(fpn_poly_t &that, fpn_poly_t &rm, fpn_poly_t &rn) {
+fpn_poly_t fpn_poly_t::ext_gcd(fpn_poly_t &that, fpn_poly_t &rm,
+                               fpn_poly_t &rn) {
   fpn_poly_t mprime, nprime, c, q, r, t, qm, qn;
   fpn_poly_t d; // Return value.
 
@@ -839,7 +840,10 @@ void fpn_poly_t::promote_and_add(fp_polymod_t c0) {
   this->coeffs[0] = c0;
 }
 
-} // namespace
+} // namespace spffl::polynomials
 
 // ----------------------------------------------------------------
-spffl::polynomials::fpn_poly_t gcd(spffl::polynomials::fpn_poly_t a, spffl::polynomials::fpn_poly_t b) { return a.gcd(b); }
+spffl::polynomials::fpn_poly_t gcd(spffl::polynomials::fpn_poly_t a,
+                                   spffl::polynomials::fpn_poly_t b) {
+  return a.gcd(b);
+}

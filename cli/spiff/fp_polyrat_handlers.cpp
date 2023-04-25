@@ -15,9 +15,9 @@ int fpprop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (sscanf(argv[1], "%d", &p) != 1)
     pusage(argv[0]);
-  spffl::cliparser::cmd_line_parse<spffl::rationals::fp_polyrat_t>(argc - 2, argv + 2,
-                              spffl::rationals::fp_polyrat_t::prime_sfld_elt(0, p),
-                              spffl::rationals::fp_polyrat_t::prime_sfld_elt(1, p));
+  spffl::cliparser::cmd_line_parse<spffl::rationals::fp_polyrat_t>(
+      argc - 2, argv + 2, spffl::rationals::fp_polyrat_t::prime_sfld_elt(0, p),
+      spffl::rationals::fp_polyrat_t::prime_sfld_elt(1, p));
   return 0;
 }
 
@@ -32,8 +32,8 @@ int fpprmatop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (sscanf(argv[1], "%d", &p) != 1)
     pusage(argv[0]);
-  spffl::cliparser::cmd_line_mat_parse<spffl::rationals::fp_polyrat_t>(argc - 2, argv + 2,
-                                  spffl::rationals::fp_polyrat_t::prime_sfld_elt(0, p),
-                                  spffl::rationals::fp_polyrat_t::prime_sfld_elt(1, p));
+  spffl::cliparser::cmd_line_mat_parse<spffl::rationals::fp_polyrat_t>(
+      argc - 2, argv + 2, spffl::rationals::fp_polyrat_t::prime_sfld_elt(0, p),
+      spffl::rationals::fp_polyrat_t::prime_sfld_elt(1, p));
   return 0;
 }

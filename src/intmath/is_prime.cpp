@@ -82,4 +82,4 @@ int nth_prime(int n) {
   return (int)primes_16[n - 1];
 }
 
-} // namespace
+} // namespace spffl::intmath

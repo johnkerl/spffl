@@ -6,8 +6,9 @@
 #include "f2_polyrat_t.h"
 
 int f2prop_main(int argc, char **argv, usage_t *pusage) {
-  spffl::cliparser::cmd_line_parse<spffl::rationals::f2_polyrat_t>(argc - 1, argv + 1, spffl::rationals::f2_polyrat_t(0),
-                              spffl::rationals::f2_polyrat_t(1));
+  spffl::cliparser::cmd_line_parse<spffl::rationals::f2_polyrat_t>(
+      argc - 1, argv + 1, spffl::rationals::f2_polyrat_t(0),
+      spffl::rationals::f2_polyrat_t(1));
   return 0;
 }
 
@@ -43,8 +44,10 @@ int f2prrandom_main(int argc, char **argv, usage_t *pusage) {
 }
 
 int f2prmatop_main(int argc, char **argv, usage_t *pusage) {
-  spffl::cliparser::cmd_line_mat_parse<spffl::rationals::f2_polyrat_t>(argc - 1, argv + 1, spffl::rationals::f2_polyrat_t(spffl::polynomials::f2_poly_t(0)),
-                                  spffl::rationals::f2_polyrat_t(spffl::polynomials::f2_poly_t(1)));
+  spffl::cliparser::cmd_line_mat_parse<spffl::rationals::f2_polyrat_t>(
+      argc - 1, argv + 1,
+      spffl::rationals::f2_polyrat_t(spffl::polynomials::f2_poly_t(0)),
+      spffl::rationals::f2_polyrat_t(spffl::polynomials::f2_poly_t(1)));
   return 0;
 }
 

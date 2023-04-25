@@ -15,11 +15,14 @@
 
 namespace spffl::linalg {
 
-tvector<spffl::intmath::intmod_t> fp_vector_from_base_rep(int base_rep, int p, int len);
+tvector<spffl::intmath::intmod_t> fp_vector_from_base_rep(int base_rep, int p,
+                                                          int len);
 
-spffl::polynomials::fp_poly_t fp_char_poly(tmatrix<spffl::intmath::intmod_t> &A);
+spffl::polynomials::fp_poly_t
+fp_char_poly(tmatrix<spffl::intmath::intmod_t> &A);
 
-tmatrix<spffl::intmath::intmod_t> fp_companion_matrix(spffl::polynomials::fp_poly_t chpol);
+tmatrix<spffl::intmath::intmod_t>
+fp_companion_matrix(spffl::polynomials::fp_poly_t chpol);
 
 #if 0
 spffl::polynomials::fpn_poly_t fppolymod_min_poly(
@@ -29,6 +32,6 @@ spffl::polynomials::fpn_poly_t fppolymod_char_poly(
 	spffl::polynomials::fp_polymod_t a);
 #endif
 
-} // namespace
+} // namespace spffl::linalg
 
 #endif // FPLINALG_H

@@ -209,7 +209,9 @@ inline int f2_poly_t::zcount_one_bits(void) {
   return 1 & count_one_bits((unsigned char *)&this->bits, sizeof(this->bits));
 }
 
-inline int f2_poly_t::find_degree(void) const { return spffl::intmath::find_msb_32(this->bits); }
+inline int f2_poly_t::find_degree(void) const {
+  return spffl::intmath::find_msb_32(this->bits);
+}
 
 inline int f2_poly_t::operator==(int v) const {
   return this->bits == (unsigned)(v & 1);
@@ -268,10 +270,11 @@ inline void f2_poly_t::bounds_check(int deg) const {
 
 #endif // F2POLY_SMALL
 
-} // namespace
+} // namespace spffl::polynomials
 
 // Same as the gcd method, but overloaded.  This is important for template use.
-spffl::polynomials::f2_poly_t gcd(spffl::polynomials::f2_poly_t a, spffl::polynomials::f2_poly_t b);
+spffl::polynomials::f2_poly_t gcd(spffl::polynomials::f2_poly_t a,
+                                  spffl::polynomials::f2_poly_t b);
 
 // ================================================================
 #endif // F2POLY_T_H

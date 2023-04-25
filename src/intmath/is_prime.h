@@ -12,5 +12,5 @@ namespace spffl::intmath {
 int is_prime(int m);
 int nth_prime(int n);
 
-} // namespace
+} // namespace spffl::intmath
 #endif // ISPRIME_H

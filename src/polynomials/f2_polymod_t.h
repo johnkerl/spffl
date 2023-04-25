@@ -76,6 +76,6 @@ inline f2_polymod_t::f2_polymod_t(void) {
 
 inline f2_polymod_t::~f2_polymod_t(void) {}
 
-} // namespace
+} // namespace spffl::polynomials
 
 #endif // F2POLYMOD_T_H

@@ -8,5 +8,5 @@
 #define INT_POWER_H
 namespace spffl::intmath {
 int int_power(int b, int e);
-} // namespace
+} // namespace spffl::intmath
 #endif // INT_POWER_H

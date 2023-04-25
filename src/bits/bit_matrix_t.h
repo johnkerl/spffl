@@ -115,6 +115,6 @@ private:
   bit_matrix_t posexp(int power, bit_matrix_t &I);
 };
 
-} // namespace
+} // namespace spffl::bits
 
 #endif // BIT_MATRIX_T_H

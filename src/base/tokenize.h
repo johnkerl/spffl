@@ -13,6 +13,6 @@ int tokenize(char *line, const char *seps, char **argv, int max_arguments);
 
 int count_tokens(char *line, const char *seps);
 
-}
+} // namespace spffl::base
 
 #endif // TOKENIZE_H

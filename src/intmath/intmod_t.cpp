@@ -186,4 +186,4 @@ int intmod_t::get_residue(void) const { return this->residue; }
 // ----------------------------------------------------------------
 int intmod_t::get_modulus(void) const { return this->modulus; }
 
-} // namespace
+} // namespace spffl::intmath

@@ -54,4 +54,4 @@ int bit_t::from_string(char *string) {
   }
 }
 
-} // namespace
+} // namespace spffl::bits

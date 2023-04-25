@@ -5,17 +5,18 @@
 // ================================================================
 
 #include "f2_polymod_linear_algebra.h"
-#include "f2n_poly_factor.h"
-#include "f2n_poly_t.h"
 #include "f2_poly_factor.h"
 #include "f2_polymod_convert.h"
 #include "f2_polymod_units.h"
+#include "f2n_poly_factor.h"
+#include "f2n_poly_t.h"
 #include "int_gcd.h"
 
 namespace spffl::linalg {
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2n_poly_t f2pm_char_poly(tmatrix<spffl::polynomials::f2_polymod_t> &A) {
+spffl::polynomials::f2n_poly_t
+f2pm_char_poly(tmatrix<spffl::polynomials::f2_polymod_t> &A) {
   if (!A.is_square()) {
     std::cerr << "f2pm_char_poly():  non-square input.\n";
     exit(1);
@@ -44,7 +45,8 @@ spffl::polynomials::f2n_poly_t f2pm_char_poly(tmatrix<spffl::polynomials::f2_pol
 }
 
 // ----------------------------------------------------------------
-tmatrix<spffl::polynomials::f2_polymod_t> f2np_companion_matrix(spffl::polynomials::f2n_poly_t chpol) {
+tmatrix<spffl::polynomials::f2_polymod_t>
+f2np_companion_matrix(spffl::polynomials::f2n_poly_t chpol) {
   int n = chpol.find_degree();
   spffl::polynomials::f2_poly_t m = chpol.get_coeff(0).get_modulus();
   spffl::polynomials::f2_poly_t zero(0);
@@ -72,12 +74,13 @@ tmatrix<spffl::polynomials::f2_polymod_t> f2np_companion_matrix(spffl::polynomia
 // ----------------------------------------------------------------
 // Diagonalizability test
 
-int f2pm_matrix_is_dable(tmatrix<spffl::polynomials::f2_polymod_t> &A,
+int f2pm_matrix_is_dable(
+    tmatrix<spffl::polynomials::f2_polymod_t> &A,
 
-                         // int allow_field_extension,
-                         spffl::polynomials::f2_poly_t &rext_modulus,
+    // int allow_field_extension,
+    spffl::polynomials::f2_poly_t &rext_modulus,
 
-                         tvector<spffl::polynomials::f2_polymod_t> &reigenvalues)
+    tvector<spffl::polynomials::f2_polymod_t> &reigenvalues)
 // xxx matrix of (row) eigenvectors
 // xxx or, teigen_info template class
 //	num eigenvalues
@@ -105,7 +108,8 @@ int f2pm_matrix_is_dable(tmatrix<spffl::polynomials::f2_polymod_t> &A,
     std::cout << "chpoly = " << chpol << "\n";
 
   // Factor the char poly into irreducibles over the base field.
-  tfacinfo<spffl::polynomials::f2n_poly_t> base_finfo = spffl::factorization::f2n_poly_factor(chpol);
+  tfacinfo<spffl::polynomials::f2n_poly_t> base_finfo =
+      spffl::factorization::f2n_poly_factor(chpol);
 
   if (verbose)
     std::cout << "factors = " << base_finfo << "\n";
@@ -162,7 +166,8 @@ int f2pm_matrix_is_dable(tmatrix<spffl::polynomials::f2_polymod_t> &A,
     ext_A = f2polymod_convert_matrix(base_g, ext_g, A);
   }
 
-  tfacinfo<spffl::polynomials::f2n_poly_t> ext_finfo = spffl::factorization::f2n_poly_factor(ext_chpol);
+  tfacinfo<spffl::polynomials::f2n_poly_t> ext_finfo =
+      spffl::factorization::f2n_poly_factor(ext_chpol);
 
   int nev = 0;
   for (int i = 0; i < ext_finfo.get_num_distinct(); i++) {
@@ -235,18 +240,20 @@ int f2pm_matrix_is_dable(tmatrix<spffl::polynomials::f2_polymod_t> &A,
 }
 
 // ----------------------------------------------------------------
-tvector<spffl::polynomials::f2_polymod_t> ft_vector_from_base_rep(int base_rep, spffl::polynomials::f2_poly_t m,
-                                             int len) {
+tvector<spffl::polynomials::f2_polymod_t>
+ft_vector_from_base_rep(int base_rep, spffl::polynomials::f2_poly_t m,
+                        int len) {
   tvector<spffl::polynomials::f2_polymod_t> v(len);
   int i;
   int t = 1 << m.find_degree();
 
   for (i = len - 1; i >= 0; i--) {
-    spffl::polynomials::f2_poly_t r = spffl::polynomials::f2_poly_t::from_base_rep(base_rep % t);
+    spffl::polynomials::f2_poly_t r =
+        spffl::polynomials::f2_poly_t::from_base_rep(base_rep % t);
     v[i] = spffl::polynomials::f2_polymod_t(r, m);
     base_rep /= t;
   }
   return v;
 }
 
-} // namespace
+} // namespace spffl::linalg

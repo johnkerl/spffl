@@ -5,8 +5,8 @@
 // ================================================================
 
 #include "list_elements.h"
-#include "f2n_poly_totient.h"
 #include "f2_poly_totient.h"
+#include "f2n_poly_totient.h"
 #include "fp_poly_totient.h"
 #include "int_gcd.h"
 #include "int_power.h"
@@ -33,7 +33,8 @@ tvector<spffl::polynomials::f2_poly_t> f2poly_list(int deg) {
 }
 
 // ----------------------------------------------------------------
-tvector<spffl::polynomials::f2n_poly_t> f2npoly_list(spffl::polynomials::f2_poly_t im, int outerdeg) {
+tvector<spffl::polynomials::f2n_poly_t>
+f2npoly_list(spffl::polynomials::f2_poly_t im, int outerdeg) {
   int innerdeg = im.find_degree();
   int q = 1 << innerdeg;
   int nel = (q - 1) * spffl::intmath::int_power(q, outerdeg);
@@ -108,7 +109,8 @@ tvector<spffl::intmath::intmod_t> intmod_list(int p, sp_list_type_t type) {
 }
 
 // ----------------------------------------------------------------
-tvector<spffl::polynomials::f2_polymod_t> f2polymod_list(spffl::polynomials::f2_poly_t m, sp_list_type_t type) {
+tvector<spffl::polynomials::f2_polymod_t>
+f2polymod_list(spffl::polynomials::f2_poly_t m, sp_list_type_t type) {
   int deg = m.find_degree();
   int nel;
   if (type == SP_LIST_ALL)
@@ -153,7 +155,8 @@ tvector<spffl::polynomials::f2_polymod_t> f2polymod_list(spffl::polynomials::f2_
 }
 
 // ----------------------------------------------------------------
-tvector<spffl::polynomials::f2n_polymod_t> f2npolymod_list(spffl::polynomials::f2n_poly_t om, sp_list_type_t type) {
+tvector<spffl::polynomials::f2n_polymod_t>
+f2npolymod_list(spffl::polynomials::f2n_poly_t om, sp_list_type_t type) {
   spffl::polynomials::f2_polymod_t c0 = om.get_coeff(0);
   spffl::polynomials::f2_poly_t im = c0.get_modulus();
   int outerdeg = om.find_degree();
@@ -164,7 +167,8 @@ tvector<spffl::polynomials::f2n_polymod_t> f2npolymod_list(spffl::polynomials::f
   else if (type == SP_LIST_UNITS)
     nel = spffl::factorization::f2n_poly_totient(om);
   else if (type == SP_LIST_NON_UNITS)
-    nel = (1 << (outerdeg * innerdeg)) - spffl::factorization::f2n_poly_totient(om);
+    nel = (1 << (outerdeg * innerdeg)) -
+          spffl::factorization::f2n_poly_totient(om);
   else {
     std::cerr << "f2npolymod_list:  unhandled code option.\n";
     exit(1);
@@ -202,7 +206,8 @@ tvector<spffl::polynomials::f2n_polymod_t> f2npolymod_list(spffl::polynomials::f
 }
 
 // ----------------------------------------------------------------
-tvector<spffl::polynomials::fp_polymod_t> fppolymod_list(spffl::polynomials::fp_poly_t m, sp_list_type_t type) {
+tvector<spffl::polynomials::fp_polymod_t>
+fppolymod_list(spffl::polynomials::fp_poly_t m, sp_list_type_t type) {
   int p = m.get_char();
   int n = m.find_degree();
   int nel;
@@ -211,7 +216,8 @@ tvector<spffl::polynomials::fp_polymod_t> fppolymod_list(spffl::polynomials::fp_
   else if (type == SP_LIST_UNITS)
     nel = spffl::factorization::fp_poly_totient(m);
   else if (type == SP_LIST_NON_UNITS)
-    nel = spffl::intmath::int_power(p, n) - spffl::factorization::fp_poly_totient(m);
+    nel = spffl::intmath::int_power(p, n) -
+          spffl::factorization::fp_poly_totient(m);
   else {
     std::cerr << "fppolymod_list:  unhandled code option.\n";
     exit(1);
@@ -248,7 +254,8 @@ tvector<spffl::polynomials::fp_polymod_t> fppolymod_list(spffl::polynomials::fp_
 }
 
 // ----------------------------------------------------------------
-tvector<spffl::polynomials::f2_polymod_t> f2polymod_glist(spffl::polynomials::f2_polymod_t g, sp_list_type_t type) {
+tvector<spffl::polynomials::f2_polymod_t>
+f2polymod_glist(spffl::polynomials::f2_polymod_t g, sp_list_type_t type) {
   spffl::polynomials::f2_poly_t m = g.get_modulus();
   spffl::polynomials::f2_poly_t gres = g.get_residue();
   spffl::polynomials::f2_poly_t gr = m.gcd(gres);
@@ -282,7 +289,8 @@ tvector<spffl::polynomials::f2_polymod_t> f2polymod_glist(spffl::polynomials::f2
 }
 
 // ----------------------------------------------------------------
-tvector<spffl::intmath::intmod_t> intmod_glist(spffl::intmath::intmod_t g, sp_list_type_t type) {
+tvector<spffl::intmath::intmod_t> intmod_glist(spffl::intmath::intmod_t g,
+                                               sp_list_type_t type) {
   int m = g.get_modulus();
   int gr = spffl::intmath::int_gcd(m, g.get_residue());
   tvector<spffl::intmath::intmod_t> rv(m);
@@ -305,7 +313,8 @@ tvector<spffl::intmath::intmod_t> intmod_glist(spffl::intmath::intmod_t g, sp_li
 }
 
 // ----------------------------------------------------------------
-tmatrix<spffl::polynomials::f2_polymod_t> f2polymod_An_list(spffl::polynomials::f2_poly_t m, int n) {
+tmatrix<spffl::polynomials::f2_polymod_t>
+f2polymod_An_list(spffl::polynomials::f2_poly_t m, int n) {
   int d = m.find_degree();
   int q = 1 << d;
   int qn = spffl::intmath::int_power(q, n);
@@ -332,13 +341,16 @@ tmatrix<spffl::polynomials::f2_polymod_t> f2polymod_An_list(spffl::polynomials::
 //   (1:0:0) q^0
 // # = q^0 + q^2
 
-tmatrix<spffl::polynomials::f2_polymod_t> f2polymod_Pn_list(spffl::polynomials::f2_poly_t m, int n) {
+tmatrix<spffl::polynomials::f2_polymod_t>
+f2polymod_Pn_list(spffl::polynomials::f2_poly_t m, int n) {
   int i, j, k;
   int d = m.find_degree();
   int q = 1 << d;
   tvector<spffl::polynomials::f2_polymod_t> Fq = f2polymod_list(m, SP_LIST_ALL);
-  spffl::polynomials::f2_polymod_t zero = spffl::polynomials::f2_polymod_t::prime_sfld_elt(0, m);
-  spffl::polynomials::f2_polymod_t one = spffl::polynomials::f2_polymod_t::prime_sfld_elt(1, m);
+  spffl::polynomials::f2_polymod_t zero =
+      spffl::polynomials::f2_polymod_t::prime_sfld_elt(0, m);
+  spffl::polynomials::f2_polymod_t one =
+      spffl::polynomials::f2_polymod_t::prime_sfld_elt(1, m);
 
   int oP = 0;
   for (k = 0; k <= n; k++)
@@ -370,7 +382,8 @@ tmatrix<spffl::polynomials::f2_polymod_t> f2polymod_Pn_list(spffl::polynomials::
 }
 
 // ----------------------------------------------------------------
-tmatrix<spffl::polynomials::fp_polymod_t> fppolymod_An_list(spffl::polynomials::fp_poly_t m, int n) {
+tmatrix<spffl::polynomials::fp_polymod_t>
+fppolymod_An_list(spffl::polynomials::fp_poly_t m, int n) {
   int d = m.find_degree();
   int p = m.get_char();
   int q = spffl::intmath::int_power(p, d);
@@ -398,14 +411,17 @@ tmatrix<spffl::polynomials::fp_polymod_t> fppolymod_An_list(spffl::polynomials::
 //   (1:0:0) q^0
 // # = q^0 + q^2
 
-tmatrix<spffl::polynomials::fp_polymod_t> fppolymod_Pn_list(spffl::polynomials::fp_poly_t m, int n) {
+tmatrix<spffl::polynomials::fp_polymod_t>
+fppolymod_Pn_list(spffl::polynomials::fp_poly_t m, int n) {
   int i, j, k;
   int d = m.find_degree();
   int p = m.get_char();
   int q = spffl::intmath::int_power(p, d);
   tvector<spffl::polynomials::fp_polymod_t> Fq = fppolymod_list(m, SP_LIST_ALL);
-  spffl::polynomials::fp_polymod_t zero = spffl::polynomials::fp_polymod_t::prime_sfld_elt(0, m);
-  spffl::polynomials::fp_polymod_t one = spffl::polynomials::fp_polymod_t::prime_sfld_elt(1, m);
+  spffl::polynomials::fp_polymod_t zero =
+      spffl::polynomials::fp_polymod_t::prime_sfld_elt(0, m);
+  spffl::polynomials::fp_polymod_t one =
+      spffl::polynomials::fp_polymod_t::prime_sfld_elt(1, m);
 
   int oP = 0;
   for (k = 0; k <= n; k++)
@@ -436,4 +452,4 @@ tmatrix<spffl::polynomials::fp_polymod_t> fppolymod_Pn_list(spffl::polynomials::
   return rv;
 }
 
-} // namespace
+} // namespace spffl::list

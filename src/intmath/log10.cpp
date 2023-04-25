@@ -13,4 +13,4 @@ unsigned calc_log10_unsigned_floor(unsigned n) {
   return rv;
 }
 
-} // namespace
+} // namespace spffl::intmath

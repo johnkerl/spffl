@@ -18,4 +18,4 @@ spffl::intmath::intmod_t intmod_random(int m) {
   return spffl::intmath::intmod_t(get_random_int(), m);
 }
 
-} // namespace
+} // namespace spffl::random

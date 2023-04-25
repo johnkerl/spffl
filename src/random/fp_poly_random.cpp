@@ -12,7 +12,8 @@ namespace spffl::random {
 // ----------------------------------------------------------------
 spffl::polynomials::fp_poly_t fp_poly_random(int p, int deg) {
   if (deg < 0) {
-    std::cerr << "fp_poly_random:  degree " << deg << " must be non-negative.\n";
+    std::cerr << "fp_poly_random:  degree " << deg
+              << " must be non-negative.\n";
     exit(1);
   }
 
@@ -28,4 +29,4 @@ spffl::polynomials::fp_poly_t fp_poly_random(int p, int deg) {
   return rv;
 }
 
-} // namespace
+} // namespace spffl::random

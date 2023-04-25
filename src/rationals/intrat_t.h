@@ -61,6 +61,6 @@ private:
   void simplify();
 };
 
-} // namespace
+} // namespace spffl::rationals
 
 #endif // INTRAT_T_H

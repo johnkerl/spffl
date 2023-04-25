@@ -21,11 +21,16 @@ public:
 
   fp_poly_t(spffl::intmath::intmod_t c0);
   fp_poly_t(spffl::intmath::intmod_t c1, spffl::intmath::intmod_t c0);
-  fp_poly_t(spffl::intmath::intmod_t c2, spffl::intmath::intmod_t c1, spffl::intmath::intmod_t c0);
-  fp_poly_t(spffl::intmath::intmod_t c3, spffl::intmath::intmod_t c2, spffl::intmath::intmod_t c1, spffl::intmath::intmod_t c0);
-  fp_poly_t(spffl::intmath::intmod_t c4, spffl::intmath::intmod_t c3, spffl::intmath::intmod_t c2, spffl::intmath::intmod_t c1, spffl::intmath::intmod_t c0);
-  fp_poly_t(spffl::intmath::intmod_t c5, spffl::intmath::intmod_t c4, spffl::intmath::intmod_t c3, spffl::intmath::intmod_t c2, spffl::intmath::intmod_t c1,
-           spffl::intmath::intmod_t c0);
+  fp_poly_t(spffl::intmath::intmod_t c2, spffl::intmath::intmod_t c1,
+            spffl::intmath::intmod_t c0);
+  fp_poly_t(spffl::intmath::intmod_t c3, spffl::intmath::intmod_t c2,
+            spffl::intmath::intmod_t c1, spffl::intmath::intmod_t c0);
+  fp_poly_t(spffl::intmath::intmod_t c4, spffl::intmath::intmod_t c3,
+            spffl::intmath::intmod_t c2, spffl::intmath::intmod_t c1,
+            spffl::intmath::intmod_t c0);
+  fp_poly_t(spffl::intmath::intmod_t c5, spffl::intmath::intmod_t c4,
+            spffl::intmath::intmod_t c3, spffl::intmath::intmod_t c2,
+            spffl::intmath::intmod_t c1, spffl::intmath::intmod_t c0);
 
   fp_poly_t(int c0, int m);
   fp_poly_t(int c1, int c0, int m);
@@ -106,9 +111,10 @@ private:
   void recompute_degree();
 };
 
-} // namespace
+} // namespace spffl::polynomials
 
 // Same as the gcd method, but overloaded.  This is important for template use.
-spffl::polynomials::fp_poly_t gcd(spffl::polynomials::fp_poly_t a, spffl::polynomials::fp_poly_t b);
+spffl::polynomials::fp_poly_t gcd(spffl::polynomials::fp_poly_t a,
+                                  spffl::polynomials::fp_poly_t b);
 
 #endif // FPPOLY_T_H

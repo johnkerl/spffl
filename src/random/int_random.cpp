@@ -62,4 +62,4 @@ int get_random_int(void) {
 int get_random_int(void) { return spffl::bitrand::iran32(); }
 #endif // USE_DEV_URANDOM
 
-} // namespace
+} // namespace spffl::random

@@ -22,11 +22,12 @@ public:
   f2n_poly_t(f2_polymod_t c0);
   f2n_poly_t(f2_polymod_t c1, f2_polymod_t c0);
   f2n_poly_t(f2_polymod_t c2, f2_polymod_t c1, f2_polymod_t c0);
-  f2n_poly_t(f2_polymod_t c3, f2_polymod_t c2, f2_polymod_t c1, f2_polymod_t c0);
+  f2n_poly_t(f2_polymod_t c3, f2_polymod_t c2, f2_polymod_t c1,
+             f2_polymod_t c0);
   f2n_poly_t(f2_polymod_t c4, f2_polymod_t c3, f2_polymod_t c2, f2_polymod_t c1,
-            f2_polymod_t c0);
+             f2_polymod_t c0);
   f2n_poly_t(f2_polymod_t c5, f2_polymod_t c4, f2_polymod_t c3, f2_polymod_t c2,
-            f2_polymod_t c1, f2_polymod_t c0);
+             f2_polymod_t c1, f2_polymod_t c0);
 
   f2n_poly_t(int c0, f2_poly_t m);
   f2n_poly_t(int c1, int c0, f2_poly_t m);
@@ -110,9 +111,10 @@ private:
   void recompute_degree();
 };
 
-} // namespace
+} // namespace spffl::polynomials
 
 // Same as the gcd method, but overloaded.  This is important for template use.
-spffl::polynomials::f2n_poly_t gcd(spffl::polynomials::f2n_poly_t a, spffl::polynomials::f2n_poly_t b);
+spffl::polynomials::f2n_poly_t gcd(spffl::polynomials::f2n_poly_t a,
+                                   spffl::polynomials::f2n_poly_t b);
 
 #endif // F2NPOLY_T_H

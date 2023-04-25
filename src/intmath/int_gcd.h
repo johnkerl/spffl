@@ -18,5 +18,5 @@ int int_ext_gcd(int a, int b, int &m, int &n);
 
 int int_lcm(int a, int b);
 
-} // namespace
+} // namespace spffl::intmath
 #endif // INT_GCD_H

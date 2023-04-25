@@ -564,6 +564,6 @@ void cmd_line_vec_parse(int argc, char **argv, element_type zero,
   }
 }
 
-} // namespace
+} // namespace spffl::cliparser
 
 #endif // CMDLINEVECOPS_H

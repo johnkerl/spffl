@@ -13,7 +13,7 @@ k pointer -> reference pass
 * renaming pass
 * int -> bool pass
 * unsigned -> uint32_t etc pass
-* namespacing pass: int_gcd -> spffl::intmath::int_gcd etc
+k namespacing pass: int_gcd -> spffl::intmath::int_gcd etc
 * STL replacements
   o pointer+length to std::vec/std::span
   o bitvec to STL -- ?

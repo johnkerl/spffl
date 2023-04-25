@@ -14,16 +14,21 @@ namespace spffl::factorization {
 
 //#define FPPOLY_FACTOR_DEBUG
 
-static void fppoly_pre_berlekamp(spffl::polynomials::fp_poly_t f, tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo,
-                                 int recurse);
+static void
+fppoly_pre_berlekamp(spffl::polynomials::fp_poly_t f,
+                     tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo,
+                     int recurse);
 
-static void fppoly_berlekamp(spffl::polynomials::fp_poly_t f, tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo,
+static void fppoly_berlekamp(spffl::polynomials::fp_poly_t f,
+                             tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo,
                              int recurse);
 
-spffl::polynomials::fp_poly_t fppoly_from_vector(tvector<spffl::intmath::intmod_t> v, int n);
+spffl::polynomials::fp_poly_t
+fppoly_from_vector(tvector<spffl::intmath::intmod_t> v, int n);
 
 // ----------------------------------------------------------------
-tfacinfo<spffl::polynomials::fp_poly_t> fp_poly_factor(spffl::polynomials::fp_poly_t f) {
+tfacinfo<spffl::polynomials::fp_poly_t>
+fp_poly_factor(spffl::polynomials::fp_poly_t f) {
   tfacinfo<spffl::polynomials::fp_poly_t> finfo;
   int d = f.find_degree();
   int p = f.get_char();
@@ -46,8 +51,10 @@ tfacinfo<spffl::polynomials::fp_poly_t> fp_poly_factor(spffl::polynomials::fp_po
 }
 
 // ----------------------------------------------------------------
-static void fppoly_pre_berlekamp(spffl::polynomials::fp_poly_t f, tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo,
-                                 int recurse) {
+static void
+fppoly_pre_berlekamp(spffl::polynomials::fp_poly_t f,
+                     tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo,
+                     int recurse) {
   spffl::polynomials::fp_poly_t d = f.deriv();
   spffl::polynomials::fp_poly_t g = f.gcd(d);
 
@@ -101,7 +108,8 @@ static void fppoly_pre_berlekamp(spffl::polynomials::fp_poly_t f, tfacinfo<spffl
 // See my "Computation in finite fields" (ffcomp.pdf) for a full description
 // of this algorithm.  See f2_poly_factor.cpp for some sample data.
 
-static void fppoly_berlekamp(spffl::polynomials::fp_poly_t f, tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo,
+static void fppoly_berlekamp(spffl::polynomials::fp_poly_t f,
+                             tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo,
                              int recurse) {
   int n = f.find_degree();
   int p = f.get_char();
@@ -186,7 +194,8 @@ static void fppoly_berlekamp(spffl::polynomials::fp_poly_t f, tfacinfo<spffl::po
 
   int got_it = 0;
   for (row = 0; row < dimker && !got_it; row++) {
-    spffl::polynomials::fp_poly_t h = fppoly_from_vector(nullspace_basis[row], n);
+    spffl::polynomials::fp_poly_t h =
+        fppoly_from_vector(nullspace_basis[row], n);
 #ifdef FPPOLY_FACTOR_DEBUG
     std::cout << "h  = " << h << "\n";
 #endif // FPPOLY_FACTOR_DEBUG
@@ -243,7 +252,8 @@ static void fppoly_berlekamp(spffl::polynomials::fp_poly_t f, tfacinfo<spffl::po
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::fp_poly_t fppoly_from_vector(tvector<spffl::intmath::intmod_t> v, int n) {
+spffl::polynomials::fp_poly_t
+fppoly_from_vector(tvector<spffl::intmath::intmod_t> v, int n) {
   spffl::polynomials::fp_poly_t f;
   f.set_coeff(0, v[0] - v[0]);
   for (int i = 0; i < n; i++)
@@ -328,4 +338,4 @@ spffl::polynomials::fp_poly_t fppoly_random_irr(int p, int degree) {
   }
 }
 
-} // namespace
+} // namespace spffl::factorization

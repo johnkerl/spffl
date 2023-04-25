@@ -80,4 +80,4 @@ int int_lcm(int a, int b) { return (a * b) / int_gcd(a, b); }
 // ----------------------------------------------------------------
 int gcd(int a, int b) { return int_gcd(a, b); }
 
-} // namespace
+} // namespace spffl::intmath

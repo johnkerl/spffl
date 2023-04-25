@@ -69,6 +69,6 @@ private:
   void check_moduli(f2n_polymod_t &that) const;
 };
 
-} // namespace
+} // namespace spffl::polynomials
 
 #endif // F2NPOLYMOD_T_H

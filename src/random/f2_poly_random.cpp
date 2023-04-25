@@ -27,4 +27,4 @@ spffl::polynomials::f2_poly_t f2_poly_random(int deg) {
   return rv;
 }
 
-} // namespace
+} // namespace spffl::random
