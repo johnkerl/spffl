@@ -27,8 +27,8 @@ int f2n_polymod_order(spffl::polynomials::f2n_polymod_t a) {
   spffl::polynomials::f2n_poly_t pol1 = m.prime_sfld_elt(1);
 
   if (g != pol1) {
-    std::cerr << "f2n_polymod_order:  zero or zero divisor " << r << " mod " << m
-              << ".\n";
+    std::cerr << "f2n_polymod_order:  zero or zero divisor " << r << " mod "
+              << m << ".\n";
     std::cerr << "gcd(" << r << ", " << m << ") = " << g << "\n";
     exit(1);
   }
@@ -56,7 +56,7 @@ int f2n_polymod_order(spffl::polynomials::f2n_polymod_t a) {
 
 // ----------------------------------------------------------------
 int f2n_polymod_find_generator(spffl::polynomials::f2n_poly_t m,
-                              spffl::polynomials::f2n_polymod_t &rg) {
+                               spffl::polynomials::f2n_polymod_t &rg) {
   int mdeg = m.find_degree();
   spffl::polynomials::f2n_poly_t gres = m.prime_sfld_elt(1);
 

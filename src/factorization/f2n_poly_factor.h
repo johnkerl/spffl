@@ -17,13 +17,13 @@ f2n_poly_factor(spffl::polynomials::f2n_poly_t f);
 
 // Without multiplicity.
 int f2n_poly_roots(spffl::polynomials::f2n_poly_t f,
-                  tvector<spffl::polynomials::f2_polymod_t> &rroots);
+                   tvector<spffl::polynomials::f2_polymod_t> &rroots);
 
 int f2n_poly_is_irreducible(spffl::polynomials::f2n_poly_t f);
 
 // Lexically lowest (and therefore monic).
-spffl::polynomials::f2n_poly_t f2n_poly_find_irr(spffl::polynomials::f2_poly_t m,
-                                                int degree);
+spffl::polynomials::f2n_poly_t
+f2n_poly_find_irr(spffl::polynomials::f2_poly_t m, int degree);
 
 // Monic.
 spffl::polynomials::f2n_poly_t

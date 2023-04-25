@@ -135,7 +135,8 @@ int f2pm_matrix_is_dable(
     // Use specified modulus if degrees are equal.
     rext_modulus = base_modulus;
   } else {
-    rext_modulus = spffl::factorization::f2_poly_find_irreducible(absolute_ext_degree);
+    rext_modulus =
+        spffl::factorization::f2_poly_find_irreducible(absolute_ext_degree);
   }
 
   if (verbose) {

@@ -35,7 +35,8 @@ int f2_p_list_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
 
   for (int deg = deglo; deg <= deghi; deg++) {
-    tvector<spffl::polynomials::f2_poly_t> elts = spffl::list::f2_poly_list(deg);
+    tvector<spffl::polynomials::f2_poly_t> elts =
+        spffl::list::f2_poly_list(deg);
     elts.crout(std::cout);
   }
   return 0;
