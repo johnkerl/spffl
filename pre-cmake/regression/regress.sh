@@ -17,7 +17,7 @@ spiff z_divisors  { z_list 1000000 100 } > data/outact/z_divisors-1000000-100.tx
 # Polynomial classification
 
 spiff   f2ptest  -ip { f2plist     0-8 } > data/outact/f2ptest-0-8.txt
-spiffsf f2nptest   7 { f2n_p_list  7 0-4 } > data/outact/f2nptest-0-8.txt
+spiffsf f2n_p_test   7 { f2n_p_list  7 0-4 } > data/outact/f2n_p_test-0-8.txt
 spiff   fpptest    5 { fpplist   5 0-4 } > data/outact/fpptest-0-8.txt
 spiff   f2pperiod    { f2plist     0-8 } > data/outact/f2pperiod-0-8.txt
 
@@ -55,7 +55,7 @@ spiff f2plcm        a f           > data/outact/f2-smpols-lcm.txt
 
 spiffsf f2n_p_factor   b { f2n_p_list b 0-3 } > data/outact/f2n-smpols-factor.txt
 spiffsf f2n_p_divisors b { f2n_p_list b 0-3 } > data/outact/f2n-smpols-divisors.txt
-spiffsf f2nptest     b { f2n_p_list b 0-3 } > data/outact/f2n-smpols-test.txt
+spiffsf f2n_p_test     b { f2n_p_list b 0-3 } > data/outact/f2n-smpols-test.txt
 spiffsf f2n_p_gcd      b   3:4:a 6:7:9      > data/outact/f2n-smpols-gcd.txt
 spiffsf f2n_p_lcm      b   3:4:a 6:7:9      > data/outact/f2n-smpols-lcm.txt
 
@@ -83,7 +83,7 @@ spiffsf f2n_p_factor 13 `cat data/input/f2n-pols.txt` \
 	> data/outact/f2n-pols-factor.txt
 spiffsf f2n_p_divisors 13 `cat data/input/f2n-pols.txt` \
 	> data/outact/f2n-pols-divisors.txt
-spiffsf f2nptest 13 `cat data/input/f2n-pols.txt` \
+spiffsf f2n_p_test 13 `cat data/input/f2n-pols.txt` \
 	> data/outact/f2n-pols-test.txt
 spiffsf f2n_p_gcd 13 \
 	`sed -n 1p data/input/f2n-pols.txt` `sed -n 2p data/input/f2n-pols.txt` \

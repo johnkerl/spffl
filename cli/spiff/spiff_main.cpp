@@ -63,7 +63,7 @@ lookup_t lookups[] = {
     {"q_cyclo", q_cyclo_main, q_cyclo_usage},
     {"q_p_op", q_p_op_main, 0 /*q_cyclo_usage*/},
 
-    {"f2op", f2op_main, 0 /*f2op_usage*/},
+    {"f2_op", f2_op_main, 0 /*f2op_usage*/},
     {"f2random", f2random_main, f2random_usage},
 
     {"f2vecop", f2vecop_main, 0 /*f2vecop_usage*/},
@@ -114,18 +114,18 @@ lookup_t lookups[] = {
     {"f2prmatrandom", f2prmatrandom_main, f2prmatrandom_usage},
 
     {"f2n_p_list", f2n_p_list_main, f2n_p_list_usage},
-    {"f2npop", f2npop_main, f2npop_usage},
+    {"f2n_p_op", f2n_p_op_main, f2n_p_op_usage},
     {"f2n_p_mat_op", f2n_p_mat_op_main, f2n_p_mat_op_usage},
     {"f2n_p_deg", f2n_p_deg_main, f2n_p_deg_usage},
     {"f2n_p_gcd", f2n_p_gcd_main, f2n_p_gcd_usage},
     {"f2n_p_lcm", f2n_p_lcm_main, f2n_p_lcm_usage},
-    {"f2nptotient", f2nptotient_main, f2nptotient_usage},
-    {"f2nptest", f2nptest_main, f2nptest_usage},
+    {"f2n_p_totient", f2n_p_totient_main, f2n_p_totient_usage},
+    {"f2n_p_test", f2n_p_test_main, f2n_p_test_usage},
     {"f2n_p_find", f2n_p_find_main, f2n_p_find_usage},
     {"f2n_p_factor", f2n_p_factor_main, f2n_p_factor_usage},
     {"f2n_p_divisors", f2n_p_divisors_main, f2n_p_divisors_usage},
     {"f2n_p_eval", f2n_p_eval_main, f2n_p_eval_usage},
-    {"f2nprandom", f2nprandom_main, f2nprandom_usage},
+    {"f2n_p_random", f2n_p_random_main, f2n_p_random_usage},
     {"f2n_p_comp_mx", f2n_p_comp_mx_main, f2n_p_comp_mx_usage},
 
     {"f2n_pm_list", f2n_pm_list_main, f2n_pm_list_usage},
@@ -137,14 +137,14 @@ lookup_t lookups[] = {
     {"f2n_pm_ch_pol", f2n_pm_ch_pol_main, f2n_pm_ch_pol_usage},
     {"f2n_pm_min_pol", f2n_pm_min_pol_main, f2n_pm_min_pol_usage},
     {"f2n_pm_random", f2n_pm_random_main, f2n_pm_random_usage},
-    {"f2npqp", f2npqp_main, f2npqp_usage},
+    {"f2n_p_qp", f2n_p_qp_main, f2n_p_qp_usage},
 
     {"f2n_pm_mat_op", f2n_pm_mat_op_main, f2n_pm_mat_op_usage},
     {"f2n_pm_vec_op", f2n_pm_vec_op_main, f2n_pm_vec_op_usage},
     {"f2n_pm_mat_random", f2n_pm_mat_random_main, f2n_pm_mat_random_usage},
 
-    {"f2nprop", f2nprop_main, f2nprop_usage},
-    {"f2nprmatop", f2nprmatop_main, f2nprmatop_usage},
+    {"f2n_pr_op", f2n_pr_op_main, f2n_pr_op_usage},
+    {"f2n_pr_mat_op", f2n_pr_mat_op_main, f2n_pr_mat_op_usage},
 
     {"fplist", fplist_main, fplist_usage},
     {"fpop", fpop_main, fpop_usage},

@@ -3,7 +3,7 @@
 
 #include "handlers.h"
 
-int f2op_main(int argc, char **argv, usage_t *pusage);
+int f2_op_main(int argc, char **argv, usage_t *pusage);
 
 void f2random_usage(char *argv0);
 int f2random_main(int argc, char **argv, usage_t *pusage);

@@ -40,12 +40,12 @@ int f2n_p_list_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void f2npop_usage(char *argv0) {
+void f2n_p_op_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {m} {...}\n";
   exit(1);
 }
 
-int f2npop_main(int argc, char **argv, usage_t *pusage) {
+int f2n_p_op_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t m;
   if (argc < 2)
     pusage(argv[0]);
@@ -153,12 +153,12 @@ int f2n_p_lcm_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void f2nptotient_usage(char *argv0) {
+void f2n_p_totient_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {m} {polys ...}\n";
   exit(1);
 }
 
-int f2nptotient_main(int argc, char **argv, usage_t *pusage) {
+int f2n_p_totient_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t m;
   spffl::polynomials::f2n_poly_t a;
   int phi;
@@ -177,12 +177,12 @@ int f2nptotient_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void f2nptest_usage(char *argv0) {
+void f2n_p_test_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {m} {polys ...}\n";
   exit(1);
 }
 
-int f2nptest_main(int argc, char **argv, usage_t *pusage) {
+int f2n_p_test_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t m;
   if (argc < 2)
     pusage(argv[0]);
@@ -352,12 +352,12 @@ int f2n_p_eval_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void f2nprandom_usage(char *argv0) {
+void f2n_p_random_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {m} {deg} [count]\n";
   exit(1);
 }
 
-int f2nprandom_main(int argc, char **argv, usage_t *pusage) {
+int f2n_p_random_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t m;
   int deg, count = 1;
 
@@ -401,12 +401,12 @@ int f2n_p_comp_mx_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void f2npqp_usage(char *argv0) {
+void f2n_p_qp_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {m} {qpolys ...}\n";
   exit(1);
 }
 
-int f2npqp_main(int argc, char **argv, usage_t *pusage) {
+int f2n_p_qp_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t m;
   spffl::rationals::qpoly_t qp;
   spffl::polynomials::f2n_poly_t f2np;

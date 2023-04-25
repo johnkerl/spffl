@@ -6,8 +6,8 @@
 void f2n_p_list_usage(char *argv0);
 int f2n_p_list_main(int argc, char **argv, usage_t *pusage);
 
-void f2npop_usage(char *argv0);
-int f2npop_main(int argc, char **argv, usage_t *pusage);
+void f2n_p_op_usage(char *argv0);
+int f2n_p_op_main(int argc, char **argv, usage_t *pusage);
 
 void f2n_p_mat_op_usage(char *argv0);
 int f2n_p_mat_op_main(int argc, char **argv, usage_t *pusage);
@@ -21,11 +21,11 @@ int f2n_p_gcd_main(int argc, char **argv, usage_t *pusage);
 void f2n_p_lcm_usage(char *argv0);
 int f2n_p_lcm_main(int argc, char **argv, usage_t *pusage);
 
-void f2nptotient_usage(char *argv0);
-int f2nptotient_main(int argc, char **argv, usage_t *pusage);
+void f2n_p_totient_usage(char *argv0);
+int f2n_p_totient_main(int argc, char **argv, usage_t *pusage);
 
-void f2nptest_usage(char *argv0);
-int f2nptest_main(int argc, char **argv, usage_t *pusage);
+void f2n_p_test_usage(char *argv0);
+int f2n_p_test_main(int argc, char **argv, usage_t *pusage);
 
 void f2n_p_find_usage(char *argv0);
 int f2n_p_find_main(int argc, char **argv, usage_t *pusage);
@@ -39,14 +39,14 @@ int f2n_p_divisors_main(int argc, char **argv, usage_t *pusage);
 void f2n_p_eval_usage(char *argv0);
 int f2n_p_eval_main(int argc, char **argv, usage_t *pusage);
 
-void f2nprandom_usage(char *argv0);
-int f2nprandom_main(int argc, char **argv, usage_t *pusage);
+void f2n_p_random_usage(char *argv0);
+int f2n_p_random_main(int argc, char **argv, usage_t *pusage);
 
 void f2n_p_comp_mx_usage(char *argv0);
 int f2n_p_comp_mx_main(int argc, char **argv, usage_t *pusage);
 
-void f2npqp_usage(char *argv0);
-int f2npqp_main(int argc, char **argv, usage_t *pusage);
+void f2n_p_qp_usage(char *argv0);
+int f2n_p_qp_main(int argc, char **argv, usage_t *pusage);
 
 void f2n_p_mat_op_usage(char *argv0);
 int f2n_p_mat_op_main(int argc, char **argv, usage_t *pusage);

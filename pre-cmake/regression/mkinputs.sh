@@ -23,5 +23,5 @@ spiff fppmmatrandom  11   1,0,9  20  20 > data/input/fppm-mat1.txt
 # Polyomials
 
 spiff f2prandom     60 20 > data/input/f2-pols.txt
-spiff f2nprandom 13 20 10 > data/input/f2n-pols.txt
+spiff f2n_p_random 13 20 10 > data/input/f2n-pols.txt
 spiff fpprandom  19 20 10 > data/input/fp-pols.txt
