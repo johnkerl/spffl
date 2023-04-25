@@ -6,13 +6,15 @@
 
 #include "f2_polymod_convert.h"
 #include "f2_linear_algebra.h"
-#include "f2n_poly_factor.h"
 #include "f2_polymod_units.h"
+#include "f2n_poly_factor.h"
 
 namespace spffl::linalg {
 
 // ----------------------------------------------------------------
-int f2polymod_convert_prep(spffl::polynomials::f2_polymod_t g1, spffl::polynomials::f2_poly_t m2, spffl::polynomials::f2_polymod_t &rg2) {
+int f2polymod_convert_prep(spffl::polynomials::f2_polymod_t g1,
+                           spffl::polynomials::f2_poly_t m2,
+                           spffl::polynomials::f2_polymod_t &rg2) {
   spffl::polynomials::f2n_poly_t g1_min_poly = f2polymod_min_poly(g1);
   spffl::polynomials::f2n_poly_t g2_min_poly = g1_min_poly;
   g2_min_poly.change_modulus(m2);
@@ -27,8 +29,10 @@ int f2polymod_convert_prep(spffl::polynomials::f2_polymod_t g1, spffl::polynomia
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2_polymod_t f2polymod_convert_scalar(spffl::polynomials::f2_polymod_t g1, spffl::polynomials::f2_polymod_t g2,
-                                     spffl::polynomials::f2_polymod_t a1) {
+spffl::polynomials::f2_polymod_t
+f2polymod_convert_scalar(spffl::polynomials::f2_polymod_t g1,
+                         spffl::polynomials::f2_polymod_t g2,
+                         spffl::polynomials::f2_polymod_t a1) {
   spffl::polynomials::f2_polymod_t zero1 = g1 - g1;
   spffl::polynomials::f2_polymod_t zero2 = g2 - g2;
   if (a1 == zero1)
@@ -38,7 +42,10 @@ spffl::polynomials::f2_polymod_t f2polymod_convert_scalar(spffl::polynomials::f2
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2n_poly_t f2polymod_convert_poly(spffl::polynomials::f2_polymod_t g1, spffl::polynomials::f2_polymod_t g2, spffl::polynomials::f2n_poly_t f1) {
+spffl::polynomials::f2n_poly_t
+f2polymod_convert_poly(spffl::polynomials::f2_polymod_t g1,
+                       spffl::polynomials::f2_polymod_t g2,
+                       spffl::polynomials::f2n_poly_t f1) {
   int deg = f1.find_degree();
   spffl::polynomials::f2n_poly_t f2(f1);
   for (int i = 0; i <= deg; i++)
@@ -47,8 +54,10 @@ spffl::polynomials::f2n_poly_t f2polymod_convert_poly(spffl::polynomials::f2_pol
 }
 
 // ----------------------------------------------------------------
-tmatrix<spffl::polynomials::f2_polymod_t> f2polymod_convert_matrix(spffl::polynomials::f2_polymod_t g1, spffl::polynomials::f2_polymod_t g2,
-                                              tmatrix<spffl::polynomials::f2_polymod_t> A1) {
+tmatrix<spffl::polynomials::f2_polymod_t>
+f2polymod_convert_matrix(spffl::polynomials::f2_polymod_t g1,
+                         spffl::polynomials::f2_polymod_t g2,
+                         tmatrix<spffl::polynomials::f2_polymod_t> A1) {
   int nr = A1.get_num_rows();
   int nc = A1.get_num_cols();
   tmatrix<spffl::polynomials::f2_polymod_t> A2(nr, nc);
@@ -58,4 +67,4 @@ tmatrix<spffl::polynomials::f2_polymod_t> f2polymod_convert_matrix(spffl::polyno
   return A2;
 }
 
-} // namespace
+} // namespace spffl::linalg

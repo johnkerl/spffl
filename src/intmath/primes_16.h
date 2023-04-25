@@ -10,5 +10,5 @@ namespace spffl::intmath {
 // TODO: convert to std::span
 extern unsigned primes_16[];
 extern int numprimes16;
-} // namespace
+} // namespace spffl::intmath
 #endif // PRIMES16_H

@@ -41,4 +41,4 @@ tfacinfo<int> int_factor(int n) {
   return finfo;
 }
 
-} // namespace
+} // namespace spffl::factorization

@@ -93,6 +93,6 @@ private:
   void recompute_degree();
 };
 
-} // namespace
+} // namespace spffl::rationals
 
 #endif // QPOLY_T_H

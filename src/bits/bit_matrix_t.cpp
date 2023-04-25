@@ -900,4 +900,4 @@ void bit_matrix_t::check_dims(bit_matrix_t that, char *msg) {
   }
 }
 
-} // namespace
+} // namespace spffl::bits

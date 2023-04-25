@@ -12,6 +12,6 @@ namespace spffl::factorization {
 
 int f2n_poly_totient(spffl::polynomials::f2n_poly_t f);
 
-} // namespace
+} // namespace spffl::factorization
 
 #endif // F2NPOLY_TOTIENT_H

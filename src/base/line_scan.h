@@ -14,6 +14,6 @@ void chomp(char *line);
 
 bool is_whitespace_line(char *line);
 
-}
+} // namespace spffl::base
 
 #endif // LINESCAN_H

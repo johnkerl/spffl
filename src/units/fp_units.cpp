@@ -157,4 +157,4 @@ int fp_log( // Log base g of a.
   return rv % spffl::intmath::int_totient(p);
 }
 
-} // namespace
+} // namespace spffl::units

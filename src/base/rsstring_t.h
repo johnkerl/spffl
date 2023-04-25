@@ -31,6 +31,6 @@ private:
   void make_room(int len);
 };
 
-}
+} // namespace spffl::base
 
 #endif // RSSTRING_T_H

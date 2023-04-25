@@ -774,4 +774,4 @@ void qpoly_t::promote_and_add(intrat_t c0) {
   this->coeffs[0] = c0;
 }
 
-} // namespace
+} // namespace spffl::rationals

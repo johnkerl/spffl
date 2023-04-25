@@ -22,9 +22,12 @@ int fpnpmop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (!om.from_string(argv[3], im))
     pusage(argv[0]);
-  spffl::polynomials::fpn_polymod_t zero = spffl::polynomials::fpn_polymod_t::prime_sfld_elt(0, om);
-  spffl::polynomials::fpn_polymod_t one = spffl::polynomials::fpn_polymod_t::prime_sfld_elt(1, om);
-  spffl::cliparser::cmd_line_parse<spffl::polynomials::fpn_polymod_t>(argc - 4, argv + 4, zero, one);
+  spffl::polynomials::fpn_polymod_t zero =
+      spffl::polynomials::fpn_polymod_t::prime_sfld_elt(0, om);
+  spffl::polynomials::fpn_polymod_t one =
+      spffl::polynomials::fpn_polymod_t::prime_sfld_elt(1, om);
+  spffl::cliparser::cmd_line_parse<spffl::polynomials::fpn_polymod_t>(
+      argc - 4, argv + 4, zero, one);
   return 0;
 }
 
@@ -46,8 +49,11 @@ int fpnpmmatop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (!om.from_string(argv[3], im))
     pusage(argv[0]);
-  spffl::polynomials::fpn_polymod_t zero = spffl::polynomials::fpn_polymod_t::prime_sfld_elt(0, om);
-  spffl::polynomials::fpn_polymod_t one = spffl::polynomials::fpn_polymod_t::prime_sfld_elt(1, om);
-  spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::fpn_polymod_t>(argc - 4, argv + 4, zero, one);
+  spffl::polynomials::fpn_polymod_t zero =
+      spffl::polynomials::fpn_polymod_t::prime_sfld_elt(0, om);
+  spffl::polynomials::fpn_polymod_t one =
+      spffl::polynomials::fpn_polymod_t::prime_sfld_elt(1, om);
+  spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::fpn_polymod_t>(
+      argc - 4, argv + 4, zero, one);
   return 0;
 }

@@ -79,4 +79,4 @@ void rsstring_t::make_room(int len) {
   delete[] temp;
 }
 
-} // namespace
+} // namespace spffl::base

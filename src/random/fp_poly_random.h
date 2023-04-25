@@ -9,5 +9,5 @@
 #include "fp_poly_t.h"
 namespace spffl::random {
 spffl::polynomials::fp_poly_t fp_poly_random(int p, int deg);
-} // namespace
+} // namespace spffl::random
 #endif // FPPOLY_RANDOM_H

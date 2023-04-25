@@ -29,6 +29,6 @@ void cmd_interpolate(char *exename, int &argc, char **&argv);
 //     return 0;
 // }
 
-} // namespace
+} // namespace spffl::cliparser
 
 #endif // CMDINTERP_H

@@ -7,11 +7,11 @@
 #ifndef INTMOD_T_H
 #define INTMOD_T_H
 
+#include "int_totient.h"
 #include <iomanip>
 #include <iostream>
 #include <sstream>
 #include <stdlib.h>
-#include "int_totient.h"
 
 namespace spffl::intmath {
 
@@ -233,6 +233,6 @@ inline int intmod_t::recip(intmod_t &rinv) {
   }
 }
 
-} // namespace
+} // namespace spffl::intmath
 
 #endif // INTMOD_T_H

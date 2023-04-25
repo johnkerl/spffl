@@ -323,4 +323,4 @@ void f2n_polymod_t::check_moduli(f2n_polymod_t &that) const {
   }
 }
 
-} // namespace
+} // namespace spffl::polynomials

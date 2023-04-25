@@ -646,6 +646,6 @@ void cmd_line_parse(int argc, char **argv, element_type zero,
   }
 }
 
-} // namespace
+} // namespace spffl::cliparser
 
 #endif // CMDLINEOPS_H

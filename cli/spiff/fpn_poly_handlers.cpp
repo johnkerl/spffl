@@ -1,6 +1,6 @@
 #include "fpn_poly_handlers.h"
-#include "fpn_poly_t.h"
 #include "cmd_line_matrix_ops.h"
+#include "fpn_poly_t.h"
 #include "qff.h"
 #include <string.h>
 
@@ -19,9 +19,12 @@ int fpnpop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (!im.from_string(argv[2], p))
     pusage(argv[0]);
-  spffl::polynomials::fpn_poly_t zero = spffl::polynomials::fpn_poly_t::prime_sfld_elt(0, im);
-  spffl::polynomials::fpn_poly_t one = spffl::polynomials::fpn_poly_t::prime_sfld_elt(1, im);
-  spffl::cliparser::cmd_line_parse<spffl::polynomials::fpn_poly_t>(argc - 3, argv + 3, zero, one);
+  spffl::polynomials::fpn_poly_t zero =
+      spffl::polynomials::fpn_poly_t::prime_sfld_elt(0, im);
+  spffl::polynomials::fpn_poly_t one =
+      spffl::polynomials::fpn_poly_t::prime_sfld_elt(1, im);
+  spffl::cliparser::cmd_line_parse<spffl::polynomials::fpn_poly_t>(
+      argc - 3, argv + 3, zero, one);
   return 0;
 }
 
@@ -40,9 +43,12 @@ int fpnpmatop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (!im.from_string(argv[2], p))
     pusage(argv[0]);
-  spffl::polynomials::fpn_poly_t zero = spffl::polynomials::fpn_poly_t::prime_sfld_elt(0, im);
-  spffl::polynomials::fpn_poly_t one = spffl::polynomials::fpn_poly_t::prime_sfld_elt(1, im);
-  spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::fpn_poly_t>(argc - 3, argv + 3, zero, one);
+  spffl::polynomials::fpn_poly_t zero =
+      spffl::polynomials::fpn_poly_t::prime_sfld_elt(0, im);
+  spffl::polynomials::fpn_poly_t one =
+      spffl::polynomials::fpn_poly_t::prime_sfld_elt(1, im);
+  spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::fpn_poly_t>(
+      argc - 3, argv + 3, zero, one);
   return 0;
 }
 

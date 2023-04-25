@@ -22,6 +22,6 @@ unsigned calc_log2_unsigned_ceil(unsigned n);
 
 uint64_t calc_log2_unsigned_ll_floor(uint64_t n);
 uint64_t calc_log2_unsigned_ll_ceil(uint64_t n);
-} // namespace
+} // namespace spffl::intmath
 
 #endif // LOG2_H

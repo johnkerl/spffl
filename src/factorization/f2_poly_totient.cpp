@@ -55,4 +55,4 @@ int f2_poly_totient(spffl::polynomials::f2_poly_t f) {
   return rv;
 }
 
-} // namespace
+} // namespace spffl::factorization

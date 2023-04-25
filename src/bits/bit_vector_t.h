@@ -142,6 +142,6 @@ private:
   void trim(void);
 };
 
-} // namespace
+} // namespace spffl::bits
 
 #endif // BIT_VECTOR_T_H

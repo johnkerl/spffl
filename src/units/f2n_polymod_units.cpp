@@ -55,7 +55,8 @@ int f2npolymod_order(spffl::polynomials::f2n_polymod_t a) {
 }
 
 // ----------------------------------------------------------------
-int f2npolymod_find_generator(spffl::polynomials::f2n_poly_t m, spffl::polynomials::f2n_polymod_t &rg) {
+int f2npolymod_find_generator(spffl::polynomials::f2n_poly_t m,
+                              spffl::polynomials::f2n_polymod_t &rg) {
   int mdeg = m.find_degree();
   spffl::polynomials::f2n_poly_t gres = m.prime_sfld_elt(1);
 
@@ -188,4 +189,4 @@ int f2npolymod_log( // Log base g of a.
   return rv;
 }
 
-} // namespace
+} // namespace spffl::units

@@ -607,4 +607,4 @@ unsigned primes_16[] = {
 // This is 6542, i.e. 65521 is the 6542nd prime.
 unsigned numprimes16 = sizeof(primes_16) / sizeof(primes_16[0]);
 
-} // namespace
+} // namespace spffl::intmath

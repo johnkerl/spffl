@@ -27,4 +27,4 @@ bool is_whitespace_line(char *line) {
   return true;
 }
 
-} // namespace
+} // namespace spffl::base

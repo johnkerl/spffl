@@ -20,10 +20,13 @@
 
 namespace spffl::factorization {
 
-static void f2poly_pre_berlekamp(spffl::polynomials::f2_poly_t f, tfacinfo<spffl::polynomials::f2_poly_t> &rfinfo,
-                                 int recurse);
+static void
+f2poly_pre_berlekamp(spffl::polynomials::f2_poly_t f,
+                     tfacinfo<spffl::polynomials::f2_poly_t> &rfinfo,
+                     int recurse);
 
-static void f2poly_berlekamp(spffl::polynomials::f2_poly_t f, tfacinfo<spffl::polynomials::f2_poly_t> &rfinfo,
+static void f2poly_berlekamp(spffl::polynomials::f2_poly_t f,
+                             tfacinfo<spffl::polynomials::f2_poly_t> &rfinfo,
                              int recurse);
 
 spffl::polynomials::f2_poly_t f2poly_from_vector(
@@ -35,7 +38,8 @@ spffl::polynomials::f2_poly_t f2poly_from_vector(
     int n);
 
 // ----------------------------------------------------------------
-tfacinfo<spffl::polynomials::f2_poly_t> f2_poly_factor(spffl::polynomials::f2_poly_t f) {
+tfacinfo<spffl::polynomials::f2_poly_t>
+f2_poly_factor(spffl::polynomials::f2_poly_t f) {
   tfacinfo<spffl::polynomials::f2_poly_t> finfo;
   if (f.find_degree() == 0) {
     finfo.insert_unit(f);
@@ -46,8 +50,10 @@ tfacinfo<spffl::polynomials::f2_poly_t> f2_poly_factor(spffl::polynomials::f2_po
 }
 
 // ----------------------------------------------------------------
-static void f2poly_pre_berlekamp(spffl::polynomials::f2_poly_t f, tfacinfo<spffl::polynomials::f2_poly_t> &rfinfo,
-                                 int recurse) {
+static void
+f2poly_pre_berlekamp(spffl::polynomials::f2_poly_t f,
+                     tfacinfo<spffl::polynomials::f2_poly_t> &rfinfo,
+                     int recurse) {
   spffl::polynomials::f2_poly_t d = f.deriv();
   spffl::polynomials::f2_poly_t g = f.gcd(d);
 
@@ -147,7 +153,8 @@ static void f2poly_pre_berlekamp(spffl::polynomials::f2_poly_t f, tfacinfo<spffl
 // These are h1 = 1c and h2 = 1, respectively.  Compute gcd(f, h1) = 7 and
 // gcd(f, h1+1) = b to obtain non-trivial factors of f.
 
-static void f2poly_berlekamp(spffl::polynomials::f2_poly_t f, tfacinfo<spffl::polynomials::f2_poly_t> &rfinfo,
+static void f2poly_berlekamp(spffl::polynomials::f2_poly_t f,
+                             tfacinfo<spffl::polynomials::f2_poly_t> &rfinfo,
                              int recurse) {
   int n = f.find_degree();
   spffl::polynomials::f2_poly_t x(1, 0);
@@ -428,11 +435,12 @@ spffl::polynomials::f2_poly_t f2poly_from_vector(
 //	nf = f2poly_num_divisors(&finfo);
 //	*pnum_divisors = nf;
 //
-//	all_divisors = (spffl::polynomials::f2_poly_t *)malloc_check(nf * sizeof(spffl::polynomials::f2_poly_t));
-//	for (k = 0; k < nf; k++) {
+//	all_divisors = (spffl::polynomials::f2_poly_t *)malloc_check(nf *
+//sizeof(spffl::polynomials::f2_poly_t)); 	for (k = 0; k < nf; k++) {
 //		all_divisors[k] = f2poly_kth_divisor(&finfo, k);
 //	}
-//	qsort(all_divisors, nf, sizeof(spffl::polynomials::f2_poly_t), f2poly_qcmp);
+//	qsort(all_divisors, nf, sizeof(spffl::polynomials::f2_poly_t),
+//f2poly_qcmp);
 //
 //	return all_divisors;
 //}
@@ -507,4 +515,4 @@ spffl::polynomials::f2_poly_t f2poly_random_irr(int degree) {
   }
 }
 
-} // namespace
+} // namespace spffl::factorization

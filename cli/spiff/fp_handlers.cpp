@@ -2,8 +2,8 @@
 #include "cmd_line_matrix_ops.h"
 #include "cmd_line_ops.h"
 #include "cmd_line_vector_ops.h"
-#include "fp_units.h"
 #include "fp_linear_algebra.h"
+#include "fp_units.h"
 #include "intmod_random.h"
 #include "intmod_t.h"
 #include "list_elements.h"
@@ -64,7 +64,9 @@ int fpop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (sscanf(argv[1], "%d", &p) != 1)
     pusage(argv[0]);
-  spffl::cliparser::cmd_line_parse<spffl::intmath::intmod_t>(argc - 2, argv + 2, spffl::intmath::intmod_t(0, p), spffl::intmath::intmod_t(1, p));
+  spffl::cliparser::cmd_line_parse<spffl::intmath::intmod_t>(
+      argc - 2, argv + 2, spffl::intmath::intmod_t(0, p),
+      spffl::intmath::intmod_t(1, p));
   return 0;
 }
 
@@ -215,7 +217,8 @@ int fpmaxord_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (sscanf(argv[1], "%d", &p) != 1)
     pusage(argv[0]);
-  tvector<spffl::intmath::intmod_t> elts = intmod_list(p, spffl::list::SP_LIST_UNITS);
+  tvector<spffl::intmath::intmod_t> elts =
+      intmod_list(p, spffl::list::SP_LIST_UNITS);
   int n = elts.get_num_elements();
   int max = 0;
   for (int i = 0; i < n; i++) {
@@ -358,8 +361,9 @@ int fpmatop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (sscanf(argv[1], "%d", &p) != 1)
     pusage(argv[0]);
-  spffl::cliparser::cmd_line_mat_parse<spffl::intmath::intmod_t>(argc - 2, argv + 2, spffl::intmath::intmod_t(0, p),
-                               spffl::intmath::intmod_t(1, p));
+  spffl::cliparser::cmd_line_mat_parse<spffl::intmath::intmod_t>(
+      argc - 2, argv + 2, spffl::intmath::intmod_t(0, p),
+      spffl::intmath::intmod_t(1, p));
   return 0;
 }
 
@@ -374,8 +378,9 @@ int fpvecop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (sscanf(argv[1], "%d", &p) != 1)
     pusage(argv[0]);
-  spffl::cliparser::cmd_line_vec_parse<spffl::intmath::intmod_t>(argc - 2, argv + 2, spffl::intmath::intmod_t(0, p),
-                               spffl::intmath::intmod_t(1, p));
+  spffl::cliparser::cmd_line_vec_parse<spffl::intmath::intmod_t>(
+      argc - 2, argv + 2, spffl::intmath::intmod_t(0, p),
+      spffl::intmath::intmod_t(1, p));
   return 0;
 }
 

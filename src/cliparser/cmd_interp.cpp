@@ -177,4 +177,4 @@ void cmd_interpolate(char *exename, int &argc, char **&argv) {
   } while (interpolated);
 }
 
-} // namespace
+} // namespace spffl::cliparser

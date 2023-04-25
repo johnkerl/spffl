@@ -21,4 +21,4 @@ int int_power(int b, int e) {
   return rv;
 }
 
-} // namespace
+} // namespace spffl::intmath

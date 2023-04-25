@@ -94,4 +94,4 @@ int main(void) {
 }
 #endif // MAKE_TABLE
 
-} // namespace
+} // namespace spffl::bits

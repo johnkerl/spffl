@@ -134,8 +134,8 @@ namespace spffl::bitrand {
 // ----------------------------------------------------------------
 // These versions are non-reentrant.
 // Usage:  Nominally, just call iran32() or fran32().  They remember whether
-// or not a seed has been supplied, and call sran32_timeofday() if not.  Use sran32()
-// only if you want to force the same generator output each time.
+// or not a seed has been supplied, and call sran32_timeofday() if not.  Use
+// sran32() only if you want to force the same generator output each time.
 
 // Uniformly distributed pseudorandom 32-bit integer.
 uint32_t iran32(void);
@@ -164,7 +164,8 @@ void sran32_timeofday(void);
 uint32_t iran32_r(uint32_t &state0, uint32_t &state1);
 
 // Uniformly distributed pseudorandom 64-bit integer.
-void iran64_r(uint32_t &out0, uint32_t &out1, uint32_t &state0, uint32_t &state1);
+void iran64_r(uint32_t &out0, uint32_t &out1, uint32_t &state0,
+              uint32_t &state1);
 
 // Uniformly distributed single-precision float between 0.0 and 1.0.
 float fran32_r(uint32_t &state0, uint32_t &state1);
@@ -179,6 +180,6 @@ void sran32_timeofday_r(uint32_t &state0, uint32_t &state1void);
 // This is the 64-bit pseudo-DES in-place hash.
 void psdes_hash_64(uint32_t &word0, uint32_t &word1);
 
-} // namespace
+} // namespace spffl::bitrand
 
 #endif // PSDES_H

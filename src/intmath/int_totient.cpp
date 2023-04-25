@@ -21,4 +21,4 @@ int int_totient(int n) {
   return phi;
 }
 
-} // namespace
+} // namespace spffl::intmath

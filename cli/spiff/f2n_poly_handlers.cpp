@@ -2,14 +2,14 @@
 #include "cmd_line_matrix_ops.h"
 #include "cmd_line_ops.h"
 #include "cmd_line_vector_ops.h"
+#include "f2_polymod_linear_algebra.h"
 #include "f2n_poly_factor.h"
 #include "f2n_poly_random.h"
 #include "f2n_poly_t.h"
 #include "f2n_poly_totient.h"
-#include "f2_polymod_linear_algebra.h"
+#include "list_elements.h"
 #include "qff.h"
 #include "qpoly_t.h"
-#include "list_elements.h"
 #include "tbl_types.h"
 #include <string.h>
 
@@ -33,7 +33,8 @@ int f2nplist_main(int argc, char **argv, usage_t *pusage) {
   else
     pusage(argv[0]);
   for (int deg = deglo; deg <= deghi; deg++) {
-    tvector<spffl::polynomials::f2n_poly_t> elts = spffl::list::f2npoly_list(m, deg);
+    tvector<spffl::polynomials::f2n_poly_t> elts =
+        spffl::list::f2npoly_list(m, deg);
     elts.crout(std::cout);
   }
   return 0;
@@ -50,9 +51,12 @@ int f2npop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (!m.from_string(argv[1]))
     pusage(argv[0]);
-  spffl::polynomials::f2n_poly_t zero = spffl::polynomials::f2n_poly_t::prime_sfld_elt(0, m);
-  spffl::polynomials::f2n_poly_t one = spffl::polynomials::f2n_poly_t::prime_sfld_elt(1, m);
-  spffl::cliparser::cmd_line_parse<spffl::polynomials::f2n_poly_t>(argc - 2, argv + 2, zero, one);
+  spffl::polynomials::f2n_poly_t zero =
+      spffl::polynomials::f2n_poly_t::prime_sfld_elt(0, m);
+  spffl::polynomials::f2n_poly_t one =
+      spffl::polynomials::f2n_poly_t::prime_sfld_elt(1, m);
+  spffl::cliparser::cmd_line_parse<spffl::polynomials::f2n_poly_t>(
+      argc - 2, argv + 2, zero, one);
   return 0;
 }
 
@@ -256,7 +260,8 @@ int f2npfactor_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 3)
       std::cout << a << " = ";
-    tfacinfo<spffl::polynomials::f2n_poly_t> finfo = spffl::factorization::f2n_poly_factor(a);
+    tfacinfo<spffl::polynomials::f2n_poly_t> finfo =
+        spffl::factorization::f2n_poly_factor(a);
     std::cout << finfo << std::endl;
 
     spffl::polynomials::f2_poly_t z(1);
@@ -299,7 +304,8 @@ int f2npdivisors_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if ((argc - argb) > 1)
       std::cout << a << ": ";
-    tfacinfo<spffl::polynomials::f2n_poly_t> finfo = spffl::factorization::f2n_poly_factor(a);
+    tfacinfo<spffl::polynomials::f2n_poly_t> finfo =
+        spffl::factorization::f2n_poly_factor(a);
     tvector<spffl::polynomials::f2n_poly_t> divisors;
     if (maximal_proper_only) {
       if (!finfo.get_maximal_proper_divisors(divisors, one)) {
@@ -388,7 +394,8 @@ int f2npcompmx_main(int argc, char **argv, usage_t *pusage) {
   if (!chpol.from_string(argv[2], m))
     pusage(argv[0]);
 
-  tmatrix<spffl::polynomials::f2_polymod_t> A = spffl::linalg::f2np_companion_matrix(chpol);
+  tmatrix<spffl::polynomials::f2_polymod_t> A =
+      spffl::linalg::f2np_companion_matrix(chpol);
   std::cout << A << std::endl;
 
   return 0;
@@ -427,8 +434,11 @@ int f2npmatop_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (!m.from_string(argv[1]))
     pusage(argv[0]);
-  spffl::polynomials::f2n_poly_t zero = spffl::polynomials::f2n_poly_t::prime_sfld_elt(0, m);
-  spffl::polynomials::f2n_poly_t one = spffl::polynomials::f2n_poly_t::prime_sfld_elt(1, m);
-  spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::f2n_poly_t>(argc - 2, argv + 2, zero, one);
+  spffl::polynomials::f2n_poly_t zero =
+      spffl::polynomials::f2n_poly_t::prime_sfld_elt(0, m);
+  spffl::polynomials::f2n_poly_t one =
+      spffl::polynomials::f2n_poly_t::prime_sfld_elt(1, m);
+  spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::f2n_poly_t>(
+      argc - 2, argv + 2, zero, one);
   return 0;
 }
