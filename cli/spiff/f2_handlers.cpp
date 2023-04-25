@@ -13,12 +13,12 @@ int f2_op_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void f2random_usage(char *argv0) {
+void f2_random_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " [count]\n";
   exit(1);
 }
 
-int f2random_main(int argc, char **argv, usage_t *pusage) {
+int f2_random_main(int argc, char **argv, usage_t *pusage) {
   int count = 1;
 
   if ((argc != 1) && (argc != 2))
@@ -40,7 +40,7 @@ int f2_mat_op_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-int f2vecop_main(int argc, char **argv, usage_t *pusage) {
+int f2_vec_op_main(int argc, char **argv, usage_t *pusage) {
   spffl::cliparser::cmd_line_vec_parse<spffl::bits::bit_t>(
       argc - 1, argv + 1, spffl::bits::bit_t(0), spffl::bits::bit_t(1));
   return 0;

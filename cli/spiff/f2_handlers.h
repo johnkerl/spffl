@@ -5,12 +5,12 @@
 
 int f2_op_main(int argc, char **argv, usage_t *pusage);
 
-void f2random_usage(char *argv0);
-int f2random_main(int argc, char **argv, usage_t *pusage);
+void f2_random_usage(char *argv0);
+int f2_random_main(int argc, char **argv, usage_t *pusage);
 
 int f2_mat_op_main(int argc, char **argv, usage_t *pusage);
 
-int f2vecop_main(int argc, char **argv, usage_t *pusage);
+int f2_vec_op_main(int argc, char **argv, usage_t *pusage);
 
 void f2_mat_ch_pol_usage(char *argv0);
 int f2_mat_ch_pol_main(int argc, char **argv, usage_t *pusage);

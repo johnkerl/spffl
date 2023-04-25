@@ -128,7 +128,7 @@ SPFFL are as follows:
 <pre>
         #!/bin/sh
         p=7
-        elements="`spiff fplist -a $p`"
+        elements="`spiff fp_list -a $p`"
         for a in $elements
         do
                 for b in $elements
@@ -468,12 +468,12 @@ ratcanon .    .    .    .    .    .     .     .    .    .     .
 <i>to do</i>: many more
 
 <pre>
-bash$ f=`spiff f2pop 2 ^ 64 - 2`
+bash$ f=`spiff f2_p_op 2 ^ 64 - 2`
 
-bash$ spiff f2pfactor $f
+bash$ spiff f2_p_factor $f
 2 3 7 b d 43 49 57 5b 61 67 6d 73 75
 
-bash$ spiff f2pmtbl 13 .
+bash$ spiff f2_pm_tbl 13 .
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 1 2 3 4 5 6 7 8 9 a b c d e f
 0 2 4 6 8 a c e 3 1 7 5 b 9 f d
@@ -492,9 +492,9 @@ bash$ spiff f2pmtbl 13 .
 0 f d 2 9 6 4 b 1 e c 3 8 7 5 a
 
 m=13
-for r in `spiff f2pmlist -a $m`
+for r in `spiff f2_pm_list -a $m`
 do
-	spiff f2pmchpol $m $r
+	spiff f2_pm_ch_pol $m $r
 done
 
 1:0:0:0:0
@@ -514,7 +514,7 @@ done
 1:1:0:0:1
 1:1:1:1:1
 
-spiff f2pperiod `spiff f2plist 4`
+spiff f2_p_period `spiff f2_p_list 4`
 10:  0
 11:  4
 12:  0
@@ -532,7 +532,7 @@ spiff f2pperiod `spiff f2plist 4`
 1e:  0
 1f:  5
 
-spiff fpord  35 `spiff fplist -u 35`
+spiff fpord  35 `spiff fp_list -u 35`
  1:  1
  2: 12
  3: 12

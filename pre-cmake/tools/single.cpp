@@ -13,7 +13,7 @@
 typedef void usage_t(char * argv0);
 typedef int main_t (int argc, char ** argv, usage_t * pusage);
 
-static void f2pmmatsolve_usage(char * argv0)
+static void f2_pm_mat_solve_usage(char * argv0)
 {
 	std::cerr << "Usage: " << argv0 << " {m} {A} {b}\n";
 	std::cerr << "Solves A x = b for x, only when a unique solution exists.\n";
@@ -42,7 +42,7 @@ tmatrix<f2_polymod_t> f2np_poly_of_matrix(
 }
 
 // ----------------------------------------------------------------
-static int f2pmmatsolve_main(int argc, char ** argv, usage_t * pusage)
+static int f2_pm_mat_solve_main(int argc, char ** argv, usage_t * pusage)
 {
 	f2_poly_t m = 0;
 	f2_polymod_t zero, one;
@@ -69,5 +69,5 @@ static int f2pmmatsolve_main(int argc, char ** argv, usage_t * pusage)
 
 int main(int argc, char ** argv)
 {
-	return f2pmmatsolve_main(argc, argv, f2pmmatsolve_usage);
+	return f2_pm_mat_solve_main(argc, argv, f2_pm_mat_solve_usage);
 }

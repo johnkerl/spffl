@@ -29,12 +29,12 @@ int fpnpop_main(int argc, char **argv, usage_t *pusage) {
 }
 
 // ----------------------------------------------------------------
-void fpnpmatop_usage(char *argv0) {
+void fpn_p_mat_op_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {im} {...}\n";
   exit(1);
 }
 
-int fpnpmatop_main(int argc, char **argv, usage_t *pusage) {
+int fpn_p_mat_op_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t im;
   if (argc < 3)
@@ -52,12 +52,12 @@ int fpnpmatop_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fpnpgcd_usage(char *argv0) {
+void fpn_p_gcd_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " [-e] {p} {im} {a} {b}\n";
   exit(1);
 }
 
-int fpnpgcd_main(int argc, char **argv, usage_t *pusage) {
+int fpn_p_gcd_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t im;
   spffl::polynomials::fpn_poly_t a, b, g, r, s;

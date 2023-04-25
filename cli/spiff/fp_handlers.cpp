@@ -11,12 +11,12 @@
 #include "tmatrix.h"
 #include <string.h>
 
-void fplist_usage(char *argv0) {
+void fp_list_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " [-a|-u] {p}\n";
   exit(1);
 }
 
-int fplist_main(int argc, char **argv, usage_t *pusage) {
+int fp_list_main(int argc, char **argv, usage_t *pusage) {
   spffl::list::sp_list_type_t type = spffl::list::SP_LIST_ALL;
   int m;
   // -g
@@ -206,12 +206,12 @@ int fpord_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fpmaxord_usage(char *argv0) {
+void fp_max_ord_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p}\n";
   exit(1);
 }
 
-int fpmaxord_main(int argc, char **argv, usage_t *pusage) {
+int fp_max_ord_main(int argc, char **argv, usage_t *pusage) {
   int p;
   if (argc != 2)
     pusage(argv[0]);
@@ -277,12 +277,12 @@ int fporbit_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fpfindgen_usage(char *argv0) {
+void fp_find_gen_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p}\n";
   exit(1);
 }
 
-int fpfindgen_main(int argc, char **argv, usage_t *pusage) {
+int fp_find_gen_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::intmath::intmod_t g;
   int rv = 0;
@@ -303,12 +303,12 @@ int fpfindgen_main(int argc, char **argv, usage_t *pusage) {
   return rv;
 }
 
-void fplog_usage(char *argv0) {
+void fp_log_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {g} {a}\n";
   exit(1);
 }
 
-int fplog_main(int argc, char **argv, usage_t *pusage) {
+int fp_log_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::intmath::intmod_t g, a;
   if (argc < 4)
@@ -350,12 +350,12 @@ int fprandom_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fpmatop_usage(char *argv0) {
+void fp_mat_op_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {goes here}\n";
   exit(1);
 }
 
-int fpmatop_main(int argc, char **argv, usage_t *pusage) {
+int fp_mat_op_main(int argc, char **argv, usage_t *pusage) {
   int p = 0;
   if (argc < 2)
     pusage(argv[0]);
@@ -384,12 +384,12 @@ int fpvecop_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fpmatchpol_usage(char *argv0) {
+void fp_mat_ch_pol_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {goes here}\n";
   exit(1);
 }
 
-int fpmatchpol_main(int argc, char **argv, usage_t *pusage) {
+int fp_mat_ch_pol_main(int argc, char **argv, usage_t *pusage) {
   int p;
   tmatrix<spffl::intmath::intmod_t> A;
 
@@ -407,12 +407,12 @@ int fpmatchpol_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fpmatord_usage(char *argv0) {
+void fp_mat_ord_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {goes here}\n";
   exit(1);
 }
 
-int fpmatord_main(int argc, char **argv, usage_t *pusage) {
+int fp_mat_ord_main(int argc, char **argv, usage_t *pusage) {
   int p;
   tmatrix<spffl::intmath::intmod_t> A;
 
@@ -449,12 +449,12 @@ int fpmatord_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fpmatrandom_usage(char *argv0) {
+void fp_mat_random_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {# rows} {# cols}\n";
   exit(1);
 }
 
-int fpmatrandom_main(int argc, char **argv, usage_t *pusage) {
+int fp_mat_random_main(int argc, char **argv, usage_t *pusage) {
   int p, nr, nc;
 
   if (argc != 4)

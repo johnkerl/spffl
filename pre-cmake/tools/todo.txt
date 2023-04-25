@@ -41,7 +41,7 @@ k points of degree n ...
 ! memoize lots of functions -- phi? gcd?
 * fppm log tbl.  needs find_gen & what else?
 
-k bit_matrix_t to accelerate f2pfactor
+k bit_matrix_t to accelerate f2_p_factor
 
 ! other row-red routine for rings (must be EDs).  Needs generic "gcd".
 
@@ -124,7 +124,7 @@ fpn - .  .   .  -
 k special bit matrix
 * sighdlr in find/rand irrs for status "wiid"
 * rename *linalg.* to something more appropriate.
-* fix tfac binary search on f2pfactor 1e
+* fix tfac binary search on f2_p_factor 1e
 
 ----------------------------------------------------------------
 ! regression tests:
@@ -148,7 +148,7 @@ k z*list
 * ffcomp: alg'ms, pfs out of appces & into own sections.
 k scalar * vec op*?
 k vec * matrix op*?
-k bitmatrix to speed up f2pfactor
+k bitmatrix to speed up f2_p_factor
 
 ================================================================
 for ffcomp:

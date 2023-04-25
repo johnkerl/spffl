@@ -3,8 +3,8 @@ if [ $# -eq 1 ]; then
 	m=$1
 fi
 
-spiff f2pcompmx $m > a
-chpol=`spiff f2pmmatchpol 3 a`
+spiff f2_p_comp_mx $m > a
+chpol=`spiff f2_pm_mat_ch_pol 3 a`
 echo "char poly = $chpol"
 echo "A = "
 cat a
