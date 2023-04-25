@@ -7,7 +7,7 @@ do_once () {
 	a=$3
 	b=$4
 
-	c=`spiff zop  $m . { fpop $n $b / $m } + $n . { fpop $m $a / $n }`
+	c=`spiff z_op  $m . { fpop $n $b / $m } + $n . { fpop $m $a / $n }`
 	d=`spiff fpop $m $c . 1`
 	e=`spiff fpop $n $c . 1`
 	echo $a $b $c $d $e

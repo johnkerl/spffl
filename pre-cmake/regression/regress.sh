@@ -5,13 +5,13 @@ mkdir -p data/outact
 # ----------------------------------------------------------------
 # Integer factorization
 
-spiff ztestprime { zlist 0 100 }       > data/outact/ztestprime-0-100.txt
-spiff zfactor    { zlist 0 100 }       > data/outact/zfactor-0-100.txt
-spiff zdivisors  { zlist 0 100 }       > data/outact/zdivisors-0-100.txt
+spiff z_test_prime { z_list 0 100 }       > data/outact/z_test_prime-0-100.txt
+spiff z_factor    { z_list 0 100 }       > data/outact/z_factor-0-100.txt
+spiff z_divisors  { z_list 0 100 }       > data/outact/z_divisors-0-100.txt
 
-spiff ztestprime { zlist 1000000 100 } > data/outact/ztestprime-1000000-100.txt
-spiff zfactor    { zlist 1000000 100 } > data/outact/zfactor-1000000-100.txt
-spiff zdivisors  { zlist 1000000 100 } > data/outact/zdivisors-1000000-100.txt
+spiff z_test_prime { z_list 1000000 100 } > data/outact/z_test_prime-1000000-100.txt
+spiff z_factor    { z_list 1000000 100 } > data/outact/z_factor-1000000-100.txt
+spiff z_divisors  { z_list 1000000 100 } > data/outact/z_divisors-1000000-100.txt
 
 # ----------------------------------------------------------------
 # Polynomial classification

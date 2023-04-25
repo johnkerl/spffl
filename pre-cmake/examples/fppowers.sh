@@ -10,7 +10,7 @@ shift
 
 for a
 do
-	g=`spiff zgcd $p $a`
+	g=`spiff z_gcd $p $a`
 	if [ $g -ne 1 ]; then
 		echo "$0:  $a is not relatively prime to $p." 1>&2
 		exit 1

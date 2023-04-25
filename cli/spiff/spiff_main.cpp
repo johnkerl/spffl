@@ -45,16 +45,16 @@ typedef struct _lookup_t {
 
 lookup_t lookups[] = {
 
-    {"zop", zop_main, 0 /*zop_usage*/},
-    {"zgcd", zgcd_main, zgcd_usage},
-    {"zlcm", zlcm_main, zlcm_usage},
-    {"ztotient", ztotient_main, ztotient_usage},
-    {"ztestprime", ztestprime_main, ztestprime_usage},
+    {"z_op", z_op_main, 0 /*zop_usage*/},
+    {"z_gcd", z_gcd_main, z_gcd_usage},
+    {"z_lcm", z_lcm_main, z_lcm_usage},
+    {"z_totient", z_totient_main, z_totient_usage},
+    {"z_test_prime", z_test_prime_main, z_test_prime_usage},
     {"spffl::intmath::nth_prime", nthprime_main, nthprime_usage},
-    {"zlist", zlist_main, zlist_usage},
-    {"zfactor", zfactor_main, zfactor_usage},
-    {"zdivisors", zdivisors_main, zdivisors_usage},
-    {"zmatop", zmatop_main, 0 /*zmatop_usage*/},
+    {"z_list", z_list_main, z_list_usage},
+    {"z_factor", z_factor_main, z_factor_usage},
+    {"z_divisors", z_divisors_main, z_divisors_usage},
+    {"z_mat_op", z_mat_op_main, 0 /*zmatop_usage*/},
 
     {"qop", qop_main, 0 /*qop_usage*/},
     {"qvecop", qvecop_main, 0 /*qvecop_usage*/},
