@@ -323,7 +323,7 @@ $\gcd(f, h_1+1) = 1011$ to obtain non-trivial factors of $f$.
 
 
 
-%static void f2poly_berlekamp(
+%static void f2_poly_berlekamp(
 %	f2_poly_t   f,
 %	tfacinfo<f2_poly_t> & rfinfo,
 %	int recurse)
@@ -449,8 +449,8 @@ $\gcd(f, h_1+1) = 1011$ to obtain non-trivial factors of $f$.
 %			rfinfo.insert_factor(f2);
 %		}
 %		else {
-%			f2poly_pre_berlekamp(f1, rfinfo, recurse);
-%			f2poly_pre_berlekamp(f2, rfinfo, recurse);
+%			f2_poly_pre_berlekamp(f1, rfinfo, recurse);
+%			f2_poly_pre_berlekamp(f2, rfinfo, recurse);
 %		}
 %		return;
 %	}

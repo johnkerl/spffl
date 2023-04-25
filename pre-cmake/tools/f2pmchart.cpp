@@ -286,7 +286,7 @@ static void fill_f2pm_chart(
 	int    rowi = 0;
 	f2pm_chart_row_t * prow;
 
-	if (!f2polymod_find_generator(m, g)) {
+	if (!f2_polymod_find_generator(m, g)) {
 		std::cerr << "Couldn't find generator for " << m << ".\n";
 		exit(1);
 	}

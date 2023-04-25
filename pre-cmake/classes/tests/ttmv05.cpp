@@ -137,7 +137,7 @@ int main(int argc, char ** argv)
 		std::cout << "Affine zeroes:\n";
 		std::cout << "f = " << f << "\n";
 
-		tvector<f2_polymod_t> Fq = f2polymod_list(Fq_m, 0);
+		tvector<f2_polymod_t> Fq = f2_polymod_list(Fq_m, 0);
 		int oFq = Fq.get_num_elements();
 
 		tmatrix<f2_polymod_t> Fq_n = f2polymod_An_list(Fq_m, 2);

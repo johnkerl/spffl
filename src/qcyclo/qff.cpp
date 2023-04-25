@@ -18,7 +18,7 @@ spffl::intmath::intmod_t intmod_from_rat(spffl::rationals::intrat_t r, int p) {
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2_poly_t f2poly_from_qpoly(spffl::rationals::qpoly_t q) {
+spffl::polynomials::f2_poly_t f2_poly_from_q_poly(spffl::rationals::qpoly_t q) {
   spffl::polynomials::f2_poly_t rv;
   int d = q.find_degree();
   for (int i = d; i >= 0; i--)

@@ -90,7 +90,7 @@ int main(int argc, char ** argv)
 				std::cerr << "Couldn't parse \"" << argi << "\".\n";
 				exit(1);
 			}
-			Fq_m = f2poly_find_irr(deg);
+			Fq_m = f2_poly_find_irreducible(deg);
 		}
 
 		f2_polymod_t Fq_zero = f2_polymod_t::prime_sfld_elt(0, Fq_m);

@@ -156,7 +156,7 @@ int f2aplist_main(int argc, char ** argv)
 				std::cerr << "Couldn't parse \"" << argi << "\".\n";
 				exit(1);
 			}
-			Fq_m = f2poly_find_irr(deg);
+			Fq_m = f2_poly_find_irreducible(deg);
 		}
 		int n = Fq_m.find_degree();
 		int q = 1 << n;
@@ -295,7 +295,7 @@ int f2apolist_main(int argc, char ** argv)
 				std::cerr << "Couldn't parse \"" << argi << "\".\n";
 				exit(1);
 			}
-			Fq_m = f2poly_find_irr(deg);
+			Fq_m = f2_poly_find_irreducible(deg);
 		}
 
 		f2_polymod_t Fq_zero = f2_polymod_t::prime_sfld_elt(0, Fq_m);
@@ -427,7 +427,7 @@ int f2apsing_main(int argc, char ** argv)
 				std::cerr << "Couldn't parse \"" << argi << "\".\n";
 				exit(1);
 			}
-			Fq_m = f2poly_find_irr(deg);
+			Fq_m = f2_poly_find_irreducible(deg);
 		}
 
 		f2_polymod_t Fq_zero = f2_polymod_t::prime_sfld_elt(0, Fq_m);
@@ -595,7 +595,7 @@ int f2apjac_main(int argc, char ** argv)
 				std::cerr << "Couldn't parse \"" << argi << "\".\n";
 				exit(1);
 			}
-			Fq_m = f2poly_find_irr(deg);
+			Fq_m = f2_poly_find_irreducible(deg);
 		}
 
 		f2_polymod_t Fq_zero = f2_polymod_t::prime_sfld_elt(0, Fq_m);

@@ -74,7 +74,7 @@ spffl::rationals::qpoly_t get_cyclo_qpoly(int n) {
 // ----------------------------------------------------------------
 spffl::polynomials::f2_poly_t get_cyclo_f2poly(int n) {
   spffl::rationals::qpoly_t q = get_cyclo_qpoly(n);
-  spffl::polynomials::f2_poly_t rv = f2poly_from_qpoly(q);
+  spffl::polynomials::f2_poly_t rv = f2_poly_from_q_poly(q);
   return rv;
 }
 

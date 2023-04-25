@@ -135,7 +135,7 @@ int f2pm_matrix_is_dable(
     // Use specified modulus if degrees are equal.
     rext_modulus = base_modulus;
   } else {
-    rext_modulus = spffl::factorization::f2poly_find_irr(absolute_ext_degree);
+    rext_modulus = spffl::factorization::f2_poly_find_irreducible(absolute_ext_degree);
   }
 
   if (verbose) {
@@ -153,16 +153,16 @@ int f2pm_matrix_is_dable(
   } else {
     spffl::polynomials::f2_polymod_t base_g, ext_g;
 
-    if (!spffl::units::f2polymod_find_generator(base_modulus, base_g)) {
+    if (!spffl::units::f2_polymod_find_generator(base_modulus, base_g)) {
       std::cerr << "Can't find generator mod " << base_modulus << ".\n";
       exit(1);
     }
-    if (!f2polymod_convert_prep(base_g, rext_modulus, ext_g)) {
+    if (!f2_polymod_convert_prep(base_g, rext_modulus, ext_g)) {
       std::cerr << "Can't find generator mod " << rext_modulus << ".\n";
       exit(1);
     }
 
-    ext_chpol = f2polymod_convert_poly(base_g, ext_g, chpol);
+    ext_chpol = f2_polymod_convert_poly(base_g, ext_g, chpol);
     ext_A = f2polymod_convert_matrix(base_g, ext_g, A);
   }
 

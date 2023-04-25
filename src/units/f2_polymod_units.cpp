@@ -54,13 +54,13 @@ int f2polymod_order(spffl::polynomials::f2_polymod_t a) {
 }
 
 // ----------------------------------------------------------------
-int f2polymod_find_generator(spffl::polynomials::f2_poly_t m,
+int f2_polymod_find_generator(spffl::polynomials::f2_poly_t m,
                              spffl::polynomials::f2_polymod_t &rg) {
   int mdeg = m.find_degree();
   spffl::polynomials::f2_poly_t gres(1);
 
   if (mdeg < 1) {
-    std::cout << "f2polymod_find_generator:  modulus degree "
+    std::cout << "f2_polymod_find_generator:  modulus degree "
               << "must be positive; got " << mdeg << ".\n";
     exit(1);
   }
@@ -85,12 +85,12 @@ int f2polymod_find_generator(spffl::polynomials::f2_poly_t m,
 
 // ----------------------------------------------------------------
 // The naive test is a one-liner:
-//   return (spffl::factorization::f2_poly_totient(m) == f2poly_period(m));
-// This appears simple, but f2poly_period() will test x^d for all proper
+//   return (spffl::factorization::f2_poly_totient(m) == f2_poly_period(m));
+// This appears simple, but f2_poly_period() will test x^d for all proper
 // divisors of phi(m).  For primitivity, it suffices to check only the
 // *maximal* proper divisors of phi(m).
 
-int f2poly_is_primitive(spffl::polynomials::f2_poly_t m) {
+int f2_poly_is_primitive(spffl::polynomials::f2_poly_t m) {
   spffl::polynomials::f2_poly_t pol1(1); // 1 as a polynomial.
   spffl::polynomials::f2_poly_t polx(1, 0);
   if (polx.gcd(m) != pol1)
@@ -124,7 +124,7 @@ int f2poly_is_primitive(spffl::polynomials::f2_poly_t m) {
 }
 
 // ----------------------------------------------------------------
-int f2poly_period(spffl::polynomials::f2_poly_t m) {
+int f2_poly_period(spffl::polynomials::f2_poly_t m) {
   spffl::polynomials::f2_poly_t x(1, 0);
   spffl::polynomials::f2_poly_t one(1);
   if (x.gcd(m) != one)
@@ -146,7 +146,7 @@ spffl::polynomials::f2_poly_t f2poly_find_prim(int degree, int need_irr) {
   }
 
   while (rv.find_degree() == degree) {
-    if (f2poly_is_primitive(rv)) {
+    if (f2_poly_is_primitive(rv)) {
       if (!need_irr || spffl::factorization::f2poly_is_irreducible(rv))
         return rv;
     }
@@ -173,7 +173,7 @@ spffl::polynomials::f2_poly_t f2poly_random_prim(int degree, int need_irr) {
 
   for (;;) {
     rv = spffl::random::f2_poly_random(degree);
-    if (f2poly_is_primitive(rv)) {
+    if (f2_poly_is_primitive(rv)) {
       if (!need_irr || spffl::factorization::f2poly_is_irreducible(rv))
         return rv;
     }

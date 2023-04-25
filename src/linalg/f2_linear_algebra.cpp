@@ -104,13 +104,13 @@ f2polymod_char_or_min_poly(spffl::polynomials::f2_polymod_t a, bool do_min) {
 
 // ----------------------------------------------------------------
 spffl::polynomials::f2n_poly_t
-f2polymod_char_poly(spffl::polynomials::f2_polymod_t a) {
+f2_polymod_char_poly(spffl::polynomials::f2_polymod_t a) {
   return f2polymod_char_or_min_poly(a, 0);
 }
 
 // ----------------------------------------------------------------
 spffl::polynomials::f2n_poly_t
-f2polymod_min_poly(spffl::polynomials::f2_polymod_t a) {
+f2_polymod_min_poly(spffl::polynomials::f2_polymod_t a) {
   return f2polymod_char_or_min_poly(a, 1);
 }
 

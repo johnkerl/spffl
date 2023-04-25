@@ -31,7 +31,7 @@ tvector<spffl::polynomials::fp_poly_t> fppoly_list(int p, int deg);
 
 tvector<spffl::intmath::intmod_t> intmod_list(int p, sp_list_type_t type);
 tvector<spffl::polynomials::f2_polymod_t>
-f2polymod_list(spffl::polynomials::f2_poly_t m, sp_list_type_t);
+f2_polymod_list(spffl::polynomials::f2_poly_t m, sp_list_type_t);
 tvector<spffl::polynomials::f2n_polymod_t>
 f2npolymod_list(spffl::polynomials::f2n_poly_t m, sp_list_type_t);
 tvector<spffl::polynomials::fp_polymod_t>
