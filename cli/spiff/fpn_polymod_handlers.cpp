@@ -5,12 +5,12 @@
 #include "fpn_polymod_t.h"
 
 // ----------------------------------------------------------------
-void fpnpmop_usage(char *argv0) {
+void fpn_pm_op_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {im} {om} {...}\n";
   exit(1);
 }
 
-int fpnpmop_main(int argc, char **argv, usage_t *pusage) {
+int fpn_pm_op_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t im;
   spffl::polynomials::fpn_poly_t om;
@@ -32,12 +32,12 @@ int fpnpmop_main(int argc, char **argv, usage_t *pusage) {
 }
 
 // ----------------------------------------------------------------
-void fpnpmmatop_usage(char *argv0) {
+void fpn_pm_mat_op_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {im} {om} {...}\n";
   exit(1);
 }
 
-int fpnpmmatop_main(int argc, char **argv, usage_t *pusage) {
+int fpn_pm_mat_op_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t im;
   spffl::polynomials::fpn_poly_t om;

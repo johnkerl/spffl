@@ -212,17 +212,17 @@ lookup_t lookups[] = {
     //{"fpn_p_eval",        fpn_p_eval_main,        fpn_p_eval_usage},
     //{"fpnprandom",      fpnprandom_main,      fpnprandom_usage},
 
-    {"fpnpmop", fpnpmop_main, fpnpmop_usage},
-    {"fpnpmmatop", fpnpmmatop_main, fpnpmmatop_usage},
+    {"fpn_pm_op", fpn_pm_op_main, fpn_pm_op_usage},
+    {"fpn_pm_mat_op", fpn_pm_mat_op_main, fpn_pm_mat_op_usage},
 
     // To do:
-    //{"fpnpmlist",       fpnpmlist_main,       fpnpmlist_usage},
-    //{"fpnpmtbl",        fpnpmtbl_main,        fpnpmtbl_usage},
-    //{"fpnpmord",        fpnpmord_main,        fpnpmord_usage},
-    //{"fpnpmchpol",      fpnpmchpol_main,      fpnpmchpol_usage},
-    //{"fpnpmminpol",     fpnpmminpol_main,     fpnpmminpol_usage},
-    //{"fpnpmrandom",     fpnpmrandom_main,     fpnpmrandom_usage},
-    //{"fpnpmmatrandom",  fpnpmmatrandom_main,  fpnpmmatrandom_usage},
+    //{"fpn_pm_list",       fpn_pm_list_main,       fpn_pm_list_usage},
+    //{"fpn_pm_tbl",        fpn_pm_tbl_main,        fpn_pm_tbl_usage},
+    //{"fpn_pm_ord",        fpn_pm_ord_main,        fpn_pm_ord_usage},
+    //{"fpn_pm_ch_pol",      fpn_pm_ch_pol_main,      fpn_pm_ch_pol_usage},
+    //{"fpn_pm_min_pol",     fpn_pm_min_pol_main,     fpn_pm_min_pol_usage},
+    //{"fpn_pm_random",     fpn_pm_random_main,     fpn_pm_random_usage},
+    //{"fpn_pm_mat_random",  fpn_pm_mat_random_main,  fpn_pm_mat_random_usage},
 
     {0, 0, 0} // MUST be null-terminated.
 };
