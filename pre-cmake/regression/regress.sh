@@ -108,16 +108,16 @@ spiffsf fpplcm 19 \
 # ----------------------------------------------------------------
 # Matrix arithmetic
 
-spiff f2matop '[[1 1 0] [0 1 1] [1 1 1]]' . '[[0 1 1] [0 1 0] [1 1 0]]' \
+spiff f2_mat_op '[[1 1 0] [0 1 1] [1 1 1]]' . '[[0 1 1] [0 1 0] [1 1 0]]' \
 	> data/outact/f2-mat33.txt
 
-spiff f2matop data/input/f2-mat1.txt . data/input/f2-mat2.txt \
+spiff f2_mat_op data/input/f2-mat1.txt . data/input/f2-mat2.txt \
 	> data/outact/f2-mat-1-1.txt
-spiff f2matop data/input/f2-mat3.txt . data/input/f2-mat4.txt \
+spiff f2_mat_op data/input/f2-mat3.txt . data/input/f2-mat4.txt \
 	> data/outact/f2-mat-3-4.txt
-spiff f2matop data/input/f2-mat5.txt . data/input/f2-mat6.txt \
+spiff f2_mat_op data/input/f2-mat5.txt . data/input/f2-mat6.txt \
 	> data/outact/f2-mat-5-6.txt
-spiff f2matop det data/input/f2-mat1.txt > data/outact/f2-mat-det-1.txt
+spiff f2_mat_op det data/input/f2-mat1.txt > data/outact/f2-mat-det-1.txt
 
 spiff f2pmmatop 13 '[[6 a 9] [1 3 e] [c 7 0]]' . '[[1 f 1] [e b b] [d d 0]]' \
 	> data/outact/f2pm-13-mat33.txt

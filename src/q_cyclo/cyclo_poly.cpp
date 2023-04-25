@@ -11,7 +11,7 @@
 #include "cyclo_poly.h"
 #include "qff.h"
 
-namespace spffl::qcyclo {
+namespace spffl::q_cyclo {
 
 #define CYCLO_MEMO_MAX 16
 static int memo_flags[CYCLO_MEMO_MAX + 1] = {0};
@@ -136,4 +136,4 @@ int main(void) {
 }
 #endif
 
-} // namespace spffl::qcyclo
+} // namespace spffl::q_cyclo

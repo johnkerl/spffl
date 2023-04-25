@@ -122,12 +122,12 @@ int z_test_prime_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void nthprime_usage(char *argv0) {
+void nth_prime_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {n[-m]}\n";
   exit(1);
 }
 
-int nthprime_main(int argc, char **argv, usage_t *pusage) {
+int nth_prime_main(int argc, char **argv, usage_t *pusage) {
   if (argc < 2)
     pusage(argv[0]);
   for (int argi = 1; argi < argc; argi++) {

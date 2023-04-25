@@ -3,7 +3,7 @@ if [ $# -eq 1 ]; then
 	n=$1
 fi
 
-spiff f2matrandom $n $n > a
+spiff f2_mat_random $n $n > a
 chpol=`spiff f2pmmatchpol 3 a`
 echo "char poly = $chpol"
 echo "det = " `spiff f2npmatop 3 det a`

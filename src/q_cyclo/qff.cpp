@@ -1,6 +1,6 @@
 #include "qff.h"
 
-namespace spffl::qcyclo {
+namespace spffl::q_cyclo {
 
 // ----------------------------------------------------------------
 spffl::bits::bit_t bit_from_rat(spffl::rationals::intrat_t r) {
@@ -71,4 +71,4 @@ fpn_poly_from_qpoly(spffl::rationals::qpoly_t q,
   return rv;
 }
 
-} // namespace spffl::qcyclo
+} // namespace spffl::q_cyclo

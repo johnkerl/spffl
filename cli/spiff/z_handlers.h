@@ -23,8 +23,8 @@ int z_totient_main(int argc, char **argv, usage_t *pusage);
 void z_test_prime_usage(char *argv0);
 int z_test_prime_main(int argc, char **argv, usage_t *pusage);
 
-void nthprime_usage(char *argv0);
-int nthprime_main(int argc, char **argv, usage_t *pusage);
+void nth_prime_usage(char *argv0);
+int nth_prime_main(int argc, char **argv, usage_t *pusage);
 
 void z_list_usage(char *argv0);
 int z_list_main(int argc, char **argv, usage_t *pusage);
