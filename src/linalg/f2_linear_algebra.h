@@ -25,10 +25,10 @@ tmatrix<spffl::bits::bit_t>
 f2_companion_matrix(spffl::polynomials::f2_poly_t chpol);
 
 spffl::polynomials::f2n_poly_t
-f2polymod_min_poly(spffl::polynomials::f2_polymod_t a);
+f2_polymod_min_poly(spffl::polynomials::f2_polymod_t a);
 
 spffl::polynomials::f2n_poly_t
-f2polymod_char_poly(spffl::polynomials::f2_polymod_t a);
+f2_polymod_char_poly(spffl::polynomials::f2_polymod_t a);
 
 } // namespace spffl::linalg
 

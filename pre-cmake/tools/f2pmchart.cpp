@@ -198,7 +198,7 @@ static void find_irreds(
 	flo = f2_poly_t::from_base_rep(1 << n);
 	fhi = f2_poly_t::from_base_rep((1 << n+1) - 1);
 	for (f = flo; f <= fhi; f.increment()) {
-		if (!f2poly_is_irreducible(f))
+		if (!f2_poly_is_irreducible(f))
 			continue;
 
 		if (count >= num_irreds) {
@@ -286,7 +286,7 @@ static void fill_f2pm_chart(
 	int    rowi = 0;
 	f2pm_chart_row_t * prow;
 
-	if (!f2polymod_find_generator(m, g)) {
+	if (!f2_polymod_find_generator(m, g)) {
 		std::cerr << "Couldn't find generator for " << m << ".\n";
 		exit(1);
 	}
@@ -319,7 +319,7 @@ static void fill_f2pm_chart(
 
 			prow->min_poly = f2pm_min_poly(elt);
 			pchart->rows[rowi].num_roots = d;
-			pchart->rows[rowi].order = f2polymod_order(elt);
+			pchart->rows[rowi].order = f2_polymod_order(elt);
 
 			for (j = 0; j < d; j++) {
 				marks[orbit_log] = 1;

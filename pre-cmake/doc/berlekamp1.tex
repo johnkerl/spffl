@@ -206,7 +206,7 @@ with kernel basis
 These are $h_1 = 11100$ and $h_2 = 1$, respectively.  Compute $\gcd(f, h_1) = 111$ and
 $\gcd(f, h_1+1) = 1011$ to obtain non-trivial factors of $f$.
 
-%static void fppoly_berlekamp(
+%static void fp_poly_berlekamp(
 %	fp_poly_t   f,
 %	tfacinfo<fp_poly_t> & rfinfo,
 %	int recurse)
@@ -271,7 +271,7 @@ $\gcd(f, h_1+1) = 1011$ to obtain non-trivial factors of $f$.
 %
 %	int got_it = 0;
 %	for (row = 0; row <  dimker && !got_it; row++) {
-%		fp_poly_t h = fppoly_from_vector(nullspace_basis[row], n);
+%		fp_poly_t h = fp_poly_from_vector(nullspace_basis[row], n);
 %		if (h == 1)
 %			continue;
 %
@@ -315,15 +315,15 @@ $\gcd(f, h_1+1) = 1011$ to obtain non-trivial factors of $f$.
 %		rfinfo.insert_factor(f2);
 %	}
 %	else {
-%		fppoly_pre_berlekamp(f1, rfinfo, recurse);
-%		fppoly_pre_berlekamp(f2, rfinfo, recurse);
+%		fp_poly_pre_berlekamp(f1, rfinfo, recurse);
+%		fp_poly_pre_berlekamp(f2, rfinfo, recurse);
 %	}
 %}
 
 
 
 
-%static void f2poly_berlekamp(
+%static void f2_poly_berlekamp(
 %	f2_poly_t   f,
 %	tfacinfo<f2_poly_t> & rfinfo,
 %	int recurse)
@@ -414,7 +414,7 @@ $\gcd(f, h_1+1) = 1011$ to obtain non-trivial factors of $f$.
 %
 %	for (row = 0; row <  dimker; row++) {
 %		f2_poly_t h, hc;
-%		h = f2poly_from_vector(nullspace_basis[row], n);
+%		h = f2_poly_from_vector(nullspace_basis[row], n);
 %		hc = h + f2_poly_t(1);
 %
 %		f2_poly_t check1 = (h  * h)  % f;
@@ -449,8 +449,8 @@ $\gcd(f, h_1+1) = 1011$ to obtain non-trivial factors of $f$.
 %			rfinfo.insert_factor(f2);
 %		}
 %		else {
-%			f2poly_pre_berlekamp(f1, rfinfo, recurse);
-%			f2poly_pre_berlekamp(f2, rfinfo, recurse);
+%			f2_poly_pre_berlekamp(f1, rfinfo, recurse);
+%			f2_poly_pre_berlekamp(f2, rfinfo, recurse);
 %		}
 %		return;
 %	}

@@ -6,7 +6,7 @@
 //
 //   "2.3.1.0+4.0.1.1"
 
-int tmvpoly_f2polymod_from_string(
+int tmvpoly_f2_polymod_from_string(
 	tmvpoly<f2_polymod_t> & f,
 	const char            * string,
 	f2_poly_t               m)
@@ -28,7 +28,7 @@ int tmvpoly_f2polymod_from_string(
 		}
 		else {
 			if (nvars != nvars0) {
-				std::cerr << "tmvpoly_f2polymod_from_string: all "
+				std::cerr << "tmvpoly_f2_polymod_from_string: all "
 					"monomials must have same # variables.\n";
 				free(cpstring);
 				delete [] monomv;
@@ -38,7 +38,7 @@ int tmvpoly_f2polymod_from_string(
 
 		if (nvars < 1) {
 			std::cerr
-				<< "tmvpoly_f2polymod_from_string: need >= 1 variable in \""
+				<< "tmvpoly_f2_polymod_from_string: need >= 1 variable in \""
 				<< monomv[i] << "\".\n";
 			free(cpstring);
 			delete [] monomv;
@@ -52,7 +52,7 @@ int tmvpoly_f2polymod_from_string(
 		f2_polymod_t coeff;
 		if (!coeff.from_string(cvarv[0], m)) {
 			std::cerr
-				<< "tmvpoly_f2polymod_from_string: couldn't parse \""
+				<< "tmvpoly_f2_polymod_from_string: couldn't parse \""
 				<< cvarv[0]
 				<< "\" as coefficient.\n";
 			free(cpstring);
@@ -65,7 +65,7 @@ int tmvpoly_f2polymod_from_string(
 		for (int j = 0; j < nvars; j++) {
 			if (sscanf(cvarv[j+1], "%d", &expts[j]) != 1) {
 				std::cerr
-					<< "tmvpoly_f2polymod_from_string: couldn't parse \""
+					<< "tmvpoly_f2_polymod_from_string: couldn't parse \""
 					<< cvarv[j+1]
 					<< "\" as exponent.\n";
 				free(cpstring);
@@ -92,7 +92,7 @@ int tmvpoly_f2polymod_from_string(
 //
 //   "2.3.1.0+4.0.1.1"
 
-int tmvpoly_fppolymod_from_string(
+int tmvpoly_fp_polymod_from_string(
 	tmvpoly<fp_polymod_t> & f,
 	const char           * string,
 	fp_poly_t               m)
@@ -114,7 +114,7 @@ int tmvpoly_fppolymod_from_string(
 		}
 		else {
 			if (nvars != nvars0) {
-				std::cerr << "tmvpoly_fppolymod_from_string: all "
+				std::cerr << "tmvpoly_fp_polymod_from_string: all "
 					"monomials must have same # variables.\n";
 				free(cpstring);
 				delete [] monomv;
@@ -124,7 +124,7 @@ int tmvpoly_fppolymod_from_string(
 
 		if (nvars < 1) {
 			std::cerr
-				<< "tmvpoly_fppolymod_from_string: need >= 1 variable in \""
+				<< "tmvpoly_fp_polymod_from_string: need >= 1 variable in \""
 				<< monomv[i] << "\".\n";
 			free(cpstring);
 			delete [] monomv;
@@ -138,7 +138,7 @@ int tmvpoly_fppolymod_from_string(
 		fp_polymod_t coeff;
 		if (!coeff.from_string(cvarv[0], m)) {
 			std::cerr
-				<< "tmvpoly_fppolymod_from_string: couldn't parse \""
+				<< "tmvpoly_fp_polymod_from_string: couldn't parse \""
 				<< cvarv[0]
 				<< "\" as coefficient.\n";
 			free(cpstring);
@@ -151,7 +151,7 @@ int tmvpoly_fppolymod_from_string(
 		for (int j = 0; j < nvars; j++) {
 			if (sscanf(cvarv[j+1], "%d", &expts[j]) != 1) {
 				std::cerr
-					<< "tmvpoly_fppolymod_from_string: couldn't parse \""
+					<< "tmvpoly_fp_polymod_from_string: couldn't parse \""
 					<< cvarv[j+1]
 					<< "\" as exponent.\n";
 				free(cpstring);

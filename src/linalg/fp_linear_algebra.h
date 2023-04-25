@@ -25,10 +25,10 @@ tmatrix<spffl::intmath::intmod_t>
 fp_companion_matrix(spffl::polynomials::fp_poly_t chpol);
 
 #if 0
-spffl::polynomials::fpn_poly_t fppolymod_min_poly(
+spffl::polynomials::fpn_poly_t fp_polymod_min_poly(
 	spffl::polynomials::fp_polymod_t a);
 
-spffl::polynomials::fpn_poly_t fppolymod_char_poly(
+spffl::polynomials::fpn_poly_t fp_polymod_char_poly(
 	spffl::polynomials::fp_polymod_t a);
 #endif
 

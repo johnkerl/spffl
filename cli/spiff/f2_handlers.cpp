@@ -7,18 +7,18 @@
 #include "int_random.h"
 #include "tmatrix.h"
 
-int f2op_main(int argc, char **argv, usage_t *pusage) {
+int f2_op_main(int argc, char **argv, usage_t *pusage) {
   spffl::cliparser::cmd_line_parse<spffl::bits::bit_t>(
       argc - 1, argv + 1, spffl::bits::bit_t(0), spffl::bits::bit_t(1));
   return 0;
 }
 
-void f2random_usage(char *argv0) {
+void f2_random_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " [count]\n";
   exit(1);
 }
 
-int f2random_main(int argc, char **argv, usage_t *pusage) {
+int f2_random_main(int argc, char **argv, usage_t *pusage) {
   int count = 1;
 
   if ((argc != 1) && (argc != 2))
@@ -34,24 +34,24 @@ int f2random_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-int f2matop_main(int argc, char **argv, usage_t *pusage) {
+int f2_mat_op_main(int argc, char **argv, usage_t *pusage) {
   spffl::cliparser::cmd_line_mat_parse<spffl::bits::bit_t>(
       argc - 1, argv + 1, spffl::bits::bit_t(0), spffl::bits::bit_t(1));
   return 0;
 }
 
-int f2vecop_main(int argc, char **argv, usage_t *pusage) {
+int f2_vec_op_main(int argc, char **argv, usage_t *pusage) {
   spffl::cliparser::cmd_line_vec_parse<spffl::bits::bit_t>(
       argc - 1, argv + 1, spffl::bits::bit_t(0), spffl::bits::bit_t(1));
   return 0;
 }
 
-void f2matchpol_usage(char *argv0) {
+void f2_mat_ch_pol_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {goes here}\n";
   exit(1);
 }
 
-int f2matchpol_main(int argc, char **argv, usage_t *pusage) {
+int f2_mat_ch_pol_main(int argc, char **argv, usage_t *pusage) {
   tmatrix<spffl::bits::bit_t> A;
 
   if (argc != 2)
@@ -65,12 +65,12 @@ int f2matchpol_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void f2matord_usage(char *argv0) {
+void f2_mat_ord_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {goes here}\n";
   exit(1);
 }
 
-int f2matord_main(int argc, char **argv, usage_t *pusage) {
+int f2_mat_ord_main(int argc, char **argv, usage_t *pusage) {
   tmatrix<spffl::bits::bit_t> A;
 
   if (argc != 1)
@@ -104,12 +104,12 @@ int f2matord_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void f2matrandom_usage(char *argv0) {
+void f2_mat_random_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {# rows} {# cols}\n";
   exit(1);
 }
 
-int f2matrandom_main(int argc, char **argv, usage_t *pusage) {
+int f2_mat_random_main(int argc, char **argv, usage_t *pusage) {
   int nr, nc;
 
   if (argc != 3)

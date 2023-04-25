@@ -9,32 +9,32 @@
 
 #include "handlers.h"
 
-int zop_main(int argc, char **argv, usage_t *pusage);
+int z_op_main(int argc, char **argv, usage_t *pusage);
 
-void zgcd_usage(char *argv0);
-int zgcd_main(int argc, char **argv, usage_t *pusage);
+void z_gcd_usage(char *argv0);
+int z_gcd_main(int argc, char **argv, usage_t *pusage);
 
-void zlcm_usage(char *argv0);
-int zlcm_main(int argc, char **argv, usage_t *pusage);
+void z_lcm_usage(char *argv0);
+int z_lcm_main(int argc, char **argv, usage_t *pusage);
 
-void ztotient_usage(char *argv0);
-int ztotient_main(int argc, char **argv, usage_t *pusage);
+void z_totient_usage(char *argv0);
+int z_totient_main(int argc, char **argv, usage_t *pusage);
 
-void ztestprime_usage(char *argv0);
-int ztestprime_main(int argc, char **argv, usage_t *pusage);
+void z_test_prime_usage(char *argv0);
+int z_test_prime_main(int argc, char **argv, usage_t *pusage);
 
-void nthprime_usage(char *argv0);
-int nthprime_main(int argc, char **argv, usage_t *pusage);
+void nth_prime_usage(char *argv0);
+int nth_prime_main(int argc, char **argv, usage_t *pusage);
 
-void zlist_usage(char *argv0);
-int zlist_main(int argc, char **argv, usage_t *pusage);
+void z_list_usage(char *argv0);
+int z_list_main(int argc, char **argv, usage_t *pusage);
 
-void zfactor_usage(char *argv0);
-int zfactor_main(int argc, char **argv, usage_t *pusage);
+void z_factor_usage(char *argv0);
+int z_factor_main(int argc, char **argv, usage_t *pusage);
 
-void zdivisors_usage(char *argv0);
-int zdivisors_main(int argc, char **argv, usage_t *pusage);
+void z_divisors_usage(char *argv0);
+int z_divisors_main(int argc, char **argv, usage_t *pusage);
 
-int zmatop_main(int argc, char **argv, usage_t *pusage);
+int z_mat_op_main(int argc, char **argv, usage_t *pusage);
 
 #endif // Z_HANDLERS_H

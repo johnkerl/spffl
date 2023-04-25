@@ -4,11 +4,11 @@
 #include "cmd_line_vector_ops.h"
 #include "f2n_polyrat_t.h"
 
-void f2nprop_usage(char *argv0) {
+void f2n_pr_op_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {m} {...}\n";
   exit(1);
 }
-int f2nprop_main(int argc, char **argv, usage_t *pusage) {
+int f2n_pr_op_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t m;
   if (argc < 2)
     pusage(argv[0]);
@@ -23,12 +23,12 @@ int f2nprop_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void f2nprmatop_usage(char *argv0) {
+void f2n_pr_mat_op_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {inner m} {...}\n";
   exit(1);
 }
 
-int f2nprmatop_main(int argc, char **argv, usage_t *pusage) {
+int f2n_pr_mat_op_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t m;
   if (argc < 2)
     pusage(argv[0]);

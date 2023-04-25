@@ -13,10 +13,10 @@ fi
 
 for i in `jot 1 $n`
 do
-	f=`spiff f2nprandom $m $d`
+	f=`spiff f2n_p_random $m $d`
 	echo -n $f
 	echo -n ": "
 	spiff f2npirr $m $f
-	spiff f2npfactor $m $f
+	spiff f2n_p_factor $m $f
 	echo ""
 done

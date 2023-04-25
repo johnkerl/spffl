@@ -152,7 +152,7 @@ int main(int argc, char ** argv)
 		}
 		std::cout << "f = " << f << "\n";
 
-		tmatrix<f2_polymod_t> Fq_n = f2polymod_An_list(m, n);
+		tmatrix<f2_polymod_t> Fq_n = f2_polymod_An_list(m, n);
 		int qn = Fq_n.get_num_rows();
 
 		for (int i = 0; i < qn; i++) {
@@ -170,7 +170,7 @@ int main(int argc, char ** argv)
 		}
 		std::cout << "F = " << F << "\n";
 
-		tmatrix<f2_polymod_t> Pn_Fq = f2polymod_Pn_list(m, n);
+		tmatrix<f2_polymod_t> Pn_Fq = f2_polymod_Pn_list(m, n);
 		int oP = Pn_Fq.get_num_rows();
 
 		for (int i = 0; i < oP; i++) {

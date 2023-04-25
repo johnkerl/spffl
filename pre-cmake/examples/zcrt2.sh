@@ -7,9 +7,9 @@ do_once () {
 	a=$3
 	b=$4
 
-	c=`spiff zop  $m . { fpop $n $b / $m } + $n . { fpop $m $a / $n }`
-	d=`spiff fpop $m $c . 1`
-	e=`spiff fpop $n $c . 1`
+	c=`spiff z_op  $m . { fp_op $n $b / $m } + $n . { fp_op $m $a / $n }`
+	d=`spiff fp_op $m $c . 1`
+	e=`spiff fp_op $n $c . 1`
 	echo $a $b $c $d $e
 }
 
@@ -23,9 +23,9 @@ if [ $# -eq 4 ]; then
 elif [ $# -eq 2 ]; then
 	m=$1
 	n=$2
-	for a in `spiff fplist -a $m`
+	for a in `spiff fp_list -a $m`
 	do
-	    for b in `spiff fplist -a $n`
+	    for b in `spiff fp_list -a $n`
 	    do
 			do_once $m $n $a $b
 	    done

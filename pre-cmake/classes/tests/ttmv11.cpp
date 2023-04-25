@@ -55,10 +55,10 @@ int main(int argc, char ** argv)
 	const char * fstring = argv[argb];
 	argb++;
 
-	fp_poly_t Fp_m = fppoly_find_irr(p, 1);
+	fp_poly_t Fp_m = fp_poly_find_irr(p, 1);
 
 	tmvpoly<fp_polymod_t> Fp_f;
-	if (!tmvpoly_fppolymod_from_string(Fp_f, fstring, Fp_m)) {
+	if (!tmvpoly_fp_polymod_from_string(Fp_f, fstring, Fp_m)) {
 		std::cerr << "Couldn't scan polynomial.\n";
 		exit(1);
 	}
@@ -87,7 +87,7 @@ int main(int argc, char ** argv)
 				std::cerr << "Couldn't parse \"" << argi << "\".\n";
 				exit(1);
 			}
-			Fq_m = fppoly_find_irr(p, deg);
+			Fq_m = fp_poly_find_irr(p, deg);
 		}
 		fp_polymod_t Fq_zero = fp_polymod_t::prime_sfld_elt(0, Fq_m);
 		tmvpoly<fp_polymod_t> f = Fp_Fq_embed(Fp_f, Fq_m);
@@ -110,7 +110,7 @@ int main(int argc, char ** argv)
 			std::cout << "Affine zeroes:\n";
 		}
 
-		tmatrix<fp_polymod_t> Fq_n = fppolymod_An_list(Fq_m, n);
+		tmatrix<fp_polymod_t> Fq_n = fp_polymod_An_list(Fq_m, n);
 		int qn = Fq_n.get_num_rows();
 
 		for (int i = 0; i < qn; i++) {
@@ -127,7 +127,7 @@ int main(int argc, char ** argv)
 			std::cout << "Projective zeroes:\n";
 		}
 
-		tmatrix<fp_polymod_t> Pn_Fq = fppolymod_Pn_list(Fq_m, n);
+		tmatrix<fp_polymod_t> Pn_Fq = fp_polymod_Pn_list(Fq_m, n);
 		int oP = Pn_Fq.get_num_rows();
 
 		for (int i = 0; i < oP; i++) {

@@ -3,10 +3,10 @@
 
 #include "handlers.h"
 
-void fpnpmop_usage(char *argv0);
-int fpnpmop_main(int argc, char **argv, usage_t *pusage);
+void fpn_pm_op_usage(char *argv0);
+int fpn_pm_op_main(int argc, char **argv, usage_t *pusage);
 
-void fpnpmmatop_usage(char *argv0);
-int fpnpmmatop_main(int argc, char **argv, usage_t *pusage);
+void fpn_pm_mat_op_usage(char *argv0);
+int fpn_pm_mat_op_main(int argc, char **argv, usage_t *pusage);
 
 #endif // FPNPOLYMOD_HANDLERS_H

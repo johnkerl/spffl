@@ -13,13 +13,13 @@
 typedef void usage_t(char * argv0);
 typedef int main_t (int argc, char ** argv, usage_t * pusage);
 
-static void f2pmop_usage(char * argv0)
+static void f2_pm_op_usage(char * argv0)
 {
 	std::cerr << "Usage: " << argv0 << " {m} ...\n";
 	exit(1);
 }
 
-static int f2pmop_main(int argc, char ** argv, usage_t * pusage)
+static int f2_pm_op_main(int argc, char ** argv, usage_t * pusage)
 {
 	f2_poly_t m;
 	if (argc < 2)
@@ -34,5 +34,5 @@ static int f2pmop_main(int argc, char ** argv, usage_t * pusage)
 
 int main(int argc, char ** argv)
 {
-	return f2pmop_main(argc, argv, f2pmop_usage);
+	return f2_pm_op_main(argc, argv, f2_pm_op_usage);
 }

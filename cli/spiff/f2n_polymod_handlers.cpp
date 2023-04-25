@@ -11,12 +11,12 @@
 #include "min_char_polys.h"
 #include "tbl_types.h"
 
-void f2npmlist_usage(char *argv0) {
+void f2n_pm_list_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " [-a|-u] {im} {om}\n";
   exit(1);
 }
 
-int f2npmlist_main(int argc, char **argv, usage_t *pusage) {
+int f2n_pm_list_main(int argc, char **argv, usage_t *pusage) {
   spffl::list::sp_list_type_t type = spffl::list::SP_LIST_ALL;
   spffl::polynomials::f2_poly_t im;
   spffl::polynomials::f2n_poly_t om;
@@ -34,17 +34,17 @@ int f2npmlist_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (!om.from_string(argv[3], im))
     pusage(argv[0]);
-  tvector<spffl::polynomials::f2n_polymod_t> elts = f2npolymod_list(om, type);
+  tvector<spffl::polynomials::f2n_polymod_t> elts = f2n_polymod_list(om, type);
   elts.crout(std::cout);
   return 0;
 }
 
-void f2npmop_usage(char *argv0) {
+void f2n_pm_op_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {inner m} {outer m} {...}\n";
   exit(1);
 }
 
-int f2npmop_main(int argc, char **argv, usage_t *pusage) {
+int f2n_pm_op_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t im;
   spffl::polynomials::f2n_poly_t om;
   if (argc < 3)
@@ -62,13 +62,13 @@ int f2npmop_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void f2npmtbl_usage(char *argv0) {
+void f2n_pm_tbl_usage(char *argv0) {
   std::cerr << "Usage: " << argv0
             << " {im} {om} {+|-|*|u*|/|log[:g]|alog[:g]}\n";
   exit(1);
 }
 
-int f2npmtbl_main(int argc, char **argv, usage_t *pusage) {
+int f2n_pm_tbl_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t im;
   spffl::polynomials::f2n_poly_t om;
   spffl::polynomials::f2n_polymod_t g;
@@ -100,7 +100,7 @@ int f2npmtbl_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     tbl_type = TBL_TYPE_LOG;
   } else if (strcmp(argv[3], "log") == 0) {
-    if (!spffl::units::f2npolymod_find_generator(om, g)) {
+    if (!spffl::units::f2n_polymod_find_generator(om, g)) {
       std::cerr << "Couldn't find generator mod " << om << "\n";
       exit(1);
     }
@@ -110,7 +110,7 @@ int f2npmtbl_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     tbl_type = TBL_TYPE_ALOG;
   } else if (strcmp(argv[3], "alog") == 0) {
-    if (!spffl::units::f2npolymod_find_generator(om, g)) {
+    if (!spffl::units::f2n_polymod_find_generator(om, g)) {
       std::cerr << "Couldn't find generator mod " << om << "\n";
       exit(1);
     }
@@ -121,16 +121,16 @@ int f2npmtbl_main(int argc, char **argv, usage_t *pusage) {
   tvector<spffl::polynomials::f2n_polymod_t> elts;
   if ((tbl_type == TBL_TYPE_UNIT_MUL) || (tbl_type == TBL_TYPE_UNIT_DIV) ||
       (tbl_type == TBL_TYPE_LOG) || (tbl_type == TBL_TYPE_ALOG))
-    elts = f2npolymod_list(om, spffl::list::SP_LIST_UNITS);
+    elts = f2n_polymod_list(om, spffl::list::SP_LIST_UNITS);
   else
-    elts = f2npolymod_list(om, spffl::list::SP_LIST_ALL);
+    elts = f2n_polymod_list(om, spffl::list::SP_LIST_ALL);
   int n = elts.get_num_elements();
 
   if (tbl_type == TBL_TYPE_LOG) {
     std::cout << "element power\n";
     std::cout << "------- -----\n";
     for (int i = 0; i < n; i++) {
-      int e = spffl::units::f2npolymod_log(g, elts[i]);
+      int e = spffl::units::f2n_polymod_log(g, elts[i]);
       std::cout << elts[i] << " " << e << "\n";
     }
     return 0;
@@ -179,12 +179,12 @@ int f2npmtbl_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void f2npmord_usage(char *argv0) {
+void f2n_pm_ord_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {im} {om} {a}\n";
   exit(1);
 }
 
-int f2npmord_main(int argc, char **argv, usage_t *pusage) {
+int f2n_pm_ord_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t im;
   spffl::polynomials::f2n_poly_t om;
   spffl::polynomials::f2n_polymod_t a;
@@ -199,17 +199,17 @@ int f2npmord_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 4)
       std::cout << a << ": ";
-    std::cout << spffl::units::f2npolymod_order(a) << "\n";
+    std::cout << spffl::units::f2n_polymod_order(a) << "\n";
   }
   return 0;
 }
 
-void f2npmfindgen_usage(char *argv0) {
+void f2n_pm_find_gen_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {im} {om}\n";
   exit(1);
 }
 
-int f2npmfindgen_main(int argc, char **argv, usage_t *pusage) {
+int f2n_pm_find_gen_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t im;
   spffl::polynomials::f2n_poly_t om;
   spffl::polynomials::f2n_polymod_t g;
@@ -223,7 +223,7 @@ int f2npmfindgen_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 3)
       std::cout << om << ": ";
-    if (spffl::units::f2npolymod_find_generator(om, g)) {
+    if (spffl::units::f2n_polymod_find_generator(om, g)) {
       std::cout << g << "\n";
     } else {
       std::cout << "Generator not found.\n";
@@ -233,12 +233,12 @@ int f2npmfindgen_main(int argc, char **argv, usage_t *pusage) {
   return rv;
 }
 
-void f2npmlog_usage(char *argv0) {
+void f2n_pm_log_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {im} {om} {g} {a}\n";
   exit(1);
 }
 
-int f2npmlog_main(int argc, char **argv, usage_t *pusage) {
+int f2n_pm_log_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t im;
   spffl::polynomials::f2n_poly_t om;
   spffl::polynomials::f2n_polymod_t g, a;
@@ -255,17 +255,17 @@ int f2npmlog_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 5)
       std::cout << a << ": ";
-    std::cout << spffl::units::f2npolymod_log(g, a) << "\n";
+    std::cout << spffl::units::f2n_polymod_log(g, a) << "\n";
   }
   return 0;
 }
 
-void f2npmchpol_usage(char *argv0) {
+void f2n_pm_ch_pol_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {im} {m} {residues ...}\n";
   exit(1);
 }
 
-int f2npmchpol_main(int argc, char **argv, usage_t *pusage) {
+int f2n_pm_ch_pol_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t im;
   spffl::polynomials::f2n_poly_t m;
   spffl::polynomials::f2n_polymod_t a;
@@ -288,12 +288,12 @@ int f2npmchpol_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void f2npmminpol_usage(char *argv0) {
+void f2n_pm_min_pol_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {im} {m} {residues ...}\n";
   exit(1);
 }
 
-int f2npmminpol_main(int argc, char **argv, usage_t *pusage) {
+int f2n_pm_min_pol_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t im;
   spffl::polynomials::f2n_poly_t m;
   spffl::polynomials::f2n_polymod_t a;
@@ -316,12 +316,12 @@ int f2npmminpol_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void f2npmrandom_usage(char *argv0) {
+void f2n_pm_random_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {inner m} {outer m} [count]\n";
   exit(1);
 }
 
-int f2npmrandom_main(int argc, char **argv, usage_t *pusage) {
+int f2n_pm_random_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t im;
   spffl::polynomials::f2n_poly_t om;
   int count = 1;
@@ -343,12 +343,12 @@ int f2npmrandom_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void f2npmmatop_usage(char *argv0) {
+void f2n_pm_mat_op_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {inner m} {outer m} {...}\n";
   exit(1);
 }
 
-int f2npmmatop_main(int argc, char **argv, usage_t *pusage) {
+int f2n_pm_mat_op_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t im;
   spffl::polynomials::f2n_poly_t om;
   if (argc < 3)
@@ -366,12 +366,12 @@ int f2npmmatop_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void f2npmvecop_usage(char *argv0) {
+void f2n_pm_vec_op_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {inner m} {outer m} {...}\n";
   exit(1);
 }
 
-int f2npmvecop_main(int argc, char **argv, usage_t *pusage) {
+int f2n_pm_vec_op_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t im;
   spffl::polynomials::f2n_poly_t om;
   if (argc < 3)
@@ -389,12 +389,12 @@ int f2npmvecop_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void f2npmmatrandom_usage(char *argv0) {
+void f2n_pm_mat_random_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {inner m} {outer m} {# rows} {# cols}\n";
   exit(1);
 }
 
-int f2npmmatrandom_main(int argc, char **argv, usage_t *pusage) {
+int f2n_pm_mat_random_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t im;
   spffl::polynomials::f2n_poly_t om;
   int nr, nc;

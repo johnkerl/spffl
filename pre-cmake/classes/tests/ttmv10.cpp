@@ -62,7 +62,7 @@ int main(int argc, char ** argv)
 	f2_polymod_t F2_one  = f2_polymod_t::prime_sfld_elt(1, F2_m);
 
 	tmvpoly<f2_polymod_t> F2_f;
-	if (!tmvpoly_f2polymod_from_string(F2_f, fstring, F2_m)) {
+	if (!tmvpoly_f2_polymod_from_string(F2_f, fstring, F2_m)) {
 		std::cerr << "Couldn't scan polynomial.\n";
 		exit(1);
 	}
@@ -90,7 +90,7 @@ int main(int argc, char ** argv)
 				std::cerr << "Couldn't parse \"" << argi << "\".\n";
 				exit(1);
 			}
-			Fq_m = f2poly_find_irr(deg);
+			Fq_m = f2_poly_find_irreducible(deg);
 		}
 
 		f2_polymod_t Fq_zero = f2_polymod_t::prime_sfld_elt(0, Fq_m);
@@ -117,7 +117,7 @@ int main(int argc, char ** argv)
 			std::cout << "Affine zeroes:\n";
 		}
 
-		tmatrix<f2_polymod_t> Fq_n = f2polymod_An_list(Fq_m, n);
+		tmatrix<f2_polymod_t> Fq_n = f2_polymod_An_list(Fq_m, n);
 		int qn = Fq_n.get_num_rows();
 
 		for (int i = 0; i < qn; i++) {
@@ -134,7 +134,7 @@ int main(int argc, char ** argv)
 			std::cout << "Projective zeroes:\n";
 		}
 
-		tmatrix<f2_polymod_t> Pn_Fq = f2polymod_Pn_list(Fq_m, n);
+		tmatrix<f2_polymod_t> Pn_Fq = f2_polymod_Pn_list(Fq_m, n);
 		int oP = Pn_Fq.get_num_rows();
 
 		for (int i = 0; i < oP; i++) {

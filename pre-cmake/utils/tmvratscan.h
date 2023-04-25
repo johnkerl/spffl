@@ -8,22 +8,22 @@
 #include "fp_polymod_t.h"
 #include "tmvrat.h"
 
-int tmvrat_f2polymod_from_string(
+int tmvrat_f2_polymod_from_string(
 	tmvrat<f2_polymod_t> & f,
 	char                * string,
 	f2_poly_t              m);
 
-int tmvrat_f2polymods_from_file(
+int tmvrat_f2_polymods_from_file(
 	char                           * file_name,
 	tvector< tmvrat<f2_polymod_t> > & rats,
 	f2_poly_t                         m);
 
-int tmvrat_f2polymods_from_stream(
+int tmvrat_f2_polymods_from_stream(
 	std::istream                   & is,
 	tvector< tmvrat<f2_polymod_t> > & rats,
 	f2_poly_t                         m);
 
-int tmvrat_fppolymod_from_string(
+int tmvrat_fp_polymod_from_string(
 	tmvrat<fp_polymod_t> & f,
 	char                * string,
 	fp_poly_t              m);

@@ -40,7 +40,7 @@ int main(int argc, char ** argv)
 	if (!ft_scan_quintuple(argv[2], m, a1, a2, a3, a4, a6))
 		usage(argv[0]);
 
-	tvector<f2_polymod_t> Fq = f2polymod_list(m, SP_LIST_ALL);
+	tvector<f2_polymod_t> Fq = f2_polymod_list(m, SP_LIST_ALL);
 	int q = Fq.get_num_elements();
 
 	// x=* y=1 z=0

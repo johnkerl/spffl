@@ -3,49 +3,49 @@
 
 #include "handlers.h"
 
-void fpplist_usage(char *argv0);
-int fpplist_main(int argc, char **argv, usage_t *pusage);
+void fp_p_list_usage(char *argv0);
+int fp_p_list_main(int argc, char **argv, usage_t *pusage);
 
-void fppop_usage(char *argv0);
-int fppop_main(int argc, char **argv, usage_t *pusage);
+void fp_p_op_usage(char *argv0);
+int fp_p_op_main(int argc, char **argv, usage_t *pusage);
 
-void fppmatop_usage(char *argv0);
-int fppmatop_main(int argc, char **argv, usage_t *pusage);
+void fp_p_mat_op_usage(char *argv0);
+int fp_p_mat_op_main(int argc, char **argv, usage_t *pusage);
 
-void fppcompmx_usage(char *argv0);
-int fppcompmx_main(int argc, char **argv, usage_t *pusage);
+void fp_p_comp_mx_usage(char *argv0);
+int fp_p_comp_mx_main(int argc, char **argv, usage_t *pusage);
 
-void fppdeg_usage(char *argv0);
-int fppdeg_main(int argc, char **argv, usage_t *pusage);
+void fp_p_deg_usage(char *argv0);
+int fp_p_deg_main(int argc, char **argv, usage_t *pusage);
 
-void fppgcd_usage(char *argv0);
-int fppgcd_main(int argc, char **argv, usage_t *pusage);
+void fp_p_gcd_usage(char *argv0);
+int fp_p_gcd_main(int argc, char **argv, usage_t *pusage);
 
-void fpplcm_usage(char *argv0);
-int fpplcm_main(int argc, char **argv, usage_t *pusage);
+void fp_p_lcm_usage(char *argv0);
+int fp_p_lcm_main(int argc, char **argv, usage_t *pusage);
 
-void fpptotient_usage(char *argv0);
-int fpptotient_main(int argc, char **argv, usage_t *pusage);
+void fp_p_totient_usage(char *argv0);
+int fp_p_totient_main(int argc, char **argv, usage_t *pusage);
 
-void fpptest_usage(char *argv0);
-int fpptest_main(int argc, char **argv, usage_t *pusage);
+void fp_p_test_usage(char *argv0);
+int fp_p_test_main(int argc, char **argv, usage_t *pusage);
 
-void fppfind_usage(char *argv0);
-int fppfind_main(int argc, char **argv, usage_t *pusage);
+void fp_p_find_usage(char *argv0);
+int fp_p_find_main(int argc, char **argv, usage_t *pusage);
 
-void fppfactor_usage(char *argv0);
-int fppfactor_main(int argc, char **argv, usage_t *pusage);
+void fp_p_factor_usage(char *argv0);
+int fp_p_factor_main(int argc, char **argv, usage_t *pusage);
 
-void fppdivisors_usage(char *argv0);
-int fppdivisors_main(int argc, char **argv, usage_t *pusage);
+void fp_p_divisors_usage(char *argv0);
+int fp_p_divisors_main(int argc, char **argv, usage_t *pusage);
 
-void fppeval_usage(char *argv0);
-int fppeval_main(int argc, char **argv, usage_t *pusage);
+void fp_p_eval_usage(char *argv0);
+int fp_p_eval_main(int argc, char **argv, usage_t *pusage);
 
-void fpprandom_usage(char *argv0);
-int fpprandom_main(int argc, char **argv, usage_t *pusage);
+void fp_p_random_usage(char *argv0);
+int fp_p_random_main(int argc, char **argv, usage_t *pusage);
 
-void fppqp_usage(char *argv0);
-int fppqp_main(int argc, char **argv, usage_t *pusage);
+void fp_p_qp_usage(char *argv0);
+int fp_p_qp_main(int argc, char **argv, usage_t *pusage);
 
 #endif // FPPOLY_HANDLERS_H

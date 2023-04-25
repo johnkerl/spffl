@@ -83,7 +83,7 @@ f2_companion_matrix(spffl::polynomials::f2_poly_t chpol) {
 
 // ----------------------------------------------------------------
 static spffl::polynomials::f2n_poly_t
-f2polymod_char_or_min_poly(spffl::polynomials::f2_polymod_t a, bool do_min) {
+f2_polymod_char_or_min_poly(spffl::polynomials::f2_polymod_t a, bool do_min) {
   spffl::polynomials::f2_poly_t m = a.get_modulus();
   int d = m.find_degree();
   spffl::polynomials::f2_poly_t r1(1);
@@ -104,14 +104,14 @@ f2polymod_char_or_min_poly(spffl::polynomials::f2_polymod_t a, bool do_min) {
 
 // ----------------------------------------------------------------
 spffl::polynomials::f2n_poly_t
-f2polymod_char_poly(spffl::polynomials::f2_polymod_t a) {
-  return f2polymod_char_or_min_poly(a, 0);
+f2_polymod_char_poly(spffl::polynomials::f2_polymod_t a) {
+  return f2_polymod_char_or_min_poly(a, 0);
 }
 
 // ----------------------------------------------------------------
 spffl::polynomials::f2n_poly_t
-f2polymod_min_poly(spffl::polynomials::f2_polymod_t a) {
-  return f2polymod_char_or_min_poly(a, 1);
+f2_polymod_min_poly(spffl::polynomials::f2_polymod_t a) {
+  return f2_polymod_char_or_min_poly(a, 1);
 }
 
 } // namespace spffl::linalg

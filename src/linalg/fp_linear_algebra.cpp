@@ -76,7 +76,7 @@ fp_companion_matrix(spffl::polynomials::fp_poly_t chpol) {
 
 #if 0
 // ----------------------------------------------------------------
-static spffl::polynomials::fpn_poly_t fppolymod_char_or_min_poly(
+static spffl::polynomials::fpn_poly_t fp_polymod_char_or_min_poly(
 	spffl::polynomials::fp_polymod_t a,
 	bool do_min)
 {
@@ -100,17 +100,17 @@ static spffl::polynomials::fpn_poly_t fppolymod_char_or_min_poly(
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::fpn_poly_t fppolymod_char_poly(
+spffl::polynomials::fpn_poly_t fp_polymod_char_poly(
 	spffl::polynomials::fp_polymod_t a)
 {
-	return fppolymod_char_or_min_poly(a, 0);
+	return fp_polymod_char_or_min_poly(a, 0);
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::fpn_poly_t fppolymod_min_poly(
+spffl::polynomials::fpn_poly_t fp_polymod_min_poly(
 	spffl::polynomials::fp_polymod_t a)
 {
-	return fppolymod_char_or_min_poly(a, 1);
+	return fp_polymod_char_or_min_poly(a, 1);
 }
 #endif
 

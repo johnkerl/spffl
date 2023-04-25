@@ -15,17 +15,17 @@
 #include "is_prime.h"
 #include "tfacinfo.h"
 
-int zop_main(int argc, char **argv, usage_t *pusage) {
+int z_op_main(int argc, char **argv, usage_t *pusage) {
   spffl::cliparser::cmd_line_parse<int>(argc - 1, argv + 1, 0, 1);
   return 0;
 }
 
-void zgcd_usage(char *argv0) {
+void z_gcd_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " [-e] {a} {b}\n";
   exit(1);
 }
 
-int zgcd_main(int argc, char **argv, usage_t *pusage) {
+int z_gcd_main(int argc, char **argv, usage_t *pusage) {
   if ((argc >= 2) && (strcmp(argv[1], "-e") == 0)) {
     int a, b, g, r, s;
     if (argc != 4)
@@ -61,12 +61,12 @@ int zgcd_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void zlcm_usage(char *argv0) {
+void z_lcm_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {integers ...}\n";
   exit(1);
 }
 
-int zlcm_main(int argc, char **argv, usage_t *pusage) {
+int z_lcm_main(int argc, char **argv, usage_t *pusage) {
   int a, l;
   if (argc < 2)
     pusage(argv[0]);
@@ -82,12 +82,12 @@ int zlcm_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void ztotient_usage(char *argv0) {
+void z_totient_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {integers ...}\n";
   exit(1);
 }
 
-int ztotient_main(int argc, char **argv, usage_t *pusage) {
+int z_totient_main(int argc, char **argv, usage_t *pusage) {
   int a, phi;
   if (argc < 2)
     pusage(argv[0]);
@@ -102,12 +102,12 @@ int ztotient_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void ztestprime_usage(char *argv0) {
+void z_test_prime_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {integers ...}\n";
   exit(1);
 }
 
-int ztestprime_main(int argc, char **argv, usage_t *pusage) {
+int z_test_prime_main(int argc, char **argv, usage_t *pusage) {
   int a;
   for (int argi = 1; argi < argc; argi++) {
     if (sscanf(argv[argi], "%d", &a) != 1)
@@ -122,12 +122,12 @@ int ztestprime_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void nthprime_usage(char *argv0) {
+void nth_prime_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {n[-m]}\n";
   exit(1);
 }
 
-int nthprime_main(int argc, char **argv, usage_t *pusage) {
+int nth_prime_main(int argc, char **argv, usage_t *pusage) {
   if (argc < 2)
     pusage(argv[0]);
   for (int argi = 1; argi < argc; argi++) {
@@ -145,12 +145,12 @@ int nthprime_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void zlist_usage(char *argv0) {
+void z_list_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {start [reps [stride]]}\n";
   exit(1);
 }
 
-int zlist_main(int argc, char **argv, usage_t *pusage) {
+int z_list_main(int argc, char **argv, usage_t *pusage) {
   int walker = 1;
   int reps = 1;
   int stride = 1;
@@ -179,12 +179,12 @@ int zlist_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void zfactor_usage(char *argv0) {
+void z_factor_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {integers ...}\n";
   exit(1);
 }
 
-int zfactor_main(int argc, char **argv, usage_t *pusage) {
+int z_factor_main(int argc, char **argv, usage_t *pusage) {
   int a;
   for (int argi = 1; argi < argc; argi++) {
     if (sscanf(argv[argi], "%d", &a) != 1)
@@ -196,7 +196,7 @@ int zfactor_main(int argc, char **argv, usage_t *pusage) {
 
     int check = finfo.unfactor(1);
     if (check != a) {
-      std::cerr << "Coding error in zfactor.\n";
+      std::cerr << "Coding error in z_factor.\n";
       std::cerr << "  Input: " << a << std::endl;
       std::cerr << "  Check: " << check << std::endl;
       std::cerr << "  Factors: " << finfo << std::endl;
@@ -206,12 +206,12 @@ int zfactor_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void zdivisors_usage(char *argv0) {
+void z_divisors_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " [-mp] {integers ...}\n";
   exit(1);
 }
 
-int zdivisors_main(int argc, char **argv, usage_t *pusage) {
+int z_divisors_main(int argc, char **argv, usage_t *pusage) {
   int a;
   int argb = 1;
   int maximal_proper_only = 0;
@@ -247,7 +247,7 @@ int zdivisors_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-int zmatop_main(int argc, char **argv, usage_t *pusage) {
+int z_mat_op_main(int argc, char **argv, usage_t *pusage) {
   spffl::cliparser::cmd_line_mat_parse<int>(argc - 1, argv + 1, 0, 1);
   return 0;
 }

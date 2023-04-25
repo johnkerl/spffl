@@ -39,7 +39,7 @@ int main(int argc, char ** argv)
 	std::cout << "F = " << F << "\n";
 	std::cout << "\n";
 
-	tvector<f2_polymod_t> Fq = f2polymod_list(m, 0);
+	tvector<f2_polymod_t> Fq = f2_polymod_list(m, 0);
 	int oFq = Fq.get_num_elements();
 
 	for (int i = 0; i < oFq; i++) {

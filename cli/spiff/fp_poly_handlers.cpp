@@ -11,12 +11,12 @@
 #include "qff.h"
 #include <string.h>
 
-void fpplist_usage(char *argv0) {
+void fp_p_list_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {deglo[-deghi]}\n";
   exit(1);
 }
 
-int fpplist_main(int argc, char **argv, usage_t *pusage) {
+int fp_p_list_main(int argc, char **argv, usage_t *pusage) {
   int p, deglo, deghi;
   if (argc != 3)
     pusage(argv[0]);
@@ -30,18 +30,18 @@ int fpplist_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   for (int deg = deglo; deg <= deghi; deg++) {
     tvector<spffl::polynomials::fp_poly_t> elts =
-        spffl::list::fppoly_list(p, deg);
+        spffl::list::fp_poly_list(p, deg);
     elts.crout(std::cout);
   }
   return 0;
 }
 
-void fppop_usage(char *argv0) {
+void fp_p_op_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {polys ...}\n";
   exit(1);
 }
 
-int fppop_main(int argc, char **argv, usage_t *pusage) {
+int fp_p_op_main(int argc, char **argv, usage_t *pusage) {
   int p;
   if (argc < 2)
     pusage(argv[0]);
@@ -53,12 +53,12 @@ int fppop_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fppmatop_usage(char *argv0) {
+void fp_p_mat_op_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {polys ...}\n";
   exit(1);
 }
 
-int fppmatop_main(int argc, char **argv, usage_t *pusage) {
+int fp_p_mat_op_main(int argc, char **argv, usage_t *pusage) {
   int p;
   if (argc < 2)
     pusage(argv[0]);
@@ -70,12 +70,12 @@ int fppmatop_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fppcompmx_usage(char *argv0) {
+void fp_p_comp_mx_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {poly}\n";
   exit(1);
 }
 
-int fppcompmx_main(int argc, char **argv, usage_t *pusage) {
+int fp_p_comp_mx_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t chpol;
 
@@ -93,12 +93,12 @@ int fppcompmx_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fppdeg_usage(char *argv0) {
+void fp_p_deg_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {polys ...}\n";
   exit(1);
 }
 
-int fppdeg_main(int argc, char **argv, usage_t *pusage) {
+int fp_p_deg_main(int argc, char **argv, usage_t *pusage) {
   int p;
   if (argc < 2)
     pusage(argv[0]);
@@ -116,12 +116,12 @@ int fppdeg_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fppgcd_usage(char *argv0) {
+void fp_p_gcd_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} [-e] {a} {b}\n";
   exit(1);
 }
 
-int fppgcd_main(int argc, char **argv, usage_t *pusage) {
+int fp_p_gcd_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t a, b, g, r, s;
 
@@ -153,12 +153,12 @@ int fppgcd_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fpplcm_usage(char *argv0) {
+void fp_p_lcm_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {polys ...}\n";
   exit(1);
 }
 
-int fpplcm_main(int argc, char **argv, usage_t *pusage) {
+int fp_p_lcm_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t a, l;
 
@@ -178,12 +178,12 @@ int fpplcm_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fpptotient_usage(char *argv0) {
+void fp_p_totient_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {polys ...}\n";
   exit(1);
 }
 
-int fpptotient_main(int argc, char **argv, usage_t *pusage) {
+int fp_p_totient_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t a;
   int phi;
@@ -202,12 +202,12 @@ int fpptotient_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fpptest_usage(char *argv0) {
+void fp_p_test_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {polys ...}\n";
   exit(1);
 }
 
-int fpptest_main(int argc, char **argv, usage_t *pusage) {
+int fp_p_test_main(int argc, char **argv, usage_t *pusage) {
   int p;
   if (argc < 2)
     pusage(argv[0]);
@@ -220,7 +220,7 @@ int fpptest_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 3)
       std::cout << a << ": ";
-    if (spffl::factorization::fppoly_is_irreducible(a))
+    if (spffl::factorization::fp_poly_is_irreducible(a))
       std::cout << "IRREDUCIBLE\n";
     else
       std::cout << "reducible\n";
@@ -228,12 +228,12 @@ int fpptest_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fppfind_usage(char *argv0) {
+void fp_p_find_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " [-1|-r] {p} {deglo[-deghi]}\n";
   exit(1);
 }
 
-int fppfind_main(int argc, char **argv, usage_t *pusage) {
+int fp_p_find_main(int argc, char **argv, usage_t *pusage) {
   bool do_random = false;
   int deglo, deghi;
   int p;
@@ -259,20 +259,20 @@ int fppfind_main(int argc, char **argv, usage_t *pusage) {
   for (int deg = deglo; deg <= deghi; deg++) {
     spffl::polynomials::fp_poly_t a;
     if (do_random)
-      a = spffl::factorization::fppoly_random_irr(p, deg);
+      a = spffl::factorization::fp_poly_random_irr(p, deg);
     else
-      a = spffl::factorization::fppoly_find_irr(p, deg);
+      a = spffl::factorization::fp_poly_find_irr(p, deg);
     std::cout << a << "\n";
   }
   return 0;
 }
 
-void fppfactor_usage(char *argv0) {
+void fp_p_factor_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {polys ...}\n";
   exit(1);
 }
 
-int fppfactor_main(int argc, char **argv, usage_t *pusage) {
+int fp_p_factor_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t a;
 
@@ -303,12 +303,12 @@ int fppfactor_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fppdivisors_usage(char *argv0) {
+void fp_p_divisors_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " [-mp] {p} {polys ...}\n";
   exit(1);
 }
 
-int fppdivisors_main(int argc, char **argv, usage_t *pusage) {
+int fp_p_divisors_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t a;
   int argb = 1;
@@ -350,12 +350,12 @@ int fppdivisors_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fppeval_usage(char *argv0) {
+void fp_p_eval_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {f} {elements of Fp ...}\n";
   exit(1);
 }
 
-int fppeval_main(int argc, char **argv, usage_t *pusage) {
+int fp_p_eval_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t f;
   spffl::intmath::intmod_t a, b;
@@ -376,12 +376,12 @@ int fppeval_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fpprandom_usage(char *argv0) {
+void fp_p_random_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {deg} [count]\n";
   exit(1);
 }
 
-int fpprandom_main(int argc, char **argv, usage_t *pusage) {
+int fp_p_random_main(int argc, char **argv, usage_t *pusage) {
   int p, deg, count = 1;
 
   if ((argc != 3) && (argc != 4))
@@ -401,12 +401,12 @@ int fpprandom_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fppqp_usage(char *argv0) {
+void fp_p_qp_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {qpolys ...}\n";
   exit(1);
 }
 
-int fppqp_main(int argc, char **argv, usage_t *pusage) {
+int fp_p_qp_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::rationals::qpoly_t qp;
   spffl::polynomials::fp_poly_t fpp;
@@ -417,7 +417,7 @@ int fppqp_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = 2; argi < argc; argi++) {
     if (!qp.from_string(argv[argi]))
       pusage(argv[0]);
-    fpp = spffl::qcyclo::fppoly_from_qpoly(qp, p);
+    fpp = spffl::q_cyclo::fp_poly_from_qpoly(qp, p);
     std::cout << fpp << "\n";
   }
   return 0;

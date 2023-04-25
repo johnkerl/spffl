@@ -18,7 +18,7 @@ static void zop_usage(char * argv0)
 	exit(1);
 }
 
-static int zop_main(int argc, char ** argv, usage_t * pusage)
+static int z_op_main(int argc, char ** argv, usage_t * pusage)
 {
 	cmd_line_parse<int>(argc-1, argv+1, 0, 1);
 	return 0;
@@ -27,5 +27,5 @@ static int zop_main(int argc, char ** argv, usage_t * pusage)
 
 int main(int argc, char ** argv)
 {
-	return zop_main(argc, argv, zop_usage);
+	return z_op_main(argc, argv, zop_usage);
 }
