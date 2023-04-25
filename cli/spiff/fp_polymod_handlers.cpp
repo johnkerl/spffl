@@ -10,12 +10,12 @@
 #include "min_char_polys.h"
 #include "tbl_types.h"
 
-void fppmlist_usage(char *argv0) {
+void fp_pm_list_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " [-a|-u] {p} {m}\n";
   exit(1);
 }
 
-int fppmlist_main(int argc, char **argv, usage_t *pusage) {
+int fp_pm_list_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t m;
   spffl::list::sp_list_type_t type = spffl::list::SP_LIST_ALL;
@@ -38,12 +38,12 @@ int fppmlist_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fppmop_usage(char *argv0) {
+void fp_pm_op_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {m} {...}\n";
   exit(1);
 }
 
-int fppmop_main(int argc, char **argv, usage_t *pusage) {
+int fp_pm_op_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t m;
 
@@ -60,12 +60,12 @@ int fppmop_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fppmtbl_usage(char *argv0) {
+void fp_pm_tbl_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {m} {+|-|*|u*|/}\n";
   exit(1);
 }
 
-int fppmtbl_main(int argc, char **argv, usage_t *pusage) {
+int fp_pm_tbl_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t m;
   spffl::polynomials::fp_polymod_t g;
@@ -187,7 +187,7 @@ int fppmtbl_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-int fppmmatop_main(int argc, char **argv, usage_t *pusage) {
+int fp_pm_mat_op_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t m;
 
@@ -204,7 +204,7 @@ int fppmmatop_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-int fppmvecop_main(int argc, char **argv, usage_t *pusage) {
+int fp_pm_vecop_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t m;
 
@@ -221,12 +221,12 @@ int fppmvecop_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fppmmatord_usage(char *argv0) {
+void fp_pm_mat_ord_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {m} {goes here}\n";
   exit(1);
 }
 
-int fppmmatord_main(int argc, char **argv, usage_t *pusage) {
+int fp_pm_mat_ord_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t m;
 
@@ -269,12 +269,12 @@ int fppmmatord_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fppmmatrandom_usage(char *argv0) {
+void fp_pm_mat_random_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {m} {# rows} {# cols}\n";
   exit(1);
 }
 
-int fppmmatrandom_main(int argc, char **argv, usage_t *pusage) {
+int fp_pm_mat_random_main(int argc, char **argv, usage_t *pusage) {
   int p, nr, nc;
   spffl::polynomials::fp_poly_t m;
 
@@ -298,12 +298,12 @@ int fppmmatrandom_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fppmord_usage(char *argv0) {
+void fp_pm_ord_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {m} {a}\n";
   exit(1);
 }
 
-int fppmord_main(int argc, char **argv, usage_t *pusage) {
+int fp_pm_ord_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t m;
   spffl::polynomials::fp_polymod_t a;
@@ -342,12 +342,12 @@ int fppmord_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fppmchpol_usage(char *argv0) {
+void fp_pm_ch_pol_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {m} {residues ...}\n";
   exit(1);
 }
 
-int fppmchpol_main(int argc, char **argv, usage_t *pusage) {
+int fp_pm_ch_pol_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t m;
   spffl::polynomials::fp_polymod_t a;
@@ -370,12 +370,12 @@ int fppmchpol_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fppmminpol_usage(char *argv0) {
+void fp_pm_min_pol_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {m} {residues ...}\n";
   exit(1);
 }
 
-int fppmminpol_main(int argc, char **argv, usage_t *pusage) {
+int fp_pm_min_pol_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t m;
   spffl::polynomials::fp_polymod_t a;
@@ -398,12 +398,12 @@ int fppmminpol_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fppmrandom_usage(char *argv0) {
+void fp_pm_random_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {m} [count]\n";
   exit(1);
 }
 
-int fppmrandom_main(int argc, char **argv, usage_t *pusage) {
+int fp_pm_random_main(int argc, char **argv, usage_t *pusage) {
   int p, count = 1;
   spffl::polynomials::fp_poly_t m;
 

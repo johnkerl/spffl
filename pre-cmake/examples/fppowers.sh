@@ -20,7 +20,7 @@ do
 	while [ $ap -ne 1 ]
 	do
 		echo $ap
-		ap=`spiff fpop $p $ap . $a`
+		ap=`spiff fp_op $p $ap . $a`
 	done
 	echo $ap
 

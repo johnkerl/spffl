@@ -53,12 +53,12 @@ int fp_list_main(int argc, char **argv, usage_t *pusage) {
   }
   return 0;
 }
-void fpop_usage(char *argv0) {
+void fp_op_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {...}\n";
   exit(1);
 }
 
-int fpop_main(int argc, char **argv, usage_t *pusage) {
+int fp_op_main(int argc, char **argv, usage_t *pusage) {
   int p;
   if (argc < 2)
     pusage(argv[0]);
@@ -70,12 +70,12 @@ int fpop_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fptbl_usage(char *argv0) {
+void fp_tbl_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {+|-|*|u*|/|log[:g]|alog[:g]}\n";
   exit(1);
 }
 
-int fptbl_main(int argc, char **argv, usage_t *pusage) {
+int fp_tbl_main(int argc, char **argv, usage_t *pusage) {
   int p;
   int tbl_type = TBL_TYPE_PLUS;
   spffl::intmath::intmod_t g;
@@ -184,12 +184,12 @@ int fptbl_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fpord_usage(char *argv0) {
+void fp_ord_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {a}\n";
   exit(1);
 }
 
-int fpord_main(int argc, char **argv, usage_t *pusage) {
+int fp_ord_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::intmath::intmod_t a;
   if (argc < 3)
@@ -230,12 +230,12 @@ int fp_max_ord_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fporbit_usage(char *argv0) {
+void fp_orbit_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {a} [a0]\n";
   exit(1);
 }
 
-int fporbit_main(int argc, char **argv, usage_t *pusage) {
+int fp_orbit_main(int argc, char **argv, usage_t *pusage) {
   int p, a, apower;
   int a0 = 1;
   if ((argc != 3) && (argc != 4))
@@ -249,7 +249,7 @@ int fporbit_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
   }
   if (gcd(a, p) != 1) {
-    std::cerr << "fporbit_main: a must be coprime to p.\n";
+    std::cerr << "fp_orbit_main: a must be coprime to p.\n";
     exit(1);
   }
 
@@ -327,12 +327,12 @@ int fp_log_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fprandom_usage(char *argv0) {
+void fp_random_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {m} [count]\n";
   exit(1);
 }
 
-int fprandom_main(int argc, char **argv, usage_t *pusage) {
+int fp_random_main(int argc, char **argv, usage_t *pusage) {
   int m, count = 1;
 
   if ((argc != 2) && (argc != 3))
@@ -367,12 +367,12 @@ int fp_mat_op_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fpvecop_usage(char *argv0) {
+void fp_vec_op_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {goes here}\n";
   exit(1);
 }
 
-int fpvecop_main(int argc, char **argv, usage_t *pusage) {
+int fp_vec_op_main(int argc, char **argv, usage_t *pusage) {
   int p = 0;
   if (argc < 2)
     pusage(argv[0]);

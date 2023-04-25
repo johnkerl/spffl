@@ -4,12 +4,12 @@
 #include "cmd_line_vector_ops.h"
 #include "fp_polyrat_t.h"
 
-void fpprop_usage(char *argv0) {
+void fp_pr_op_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {...}\n";
   exit(1);
 }
 
-int fpprop_main(int argc, char **argv, usage_t *pusage) {
+int fp_pr_op_main(int argc, char **argv, usage_t *pusage) {
   int p;
   if (argc < 2)
     pusage(argv[0]);
@@ -21,12 +21,12 @@ int fpprop_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fpprmatop_usage(char *argv0) {
+void fp_pr_mat_op_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {...}\n";
   exit(1);
 }
 
-int fpprmatop_main(int argc, char **argv, usage_t *pusage) {
+int fp_pr_mat_op_main(int argc, char **argv, usage_t *pusage) {
   int p;
   if (argc < 2)
     pusage(argv[0]);

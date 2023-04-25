@@ -5,12 +5,12 @@
 #include <string.h>
 
 // ----------------------------------------------------------------
-void fpnpop_usage(char *argv0) {
+void fpn_p_op_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {im} {...}\n";
   exit(1);
 }
 
-int fpnpop_main(int argc, char **argv, usage_t *pusage) {
+int fpn_p_op_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t im;
   if (argc < 3)
@@ -94,12 +94,12 @@ int fpn_p_gcd_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void fpnpqp_usage(char *argv0) {
+void fpn_p_qp_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {m} {qpolys ...}\n";
   exit(1);
 }
 
-int fpnpqp_main(int argc, char **argv, usage_t *pusage) {
+int fpn_p_qp_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t m;
   spffl::rationals::qpoly_t qp;

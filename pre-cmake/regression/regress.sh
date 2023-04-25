@@ -18,7 +18,7 @@ spiff z_divisors  { z_list 1000000 100 } > data/outact/z_divisors-1000000-100.tx
 
 spiff   f2_p_test  -ip { f2_p_list     0-8 } > data/outact/f2_p_test-0-8.txt
 spiffsf f2n_p_test   7 { f2n_p_list  7 0-4 } > data/outact/f2n_p_test-0-8.txt
-spiff   fpptest    5 { fpplist   5 0-4 } > data/outact/fpptest-0-8.txt
+spiff   fp_p_test    5 { fp_p_list   5 0-4 } > data/outact/fp_p_test-0-8.txt
 spiff   f2_p_period    { f2_p_list     0-8 } > data/outact/f2_p_period-0-8.txt
 
 # ----------------------------------------------------------------
@@ -34,15 +34,15 @@ spiffsf f2n_pm_tbl 3 1:0:1:2 - > data/outact/f2npm-3-1012-sub.txt
 spiffsf f2n_pm_tbl 3 1:0:1:2 . > data/outact/f2npm-3-1012-mul.txt
 spiffsf f2n_pm_tbl 3 1:0:1:2 / > data/outact/f2npm-3-1012-div.txt
 
-spiff   fppmtbl  2 1011    + > data/outact/fppm-2-1011-add.txt
-spiff   fppmtbl  2 1011    - > data/outact/fppm-2-1011-sub.txt
-spiff   fppmtbl  2 1011    . > data/outact/fppm-2-1011-mul.txt
-spiff   fppmtbl  2 1011    / > data/outact/fppm-2-1011-div.txt
+spiff   fp_pm_tbl  2 1011    + > data/outact/fppm-2-1011-add.txt
+spiff   fp_pm_tbl  2 1011    - > data/outact/fppm-2-1011-sub.txt
+spiff   fp_pm_tbl  2 1011    . > data/outact/fppm-2-1011-mul.txt
+spiff   fp_pm_tbl  2 1011    / > data/outact/fppm-2-1011-div.txt
 
-spiff   fppmtbl  3 1021    + > data/outact/fppm-3-1021-add.txt
-spiff   fppmtbl  3 1021    - > data/outact/fppm-3-1021-sub.txt
-spiff   fppmtbl  3 1021    . > data/outact/fppm-3-1021-mul.txt
-spiff   fppmtbl  3 1021    / > data/outact/fppm-3-1021-div.txt
+spiff   fp_pm_tbl  3 1021    + > data/outact/fppm-3-1021-add.txt
+spiff   fp_pm_tbl  3 1021    - > data/outact/fppm-3-1021-sub.txt
+spiff   fp_pm_tbl  3 1021    . > data/outact/fppm-3-1021-mul.txt
+spiff   fp_pm_tbl  3 1021    / > data/outact/fppm-3-1021-div.txt
 
 # ----------------------------------------------------------------
 # Polynomial factorization
@@ -59,11 +59,11 @@ spiffsf f2n_p_test     b { f2n_p_list b 0-3 } > data/outact/f2n-smpols-test.txt
 spiffsf f2n_p_gcd      b   3:4:a 6:7:9      > data/outact/f2n-smpols-gcd.txt
 spiffsf f2n_p_lcm      b   3:4:a 6:7:9      > data/outact/f2n-smpols-lcm.txt
 
-spiffsf fppfactor   7 { fpplist 7 0-3 }   > data/outact/fp-smpols-factor.txt
-spiffsf fppdivisors 7 { fpplist 7 0-3 }   > data/outact/fp-smpols-divisors.txt
-spiffsf fpptest     7 { fpplist 7 0-3 }   > data/outact/fp-smpols-test.txt
-spiffsf fppgcd      7   1,3,2,6 2,4,5     > data/outact/fp-smpols-gcd.txt
-spiffsf fpplcm      7   1,3,2,6 2,4,5     > data/outact/fp-smpols-lcm.txt
+spiffsf fp_p_factor   7 { fp_p_list 7 0-3 }   > data/outact/fp-smpols-factor.txt
+spiffsf fp_p_divisors 7 { fp_p_list 7 0-3 }   > data/outact/fp-smpols-divisors.txt
+spiffsf fp_p_test     7 { fp_p_list 7 0-3 }   > data/outact/fp-smpols-test.txt
+spiffsf fp_p_gcd      7   1,3,2,6 2,4,5     > data/outact/fp-smpols-gcd.txt
+spiffsf fp_p_lcm      7   1,3,2,6 2,4,5     > data/outact/fp-smpols-lcm.txt
 
 
 spiff f2_p_factor `cat data/input/f2-pols.txt` \
@@ -92,16 +92,16 @@ spiffsf f2n_p_lcm 13 \
 	`sed -n 1p data/input/f2n-pols.txt` `sed -n 2p data/input/f2n-pols.txt` \
 	> data/outact/f2n-pols-lcm.txt
 
-spiffsf fppfactor 19 `cat data/input/fp-pols.txt` \
+spiffsf fp_p_factor 19 `cat data/input/fp-pols.txt` \
 	> data/outact/fp-pols-factor.txt
-spiffsf fppdivisors 19 `cat data/input/fp-pols.txt` \
+spiffsf fp_p_divisors 19 `cat data/input/fp-pols.txt` \
 	> data/outact/fp-pols-divisors.txt
-spiffsf fpptest 19 `cat data/input/fp-pols.txt` \
+spiffsf fp_p_test 19 `cat data/input/fp-pols.txt` \
 	> data/outact/fp-pols-test.txt
-spiffsf fppgcd 19 \
+spiffsf fp_p_gcd 19 \
 	`sed -n 1p data/input/fp-pols.txt` `sed -n 2p data/input/fp-pols.txt` \
 	> data/outact/fp-pols-gcd.txt
-spiffsf fpplcm 19 \
+spiffsf fp_p_lcm 19 \
 	`sed -n 1p data/input/fp-pols.txt` `sed -n 2p data/input/fp-pols.txt` \
 	> data/outact/fp-pols-lcm.txt
 
@@ -135,9 +135,9 @@ spiffsf f2n_pm_mat_op 43 1:0:0:2 inv data/input/f2npm-mat1.txt \
 spiff fp_mat_op 17 det data/input/fp-mat1.txt > data/outact/fp-mat-det-1.txt
 spiff fp_mat_op 17 inv data/input/fp-mat1.txt > data/outact/fp-mat-inv-1.txt
 
-spiff fppmmatop 11 1,0,9 det data/input/fppm-mat1.txt \
+spiff fp_pm_mat_op 11 1,0,9 det data/input/fppm-mat1.txt \
 	> data/outact/fppm-mat-det-1.txt
-spiff fppmmatop 11 1,0,9 inv data/input/fppm-mat1.txt \
+spiff fp_pm_mat_op 11 1,0,9 inv data/input/fppm-mat1.txt \
 	> data/outact/fppm-mat-inv-1.txt
 
 # ----------------------------------------------------------------
