@@ -120,7 +120,7 @@ int f2_polymod_t::recip(f2_polymod_t &rinv) {
 
   // Error check:
   if (g.find_degree() != 0) {
-    // std::cerr << "f2polymod recip: zero or zero divisor.\n";
+    // std::cerr << "f2_polymod recip: zero or zero divisor.\n";
     return 0;
   } else {
     rinv = f2_polymod_t(a, this->modulus);

@@ -140,7 +140,7 @@ int main(int argc, char ** argv)
 		tvector<f2_polymod_t> Fq = f2_polymod_list(Fq_m, 0);
 		int oFq = Fq.get_num_elements();
 
-		tmatrix<f2_polymod_t> Fq_n = f2polymod_An_list(Fq_m, 2);
+		tmatrix<f2_polymod_t> Fq_n = f2_polymod_An_list(Fq_m, 2);
 
 		for (int i = 0; i < oFq; i++) {
 			for (int j = 0; j < oFq; j++) {

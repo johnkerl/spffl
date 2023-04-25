@@ -8,7 +8,7 @@
 //
 //   "2.3.1.0+4.0.1.1"
 
-int tmvrat_f2polymod_from_string(
+int tmvrat_f2_polymod_from_string(
 	tmvrat<f2_polymod_t> & f,
 	char                 * string,
 	f2_poly_t               m)
@@ -17,7 +17,7 @@ int tmvrat_f2polymod_from_string(
 	char * pslash = strchr(cpstring, '/');
 	if (!pslash) {
 		// I don't know how to construct a generic 1.
-		std::cerr << "tmvrat_f2polymod_from_string:  need numerator and denominator.\n";
+		std::cerr << "tmvrat_f2_polymod_from_string:  need numerator and denominator.\n";
 		exit(1);
 	}
 	*pslash = 0;
@@ -25,11 +25,11 @@ int tmvrat_f2polymod_from_string(
 	char * denom_string = pslash + 1;
 	tmvpoly<f2_polymod_t> numer, denom;
 
-	if (!tmvpoly_f2polymod_from_string(numer, numer_string, m)) {
+	if (!tmvpoly_f2_polymod_from_string(numer, numer_string, m)) {
 		free(cpstring);
 		return 0;
 	}
-	if (!tmvpoly_f2polymod_from_string(denom, denom_string, m)) {
+	if (!tmvpoly_f2_polymod_from_string(denom, denom_string, m)) {
 		free(cpstring);
 		return 0;
 	}
@@ -40,24 +40,24 @@ int tmvrat_f2polymod_from_string(
 }
 
 // ----------------------------------------------------------------
-int tmvrat_f2polymods_from_file(
+int tmvrat_f2_polymods_from_file(
 	char                           * file_name,
 	tvector< tmvrat<f2_polymod_t> > & rats,
 	f2_poly_t                         m)
 {
 	if ((strcmp(file_name, "-") == 0) || (strcmp(file_name, "@") == 0))
-		return tmvrat_f2polymods_from_stream(std::cin, rats, m);
+		return tmvrat_f2_polymods_from_stream(std::cin, rats, m);
 
 	std::ifstream ifs;
 	ifs.open(file_name, std::ifstream::in);
 	if (ifs.fail()) {
-		std::cerr << "tmvrat_f2polymods_from_file:  couldn't open \""
+		std::cerr << "tmvrat_f2_polymods_from_file:  couldn't open \""
 			<< file_name << "\"\n";
 		return 0;
 	}
 
-	if (!tmvrat_f2polymods_from_stream(ifs, rats, m)) {
-		std::cerr << "tmvrat_f2polymods_from_file:  scan failure reading \""
+	if (!tmvrat_f2_polymods_from_stream(ifs, rats, m)) {
+		std::cerr << "tmvrat_f2_polymods_from_file:  scan failure reading \""
 			<< file_name << "\"\n";
 		ifs.close();
 		return 0;
@@ -67,7 +67,7 @@ int tmvrat_f2polymods_from_file(
 }
 
 // ----------------------------------------------------------------
-int tmvrat_f2polymods_from_stream(
+int tmvrat_f2_polymods_from_stream(
 	std::istream                   & is,
 	tvector< tmvrat<f2_polymod_t> > & rats,
 	f2_poly_t                         m)
@@ -110,7 +110,7 @@ int tmvrat_f2polymods_from_stream(
 			*phash = 0;
 
 		// Scan
-		if (!tmvrat_f2polymod_from_string(prats[num_rats], line, m)) {
+		if (!tmvrat_f2_polymod_from_string(prats[num_rats], line, m)) {
 			rv = 0;
 			break;
 		}
@@ -122,7 +122,7 @@ int tmvrat_f2polymods_from_stream(
 
 	if (num_rats == 0) {
 		is.setstate(std::ios::badbit);
-		std::cerr << "tmvrat_f2polymods_from_stream >>:  empty file.\n";
+		std::cerr << "tmvrat_f2_polymods_from_stream >>:  empty file.\n";
 	}
 
 	rats = tvector< tmvrat<f2_polymod_t> >(num_rats);
@@ -138,7 +138,7 @@ int tmvrat_f2polymods_from_stream(
 //
 //   "2.3.1.0+4.0.1.1"
 
-int tmvrat_fppolymod_from_string(
+int tmvrat_fp_polymod_from_string(
 	tmvrat<fp_polymod_t> & f,
 	char                * string,
 	fp_poly_t              m)
@@ -147,7 +147,7 @@ int tmvrat_fppolymod_from_string(
 	char * pslash = strchr(cpstring, '/');
 	if (!pslash) {
 		// I don't know how to construct a generic 1.
-		std::cerr << "tmvrat_fppolymod_from_string:  need numerator and denominator.\n";
+		std::cerr << "tmvrat_fp_polymod_from_string:  need numerator and denominator.\n";
 		exit(1);
 	}
 	*pslash = 0;
@@ -155,11 +155,11 @@ int tmvrat_fppolymod_from_string(
 	const char * denom_string = pslash + 1;
 	tmvpoly<fp_polymod_t> numer, denom;
 
-	if (!tmvpoly_fppolymod_from_string(numer, numer_string, m)) {
+	if (!tmvpoly_fp_polymod_from_string(numer, numer_string, m)) {
 		free(cpstring);
 		return 0;
 	}
-	if (!tmvpoly_fppolymod_from_string(denom, denom_string, m)) {
+	if (!tmvpoly_fp_polymod_from_string(denom, denom_string, m)) {
 		free(cpstring);
 		return 0;
 	}

@@ -20,14 +20,14 @@ namespace spffl::units {
 // to the order of the unit group.  Instead, we use Lagrange's theorem,
 // testing only divisors of the order of the unit group.
 
-int f2polymod_order(spffl::polynomials::f2_polymod_t a) {
+int f2_polymod_order(spffl::polynomials::f2_polymod_t a) {
   spffl::polynomials::f2_poly_t pol1(1);
   spffl::polynomials::f2_poly_t r = a.get_residue();
   spffl::polynomials::f2_poly_t m = a.get_modulus();
   spffl::polynomials::f2_poly_t g = r.gcd(m);
 
   if (g != pol1) {
-    std::cerr << "f2polymod_order:  zero or zero divisor " << r << " mod " << m
+    std::cerr << "f2_polymod_order:  zero or zero divisor " << r << " mod " << m
               << ".\n";
     exit(1);
   }
@@ -49,7 +49,7 @@ int f2polymod_order(spffl::polynomials::f2_polymod_t a) {
   // By Lagrange's theorem, g^m = 1 for all units g, with m the order
   // of the unit group.  If we've not found the order of a unit,
   // something is wrong.
-  std::cout << "f2polymod_order:  Coding error.\n";
+  std::cout << "f2_polymod_order:  Coding error.\n";
   exit(1);
 }
 
@@ -68,7 +68,7 @@ int f2_polymod_find_generator(spffl::polynomials::f2_poly_t m,
 
   while (gres.find_degree() < mdeg) {
     spffl::polynomials::f2_polymod_t g(gres, m);
-    if (f2polymod_order(g) == phi) {
+    if (f2_polymod_order(g) == phi) {
       rg = g;
       return 1;
     }
@@ -129,25 +129,25 @@ int f2_poly_period(spffl::polynomials::f2_poly_t m) {
   spffl::polynomials::f2_poly_t one(1);
   if (x.gcd(m) != one)
     return 0;
-  return f2polymod_order(spffl::polynomials::f2_polymod_t(x, m));
+  return f2_polymod_order(spffl::polynomials::f2_polymod_t(x, m));
 }
 
 // ----------------------------------------------------------------
 // Lexically lowest
-spffl::polynomials::f2_poly_t f2poly_find_prim(int degree, int need_irr) {
+spffl::polynomials::f2_poly_t f2_poly_find_prim(int degree, int need_irr) {
   spffl::polynomials::f2_poly_t rv(0);
   rv.set_bit(degree);
   rv.set_bit(0);
 
   if (degree < 1) {
-    std::cout << "f2poly_find_prim:  degree must be positive; got " << degree
+    std::cout << "f2_poly_find_prim:  degree must be positive; got " << degree
               << ".\n";
     exit(1);
   }
 
   while (rv.find_degree() == degree) {
     if (f2_poly_is_primitive(rv)) {
-      if (!need_irr || spffl::factorization::f2poly_is_irreducible(rv))
+      if (!need_irr || spffl::factorization::f2_poly_is_irreducible(rv))
         return rv;
     }
     rv.increment();
@@ -155,18 +155,18 @@ spffl::polynomials::f2_poly_t f2poly_find_prim(int degree, int need_irr) {
 
   // There are irreducibles, and primitive irreducibles, of all positive
   // degrees.  It is an error if we failed to find one.
-  std::cout << "f2poly_find_prim:  coding error.\n";
+  std::cout << "f2_poly_find_prim:  coding error.\n";
   exit(1);
 
   return rv;
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2_poly_t f2poly_random_prim(int degree, int need_irr) {
+spffl::polynomials::f2_poly_t f2_poly_random_prim(int degree, int need_irr) {
   spffl::polynomials::f2_poly_t rv;
 
   if (degree < 1) {
-    std::cout << "f2poly_random_prim:  degree must be positive; "
+    std::cout << "f2_poly_random_prim:  degree must be positive; "
               << "got " << degree << ".\n";
     exit(1);
   }
@@ -174,7 +174,7 @@ spffl::polynomials::f2_poly_t f2poly_random_prim(int degree, int need_irr) {
   for (;;) {
     rv = spffl::random::f2_poly_random(degree);
     if (f2_poly_is_primitive(rv)) {
-      if (!need_irr || spffl::factorization::f2poly_is_irreducible(rv))
+      if (!need_irr || spffl::factorization::f2_poly_is_irreducible(rv))
         return rv;
     }
   }
@@ -204,7 +204,7 @@ static int poly_and_index_qcmp(const void *pv1, const void *pv2) {
   return 0;
 }
 
-int f2polymod_log( // Log base g of a.
+int f2_polymod_log( // Log base g of a.
     spffl::polynomials::f2_polymod_t g, spffl::polynomials::f2_polymod_t a) {
   int rv = -1;
   spffl::polynomials::f2_poly_t m = g.get_modulus();
@@ -219,7 +219,7 @@ int f2polymod_log( // Log base g of a.
 
   spffl::polynomials::f2_polymod_t ginv;
   if (!g.recip(ginv)) {
-    std::cerr << "f2polymod_log:  g="
+    std::cerr << "f2_polymod_log:  g="
               << " is a zero divisor.\n";
     exit(1);
   }
@@ -257,7 +257,7 @@ int f2polymod_log( // Log base g of a.
 
   if (rv == -1) {
     // xxx
-    std::cerr << "f2polymod_log:  error message goes here.\n";
+    std::cerr << "f2_polymod_log:  error message goes here.\n";
     exit(1);
   }
 

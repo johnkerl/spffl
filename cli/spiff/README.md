@@ -21,7 +21,7 @@ spffl::rationals::f2n_polyrat_t   f2npr   F_{2^n}(y)               Quotient fiel
 //
 spffl::polynomials::fpn_poly_t      fpnp    F_{p^n}[y]               Ring
 spffl::polynomials::fpn_polymod_t   fpnpm   F_{p^n}[y]/<g(y)>        Residue field
-fpnpolyrat_t   fpnpr   F_{p^n}(y)               Quotient field
+fpn_polyrat_t   fpnpr   F_{p^n}(y)               Quotient field
 
 ----------------------------------------------------------------
 Rings:

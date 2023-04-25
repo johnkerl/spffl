@@ -44,7 +44,7 @@ int f2pmlist_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (!g.from_string(argv[2], m))
       pusage(argv[0]);
-    tvector<spffl::polynomials::f2_polymod_t> elts = f2polymod_glist(g, type);
+    tvector<spffl::polynomials::f2_polymod_t> elts = f2_polymod_glist(g, type);
     elts.crout(std::cout);
   } else {
     pusage(argv[0]);
@@ -134,7 +134,7 @@ int f2pmtbl_main(int argc, char **argv, usage_t *pusage) {
     std::cout << "element power\n";
     std::cout << "------- -----\n";
     for (int i = 0; i < n; i++) {
-      int e = spffl::units::f2polymod_log(g, elts[i]);
+      int e = spffl::units::f2_polymod_log(g, elts[i]);
       std::cout << elts[i] << " " << e << std::endl;
     }
     return 0;
@@ -200,7 +200,7 @@ int f2pmord_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 3)
       std::cout << a << ": ";
-    std::cout << spffl::units::f2polymod_order(a) << std::endl;
+    std::cout << spffl::units::f2_polymod_order(a) << std::endl;
   }
   return 0;
 }
@@ -250,7 +250,7 @@ int f2pmlog_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 4)
       std::cout << a << ": ";
-    std::cout << spffl::units::f2polymod_log(g, a) << std::endl;
+    std::cout << spffl::units::f2_polymod_log(g, a) << std::endl;
   }
   return 0;
 }

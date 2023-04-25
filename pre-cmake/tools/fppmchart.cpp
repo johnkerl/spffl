@@ -9,7 +9,7 @@
 #include <iostream>
 #include "fp_polymod_t.h"
 #include "fp_poly_factor.h"
-#include "fppolymod_units.h"
+#include "fp_polymod_units.h"
 #include "min_char_polys.h"
 #include "moebius.h"
 #include "log10.h"
@@ -213,7 +213,7 @@ static void find_irreds(
 	flo = fp_poly_t::from_base_rep(1 << n);
 	fhi = fp_poly_t::from_base_rep((1 << n+1) - 1);
 	for (f = flo; f <= fhi; f.increment()) {
-		if (!fppoly_is_irreducible(f))
+		if (!fp_poly_is_irreducible(f))
 			continue;
 
 		if (count >= num_irreds) {
@@ -301,7 +301,7 @@ static void fill_fppm_chart(
 	int    rowi = 0;
 	fppm_chart_row_t * prow;
 
-	if (!fppolymod_find_generator(m, g)) {
+	if (!fp_polymod_find_generator(m, g)) {
 		std::cerr << "Couldn't find generator for " << m << ".\n";
 		exit(1);
 	}
@@ -334,7 +334,7 @@ static void fill_fppm_chart(
 
 			prow->min_poly = fppm_min_poly(elt);
 			pchart->rows[rowi].num_roots = d;
-			pchart->rows[rowi].order = fppolymod_order(elt);
+			pchart->rows[rowi].order = fp_polymod_order(elt);
 
 			for (j = 0; j < d; j++) {
 				marks[orbit_log] = 1;

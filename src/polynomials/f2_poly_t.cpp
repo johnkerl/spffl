@@ -317,7 +317,7 @@ void f2_poly_t::quot_and_rem(f2_poly_t &that, f2_poly_t &rquot,
   divisor_l1_pos = that.find_degree();
   if ((divisor_l1_pos == 0) && (that.parts[0] == 0)) {
     // Divisor is zero.
-    std::cerr << "f2poly_quot_and_rem:  Divide by zero.\n";
+    std::cerr << "f2_poly_quot_and_rem:  Divide by zero.\n";
     exit(1);
   }
 
@@ -1162,7 +1162,7 @@ void f2_poly_t::trim_parts(void) {
 
 void f2_poly_t::check_neg_pos(int pos) const {
   if (pos < 0) {
-    std::cerr << "f2poly: negative bit position " << pos << " disallowed.\n";
+    std::cerr << "f2_poly: negative bit position " << pos << " disallowed.\n";
     exit(1);
   }
 }

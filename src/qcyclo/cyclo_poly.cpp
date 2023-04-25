@@ -72,32 +72,32 @@ spffl::rationals::qpoly_t get_cyclo_qpoly(int n) {
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2_poly_t get_cyclo_f2poly(int n) {
+spffl::polynomials::f2_poly_t get_cyclo_f2_poly(int n) {
   spffl::rationals::qpoly_t q = get_cyclo_qpoly(n);
   spffl::polynomials::f2_poly_t rv = f2_poly_from_q_poly(q);
   return rv;
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::fp_poly_t get_cyclo_fppoly(int n, int p) {
+spffl::polynomials::fp_poly_t get_cyclo_fp_poly(int n, int p) {
   spffl::rationals::qpoly_t q = get_cyclo_qpoly(n);
-  spffl::polynomials::fp_poly_t rv = fppoly_from_qpoly(q, p);
+  spffl::polynomials::fp_poly_t rv = fp_poly_from_qpoly(q, p);
   return rv;
 }
 
 // ----------------------------------------------------------------
 spffl::polynomials::f2n_poly_t
-get_cyclo_f2npoly(int n, spffl::polynomials::f2_poly_t im) {
+get_cyclo_f2n_poly(int n, spffl::polynomials::f2_poly_t im) {
   spffl::rationals::qpoly_t q = get_cyclo_qpoly(n);
-  spffl::polynomials::f2n_poly_t rv = f2npoly_from_qpoly(q, im);
+  spffl::polynomials::f2n_poly_t rv = f2n_poly_from_qpoly(q, im);
   return rv;
 }
 
 // ----------------------------------------------------------------
 spffl::polynomials::fpn_poly_t
-get_cyclo_fpnpoly(int n, spffl::polynomials::fp_poly_t im) {
+get_cyclo_fpn_poly(int n, spffl::polynomials::fp_poly_t im) {
   spffl::rationals::qpoly_t q = get_cyclo_qpoly(n);
-  spffl::polynomials::fpn_poly_t rv = fpnpoly_from_qpoly(q, im);
+  spffl::polynomials::fpn_poly_t rv = fpn_poly_from_qpoly(q, im);
   return rv;
 }
 
@@ -117,19 +117,19 @@ int main(void) {
   std::cout << "\n";
 
   for (int n = 1; n < nmax; n++)
-    std::cout << n << ": " << get_cyclo_f2poly(n) << "\n";
+    std::cout << n << ": " << get_cyclo_f2_poly(n) << "\n";
   std::cout << "\n";
 
   for (int n = 1; n < nmax; n++)
-    std::cout << n << ": " << get_cyclo_fppoly(n, p) << "\n";
+    std::cout << n << ": " << get_cyclo_fp_poly(n, p) << "\n";
   std::cout << "\n";
 
   for (int n = 1; n < nmax; n++)
-    std::cout << n << ": " << get_cyclo_f2npoly(n, m2) << "\n";
+    std::cout << n << ": " << get_cyclo_f2n_poly(n, m2) << "\n";
   std::cout << "\n";
 
   for (int n = 1; n < nmax; n++)
-    std::cout << n << ": " << get_cyclo_fpnpoly(n, mp) << "\n";
+    std::cout << n << ": " << get_cyclo_fpn_poly(n, mp) << "\n";
   std::cout << "\n";
 
   return 0;

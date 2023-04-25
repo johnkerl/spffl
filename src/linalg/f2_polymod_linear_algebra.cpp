@@ -163,7 +163,7 @@ int f2pm_matrix_is_dable(
     }
 
     ext_chpol = f2_polymod_convert_poly(base_g, ext_g, chpol);
-    ext_A = f2polymod_convert_matrix(base_g, ext_g, A);
+    ext_A = f2_polymod_convert_matrix(base_g, ext_g, A);
   }
 
   tfacinfo<spffl::polynomials::f2n_poly_t> ext_finfo =

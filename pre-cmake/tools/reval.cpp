@@ -20,7 +20,7 @@ int main(int argc, char ** argv)
 		usage(argv[0]);
 	if (!m.from_string(argv[1]))
 		usage(argv[0]);
-	if (!tmvrat_f2polymod_from_string(r, argv[2], m))
+	if (!tmvrat_f2_polymod_from_string(r, argv[2], m))
 		usage(argv[0]);
 	// if (xxx) r = r.homogenize();
 	int nvars = r.get_nvars();

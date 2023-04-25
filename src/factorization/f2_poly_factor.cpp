@@ -29,7 +29,7 @@ static void f2_poly_berlekamp(spffl::polynomials::f2_poly_t f,
                              tfacinfo<spffl::polynomials::f2_poly_t> &rfinfo,
                              int recurse);
 
-spffl::polynomials::f2_poly_t f2poly_from_vector(
+spffl::polynomials::f2_poly_t f2_poly_from_vector(
 #ifdef USE_BIT_MATRIX
     spffl::bits::bit_vector_t &v,
 #else
@@ -286,7 +286,7 @@ static void f2_poly_berlekamp(spffl::polynomials::f2_poly_t f,
 
   for (row = 0; row < dimker; row++) {
     spffl::polynomials::f2_poly_t h, hc;
-    h = f2poly_from_vector(nullspace_basis[row], n);
+    h = f2_poly_from_vector(nullspace_basis[row], n);
     hc = h + spffl::polynomials::f2_poly_t(1);
 
     spffl::polynomials::f2_poly_t check1 = (h * h) % f;
@@ -338,7 +338,7 @@ static void f2_poly_berlekamp(spffl::polynomials::f2_poly_t f,
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2_poly_t f2poly_from_vector(
+spffl::polynomials::f2_poly_t f2_poly_from_vector(
 #ifdef USE_BIT_MATRIX
     spffl::bits::bit_vector_t &v,
 #else
@@ -374,7 +374,7 @@ spffl::polynomials::f2_poly_t f2poly_from_vector(
 ////	2^3 3^2   72
 //
 // unsigned f2_poly_num_divisors(
-//	f2poly_factor_info_t * pfinfo)
+//	f2_poly_factor_info_t * pfinfo)
 //{
 //	unsigned rv;
 //	int i;
@@ -398,8 +398,8 @@ spffl::polynomials::f2_poly_t f2poly_from_vector(
 //// See comments to the above.  k is treated as a multibase representation
 //// over the bases mi+1.
 //
-// spffl::polynomials::f2_poly_t f2poly_kth_divisor(
-//	f2poly_factor_info_t * pfinfo,
+// spffl::polynomials::f2_poly_t f2_poly_kth_divisor(
+//	f2_poly_factor_info_t * pfinfo,
 //	unsigned k)
 //{
 //	spffl::polynomials::f2_poly_t rv;
@@ -408,14 +408,14 @@ spffl::polynomials::f2_poly_t f2poly_from_vector(
 //	unsigned base;
 //	unsigned power;
 //
-//	rv = f2poly_from_base_rep(1);
+//	rv = f2_poly_from_base_rep(1);
 //	for (i = 0; i < pfinfo->num_distinct; i++) {
 //		base = pfinfo->factor_counts[i].count + 1;
 //		power = k % base;
 //		k = k / base;
 //
-//		fp = f2poly_power(&pfinfo->factor_counts[i].f, power);
-//		rv = f2poly_mul(&rv, &fp);
+//		fp = f2_poly_power(&pfinfo->factor_counts[i].f, power);
+//		rv = f2_poly_mul(&rv, &fp);
 //	}
 //	return rv;
 //}
@@ -427,7 +427,7 @@ spffl::polynomials::f2_poly_t f2poly_from_vector(
 //	spffl::polynomials::f2_poly_t * pr,
 //	unsigned * pnum_divisors)
 //{
-//	f2poly_factor_info_t finfo;
+//	f2_poly_factor_info_t finfo;
 //	unsigned nf, k;
 //	spffl::polynomials::f2_poly_t * all_divisors;
 //
@@ -437,16 +437,16 @@ spffl::polynomials::f2_poly_t f2poly_from_vector(
 //
 //	all_divisors = (spffl::polynomials::f2_poly_t *)malloc_check(nf *
 //sizeof(spffl::polynomials::f2_poly_t)); 	for (k = 0; k < nf; k++) {
-//		all_divisors[k] = f2poly_kth_divisor(&finfo, k);
+//		all_divisors[k] = f2_poly_kth_divisor(&finfo, k);
 //	}
 //	qsort(all_divisors, nf, sizeof(spffl::polynomials::f2_poly_t),
-//f2poly_qcmp);
+//f2_poly_qcmp);
 //
 //	return all_divisors;
 //}
 
 // ----------------------------------------------------------------
-int f2poly_is_irreducible(spffl::polynomials::f2_poly_t f) {
+int f2_poly_is_irreducible(spffl::polynomials::f2_poly_t f) {
   tfacinfo<spffl::polynomials::f2_poly_t> finfo;
 
   int d = f.find_degree();
@@ -483,7 +483,7 @@ spffl::polynomials::f2_poly_t f2_poly_find_irreducible(int degree) {
   }
 
   while (rv.find_degree() == degree) {
-    if (f2poly_is_irreducible(rv))
+    if (f2_poly_is_irreducible(rv))
       return rv;
     rv.increment();
     rv.increment();
@@ -510,7 +510,7 @@ spffl::polynomials::f2_poly_t f2_poly_random_irreducible(int degree) {
   for (;;) {
     rv = spffl::random::f2_poly_random(degree);
     rv.set_bit(0);
-    if (f2poly_is_irreducible(rv))
+    if (f2_poly_is_irreducible(rv))
       return rv;
   }
 }

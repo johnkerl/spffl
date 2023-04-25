@@ -27,7 +27,7 @@ f2_polymod_convert_poly(spffl::polynomials::f2_polymod_t g1,
                        spffl::polynomials::f2n_poly_t f1);
 
 tmatrix<spffl::polynomials::f2_polymod_t>
-f2polymod_convert_matrix(spffl::polynomials::f2_polymod_t g1,
+f2_polymod_convert_matrix(spffl::polynomials::f2_polymod_t g1,
                          spffl::polynomials::f2_polymod_t g2,
                          tmatrix<spffl::polynomials::f2_polymod_t> A1);
 

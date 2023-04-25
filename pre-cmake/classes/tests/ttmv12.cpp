@@ -22,7 +22,7 @@ int main(int argc, char ** argv)
 		usage(argv[0]);
 	if (!m.from_string(argv[1]))
 		usage(argv[0]);
-	if (!tmvpoly_f2polymod_from_string(f, argv[2], m))
+	if (!tmvpoly_f2_polymod_from_string(f, argv[2], m))
 		usage(argv[0]);
 	zero = f2_polymod_t::prime_sfld_elt(0, m);
 

@@ -18,7 +18,7 @@ namespace spffl::units {
 // to the order of the unit group.  Instead, we use Lagrange's theorem,
 // testing only divisors of the order of the unit group.
 
-int f2npolymod_order(spffl::polynomials::f2n_polymod_t a) {
+int f2n_polymod_order(spffl::polynomials::f2n_polymod_t a) {
   spffl::polynomials::f2n_poly_t r = a.get_residue();
   spffl::polynomials::f2n_poly_t m = a.get_modulus();
   spffl::polynomials::f2n_poly_t g = r.gcd(m);
@@ -27,7 +27,7 @@ int f2npolymod_order(spffl::polynomials::f2n_polymod_t a) {
   spffl::polynomials::f2n_poly_t pol1 = m.prime_sfld_elt(1);
 
   if (g != pol1) {
-    std::cerr << "f2npolymod_order:  zero or zero divisor " << r << " mod " << m
+    std::cerr << "f2n_polymod_order:  zero or zero divisor " << r << " mod " << m
               << ".\n";
     std::cerr << "gcd(" << r << ", " << m << ") = " << g << "\n";
     exit(1);
@@ -50,18 +50,18 @@ int f2npolymod_order(spffl::polynomials::f2n_polymod_t a) {
   // By Lagrange's theorem, g^m = 1 for all units g, with m the order
   // of the unit group.  If we've not found the order of a unit,
   // something is wrong.
-  std::cout << "f2npolymod_order:  Coding error.\n";
+  std::cout << "f2n_polymod_order:  Coding error.\n";
   exit(1);
 }
 
 // ----------------------------------------------------------------
-int f2npolymod_find_generator(spffl::polynomials::f2n_poly_t m,
+int f2n_polymod_find_generator(spffl::polynomials::f2n_poly_t m,
                               spffl::polynomials::f2n_polymod_t &rg) {
   int mdeg = m.find_degree();
   spffl::polynomials::f2n_poly_t gres = m.prime_sfld_elt(1);
 
   if (mdeg < 1) {
-    std::cout << "f2npolymod_find_generator:  modulus degree "
+    std::cout << "f2n_polymod_find_generator:  modulus degree "
               << "must be positive; got " << mdeg << ".\n";
     exit(1);
   }
@@ -69,7 +69,7 @@ int f2npolymod_find_generator(spffl::polynomials::f2n_poly_t m,
 
   while (gres.find_degree() < mdeg) {
     spffl::polynomials::f2n_polymod_t g(gres, m);
-    if (f2npolymod_order(g) == phi) {
+    if (f2n_polymod_order(g) == phi) {
       rg = g;
       return 1;
     }
@@ -108,7 +108,7 @@ static int poly_and_index_qcmp(const void *pv1, const void *pv2) {
   return 0;
 }
 
-int f2npolymod_log( // Log base g of a.
+int f2n_polymod_log( // Log base g of a.
     spffl::polynomials::f2n_polymod_t g, spffl::polynomials::f2n_polymod_t a) {
   std::cout << "\n";
   std::cout << "g = " << g << "\n";
@@ -129,7 +129,7 @@ int f2npolymod_log( // Log base g of a.
 
   spffl::polynomials::f2n_polymod_t ginv;
   if (!g.recip(ginv)) {
-    std::cerr << "f2npolymod_log:  g="
+    std::cerr << "f2n_polymod_log:  g="
               << " is a zero divisor.\n";
     exit(1);
   }
@@ -179,7 +179,7 @@ int f2npolymod_log( // Log base g of a.
   }
 
   if (rv == -1) {
-    std::cerr << "f2npolymod_log:  couldn't find log base " << g << " of " << a
+    std::cerr << "f2n_polymod_log:  couldn't find log base " << g << " of " << a
               << " mod " << m << ".\n";
     exit(1);
   }

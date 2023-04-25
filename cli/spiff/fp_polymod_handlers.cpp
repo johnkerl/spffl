@@ -33,7 +33,7 @@ int fppmlist_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (!m.from_string(argv[3], p))
     pusage(argv[0]);
-  tvector<spffl::polynomials::fp_polymod_t> elts = fppolymod_list(m, type);
+  tvector<spffl::polynomials::fp_polymod_t> elts = fp_polymod_list(m, type);
   elts.crout(std::cout);
   return 0;
 }
@@ -100,7 +100,7 @@ int fppmtbl_main(int argc, char **argv, usage_t *pusage) {
 		tbl_type = TBL_TYPE_LOG;
 	}
 	else if (strcmp(argv[3], "log") == 0) {
-		if (!fppolymod_find_generator(m, g)) {
+		if (!fp_polymod_find_generator(m, g)) {
 			std::cerr << "Couldn't find generator mod "
 				<< m << "\n";
 			exit(1);
@@ -113,7 +113,7 @@ int fppmtbl_main(int argc, char **argv, usage_t *pusage) {
 		tbl_type = TBL_TYPE_ALOG;
 	}
 	else if (strcmp(argv[3], "alog") == 0) {
-		if (!fppolymod_find_generator(m, g)) {
+		if (!fp_polymod_find_generator(m, g)) {
 			std::cerr << "Couldn't find generator mod "
 				<< m << "\n";
 			exit(1);
@@ -127,9 +127,9 @@ int fppmtbl_main(int argc, char **argv, usage_t *pusage) {
   tvector<spffl::polynomials::fp_polymod_t> elts;
   if ((tbl_type == TBL_TYPE_UNIT_MUL) || (tbl_type == TBL_TYPE_UNIT_DIV) ||
       (tbl_type == TBL_TYPE_LOG) || (tbl_type == TBL_TYPE_ALOG))
-    elts = fppolymod_list(m, spffl::list::SP_LIST_UNITS);
+    elts = fp_polymod_list(m, spffl::list::SP_LIST_UNITS);
   else
-    elts = fppolymod_list(m, spffl::list::SP_LIST_ALL);
+    elts = fp_polymod_list(m, spffl::list::SP_LIST_ALL);
   int n = elts.get_num_elements();
 
 #if 0
@@ -137,7 +137,7 @@ int fppmtbl_main(int argc, char **argv, usage_t *pusage) {
 		std::cout << "element power\n";
 		std::cout << "------- -----\n";
 		for (int i = 0; i < n; i++) {
-			int e = fppolymod_log(g, elts[i]);
+			int e = fp_polymod_log(g, elts[i]);
 			std::cout << elts[i] << " " << e << "\n";
 		}
 		return 0;

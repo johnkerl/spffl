@@ -113,7 +113,7 @@ int fpnpqp_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = 3; argi < argc; argi++) {
     if (!qp.from_string(argv[argi]))
       pusage(argv[0]);
-    fpnp = spffl::qcyclo::fpnpoly_from_qpoly(qp, m);
+    fpnp = spffl::qcyclo::fpn_poly_from_qpoly(qp, m);
     std::cout << fpnp << "\n";
   }
   return 0;

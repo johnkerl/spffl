@@ -134,7 +134,7 @@ int f2n_polymod_t::recip(f2n_polymod_t &rinv) {
 
   // Error check:
   if (g.find_degree() != 0) {
-    // std::cerr << "f2npolymod recip: zero or zero divisor.\n";
+    // std::cerr << "f2n_polymod recip: zero or zero divisor.\n";
     return 0;
   }
 

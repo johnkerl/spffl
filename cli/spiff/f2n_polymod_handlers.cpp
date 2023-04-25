@@ -34,7 +34,7 @@ int f2npmlist_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   if (!om.from_string(argv[3], im))
     pusage(argv[0]);
-  tvector<spffl::polynomials::f2n_polymod_t> elts = f2npolymod_list(om, type);
+  tvector<spffl::polynomials::f2n_polymod_t> elts = f2n_polymod_list(om, type);
   elts.crout(std::cout);
   return 0;
 }
@@ -100,7 +100,7 @@ int f2npmtbl_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     tbl_type = TBL_TYPE_LOG;
   } else if (strcmp(argv[3], "log") == 0) {
-    if (!spffl::units::f2npolymod_find_generator(om, g)) {
+    if (!spffl::units::f2n_polymod_find_generator(om, g)) {
       std::cerr << "Couldn't find generator mod " << om << "\n";
       exit(1);
     }
@@ -110,7 +110,7 @@ int f2npmtbl_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     tbl_type = TBL_TYPE_ALOG;
   } else if (strcmp(argv[3], "alog") == 0) {
-    if (!spffl::units::f2npolymod_find_generator(om, g)) {
+    if (!spffl::units::f2n_polymod_find_generator(om, g)) {
       std::cerr << "Couldn't find generator mod " << om << "\n";
       exit(1);
     }
@@ -121,16 +121,16 @@ int f2npmtbl_main(int argc, char **argv, usage_t *pusage) {
   tvector<spffl::polynomials::f2n_polymod_t> elts;
   if ((tbl_type == TBL_TYPE_UNIT_MUL) || (tbl_type == TBL_TYPE_UNIT_DIV) ||
       (tbl_type == TBL_TYPE_LOG) || (tbl_type == TBL_TYPE_ALOG))
-    elts = f2npolymod_list(om, spffl::list::SP_LIST_UNITS);
+    elts = f2n_polymod_list(om, spffl::list::SP_LIST_UNITS);
   else
-    elts = f2npolymod_list(om, spffl::list::SP_LIST_ALL);
+    elts = f2n_polymod_list(om, spffl::list::SP_LIST_ALL);
   int n = elts.get_num_elements();
 
   if (tbl_type == TBL_TYPE_LOG) {
     std::cout << "element power\n";
     std::cout << "------- -----\n";
     for (int i = 0; i < n; i++) {
-      int e = spffl::units::f2npolymod_log(g, elts[i]);
+      int e = spffl::units::f2n_polymod_log(g, elts[i]);
       std::cout << elts[i] << " " << e << "\n";
     }
     return 0;
@@ -199,7 +199,7 @@ int f2npmord_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 4)
       std::cout << a << ": ";
-    std::cout << spffl::units::f2npolymod_order(a) << "\n";
+    std::cout << spffl::units::f2n_polymod_order(a) << "\n";
   }
   return 0;
 }
@@ -223,7 +223,7 @@ int f2npmfindgen_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 3)
       std::cout << om << ": ";
-    if (spffl::units::f2npolymod_find_generator(om, g)) {
+    if (spffl::units::f2n_polymod_find_generator(om, g)) {
       std::cout << g << "\n";
     } else {
       std::cout << "Generator not found.\n";
@@ -255,7 +255,7 @@ int f2npmlog_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 5)
       std::cout << a << ": ";
-    std::cout << spffl::units::f2npolymod_log(g, a) << "\n";
+    std::cout << spffl::units::f2n_polymod_log(g, a) << "\n";
   }
   return 0;
 }

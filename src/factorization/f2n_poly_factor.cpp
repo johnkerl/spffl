@@ -15,16 +15,16 @@ namespace spffl::factorization {
 //#define F2NPOLY_FACTOR_DEBUG
 
 static void
-f2npoly_pre_berlekamp(spffl::polynomials::f2n_poly_t f,
+f2n_poly_pre_berlekamp(spffl::polynomials::f2n_poly_t f,
                       tfacinfo<spffl::polynomials::f2n_poly_t> &rfinfo,
                       int recurse);
 
-static void f2npoly_berlekamp(spffl::polynomials::f2n_poly_t f,
+static void f2n_poly_berlekamp(spffl::polynomials::f2n_poly_t f,
                               tfacinfo<spffl::polynomials::f2n_poly_t> &rfinfo,
                               int recurse);
 
 spffl::polynomials::f2n_poly_t
-f2npoly_from_vector(tvector<spffl::polynomials::f2_polymod_t> v, int n);
+f2n_poly_from_vector(tvector<spffl::polynomials::f2_polymod_t> v, int n);
 
 // ----------------------------------------------------------------
 tfacinfo<spffl::polynomials::f2n_poly_t>
@@ -47,13 +47,13 @@ f2n_poly_factor(spffl::polynomials::f2n_poly_t f) {
     f /= leader;
   }
 
-  f2npoly_pre_berlekamp(f, finfo, 1);
+  f2n_poly_pre_berlekamp(f, finfo, 1);
   return finfo;
 }
 
 // ----------------------------------------------------------------
 static void
-f2npoly_pre_berlekamp(spffl::polynomials::f2n_poly_t f,
+f2n_poly_pre_berlekamp(spffl::polynomials::f2n_poly_t f,
                       tfacinfo<spffl::polynomials::f2n_poly_t> &rfinfo,
                       int recurse) {
   spffl::polynomials::f2n_poly_t d = f.deriv();
@@ -61,7 +61,7 @@ f2npoly_pre_berlekamp(spffl::polynomials::f2n_poly_t f,
 
 #ifdef F2NPOLY_FACTOR_DEBUG
   std::cout << "\n";
-  std::cout << "f2npoly_pre_berlekamp input = " << f << "  f' = " << d
+  std::cout << "f2n_poly_pre_berlekamp input = " << f << "  f' = " << d
             << "  (f,f') = " << g << "\n";
 #endif
 
@@ -75,7 +75,7 @@ f2npoly_pre_berlekamp(spffl::polynomials::f2n_poly_t f,
     return;
   } else if (g.find_degree() == 0) {
     // Input is squarefree.
-    f2npoly_berlekamp(f, rfinfo, recurse);
+    f2n_poly_berlekamp(f, rfinfo, recurse);
   } else if (d == 0) {
     // Input is a perfect square
     spffl::polynomials::f2n_poly_t s;
@@ -91,7 +91,7 @@ f2npoly_pre_berlekamp(spffl::polynomials::f2n_poly_t f,
 #endif
 
     // Multiplicity is p only if degree is > 0.
-    f2npoly_pre_berlekamp(s, sfinfo, recurse);
+    f2n_poly_pre_berlekamp(s, sfinfo, recurse);
     if (f.find_degree() > 0)
       sfinfo.exp_all(2);
     rfinfo.merge(sfinfo);
@@ -103,8 +103,8 @@ f2npoly_pre_berlekamp(spffl::polynomials::f2n_poly_t f,
     g /= g.get_coeff(g.find_degree());
     q /= q.get_coeff(q.find_degree());
 
-    f2npoly_pre_berlekamp(g, rfinfo, recurse);
-    f2npoly_pre_berlekamp(q, rfinfo, recurse);
+    f2n_poly_pre_berlekamp(g, rfinfo, recurse);
+    f2n_poly_pre_berlekamp(q, rfinfo, recurse);
   }
 }
 
@@ -112,7 +112,7 @@ f2npoly_pre_berlekamp(spffl::polynomials::f2n_poly_t f,
 // See my "Computation in finite fields" (ffcomp.pdf) for a full description
 // of this algorithm.  See f2_poly_factor.cpp for some sample data.
 
-static void f2npoly_berlekamp(spffl::polynomials::f2n_poly_t f,
+static void f2n_poly_berlekamp(spffl::polynomials::f2n_poly_t f,
                               tfacinfo<spffl::polynomials::f2n_poly_t> &rfinfo,
                               int recurse) {
   int n = f.find_degree();
@@ -133,7 +133,7 @@ static void f2npoly_berlekamp(spffl::polynomials::f2n_poly_t f,
 
 #ifdef F2NPOLY_FACTOR_DEBUG
   std::cout << "\n";
-  std::cout << "f2npoly_berlekamp input = " << f << "\n";
+  std::cout << "f2n_poly_berlekamp input = " << f << "\n";
   std::cout << "x"
             << " = " << x << "\n";
 #endif
@@ -201,7 +201,7 @@ static void f2npoly_berlekamp(spffl::polynomials::f2n_poly_t f,
   int got_it = 0;
   for (row = 0; row < dimker && !got_it; row++) {
     spffl::polynomials::f2n_poly_t h =
-        f2npoly_from_vector(nullspace_basis[row], n);
+        f2n_poly_from_vector(nullspace_basis[row], n);
 #ifdef F2NPOLY_FACTOR_DEBUG
     std::cout << "h  = " << h << "\n";
 #endif // F2NPOLY_FACTOR_DEBUG
@@ -257,14 +257,14 @@ static void f2npoly_berlekamp(spffl::polynomials::f2n_poly_t f,
     rfinfo.insert_factor(f1);
     rfinfo.insert_factor(f2);
   } else {
-    f2npoly_pre_berlekamp(f1, rfinfo, recurse);
-    f2npoly_pre_berlekamp(f2, rfinfo, recurse);
+    f2n_poly_pre_berlekamp(f1, rfinfo, recurse);
+    f2n_poly_pre_berlekamp(f2, rfinfo, recurse);
   }
 }
 
 // ----------------------------------------------------------------
 spffl::polynomials::f2n_poly_t
-f2npoly_from_vector(tvector<spffl::polynomials::f2_polymod_t> v, int n) {
+f2n_poly_from_vector(tvector<spffl::polynomials::f2_polymod_t> v, int n) {
   spffl::polynomials::f2n_poly_t f;
   f.set_coeff(0, v[0] - v[0]);
   for (int i = 0; i < n; i++)
@@ -273,7 +273,7 @@ f2npoly_from_vector(tvector<spffl::polynomials::f2_polymod_t> v, int n) {
 }
 
 // ----------------------------------------------------------------
-int f2npoly_roots(spffl::polynomials::f2n_poly_t f,
+int f2n_poly_roots(spffl::polynomials::f2n_poly_t f,
                   tvector<spffl::polynomials::f2_polymod_t> &rroots) {
   tfacinfo<spffl::polynomials::f2n_poly_t> finfo = f2n_poly_factor(f);
   int nf = finfo.get_num_distinct();
@@ -311,7 +311,7 @@ int f2npoly_roots(spffl::polynomials::f2n_poly_t f,
 }
 
 // ----------------------------------------------------------------
-int f2npoly_is_irreducible(spffl::polynomials::f2n_poly_t f) {
+int f2n_poly_is_irreducible(spffl::polynomials::f2n_poly_t f) {
   tfacinfo<spffl::polynomials::f2n_poly_t> finfo;
 
   int d = f.find_degree();
@@ -321,7 +321,7 @@ int f2npoly_is_irreducible(spffl::polynomials::f2n_poly_t f) {
     return 1;
 
   f /= f.get_coeff(d);
-  f2npoly_pre_berlekamp(f, finfo, 0);
+  f2n_poly_pre_berlekamp(f, finfo, 0);
 
 #ifdef F2NPOLY_FACTOR_DEBUG
   std::cout << "f2npirr: input = " << f << "\n";
@@ -337,7 +337,7 @@ int f2npoly_is_irreducible(spffl::polynomials::f2n_poly_t f) {
 
 // ----------------------------------------------------------------
 // Lexically lowest
-spffl::polynomials::f2n_poly_t f2npoly_find_irr(spffl::polynomials::f2_poly_t m,
+spffl::polynomials::f2n_poly_t f2n_poly_find_irr(spffl::polynomials::f2_poly_t m,
                                                 int degree) {
   spffl::polynomials::f2_poly_t c0(0), c1(1);
   spffl::polynomials::f2_polymod_t zero(c0, m), one(c1, m);
@@ -345,14 +345,14 @@ spffl::polynomials::f2n_poly_t f2npoly_find_irr(spffl::polynomials::f2_poly_t m,
   rv.set_coeff(degree, one);
 
   if (degree < 1) {
-    std::cout << "f2npoly_find_irr:  degree must be positive; got " << degree
+    std::cout << "f2n_poly_find_irr:  degree must be positive; got " << degree
               << ".\n";
     exit(1);
   }
 
   while (rv.find_degree() == degree) {
     if (rv.get_coeff(0) != zero) {
-      if (f2npoly_is_irreducible(rv))
+      if (f2n_poly_is_irreducible(rv))
         return rv;
     }
     rv.increment();
@@ -360,7 +360,7 @@ spffl::polynomials::f2n_poly_t f2npoly_find_irr(spffl::polynomials::f2_poly_t m,
 
   // There are irreducibles of all positive degrees, so it is
   // an error if we failed to find one.
-  std::cout << "f2npoly_find_irr:  coding error.\n";
+  std::cout << "f2n_poly_find_irr:  coding error.\n";
   exit(1);
 
   return rv;
@@ -368,13 +368,13 @@ spffl::polynomials::f2n_poly_t f2npoly_find_irr(spffl::polynomials::f2_poly_t m,
 
 // ----------------------------------------------------------------
 spffl::polynomials::f2n_poly_t
-f2npoly_random_irr(spffl::polynomials::f2_poly_t m, int degree) {
+f2n_poly_random_irr(spffl::polynomials::f2_poly_t m, int degree) {
   spffl::polynomials::f2_poly_t c0(0);
   spffl::polynomials::f2_polymod_t zero(c0, m);
   spffl::polynomials::f2n_poly_t rv;
 
   if (degree < 1) {
-    std::cout << "f2npoly_random_irr:  degree must be positive; got " << degree
+    std::cout << "f2n_poly_random_irr:  degree must be positive; got " << degree
               << ".\n";
     exit(1);
   }
@@ -383,7 +383,7 @@ f2npoly_random_irr(spffl::polynomials::f2_poly_t m, int degree) {
     rv = spffl::random::f2n_poly_random(m, degree);
     if (rv.get_coeff(0) == zero)
       continue;
-    if (f2npoly_is_irreducible(rv)) {
+    if (f2n_poly_is_irreducible(rv)) {
       rv /= rv.get_coeff(degree); // make monic
       return rv;
     }

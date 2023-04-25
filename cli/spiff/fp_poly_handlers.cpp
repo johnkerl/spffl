@@ -30,7 +30,7 @@ int fpplist_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   for (int deg = deglo; deg <= deghi; deg++) {
     tvector<spffl::polynomials::fp_poly_t> elts =
-        spffl::list::fppoly_list(p, deg);
+        spffl::list::fp_poly_list(p, deg);
     elts.crout(std::cout);
   }
   return 0;
@@ -220,7 +220,7 @@ int fpptest_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 3)
       std::cout << a << ": ";
-    if (spffl::factorization::fppoly_is_irreducible(a))
+    if (spffl::factorization::fp_poly_is_irreducible(a))
       std::cout << "IRREDUCIBLE\n";
     else
       std::cout << "reducible\n";
@@ -259,9 +259,9 @@ int fppfind_main(int argc, char **argv, usage_t *pusage) {
   for (int deg = deglo; deg <= deghi; deg++) {
     spffl::polynomials::fp_poly_t a;
     if (do_random)
-      a = spffl::factorization::fppoly_random_irr(p, deg);
+      a = spffl::factorization::fp_poly_random_irr(p, deg);
     else
-      a = spffl::factorization::fppoly_find_irr(p, deg);
+      a = spffl::factorization::fp_poly_find_irr(p, deg);
     std::cout << a << "\n";
   }
   return 0;
@@ -417,7 +417,7 @@ int fppqp_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = 2; argi < argc; argi++) {
     if (!qp.from_string(argv[argi]))
       pusage(argv[0]);
-    fpp = spffl::qcyclo::fppoly_from_qpoly(qp, p);
+    fpp = spffl::qcyclo::fp_poly_from_qpoly(qp, p);
     std::cout << fpp << "\n";
   }
   return 0;

@@ -34,7 +34,7 @@ int f2nplist_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   for (int deg = deglo; deg <= deghi; deg++) {
     tvector<spffl::polynomials::f2n_poly_t> elts =
-        spffl::list::f2npoly_list(m, deg);
+        spffl::list::f2n_poly_list(m, deg);
     elts.crout(std::cout);
   }
   return 0;
@@ -195,7 +195,7 @@ int f2nptest_main(int argc, char **argv, usage_t *pusage) {
       pusage(argv[0]);
     if (argc > 3)
       std::cout << a << ": ";
-    if (spffl::factorization::f2npoly_is_irreducible(a))
+    if (spffl::factorization::f2n_poly_is_irreducible(a))
       std::cout << "IRREDUCIBLE\n";
     else
       std::cout << "reducible\n";
@@ -234,9 +234,9 @@ int f2npfind_main(int argc, char **argv, usage_t *pusage) {
   for (int deg = deglo; deg <= deghi; deg++) {
     spffl::polynomials::f2n_poly_t a;
     if (do_random)
-      a = spffl::factorization::f2npoly_random_irr(m, deg);
+      a = spffl::factorization::f2n_poly_random_irr(m, deg);
     else
-      a = spffl::factorization::f2npoly_find_irr(m, deg);
+      a = spffl::factorization::f2n_poly_find_irr(m, deg);
     std::cout << a << std::endl;
   }
   return 0;
@@ -417,7 +417,7 @@ int f2npqp_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = 2; argi < argc; argi++) {
     if (!qp.from_string(argv[argi]))
       pusage(argv[0]);
-    f2np = spffl::qcyclo::f2npoly_from_qpoly(qp, m);
+    f2np = spffl::qcyclo::f2n_poly_from_qpoly(qp, m);
     std::cout << f2np << std::endl;
   }
   return 0;

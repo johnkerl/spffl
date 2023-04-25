@@ -14,13 +14,13 @@ namespace spffl::factorization {
 tfacinfo<spffl::polynomials::fp_poly_t>
 fp_poly_factor(spffl::polynomials::fp_poly_t f);
 
-int fppoly_is_irreducible(spffl::polynomials::fp_poly_t f);
+int fp_poly_is_irreducible(spffl::polynomials::fp_poly_t f);
 
 // Lexically lowest (and therefore monic).
-spffl::polynomials::fp_poly_t fppoly_find_irr(int p, int degree);
+spffl::polynomials::fp_poly_t fp_poly_find_irr(int p, int degree);
 
 // Monic.
-spffl::polynomials::fp_poly_t fppoly_random_irr(int p, int degree);
+spffl::polynomials::fp_poly_t fp_poly_random_irr(int p, int degree);
 
 } // namespace spffl::factorization
 

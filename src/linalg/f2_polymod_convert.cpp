@@ -19,7 +19,7 @@ int f2_polymod_convert_prep(spffl::polynomials::f2_polymod_t g1,
   spffl::polynomials::f2n_poly_t g2_min_poly = g1_min_poly;
   g2_min_poly.change_modulus(m2);
   tvector<spffl::polynomials::f2_polymod_t> roots;
-  if (!spffl::factorization::f2npoly_roots(g2_min_poly, roots))
+  if (!spffl::factorization::f2n_poly_roots(g2_min_poly, roots))
     return 0;
   if (roots.get_num_elements() != g2_min_poly.find_degree())
     return 0;
@@ -38,7 +38,7 @@ f2_polymod_convert_scalar(spffl::polynomials::f2_polymod_t g1,
   if (a1 == zero1)
     return zero2;
   else
-    return g2.exp(spffl::units::f2polymod_log(g1, a1));
+    return g2.exp(spffl::units::f2_polymod_log(g1, a1));
 }
 
 // ----------------------------------------------------------------
@@ -55,7 +55,7 @@ f2_polymod_convert_poly(spffl::polynomials::f2_polymod_t g1,
 
 // ----------------------------------------------------------------
 tmatrix<spffl::polynomials::f2_polymod_t>
-f2polymod_convert_matrix(spffl::polynomials::f2_polymod_t g1,
+f2_polymod_convert_matrix(spffl::polynomials::f2_polymod_t g1,
                          spffl::polynomials::f2_polymod_t g2,
                          tmatrix<spffl::polynomials::f2_polymod_t> A1) {
   int nr = A1.get_num_rows();

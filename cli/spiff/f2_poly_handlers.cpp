@@ -35,7 +35,7 @@ int f2plist_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
 
   for (int deg = deglo; deg <= deghi; deg++) {
-    tvector<spffl::polynomials::f2_poly_t> elts = spffl::list::f2poly_list(deg);
+    tvector<spffl::polynomials::f2_poly_t> elts = spffl::list::f2_poly_list(deg);
     elts.crout(std::cout);
   }
   return 0;
@@ -180,7 +180,7 @@ int f2ptest_main(int argc, char **argv, usage_t *pusage) {
     if (argc > 2)
       std::cout << a << ": ";
     if (do_irr) {
-      if (spffl::factorization::f2poly_is_irreducible(a))
+      if (spffl::factorization::f2_poly_is_irreducible(a))
         std::cout << "IRREDUCIBLE";
       else
         std::cout << "reducible";
@@ -242,8 +242,8 @@ int f2pfind_main(int argc, char **argv, usage_t *pusage) {
   for (int deg = deglo; deg <= deghi; deg++) {
     spffl::polynomials::f2_poly_t a;
     if (do_prim) {
-      a = do_random ? spffl::units::f2poly_random_prim(deg, do_irr)
-                    : spffl::units::f2poly_find_prim(deg, do_irr);
+      a = do_random ? spffl::units::f2_poly_random_prim(deg, do_irr)
+                    : spffl::units::f2_poly_find_prim(deg, do_irr);
     } else {
       a = do_random ? spffl::factorization::f2_poly_random_irreducible(deg)
                     : spffl::factorization::f2_poly_find_irreducible(deg);

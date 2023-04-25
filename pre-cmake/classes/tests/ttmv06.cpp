@@ -125,7 +125,7 @@ int main(int argc, char ** argv)
 		std::cout << "Affine zeroes:\n";
 		std::cout << "f = " << f << "\n";
 
-		tmatrix<f2_polymod_t> Fq_n = f2polymod_An_list(Fq_m, n);
+		tmatrix<f2_polymod_t> Fq_n = f2_polymod_An_list(Fq_m, n);
 		int qn = Fq_n.get_num_rows();
 
 		for (int i = 0; i < qn; i++) {
@@ -138,7 +138,7 @@ int main(int argc, char ** argv)
 		std::cout << "Projective zeroes:\n";
 		std::cout << "F = " << F << "\n";
 
-		tmatrix<f2_polymod_t> Pn_Fq = f2polymod_Pn_list(Fq_m, n);
+		tmatrix<f2_polymod_t> Pn_Fq = f2_polymod_Pn_list(Fq_m, n);
 		int oP = Pn_Fq.get_num_rows();
 
 		for (int i = 0; i < oP; i++) {
