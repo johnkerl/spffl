@@ -104,7 +104,7 @@ lookup_t lookups[] = {
     {"f2_pm_vec_op", f2_pm_vec_op_main, f2_pm_vec_op_usage},
     {"f2_pm_mat_solve", f2_pm_mat_solve_main, f2_pm_mat_solve_usage},
     {"f2_pm_mat_ch_pol", f2_pm_mat_ch_pol_main, f2_pm_mat_ch_pol_usage},
-    {"f2_pm_mat_dable", f2_pm_mat_dable_main, f2_pm_mat_dable_usage},
+    {"f2_pm_mat_diagonalizable", f2_pm_mat_diagonalizable_main, f2_pm_mat_diagonalizable_usage},
     {"f2_pm_mat_ord", f2_pm_mat_ord_main, f2_pm_mat_ord_usage},
     {"f2_pm_mat_random", f2_pm_mat_random_main, f2_pm_mat_random_usage},
 

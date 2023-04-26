@@ -22,7 +22,7 @@ f2np_companion_matrix(spffl::polynomials::f2n_poly_t chpol);
 // the base field is rare enough to be non-interesting, so we do not have a
 // function for that.  If in fact the matrix is diagonalizable over the base
 // field, then the splitter modulus will be set equal to the original modulus.)
-int f2pm_matrix_is_dable(
+bool f2pm_matrix_is_diagonalizable(
     tmatrix<spffl::polynomials::f2_polymod_t> &A,
     spffl::polynomials::f2_poly_t &rsplitter_modulus,
     tvector<spffl::polynomials::f2_polymod_t> &reigenvalues);

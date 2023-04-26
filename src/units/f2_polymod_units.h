@@ -19,7 +19,7 @@ int f2_polymod_find_generator(spffl::polynomials::f2_poly_t m,
 
 // Returns 1 if x generates the multiplicative group.  An irreducibility
 // test is not done.
-int f2_poly_is_primitive(spffl::polynomials::f2_poly_t m);
+bool f2_poly_is_primitive(spffl::polynomials::f2_poly_t m);
 
 int f2_poly_period(spffl::polynomials::f2_poly_t m);
 

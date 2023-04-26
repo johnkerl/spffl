@@ -979,10 +979,10 @@ public:
     element_type zero = this->rows[0][0] - this->rows[0][0];
 
     for (int i = 0; i < this->num_rows; i++) {
-      int row_is_zero = 1;
+      bool row_is_zero = true;
       for (int j = 0; j < this->num_cols; j++) {
         if (this->rows[i][j] != zero) {
-          row_is_zero = 0;
+          row_is_zero = false;
           break;
         }
       }

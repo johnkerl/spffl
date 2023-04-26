@@ -61,7 +61,7 @@ matop    o    o    o    o    o    o     o     o    o    .     .
 matord   -    o    o    o    -    .     -     o    -    .     .
 matrand  -    o    o    o    o    .     .     o    .    .     .
 matchpol -    o    o    o    -    -     -     .    -    -     -
-dable    .    .    .    .    .    .     .     .    .    .     .
+diagonalizable    .    .    .    .    .    .     .     .    .    .     .
 eisys    .    .    .    .    .    .     .     .    .    .     .
 jordan   .    .    .    .    .    .     .     .    .    .     .
 ratcanon .    .    .    .    .    .     .     .    .    .     .

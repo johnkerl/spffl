@@ -74,7 +74,7 @@ f2np_companion_matrix(spffl::polynomials::f2n_poly_t chpol) {
 // ----------------------------------------------------------------
 // Diagonalizability test
 
-int f2pm_matrix_is_dable(
+bool f2pm_matrix_is_diagonalizable(
     tmatrix<spffl::polynomials::f2_polymod_t> &A,
 
     // int allow_field_extension,
@@ -92,13 +92,13 @@ int f2pm_matrix_is_dable(
 
 // int verbose
 {
-  int rv = 1;
+  bool rv = true;
   int verbose = 1;               // xxx make arg
   int allow_field_extension = 1; // xxx make arg
 
   if (verbose) {
     std::cout << "\n";
-    std::cout << "f2pm dable input =\n" << A << "\n";
+    std::cout << "f2pm diagonalizable input =\n" << A << "\n";
   }
 
   // Compute the matrix's characteristic polynomial.
@@ -183,7 +183,7 @@ int f2pm_matrix_is_dable(
     spffl::polynomials::f2n_poly_t factor = ext_finfo.get_ith_factor(i);
     int d = factor.find_degree();
     if (d != 1) {
-      rv = 0;
+      rv = false;
       // Use only linear factors, for rational-form case.
       continue;
     }
@@ -199,7 +199,7 @@ int f2pm_matrix_is_dable(
     int nullity = n - rank;
     int multiplicity = ext_finfo.get_ith_count(i);
     if (nullity != multiplicity)
-      rv = 0;
+      rv = false;
 
     if (verbose) {
       std::cout << "Eigenvalue " << reigenvalues[i] << " multiplicity "
@@ -214,7 +214,7 @@ int f2pm_matrix_is_dable(
     // then kerbas
   }
 
-  // if (rv == 1) {
+  // if (rv == true) {
   //	rD = tmatrix<spffl::polynomials::f2_polymod_t>(n, n);
   //	rP = tmatrix<spffl::polynomials::f2_polymod_t>(n, n);
   //	spffl::polynomials::f2_polymod_t zero = splitA[0][0] - splitA[0][0];
@@ -232,7 +232,7 @@ int f2pm_matrix_is_dable(
   //	tmatrix<spffl::polynomials::f2_polymod_t> PD = P * D;
   //	tmatrix<spffl::polynomials::f2_polymod_t> AP = splitA * P;
   //	if (PD != AP) {
-  //		std::cerr << "f2pm_matrix_is_dable: coding error.\n";
+  //		std::cerr << "f2pm_matrix_is_diagonalizable: coding error.\n";
   //		exit(1);
   //	}
   // }

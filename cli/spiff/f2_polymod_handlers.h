@@ -45,8 +45,8 @@ int f2_pm_mat_solve_main(int argc, char **argv, usage_t *pusage);
 void f2_pm_mat_ch_pol_usage(char *argv0);
 int f2_pm_mat_ch_pol_main(int argc, char **argv, usage_t *pusage);
 
-void f2_pm_mat_dable_usage(char *argv0);
-int f2_pm_mat_dable_main(int argc, char **argv, usage_t *pusage);
+void f2_pm_mat_diagonalizable_usage(char *argv0);
+int f2_pm_mat_diagonalizable_main(int argc, char **argv, usage_t *pusage);
 
 void f2_pm_mat_ord_usage(char *argv0);
 int f2_pm_mat_ord_main(int argc, char **argv, usage_t *pusage);

@@ -65,7 +65,7 @@ bool isprime_table(int n) {
 }
 
 // ----------------------------------------------------------------
-int is_prime(int n) {
+bool is_prime(int n) {
   // return isprime_trial(n);
   return isprime_table(n);
 }

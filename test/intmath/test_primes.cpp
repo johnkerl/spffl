@@ -4,14 +4,14 @@
 
 TEST_CASE("spffl::intmath::is_prime") {
 
-  CHECK(spffl::intmath::is_prime(0) == 0);
-  CHECK(spffl::intmath::is_prime(1) == 0);
-  CHECK(spffl::intmath::is_prime(2) == 1);
-  CHECK(spffl::intmath::is_prime(3) == 1);
-  CHECK(spffl::intmath::is_prime(4) == 0);
-  CHECK(spffl::intmath::is_prime(5) == 1);
-  CHECK(spffl::intmath::is_prime(127) == 1);
-  CHECK(spffl::intmath::is_prime(2047) == 0);
+  CHECK(spffl::intmath::is_prime(0) == false);
+  CHECK(spffl::intmath::is_prime(1) == false);
+  CHECK(spffl::intmath::is_prime(2) == true);
+  CHECK(spffl::intmath::is_prime(3) == true);
+  CHECK(spffl::intmath::is_prime(4) == false);
+  CHECK(spffl::intmath::is_prime(5) == true);
+  CHECK(spffl::intmath::is_prime(127) == true);
+  CHECK(spffl::intmath::is_prime(2047) == false);
 
   // TODO: specify handling for negative arguments
   // TODO: check handling for numbers >= 2**32
