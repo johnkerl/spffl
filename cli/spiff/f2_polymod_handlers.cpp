@@ -483,7 +483,8 @@ int f2_pm_mat_diagonalizable_main(int argc, char **argv, usage_t *pusage) {
 
   spffl::polynomials::f2_poly_t splitter_modulus;
   tvector<spffl::polynomials::f2_polymod_t> eigenvalues;
-  if (spffl::linalg::f2pm_matrix_is_diagonalizable(A, splitter_modulus, eigenvalues))
+  if (spffl::linalg::f2pm_matrix_is_diagonalizable(A, splitter_modulus,
+                                                   eigenvalues))
     std::cout << "Diagonalizable.\n";
   else
     std::cout << "Non-diagonalizable.\n";
