@@ -464,12 +464,12 @@ int f2_pm_mat_ch_pol_main(int argc, char **argv, usage_t *pusage) {
   return 0;
 }
 
-void f2_pm_mat_dable_usage(char *argv0) {
+void f2_pm_mat_diagonalizable_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {m} {goes here}\n";
   exit(1);
 }
 
-int f2_pm_mat_dable_main(int argc, char **argv, usage_t *pusage) {
+int f2_pm_mat_diagonalizable_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t m;
   tmatrix<spffl::polynomials::f2_polymod_t> A;
 
@@ -483,7 +483,8 @@ int f2_pm_mat_dable_main(int argc, char **argv, usage_t *pusage) {
 
   spffl::polynomials::f2_poly_t splitter_modulus;
   tvector<spffl::polynomials::f2_polymod_t> eigenvalues;
-  if (spffl::linalg::f2pm_matrix_is_dable(A, splitter_modulus, eigenvalues))
+  if (spffl::linalg::f2pm_matrix_is_diagonalizable(A, splitter_modulus,
+                                                   eigenvalues))
     std::cout << "Diagonalizable.\n";
   else
     std::cout << "Non-diagonalizable.\n";

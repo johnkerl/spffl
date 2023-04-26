@@ -23,11 +23,11 @@ namespace spffl::factorization {
 static void
 f2_poly_pre_berlekamp(spffl::polynomials::f2_poly_t f,
                       tfacinfo<spffl::polynomials::f2_poly_t> &rfinfo,
-                      int recurse);
+                      bool recurse);
 
 static void f2_poly_berlekamp(spffl::polynomials::f2_poly_t f,
                               tfacinfo<spffl::polynomials::f2_poly_t> &rfinfo,
-                              int recurse);
+                              bool recurse);
 
 spffl::polynomials::f2_poly_t f2_poly_from_vector(
 #ifdef USE_BIT_MATRIX
@@ -45,7 +45,7 @@ f2_poly_factor(spffl::polynomials::f2_poly_t f) {
     finfo.insert_unit(f);
     return finfo;
   }
-  f2_poly_pre_berlekamp(f, finfo, 1);
+  f2_poly_pre_berlekamp(f, finfo, true);
   return finfo;
 }
 
@@ -53,7 +53,7 @@ f2_poly_factor(spffl::polynomials::f2_poly_t f) {
 static void
 f2_poly_pre_berlekamp(spffl::polynomials::f2_poly_t f,
                       tfacinfo<spffl::polynomials::f2_poly_t> &rfinfo,
-                      int recurse) {
+                      bool recurse) {
   spffl::polynomials::f2_poly_t d = f.deriv();
   spffl::polynomials::f2_poly_t g = f.gcd(d);
 
@@ -155,7 +155,7 @@ f2_poly_pre_berlekamp(spffl::polynomials::f2_poly_t f,
 
 static void f2_poly_berlekamp(spffl::polynomials::f2_poly_t f,
                               tfacinfo<spffl::polynomials::f2_poly_t> &rfinfo,
-                              int recurse) {
+                              bool recurse) {
   int n = f.find_degree();
   spffl::polynomials::f2_poly_t x(1, 0);
   spffl::polynomials::f2_poly_t x2 = (x * x) % f;
@@ -446,16 +446,16 @@ spffl::polynomials::f2_poly_t f2_poly_from_vector(
 //}
 
 // ----------------------------------------------------------------
-int f2_poly_is_irreducible(spffl::polynomials::f2_poly_t f) {
+bool f2_poly_is_irreducible(spffl::polynomials::f2_poly_t f) {
   tfacinfo<spffl::polynomials::f2_poly_t> finfo;
 
   int d = f.find_degree();
   if (d == 0)
-    return 0;
+    return false;
   if (d == 1)
-    return 1;
+    return true;
 
-  f2_poly_pre_berlekamp(f, finfo, 0);
+  f2_poly_pre_berlekamp(f, finfo, false);
 
 #ifdef FPPOLY_FACTOR_DEBUG
   std::cout << "f2pirr: input = " << f << "\n";

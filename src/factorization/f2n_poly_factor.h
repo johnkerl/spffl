@@ -19,7 +19,7 @@ f2n_poly_factor(spffl::polynomials::f2n_poly_t f);
 int f2n_poly_roots(spffl::polynomials::f2n_poly_t f,
                    tvector<spffl::polynomials::f2_polymod_t> &rroots);
 
-int f2n_poly_is_irreducible(spffl::polynomials::f2n_poly_t f);
+bool f2n_poly_is_irreducible(spffl::polynomials::f2n_poly_t f);
 
 // Lexically lowest (and therefore monic).
 spffl::polynomials::f2n_poly_t

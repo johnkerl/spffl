@@ -8,8 +8,7 @@
 #define ISPRIME_H
 namespace spffl::intmath {
 
-// TODO: switch to bool
-int is_prime(int m);
+bool is_prime(int m);
 int nth_prime(int n);
 
 } // namespace spffl::intmath

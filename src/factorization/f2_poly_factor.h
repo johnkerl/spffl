@@ -14,7 +14,7 @@ namespace spffl::factorization {
 tfacinfo<spffl::polynomials::f2_poly_t>
 f2_poly_factor(spffl::polynomials::f2_poly_t f);
 
-int f2_poly_is_irreducible(spffl::polynomials::f2_poly_t f);
+bool f2_poly_is_irreducible(spffl::polynomials::f2_poly_t f);
 
 // Lexically lowest.
 spffl::polynomials::f2_poly_t f2_poly_find_irreducible(int degree);

@@ -90,11 +90,11 @@ int f2_polymod_find_generator(spffl::polynomials::f2_poly_t m,
 // divisors of phi(m).  For primitivity, it suffices to check only the
 // *maximal* proper divisors of phi(m).
 
-int f2_poly_is_primitive(spffl::polynomials::f2_poly_t m) {
+bool f2_poly_is_primitive(spffl::polynomials::f2_poly_t m) {
   spffl::polynomials::f2_poly_t pol1(1); // 1 as a polynomial.
   spffl::polynomials::f2_poly_t polx(1, 0);
   if (polx.gcd(m) != pol1)
-    return 0;
+    return false;
 
   spffl::polynomials::f2_polymod_t rcr1(
       pol1, m); // Equiv. class of 1 in the residue class ring.
@@ -106,21 +106,21 @@ int f2_poly_is_primitive(spffl::polynomials::f2_poly_t m) {
   if (!finfo.get_maximal_proper_divisors(mpds, 1)) {
     // x or x+1 in F2[x].  The former case was already ruled out; the
     // latter is primitive.
-    return 1;
+    return true;
   }
   int nmpd = mpds.get_num_elements();
   for (int i = 0; i < nmpd; i++) {
     spffl::polynomials::f2_polymod_t rcrxpower = rcrx.exp(mpds[i]);
     if (rcrxpower == rcr1)
-      return 0;
+      return false;
   }
 
   // This can happen when m is reducible.
   spffl::polynomials::f2_polymod_t rcrxpower = rcrx.exp(phi);
   if (rcrxpower != rcr1)
-    return 0;
+    return false;
 
-  return 1;
+  return true;
 }
 
 // ----------------------------------------------------------------
