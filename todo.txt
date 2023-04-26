@@ -8,15 +8,20 @@ k formatting pass
   clang-format -i $(find cli  -name '*.h' -o -name '*.cpp')
   clang-format -i $(find test -name '*.h' -o -name '*.cpp')
 k pointer -> reference pass
-* ctest pass(es)
-* commenting pass
-~ renaming pass
-  - needs more
+k namespacing pass: int_gcd -> spffl::intmath::int_gcd etc
+k manual clang-format
+  - needs automated/CI clang-format
+
+k renaming pass
+  ? needs more
+
 * int -> bool pass
   - needs more
 * unsigned -> uint32_t etc pass
   - needs more
-k namespacing pass: int_gcd -> spffl::intmath::int_gcd etc
+
+* ctest pass(es)
+* commenting pass
 * STL replacements
   o pointer+length to std::vec/std::span
   o bitvec to STL -- ?
@@ -25,8 +30,7 @@ k namespacing pass: int_gcd -> spffl::intmath::int_gcd etc
 * core-guidelines pass
 * install target
 * internal/external installs (if any internal api at all ...)
-* clang-format
-* CI setup
+* CI setups
 
 ----------------------------------------------------------------
 TBF
