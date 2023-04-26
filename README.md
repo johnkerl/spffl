@@ -11,11 +11,17 @@ from [yamm](https://github.com/johnkerl/scripts/blob/main/fundam/yamm) to [cmake
 
 # Setup
 
+Still a WIP.
+
 ```
 cmake -B build
 cmake --build build
 cmake --build build --target test
 cmake --build build --target install # <-- WIP as of 2023-03-13
+
+export PATH=$(pwd)/build/cli/spiff:$PATH
+cd regression
+sh regress.sh
 ```
 
 TODO: more here about tests, libraries, and executables.
