@@ -871,7 +871,7 @@ std::istream &operator>>(std::istream &is, fp_poly_t &poly) {
 // }
 
 // ----------------------------------------------------------------
-int fp_poly_t::from_string(char *string, int p) {
+bool fp_poly_t::from_string(char *string, int p) {
   if (this->coeffs)
     delete[] this->coeffs;
 
@@ -893,7 +893,7 @@ int fp_poly_t::from_string(char *string, int p) {
         std::cerr << "fp_poly_t::from_string: "
                   << "non-numerical input \"" << string << "\"\n";
         std::cerr << "Didn't like '" << ascii_digit << "'\n";
-        return 0;
+        return false;
       }
       this->coeffs[ci] = spffl::intmath::intmod_t(ascii_digit - '0', p);
     }
@@ -904,7 +904,7 @@ int fp_poly_t::from_string(char *string, int p) {
     if (argc < 1) {
       // Needs an error message, but this coding error is
       // unlikely since we already counted commas.
-      return 0;
+      return false;
     }
 
     this->degree = argc - 1;
@@ -919,7 +919,7 @@ int fp_poly_t::from_string(char *string, int p) {
       if (iss.fail()) {
         std::cerr << "fp_poly_t::from_string: "
                   << "scan failure at \"" << string << "\"\n";
-        return 0;
+        return false;
       } else {
         this->coeffs[ci] = spffl::intmath::intmod_t(r, p);
       }
@@ -929,7 +929,7 @@ int fp_poly_t::from_string(char *string, int p) {
   }
 
   this->recompute_degree();
-  return 1;
+  return true;
 }
 
 // ----------------------------------------------------------------

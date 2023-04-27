@@ -39,7 +39,7 @@ public:
   friend std::ostream &operator<<(std::ostream &os, const intmod_t &a);
   // Modulus must have already been set:  this sets only the residue.
   friend std::istream &operator>>(std::istream &is, intmod_t &a);
-  int from_string(char *string, int modulus);
+  bool from_string(char *string, int modulus);
 
   intmod_t &operator+=(intmod_t that);
   intmod_t &operator-=(intmod_t that);

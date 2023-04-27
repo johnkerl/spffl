@@ -40,7 +40,7 @@ public:
   friend std::istream &operator>>(std::ostream &os, const fp_polymod_t &a);
   friend std::istringstream &operator>>(std::istringstream &iss,
                                         fp_polymod_t &a);
-  int from_string(char *string, fp_poly_t &m);
+  bool from_string(char *string, fp_poly_t &m);
 
   fp_polymod_t &operator+=(fp_polymod_t that);
   fp_polymod_t &operator-=(fp_polymod_t that);

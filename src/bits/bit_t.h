@@ -133,7 +133,7 @@ public:
 
   friend std::ostream &operator<<(std::ostream &os, const bit_t &a);
   friend std::istream &operator>>(std::istream &is, bit_t &a);
-  int from_string(char *string);
+  bool from_string(char *string);
 
 private:
   uint8_t residue;

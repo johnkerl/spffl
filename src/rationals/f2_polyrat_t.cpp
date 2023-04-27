@@ -238,10 +238,10 @@ std::istringstream &operator>>(std::istringstream &iss, f2_polyrat_t &a) {
 }
 
 // ----------------------------------------------------------------
-int f2_polyrat_t::from_string(char *string) {
+bool f2_polyrat_t::from_string(char *string) {
   std::istringstream iss(string, std::ios_base::in);
   iss >> *this;
-  return iss.fail() ? 0 : 1;
+  return iss.fail() ? false : true;
 }
 
 // ----------------------------------------------------------------

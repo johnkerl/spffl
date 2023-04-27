@@ -79,20 +79,20 @@ f2_poly_t f2_poly_t::from_base_rep(unsigned b) {
 
 // ----------------------------------------------------------------
 #ifndef F2POLY_SMALL
-int f2_poly_t::from_string(char *string) {
+bool f2_poly_t::from_string(char *string) {
   std::istringstream iss(string, std::ios_base::in);
   iss >> *this;
   // return iss.fail() ? 0 : iss.eof() ? 0 : 1;
-  return iss.fail() ? 0 : 1;
+  return iss.fail() ? false : true;
 }
 #endif
 
 #ifdef F2POLY_SMALL
-int f2_poly_t::from_string(char *string) {
+bool f2_poly_t::from_string(char *string) {
   std::istringstream iss(string, std::ios_base::in);
   iss.flags(std::ios_base::hex);
   iss >> this->bits;
-  return iss.fail() ? 0 : 1;
+  return iss.fail() ? false : true;
 }
 #endif
 
