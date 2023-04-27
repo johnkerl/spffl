@@ -396,28 +396,28 @@ public:
   }
 
   // ----------------------------------------------------------------
-  int operator==(tvector<element_type> &that) {
+  bool operator==(tvector<element_type> &that) {
     if (this->num_elements != that.num_elements)
-      return 0;
+      return false;
     for (int i = 0; i < this->num_elements; i++)
       if (this->elements[i] != that.elements[i])
-        return 0;
-    return 1;
+        return false;
+    return true;
   }
 
   // ----------------------------------------------------------------
-  int operator!=(tvector<element_type> &that) { return !(*this == that); }
+  bool operator!=(tvector<element_type> &that) { return !(*this == that); }
 
   // ----------------------------------------------------------------
-  int operator==(element_type e) {
+  bool operator==(element_type e) {
     for (int i = 0; i < this->num_elements; i++)
       if (this->elements[i] != e)
-        return 0;
-    return 1;
+        return false;
+    return true;
   }
 
   // ----------------------------------------------------------------
-  int operator!=(element_type e) { return !(*this == e); }
+  bool operator!=(element_type e) { return !(*this == e); }
 
   // ----------------------------------------------------------------
   // Return value:  True/false.  rpos:  index, if found.

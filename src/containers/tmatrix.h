@@ -338,27 +338,27 @@ public:
   }
 
   // ----------------------------------------------------------------
-  int operator==(tmatrix<element_type> that) {
+  bool operator==(tmatrix<element_type> that) {
     this->check_dims(that, "operator==");
     for (int i = 0; i < this->num_rows; i++)
       if (this->rows[i] != that.rows[i])
-        return 0;
-    return 1;
+        return false;
+    return true;
   }
 
   // ----------------------------------------------------------------
-  int operator==(element_type e) {
+  bool operator==(element_type e) {
     for (int i = 0; i < this->num_rows; i++)
       if (this->rows[i] != e)
-        return 0;
-    return 1;
+        return false;
+    return true;
   }
 
   // ----------------------------------------------------------------
-  int operator!=(tmatrix<element_type> that) { return !(*this == that); }
+  bool operator!=(tmatrix<element_type> that) { return !(*this == that); }
 
   // ----------------------------------------------------------------
-  int operator!=(element_type e) { return !(*this == e); }
+  bool operator!=(element_type e) { return !(*this == e); }
 
   // ----------------------------------------------------------------
   tvector<element_type> &operator[](int row_index) {

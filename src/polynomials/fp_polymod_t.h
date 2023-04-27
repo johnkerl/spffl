@@ -50,16 +50,16 @@ public:
   fp_polymod_t &operator/=(fp_polymod_t that);
   fp_polymod_t &operator%=(fp_polymod_t that);
 
-  int operator==(fp_polymod_t that) const;
-  int operator!=(fp_polymod_t that) const;
-  int operator==(int that) const;
-  int operator!=(int that) const;
+  bool operator==(fp_polymod_t that) const;
+  bool operator!=(fp_polymod_t that) const;
+  bool operator==(int that) const;
+  bool operator!=(int that) const;
   // Polynomial quotient rings are *not* totally ordered.
   // Nonetheless, these methods are handy for looping and sorting.
-  int operator<(fp_polymod_t that) const;
-  int operator>(fp_polymod_t that) const;
-  int operator<=(fp_polymod_t that) const;
-  int operator>=(fp_polymod_t that) const;
+  bool operator<(fp_polymod_t that) const;
+  bool operator>(fp_polymod_t that) const;
+  bool operator<=(fp_polymod_t that) const;
+  bool operator>=(fp_polymod_t that) const;
 
   fp_poly_t get_residue(void) const;
   fp_poly_t get_modulus(void) const;

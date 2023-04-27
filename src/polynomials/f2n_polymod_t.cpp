@@ -264,45 +264,45 @@ f2n_polymod_t &f2n_polymod_t::operator%=(f2n_polymod_t that) {
 }
 
 // ----------------------------------------------------------------
-int f2n_polymod_t::operator==(f2n_polymod_t that) const {
+bool f2n_polymod_t::operator==(f2n_polymod_t that) const {
   if (this->residue != that.residue)
-    return 0;
+    return false;
   if (this->modulus != that.modulus)
-    return 0;
-  return 1;
+    return false;
+  return true;
 }
 
 // ----------------------------------------------------------------
-int f2n_polymod_t::operator!=(f2n_polymod_t that) const {
+bool f2n_polymod_t::operator!=(f2n_polymod_t that) const {
   return !(*this == that);
 }
 
 // ----------------------------------------------------------------
-int f2n_polymod_t::operator==(int that) const { return this->residue == that; }
+bool f2n_polymod_t::operator==(int that) const { return this->residue == that; }
 
 // ----------------------------------------------------------------
-int f2n_polymod_t::operator!=(int that) const { return this->residue != that; }
+bool f2n_polymod_t::operator!=(int that) const { return this->residue != that; }
 
 // ----------------------------------------------------------------
-int f2n_polymod_t::operator<(f2n_polymod_t that) const {
+bool f2n_polymod_t::operator<(f2n_polymod_t that) const {
   this->check_moduli(that);
   return this->residue < that.residue;
 }
 
 // ----------------------------------------------------------------
-int f2n_polymod_t::operator<=(f2n_polymod_t that) const {
+bool f2n_polymod_t::operator<=(f2n_polymod_t that) const {
   this->check_moduli(that);
   return this->residue <= that.residue;
 }
 
 // ----------------------------------------------------------------
-int f2n_polymod_t::operator>(f2n_polymod_t that) const {
+bool f2n_polymod_t::operator>(f2n_polymod_t that) const {
   this->check_moduli(that);
   return this->residue > that.residue;
 }
 
 // ----------------------------------------------------------------
-int f2n_polymod_t::operator>=(f2n_polymod_t that) const {
+bool f2n_polymod_t::operator>=(f2n_polymod_t that) const {
   this->check_moduli(that);
   return this->residue >= that.residue;
 }

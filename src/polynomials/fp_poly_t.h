@@ -80,16 +80,16 @@ public:
   spffl::intmath::intmod_t get_coeff(int deg) const;
   void set_coeff(int pos, spffl::intmath::intmod_t c);
 
-  int operator==(int v) const;
-  int operator!=(int v) const;
-  int operator==(fp_poly_t that) const;
-  int operator!=(fp_poly_t that) const;
+  bool operator==(int v) const;
+  bool operator!=(int v) const;
+  bool operator==(fp_poly_t that) const;
+  bool operator!=(fp_poly_t that) const;
   // Fp[x] is *not* totally ordered.  Nonetheless, these methods are
   // handy for looping and sorting.
-  int operator<(fp_poly_t that) const;
-  int operator>(fp_poly_t that) const;
-  int operator<=(fp_poly_t that) const;
-  int operator>=(fp_poly_t that) const;
+  bool operator<(fp_poly_t that) const;
+  bool operator>(fp_poly_t that) const;
+  bool operator<=(fp_poly_t that) const;
+  bool operator>=(fp_poly_t that) const;
   void increment(void);
 
   friend std::ostream &operator<<(std::ostream &os, const fp_poly_t &poly);
@@ -106,7 +106,7 @@ private:
   spffl::intmath::intmod_t *coeffs;
   int degree;
 
-  int cmp(int cmp, fp_poly_t &that) const;
+  bool cmp(int cmp, fp_poly_t &that) const;
   void bounds_check(int deg) const;
   void recompute_degree();
 };

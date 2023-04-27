@@ -261,45 +261,45 @@ fpn_polymod_t &fpn_polymod_t::operator%=(fpn_polymod_t that) {
 }
 
 // ----------------------------------------------------------------
-int fpn_polymod_t::operator==(fpn_polymod_t that) const {
+bool fpn_polymod_t::operator==(fpn_polymod_t that) const {
   if (this->residue != that.residue)
-    return 0;
+    return false;
   if (this->modulus != that.modulus)
-    return 0;
-  return 1;
+    return false;
+  return true;
 }
 
 // ----------------------------------------------------------------
-int fpn_polymod_t::operator!=(fpn_polymod_t that) const {
+bool fpn_polymod_t::operator!=(fpn_polymod_t that) const {
   return !(*this == that);
 }
 
 // ----------------------------------------------------------------
-int fpn_polymod_t::operator==(int that) const { return this->residue == that; }
+bool fpn_polymod_t::operator==(int that) const { return this->residue == that; }
 
 // ----------------------------------------------------------------
-int fpn_polymod_t::operator!=(int that) const { return this->residue != that; }
+bool fpn_polymod_t::operator!=(int that) const { return this->residue != that; }
 
 // ----------------------------------------------------------------
-int fpn_polymod_t::operator<(fpn_polymod_t that) const {
+bool fpn_polymod_t::operator<(fpn_polymod_t that) const {
   this->check_moduli(that);
   return this->residue < that.residue;
 }
 
 // ----------------------------------------------------------------
-int fpn_polymod_t::operator<=(fpn_polymod_t that) const {
+bool fpn_polymod_t::operator<=(fpn_polymod_t that) const {
   this->check_moduli(that);
   return this->residue <= that.residue;
 }
 
 // ----------------------------------------------------------------
-int fpn_polymod_t::operator>(fpn_polymod_t that) const {
+bool fpn_polymod_t::operator>(fpn_polymod_t that) const {
   this->check_moduli(that);
   return this->residue > that.residue;
 }
 
 // ----------------------------------------------------------------
-int fpn_polymod_t::operator>=(fpn_polymod_t that) const {
+bool fpn_polymod_t::operator>=(fpn_polymod_t that) const {
   this->check_moduli(that);
   return this->residue >= that.residue;
 }

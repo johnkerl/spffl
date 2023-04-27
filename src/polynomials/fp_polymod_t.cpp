@@ -279,45 +279,45 @@ fp_polymod_t &fp_polymod_t::operator%=(fp_polymod_t that) {
 }
 
 // ----------------------------------------------------------------
-int fp_polymod_t::operator==(fp_polymod_t that) const {
+bool fp_polymod_t::operator==(fp_polymod_t that) const {
   if (this->residue != that.residue)
-    return 0;
+    return false;
   if (this->modulus != that.modulus)
-    return 0;
-  return 1;
+    return false;
+  return true;
 }
 
 // ----------------------------------------------------------------
-int fp_polymod_t::operator!=(fp_polymod_t that) const {
+bool fp_polymod_t::operator!=(fp_polymod_t that) const {
   return !(*this == that);
 }
 
 // ----------------------------------------------------------------
-int fp_polymod_t::operator==(int that) const { return this->residue == that; }
+bool fp_polymod_t::operator==(int that) const { return this->residue == that; }
 
 // ----------------------------------------------------------------
-int fp_polymod_t::operator!=(int that) const { return this->residue != that; }
+bool fp_polymod_t::operator!=(int that) const { return this->residue != that; }
 
 // ----------------------------------------------------------------
-int fp_polymod_t::operator<(fp_polymod_t that) const {
+bool fp_polymod_t::operator<(fp_polymod_t that) const {
   this->check_moduli(that);
   return this->residue < that.residue;
 }
 
 // ----------------------------------------------------------------
-int fp_polymod_t::operator<=(fp_polymod_t that) const {
+bool fp_polymod_t::operator<=(fp_polymod_t that) const {
   this->check_moduli(that);
   return this->residue <= that.residue;
 }
 
 // ----------------------------------------------------------------
-int fp_polymod_t::operator>(fp_polymod_t that) const {
+bool fp_polymod_t::operator>(fp_polymod_t that) const {
   this->check_moduli(that);
   return this->residue > that.residue;
 }
 
 // ----------------------------------------------------------------
-int fp_polymod_t::operator>=(fp_polymod_t that) const {
+bool fp_polymod_t::operator>=(fp_polymod_t that) const {
   this->check_moduli(that);
   return this->residue >= that.residue;
 }

@@ -303,31 +303,31 @@ bit_vector_t bit_vector_t::operator*=(bit_vector_t that) {
 }
 
 // ----------------------------------------------------------------
-int bit_vector_t::operator==(bit_vector_t &that) {
+bool bit_vector_t::operator==(bit_vector_t &that) {
   if (this->num_bits != that.num_bits)
-    return 0;
+    return false;
   for (int i = 0; i < this->num_words - 1; i++)
     if (this->words[i] != that.words[i])
-      return 0;
-  return 1;
+      return false;
+  return true;
 }
 
 // ----------------------------------------------------------------
-int bit_vector_t::operator!=(bit_vector_t &that) { return !(*this == that); }
+bool bit_vector_t::operator!=(bit_vector_t &that) { return !(*this == that); }
 
 // ----------------------------------------------------------------
-int bit_vector_t::operator==(bit_t scalar) {
+bool bit_vector_t::operator==(bit_t scalar) {
   unsigned fill = 0;
   if (scalar == bit_t(1))
     fill = ~fill;
   for (int i = 0; i < this->num_words - 1; i++)
     if (this->words[i] != fill)
-      return 0;
-  return 1;
+      return false;
+  return true;
 }
 
 // ----------------------------------------------------------------
-int bit_vector_t::operator!=(bit_t scalar) { return !(*this == scalar); }
+bool bit_vector_t::operator!=(bit_t scalar) { return !(*this == scalar); }
 
 // ----------------------------------------------------------------
 // Return value:  True/false.  rpos:  index, if found.

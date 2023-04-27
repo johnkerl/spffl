@@ -73,16 +73,16 @@ public:
   fp_polymod_t get_coeff(int deg) const;
   void set_coeff(int pos, fp_polymod_t c);
 
-  int operator==(int v) const;
-  int operator!=(int v) const;
-  int operator==(fpn_poly_t that) const;
-  int operator!=(fpn_poly_t that) const;
+  bool operator==(int v) const;
+  bool operator!=(int v) const;
+  bool operator==(fpn_poly_t that) const;
+  bool operator!=(fpn_poly_t that) const;
   // Fq[x] is *not* totally ordered.  Nonetheless, these methods are
   // handy for looping and sorting.
-  int operator<(fpn_poly_t that) const;
-  int operator>(fpn_poly_t that) const;
-  int operator<=(fpn_poly_t that) const;
-  int operator>=(fpn_poly_t that) const;
+  bool operator<(fpn_poly_t that) const;
+  bool operator>(fpn_poly_t that) const;
+  bool operator<=(fpn_poly_t that) const;
+  bool operator>=(fpn_poly_t that) const;
   void increment(void);
 
   friend std::ostream &operator<<(std::ostream &os, const fpn_poly_t &poly);
@@ -97,7 +97,7 @@ private:
   fp_polymod_t *coeffs;
   int degree;
 
-  int cmp(int cmp, fpn_poly_t &that) const;
+  bool cmp(int cmp, fpn_poly_t &that) const;
   void bounds_check(int deg) const;
   void recompute_degree();
 };

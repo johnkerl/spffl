@@ -131,51 +131,51 @@ intmod_t &intmod_t::operator%=(intmod_t that) {
 }
 
 // ----------------------------------------------------------------
-int intmod_t::operator==(intmod_t that) const {
+bool intmod_t::operator==(intmod_t that) const {
   this->check_modulus();
   that.check_modulus();
   if (this->residue != that.residue)
-    return 0;
+    return false;
   if (this->modulus != that.modulus)
-    return 0;
-  return 1;
+    return false;
+  return true;
 }
 
 // ----------------------------------------------------------------
-int intmod_t::operator!=(intmod_t that) const { return !(*this == that); }
+bool intmod_t::operator!=(intmod_t that) const { return !(*this == that); }
 
 // ----------------------------------------------------------------
-int intmod_t::operator==(int that) const {
+bool intmod_t::operator==(int that) const {
   this->check_modulus();
   return this->residue == that;
 }
 
 // ----------------------------------------------------------------
-int intmod_t::operator!=(int that) const {
+bool intmod_t::operator!=(int that) const {
   this->check_modulus();
   return this->residue != that;
 }
 
 // ----------------------------------------------------------------
-int intmod_t::operator<(intmod_t that) const {
+bool intmod_t::operator<(intmod_t that) const {
   this->check_moduli(that);
   return this->residue < that.residue;
 }
 
 // ----------------------------------------------------------------
-int intmod_t::operator<=(intmod_t that) const {
+bool intmod_t::operator<=(intmod_t that) const {
   this->check_moduli(that);
   return this->residue <= that.residue;
 }
 
 // ----------------------------------------------------------------
-int intmod_t::operator>(intmod_t that) const {
+bool intmod_t::operator>(intmod_t that) const {
   this->check_moduli(that);
   return this->residue > that.residue;
 }
 
 // ----------------------------------------------------------------
-int intmod_t::operator>=(intmod_t that) const {
+bool intmod_t::operator>=(intmod_t that) const {
   this->check_moduli(that);
   return this->residue >= that.residue;
 }

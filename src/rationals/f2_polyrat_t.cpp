@@ -275,50 +275,50 @@ f2_polyrat_t &f2_polyrat_t::operator%=(f2_polyrat_t that) {
 }
 
 // ----------------------------------------------------------------
-int f2_polyrat_t::operator==(f2_polyrat_t that) const {
+bool f2_polyrat_t::operator==(f2_polyrat_t that) const {
   // Our constructor ensures both *this and that are already in
   // canonical form.
   if (this->numer != that.numer)
-    return 0;
+    return false;
   if (this->denom != that.denom)
-    return 0;
-  return 1;
+    return false;
+  return true;
 }
 
 // ----------------------------------------------------------------
-int f2_polyrat_t::operator!=(f2_polyrat_t that) const {
+bool f2_polyrat_t::operator!=(f2_polyrat_t that) const {
   return !(*this == that);
 }
 
 // ----------------------------------------------------------------
-int f2_polyrat_t::operator==(spffl::polynomials::f2_poly_t that) const {
+bool f2_polyrat_t::operator==(spffl::polynomials::f2_poly_t that) const {
   if (this->denom != spffl::polynomials::f2_poly_t(1))
-    return 0;
+    return false;
   return this->numer == that;
 }
 
 // ----------------------------------------------------------------
-int f2_polyrat_t::operator!=(spffl::polynomials::f2_poly_t that) const {
+bool f2_polyrat_t::operator!=(spffl::polynomials::f2_poly_t that) const {
   return !(*this == that);
 }
 
 // ----------------------------------------------------------------
-int f2_polyrat_t::operator<(f2_polyrat_t that) const {
+bool f2_polyrat_t::operator<(f2_polyrat_t that) const {
   return ((this->numer * that.denom) < (this->denom * that.numer));
 }
 
 // ----------------------------------------------------------------
-int f2_polyrat_t::operator<=(f2_polyrat_t that) const {
+bool f2_polyrat_t::operator<=(f2_polyrat_t that) const {
   return ((this->numer * that.denom) <= (this->denom * that.numer));
 }
 
 // ----------------------------------------------------------------
-int f2_polyrat_t::operator>(f2_polyrat_t that) const {
+bool f2_polyrat_t::operator>(f2_polyrat_t that) const {
   return ((this->numer * that.denom) > (this->denom * that.numer));
 }
 
 // ----------------------------------------------------------------
-int f2_polyrat_t::operator>=(f2_polyrat_t that) const {
+bool f2_polyrat_t::operator>=(f2_polyrat_t that) const {
   return ((this->numer * that.denom) >= (this->denom * that.numer));
 }
 

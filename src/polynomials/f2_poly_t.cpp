@@ -659,40 +659,40 @@ int f2_poly_t::find_degree(void) const {
 
 // ----------------------------------------------------------------
 #ifndef F2POLY_SMALL
-int f2_poly_t::operator==(int v) const {
+bool f2_poly_t::operator==(int v) const {
   for (int i = this->num_parts - 1; i > 0; i--)
     if (this->parts[i] != 0)
-      return 0;
+      return false;
   return this->parts[0] == (unsigned)(v & 1);
 }
 
-int f2_poly_t::operator!=(int v) const { return !(*this == v); }
+bool f2_poly_t::operator!=(int v) const { return !(*this == v); }
 
-int f2_poly_t::operator==(f2_poly_t that) const {
+bool f2_poly_t::operator==(f2_poly_t that) const {
   return this->cmp(CMP_EQ, that);
 }
 
-int f2_poly_t::operator!=(f2_poly_t that) const {
+bool f2_poly_t::operator!=(f2_poly_t that) const {
   return this->cmp(CMP_NE, that);
 }
 
-int f2_poly_t::operator<(f2_poly_t that) const {
+bool f2_poly_t::operator<(f2_poly_t that) const {
   return this->cmp(CMP_LT, that);
 }
 
-int f2_poly_t::operator>(f2_poly_t that) const {
+bool f2_poly_t::operator>(f2_poly_t that) const {
   return this->cmp(CMP_GT, that);
 }
 
-int f2_poly_t::operator<=(f2_poly_t that) const {
+bool f2_poly_t::operator<=(f2_poly_t that) const {
   return this->cmp(CMP_LE, that);
 }
 
-int f2_poly_t::operator>=(f2_poly_t that) const {
+bool f2_poly_t::operator>=(f2_poly_t that) const {
   return this->cmp(CMP_GE, that);
 }
 
-int f2_poly_t::cmp(int op, f2_poly_t &that) const {
+bool f2_poly_t::cmp(int op, f2_poly_t &that) const {
   int direction = 0; // -1 = less, 0 = equal, +1 = greater;
   int i;
 
@@ -736,7 +736,7 @@ int f2_poly_t::cmp(int op, f2_poly_t &that) const {
   default:
     std::cerr << "Ack!\n";
     exit(1);
-    return 0;
+    return false;
     break;
   }
 }

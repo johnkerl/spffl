@@ -48,16 +48,16 @@ public:
   f2n_polymod_t &operator/=(f2n_polymod_t that);
   f2n_polymod_t &operator%=(f2n_polymod_t that);
 
-  int operator==(f2n_polymod_t that) const;
-  int operator!=(f2n_polymod_t that) const;
-  int operator==(int that) const;
-  int operator!=(int that) const;
+  bool operator==(f2n_polymod_t that) const;
+  bool operator!=(f2n_polymod_t that) const;
+  bool operator==(int that) const;
+  bool operator!=(int that) const;
   // Polynomial quotient rings are *not* totally ordered.
   // Nonetheless, these methods are handy for looping and sorting.
-  int operator<(f2n_polymod_t that) const;
-  int operator>(f2n_polymod_t that) const;
-  int operator<=(f2n_polymod_t that) const;
-  int operator>=(f2n_polymod_t that) const;
+  bool operator<(f2n_polymod_t that) const;
+  bool operator>(f2n_polymod_t that) const;
+  bool operator<=(f2n_polymod_t that) const;
+  bool operator>=(f2n_polymod_t that) const;
 
   f2n_poly_t get_residue(void) const;
   f2n_poly_t get_modulus(void) const;
