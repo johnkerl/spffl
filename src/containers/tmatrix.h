@@ -993,7 +993,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  int get_kernel_basis(tmatrix<element_type> &rbas, element_type zero,
+  bool get_kernel_basis(tmatrix<element_type> &rbas, element_type zero,
                        element_type one) {
     int i, j;
     tmatrix<element_type> rr(*this);
@@ -1001,7 +1001,7 @@ public:
     int rank = rr.get_rank_rr();
     int dimker = rr.num_cols - rank;
     if (dimker == 0)
-      return 0;
+      return false;
 
     tmatrix<element_type> basis(dimker, rr.num_cols);
 
@@ -1082,7 +1082,7 @@ public:
     delete[] free_indices;
 
     rbas = basis;
-    return 1;
+    return true;
   }
 
   // ----------------------------------------------------------------

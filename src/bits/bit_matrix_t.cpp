@@ -692,14 +692,14 @@ int bit_matrix_t::get_rank_rr(void) {
 }
 
 // ----------------------------------------------------------------
-int bit_matrix_t::get_kernel_basis(bit_matrix_t &rbas) {
+bool bit_matrix_t::get_kernel_basis(bit_matrix_t &rbas) {
   int i, j;
   bit_matrix_t rr(*this);
   rr.row_echelon_form();
   int rank = rr.get_rank_rr();
   int dimker = rr.num_cols - rank;
   if (dimker == 0)
-    return 0;
+    return false;
 
   bit_matrix_t basis(bit_t(0), dimker, rr.num_cols);
 
@@ -759,7 +759,7 @@ int bit_matrix_t::get_kernel_basis(bit_matrix_t &rbas) {
   delete[] free_indices;
 
   rbas = basis;
-  return 1;
+  return true;
 }
 
 // ----------------------------------------------------------------

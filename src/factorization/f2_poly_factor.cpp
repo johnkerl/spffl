@@ -236,9 +236,9 @@ static void f2_poly_berlekamp(spffl::polynomials::f2_poly_t f,
 #endif
 
 #ifdef USE_BIT_MATRIX
-  int got = BI.get_kernel_basis(nullspace_basis);
+  bool got = BI.get_kernel_basis(nullspace_basis);
 #else
-  int got = BI.get_kernel_basis(nullspace_basis, zero, one);
+  bool got = BI.get_kernel_basis(nullspace_basis, zero, one);
 #endif
 
   if (!got) {

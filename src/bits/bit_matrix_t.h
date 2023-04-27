@@ -89,7 +89,7 @@ public:
   // use get_rank() instead.
   int get_rank_rr(void);
 
-  int get_kernel_basis(bit_matrix_t &rbas);
+  bool get_kernel_basis(bit_matrix_t &rbas);
   void check_kernel_basis(bit_matrix_t &kerbas);
   bit_matrix_t paste(bit_matrix_t &that);
 
