@@ -130,20 +130,20 @@ public:
   // element. The istream input operator expects only whitespace-delimited
   // elements, e.g. "1 2 3".  The bracket_in() method, by contrast, expects
   // whitespace-delimited elements, surrounded by brackets:  e.g. "[1 2 3]".
-  int bracket_in(char *string) {
+  bool bracket_in(char *string) {
     char *copy = strdup(string);
 
     char *pleft = strchr(copy, '[');
     if (pleft == 0) {
       free(copy);
-      return 0;
+      return false;
     }
     pleft++;
 
     char *pright = strrchr(pleft, ']');
     if (pright == 0) {
       free(copy);
-      return 0;
+      return false;
     }
     *pright = 0;
 
@@ -151,11 +151,11 @@ public:
     iss >> *this;
     if (iss.fail()) {
       free(copy);
-      return 0;
+      return false;
     }
 
     free(copy);
-    return 1;
+    return true;
   }
 
   // ----------------------------------------------------------------

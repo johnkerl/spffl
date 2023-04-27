@@ -171,12 +171,12 @@ public:
   //
   // is treated as an n x 1 matrix (column vector).
 
-  int bracket_in(char *string) {
+  bool bracket_in(char *string) {
     // Make sure the matrix already contains an element.  Remember it,
     // then free the old matrix contents.
     if (!this->rows || (this->num_rows < 1) || (this->num_cols < 1)) {
       std::cerr << "tmatrix::bracket_in:  must already have one element.\n";
-      return 0;
+      return false;
     }
     element_type zero = this->rows[0][0] - this->rows[0][0];
     this->mfree();
@@ -187,7 +187,7 @@ public:
       std::cerr
           << "tmatrix::bracket_in:  couldn't find leading left bracket.\n";
       free(copy);
-      return 0;
+      return false;
     }
     char *pinnerstart = pouterleft + 1;
     while ((*pinnerstart == ' ') || (*pinnerstart == '\t'))
@@ -198,7 +198,7 @@ public:
       std::cerr
           << "tmatrix::bracket_in:  couldn't find trailing right bracket.\n";
       free(copy);
-      return 0;
+      return false;
     }
     *pouterright = 0;
 
@@ -219,7 +219,7 @@ public:
           delete[] rowcopy;
           delete[] stringv;
           free(copy);
-          return 0;
+          return false;
         }
         delete[] rowcopy;
       }
@@ -229,7 +229,7 @@ public:
         // Error message already printed out.
         delete[] stringv;
         free(copy);
-        return 0;
+        return false;
       }
       delete[] stringv;
     } else {
@@ -240,7 +240,7 @@ public:
       iss >> column;
       if (iss.fail()) {
         free(copy);
-        return 0;
+        return false;
       }
 
       this->num_rows = column.get_num_elements();
@@ -258,7 +258,7 @@ public:
     }
 
     free(copy);
-    return 1;
+    return true;
   }
 
   // ----------------------------------------------------------------
