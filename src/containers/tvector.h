@@ -161,13 +161,13 @@ public:
   // ----------------------------------------------------------------
   // The vector must already contain at least one element.  See the comment
   // above the istream operator.
-  int load_from_file(char *file_name) {
+  bool load_from_file(char *file_name) {
     if ((strcmp(file_name, "-") == 0) || (strcmp(file_name, "@") == 0)) {
       std::cin >> *this;
       if (std::cin.fail())
-        return 0;
+        return false;
       else
-        return 1;
+        return true;
     }
 
     std::ifstream ifs;
@@ -176,7 +176,7 @@ public:
     if (ifs.fail()) {
       std::cerr << "tvector::load_from_file:  couldn't open \"" << file_name
                 << "\"\n";
-      return 0;
+      return false;
     }
 
     ifs >> *this;
@@ -185,16 +185,16 @@ public:
       std::cerr << "tvector::load_from_file:  scan failure reading \""
                 << file_name << "\"\n";
       ifs.close();
-      return 0;
+      return false;
     }
     ifs.close();
-    return 1;
+    return true;
   }
 
   // ----------------------------------------------------------------
   // For this method, the vector may have the default constructor.
   // The "zero" argument is used to set the modulus for parameterized types.
-  int load_from_file(char *file_name, element_type zero) {
+  bool load_from_file(char *file_name, element_type zero) {
     if (this->elements)
       delete[] this->elements;
     this->num_elements = 1;

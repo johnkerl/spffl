@@ -21,7 +21,7 @@ public:
   bit_matrix_t(const bit_matrix_t &that);
   ~bit_matrix_t(void);
 
-  int load_from_file(char *file_name);
+  bool load_from_file(char *file_name);
 
   bit_matrix_t &operator=(const bit_t scalar);
   bit_matrix_t &operator=(bit_matrix_t that);

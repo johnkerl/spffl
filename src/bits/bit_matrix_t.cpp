@@ -74,13 +74,13 @@ bit_matrix_t::bit_matrix_t(const bit_matrix_t &that) {
 bit_matrix_t::~bit_matrix_t(void) { this->mfree(); }
 
 // ----------------------------------------------------------------
-int bit_matrix_t::load_from_file(char *file_name) {
+bool bit_matrix_t::load_from_file(char *file_name) {
   if ((strcmp(file_name, "-") == 0) || (strcmp(file_name, "@") == 0)) {
     std::cin >> *this;
     if (std::cin.fail())
-      return 0;
+      return false;
     else
-      return 1;
+      return true;
   }
 
   std::ifstream ifs;
@@ -89,7 +89,7 @@ int bit_matrix_t::load_from_file(char *file_name) {
   if (ifs.fail()) {
     std::cerr << "bit_matrix_t::load_from_file:  couldn't open \"" << file_name
               << "\"\n";
-    return 0;
+    return false;
   }
 
   ifs >> *this;
@@ -99,10 +99,10 @@ int bit_matrix_t::load_from_file(char *file_name) {
                  "reading \""
               << file_name << "\"\n";
     ifs.close();
-    return 0;
+    return false;
   }
   ifs.close();
-  return 1;
+  return true;
 }
 
 // ----------------------------------------------------------------
