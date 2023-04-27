@@ -262,10 +262,10 @@ public:
   }
 
   // ----------------------------------------------------------------
-  int store_to_file(char *file_name) {
+  bool store_to_file(char *file_name) {
     if ((strcmp(file_name, "-") == 0) || (strcmp(file_name, "@") == 0)) {
       std::cout << *this;
-      return 1;
+      return true;
     }
 
     std::ofstream ofs;
@@ -274,7 +274,7 @@ public:
     if (ofs.fail()) {
       std::cerr << "tmatrix::store_to_file:  couldn't open \"" << file_name
                 << "\"\n";
-      return 0;
+      return false;
     }
 
     ofs << *this;
@@ -283,10 +283,10 @@ public:
       std::cerr << "tmatrix::store_to_file:  couldn't write \"" << file_name
                 << "\"\n";
       ofs.close();
-      return 0;
+      return false;
     }
     ofs.close();
-    return 1;
+    return true;
   }
 
   // ----------------------------------------------------------------
