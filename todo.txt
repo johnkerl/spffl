@@ -12,8 +12,10 @@ k namespacing pass: int_gcd -> spffl::intmath::int_gcd etc
 k manual clang-format
   - needs automated/CI clang-format
 
-k renaming pass
-  ? needs more
+* renaming pass
+  - needs more
+  - get_char -> get_characteristic
+  - other unabbrevs
 
 * int -> bool pass
   - needs more

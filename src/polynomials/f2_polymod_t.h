@@ -39,7 +39,7 @@ public:
   friend std::istream &operator>>(std::istream &is, f2_polymod_t &a);
   friend std::istringstream &operator>>(std::istringstream &iss,
                                         f2_polymod_t &a);
-  int from_string(char *string, f2_poly_t m);
+  bool from_string(char *string, f2_poly_t m);
 
   f2_polymod_t &operator+=(f2_polymod_t that);
   f2_polymod_t &operator-=(f2_polymod_t that);

@@ -777,7 +777,7 @@ std::istream &operator>>(std::istream &is, fpn_poly_t &poly) {
 }
 
 // ----------------------------------------------------------------
-int fpn_poly_t::from_string(char *string, fp_poly_t m) {
+bool fpn_poly_t::from_string(char *string, fp_poly_t m) {
   if (this->coeffs)
     delete[] this->coeffs;
 
@@ -792,7 +792,7 @@ int fpn_poly_t::from_string(char *string, fp_poly_t m) {
   if (argc < 1) {
     // Needs an error message, but this coding error is
     // unlikely since we already counted colons.
-    return 0;
+    return false;
   }
 
   this->degree = argc - 1;
@@ -807,7 +807,7 @@ int fpn_poly_t::from_string(char *string, fp_poly_t m) {
     if (iss.fail()) {
       std::cerr << "fpn_poly_t::from_string: "
                 << "scan failure at \"" << string << "\"\n";
-      return 0;
+      return false;
     } else {
       this->coeffs[ci] = fp_polymod_t(r, m);
     }
@@ -816,7 +816,7 @@ int fpn_poly_t::from_string(char *string, fp_poly_t m) {
   free(dup);
 
   this->recompute_degree();
-  return 1;
+  return true;
 }
 
 // ----------------------------------------------------------------

@@ -233,12 +233,12 @@ std::istringstream &operator>>(std::istringstream &iss, fp_polyrat_t &a) {
 }
 
 // ----------------------------------------------------------------
-int fp_polyrat_t::from_string(char *string, int p) {
+bool fp_polyrat_t::from_string(char *string, int p) {
   this->numer = spffl::polynomials::fp_poly_t(spffl::intmath::intmod_t(0, p));
   this->denom = spffl::polynomials::fp_poly_t(spffl::intmath::intmod_t(1, p));
   std::istringstream iss(string, std::ios_base::in);
   iss >> *this;
-  return iss.fail() ? 0 : 1;
+  return iss.fail() ? false : true;
 }
 
 // ----------------------------------------------------------------

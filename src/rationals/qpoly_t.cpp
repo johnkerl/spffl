@@ -692,7 +692,7 @@ std::istream &operator>>(std::istream &is, qpoly_t &poly) {
 }
 
 // ----------------------------------------------------------------
-int qpoly_t::from_string(char *string) {
+bool qpoly_t::from_string(char *string) {
   if (this->coeffs)
     delete[] this->coeffs;
 
@@ -714,7 +714,7 @@ int qpoly_t::from_string(char *string) {
         std::cerr << "qpoly_t::from_string: "
                   << "non-numerical input \"" << string << "\"\n";
         std::cerr << "Didn't like '" << ascii_digit << "'\n";
-        return 0;
+        return false;
       }
       this->coeffs[ci] = intrat_t(ascii_digit - '0');
     }
@@ -725,7 +725,7 @@ int qpoly_t::from_string(char *string) {
     if (argc < 1) {
       // Needs an error message, but this coding error is
       // unlikely since we already counted commas.
-      return 0;
+      return false;
     }
 
     this->degree = argc - 1;
@@ -740,7 +740,7 @@ int qpoly_t::from_string(char *string) {
       if (iss.fail()) {
         std::cerr << "qpoly_t::from_string: "
                   << "scan failure at \"" << string << "\"\n";
-        return 0;
+        return false;
       } else {
         this->coeffs[ci] = intrat_t(r);
       }
@@ -750,7 +750,7 @@ int qpoly_t::from_string(char *string) {
   }
 
   this->recompute_degree();
-  return 1;
+  return true;
 }
 
 // ----------------------------------------------------------------

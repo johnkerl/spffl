@@ -97,7 +97,7 @@ public:
   friend std::istream &operator>>(std::istream &is, f2n_poly_t &poly);
   friend std::istringstream &operator>>(std::istringstream &iss,
                                         f2n_poly_t &poly);
-  int from_string(char *string, f2_poly_t m);
+  bool from_string(char *string, f2_poly_t m);
 
   void promote(void);
   void promote_and_add(f2_polymod_t c0);

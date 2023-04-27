@@ -215,13 +215,13 @@ std::istringstream &operator>>(std::istringstream &iss, fpn_polymod_t &a) {
 }
 
 // ----------------------------------------------------------------
-int fpn_polymod_t::from_string(char *string, fpn_poly_t &m) {
+bool fpn_polymod_t::from_string(char *string, fpn_poly_t &m) {
   fpn_poly_t r;
   fp_poly_t mm = m.get_coeff(0).get_modulus();
   if (!r.from_string(string, mm))
-    return 0;
+    return false;
   *this = fpn_polymod_t(r, m);
-  return 1;
+  return true;
 }
 
 // ----------------------------------------------------------------
