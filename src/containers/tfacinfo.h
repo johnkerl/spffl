@@ -114,12 +114,12 @@ public:
   }
 
   // ----------------------------------------------------------------
-  int get_unit(element_type &runit) {
+  bool get_unit(element_type &runit) {
     if (this->have_unit) {
       runit = this->unit;
-      return 1;
+      return true;
     } else {
-      return 0;
+      return false;
     }
   }
 
@@ -140,14 +140,14 @@ public:
   // at which it should be located in order to preserve sorted factors.
 
 private:
-  int find(element_type &re, int &ridx) {
+  bool find(element_type &re, int &ridx) {
 #if 0
 	// Need to find the bug.
 
 		// Binary search.
 		if (this->num_distinct == 0) {
 			ridx = 0;
-			return 0;
+			return false;
 		}
 
 		int left = 0;
@@ -156,11 +156,11 @@ private:
 
 		if (re < this->pfactors_and_counts[left].factor) {
 			ridx = left;
-			return 0;
+			return false;
 		}
 		if (re > this->pfactors_and_counts[right].factor) {
 			ridx = right + 1;
-			return 0;
+			return false;
 		}
 
 		ridx = mid;
@@ -168,14 +168,14 @@ private:
 			if ((left == mid) || (mid == right)) {
 				ridx = mid;
 				if (re == this->pfactors_and_counts[mid].factor)
-					return 1;
+					return true;
 				if (re > this->pfactors_and_counts[mid].factor)
 					ridx++;
-				return 0;
+				return false;
 			}
 			if (re == this->pfactors_and_counts[mid].factor) {
 				ridx = mid;
-				return 1;
+				return true;
 			}
 			else if (re < this->pfactors_and_counts[mid].factor) {
 				right = mid;
@@ -188,21 +188,21 @@ private:
 		ridx = mid;
 		if (re > this->pfactors_and_counts[mid].factor)
 			ridx++;
-		return 0;
+		return false;
 #else
     // Linear search.
     for (int i = 0; i < this->num_distinct; i++) {
       if (re == this->pfactors_and_counts[i].factor) {
         ridx = i;
-        return 1;
+        return true;
       }
       if (re < this->pfactors_and_counts[i].factor) {
         ridx = i;
-        return 0;
+        return false;
       }
     }
     ridx = this->num_distinct;
-    return 0;
+    return false;
 #endif
   }
 
@@ -420,14 +420,15 @@ public:
 
   // ----------------------------------------------------------------
   // The output will be sorted from smallest to largest.
-  int get_maximal_proper_divisors(tvector<element_type> &rv, element_type one) {
+  bool get_maximal_proper_divisors(tvector<element_type> &rv,
+                                   element_type one) {
     if (this->num_distinct <= 0) {
       if (!this->have_unit) {
         std::cerr << "tfacinfo::get_maximal_proper_divisors():  "
                   << "No factors have been inserted.\n";
         exit(1);
       } else {
-        return 0;
+        return false;
       }
     }
     int nmpd = this->num_distinct;
@@ -438,7 +439,7 @@ public:
       rv[k] = other.unfactor(one);
     }
     rv.sort();
-    return 1;
+    return true;
   }
 };
 

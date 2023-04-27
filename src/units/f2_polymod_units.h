@@ -14,8 +14,8 @@ int f2_polymod_order(spffl::polynomials::f2_polymod_t a);
 
 // The function return value is 1 if a generator was found, 0 otherwise.
 // In the former case, rg holds the found generator.
-int f2_polymod_find_generator(spffl::polynomials::f2_poly_t m,
-                              spffl::polynomials::f2_polymod_t &rg);
+bool f2_polymod_find_generator(spffl::polynomials::f2_poly_t m,
+                               spffl::polynomials::f2_polymod_t &rg);
 
 // Returns 1 if x generates the multiplicative group.  An irreducibility
 // test is not done.

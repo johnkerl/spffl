@@ -54,8 +54,8 @@ int f2_polymod_order(spffl::polynomials::f2_polymod_t a) {
 }
 
 // ----------------------------------------------------------------
-int f2_polymod_find_generator(spffl::polynomials::f2_poly_t m,
-                              spffl::polynomials::f2_polymod_t &rg) {
+bool f2_polymod_find_generator(spffl::polynomials::f2_poly_t m,
+                               spffl::polynomials::f2_polymod_t &rg) {
   int mdeg = m.find_degree();
   spffl::polynomials::f2_poly_t gres(1);
 
@@ -70,7 +70,7 @@ int f2_polymod_find_generator(spffl::polynomials::f2_poly_t m,
     spffl::polynomials::f2_polymod_t g(gres, m);
     if (f2_polymod_order(g) == phi) {
       rg = g;
-      return 1;
+      return true;
     }
     gres.increment();
   }
@@ -80,7 +80,7 @@ int f2_polymod_find_generator(spffl::polynomials::f2_poly_t m,
   // Either there is a coding error, the modulus isn't irreducible,
   // or the coefficients don't lie in a field.  Since the latter cases
   // aren't our fault, this situation doesn't merit a fatal error.
-  return 0;
+  return false;
 }
 
 // ----------------------------------------------------------------

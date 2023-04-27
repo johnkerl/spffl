@@ -52,7 +52,7 @@ int fp_order(spffl::intmath::intmod_t a) {
 }
 
 // ----------------------------------------------------------------
-int fp_find_generator(int p, spffl::intmath::intmod_t &rg) {
+bool fp_find_generator(int p, spffl::intmath::intmod_t &rg) {
   int gres;
   int phi = spffl::intmath::int_totient(p);
 
@@ -63,13 +63,13 @@ int fp_find_generator(int p, spffl::intmath::intmod_t &rg) {
     spffl::intmath::intmod_t g(gres, p);
     if (fp_order(g) == phi) {
       rg = g;
-      return 1;
+      return true;
     }
   }
 
   // Not necessarily a coding error on our part, since p is not
   // guaranteed to be prime.
-  return 0;
+  return false;
 }
 
 // ----------------------------------------------------------------

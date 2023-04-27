@@ -66,7 +66,7 @@ public:
   fpn_poly_t ext_gcd(fpn_poly_t &that, fpn_poly_t &rm, fpn_poly_t &rn);
   fpn_poly_t exp(int power);
   fpn_poly_t deriv(void);
-  int pth_root(fpn_poly_t &rroot);
+  bool pth_root(fpn_poly_t &rroot);
   fp_polymod_t eval(fp_polymod_t c);
 
   int find_degree(void) const; // deg(0) is defined to be 0.

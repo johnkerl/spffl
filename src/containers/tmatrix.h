@@ -82,7 +82,7 @@ public:
   // zero is returned.  If it is not, one is returned and this->num_cols is set.
   // this->num_rows must be set, and rows must be populated.
 
-  int check_ragged(void) {
+  bool check_ragged(void) {
     int min_cols = 0x7fffffff;
     int max_cols = 0;
     for (int i = 0; i < this->num_rows; i++) {
@@ -96,22 +96,22 @@ public:
       std::cerr << "tmatrix:  ragged input.  # rows = " << this->num_rows
                 << " min # cols = " << min_cols << " max # cols = " << max_cols
                 << ".\n";
-      return 0;
+      return false;
     }
     this->num_cols = max_cols;
-    return 1;
+    return true;
   }
 
   // ----------------------------------------------------------------
   // The matrix must already contain at least one element.  See the comment
   // above the istream operator.
-  int load_from_file(char *file_name) {
+  bool load_from_file(char *file_name) {
     if ((strcmp(file_name, "-") == 0) || (strcmp(file_name, "@") == 0)) {
       std::cin >> *this;
       if (std::cin.fail())
-        return 0;
+        return false;
       else
-        return 1;
+        return true;
     }
 
     std::ifstream ifs;
@@ -120,7 +120,7 @@ public:
     if (ifs.fail()) {
       std::cerr << "tmatrix::load_from_file:  couldn't open \"" << file_name
                 << "\"\n";
-      return 0;
+      return false;
     }
 
     ifs >> *this;
@@ -129,16 +129,16 @@ public:
       std::cerr << "tmatrix::load_from_file:  scan failure reading \""
                 << file_name << "\"\n";
       ifs.close();
-      return 0;
+      return false;
     }
     ifs.close();
-    return 1;
+    return true;
   }
 
   // ----------------------------------------------------------------
   // For this method, the matrix may have the default constructor.
   // The "zero" argument is used to set the modulus for parameterized types.
-  int load_from_file(char *file_name, element_type zero) {
+  bool load_from_file(char *file_name, element_type zero) {
     this->mfree();
 
     this->num_rows = 1;
@@ -171,12 +171,12 @@ public:
   //
   // is treated as an n x 1 matrix (column vector).
 
-  int bracket_in(char *string) {
+  bool bracket_in(char *string) {
     // Make sure the matrix already contains an element.  Remember it,
     // then free the old matrix contents.
     if (!this->rows || (this->num_rows < 1) || (this->num_cols < 1)) {
       std::cerr << "tmatrix::bracket_in:  must already have one element.\n";
-      return 0;
+      return false;
     }
     element_type zero = this->rows[0][0] - this->rows[0][0];
     this->mfree();
@@ -187,7 +187,7 @@ public:
       std::cerr
           << "tmatrix::bracket_in:  couldn't find leading left bracket.\n";
       free(copy);
-      return 0;
+      return false;
     }
     char *pinnerstart = pouterleft + 1;
     while ((*pinnerstart == ' ') || (*pinnerstart == '\t'))
@@ -198,7 +198,7 @@ public:
       std::cerr
           << "tmatrix::bracket_in:  couldn't find trailing right bracket.\n";
       free(copy);
-      return 0;
+      return false;
     }
     *pouterright = 0;
 
@@ -219,7 +219,7 @@ public:
           delete[] rowcopy;
           delete[] stringv;
           free(copy);
-          return 0;
+          return false;
         }
         delete[] rowcopy;
       }
@@ -229,7 +229,7 @@ public:
         // Error message already printed out.
         delete[] stringv;
         free(copy);
-        return 0;
+        return false;
       }
       delete[] stringv;
     } else {
@@ -240,7 +240,7 @@ public:
       iss >> column;
       if (iss.fail()) {
         free(copy);
-        return 0;
+        return false;
       }
 
       this->num_rows = column.get_num_elements();
@@ -258,14 +258,14 @@ public:
     }
 
     free(copy);
-    return 1;
+    return true;
   }
 
   // ----------------------------------------------------------------
-  int store_to_file(char *file_name) {
+  bool store_to_file(char *file_name) {
     if ((strcmp(file_name, "-") == 0) || (strcmp(file_name, "@") == 0)) {
       std::cout << *this;
-      return 1;
+      return true;
     }
 
     std::ofstream ofs;
@@ -274,7 +274,7 @@ public:
     if (ofs.fail()) {
       std::cerr << "tmatrix::store_to_file:  couldn't open \"" << file_name
                 << "\"\n";
-      return 0;
+      return false;
     }
 
     ofs << *this;
@@ -283,10 +283,10 @@ public:
       std::cerr << "tmatrix::store_to_file:  couldn't write \"" << file_name
                 << "\"\n";
       ofs.close();
-      return 0;
+      return false;
     }
     ofs.close();
-    return 1;
+    return true;
   }
 
   // ----------------------------------------------------------------
@@ -688,14 +688,14 @@ public:
   }
 
   // ----------------------------------------------------------------
-  int find_row(tvector<element_type> &v, int &row_index) {
+  bool find_row(tvector<element_type> &v, int &row_index) {
     for (int i = 0; i < this->num_rows; i++) {
       if (this->rows[i] == v) {
         row_index = i;
-        return 1;
+        return true;
       }
     }
-    return 0;
+    return false;
   }
 
   // ----------------------------------------------------------------
@@ -706,7 +706,7 @@ public:
   // any matrix element minus itself.  If there is any non-zero element, then
   // 1 is that element divided by itself.
 
-  int find_one(element_type &rone) {
+  bool find_one(element_type &rone) {
     element_type a = this->rows[0][0];
     element_type zero = a - a;
     for (int i = 0; i < this->num_rows; i++) {
@@ -714,11 +714,11 @@ public:
         if (this->rows[i][j] != zero) {
           a = this->rows[i][j];
           rone = a / a;
-          return 1;
+          return true;
         }
       }
     }
-    return 0;
+    return false;
   }
 
   // ----------------------------------------------------------------
@@ -935,31 +935,31 @@ public:
     }
   }
 
-  int get_rr_non_zero_rows(tmatrix<element_type> &rrnz) {
+  bool get_rr_non_zero_rows(tmatrix<element_type> &rrnz) {
     tmatrix<element_type> rr(*this);
     rr.row_reduce_below();
     int rank = rr.get_rank_rr();
     if (rank == 0) {
       // I don't support zero-row matrices.
-      return 0;
+      return false;
     } else {
       rrnz = rr;
       rrnz.num_rows = rank;
-      return 1;
+      return true;
     }
   }
 
-  int get_rech_non_zero_rows(tmatrix<element_type> &rechnz) {
+  bool get_rech_non_zero_rows(tmatrix<element_type> &rechnz) {
     tmatrix<element_type> rech(*this);
     rech.row_echelon_form();
     int rank = rech.get_rank_rr();
     if (rank == 0) {
       // I don't support zero-row matrices.
-      return 0;
+      return false;
     } else {
       rechnz = rech;
       rechnz.num_rows = rank;
-      return 1;
+      return true;
     }
   }
 
@@ -993,15 +993,15 @@ public:
   }
 
   // ----------------------------------------------------------------
-  int get_kernel_basis(tmatrix<element_type> &rbas, element_type zero,
-                       element_type one) {
+  bool get_kernel_basis(tmatrix<element_type> &rbas, element_type zero,
+                        element_type one) {
     int i, j;
     tmatrix<element_type> rr(*this);
     rr.row_echelon_form();
     int rank = rr.get_rank_rr();
     int dimker = rr.num_cols - rank;
     if (dimker == 0)
-      return 0;
+      return false;
 
     tmatrix<element_type> basis(dimker, rr.num_cols);
 
@@ -1082,7 +1082,7 @@ public:
     delete[] free_indices;
 
     rbas = basis;
-    return 1;
+    return true;
   }
 
   // ----------------------------------------------------------------
@@ -1151,9 +1151,9 @@ public:
   // The solve_unique method checks that the matrix has full rank (i.e. rank=n).
   // For efficiency, if the matrix is already known to have full rank, invoke
   // solve_unique_full_rank.
-  int solve_unique(tvector<element_type> &x, // Output
-                   tvector<element_type> &b, // Input
-                   element_type zero, element_type one) {
+  bool solve_unique(tvector<element_type> &x, // Output
+                    tvector<element_type> &b, // Input
+                    element_type zero, element_type one) {
     int indim = this->get_num_cols();
     int outdim = this->get_num_rows();
     //  A linear transformation from a higher-dimensional space to a
@@ -1161,12 +1161,12 @@ public:
     //  unique solution.
     if (indim > outdim) {
       std::cerr << "tmatrix::solve_unique:  matrix cannot have full rank.\n";
-      return 0;
+      return false;
     }
     int A_rank = this->get_rank();
     if (A_rank != indim) {
       std::cerr << "tmatrix::solve_unique:  matrix does not have full rank.\n";
-      return 0;
+      return false;
     }
 
     return this->solve_unique_full_rank(x, b, zero, one);
@@ -1175,9 +1175,9 @@ public:
   // The solve_unique_full_rank method assumes the matrix is already known to
   // have full rank (rank=n).  If this is not known, please invoke solve_unique
   // instead.
-  int solve_unique_full_rank(tvector<element_type> &x, // Output
-                             tvector<element_type> &b, // Input
-                             element_type zero, element_type one) {
+  bool solve_unique_full_rank(tvector<element_type> &x, // Output
+                              tvector<element_type> &b, // Input
+                              element_type zero, element_type one) {
     int indim = this->get_num_cols();
     tmatrix<element_type> Ab_rr = this->paste_vector(b);
     Ab_rr.row_echelon_form();
@@ -1185,13 +1185,13 @@ public:
     if (Ab_rank != indim) {
       std::cerr << "tmatrix::solve_unique_full_rank:  augmented matrix does "
                    "not have full rank.\n";
-      return 0;
+      return false;
     }
 
     x = tvector<element_type>(indim);
     for (int i = 0; i < indim; i++)
       x[i] = Ab_rr.rows[i][indim];
-    return 1;
+    return true;
   }
 
   // n < m:
@@ -1274,7 +1274,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  int inverse(tmatrix<element_type> &rinv) {
+  bool inverse(tmatrix<element_type> &rinv) {
     element_type zero = this->rows[0][0] - this->rows[0][0];
     element_type one;
 
@@ -1284,7 +1284,7 @@ public:
     }
 
     if (!this->find_one(one))
-      return 0;
+      return false;
 
     tmatrix<element_type> I = this->make_I(zero, one);
     tmatrix<element_type> pair = this->paste(I);
@@ -1470,7 +1470,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  int ed_inverse(tmatrix<element_type> &rinv) {
+  bool ed_inverse(tmatrix<element_type> &rinv) {
     element_type zero = this->rows[0][0] - this->rows[0][0];
     element_type one;
 
@@ -1480,7 +1480,7 @@ public:
     }
 
     if (!this->find_one(one))
-      return 0;
+      return false;
 
     tmatrix<element_type> I = this->make_I(zero, one);
     tmatrix<element_type> pair = this->paste(I);

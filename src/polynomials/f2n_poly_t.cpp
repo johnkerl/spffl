@@ -590,7 +590,7 @@ f2n_poly_t f2n_poly_t::deriv(void) {
 // square roots exists for all coefficients.  Let n be the degree over F2.
 // Then a^{2^n} = a for all coefficients, and a^{2^{n-1}} = sqrt(a).
 
-int f2n_poly_t::square_root(f2n_poly_t &rroot) {
+bool f2n_poly_t::square_root(f2n_poly_t &rroot) {
   f2_poly_t m = this->coeffs[0].get_modulus();
   f2_polymod_t zero(0, m);
   int si, di;
@@ -607,11 +607,11 @@ int f2n_poly_t::square_root(f2n_poly_t &rroot) {
     if (si + 1 > this->degree)
       break;
     if (this->coeffs[si + 1] != zero)
-      return 0;
+      return false;
   }
   out.recompute_degree();
   rroot = out;
-  return 1;
+  return true;
 }
 
 // ----------------------------------------------------------------

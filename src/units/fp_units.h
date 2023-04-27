@@ -14,7 +14,7 @@ int fp_order(spffl::intmath::intmod_t a);
 
 // The function return value is 1 if a generator was found, 0 otherwise.
 // In the former case, rg holds the found generator.
-int fp_find_generator(int p, spffl::intmath::intmod_t &rg);
+bool fp_find_generator(int p, spffl::intmath::intmod_t &rg);
 
 // Log base g of a, using Shanks' algorithm.
 //

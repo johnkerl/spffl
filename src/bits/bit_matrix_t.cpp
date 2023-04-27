@@ -74,13 +74,13 @@ bit_matrix_t::bit_matrix_t(const bit_matrix_t &that) {
 bit_matrix_t::~bit_matrix_t(void) { this->mfree(); }
 
 // ----------------------------------------------------------------
-int bit_matrix_t::load_from_file(char *file_name) {
+bool bit_matrix_t::load_from_file(char *file_name) {
   if ((strcmp(file_name, "-") == 0) || (strcmp(file_name, "@") == 0)) {
     std::cin >> *this;
     if (std::cin.fail())
-      return 0;
+      return false;
     else
-      return 1;
+      return true;
   }
 
   std::ifstream ifs;
@@ -89,7 +89,7 @@ int bit_matrix_t::load_from_file(char *file_name) {
   if (ifs.fail()) {
     std::cerr << "bit_matrix_t::load_from_file:  couldn't open \"" << file_name
               << "\"\n";
-    return 0;
+    return false;
   }
 
   ifs >> *this;
@@ -99,10 +99,10 @@ int bit_matrix_t::load_from_file(char *file_name) {
                  "reading \""
               << file_name << "\"\n";
     ifs.close();
-    return 0;
+    return false;
   }
   ifs.close();
-  return 1;
+  return true;
 }
 
 // ----------------------------------------------------------------
@@ -692,14 +692,14 @@ int bit_matrix_t::get_rank_rr(void) {
 }
 
 // ----------------------------------------------------------------
-int bit_matrix_t::get_kernel_basis(bit_matrix_t &rbas) {
+bool bit_matrix_t::get_kernel_basis(bit_matrix_t &rbas) {
   int i, j;
   bit_matrix_t rr(*this);
   rr.row_echelon_form();
   int rank = rr.get_rank_rr();
   int dimker = rr.num_cols - rank;
   if (dimker == 0)
-    return 0;
+    return false;
 
   bit_matrix_t basis(bit_t(0), dimker, rr.num_cols);
 
@@ -759,7 +759,7 @@ int bit_matrix_t::get_kernel_basis(bit_matrix_t &rbas) {
   delete[] free_indices;
 
   rbas = basis;
-  return 1;
+  return true;
 }
 
 // ----------------------------------------------------------------
@@ -828,7 +828,7 @@ void bit_matrix_t::split(bit_matrix_t &rleft, bit_matrix_t &rright,
 }
 
 // ----------------------------------------------------------------
-int bit_matrix_t::inverse(bit_matrix_t &rinv) {
+bool bit_matrix_t::inverse(bit_matrix_t &rinv) {
   if (!this->is_square()) {
     std::cerr << "bit_matrix_t::inverse():  non-square input.\n";
     exit(1);

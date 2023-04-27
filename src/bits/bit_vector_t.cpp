@@ -331,15 +331,15 @@ bool bit_vector_t::operator!=(bit_t scalar) { return !(*this == scalar); }
 
 // ----------------------------------------------------------------
 // Return value:  True/false.  rpos:  index, if found.
-int bit_vector_t::find_leader_pos(int &rpos) {
+bool bit_vector_t::find_leader_pos(int &rpos) {
   for (int i = 0; i < this->num_words; i++) {
     if (this->words[i]) {
       rpos = (31 - spffl::intmath::find_msb_32(this->words[i])) +
              (i << BITS_SHIFT);
-      return 1;
+      return true;
     }
   }
-  return 0; // Zero vector.
+  return false; // Zero vector.
 }
 
 // ----------------------------------------------------------------

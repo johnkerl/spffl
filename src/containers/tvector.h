@@ -130,20 +130,20 @@ public:
   // element. The istream input operator expects only whitespace-delimited
   // elements, e.g. "1 2 3".  The bracket_in() method, by contrast, expects
   // whitespace-delimited elements, surrounded by brackets:  e.g. "[1 2 3]".
-  int bracket_in(char *string) {
+  bool bracket_in(char *string) {
     char *copy = strdup(string);
 
     char *pleft = strchr(copy, '[');
     if (pleft == 0) {
       free(copy);
-      return 0;
+      return false;
     }
     pleft++;
 
     char *pright = strrchr(pleft, ']');
     if (pright == 0) {
       free(copy);
-      return 0;
+      return false;
     }
     *pright = 0;
 
@@ -151,23 +151,23 @@ public:
     iss >> *this;
     if (iss.fail()) {
       free(copy);
-      return 0;
+      return false;
     }
 
     free(copy);
-    return 1;
+    return true;
   }
 
   // ----------------------------------------------------------------
   // The vector must already contain at least one element.  See the comment
   // above the istream operator.
-  int load_from_file(char *file_name) {
+  bool load_from_file(char *file_name) {
     if ((strcmp(file_name, "-") == 0) || (strcmp(file_name, "@") == 0)) {
       std::cin >> *this;
       if (std::cin.fail())
-        return 0;
+        return false;
       else
-        return 1;
+        return true;
     }
 
     std::ifstream ifs;
@@ -176,7 +176,7 @@ public:
     if (ifs.fail()) {
       std::cerr << "tvector::load_from_file:  couldn't open \"" << file_name
                 << "\"\n";
-      return 0;
+      return false;
     }
 
     ifs >> *this;
@@ -185,16 +185,16 @@ public:
       std::cerr << "tvector::load_from_file:  scan failure reading \""
                 << file_name << "\"\n";
       ifs.close();
-      return 0;
+      return false;
     }
     ifs.close();
-    return 1;
+    return true;
   }
 
   // ----------------------------------------------------------------
   // For this method, the vector may have the default constructor.
   // The "zero" argument is used to set the modulus for parameterized types.
-  int load_from_file(char *file_name, element_type zero) {
+  bool load_from_file(char *file_name, element_type zero) {
     if (this->elements)
       delete[] this->elements;
     this->num_elements = 1;
@@ -421,14 +421,14 @@ public:
 
   // ----------------------------------------------------------------
   // Return value:  True/false.  rpos:  index, if found.
-  int find_leader_pos(element_type &rzero, int &rpos) {
+  bool find_leader_pos(element_type &rzero, int &rpos) {
     for (int j = 0; j < this->num_elements; j++) {
       if (this->elements[j] != rzero) {
         rpos = j;
-        return 1;
+        return true;
       }
     }
-    return 0;
+    return false;
   }
 
   // ----------------------------------------------------------------

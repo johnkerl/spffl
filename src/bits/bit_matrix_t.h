@@ -21,7 +21,7 @@ public:
   bit_matrix_t(const bit_matrix_t &that);
   ~bit_matrix_t(void);
 
-  int load_from_file(char *file_name);
+  bool load_from_file(char *file_name);
 
   bit_matrix_t &operator=(const bit_t scalar);
   bit_matrix_t &operator=(bit_matrix_t that);
@@ -89,13 +89,13 @@ public:
   // use get_rank() instead.
   int get_rank_rr(void);
 
-  int get_kernel_basis(bit_matrix_t &rbas);
+  bool get_kernel_basis(bit_matrix_t &rbas);
   void check_kernel_basis(bit_matrix_t &kerbas);
   bit_matrix_t paste(bit_matrix_t &that);
 
   void split(bit_matrix_t &rleft, bit_matrix_t &rright, int split_column);
 
-  int inverse(bit_matrix_t &rinv);
+  bool inverse(bit_matrix_t &rinv);
   void check_inverse(bit_matrix_t &rinv);
   bit_t det(void);
   int get_num_rows(void);

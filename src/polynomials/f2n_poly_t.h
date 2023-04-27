@@ -72,7 +72,7 @@ public:
   f2n_poly_t ext_gcd(f2n_poly_t &that, f2n_poly_t &rm, f2n_poly_t &rn);
   f2n_poly_t exp(int power);
   f2n_poly_t deriv(void);
-  int square_root(f2n_poly_t &rroot);
+  bool square_root(f2n_poly_t &rroot);
   f2_polymod_t eval(f2_polymod_t c);
 
   int find_degree(void) const; // deg(0) is defined to be 0.

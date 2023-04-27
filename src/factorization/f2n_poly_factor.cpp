@@ -273,8 +273,8 @@ f2n_poly_from_vector(tvector<spffl::polynomials::f2_polymod_t> v, int n) {
 }
 
 // ----------------------------------------------------------------
-int f2n_poly_roots(spffl::polynomials::f2n_poly_t f,
-                   tvector<spffl::polynomials::f2_polymod_t> &rroots) {
+bool f2n_poly_roots(spffl::polynomials::f2n_poly_t f,
+                    tvector<spffl::polynomials::f2_polymod_t> &rroots) {
   tfacinfo<spffl::polynomials::f2n_poly_t> finfo = f2n_poly_factor(f);
   int nf = finfo.get_num_distinct();
   int nr = 0;
@@ -291,7 +291,7 @@ int f2n_poly_roots(spffl::polynomials::f2n_poly_t f,
   if (nr == 0) {
     // xxx or, if nr != degree.  What do we want the semantics
     // to be?
-    return 0;
+    return false;
   }
 
   tvector<spffl::polynomials::f2_polymod_t> rv(nr);
@@ -307,7 +307,7 @@ int f2n_poly_roots(spffl::polynomials::f2n_poly_t f,
   }
 
   rroots = rv;
-  return 1;
+  return true;
 }
 
 // ----------------------------------------------------------------
