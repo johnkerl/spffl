@@ -994,7 +994,7 @@ public:
 
   // ----------------------------------------------------------------
   bool get_kernel_basis(tmatrix<element_type> &rbas, element_type zero,
-                       element_type one) {
+                        element_type one) {
     int i, j;
     tmatrix<element_type> rr(*this);
     rr.row_echelon_form();
@@ -1152,8 +1152,8 @@ public:
   // For efficiency, if the matrix is already known to have full rank, invoke
   // solve_unique_full_rank.
   bool solve_unique(tvector<element_type> &x, // Output
-                   tvector<element_type> &b, // Input
-                   element_type zero, element_type one) {
+                    tvector<element_type> &b, // Input
+                    element_type zero, element_type one) {
     int indim = this->get_num_cols();
     int outdim = this->get_num_rows();
     //  A linear transformation from a higher-dimensional space to a
@@ -1176,8 +1176,8 @@ public:
   // have full rank (rank=n).  If this is not known, please invoke solve_unique
   // instead.
   bool solve_unique_full_rank(tvector<element_type> &x, // Output
-                             tvector<element_type> &b, // Input
-                             element_type zero, element_type one) {
+                              tvector<element_type> &b, // Input
+                              element_type zero, element_type one) {
     int indim = this->get_num_cols();
     tmatrix<element_type> Ab_rr = this->paste_vector(b);
     Ab_rr.row_echelon_form();

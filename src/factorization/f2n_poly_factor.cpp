@@ -274,7 +274,7 @@ f2n_poly_from_vector(tvector<spffl::polynomials::f2_polymod_t> v, int n) {
 
 // ----------------------------------------------------------------
 bool f2n_poly_roots(spffl::polynomials::f2n_poly_t f,
-                   tvector<spffl::polynomials::f2_polymod_t> &rroots) {
+                    tvector<spffl::polynomials::f2_polymod_t> &rroots) {
   tfacinfo<spffl::polynomials::f2n_poly_t> finfo = f2n_poly_factor(f);
   int nf = finfo.get_num_distinct();
   int nr = 0;
