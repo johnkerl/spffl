@@ -688,14 +688,14 @@ public:
   }
 
   // ----------------------------------------------------------------
-  int find_row(tvector<element_type> &v, int &row_index) {
+  bool find_row(tvector<element_type> &v, int &row_index) {
     for (int i = 0; i < this->num_rows; i++) {
       if (this->rows[i] == v) {
         row_index = i;
-        return 1;
+        return true;
       }
     }
-    return 0;
+    return false;
   }
 
   // ----------------------------------------------------------------
@@ -706,7 +706,7 @@ public:
   // any matrix element minus itself.  If there is any non-zero element, then
   // 1 is that element divided by itself.
 
-  int find_one(element_type &rone) {
+  bool find_one(element_type &rone) {
     element_type a = this->rows[0][0];
     element_type zero = a - a;
     for (int i = 0; i < this->num_rows; i++) {
@@ -714,11 +714,11 @@ public:
         if (this->rows[i][j] != zero) {
           a = this->rows[i][j];
           rone = a / a;
-          return 1;
+          return true;
         }
       }
     }
-    return 0;
+    return false;
   }
 
   // ----------------------------------------------------------------
