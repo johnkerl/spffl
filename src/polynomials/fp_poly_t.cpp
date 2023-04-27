@@ -571,7 +571,7 @@ fp_poly_t fp_poly_t::deriv(void) {
 // ----------------------------------------------------------------
 // Relies on the fact that f(x^p) = f^p(x) in Fp[x].
 
-int fp_poly_t::pth_root(fp_poly_t &rroot) {
+bool fp_poly_t::pth_root(fp_poly_t &rroot) {
   int p = this->get_char();
   spffl::intmath::intmod_t zero(0, p);
   int si, di;
@@ -588,12 +588,12 @@ int fp_poly_t::pth_root(fp_poly_t &rroot) {
       if (si + j > this->degree)
         break;
       if (this->coeffs[si + j] != zero)
-        return 0;
+        return false;
     }
   }
   out.recompute_degree();
   rroot = out;
-  return 1;
+  return true;
 }
 
 // ----------------------------------------------------------------

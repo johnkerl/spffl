@@ -73,7 +73,7 @@ public:
   fp_poly_t ext_gcd(fp_poly_t &that, fp_poly_t &rm, fp_poly_t &rn);
   fp_poly_t exp(int power);
   fp_poly_t deriv(void);
-  int pth_root(fp_poly_t &rroot);
+  bool pth_root(fp_poly_t &rroot);
   spffl::intmath::intmod_t eval(spffl::intmath::intmod_t c);
 
   int find_degree(void) const; // deg(0) is defined to be 0.
