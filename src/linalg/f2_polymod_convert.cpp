@@ -12,20 +12,20 @@
 namespace spffl::linalg {
 
 // ----------------------------------------------------------------
-int f2_polymod_convert_prep(spffl::polynomials::f2_polymod_t g1,
-                            spffl::polynomials::f2_poly_t m2,
-                            spffl::polynomials::f2_polymod_t &rg2) {
+bool f2_polymod_convert_prep(spffl::polynomials::f2_polymod_t g1,
+                             spffl::polynomials::f2_poly_t m2,
+                             spffl::polynomials::f2_polymod_t &rg2) {
   spffl::polynomials::f2n_poly_t g1_min_poly = f2_polymod_min_poly(g1);
   spffl::polynomials::f2n_poly_t g2_min_poly = g1_min_poly;
   g2_min_poly.change_modulus(m2);
   tvector<spffl::polynomials::f2_polymod_t> roots;
   if (!spffl::factorization::f2n_poly_roots(g2_min_poly, roots))
-    return 0;
+    return false;
   if (roots.get_num_elements() != g2_min_poly.find_degree())
-    return 0;
+    return false;
   roots.sort(); // Take the lexically smallest.
   rg2 = roots[0];
-  return 1;
+  return true;
 }
 
 // ----------------------------------------------------------------
