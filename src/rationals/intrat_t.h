@@ -41,15 +41,15 @@ public:
   intrat_t &operator/=(intrat_t that);
   intrat_t &operator%=(intrat_t that);
 
-  int operator==(intrat_t that) const;
-  int operator!=(intrat_t that) const;
-  int operator==(int that) const;
-  int operator!=(int that) const;
+  bool operator==(intrat_t that) const;
+  bool operator!=(intrat_t that) const;
+  bool operator==(int that) const;
+  bool operator!=(int that) const;
 
-  int operator<(intrat_t that) const;
-  int operator>(intrat_t that) const;
-  int operator<=(intrat_t that) const;
-  int operator>=(intrat_t that) const;
+  bool operator<(intrat_t that) const;
+  bool operator>(intrat_t that) const;
+  bool operator<=(intrat_t that) const;
+  bool operator>=(intrat_t that) const;
 
   int get_numerator(void) const;
   int get_denominator(void) const;

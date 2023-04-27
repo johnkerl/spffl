@@ -77,16 +77,16 @@ public:
 
   int find_degree(void) const; // deg(0) is defined to be 0.
 
-  int operator==(int v) const;
-  int operator!=(int v) const;
-  int operator==(f2_poly_t that) const;
-  int operator!=(f2_poly_t that) const;
+  bool operator==(int v) const;
+  bool operator!=(int v) const;
+  bool operator==(f2_poly_t that) const;
+  bool operator!=(f2_poly_t that) const;
   // F2[x] is *not* totally ordered.  Nonetheless, these methods are
   // handy for looping and sorting.
-  int operator<(f2_poly_t that) const;
-  int operator>(f2_poly_t that) const;
-  int operator<=(f2_poly_t that) const;
-  int operator>=(f2_poly_t that) const;
+  bool operator<(f2_poly_t that) const;
+  bool operator>(f2_poly_t that) const;
+  bool operator<=(f2_poly_t that) const;
+  bool operator>=(f2_poly_t that) const;
   void increment(void);
 
   friend std::ostream &operator<<(std::ostream &os, const f2_poly_t &poly);
@@ -114,7 +114,7 @@ private:
   void bounds_check(int deg) const;
   void bounds_check_abend(int deg) const;
 #else
-  int cmp(int op, f2_poly_t &that) const;
+  bool cmp(int op, f2_poly_t &that) const;
   void promote_n(unsigned shamt);
   void promote_4(void);
   void promote_1(void);
@@ -213,33 +213,33 @@ inline int f2_poly_t::find_degree(void) const {
   return spffl::intmath::find_msb_32(this->bits);
 }
 
-inline int f2_poly_t::operator==(int v) const {
+inline bool f2_poly_t::operator==(int v) const {
   return this->bits == (unsigned)(v & 1);
 }
 
-inline int f2_poly_t::operator!=(int v) const { return !(*this == v); }
+inline bool f2_poly_t::operator!=(int v) const { return !(*this == v); }
 
-inline int f2_poly_t::operator==(f2_poly_t that) const {
+inline bool f2_poly_t::operator==(f2_poly_t that) const {
   return this->bits == that.bits;
 }
 
-inline int f2_poly_t::operator!=(f2_poly_t that) const {
+inline bool f2_poly_t::operator!=(f2_poly_t that) const {
   return this->bits != that.bits;
 }
 
-inline int f2_poly_t::operator<(f2_poly_t that) const {
+inline bool f2_poly_t::operator<(f2_poly_t that) const {
   return this->bits < that.bits;
 }
 
-inline int f2_poly_t::operator>(f2_poly_t that) const {
+inline bool f2_poly_t::operator>(f2_poly_t that) const {
   return this->bits > that.bits;
 }
 
-inline int f2_poly_t::operator<=(f2_poly_t that) const {
+inline bool f2_poly_t::operator<=(f2_poly_t that) const {
   return this->bits <= that.bits;
 }
 
-inline int f2_poly_t::operator>=(f2_poly_t that) const {
+inline bool f2_poly_t::operator>=(f2_poly_t that) const {
   return this->bits >= that.bits;
 }
 

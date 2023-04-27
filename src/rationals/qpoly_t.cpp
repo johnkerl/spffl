@@ -552,36 +552,36 @@ void qpoly_t::recompute_degree(void) {
 }
 
 // ----------------------------------------------------------------
-int qpoly_t::operator==(int v) const {
+bool qpoly_t::operator==(int v) const {
   int d = this->degree;
   if (d != 0)
-    return 0;
+    return false;
   return this->coeffs[0] == v;
 }
 
 // ----------------------------------------------------------------
-int qpoly_t::operator!=(int v) const { return !(*this == v); }
+bool qpoly_t::operator!=(int v) const { return !(*this == v); }
 
 // ----------------------------------------------------------------
-int qpoly_t::operator==(qpoly_t that) const { return this->cmp(CMP_EQ, that); }
+bool qpoly_t::operator==(qpoly_t that) const { return this->cmp(CMP_EQ, that); }
 
 // ----------------------------------------------------------------
-int qpoly_t::operator!=(qpoly_t that) const { return this->cmp(CMP_NE, that); }
+bool qpoly_t::operator!=(qpoly_t that) const { return this->cmp(CMP_NE, that); }
 
 // ----------------------------------------------------------------
-int qpoly_t::operator<(qpoly_t that) const { return this->cmp(CMP_LT, that); }
+bool qpoly_t::operator<(qpoly_t that) const { return this->cmp(CMP_LT, that); }
 
 // ----------------------------------------------------------------
-int qpoly_t::operator>(qpoly_t that) const { return this->cmp(CMP_GT, that); }
+bool qpoly_t::operator>(qpoly_t that) const { return this->cmp(CMP_GT, that); }
 
 // ----------------------------------------------------------------
-int qpoly_t::operator<=(qpoly_t that) const { return this->cmp(CMP_LE, that); }
+bool qpoly_t::operator<=(qpoly_t that) const { return this->cmp(CMP_LE, that); }
 
 // ----------------------------------------------------------------
-int qpoly_t::operator>=(qpoly_t that) const { return this->cmp(CMP_GE, that); }
+bool qpoly_t::operator>=(qpoly_t that) const { return this->cmp(CMP_GE, that); }
 
 // ----------------------------------------------------------------
-int qpoly_t::cmp(int cmp, qpoly_t &that) const {
+bool qpoly_t::cmp(int cmp, qpoly_t &that) const {
   int direction = 0; // -1 = less, 0 = equal, +1 = greater;
 
   if (this->degree < that.degree) {
@@ -622,7 +622,7 @@ int qpoly_t::cmp(int cmp, qpoly_t &that) const {
   default:
     std::cerr << "Ack!\n";
     exit(1);
-    return 0;
+    return false;
     break;
   }
 }

@@ -47,16 +47,16 @@ public:
   intmod_t &operator/=(intmod_t that);
   intmod_t &operator%=(intmod_t that);
 
-  int operator==(intmod_t that) const;
-  int operator!=(intmod_t that) const;
-  int operator==(int that) const;
-  int operator!=(int that) const;
+  bool operator==(intmod_t that) const;
+  bool operator!=(intmod_t that) const;
+  bool operator==(int that) const;
+  bool operator!=(int that) const;
   // Z/mZ is *not* totally ordered.  Nonetheless, these methods are
   // handy for looping and sorting.
-  int operator<(intmod_t that) const;
-  int operator>(intmod_t that) const;
-  int operator<=(intmod_t that) const;
-  int operator>=(intmod_t that) const;
+  bool operator<(intmod_t that) const;
+  bool operator>(intmod_t that) const;
+  bool operator<=(intmod_t that) const;
+  bool operator>=(intmod_t that) const;
 
   int get_residue(void) const;
   int get_modulus(void) const;

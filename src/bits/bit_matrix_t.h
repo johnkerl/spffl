@@ -25,10 +25,10 @@ public:
 
   bit_matrix_t &operator=(const bit_t scalar);
   bit_matrix_t &operator=(bit_matrix_t that);
-  int operator==(bit_matrix_t that);
-  int operator==(bit_t e);
-  int operator!=(bit_matrix_t that);
-  int operator!=(bit_t e);
+  bool operator==(bit_matrix_t that);
+  bool operator==(bit_t e);
+  bool operator!=(bit_matrix_t that);
+  bool operator!=(bit_t e);
 
   friend std::ostream &operator<<(std::ostream &os, const bit_matrix_t &m);
 

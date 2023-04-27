@@ -48,15 +48,15 @@ public:
   fp_polyrat_t &operator/=(fp_polyrat_t that);
   fp_polyrat_t &operator%=(fp_polyrat_t that);
 
-  int operator==(fp_polyrat_t that) const;
-  int operator!=(fp_polyrat_t that) const;
-  int operator==(spffl::polynomials::fp_poly_t that) const;
-  int operator!=(spffl::polynomials::fp_poly_t that) const;
+  bool operator==(fp_polyrat_t that) const;
+  bool operator!=(fp_polyrat_t that) const;
+  bool operator==(spffl::polynomials::fp_poly_t that) const;
+  bool operator!=(spffl::polynomials::fp_poly_t that) const;
 
-  int operator<(fp_polyrat_t that) const;
-  int operator>(fp_polyrat_t that) const;
-  int operator<=(fp_polyrat_t that) const;
-  int operator>=(fp_polyrat_t that) const;
+  bool operator<(fp_polyrat_t that) const;
+  bool operator>(fp_polyrat_t that) const;
+  bool operator<=(fp_polyrat_t that) const;
+  bool operator>=(fp_polyrat_t that) const;
 
   spffl::polynomials::fp_poly_t get_numerator(void) const;
   spffl::polynomials::fp_poly_t get_denominator(void) const;

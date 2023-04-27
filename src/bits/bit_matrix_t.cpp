@@ -142,27 +142,27 @@ bit_matrix_t &bit_matrix_t::operator=(bit_matrix_t that) {
 }
 
 // ----------------------------------------------------------------
-int bit_matrix_t::operator==(bit_matrix_t that) {
+bool bit_matrix_t::operator==(bit_matrix_t that) {
   this->check_dims(that, "operator==");
   for (int i = 0; i < this->num_rows; i++)
     if (this->rows[i] != that.rows[i])
-      return 0;
-  return 1;
+      return false;
+  return true;
 }
 
 // ----------------------------------------------------------------
-int bit_matrix_t::operator==(bit_t e) {
+bool bit_matrix_t::operator==(bit_t e) {
   for (int i = 0; i < this->num_rows; i++)
     if (this->rows[i] != e)
-      return 0;
-  return 1;
+      return false;
+  return true;
 }
 
 // ----------------------------------------------------------------
-int bit_matrix_t::operator!=(bit_matrix_t that) { return !(*this == that); }
+bool bit_matrix_t::operator!=(bit_matrix_t that) { return !(*this == that); }
 
 // ----------------------------------------------------------------
-int bit_matrix_t::operator!=(bit_t e) { return !(*this == e); }
+bool bit_matrix_t::operator!=(bit_t e) { return !(*this == e); }
 
 // ----------------------------------------------------------------
 std::ostream &operator<<(std::ostream &os, const bit_matrix_t &m) {

@@ -80,16 +80,16 @@ public:
   void set_coeff(int pos, f2_polymod_t c);
   void change_modulus(f2_poly_t new_modulus);
 
-  int operator==(int v) const;
-  int operator!=(int v) const;
-  int operator==(f2n_poly_t that) const;
-  int operator!=(f2n_poly_t that) const;
+  bool operator==(int v) const;
+  bool operator!=(int v) const;
+  bool operator==(f2n_poly_t that) const;
+  bool operator!=(f2n_poly_t that) const;
   // Fq[x] is *not* totally ordered.  Nonetheless, these methods are
   // handy for looping and sorting.
-  int operator<(f2n_poly_t that) const;
-  int operator>(f2n_poly_t that) const;
-  int operator<=(f2n_poly_t that) const;
-  int operator>=(f2n_poly_t that) const;
+  bool operator<(f2n_poly_t that) const;
+  bool operator>(f2n_poly_t that) const;
+  bool operator<=(f2n_poly_t that) const;
+  bool operator>=(f2n_poly_t that) const;
   void increment(void);
 
   friend std::ostream &operator<<(std::ostream &os, const f2n_poly_t &poly);
@@ -106,7 +106,7 @@ private:
   f2_polymod_t *coeffs;
   int degree;
 
-  int cmp(int cmp, f2n_poly_t &that) const;
+  bool cmp(int cmp, f2n_poly_t &that) const;
   void bounds_check(int deg) const;
   void recompute_degree();
 };

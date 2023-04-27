@@ -261,46 +261,46 @@ intrat_t &intrat_t::operator%=(intrat_t that) {
 }
 
 // ----------------------------------------------------------------
-int intrat_t::operator==(intrat_t that) const {
+bool intrat_t::operator==(intrat_t that) const {
   // Our constructor ensures both *this and that are already in
   // canonical form.
   if (this->numer != that.numer)
-    return 0;
+    return false;
   if (this->denom != that.denom)
-    return 0;
-  return 1;
+    return false;
+  return true;
 }
 
 // ----------------------------------------------------------------
-int intrat_t::operator!=(intrat_t that) const { return !(*this == that); }
+bool intrat_t::operator!=(intrat_t that) const { return !(*this == that); }
 
 // ----------------------------------------------------------------
-int intrat_t::operator==(int that) const {
+bool intrat_t::operator==(int that) const {
   if (this->denom != 1)
-    return 0;
+    return false;
   return this->numer == that;
 }
 
 // ----------------------------------------------------------------
-int intrat_t::operator!=(int that) const { return !(*this == that); }
+bool intrat_t::operator!=(int that) const { return !(*this == that); }
 
 // ----------------------------------------------------------------
-int intrat_t::operator<(intrat_t that) const {
+bool intrat_t::operator<(intrat_t that) const {
   return ((this->numer * that.denom) < (this->denom * that.numer));
 }
 
 // ----------------------------------------------------------------
-int intrat_t::operator<=(intrat_t that) const {
+bool intrat_t::operator<=(intrat_t that) const {
   return ((this->numer * that.denom) <= (this->denom * that.numer));
 }
 
 // ----------------------------------------------------------------
-int intrat_t::operator>(intrat_t that) const {
+bool intrat_t::operator>(intrat_t that) const {
   return ((this->numer * that.denom) > (this->denom * that.numer));
 }
 
 // ----------------------------------------------------------------
-int intrat_t::operator>=(intrat_t that) const {
+bool intrat_t::operator>=(intrat_t that) const {
   return ((this->numer * that.denom) >= (this->denom * that.numer));
 }
 

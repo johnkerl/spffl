@@ -66,16 +66,16 @@ public:
   intrat_t get_coeff(int deg) const;
   void set_coeff(int pos, intrat_t c);
 
-  int operator==(int v) const;
-  int operator!=(int v) const;
-  int operator==(qpoly_t that) const;
-  int operator!=(qpoly_t that) const;
+  bool operator==(int v) const;
+  bool operator!=(int v) const;
+  bool operator==(qpoly_t that) const;
+  bool operator!=(qpoly_t that) const;
   // Q[x] is *not* totally ordered.  Nonetheless, these methods are
   // handy for looping and sorting.
-  int operator<(qpoly_t that) const;
-  int operator>(qpoly_t that) const;
-  int operator<=(qpoly_t that) const;
-  int operator>=(qpoly_t that) const;
+  bool operator<(qpoly_t that) const;
+  bool operator>(qpoly_t that) const;
+  bool operator<=(qpoly_t that) const;
+  bool operator>=(qpoly_t that) const;
 
   friend std::ostream &operator<<(std::ostream &os, const qpoly_t &poly);
   friend std::istream &operator>>(std::istream &is, qpoly_t &poly);
@@ -88,7 +88,7 @@ private:
   intrat_t *coeffs;
   int degree;
 
-  int cmp(int cmp, qpoly_t &that) const;
+  bool cmp(int cmp, qpoly_t &that) const;
   void bounds_check(int deg) const;
   void recompute_degree();
 };

@@ -663,48 +663,48 @@ void fp_poly_t::recompute_degree(void) {
 }
 
 // ----------------------------------------------------------------
-int fp_poly_t::operator==(int v) const {
+bool fp_poly_t::operator==(int v) const {
   int d = this->degree;
   if (d != 0)
-    return 0;
+    return false;
   return this->coeffs[0].get_residue() == v;
 }
 
 // ----------------------------------------------------------------
-int fp_poly_t::operator!=(int v) const { return !(*this == v); }
+bool fp_poly_t::operator!=(int v) const { return !(*this == v); }
 
 // ----------------------------------------------------------------
-int fp_poly_t::operator==(fp_poly_t that) const {
+bool fp_poly_t::operator==(fp_poly_t that) const {
   return this->cmp(CMP_EQ, that);
 }
 
 // ----------------------------------------------------------------
-int fp_poly_t::operator!=(fp_poly_t that) const {
+bool fp_poly_t::operator!=(fp_poly_t that) const {
   return this->cmp(CMP_NE, that);
 }
 
 // ----------------------------------------------------------------
-int fp_poly_t::operator<(fp_poly_t that) const {
+bool fp_poly_t::operator<(fp_poly_t that) const {
   return this->cmp(CMP_LT, that);
 }
 
 // ----------------------------------------------------------------
-int fp_poly_t::operator>(fp_poly_t that) const {
+bool fp_poly_t::operator>(fp_poly_t that) const {
   return this->cmp(CMP_GT, that);
 }
 
 // ----------------------------------------------------------------
-int fp_poly_t::operator<=(fp_poly_t that) const {
+bool fp_poly_t::operator<=(fp_poly_t that) const {
   return this->cmp(CMP_LE, that);
 }
 
 // ----------------------------------------------------------------
-int fp_poly_t::operator>=(fp_poly_t that) const {
+bool fp_poly_t::operator>=(fp_poly_t that) const {
   return this->cmp(CMP_GE, that);
 }
 
 // ----------------------------------------------------------------
-int fp_poly_t::cmp(int cmp, fp_poly_t &that) const {
+bool fp_poly_t::cmp(int cmp, fp_poly_t &that) const {
   int direction = 0; // -1 = less, 0 = equal, +1 = greater;
 
   if (this->degree < that.degree) {
@@ -745,7 +745,7 @@ int fp_poly_t::cmp(int cmp, fp_poly_t &that) const {
   default:
     std::cerr << "Ack!\n";
     exit(1);
-    return 0;
+    return false;
     break;
   }
 }

@@ -111,23 +111,23 @@ public:
     return *this;
   }
 
-  int operator==(bit_t that) const { return this->residue == that.residue; }
+  bool operator==(bit_t that) const { return this->residue == that.residue; }
 
-  int operator!=(bit_t that) const { return this->residue != that.residue; }
+  bool operator!=(bit_t that) const { return this->residue != that.residue; }
 
-  int operator==(int that) const { return this->residue == that; }
+  bool operator==(int that) const { return this->residue == that; }
 
-  int operator!=(int that) const { return this->residue != that; }
+  bool operator!=(int that) const { return this->residue != that; }
 
   // Z/mZ is *not* totally ordered.  Nonetheless, these methods are
   // handy for looping and sorting.
-  int operator<(bit_t that) const { return this->residue < that.residue; }
+  bool operator<(bit_t that) const { return this->residue < that.residue; }
 
-  int operator<=(bit_t that) const { return this->residue <= that.residue; }
+  bool operator<=(bit_t that) const { return this->residue <= that.residue; }
 
-  int operator>(bit_t that) const { return this->residue > that.residue; }
+  bool operator>(bit_t that) const { return this->residue > that.residue; }
 
-  int operator>=(bit_t that) const { return this->residue >= that.residue; }
+  bool operator>=(bit_t that) const { return this->residue >= that.residue; }
 
   int get_residue(void) const { return this->residue; }
 
