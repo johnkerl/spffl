@@ -82,7 +82,7 @@ public:
   // zero is returned.  If it is not, one is returned and this->num_cols is set.
   // this->num_rows must be set, and rows must be populated.
 
-  int check_ragged(void) {
+  bool check_ragged(void) {
     int min_cols = 0x7fffffff;
     int max_cols = 0;
     for (int i = 0; i < this->num_rows; i++) {
@@ -96,10 +96,10 @@ public:
       std::cerr << "tmatrix:  ragged input.  # rows = " << this->num_rows
                 << " min # cols = " << min_cols << " max # cols = " << max_cols
                 << ".\n";
-      return 0;
+      return false;
     }
     this->num_cols = max_cols;
-    return 1;
+    return true;
   }
 
   // ----------------------------------------------------------------
