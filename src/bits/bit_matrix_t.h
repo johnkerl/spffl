@@ -95,7 +95,7 @@ public:
 
   void split(bit_matrix_t &rleft, bit_matrix_t &rright, int split_column);
 
-  int inverse(bit_matrix_t &rinv);
+  bool inverse(bit_matrix_t &rinv);
   void check_inverse(bit_matrix_t &rinv);
   bit_t det(void);
   int get_num_rows(void);

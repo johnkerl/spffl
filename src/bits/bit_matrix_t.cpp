@@ -828,7 +828,7 @@ void bit_matrix_t::split(bit_matrix_t &rleft, bit_matrix_t &rright,
 }
 
 // ----------------------------------------------------------------
-int bit_matrix_t::inverse(bit_matrix_t &rinv) {
+bool bit_matrix_t::inverse(bit_matrix_t &rinv) {
   if (!this->is_square()) {
     std::cerr << "bit_matrix_t::inverse():  non-square input.\n";
     exit(1);

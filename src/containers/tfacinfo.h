@@ -420,14 +420,14 @@ public:
 
   // ----------------------------------------------------------------
   // The output will be sorted from smallest to largest.
-  int get_maximal_proper_divisors(tvector<element_type> &rv, element_type one) {
+  bool get_maximal_proper_divisors(tvector<element_type> &rv, element_type one) {
     if (this->num_distinct <= 0) {
       if (!this->have_unit) {
         std::cerr << "tfacinfo::get_maximal_proper_divisors():  "
                   << "No factors have been inserted.\n";
         exit(1);
       } else {
-        return 0;
+        return false;
       }
     }
     int nmpd = this->num_distinct;
@@ -438,7 +438,7 @@ public:
       rv[k] = other.unfactor(one);
     }
     rv.sort();
-    return 1;
+    return true;
   }
 };
 

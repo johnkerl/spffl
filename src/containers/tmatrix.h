@@ -1274,7 +1274,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  int inverse(tmatrix<element_type> &rinv) {
+  bool inverse(tmatrix<element_type> &rinv) {
     element_type zero = this->rows[0][0] - this->rows[0][0];
     element_type one;
 
@@ -1284,7 +1284,7 @@ public:
     }
 
     if (!this->find_one(one))
-      return 0;
+      return false;
 
     tmatrix<element_type> I = this->make_I(zero, one);
     tmatrix<element_type> pair = this->paste(I);
@@ -1470,7 +1470,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  int ed_inverse(tmatrix<element_type> &rinv) {
+  bool ed_inverse(tmatrix<element_type> &rinv) {
     element_type zero = this->rows[0][0] - this->rows[0][0];
     element_type one;
 
@@ -1480,7 +1480,7 @@ public:
     }
 
     if (!this->find_one(one))
-      return 0;
+      return false;
 
     tmatrix<element_type> I = this->make_I(zero, one);
     tmatrix<element_type> pair = this->paste(I);
