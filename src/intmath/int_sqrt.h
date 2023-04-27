@@ -6,10 +6,12 @@
 
 #ifndef INT_SQRT_H
 #define INT_SQRT_H
+
 namespace spffl::intmath {
 
 int int_sqrt_floor(int n);
 int int_sqrt_ceil(int n);
 
 } // namespace spffl::intmath
+
 #endif // INT_SQRT_H
