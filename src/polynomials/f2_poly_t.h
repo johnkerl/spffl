@@ -12,6 +12,7 @@
 #include "bit_t.h"
 #include "count_bits.h"
 #include "log2.h"
+#include <cstdint>
 #include <iomanip>
 #include <iostream>
 #include <sstream>
@@ -95,11 +96,11 @@ public:
   int bit_at(int pos) const;
 
 private:
-  unsigned *parts;
+  uint64_t *parts;
   int num_parts;
 
   bool cmp(int op, f2_poly_t &that) const;
-  void promote_n(unsigned shamt);
+  void promote_n(uint64_t shamt);
   void promote_4(void);
   void promote_1(void);
   void demote_1(void);

@@ -12,50 +12,50 @@
 namespace spffl::polynomials {
 
 // ----------------------------------------------------------------
-// Parts are 32-bit unsigned integers.
-#define F2POLY_PART_MASK 31
-#define F2POLY_PART_LOG 5
-#define F2POLY_NYBBLES_PER_PART (sizeof(unsigned) * 2)
-#define F2POLY_BITS_PER_PART (sizeof(unsigned) * 8)
+// Parts are 64-bit unsigned integers.
+#define F2POLY_PART_MASK        63
+#define F2POLY_PART_LOG         6
+#define F2POLY_NYBBLES_PER_PART 16
+#define F2POLY_BITS_PER_PART    64
 
 // ----------------------------------------------------------------
 f2_poly_t::f2_poly_t(void) {
   this->num_parts = 1;
-  this->parts = new unsigned[1];
+  this->parts = new uint64_t[1];
   this->parts[0] = 0;
 }
 
 // ----------------------------------------------------------------
 f2_poly_t::f2_poly_t(int c0) {
   this->num_parts = 1;
-  this->parts = new unsigned[1];
+  this->parts = new uint64_t[1];
   this->parts[0] = c0 & 1;
 }
 f2_poly_t::f2_poly_t(int c1, int c0) {
   this->num_parts = 1;
-  this->parts = new unsigned[1];
+  this->parts = new uint64_t[1];
   this->parts[0] = ((c1 & 1) << 1) | (c0 & 1);
 }
 f2_poly_t::f2_poly_t(int c2, int c1, int c0) {
   this->num_parts = 1;
-  this->parts = new unsigned[1];
+  this->parts = new uint64_t[1];
   this->parts[0] = ((c2 & 1) << 2) | ((c1 & 1) << 1) | (c0 & 1);
 }
 f2_poly_t::f2_poly_t(int c3, int c2, int c1, int c0) {
   this->num_parts = 1;
-  this->parts = new unsigned[1];
+  this->parts = new uint64_t[1];
   this->parts[0] =
       ((c3 & 1) << 3) | ((c2 & 1) << 2) | ((c1 & 1) << 1) | (c0 & 1);
 }
 f2_poly_t::f2_poly_t(int c4, int c3, int c2, int c1, int c0) {
   this->num_parts = 1;
-  this->parts = new unsigned[1];
+  this->parts = new uint64_t[1];
   this->parts[0] = ((c4 & 1) << 4) | ((c3 & 1) << 3) | ((c2 & 1) << 2) |
                    ((c1 & 1) << 1) | (c0 & 1);
 }
 f2_poly_t::f2_poly_t(int c5, int c4, int c3, int c2, int c1, int c0) {
   this->num_parts = 1;
-  this->parts = new unsigned[1];
+  this->parts = new uint64_t[1];
   this->parts[0] = ((c5 & 1) << 5) | ((c4 & 1) << 4) | ((c3 & 1) << 3) |
                    ((c2 & 1) << 2) | ((c1 & 1) << 1) | (c0 & 1);
 }
@@ -76,10 +76,10 @@ f2_poly_t::f2_poly_t(const std::string & s) {
 
 // ----------------------------------------------------------------
 // This is a static method.
-f2_poly_t f2_poly_t::from_base_rep(unsigned b) {
+f2_poly_t f2_poly_t::from_base_rep(uint64_t b) {
   f2_poly_t rv;
   rv.num_parts = 1;
-  rv.parts = new unsigned[1];
+  rv.parts = new uint64_t[1];
   rv.parts[0] = b;
   return rv;
 }
@@ -95,7 +95,7 @@ bool f2_poly_t::from_string(const char *string) {
 // ----------------------------------------------------------------
 f2_poly_t::f2_poly_t(const f2_poly_t &that) {
   this->num_parts = that.num_parts;
-  this->parts = new unsigned[this->num_parts];
+  this->parts = new uint64_t[this->num_parts];
   for (int i = 0; i < this->num_parts; i++)
     this->parts[i] = that.parts[i];
 }
@@ -119,7 +119,7 @@ f2_poly_t &f2_poly_t::operator=(f2_poly_t that) {
   if (this->parts)
     delete[] this->parts;
   this->num_parts = that.num_parts;
-  this->parts = new unsigned[this->num_parts];
+  this->parts = new uint64_t[this->num_parts];
   for (int i = 0; i < this->num_parts; i++)
     this->parts[i] = that.parts[i];
   return *this;
@@ -130,7 +130,7 @@ f2_poly_t &f2_poly_t::operator=(int bit) {
   if (this->parts)
     delete[] this->parts;
   this->num_parts = 1;
-  this->parts = new unsigned[this->num_parts];
+  this->parts = new uint64_t[this->num_parts];
   this->parts[0] = bit & 1;
   return *this;
 }
@@ -142,14 +142,14 @@ f2_poly_t f2_poly_t::operator+(f2_poly_t that) const {
 
   if (this->num_parts < that.num_parts) {
     rv.num_parts = that.num_parts;
-    rv.parts = new unsigned[rv.num_parts];
+    rv.parts = new uint64_t[rv.num_parts];
     for (i = 0; i < this->num_parts; i++)
       rv.parts[i] = this->parts[i] ^ that.parts[i];
     for (i = this->num_parts; i < that.num_parts; i++)
       rv.parts[i] = that.parts[i];
   } else {
     rv.num_parts = this->num_parts;
-    rv.parts = new unsigned[rv.num_parts];
+    rv.parts = new uint64_t[rv.num_parts];
     for (i = 0; i < that.num_parts; i++)
       rv.parts[i] = this->parts[i] ^ that.parts[i];
     for (i = that.num_parts; i < this->num_parts; i++)
@@ -174,7 +174,7 @@ f2_poly_t f2_poly_t::operator*(f2_poly_t that) const {
   int cdeg = adeg + bdeg;
 
   out.num_parts = (cdeg + F2POLY_BITS_PER_PART) >> F2POLY_PART_LOG;
-  out.parts = new unsigned[out.num_parts];
+  out.parts = new uint64_t[out.num_parts];
   for (int i = 0; i < out.num_parts; i++)
     out.parts[i] = 0;
   f2_poly_t ashift(*this);
@@ -378,7 +378,7 @@ f2_poly_t f2_poly_t::exp(int e) {
       while (e != 0) {
         if (e & 1)
           rv *= xp;
-        e = (unsigned)e >> 1;
+        e = (uint64_t)e >> 1;
         xp *= xp;
       }
       return rv;
@@ -443,7 +443,7 @@ bool f2_poly_t::operator==(int v) const {
   for (int i = this->num_parts - 1; i > 0; i--)
     if (this->parts[i] != 0)
       return false;
-  return this->parts[0] == (unsigned)(v & 1);
+  return this->parts[0] == (uint64_t)(v & 1);
 }
 bool f2_poly_t::operator!=(int v) const { return !(*this == v); }
 bool f2_poly_t::operator==(f2_poly_t that) const {
@@ -512,7 +512,7 @@ bool f2_poly_t::cmp(int op, f2_poly_t &that) const {
 }
 // ----------------------------------------------------------------
 void f2_poly_t::increment(void) {
-  unsigned zero = 0;
+  uint64_t zero = 0;
   for (int i = 0; i < this->num_parts; i++) {
     if (this->parts[i] != ~zero) {
       this->parts[i]++;
@@ -639,9 +639,9 @@ std::istringstream &operator>>(std::istringstream &iss, f2_poly_t &poly) {
   return iss;
 }
 // ----------------------------------------------------------------
-void f2_poly_t::promote_n(unsigned shamt) {
+void f2_poly_t::promote_n(uint64_t shamt) {
   // For comparison:
-  //	for (unsigned ii = 0; ii < shamt; ii++)
+  //	for (uint64_t ii = 0; ii < shamt; ii++)
   //		this->promote_1();
   int num_parts_shift = shamt >> F2POLY_PART_LOG;
   int num_bits_shift = shamt & F2POLY_PART_MASK;
@@ -769,7 +769,7 @@ void f2_poly_t::extend_parts(int new_num_parts) {
   int i;
   if (new_num_parts <= this->num_parts)
     return;
-  unsigned *temp = new unsigned[new_num_parts];
+  uint64_t *temp = new uint64_t[new_num_parts];
   for (i = 0; i < this->num_parts; i++)
     temp[i] = this->parts[i];
   for (i = this->num_parts; i < new_num_parts; i++)

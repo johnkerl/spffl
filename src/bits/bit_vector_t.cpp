@@ -29,8 +29,8 @@ bit_vector_t::bit_vector_t(int init_num_elements) {
 
   this->num_bits = init_num_elements;
   this->num_words = NWORDS_FROM_NBITS(this->num_bits);
-  this->words = new unsigned[this->num_words];
-  memset(this->words, 0, this->num_words * sizeof(unsigned));
+  this->words = new uint64_t[this->num_words];
+  memset(this->words, 0, this->num_words * sizeof(uint64_t));
 }
 
 // ----------------------------------------------------------------
@@ -44,8 +44,8 @@ bit_vector_t::bit_vector_t(bit_t scalar, int init_num_elements) {
 
   this->num_bits = init_num_elements;
   this->num_words = NWORDS_FROM_NBITS(this->num_bits);
-  this->words = new unsigned[this->num_words];
-  unsigned fill = 0;
+  this->words = new uint64_t[this->num_words];
+  uint64_t fill = 0;
   if (scalar == bit_t(1))
     fill = ~fill;
   for (int i = 0; i < this->num_words; i++)
@@ -64,8 +64,8 @@ bit_vector_t::bit_vector_t(int scalar, int init_num_elements) {
 
   this->num_bits = init_num_elements;
   this->num_words = NWORDS_FROM_NBITS(this->num_bits);
-  this->words = new unsigned[this->num_words];
-  unsigned fill = 0;
+  this->words = new uint64_t[this->num_words];
+  uint64_t fill = 0;
   if (scalar == 1)
     fill = ~fill;
   for (int i = 0; i < this->num_words; i++)
@@ -77,8 +77,8 @@ bit_vector_t::bit_vector_t(int scalar, int init_num_elements) {
 bit_vector_t::bit_vector_t(const bit_vector_t &that) {
   this->num_bits = that.num_bits;
   this->num_words = that.num_words;
-  this->words = new unsigned[that.num_words];
-  memcpy(this->words, that.words, that.num_words * sizeof(unsigned));
+  this->words = new uint64_t[that.num_words];
+  memcpy(this->words, that.words, that.num_words * sizeof(uint64_t));
 }
 
 // ----------------------------------------------------------------
@@ -96,19 +96,19 @@ bit_vector_t &bit_vector_t::operator=(bit_vector_t that) {
   this->num_bits = that.num_bits;
   this->num_words = that.num_words;
   if (this->words == 0) {
-    this->words = new unsigned[that.num_words];
+    this->words = new uint64_t[that.num_words];
   } else if (this->num_words < that.num_words) {
     delete[] this->words;
-    this->words = new unsigned[that.num_words];
+    this->words = new uint64_t[that.num_words];
   }
-  memcpy(this->words, that.words, that.num_words * sizeof(unsigned));
+  memcpy(this->words, that.words, that.num_words * sizeof(uint64_t));
   return *this;
 }
 
 // ----------------------------------------------------------------
 bit_vector_t &bit_vector_t::operator=(const bit_t scalar) {
   if (this->words) {
-    unsigned fill = 0;
+    uint64_t fill = 0;
     if (scalar == bit_t(1))
       fill = ~fill;
     for (int i = 0; i < this->num_words; i++)
@@ -117,10 +117,10 @@ bit_vector_t &bit_vector_t::operator=(const bit_t scalar) {
   } else {
     this->num_bits = 1;
     this->num_words = 1;
-    this->words = new unsigned[1];
+    this->words = new uint64_t[1];
     this->words[0] = 0;
     if (scalar == bit_t(1))
-      this->words[0] = 1 << WORD_POS_FROM_BIT_INDEX(0);
+      this->words[0] = 1LL << WORD_POS_FROM_BIT_INDEX(0);
     this->trim();
   }
   return *this;
@@ -158,7 +158,7 @@ std::istringstream &operator>>(std::istringstream &iss, bit_vector_t &v) {
 
   if (v.words)
     delete[] v.words;
-  v.words = new unsigned[alloc_size];
+  v.words = new uint64_t[alloc_size];
   v.num_words = 0;
   v.num_bits = 0;
   for (int i = 0; i < alloc_size; i++)
@@ -168,7 +168,7 @@ std::istringstream &operator>>(std::istringstream &iss, bit_vector_t &v) {
       break;
     if (v.num_words >= alloc_size) {
       alloc_size += more_size;
-      unsigned *ptemp = new unsigned[alloc_size];
+      uint64_t *ptemp = new uint64_t[alloc_size];
       for (int i = 0; i < v.num_words; i++)
         ptemp[i] = v.words[i];
       for (int i = v.num_words; i < alloc_size; i++)
@@ -246,7 +246,7 @@ bit_vector_t bit_vector_t::operator-(bit_vector_t that) {
 bit_vector_t bit_vector_t::operator*(bit_t s) {
   bit_vector_t rv(*this);
   if (s == bit_t(0))
-    memset(rv.words, 0, rv.num_words * sizeof(unsigned));
+    memset(rv.words, 0, rv.num_words * sizeof(uint64_t));
   return rv;
 }
 
@@ -269,7 +269,7 @@ bit_vector_t bit_vector_t::operator*(bit_vector_t that) {
 bit_t bit_vector_t::dot(bit_vector_t that) {
   if (this->num_bits != that.num_bits)
     this->check_equal_lengths(that);
-  unsigned accum = 0;
+  uint64_t accum = 0;
   for (int i = 0; i < this->num_words; i++)
     accum ^= this->words[i] & that.words[i];
   int num_ones = count_one_bits((unsigned char *)&accum, sizeof(accum));
@@ -346,7 +346,7 @@ bool bit_vector_t::find_leader_pos(int &rpos) {
 void bit_vector_t::ptrswap(bit_vector_t &that) {
   if (this->num_bits != that.num_bits)
     (void)check_equal_lengths(that);
-  unsigned *temp = this->words;
+  uint64_t *temp = this->words;
   this->words = that.words;
   that.words = temp;
 }

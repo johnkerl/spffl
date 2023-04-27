@@ -15,17 +15,17 @@
 
 namespace spffl::bits {
 
-#define BITS_PER_WORD (8 * sizeof(unsigned))
+#define BITS_PER_WORD 64
 
 #define WORD_MASK (BITS_PER_WORD - 1)
 
-// Need to make this a macro.  Currently hard-coded for 32-bit ints.
-// Recall that you can't do sizeof in a macro (the latter are handled by
-// the preprocessor, the former aren't seen until the compiler per se).
-#define BITS_SHIFT 5
+// Hard-coded for 64-bit ints.  Recall that you can't do sizeof in a macro (the
+// latter are handled by the preprocessor, the former aren't seen until the
+// compiler per se).
+#define BITS_SHIFT 6
 
 #define WORD_INDEX_FROM_BIT_INDEX(bi) ((bi) >> BITS_SHIFT)
-#define WORD_POS_FROM_BIT_INDEX(bi) (31 - ((bi)&WORD_MASK))
+#define WORD_POS_FROM_BIT_INDEX(bi) (63 - ((bi)&WORD_MASK))
 
 #define GET_BIT(wordptr, bi)                                                   \
   ((wordptr[WORD_INDEX_FROM_BIT_INDEX(bi)] >> WORD_POS_FROM_BIT_INDEX(bi)) & 1)
@@ -128,11 +128,11 @@ public:
   void ptrswap(bit_vector_t &that);
   bool find_leader_pos(int &rpos);
 
-  unsigned *expose() { return this->words; }
+  uint64_t *expose() { return this->words; }
 
   // ----------------------------------------------------------------
 private:
-  unsigned *words;
+  uint64_t *words;
   int num_words;
   int num_bits;
 
