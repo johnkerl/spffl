@@ -33,7 +33,7 @@ public:
   fp_polymod_t operator*(spffl::intmath::intmod_t a);
   fp_polymod_t operator/(fp_polymod_t that);
   fp_polymod_t operator%(fp_polymod_t that);
-  int recip(fp_polymod_t &rinv);
+  bool recip(fp_polymod_t &rinv);
   fp_polymod_t exp(int e);
   friend std::ostream &operator<<(std::ostream &os, const fp_polymod_t &a);
   // Modulus must have already been set:  this sets only the residue.

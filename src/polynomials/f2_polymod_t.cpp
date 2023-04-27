@@ -114,17 +114,17 @@ f2_polymod_t f2_polymod_t::operator%(f2_polymod_t that) {
 }
 
 // ----------------------------------------------------------------
-int f2_polymod_t::recip(f2_polymod_t &rinv) {
+bool f2_polymod_t::recip(f2_polymod_t &rinv) {
   f2_poly_t g, a, b;
   g = this->residue.ext_gcd(this->modulus, a, b);
 
   // Error check:
   if (g.find_degree() != 0) {
     // std::cerr << "f2_polymod recip: zero or zero divisor.\n";
-    return 0;
+    return false;
   } else {
     rinv = f2_polymod_t(a, this->modulus);
-    return 1;
+    return true;
   }
 }
 

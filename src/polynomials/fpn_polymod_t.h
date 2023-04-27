@@ -32,7 +32,7 @@ public:
   fpn_polymod_t operator*(int a); // Repeated addition.
   fpn_polymod_t operator/(fpn_polymod_t that);
   fpn_polymod_t operator%(fpn_polymod_t that);
-  int recip(fpn_polymod_t &rinv);
+  bool recip(fpn_polymod_t &rinv);
   fpn_polymod_t exp(int e);
   friend std::ostream &operator<<(std::ostream &os, const fpn_polymod_t &a);
   // Modulus must have already been set:  this sets only the residue.

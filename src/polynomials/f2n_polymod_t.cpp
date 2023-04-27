@@ -128,14 +128,14 @@ f2n_polymod_t f2n_polymod_t::operator%(f2n_polymod_t that) {
 }
 
 // ----------------------------------------------------------------
-int f2n_polymod_t::recip(f2n_polymod_t &rinv) {
+bool f2n_polymod_t::recip(f2n_polymod_t &rinv) {
   f2n_poly_t g, a, b;
   g = this->residue.ext_gcd(this->modulus, a, b);
 
   // Error check:
   if (g.find_degree() != 0) {
     // std::cerr << "f2n_polymod recip: zero or zero divisor.\n";
-    return 0;
+    return false;
   }
 
   // Ext. GCD actually returns a scalar multiple of 1.  Divide this out.
@@ -148,7 +148,7 @@ int f2n_polymod_t::recip(f2n_polymod_t &rinv) {
   a *= c0i;
   f2n_polymod_t rv(a, this->modulus);
   rinv = rv;
-  return 1;
+  return true;
 }
 
 // ----------------------------------------------------------------
