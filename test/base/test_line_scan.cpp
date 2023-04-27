@@ -1,11 +1,11 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include <string.h>
 #include "line_scan.h"
+#include <string.h>
 
 TEST_CASE("spffl::base::line_scan::chomp") {
 
-  char* input = strdup((char *)"abc");
+  char *input = strdup((char *)"abc");
   spffl::base::chomp(input);
   CHECK(strcmp(input, "abc") == 0);
 
@@ -20,7 +20,6 @@ TEST_CASE("spffl::base::line_scan::chomp") {
   input = strdup((char *)"abc\n\n");
   spffl::base::chomp(input);
   CHECK(strcmp(input, "abc\n") == 0);
-
 }
 
 TEST_CASE("spffl::base::line_scan::is_whitespace_line") {
@@ -32,5 +31,4 @@ TEST_CASE("spffl::base::line_scan::is_whitespace_line") {
   CHECK(spffl::base::is_whitespace_line("  \t\n "));
   CHECK(!spffl::base::is_whitespace_line("  \tn "));
   CHECK(!spffl::base::is_whitespace_line(" x "));
-
 }
