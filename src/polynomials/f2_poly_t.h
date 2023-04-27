@@ -70,7 +70,7 @@ public:
   f2_poly_t ext_gcd(f2_poly_t &that, f2_poly_t &rm, f2_poly_t &rn);
   f2_poly_t exp(int power);
   f2_poly_t deriv(void);
-  int square_root(f2_poly_t &rroot);
+  bool square_root(f2_poly_t &rroot);
   int eval(int c);
   spffl::bits::bit_t eval(spffl::bits::bit_t c);
   int zcount_one_bits(void);

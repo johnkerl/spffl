@@ -583,7 +583,7 @@ f2_poly_t f2_poly_t::deriv(void) {
 // out = a4 x^2 + a2 x   + a0
 
 #ifndef F2POLY_SMALL
-int f2_poly_t::square_root(f2_poly_t &rroot) {
+bool f2_poly_t::square_root(f2_poly_t &rroot) {
   int si, di;
   int deg = this->find_degree();
   f2_poly_t root(0);
@@ -592,16 +592,16 @@ int f2_poly_t::square_root(f2_poly_t &rroot) {
     if (this->bit_at(si))
       root.set_bit(di);
     if (this->bit_at(si + 1))
-      return 0;
+      return false;
   }
 
   rroot = root;
-  return 1;
+  return true;
 }
 #endif
 
 #ifdef F2POLY_SMALL
-int f2_poly_t::square_root(f2_poly_t &rroot) {
+bool f2_poly_t::square_root(f2_poly_t &rroot) {
   int deg = this->find_degree();
   int si, di;
   rroot.bits = 0;
@@ -612,12 +612,12 @@ int f2_poly_t::square_root(f2_poly_t &rroot) {
       rroot.bits |= outbit.bits;
     inbit.bits <<= 1;
     if (this->bits & inbit.bits)
-      return 0;
+      return false;
     inbit.bits <<= 1;
     outbit.bits <<= 1;
   }
 
-  return 1;
+  return true;
 }
 #endif
 
