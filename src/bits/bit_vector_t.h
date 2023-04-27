@@ -126,7 +126,7 @@ public:
   void accum_row(bit_vector_t &that);
   int get_num_elements(void);
   void ptrswap(bit_vector_t &that);
-  int find_leader_pos(int &rpos);
+  bool find_leader_pos(int &rpos);
 
   unsigned *expose() { return this->words; }
 

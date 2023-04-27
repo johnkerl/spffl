@@ -69,13 +69,13 @@ public:
   }
 
   // ----------------------------------------------------------------
-  int pop(element_type &re) {
+  bool pop(element_type &re) {
     if (this->freeidx > 0) {
       this->freeidx--;
       re = this->elements[freeidx];
-      return 1;
+      return true;
     } else {
-      return 0;
+      return false;
     }
   }
 

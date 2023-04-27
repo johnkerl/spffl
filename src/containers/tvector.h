@@ -421,14 +421,14 @@ public:
 
   // ----------------------------------------------------------------
   // Return value:  True/false.  rpos:  index, if found.
-  int find_leader_pos(element_type &rzero, int &rpos) {
+  bool find_leader_pos(element_type &rzero, int &rpos) {
     for (int j = 0; j < this->num_elements; j++) {
       if (this->elements[j] != rzero) {
         rpos = j;
-        return 1;
+        return true;
       }
     }
-    return 0;
+    return false;
   }
 
   // ----------------------------------------------------------------

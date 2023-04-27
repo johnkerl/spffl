@@ -935,31 +935,31 @@ public:
     }
   }
 
-  int get_rr_non_zero_rows(tmatrix<element_type> &rrnz) {
+  bool get_rr_non_zero_rows(tmatrix<element_type> &rrnz) {
     tmatrix<element_type> rr(*this);
     rr.row_reduce_below();
     int rank = rr.get_rank_rr();
     if (rank == 0) {
       // I don't support zero-row matrices.
-      return 0;
+      return false;
     } else {
       rrnz = rr;
       rrnz.num_rows = rank;
-      return 1;
+      return true;
     }
   }
 
-  int get_rech_non_zero_rows(tmatrix<element_type> &rechnz) {
+  bool get_rech_non_zero_rows(tmatrix<element_type> &rechnz) {
     tmatrix<element_type> rech(*this);
     rech.row_echelon_form();
     int rank = rech.get_rank_rr();
     if (rank == 0) {
       // I don't support zero-row matrices.
-      return 0;
+      return false;
     } else {
       rechnz = rech;
       rechnz.num_rows = rank;
-      return 1;
+      return true;
     }
   }
 
@@ -1151,7 +1151,7 @@ public:
   // The solve_unique method checks that the matrix has full rank (i.e. rank=n).
   // For efficiency, if the matrix is already known to have full rank, invoke
   // solve_unique_full_rank.
-  int solve_unique(tvector<element_type> &x, // Output
+  bool solve_unique(tvector<element_type> &x, // Output
                    tvector<element_type> &b, // Input
                    element_type zero, element_type one) {
     int indim = this->get_num_cols();
@@ -1161,12 +1161,12 @@ public:
     //  unique solution.
     if (indim > outdim) {
       std::cerr << "tmatrix::solve_unique:  matrix cannot have full rank.\n";
-      return 0;
+      return false;
     }
     int A_rank = this->get_rank();
     if (A_rank != indim) {
       std::cerr << "tmatrix::solve_unique:  matrix does not have full rank.\n";
-      return 0;
+      return false;
     }
 
     return this->solve_unique_full_rank(x, b, zero, one);
@@ -1175,7 +1175,7 @@ public:
   // The solve_unique_full_rank method assumes the matrix is already known to
   // have full rank (rank=n).  If this is not known, please invoke solve_unique
   // instead.
-  int solve_unique_full_rank(tvector<element_type> &x, // Output
+  bool solve_unique_full_rank(tvector<element_type> &x, // Output
                              tvector<element_type> &b, // Input
                              element_type zero, element_type one) {
     int indim = this->get_num_cols();
@@ -1185,13 +1185,13 @@ public:
     if (Ab_rank != indim) {
       std::cerr << "tmatrix::solve_unique_full_rank:  augmented matrix does "
                    "not have full rank.\n";
-      return 0;
+      return false;
     }
 
     x = tvector<element_type>(indim);
     for (int i = 0; i < indim; i++)
       x[i] = Ab_rr.rows[i][indim];
-    return 1;
+    return true;
   }
 
   // n < m:
