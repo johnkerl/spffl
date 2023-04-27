@@ -114,12 +114,12 @@ public:
   }
 
   // ----------------------------------------------------------------
-  int get_unit(element_type &runit) {
+  bool get_unit(element_type &runit) {
     if (this->have_unit) {
       runit = this->unit;
-      return 1;
+      return true;
     } else {
-      return 0;
+      return false;
     }
   }
 
