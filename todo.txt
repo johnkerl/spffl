@@ -17,6 +17,8 @@ k manual clang-format
   - get_characteristic -> get_characteristic
   - other unabbrevs
 
+* no-malloc case for f2poly_t w/ <= 64 bits, and expand-to-malloc on overflow
+
 * int -> bool pass
   - needs more
 * unsigned -> uint32_t etc pass
@@ -33,6 +35,10 @@ k manual clang-format
 * install target
 * internal/external installs (if any internal api at all ...)
 * CI setups
+
+----------------------------------------------------------------
+./build/test/bits/test_bits --list-tests
+./build/test/bits/test_bits
 
 ----------------------------------------------------------------
 TBF

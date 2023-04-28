@@ -647,8 +647,7 @@ void f2_poly_t::promote_n(unsigned shamt) {
     for (i = this->num_parts - onum_parts - 1; i >= 0; i--) {
       this->parts[i] = 0;
     }
-  }
-  else {
+  } else {
     int di = this->num_parts - 1;
     int si = onum_parts - 1;
     if ((odeg & F2POLY_PART_MASK) >= cmpl_bits_shift) {

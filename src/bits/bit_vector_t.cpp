@@ -220,8 +220,8 @@ void bit_vector_t::toggle_element(int index) {
 bool bit_vector_t::is_zero(void) {
   for (int i = 0; i < this->num_words; i++)
     if (this->words[i])
-      return 0;
-  return 1;
+      return false;
+  return true;
 }
 
 // ----------------------------------------------------------------
@@ -303,7 +303,7 @@ bit_vector_t bit_vector_t::operator*=(bit_vector_t that) {
 }
 
 // ----------------------------------------------------------------
-bool bit_vector_t::operator==(bit_vector_t &that) {
+bool bit_vector_t::operator==(const bit_vector_t &that) const {
   if (this->num_bits != that.num_bits)
     return false;
   for (int i = 0; i < this->num_words - 1; i++)
@@ -313,10 +313,10 @@ bool bit_vector_t::operator==(bit_vector_t &that) {
 }
 
 // ----------------------------------------------------------------
-bool bit_vector_t::operator!=(bit_vector_t &that) { return !(*this == that); }
+bool bit_vector_t::operator!=(const bit_vector_t &that) const { return !(*this == that); }
 
 // ----------------------------------------------------------------
-bool bit_vector_t::operator==(bit_t scalar) {
+bool bit_vector_t::operator==(const bit_t scalar) const {
   unsigned fill = 0;
   if (scalar == bit_t(1))
     fill = ~fill;
@@ -327,7 +327,7 @@ bool bit_vector_t::operator==(bit_t scalar) {
 }
 
 // ----------------------------------------------------------------
-bool bit_vector_t::operator!=(bit_t scalar) { return !(*this == scalar); }
+bool bit_vector_t::operator!=(const bit_t scalar) const { return !(*this == scalar); }
 
 // ----------------------------------------------------------------
 // Return value:  True/false.  rpos:  index, if found.

@@ -5,6 +5,7 @@
 // ================================================================
 
 #include "line_scan.h"
+#include <cctype>
 #include <string.h>
 
 namespace spffl::base {
@@ -21,9 +22,11 @@ void chomp(char *line) {
 // ----------------------------------------------------------------
 bool is_whitespace_line(char *line) {
   char *p;
-  for (p = line; *p; p++)
-    if ((*p != ' ') && (*p != '\t'))
+  for (p = line; *p; p++) {
+    if (!isspace(*p)) {
       return false;
+    }
+  }
   return true;
 }
 

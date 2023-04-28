@@ -115,10 +115,10 @@ public:
   bit_vector_t operator*=(bit_t scalar);
   bit_vector_t operator*=(bit_vector_t that);
 
-  bool operator==(bit_vector_t &that);
-  bool operator!=(bit_vector_t &that);
-  bool operator==(bit_t scalar);
-  bool operator!=(bit_t scalar);
+  bool operator==(const bit_vector_t &that) const;
+  bool operator!=(const bit_vector_t &that) const;
+  bool operator==(const bit_t scalar) const;
+  bool operator!=(const bit_t scalar) const;
 
   // Warning:  trusts the caller to remain in bounds!
   int get_bit(int index) { return GET_BIT(this->words, index); }
