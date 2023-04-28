@@ -38,7 +38,7 @@ f2_polymod_t f2_polymod_t::prime_sfld_elt(int v, f2_poly_t m) {
 }
 
 // ----------------------------------------------------------------
-int f2_polymod_t::get_char(void) { return 2; }
+int f2_polymod_t::get_characteristic(void) { return 2; }
 
 // ----------------------------------------------------------------
 f2_polymod_t &f2_polymod_t::operator=(f2_polymod_t that) {

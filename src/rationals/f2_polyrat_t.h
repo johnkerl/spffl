@@ -25,7 +25,7 @@ public:
   ~f2_polyrat_t(void);
 
   f2_polyrat_t prime_sfld_elt(int v) const;
-  int get_char(void);
+  int get_characteristic(void);
 
   f2_polyrat_t &operator=(f2_polyrat_t that);
   f2_polyrat_t &operator=(spffl::polynomials::f2_poly_t numer);

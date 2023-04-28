@@ -189,7 +189,7 @@ fp_poly_t fp_poly_t::prime_sfld_elt(int v) const {
 }
 
 // ----------------------------------------------------------------
-int fp_poly_t::get_char(void) { return this->coeffs[0].get_modulus(); }
+int fp_poly_t::get_characteristic(void) { return this->coeffs[0].get_modulus(); }
 
 // ----------------------------------------------------------------
 fp_poly_t &fp_poly_t::operator=(fp_poly_t that) {
@@ -560,7 +560,7 @@ fp_poly_t fp_poly_t::deriv(void) {
     return this->prime_sfld_elt(0);
 
   fp_poly_t rv(*this);
-  int p = this->get_char();
+  int p = this->get_characteristic();
   rv.degree--;
   for (int i = 1; i <= this->degree; i++)
     rv.coeffs[i - 1] = this->coeffs[i] * spffl::intmath::intmod_t(i, p);
@@ -572,7 +572,7 @@ fp_poly_t fp_poly_t::deriv(void) {
 // Relies on the fact that f(x^p) = f^p(x) in Fp[x].
 
 bool fp_poly_t::pth_root(fp_poly_t &rroot) {
-  int p = this->get_char();
+  int p = this->get_characteristic();
   spffl::intmath::intmod_t zero(0, p);
   int si, di;
   int j;
@@ -752,7 +752,7 @@ bool fp_poly_t::cmp(int cmp, fp_poly_t &that) const {
 
 // ----------------------------------------------------------------
 void fp_poly_t::increment(void) {
-  int p = this->get_char();
+  int p = this->get_characteristic();
   spffl::intmath::intmod_t zero(0, p);
   spffl::intmath::intmod_t one(1, p);
   for (int i = 0; i <= this->degree; i++) {
@@ -795,7 +795,7 @@ std::ostream &operator<<(std::ostream &os, const fp_poly_t &poly) {
 // Coefficient 0 modulus must already be set.
 
 std::istream &operator>>(std::istream &is, fp_poly_t &poly) {
-  int p = poly.get_char();
+  int p = poly.get_characteristic();
   spffl::base::rsstring_t rss;
   char c;
 
@@ -842,7 +842,7 @@ std::istream &operator>>(std::istream &is, fp_poly_t &poly) {
 // std::istringstream & operator>>(std::istringstream & iss,
 //	fp_poly_t & poly)
 //{
-//	int p = poly.get_char();
+//	int p = poly.get_characteristic();
 //	spffl::base::rsstring_t rss;
 //
 //	char c = iss.peek();

@@ -97,7 +97,7 @@ f2_poly_t::~f2_poly_t(void) {
 f2_poly_t f2_poly_t::prime_sfld_elt(int v) const { return f2_poly_t(v & 1); }
 
 // ----------------------------------------------------------------
-int f2_poly_t::get_char(void) { return 2; }
+int f2_poly_t::get_characteristic(void) { return 2; }
 
 // ----------------------------------------------------------------
 f2_poly_t &f2_poly_t::operator=(f2_poly_t that) {

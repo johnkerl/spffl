@@ -42,7 +42,7 @@ int f2npm_froblen(spffl::polynomials::f2n_polymod_t a) {
 // ----------------------------------------------------------------
 int fppm_froblen(spffl::polynomials::fp_polymod_t a) {
   int rv = 0;
-  int p = a.get_char();
+  int p = a.get_characteristic();
   spffl::polynomials::fp_polymod_t ap = a;
 
   do {
@@ -160,7 +160,7 @@ spffl::polynomials::fp_poly_t
 fppm_min_poly(spffl::polynomials::fp_polymod_t a) {
   spffl::polynomials::fp_poly_t m = a.get_modulus();
   spffl::polynomials::fp_polymod_t ap = a.prime_sfld_elt(1);
-  int p = a.get_char();
+  int p = a.get_characteristic();
   spffl::intmath::intmod_t zero(0, p);
   spffl::intmath::intmod_t one(1, p);
   int n = m.find_degree();

@@ -124,7 +124,7 @@ fpn_poly_t fpn_poly_t::prime_sfld_elt(int v, fp_poly_t m) {
 }
 
 // ----------------------------------------------------------------
-int fpn_poly_t::get_char(void) { return this->coeffs[0].get_char(); }
+int fpn_poly_t::get_characteristic(void) { return this->coeffs[0].get_characteristic(); }
 
 // ----------------------------------------------------------------
 fpn_poly_t &fpn_poly_t::operator=(fpn_poly_t that) {
@@ -505,7 +505,7 @@ fpn_poly_t fpn_poly_t::deriv(void) {
     return this->prime_sfld_elt(0);
 
   fpn_poly_t rv(*this);
-  int p = this->get_char();
+  int p = this->get_characteristic();
   rv.degree--;
   for (int i = 1; i <= this->degree; i++)
     rv.coeffs[i - 1] = this->coeffs[i] * spffl::intmath::intmod_t(i, p);
@@ -521,7 +521,7 @@ bool fpn_poly_t::pth_root(fpn_poly_t &rroot) {
   fp_polymod_t zero = this->coeffs[0].prime_sfld_elt(0);
   int si, di, j;
   fpn_poly_t out;
-  int p = this->get_char();
+  int p = this->get_characteristic();
 
   out.set_coeff(this->degree, zero);
   for (di = this->degree - 1; di >= 0; di--)

@@ -36,7 +36,7 @@ public:
 
   fpn_poly_t prime_sfld_elt(int v) const;
   static fpn_poly_t prime_sfld_elt(int v, fp_poly_t m);
-  int get_char(void);
+  int get_characteristic(void);
 
   fpn_poly_t &operator=(fpn_poly_t that);
   fpn_poly_t operator+(fpn_poly_t that) const;

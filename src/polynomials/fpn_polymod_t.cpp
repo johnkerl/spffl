@@ -52,7 +52,7 @@ fpn_polymod_t fpn_polymod_t::prime_sfld_elt(int v, fpn_poly_t om) {
 }
 
 // ----------------------------------------------------------------
-int fpn_polymod_t::get_char(void) { return this->residue.get_char(); }
+int fpn_polymod_t::get_characteristic(void) { return this->residue.get_characteristic(); }
 
 // ----------------------------------------------------------------
 fpn_polymod_t &fpn_polymod_t::operator=(fpn_polymod_t that) {

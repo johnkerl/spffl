@@ -55,7 +55,7 @@ fp_char_poly(tmatrix<spffl::intmath::intmod_t> &A) {
 tmatrix<spffl::intmath::intmod_t>
 fp_companion_matrix(spffl::polynomials::fp_poly_t chpol) {
   int n = chpol.find_degree();
-  int p = chpol.get_char();
+  int p = chpol.get_characteristic();
   tmatrix<spffl::intmath::intmod_t> rv(n, n);
   int i;
 
@@ -81,7 +81,7 @@ static spffl::polynomials::fpn_poly_t fp_polymod_char_or_min_poly(
 	bool do_min)
 {
 	spffl::polynomials::fp_poly_t m = a.get_modulus();
-	int p = m.get_char();
+	int p = m.get_characteristic();
 	int d = m.find_degree();
 	spffl::polynomials::fp_poly_t r1(spffl::intmath::intmod_t(1, p));
 	spffl::polynomials::fp_polymod_t one(r1, m);

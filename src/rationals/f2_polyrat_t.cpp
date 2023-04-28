@@ -57,7 +57,7 @@ f2_polyrat_t f2_polyrat_t::prime_sfld_elt(int v) const {
 }
 
 // ----------------------------------------------------------------
-int f2_polyrat_t::get_char(void) { return 2; }
+int f2_polyrat_t::get_characteristic(void) { return 2; }
 
 // ----------------------------------------------------------------
 f2_polyrat_t &f2_polyrat_t::operator=(f2_polyrat_t that) {

@@ -22,7 +22,7 @@ public:
 
   f2n_polymod_t prime_sfld_elt(int v) const;
   static f2n_polymod_t prime_sfld_elt(int v, f2n_poly_t om);
-  int get_char(void);
+  int get_characteristic(void);
 
   f2n_polymod_t &operator=(f2n_polymod_t that);
   f2n_polymod_t operator+(f2n_polymod_t that);

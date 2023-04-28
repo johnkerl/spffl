@@ -57,7 +57,7 @@ spffl::polynomials::fpn_poly_t
 fpn_poly_from_qpoly(spffl::rationals::qpoly_t q,
                     spffl::polynomials::fp_poly_t im) {
   int d = q.find_degree();
-  int p = im.get_char();
+  int p = im.get_characteristic();
   spffl::intmath::intmod_t z0(0, p);
   spffl::polynomials::fp_poly_t z1(z0);
   spffl::polynomials::fp_polymod_t z2(z0, im);
