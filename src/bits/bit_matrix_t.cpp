@@ -143,7 +143,7 @@ bit_matrix_t &bit_matrix_t::operator=(bit_matrix_t that) {
 
 // ----------------------------------------------------------------
 bool bit_matrix_t::operator==(bit_matrix_t that) {
-  this->check_dims(that, "operator==");
+  this->check_dims(that, (char *)"operator==");
   for (int i = 0; i < this->num_rows; i++)
     if (this->rows[i] != that.rows[i])
       return false;
@@ -271,7 +271,7 @@ bit_vector_t &bit_matrix_t::operator[](int row_index) {
 
 // ----------------------------------------------------------------
 bit_matrix_t bit_matrix_t::operator+(bit_matrix_t that) {
-  this->check_dims(that, "operator+");
+  this->check_dims(that, (char *)"operator+");
   bit_matrix_t rv(this->num_rows, this->num_cols);
   for (int i = 0; i < this->num_rows; i++)
     rv[i] = this->rows[i] + that.rows[i];

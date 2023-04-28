@@ -126,9 +126,9 @@ static void cmd_interpolate_once(char *exename, int &argc, char **&argv,
                                  int &interpolated) {
   interpolated = 0;
   int lefti, righti;
-  if (!find_first_bracket(argc, argv, LBRK, lefti)) {
+  if (!find_first_bracket(argc, argv, (char *)LBRK, lefti)) {
     int dummy;
-    if (find_first_bracket(argc, argv, RBRK, dummy)) {
+    if (find_first_bracket(argc, argv, (char *)RBRK, dummy)) {
       std::cerr << "Bracket imbalance.\n";
       exit(1);
     }

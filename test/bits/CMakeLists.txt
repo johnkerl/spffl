@@ -1,3 +1,5 @@
+project(test_bits)
+
 # ----------------------------------------------------------------
 # catch2 has a set-but-unused-variable warning as of MacOS 13.3.
 # So we need to not use -Werror, as that's third-party code out of our control.
@@ -39,6 +41,23 @@ if(APPLE AND OS_RELEASE VERSION_GREATER_EQUAL "13.0.0")
 endif()
 
 # ----------------------------------------------------------------
-add_subdirectory(base)
-add_subdirectory(intmath)
-add_subdirectory(bits)
+add_executable(test_bits
+  test_count_bits.cpp
+  test_bit_t.cpp
+  test_bit_vector_t.cpp
+  test_bit_matrix_t.cpp
+)
+target_include_directories(${PROJECT_NAME}
+  PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../src/bits
+)
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    bits Catch2::Catch2WithMain
+)
+
+# ----------------------------------------------------------------
+# This makes the following work:
+# cmake --build build --target test
+list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
+include(Catch)
+catch_discover_tests(test_bits)

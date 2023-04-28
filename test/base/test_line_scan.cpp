@@ -24,11 +24,11 @@ TEST_CASE("spffl::base::line_scan::chomp") {
 
 TEST_CASE("spffl::base::line_scan::is_whitespace_line") {
 
-  CHECK(spffl::base::is_whitespace_line(""));
-  CHECK(spffl::base::is_whitespace_line(" "));
-  CHECK(spffl::base::is_whitespace_line("\t"));
-  CHECK(spffl::base::is_whitespace_line("\n"));
-  CHECK(spffl::base::is_whitespace_line("  \t\n "));
-  CHECK(!spffl::base::is_whitespace_line("  \tn "));
-  CHECK(!spffl::base::is_whitespace_line(" x "));
+  CHECK(spffl::base::is_whitespace_line((char *)""));
+  CHECK(spffl::base::is_whitespace_line((char *)" "));
+  CHECK(spffl::base::is_whitespace_line((char *)"\t"));
+  CHECK(spffl::base::is_whitespace_line((char *)"\n"));
+  CHECK(spffl::base::is_whitespace_line((char *)"  \t\n "));
+  CHECK(!spffl::base::is_whitespace_line((char *)"  \tn "));
+  CHECK(!spffl::base::is_whitespace_line((char *)" x "));
 }
