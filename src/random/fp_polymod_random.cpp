@@ -18,7 +18,7 @@ fp_polymod_random(spffl::polynomials::fp_poly_t m) {
               << " should be >= 1.\n";
     exit(1);
   }
-  int p = m.get_char();
+  int p = m.get_characteristic();
   return spffl::polynomials::fp_polymod_t(fp_poly_random(p, deg), m);
 }
 

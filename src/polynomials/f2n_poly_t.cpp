@@ -198,7 +198,7 @@ f2n_poly_t f2n_poly_t::prime_sfld_elt(int v, f2_poly_t m) {
 }
 
 // ----------------------------------------------------------------
-int f2n_poly_t::get_char(void) { return 2; }
+int f2n_poly_t::get_characteristic(void) { return 2; }
 
 // ----------------------------------------------------------------
 f2n_poly_t &f2n_poly_t::operator=(f2n_poly_t that) {

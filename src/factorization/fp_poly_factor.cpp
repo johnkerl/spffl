@@ -31,7 +31,7 @@ tfacinfo<spffl::polynomials::fp_poly_t>
 fp_poly_factor(spffl::polynomials::fp_poly_t f) {
   tfacinfo<spffl::polynomials::fp_poly_t> finfo;
   int d = f.find_degree();
-  int p = f.get_char();
+  int p = f.get_characteristic();
   spffl::intmath::intmod_t zero(0, p);
   spffl::intmath::intmod_t one(1, p);
 
@@ -79,7 +79,7 @@ fp_poly_pre_berlekamp(spffl::polynomials::fp_poly_t f,
     // Input is a perfect pth power
     spffl::polynomials::fp_poly_t s;
     tfacinfo<spffl::polynomials::fp_poly_t> sfinfo;
-    int p = f.get_char();
+    int p = f.get_characteristic();
     if (!f.pth_root(s)) {
       std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
                 << "\n";
@@ -112,7 +112,7 @@ static void fp_poly_berlekamp(spffl::polynomials::fp_poly_t f,
                               tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo,
                               bool recurse) {
   int n = f.find_degree();
-  int p = f.get_char();
+  int p = f.get_characteristic();
   spffl::intmath::intmod_t zero(0, p);
   spffl::intmath::intmod_t one(1, p);
   spffl::polynomials::fp_poly_t x(one, zero);

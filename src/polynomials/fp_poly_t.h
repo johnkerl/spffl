@@ -41,7 +41,7 @@ public:
 
   static fp_poly_t from_base_rep(int b, int modulus);
   fp_poly_t prime_sfld_elt(int v) const;
-  int get_char(void);
+  int get_characteristic(void);
 
   fp_poly_t(const fp_poly_t &that);
   ~fp_poly_t(void);

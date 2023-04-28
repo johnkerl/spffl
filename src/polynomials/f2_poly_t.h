@@ -33,7 +33,7 @@ public:
   static f2_poly_t from_base_rep(unsigned b);
   f2_poly_t prime_sfld_elt(int v) const;
   bool from_string(char *string);
-  int get_char(void);
+  int get_characteristic(void);
 
   f2_poly_t(const f2_poly_t &that);
   ~f2_poly_t(void);

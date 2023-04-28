@@ -51,7 +51,7 @@ fp_polymod_t fp_polymod_t::prime_sfld_elt(int v, fp_poly_t m) {
 }
 
 // ----------------------------------------------------------------
-int fp_polymod_t::get_char(void) { return this->residue.get_char(); }
+int fp_polymod_t::get_characteristic(void) { return this->residue.get_characteristic(); }
 
 // ----------------------------------------------------------------
 fp_polymod_t &fp_polymod_t::operator=(fp_polymod_t that) {
@@ -90,7 +90,7 @@ fp_polymod_t fp_polymod_t::operator*(fp_polymod_t that) {
 // ----------------------------------------------------------------
 fp_polymod_t fp_polymod_t::operator*(int a) {
   fp_polymod_t rv(*this);
-  int p = this->get_char();
+  int p = this->get_characteristic();
   a %= p;
   if (a == 0) {
     rv = rv - rv;
@@ -229,7 +229,7 @@ std::istringstream &operator>>(std::istringstream &iss, fp_polymod_t &a) {
 // ----------------------------------------------------------------
 bool fp_polymod_t::from_string(char *string, fp_poly_t &m) {
   fp_poly_t r;
-  int p = m.get_char();
+  int p = m.get_characteristic();
   if (!r.from_string(string, p))
     return false;
   *this = fp_polymod_t(r, m);

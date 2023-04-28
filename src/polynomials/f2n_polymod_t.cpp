@@ -52,7 +52,7 @@ f2n_polymod_t f2n_polymod_t::prime_sfld_elt(int v, f2n_poly_t om) {
 }
 
 // ----------------------------------------------------------------
-int f2n_polymod_t::get_char(void) { return 2; }
+int f2n_polymod_t::get_characteristic(void) { return 2; }
 
 // ----------------------------------------------------------------
 f2n_polymod_t &f2n_polymod_t::operator=(f2n_polymod_t that) {

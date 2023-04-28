@@ -43,7 +43,7 @@ namespace spffl::factorization {
 
 int fp_poly_totient(spffl::polynomials::fp_poly_t f) {
   int rv = 1;
-  int p = f.get_char();
+  int p = f.get_characteristic();
   tfacinfo<spffl::polynomials::fp_poly_t> finfo = fp_poly_factor(f);
   int nf = finfo.get_num_distinct();
 
