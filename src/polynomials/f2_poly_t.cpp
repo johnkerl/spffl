@@ -63,7 +63,7 @@ f2_poly_t::f2_poly_t(int c5, int c4, int c3, int c2, int c1, int c0) {
 f2_poly_t::f2_poly_t(const std::string & s) {
   // TODO: neaten this up to have only a single alloc
   this->num_parts = 1;
-  this->parts = new unsigned[1];
+  this->parts = new uint64_t[1];
   this->parts[0] = 0;
 
   std::istringstream iss(s, std::ios_base::in);
@@ -433,7 +433,7 @@ int f2_poly_t::zcount_one_bits(void) {
 int f2_poly_t::find_degree(void) const {
   for (int i = this->num_parts - 1; i >= 0; i--) {
     if (this->parts[i])
-      return spffl::intmath::find_msb_32(this->parts[i]) +
+      return spffl::intmath::find_msb_64(this->parts[i]) +
              (i << F2POLY_PART_LOG);
   }
   return 0; // Zero polynomial.
@@ -643,9 +643,10 @@ void f2_poly_t::promote_n(uint64_t shamt) {
   // For comparison:
   //	for (uint64_t ii = 0; ii < shamt; ii++)
   //		this->promote_1();
-  int num_parts_shift = shamt >> F2POLY_PART_LOG;
-  int num_bits_shift = shamt & F2POLY_PART_MASK;
-  int cmpl_bits_shift = 32 - num_bits_shift;
+  uint64_t num_parts_shift = shamt >> F2POLY_PART_LOG;
+  uint64_t num_bits_shift = shamt & F2POLY_PART_MASK;
+  // TODO: constify the 64
+  uint64_t cmpl_bits_shift = 64 - num_bits_shift;
   int odeg = this->find_degree();
   int ndeg = odeg + shamt;
   int onum_parts = (odeg >> F2POLY_PART_LOG) + 1;
@@ -684,6 +685,7 @@ void f2_poly_t::promote_n(uint64_t shamt) {
     }
   }
 }
+
 // ----------------------------------------------------------------
 //        2        1        0
 // 00000000 aabbccdd 11223344  pre
@@ -697,22 +699,22 @@ void f2_poly_t::promote_n(uint64_t shamt) {
 // parts[1] = (parts[1] << 4) | (parts[0] >> 28)
 // parts[0] =  parts[0] << 4;
 void f2_poly_t::promote_4(void) {
-  if (this->parts[this->num_parts - 1] & 0xf0000000)
+  if (this->parts[this->num_parts - 1] & 0xf000000000000000LL)
     this->extend_parts(this->num_parts + 1);
   for (int i = this->num_parts - 1; i > 0; i--)
-    this->parts[i] = (this->parts[i] << 4) | (this->parts[i - 1] >> 28);
+    this->parts[i] = (this->parts[i] << 4) | (this->parts[i - 1] >> 60);
   this->parts[0] <<= 4;
 }
 void f2_poly_t::promote_1(void) {
-  if (this->parts[this->num_parts - 1] & 0x80000000)
+  if (this->parts[this->num_parts - 1] & 0x8000000000000000LL)
     this->extend_parts(this->num_parts + 1);
   for (int i = this->num_parts - 1; i > 0; i--)
-    this->parts[i] = (this->parts[i] << 1) | (this->parts[i - 1] >> 31);
+    this->parts[i] = (this->parts[i] << 1) | (this->parts[i - 1] >> 63);
   this->parts[0] <<= 1;
 }
 void f2_poly_t::demote_1(void) {
   for (int i = 0; i < this->num_parts - 1; i++)
-    this->parts[i] = (this->parts[i] >> 1) | (this->parts[i + 1] << 31);
+    this->parts[i] = (this->parts[i] >> 1) | (this->parts[i + 1] << 63);
   this->parts[this->num_parts - 1] >>= 1;
   if (this->parts[this->num_parts - 1] == 0)
     if (this->num_parts > 0)
