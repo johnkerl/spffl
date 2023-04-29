@@ -24,16 +24,16 @@ public:
   static fp_polymod_t prime_sfld_elt(int v, fp_poly_t m);
   int get_characteristic(void) const;
 
-  fp_polymod_t &operator=(const fp_polymod_t& that);
+  fp_polymod_t &operator=(const fp_polymod_t &that);
 
-  fp_polymod_t operator+(const fp_polymod_t& that) const;
-  fp_polymod_t operator-(const fp_polymod_t& that) const;
+  fp_polymod_t operator+(const fp_polymod_t &that) const;
+  fp_polymod_t operator-(const fp_polymod_t &that) const;
   fp_polymod_t operator-(void) const;
-  fp_polymod_t operator*(const fp_polymod_t& that) const;
+  fp_polymod_t operator*(const fp_polymod_t &that) const;
   fp_polymod_t operator*(int a) const; // Repeated addition.
   fp_polymod_t operator*(spffl::intmath::intmod_t a) const;
-  fp_polymod_t operator/(const fp_polymod_t& that) const;
-  fp_polymod_t operator%(const fp_polymod_t& that) const;
+  fp_polymod_t operator/(const fp_polymod_t &that) const;
+  fp_polymod_t operator%(const fp_polymod_t &that) const;
   bool recip(fp_polymod_t &rinv) const;
   fp_polymod_t exp(int e) const;
   friend std::ostream &operator<<(std::ostream &os, const fp_polymod_t &a);
@@ -43,24 +43,24 @@ public:
       std::istringstream &iss, fp_polymod_t &a);
   bool from_string(const char *string, fp_poly_t &m);
 
-  fp_polymod_t &operator+=(const fp_polymod_t& that);
-  fp_polymod_t &operator-=(const fp_polymod_t& that);
-  fp_polymod_t &operator*=(const fp_polymod_t& that);
+  fp_polymod_t &operator+=(const fp_polymod_t &that);
+  fp_polymod_t &operator-=(const fp_polymod_t &that);
+  fp_polymod_t &operator*=(const fp_polymod_t &that);
   fp_polymod_t &operator*=(int a);
   fp_polymod_t &operator*=(spffl::intmath::intmod_t a);
-  fp_polymod_t &operator/=(const fp_polymod_t& that);
-  fp_polymod_t &operator%=(const fp_polymod_t& that);
+  fp_polymod_t &operator/=(const fp_polymod_t &that);
+  fp_polymod_t &operator%=(const fp_polymod_t &that);
 
-  bool operator==(const fp_polymod_t& that) const;
-  bool operator!=(const fp_polymod_t& that) const;
+  bool operator==(const fp_polymod_t &that) const;
+  bool operator!=(const fp_polymod_t &that) const;
   bool operator==(int that) const;
   bool operator!=(int that) const;
   // Polynomial quotient rings are *not* totally ordered.
   // Nonetheless, these methods are handy for looping and sorting.
-  bool operator<(const fp_polymod_t& that) const;
-  bool operator>(const fp_polymod_t& that) const;
-  bool operator<=(const fp_polymod_t& that) const;
-  bool operator>=(const fp_polymod_t& that) const;
+  bool operator<(const fp_polymod_t &that) const;
+  bool operator>(const fp_polymod_t &that) const;
+  bool operator<=(const fp_polymod_t &that) const;
+  bool operator>=(const fp_polymod_t &that) const;
 
   fp_poly_t get_residue(void) const;
   fp_poly_t get_modulus(void) const;

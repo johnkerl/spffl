@@ -37,7 +37,8 @@ fpn_poly_t::fpn_poly_t(const fp_polymod_t &c1, const fp_polymod_t &c0) {
 }
 
 // ----------------------------------------------------------------
-fpn_poly_t::fpn_poly_t(const fp_polymod_t &c2, const fp_polymod_t &c1, const fp_polymod_t &c0) {
+fpn_poly_t::fpn_poly_t(
+    const fp_polymod_t &c2, const fp_polymod_t &c1, const fp_polymod_t &c0) {
   this->degree    = 2;
   this->coeffs    = new fp_polymod_t[this->degree + 1];
   this->coeffs[2] = c2;

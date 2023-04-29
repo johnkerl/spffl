@@ -69,7 +69,8 @@ public:
 
   void quot_and_rem(f2n_poly_t &that, f2n_poly_t &rquot, f2n_poly_t &rrem);
   f2n_poly_t gcd(f2n_poly_t &that);
-  f2n_poly_t ext_gcd(const f2n_poly_t &that, f2n_poly_t &rm, f2n_poly_t &rn) const;
+  f2n_poly_t ext_gcd(
+      const f2n_poly_t &that, f2n_poly_t &rm, f2n_poly_t &rn) const;
   f2n_poly_t exp(int power);
   f2n_poly_t deriv(void);
   bool square_root(f2n_poly_t &rroot);

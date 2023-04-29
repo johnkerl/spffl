@@ -94,7 +94,7 @@ public:
     return GET_BIT(this->words, index);
   }
 
-  void set(int index, const bit_t & value) {
+  void set(int index, const bit_t &value) {
     if ((index < 0) || (index >= this->num_bits)) {
       this->bounds_check(index);
     }

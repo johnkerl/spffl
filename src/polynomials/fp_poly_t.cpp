@@ -28,7 +28,8 @@ fp_poly_t::fp_poly_t(const spffl::intmath::intmod_t &c0) {
 }
 
 // ----------------------------------------------------------------
-fp_poly_t::fp_poly_t(const spffl::intmath::intmod_t &c1, const spffl::intmath::intmod_t &c0) {
+fp_poly_t::fp_poly_t(
+    const spffl::intmath::intmod_t &c1, const spffl::intmath::intmod_t &c0) {
   this->degree    = 1;
   this->coeffs    = new spffl::intmath::intmod_t[this->degree + 1];
   this->coeffs[1] = c1;
@@ -37,8 +38,8 @@ fp_poly_t::fp_poly_t(const spffl::intmath::intmod_t &c1, const spffl::intmath::i
 }
 
 // ----------------------------------------------------------------
-fp_poly_t::fp_poly_t(const spffl::intmath::intmod_t &c2, const spffl::intmath::intmod_t &c1,
-    const spffl::intmath::intmod_t &c0) {
+fp_poly_t::fp_poly_t(const spffl::intmath::intmod_t &c2,
+    const spffl::intmath::intmod_t &c1, const spffl::intmath::intmod_t &c0) {
   this->degree    = 2;
   this->coeffs    = new spffl::intmath::intmod_t[this->degree + 1];
   this->coeffs[2] = c2;
@@ -434,7 +435,8 @@ fp_poly_t fp_poly_t::gcd(const fp_poly_t &that) const {
 // ----------------------------------------------------------------
 // Blankinship's algorithm.
 
-fp_poly_t fp_poly_t::ext_gcd(const fp_poly_t &that, fp_poly_t &rm, fp_poly_t &rn) const {
+fp_poly_t fp_poly_t::ext_gcd(
+    const fp_poly_t &that, fp_poly_t &rm, fp_poly_t &rn) const {
   fp_poly_t mprime, nprime, c, q, r, t, qm, qn;
   fp_poly_t d; // Return value.
 
@@ -555,7 +557,8 @@ bool fp_poly_t::pth_root(fp_poly_t &rroot) const {
 }
 
 // ----------------------------------------------------------------
-spffl::intmath::intmod_t fp_poly_t::eval(const spffl::intmath::intmod_t &c) const {
+spffl::intmath::intmod_t fp_poly_t::eval(
+    const spffl::intmath::intmod_t &c) const {
   spffl::intmath::intmod_t rv = this->coeffs[this->degree];
   for (int i = this->degree - 1; i >= 0; i--) {
     rv *= c;
@@ -897,7 +900,7 @@ void fp_poly_t::promote_and_add(spffl::intmath::intmod_t c0) {
 } // namespace spffl::polynomials
 
 // ----------------------------------------------------------------
-spffl::polynomials::fp_poly_t gcd(
-    const spffl::polynomials::fp_poly_t &a, const spffl::polynomials::fp_poly_t &b) {
+spffl::polynomials::fp_poly_t gcd(const spffl::polynomials::fp_poly_t &a,
+    const spffl::polynomials::fp_poly_t &b) {
   return a.gcd(b);
 }

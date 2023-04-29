@@ -350,7 +350,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  bool operator==(const tmatrix<element_type> & that) const {
+  bool operator==(const tmatrix<element_type> &that) const {
     this->check_dims(that, "operator==");
     for (int i = 0; i < this->num_rows; i++) {
       if (this->rows[i] != that.rows[i]) {
@@ -371,7 +371,9 @@ public:
   }
 
   // ----------------------------------------------------------------
-  bool operator!=(const tmatrix<element_type> &that) const { return !(*this == that); }
+  bool operator!=(const tmatrix<element_type> &that) const {
+    return !(*this == that);
+  }
 
   // ----------------------------------------------------------------
   bool operator!=(const element_type &e) const { return !(*this == e); }
@@ -423,7 +425,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  tmatrix<element_type> operator+(const tmatrix<element_type> & that) const {
+  tmatrix<element_type> operator+(const tmatrix<element_type> &that) const {
     this->check_dims(that, "operator+");
     tmatrix<element_type> rv(this->num_rows, this->num_cols);
     for (int i = 0; i < this->num_rows; i++) {
@@ -525,7 +527,8 @@ private:
   // ----------------------------------------------------------------
   // This is a private auxiliary function for the exp() method.
 
-  tmatrix<element_type> posexp(int power, const tmatrix<element_type> &I) const {
+  tmatrix<element_type> posexp(
+      int power, const tmatrix<element_type> &I) const {
     tmatrix<element_type> a2(*this);
     tmatrix<element_type> apower = I;
 
@@ -1049,8 +1052,8 @@ public:
   }
 
   // ----------------------------------------------------------------
-  bool get_kernel_basis(
-      tmatrix<element_type> &rbas, const element_type &zero, const element_type &one) const {
+  bool get_kernel_basis(tmatrix<element_type> &rbas, const element_type &zero,
+      const element_type &one) const {
     int i, j;
     tmatrix<element_type> rr(*this);
     rr.row_echelon_form();
@@ -1218,8 +1221,7 @@ public:
   // solve_unique_full_rank.
   bool solve_unique(tvector<element_type> &x, // Output
       const tvector<element_type> &b,         // Input
-      const element_type &zero,
-      const element_type &one) const {
+      const element_type &zero, const element_type &one) const {
     int indim  = this->get_num_cols();
     int outdim = this->get_num_rows();
     //  A linear transformation from a higher-dimensional space to a
@@ -1243,8 +1245,7 @@ public:
   // instead.
   bool solve_unique_full_rank(tvector<element_type> &x, // Output
       const tvector<element_type> &b,                   // Input
-      const element_type &zero,
-      const element_type &one) const {
+      const element_type &zero, const element_type &one) const {
     int indim                   = this->get_num_cols();
     tmatrix<element_type> Ab_rr = this->paste_vector(b);
     Ab_rr.row_echelon_form();

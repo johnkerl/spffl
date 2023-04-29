@@ -41,7 +41,7 @@
 
 namespace spffl::factorization {
 
-int f2n_poly_totient(spffl::polynomials::f2n_poly_t f) {
+int f2n_poly_totient(const spffl::polynomials::f2n_poly_t &f) {
   int rv                                         = 1;
   spffl::polynomials::f2_poly_t m                = f.get_coeff(0).get_modulus();
   int q                                          = 1 << m.find_degree();

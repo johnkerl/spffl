@@ -21,7 +21,8 @@ public:
 
   fpn_poly_t(const fp_polymod_t &c0);
   fpn_poly_t(const fp_polymod_t &c1, const fp_polymod_t &c0);
-  fpn_poly_t(const fp_polymod_t &c2, const fp_polymod_t &c1, const fp_polymod_t &c0);
+  fpn_poly_t(
+      const fp_polymod_t &c2, const fp_polymod_t &c1, const fp_polymod_t &c0);
 
   static fpn_poly_t from_base_rep(int b, fp_poly_t m);
 
@@ -56,9 +57,11 @@ public:
   fpn_poly_t &operator%=(fpn_poly_t &that);
   fpn_poly_t &operator/=(fp_polymod_t a);
 
-  void quot_and_rem(const fpn_poly_t &that, fpn_poly_t &rquot, fpn_poly_t &rrem) const;
+  void quot_and_rem(
+      const fpn_poly_t &that, fpn_poly_t &rquot, fpn_poly_t &rrem) const;
   fpn_poly_t gcd(const fpn_poly_t &that) const;
-  fpn_poly_t ext_gcd(const fpn_poly_t &that, fpn_poly_t &rm, fpn_poly_t &rn) const;
+  fpn_poly_t ext_gcd(
+      const fpn_poly_t &that, fpn_poly_t &rm, fpn_poly_t &rn) const;
   fpn_poly_t exp(int power) const;
   fpn_poly_t deriv(void) const;
   bool pth_root(fpn_poly_t &rroot) const;
@@ -66,7 +69,7 @@ public:
 
   int find_degree(void) const; // deg(0) is defined to be 0.
   fp_polymod_t get_coeff(int deg) const;
-  void set_coeff(int pos, const fp_polymod_t& c);
+  void set_coeff(int pos, const fp_polymod_t &c);
 
   bool operator==(int v) const;
   bool operator!=(int v) const;

@@ -56,8 +56,8 @@ int f2n_polymod_order(const spffl::polynomials::f2n_polymod_t &a) {
 }
 
 // ----------------------------------------------------------------
-bool f2n_polymod_find_generator(
-    const spffl::polynomials::f2n_poly_t &m, spffl::polynomials::f2n_polymod_t &rg) {
+bool f2n_polymod_find_generator(const spffl::polynomials::f2n_poly_t &m,
+    spffl::polynomials::f2n_polymod_t &rg) {
   int mdeg                            = m.find_degree();
   spffl::polynomials::f2n_poly_t gres = m.prime_sfld_elt(1);
 
@@ -112,7 +112,8 @@ static int poly_and_index_qcmp(const void *pv1, const void *pv2) {
 }
 
 int f2n_polymod_log( // Log base g of a.
-    const spffl::polynomials::f2n_polymod_t &g, const spffl::polynomials::f2n_polymod_t &a) {
+    const spffl::polynomials::f2n_polymod_t &g,
+    const spffl::polynomials::f2n_polymod_t &a) {
   std::cout << "\n";
   std::cout << "g = " << g << "\n";
   std::cout << "a = " << a << "\n";

@@ -332,7 +332,8 @@ f2_poly_t f2_poly_t::gcd(f2_poly_t &that) {
 }
 // ----------------------------------------------------------------
 // Blankinship's algorithm.
-f2_poly_t f2_poly_t::ext_gcd(const f2_poly_t &that, f2_poly_t &rm, f2_poly_t &rn) const {
+f2_poly_t f2_poly_t::ext_gcd(
+    const f2_poly_t &that, f2_poly_t &rm, f2_poly_t &rn) const {
   f2_poly_t mprime, nprime, c, q, r, t, qm, qn;
   f2_poly_t d; // Return value.
   if (*this == 0) {

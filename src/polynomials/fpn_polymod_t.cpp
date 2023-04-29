@@ -11,7 +11,8 @@
 namespace spffl::polynomials {
 
 // ----------------------------------------------------------------
-fpn_polymod_t::fpn_polymod_t(const fpn_poly_t &arg_residue, const fpn_poly_t &arg_modulus) {
+fpn_polymod_t::fpn_polymod_t(
+    const fpn_poly_t &arg_residue, const fpn_poly_t &arg_modulus) {
   this->residue = arg_residue;
   this->modulus = arg_modulus;
   this->residue = this->residue % this->modulus;

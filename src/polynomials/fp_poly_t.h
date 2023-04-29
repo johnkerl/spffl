@@ -20,9 +20,10 @@ public:
   fp_poly_t(void);
 
   fp_poly_t(const spffl::intmath::intmod_t &c0);
-  fp_poly_t(const spffl::intmath::intmod_t &c1, const spffl::intmath::intmod_t &c0);
-  fp_poly_t(const spffl::intmath::intmod_t &c2, const spffl::intmath::intmod_t &c1,
-      const spffl::intmath::intmod_t &c0);
+  fp_poly_t(
+      const spffl::intmath::intmod_t &c1, const spffl::intmath::intmod_t &c0);
+  fp_poly_t(const spffl::intmath::intmod_t &c2,
+      const spffl::intmath::intmod_t &c1, const spffl::intmath::intmod_t &c0);
 
   fp_poly_t(int c0, int m);
   fp_poly_t(int c1, int c0, int m);
@@ -35,30 +36,31 @@ public:
   fp_poly_t(const fp_poly_t &that);
   ~fp_poly_t(void);
 
-  fp_poly_t &operator=(const fp_poly_t& that);
+  fp_poly_t &operator=(const fp_poly_t &that);
 
-  fp_poly_t operator+(const fp_poly_t& that) const;
+  fp_poly_t operator+(const fp_poly_t &that) const;
   fp_poly_t operator+(spffl::intmath::intmod_t a) const;
-  fp_poly_t operator-(const fp_poly_t& that) const;
+  fp_poly_t operator-(const fp_poly_t &that) const;
   fp_poly_t operator-(spffl::intmath::intmod_t a) const;
   fp_poly_t operator-(void) const;
-  fp_poly_t operator*(const fp_poly_t& that) const;
+  fp_poly_t operator*(const fp_poly_t &that) const;
   fp_poly_t operator*(spffl::intmath::intmod_t a);
-  fp_poly_t operator/(const fp_poly_t& that) const;
-  fp_poly_t operator%(const fp_poly_t& that) const;
+  fp_poly_t operator/(const fp_poly_t &that) const;
+  fp_poly_t operator%(const fp_poly_t &that) const;
   fp_poly_t operator/(const spffl::intmath::intmod_t &a) const;
 
-  fp_poly_t &operator+=(const fp_poly_t& that);
+  fp_poly_t &operator+=(const fp_poly_t &that);
   fp_poly_t &operator+=(spffl::intmath::intmod_t a);
-  fp_poly_t &operator-=(const fp_poly_t& that);
+  fp_poly_t &operator-=(const fp_poly_t &that);
   fp_poly_t &operator-=(spffl::intmath::intmod_t a);
-  fp_poly_t &operator*=(const fp_poly_t& that);
+  fp_poly_t &operator*=(const fp_poly_t &that);
   fp_poly_t &operator*=(spffl::intmath::intmod_t a);
   fp_poly_t &operator/=(fp_poly_t &that);
   fp_poly_t &operator%=(fp_poly_t &that);
   fp_poly_t &operator/=(spffl::intmath::intmod_t a);
 
-  void quot_and_rem(const fp_poly_t &that, fp_poly_t &rquot, fp_poly_t &rrem) const;
+  void quot_and_rem(
+      const fp_poly_t &that, fp_poly_t &rquot, fp_poly_t &rrem) const;
   fp_poly_t gcd(const fp_poly_t &that) const;
   fp_poly_t ext_gcd(const fp_poly_t &that, fp_poly_t &rm, fp_poly_t &rn) const;
   fp_poly_t exp(int power) const;
@@ -72,14 +74,14 @@ public:
 
   bool operator==(int v) const;
   bool operator!=(int v) const;
-  bool operator==(const fp_poly_t& that) const;
-  bool operator!=(const fp_poly_t& that) const;
+  bool operator==(const fp_poly_t &that) const;
+  bool operator!=(const fp_poly_t &that) const;
   // Fp[x] is *not* totally ordered.  Nonetheless, these methods are
   // handy for looping and sorting.
-  bool operator<(const fp_poly_t& that) const;
-  bool operator>(const fp_poly_t& that) const;
-  bool operator<=(const fp_poly_t& that) const;
-  bool operator>=(const fp_poly_t& that) const;
+  bool operator<(const fp_poly_t &that) const;
+  bool operator>(const fp_poly_t &that) const;
+  bool operator<=(const fp_poly_t &that) const;
+  bool operator>=(const fp_poly_t &that) const;
   void increment(void);
 
   friend std::ostream &operator<<(std::ostream &os, const fp_poly_t &poly);
@@ -104,7 +106,7 @@ private:
 } // namespace spffl::polynomials
 
 // Same as the gcd method, but overloaded.  This is important for template use.
-spffl::polynomials::fp_poly_t gcd(
-    const spffl::polynomials::fp_poly_t &a, const spffl::polynomials::fp_poly_t &b);
+spffl::polynomials::fp_poly_t gcd(const spffl::polynomials::fp_poly_t &a,
+    const spffl::polynomials::fp_poly_t &b);
 
 #endif // FPPOLY_T_H
