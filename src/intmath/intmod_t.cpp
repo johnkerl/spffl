@@ -42,15 +42,15 @@ intmod_t intmod_t::exp(int e) {
       exit(1);
     }
     intmod_t inv = one / *this;
-    xp = inv.residue;
-    e = -e;
+    xp           = inv.residue;
+    e            = -e;
   }
 
   while (e != 0) {
     if (e & 1) {
       rv.residue = (rv.residue * xp) % this->modulus;
     }
-    e = (unsigned)e >> 1;
+    e  = (unsigned)e >> 1;
     xp = (xp * xp) % this->modulus;
   }
 
@@ -134,10 +134,12 @@ intmod_t &intmod_t::operator%=(intmod_t that) {
 bool intmod_t::operator==(intmod_t that) const {
   this->check_modulus();
   that.check_modulus();
-  if (this->residue != that.residue)
+  if (this->residue != that.residue) {
     return false;
-  if (this->modulus != that.modulus)
+  }
+  if (this->modulus != that.modulus) {
     return false;
+  }
   return true;
 }
 

@@ -97,8 +97,9 @@ fp_polymod_t fp_polymod_t::operator*(int a) {
   if (a == 0) {
     rv = rv - rv;
   } else {
-    for (int i = 1; i < a; i++)
+    for (int i = 1; i < a; i++) {
       rv += *this;
+    }
   }
   return rv;
 }
@@ -186,15 +187,15 @@ fp_polymod_t fp_polymod_t::exp(int e) {
       exit(1);
     }
     fp_polymod_t inv = one / *this;
-    xp = inv.residue;
-    e = -e;
+    xp               = inv.residue;
+    e                = -e;
   }
 
   while (e != 0) {
     if (e & 1) {
       rv.residue = (rv.residue * xp) % this->modulus;
     }
-    e = (unsigned)e >> 1;
+    e  = (unsigned)e >> 1;
     xp = (xp * xp) % this->modulus;
   }
 
@@ -205,17 +206,20 @@ fp_polymod_t fp_polymod_t::exp(int e) {
 std::ostream &operator<<(std::ostream &os, const fp_polymod_t &a) {
   int adeg = a.residue.find_degree();
   int rdeg = a.modulus.find_degree() - 1;
-  int max = adeg > rdeg ? adeg : rdeg;
-  int m = a.residue.get_coeff(0).get_modulus();
+  int max  = adeg > rdeg ? adeg : rdeg;
+  int m    = a.residue.get_coeff(0).get_modulus();
 
   for (int i = max; i >= 0; i--) {
-    if (m > 9)
-      if (i < max)
+    if (m > 9) {
+      if (i < max) {
         os << ",";
-    if (i > adeg)
+      }
+    }
+    if (i > adeg) {
       os << 0;
-    else
+    } else {
       os << a.residue.get_coeff(i).get_residue();
+    }
   }
 
   return os;
@@ -232,8 +236,9 @@ std::istringstream &operator>>(std::istringstream &iss, fp_polymod_t &a) {
 bool fp_polymod_t::from_string(const char *string, fp_poly_t &m) {
   fp_poly_t r;
   int p = m.get_characteristic();
-  if (!r.from_string(string, p))
+  if (!r.from_string(string, p)) {
     return false;
+  }
   *this = fp_polymod_t(r, m);
   return true;
 }
@@ -282,10 +287,12 @@ fp_polymod_t &fp_polymod_t::operator%=(fp_polymod_t that) {
 
 // ----------------------------------------------------------------
 bool fp_polymod_t::operator==(fp_polymod_t that) const {
-  if (this->residue != that.residue)
+  if (this->residue != that.residue) {
     return false;
-  if (this->modulus != that.modulus)
+  }
+  if (this->modulus != that.modulus) {
     return false;
+  }
   return true;
 }
 

@@ -27,7 +27,7 @@ public:
   qpoly_t(intrat_t c3, intrat_t c2, intrat_t c1, intrat_t c0);
   qpoly_t(intrat_t c4, intrat_t c3, intrat_t c2, intrat_t c1, intrat_t c0);
   qpoly_t(intrat_t c5, intrat_t c4, intrat_t c3, intrat_t c2, intrat_t c1,
-          intrat_t c0);
+      intrat_t c0);
   static qpoly_t binomial(intrat_t ci, int i, intrat_t cj, int j);
 
   qpoly_t(const qpoly_t &that);

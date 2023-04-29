@@ -85,7 +85,7 @@ template <class element_type> struct mat_lex_ctx_t {
 
 template <class element_type>
 static void E(mat_lex_ctx_t<element_type> &rlex_ctx,
-              tstack<matatom_t<element_type>> &rstack);
+    tstack<matatom_t<element_type>> &rstack);
 
 // ----------------------------------------------------------------
 template <class element_type> static const char *mat_token_desc(int t) {
@@ -173,14 +173,14 @@ template <class element_type> static const char *mat_token_desc(int t) {
 // ----------------------------------------------------------------
 template <class element_type>
 static void matlexinit(mat_lex_ctx_t<element_type> &rlex_ctx, int argc,
-                       char **argv, element_type zero, element_type one) {
-  rlex_ctx.argi = 0;
-  rlex_ctx.argc = argc;
-  rlex_ctx.argv = argv;
-  rlex_ctx.token = L_UNDEF;
+    char **argv, element_type zero, element_type one) {
+  rlex_ctx.argi       = 0;
+  rlex_ctx.argc       = argc;
+  rlex_ctx.argv       = argv;
+  rlex_ctx.token      = L_UNDEF;
   rlex_ctx.in_pow_rhs = 0;
-  rlex_ctx.zero = zero;
-  rlex_ctx.one = one;
+  rlex_ctx.zero       = zero;
+  rlex_ctx.one        = one;
 }
 
 // ----------------------------------------------------------------
@@ -192,54 +192,59 @@ static void matlexan(mat_lex_ctx_t<element_type> &rlex_ctx) {
   }
   const char *s = rlex_ctx.argv[rlex_ctx.argi];
 
-  if (strcmp(s, "+") == 0)
+  if (strcmp(s, "+") == 0) {
     rlex_ctx.token = L_PLUS;
-  else if (strcmp(s, "-") == 0)
+  } else if (strcmp(s, "-") == 0) {
     rlex_ctx.token = L_MINUS;
-  else if (strcmp(s, "*") == 0)
+  } else if (strcmp(s, "*") == 0) {
     rlex_ctx.token = L_MUL;
-  else if (strcmp(s, ".") == 0)
+  } else if (strcmp(s, ".") == 0) {
     rlex_ctx.token = L_MUL;
-  else if (strcmp(s, "^") == 0)
+  } else if (strcmp(s, "^") == 0) {
     rlex_ctx.token = L_EXP;
+  }
 
-  else if (strcmp(s, "==") == 0)
+  else if (strcmp(s, "==") == 0) {
     rlex_ctx.token = L_EQ;
-  else if (strcmp(s, "!=") == 0)
+  } else if (strcmp(s, "!=") == 0) {
     rlex_ctx.token = L_NE;
-  else if (strcmp(s, "/=") == 0)
+  } else if (strcmp(s, "/=") == 0) {
     rlex_ctx.token = L_NE;
-  else if (strcmp(s, "rank") == 0)
+  } else if (strcmp(s, "rank") == 0) {
     rlex_ctx.token = L_RANK;
+  }
 
-  else if (strcmp(s, "det") == 0)
+  else if (strcmp(s, "det") == 0) {
     rlex_ctx.token = L_DET;
-  else if (strcmp(s, "inv") == 0)
+  } else if (strcmp(s, "inv") == 0) {
     rlex_ctx.token = L_INV;
-  else if (strcmp(s, "kerbas") == 0)
+  } else if (strcmp(s, "kerbas") == 0) {
     rlex_ctx.token = L_KERBAS;
-  else if (strcmp(s, "rr") == 0)
+  } else if (strcmp(s, "rr") == 0) {
     rlex_ctx.token = L_RR;
-  else if (strcmp(s, "rech") == 0)
+  } else if (strcmp(s, "rech") == 0) {
     rlex_ctx.token = L_RECH;
-  else if (strcmp(s, "rechr") == 0)
+  } else if (strcmp(s, "rechr") == 0) {
     rlex_ctx.token = L_RECHR;
-  else if (strcmp(s, "rrnz") == 0)
+  } else if (strcmp(s, "rrnz") == 0) {
     rlex_ctx.token = L_RRNZ;
-  else if (strcmp(s, "rechnz") == 0)
+  } else if (strcmp(s, "rechnz") == 0) {
     rlex_ctx.token = L_RECHNZ;
-  else if (strcmp(s, "transpose") == 0)
+  } else if (strcmp(s, "transpose") == 0) {
     rlex_ctx.token = L_TRANSPOSE;
+  }
 
-  else if (strcmp(s, "(") == 0)
+  else if (strcmp(s, "(") == 0) {
     rlex_ctx.token = L_LPAREN;
-  else if (strcmp(s, ")") == 0)
+  } else if (strcmp(s, ")") == 0) {
     rlex_ctx.token = L_RPAREN;
+  }
 
-  else if (strcmp(s, "[") == 0)
+  else if (strcmp(s, "[") == 0) {
     rlex_ctx.token = L_LPAREN;
-  else if (strcmp(s, "]") == 0)
+  } else if (strcmp(s, "]") == 0) {
     rlex_ctx.token = L_RPAREN;
+  }
 
   else {
     rlex_ctx.token = L_MAT;
@@ -248,7 +253,7 @@ static void matlexan(mat_lex_ctx_t<element_type> &rlex_ctx) {
       rlex_ctx.atom.atom_type = INT_ATOM;
       iss >> rlex_ctx.atom.int_val;
     } else {
-      rlex_ctx.atom.mat_val = rlex_ctx.zero; // Set modulus
+      rlex_ctx.atom.mat_val   = rlex_ctx.zero; // Set modulus
       rlex_ctx.atom.atom_type = MAT_ATOM;
 
       if (strchr(rlex_ctx.argv[rlex_ctx.argi], '[')) {
@@ -277,7 +282,7 @@ static void matlexan(mat_lex_ctx_t<element_type> &rlex_ctx) {
 // ----------------------------------------------------------------
 template <class element_type>
 static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
-                 tstack<matatom_t<element_type>> &rstack) {
+    tstack<matatom_t<element_type>> &rstack) {
   matatom_t<element_type> A, B, C;
   int msiform;
 
@@ -504,7 +509,7 @@ static void match(mat_lex_ctx_t<element_type> &rlex_ctx, int expected_token) {
 // ----------------------------------------------------------------
 template <class element_type>
 static void P(mat_lex_ctx_t<element_type> &rlex_ctx,
-              tstack<matatom_t<element_type>> &rstack) {
+    tstack<matatom_t<element_type>> &rstack) {
   switch (rlex_ctx.token) {
   case L_LPAREN:
     match<element_type>(rlex_ctx, L_LPAREN);
@@ -525,7 +530,7 @@ static void P(mat_lex_ctx_t<element_type> &rlex_ctx,
 // ----------------------------------------------------------------
 template <class element_type>
 static void U(mat_lex_ctx_t<element_type> &rlex_ctx,
-              tstack<matatom_t<element_type>> &rstack) {
+    tstack<matatom_t<element_type>> &rstack) {
   mat_lex_ctx_t<element_type> save;
   P<element_type>(rlex_ctx, rstack);
   while (1) {
@@ -552,7 +557,7 @@ static void U(mat_lex_ctx_t<element_type> &rlex_ctx,
 // ----------------------------------------------------------------
 template <class element_type>
 static void F(mat_lex_ctx_t<element_type> &rlex_ctx,
-              tstack<matatom_t<element_type>> &rstack) {
+    tstack<matatom_t<element_type>> &rstack) {
   mat_lex_ctx_t<element_type> save;
   switch (rlex_ctx.token) {
   case L_PLUS:
@@ -596,7 +601,7 @@ static void F(mat_lex_ctx_t<element_type> &rlex_ctx,
 // ----------------------------------------------------------------
 template <class element_type>
 static void T(mat_lex_ctx_t<element_type> &rlex_ctx,
-              tstack<matatom_t<element_type>> &rstack) {
+    tstack<matatom_t<element_type>> &rstack) {
   mat_lex_ctx_t<element_type> save;
   F<element_type>(rlex_ctx, rstack);
   while (1) {
@@ -618,7 +623,7 @@ static void T(mat_lex_ctx_t<element_type> &rlex_ctx,
 // ----------------------------------------------------------------
 template <class element_type>
 static void E(mat_lex_ctx_t<element_type> &rlex_ctx,
-              tstack<matatom_t<element_type>> &rstack) {
+    tstack<matatom_t<element_type>> &rstack) {
   mat_lex_ctx_t<element_type> save;
   T<element_type>(rlex_ctx, rstack);
   while (1) {
@@ -641,7 +646,7 @@ static void E(mat_lex_ctx_t<element_type> &rlex_ctx,
 // ----------------------------------------------------------------
 template <class element_type>
 static void Q(mat_lex_ctx_t<element_type> &rlex_ctx,
-              tstack<matatom_t<element_type>> &rstack) {
+    tstack<matatom_t<element_type>> &rstack) {
   mat_lex_ctx_t<element_type> save;
   E<element_type>(rlex_ctx, rstack);
   while (1) {
@@ -664,8 +669,8 @@ static void Q(mat_lex_ctx_t<element_type> &rlex_ctx,
 // ----------------------------------------------------------------
 // The "zero" argument is needed to set the modulus for parameterized types.
 template <class element_type>
-void cmd_line_mat_parse(int argc, char **argv, element_type zero,
-                        element_type one) {
+void cmd_line_mat_parse(
+    int argc, char **argv, element_type zero, element_type one) {
   mat_lex_ctx_t<element_type> lex_ctx;
   tstack<matatom_t<element_type>> stack;
   matatom_t<element_type> result;

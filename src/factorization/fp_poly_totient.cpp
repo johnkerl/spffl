@@ -42,15 +42,15 @@
 namespace spffl::factorization {
 
 int fp_poly_totient(spffl::polynomials::fp_poly_t f) {
-  int rv = 1;
-  int p = f.get_characteristic();
+  int rv                                        = 1;
+  int p                                         = f.get_characteristic();
   tfacinfo<spffl::polynomials::fp_poly_t> finfo = fp_poly_factor(f);
-  int nf = finfo.get_num_distinct();
+  int nf                                        = finfo.get_num_distinct();
 
   for (int i = 0; i < nf; i++) {
     spffl::polynomials::fp_poly_t fi = finfo.get_ith_factor(i);
-    int ei = finfo.get_ith_count(i);
-    int di = fi.find_degree();
+    int ei                           = finfo.get_ith_count(i);
+    int di                           = fi.find_degree();
     rv *= spffl::intmath::int_power(p, di * (ei - 1)) *
           (spffl::intmath::int_power(p, di) - 1);
   }

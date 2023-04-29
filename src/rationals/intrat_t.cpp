@@ -143,12 +143,13 @@ intrat_t intrat_t::exp(int e) {
       exit(1);
     }
     xp = one / xp;
-    e = -e;
+    e  = -e;
   }
 
   while (e != 0) {
-    if (e & 1)
+    if (e & 1) {
       rv *= xp;
+    }
     e = (unsigned)e >> 1;
     xp *= xp;
   }
@@ -159,8 +160,9 @@ intrat_t intrat_t::exp(int e) {
 // ----------------------------------------------------------------
 std::ostream &operator<<(std::ostream &os, const intrat_t &a) {
   os << a.numer;
-  if (a.denom != 1)
+  if (a.denom != 1) {
     os << "/" << a.denom;
+  }
   return os;
 }
 
@@ -171,12 +173,15 @@ std::istream &operator>>(std::istream &is, intrat_t &a) {
   // characters.  E.g. if the input is 0, space, tab, space, 1, then the
   // following won't suffice.
 
-  while (is.peek() == ' ')
+  while (is.peek() == ' ') {
     is.ignore(1, ' ');
-  while (is.peek() == '\t')
+  }
+  while (is.peek() == '\t') {
     is.ignore(1, '\t');
-  while (is.peek() == '\n')
+  }
+  while (is.peek() == '\n') {
     is.ignore(1, '\n');
+  }
 
   is >> a.numer;
   if (is.eof()) {
@@ -201,12 +206,15 @@ std::istringstream &operator>>(std::istringstream &iss, intrat_t &a) {
   // characters.  E.g. if the input is 0, space, tab, space, 1, then the
   // following won't suffice.
 
-  while (iss.peek() == ' ')
+  while (iss.peek() == ' ') {
     iss.ignore(1, ' ');
-  while (iss.peek() == '\t')
+  }
+  while (iss.peek() == '\t') {
     iss.ignore(1, '\t');
-  while (iss.peek() == '\n')
+  }
+  while (iss.peek() == '\n') {
     iss.ignore(1, '\n');
+  }
 
   iss >> a.numer;
   if (iss.eof()) {
@@ -264,10 +272,12 @@ intrat_t &intrat_t::operator%=(intrat_t that) {
 bool intrat_t::operator==(intrat_t that) const {
   // Our constructor ensures both *this and that are already in
   // canonical form.
-  if (this->numer != that.numer)
+  if (this->numer != that.numer) {
     return false;
-  if (this->denom != that.denom)
+  }
+  if (this->denom != that.denom) {
     return false;
+  }
   return true;
 }
 
@@ -276,8 +286,9 @@ bool intrat_t::operator!=(intrat_t that) const { return !(*this == that); }
 
 // ----------------------------------------------------------------
 bool intrat_t::operator==(int that) const {
-  if (this->denom != 1)
+  if (this->denom != 1) {
     return false;
+  }
   return this->numer == that;
 }
 

@@ -21,32 +21,35 @@ static int int_sqrt(int nsigned, bool want_ceil) {
     exit(1);
   }
 
-  if (nsigned == 0)
+  if (nsigned == 0) {
     return 0;
+  }
 
   for (nsv = n, half_log = 0; nsv != 0; nsv >>= 2, half_log++)
     ;
   half_log--;
   lower = 1 << half_log;
   upper = lower << 1;
-  diff = upper - lower;
+  diff  = upper - lower;
 
   while (diff > 0) {
     half_diff = diff >> 1;
-    middle = lower + half_diff;
+    middle    = lower + half_diff;
     middle_sq = middle * middle;
-    if (middle_sq == n)
+    if (middle_sq == n) {
       return middle;
-    else if (middle_sq < n)
+    } else if (middle_sq < n) {
       lower += half_diff;
-    else
+    } else {
       upper -= half_diff;
+    }
     diff = half_diff;
   }
-  if (want_ceil)
+  if (want_ceil) {
     return upper;
-  else
+  } else {
     return lower;
+  }
 }
 
 int int_sqrt_ceil(int nsigned) { return int_sqrt(nsigned, true); }

@@ -17,22 +17,25 @@ static uint32_t non_reentrant_seeded = 0;
 
 // ----------------------------------------------------------------
 uint32_t iran32(void) {
-  if (!non_reentrant_seeded)
+  if (!non_reentrant_seeded) {
     sran32_timeofday();
+  }
   return iran32_r(non_reentrant_state0, non_reentrant_state1);
 }
 
 // ----------------------------------------------------------------
 void iran64(uint32_t &out0, uint32_t &out1) {
-  if (!non_reentrant_seeded)
+  if (!non_reentrant_seeded) {
     sran32_timeofday();
+  }
   return iran64_r(out0, out1, non_reentrant_state0, non_reentrant_state1);
 }
 
 // ----------------------------------------------------------------
 float fran32(void) {
-  if (!non_reentrant_seeded)
+  if (!non_reentrant_seeded) {
     sran32_timeofday();
+  }
   return fran32_r(non_reentrant_state0, non_reentrant_state1);
 }
 
@@ -66,30 +69,32 @@ uint32_t iran32_r(uint32_t &state0, uint32_t &state1) {
   psdes_hash_64(word0, word1);
 
   state1++;
-  if (state1 == 0)
+  if (state1 == 0) {
     state0++;
+  }
 
   // Return low 32 bits of hash output; discard high 32 bits.
   return word1;
 }
 
 // ----------------------------------------------------------------
-void iran64_r(uint32_t &out0, uint32_t &out1, uint32_t &state0,
-              uint32_t &state1) {
+void iran64_r(
+    uint32_t &out0, uint32_t &out1, uint32_t &state0, uint32_t &state1) {
   out0 = state0;
   out1 = state1;
   psdes_hash_64(out0, out1);
 
   state1++;
-  if (state1 == 0)
+  if (state1 == 0) {
     state0++;
+  }
 }
 
 // ----------------------------------------------------------------
 float fran32_r(uint32_t &state0, uint32_t &state1) {
-  static uint32_t jflone = 0x3f800000;
+  static uint32_t jflone  = 0x3f800000;
   static uint32_t jflmask = 0x007fffff;
-  uint32_t word1 = iran32_r(state0, state1);
+  uint32_t word1          = iran32_r(state0, state1);
   // IEEE bit-bang
   uint32_t bits = jflone | (jflmask & word1);
   return (*(float *)&bits) - 1.0;
@@ -131,11 +136,11 @@ void psdes_hash_64(uint32_t &word0, uint32_t &word1) {
   for (i = 0; i < NITER; i++) {
     iswap = word1;
 
-    ia = iswap ^ c1[i];
-    ial = ia & 0xffff;
-    iah = ia >> 16;
-    ib = ial * ial + ~(iah * iah);
-    ic = (ib >> 16) | ((ib & 0xffff) << 16);
+    ia    = iswap ^ c1[i];
+    ial   = ia & 0xffff;
+    iah   = ia >> 16;
+    ib    = ial * ial + ~(iah * iah);
+    ic    = (ib >> 16) | ((ib & 0xffff) << 16);
     word1 = word0 ^ ((ic ^ c2[i]) + ial * iah);
 
     word0 = iswap;

@@ -22,9 +22,10 @@ bit_matrix_t::bit_matrix_t(int init_num_rows, int init_num_cols) {
 
   this->num_rows = init_num_rows;
   this->num_cols = init_num_cols;
-  this->rows = new bit_vector_t[init_num_rows];
-  for (int i = 0; i < init_num_rows; i++)
+  this->rows     = new bit_vector_t[init_num_rows];
+  for (int i = 0; i < init_num_rows; i++) {
     this->rows[i] = bit_vector_t(init_num_cols);
+  }
 }
 
 // ----------------------------------------------------------------
@@ -37,9 +38,10 @@ bit_matrix_t::bit_matrix_t(bit_t e, int init_num_rows, int init_num_cols) {
   }
   this->num_rows = init_num_rows;
   this->num_cols = init_num_cols;
-  this->rows = new bit_vector_t[init_num_rows];
-  for (int i = 0; i < init_num_rows; i++)
+  this->rows     = new bit_vector_t[init_num_rows];
+  for (int i = 0; i < init_num_rows; i++) {
     this->rows[i] = bit_vector_t(e, init_num_cols);
+  }
 }
 
 // ----------------------------------------------------------------
@@ -52,9 +54,10 @@ bit_matrix_t::bit_matrix_t(int e, int init_num_rows, int init_num_cols) {
   }
   this->num_rows = init_num_rows;
   this->num_cols = init_num_cols;
-  this->rows = new bit_vector_t[init_num_rows];
-  for (int i = 0; i < init_num_rows; i++)
+  this->rows     = new bit_vector_t[init_num_rows];
+  for (int i = 0; i < init_num_rows; i++) {
     this->rows[i] = bit_vector_t(e, init_num_cols);
+  }
 }
 // ----------------------------------------------------------------
 bit_matrix_t::bit_matrix_t(void) { this->nullify(); }
@@ -65,9 +68,10 @@ bit_matrix_t::bit_matrix_t(const bit_matrix_t &that) {
 
   this->num_rows = that.num_rows;
   this->num_cols = that.num_cols;
-  this->rows = new bit_vector_t[that.num_rows];
-  for (i = 0; i < that.num_rows; i++)
+  this->rows     = new bit_vector_t[that.num_rows];
+  for (i = 0; i < that.num_rows; i++) {
     this->rows[i] = that.rows[i];
+  }
 }
 
 // ----------------------------------------------------------------
@@ -77,10 +81,11 @@ bit_matrix_t::~bit_matrix_t(void) { this->mfree(); }
 bool bit_matrix_t::load_from_file(char *file_name) {
   if ((strcmp(file_name, "-") == 0) || (strcmp(file_name, "@") == 0)) {
     std::cin >> *this;
-    if (std::cin.fail())
+    if (std::cin.fail()) {
       return false;
-    else
+    } else {
       return true;
+    }
   }
 
   std::ifstream ifs;
@@ -108,14 +113,16 @@ bool bit_matrix_t::load_from_file(char *file_name) {
 // ----------------------------------------------------------------
 bit_matrix_t &bit_matrix_t::operator=(const bit_t &scalar) {
   if (this->rows) {
-    for (int i = 0; i < this->num_rows; i++)
-      for (int j = 0; j < this->num_cols; j++)
+    for (int i = 0; i < this->num_rows; i++) {
+      for (int j = 0; j < this->num_cols; j++) {
         this->rows[i].set(j, scalar);
+      }
+    }
   } else {
     this->num_rows = 1;
     this->num_cols = 1;
-    this->rows = new bit_vector_t[1];
-    this->rows[0] = bit_vector_t(1);
+    this->rows     = new bit_vector_t[1];
+    this->rows[0]  = bit_vector_t(1);
     this->rows[0].set(0, scalar);
   }
   return *this;
@@ -131,30 +138,36 @@ bit_matrix_t &bit_matrix_t::operator=(const bit_matrix_t &that) {
     this->mfree();
     this->num_rows = that.num_rows;
     this->num_cols = that.num_cols;
-    this->rows = new bit_vector_t[that.num_rows];
-    for (i = 0; i < that.num_rows; i++)
+    this->rows     = new bit_vector_t[that.num_rows];
+    for (i = 0; i < that.num_rows; i++) {
       this->rows[i] = bit_vector_t(that.num_cols);
+    }
   }
 
-  for (i = 0; i < that.num_rows; i++)
+  for (i = 0; i < that.num_rows; i++) {
     this->rows[i] = that.rows[i];
+  }
   return *this;
 }
 
 // ----------------------------------------------------------------
 bool bit_matrix_t::operator==(const bit_matrix_t &that) const {
   this->check_dims(that, (char *)"operator==");
-  for (int i = 0; i < this->num_rows; i++)
-    if (this->rows[i] != that.rows[i])
+  for (int i = 0; i < this->num_rows; i++) {
+    if (this->rows[i] != that.rows[i]) {
       return false;
+    }
+  }
   return true;
 }
 
 // ----------------------------------------------------------------
 bool bit_matrix_t::operator==(const bit_t &e) const {
-  for (int i = 0; i < this->num_rows; i++)
-    if (this->rows[i] != e)
+  for (int i = 0; i < this->num_rows; i++) {
+    if (this->rows[i] != e) {
       return false;
+    }
+  }
   return true;
 }
 
@@ -168,8 +181,9 @@ bool bit_matrix_t::operator!=(const bit_t &e) const { return !(*this == e); }
 
 // ----------------------------------------------------------------
 std::ostream &operator<<(std::ostream &os, const bit_matrix_t &m) {
-  for (int i = 0; i < m.num_rows; i++)
+  for (int i = 0; i < m.num_rows; i++) {
     os << m.rows[i] << std::endl;
+  }
   return os;
 }
 
@@ -178,18 +192,20 @@ std::istream &operator>>(std::istream &is, bit_matrix_t &m) {
   char line[8192];
   const int init_num_rows = 40;
   const int more_num_rows = 40;
-  int alloc_num_rows = init_num_rows;
-  m.rows = new bit_vector_t[init_num_rows];
+  int alloc_num_rows      = init_num_rows;
+  m.rows                  = new bit_vector_t[init_num_rows];
 
   while (1) {
-    if (is.eof())
+    if (is.eof()) {
       break;
+    }
 
     if (m.num_rows >= alloc_num_rows) {
       alloc_num_rows += more_num_rows;
       bit_vector_t *ptemp = new bit_vector_t[alloc_num_rows];
-      for (int i = 0; i < m.num_rows; i++)
+      for (int i = 0; i < m.num_rows; i++) {
         ptemp[i] = m.rows[i];
+      }
       delete[] m.rows;
       m.rows = ptemp;
     }
@@ -205,16 +221,18 @@ std::istream &operator>>(std::istream &is, bit_matrix_t &m) {
 
     // Allow comments.
     char *phash = strstr(line, "#");
-    if (phash)
+    if (phash) {
       *phash = 0;
+    }
 
     // Allow multiple matrices in the same stream, delimited by
     // carriage returns.
     if (spffl::base::is_whitespace_line(line)) {
-      if (m.num_rows == 0)
+      if (m.num_rows == 0) {
         continue;
-      else
+      } else {
         break;
+      }
     }
 
     // Use bit_vector_t istringstream >> to scan the line of text
@@ -230,8 +248,9 @@ std::istream &operator>>(std::istream &is, bit_matrix_t &m) {
     m.num_rows++;
   }
 
-  if (is.peek() == EOF)
+  if (is.peek() == EOF) {
     is.setstate(std::ios::eofbit);
+  }
 
   if (m.num_rows == 0) {
     is.setstate(std::ios::badbit);
@@ -243,10 +262,12 @@ std::istream &operator>>(std::istream &is, bit_matrix_t &m) {
   int max_cols = 0;
   for (int i = 0; i < m.num_rows; i++) {
     int cur_cols = m.rows[i].get_num_elements();
-    if (cur_cols > max_cols)
+    if (cur_cols > max_cols) {
       max_cols = cur_cols;
-    if (cur_cols < min_cols)
+    }
+    if (cur_cols < min_cols) {
       min_cols = cur_cols;
+    }
   }
   if (min_cols != max_cols) {
     is.setstate(std::ios::badbit);
@@ -275,8 +296,9 @@ bit_vector_t &bit_matrix_t::operator[](int row_index) {
 bit_matrix_t bit_matrix_t::operator+(const bit_matrix_t &that) const {
   this->check_dims(that, (char *)"operator+");
   bit_matrix_t rv(this->num_rows, this->num_cols);
-  for (int i = 0; i < this->num_rows; i++)
+  for (int i = 0; i < this->num_rows; i++) {
     rv[i] = this->rows[i] + that.rows[i];
+  }
   return rv;
 }
 
@@ -291,8 +313,9 @@ bit_matrix_t bit_matrix_t::operator-(const bit_matrix_t &that) const {
   }
 
   bit_matrix_t rv(this->num_rows, this->num_cols);
-  for (int i = 0; i < this->num_rows; i++)
+  for (int i = 0; i < this->num_rows; i++) {
     rv[i] = this->rows[i] - that.rows[i];
+  }
   return rv;
 }
 
@@ -309,8 +332,9 @@ bit_matrix_t bit_matrix_t::operator+(const bit_t &e) const {
   }
   bit_matrix_t rv(*this);
   if (e == bit_t(1)) {
-    for (int i = 0; i < this->num_rows; i++)
+    for (int i = 0; i < this->num_rows; i++) {
       rv[i].toggle_element(i);
+    }
   }
   return rv;
 }
@@ -323,8 +347,9 @@ bit_matrix_t bit_matrix_t::operator-(const bit_t &e) const {
   }
   bit_matrix_t rv(*this);
   if (e == bit_t(1)) {
-    for (int i = 0; i < this->num_rows; i++)
+    for (int i = 0; i < this->num_rows; i++) {
       rv[i].toggle_element(i);
+    }
   }
   return rv;
 }
@@ -343,9 +368,11 @@ bit_vector_t bit_matrix_t::operator*(const bit_vector_t &v) const {
 
   bit_t zero(0);
   bit_vector_t rv(zero, this->num_rows);
-  for (i = 0; i < this->num_rows; i++)
-    for (j = 0; j < this->num_cols; j++)
+  for (i = 0; i < this->num_rows; i++) {
+    for (j = 0; j < this->num_cols; j++) {
       rv.set(i, rv.get(i) + this->rows[i].get(j) * v.get(j));
+    }
+  }
 
   return rv;
 }
@@ -358,8 +385,9 @@ bit_matrix_t bit_matrix_t::posexp(int power, bit_matrix_t &I) {
   bit_matrix_t apower = I;
 
   while (power != 0) { // Repeated squaring.
-    if (power & 1)
+    if (power & 1) {
       apower *= a2;
+    }
     power = (uint64_t)power >> 1;
     a2 *= a2;
   }
@@ -419,8 +447,9 @@ bit_matrix_t bit_matrix_t::operator*(const bit_matrix_t &that) {
   for (i = 0; i < this->num_rows; i++) {
     for (j = 0; j < thatt.num_rows; j++) {
       bit_t dot = this->rows[i].dot(thatt.rows[j]);
-      if (dot == one)
+      if (dot == one) {
         rv[i].set(j, 1);
+      }
     }
   }
   return rv;
@@ -458,18 +487,22 @@ bit_matrix_t bit_matrix_t::outer(bit_vector_t &u, bit_vector_t &v) {
   int m = u.get_num_elements();
   int n = v.get_num_elements();
   bit_matrix_t rv;
-  for (int i = 0; i < m; i++)
-    for (int j = 0; j < n; j++)
+  for (int i = 0; i < m; i++) {
+    for (int j = 0; j < n; j++) {
       rv[i].set(j, u.get(i) * v.get(j));
+    }
+  }
   return rv;
 }
 
 // ----------------------------------------------------------------
 bit_matrix_t bit_matrix_t::transpose(void) const {
   bit_matrix_t rv(this->num_cols, this->num_rows);
-  for (int i = 0; i < this->num_rows; i++)
-    for (int j = 0; j < this->num_cols; j++)
+  for (int i = 0; i < this->num_rows; i++) {
+    for (int j = 0; j < this->num_cols; j++) {
       rv.rows[j].set(i, this->rows[i].get(j));
+    }
+  }
   return rv;
 }
 
@@ -485,10 +518,11 @@ bit_matrix_t bit_matrix_t::make_I(void) {
   bit_matrix_t rv(*this);
   for (int i = 0; i < this->num_rows; i++) {
     for (int j = 0; j < this->num_cols; j++) {
-      if (i == j)
+      if (i == j) {
         rv.rows[i].set(j, 1);
-      else
+      } else {
         rv.rows[i].set(j, 0);
+      }
     }
   }
   return rv;
@@ -496,38 +530,47 @@ bit_matrix_t bit_matrix_t::make_I(void) {
 
 // ----------------------------------------------------------------
 bool bit_matrix_t::is_zero(void) const {
-  for (int i = 0; i < this->num_rows; i++)
-    if (!this->rows[i].is_zero())
+  for (int i = 0; i < this->num_rows; i++) {
+    if (!this->rows[i].is_zero()) {
       return false;
+    }
+  }
   return true;
 }
 
 // ----------------------------------------------------------------
 bool bit_matrix_t::is_square(void) const {
-  if (this->num_rows == this->num_cols)
+  if (this->num_rows == this->num_cols) {
     return true;
-  else
+  } else {
     return false;
+  }
 }
 
 // ----------------------------------------------------------------
 bool bit_matrix_t::is_I(void) const {
   int i, j;
 
-  if (!this->is_square())
+  if (!this->is_square()) {
     return false;
+  }
 
   for (i = 0; i < this->num_rows; i++) {
-    if (this->rows[i].get(i) != 1)
+    if (this->rows[i].get(i) != 1) {
       return false;
+    }
   }
   for (i = 0; i < this->num_rows; i++) {
-    for (j = 0; j < i; j++)
-      if (this->rows[i].get(j) != 0)
+    for (j = 0; j < i; j++) {
+      if (this->rows[i].get(j) != 0) {
         return false;
-    for (j = i + 1; j < this->num_cols; j++)
-      if (this->rows[i].get(j) != 0)
+      }
+    }
+    for (j = i + 1; j < this->num_cols; j++) {
+      if (this->rows[i].get(j) != 0) {
         return false;
+      }
+    }
   }
   return true;
 }
@@ -535,8 +578,9 @@ bool bit_matrix_t::is_I(void) const {
 // ----------------------------------------------------------------
 uint64_t **bit_matrix_t::expose(void) {
   uint64_t **ptrs = new uint64_t *[this->num_rows];
-  for (int i = 0; i < this->num_rows; i++)
+  for (int i = 0; i < this->num_rows; i++) {
     ptrs[i] = this->rows[i].expose();
+  }
   return ptrs;
 }
 
@@ -591,21 +635,21 @@ void bit_matrix_t::row_reduce_below_with_scalar(bit_t &s) {
   s = 1;
   for (top_row = 0, left_column = 0;
        (top_row < this->num_rows) && (left_column < this->num_cols);
-       /* increment in loop body */) {
+      /* increment in loop body */) {
     // Find the nearest row with a non-zero value in this column;
     // exchange that row with this one.  If this is the last row,
     // there are no rows below to pivot into place, so don't
     // bother.
     if (top_row < this->num_rows - 1) {
-      int pivot_row = top_row;
+      int pivot_row        = top_row;
       int pivot_successful = 0;
       while (!pivot_successful && (pivot_row < this->num_rows)) {
         // if (this->rows[pivot_row].get_bit(left_column) != 0) {
         if (GET_BIT(ptrs[pivot_row], left_column)) {
           if (top_row != pivot_row) {
             this->swap(top_row, pivot_row);
-            temp = ptrs[top_row];
-            ptrs[top_row] = ptrs[pivot_row];
+            temp            = ptrs[top_row];
+            ptrs[top_row]   = ptrs[pivot_row];
             ptrs[pivot_row] = temp;
           }
           pivot_successful = 1;
@@ -629,8 +673,9 @@ void bit_matrix_t::row_reduce_below_with_scalar(bit_t &s) {
       for (row = top_row + 1; row < this->num_rows; row++) {
         // int current_row_lead = this->rows[row].get_bit(left_column);
         int current_row_lead = GET_BIT(ptrs[row], left_column);
-        if (current_row_lead)
+        if (current_row_lead) {
           this->rows[row].accum_row(this->rows[top_row]);
+        }
       }
     }
     left_column++;
@@ -661,9 +706,10 @@ void bit_matrix_t::row_echelon_form(void) {
         break;
       }
       row2_leader_val = this->rows[row2].get(row2_leader_pos);
-      row_leader_val = this->rows[row].get(row2_leader_pos);
-      if (row_leader_val == 0)
+      row_leader_val  = this->rows[row].get(row2_leader_pos);
+      if (row_leader_val == 0) {
         continue;
+      }
 
       mul = row_leader_val / row2_leader_val;
       this->rows[row] -= this->rows[row2] * mul;
@@ -685,10 +731,11 @@ int bit_matrix_t::get_rank(void) {
 int bit_matrix_t::get_rank_rr(void) {
   int rank = 0;
   for (int i = 0; i < this->num_rows; i++) {
-    if (this->rows[i].is_zero())
+    if (this->rows[i].is_zero()) {
       break;
-    else
+    } else {
       rank++;
+    }
   }
   return rank;
 }
@@ -698,28 +745,34 @@ bool bit_matrix_t::get_kernel_basis(bit_matrix_t &rbas) const {
   int i, j;
   bit_matrix_t rr(*this);
   rr.row_echelon_form();
-  int rank = rr.get_rank_rr();
+  int rank   = rr.get_rank_rr();
   int dimker = rr.num_cols - rank;
-  if (dimker == 0)
+  if (dimker == 0) {
     return false;
+  }
 
   bit_matrix_t basis(bit_t(0), dimker, rr.num_cols);
 
   unsigned char *free_flags = new unsigned char[this->num_cols];
-  int *free_indices = new int[this->num_cols];
-  int nfree = 0; // == dimker but I'll compute it anyway
+  int *free_indices         = new int[this->num_cols];
+  int nfree                 = 0; // == dimker but I'll compute it anyway
   int dep_pos;
 
-  for (i = 0; i < this->num_cols; i++)
+  for (i = 0; i < this->num_cols; i++) {
     free_flags[i] = 1;
+  }
 
-  for (i = 0; i < rank; i++)
-    if (rr.rows[i].find_leader_pos(dep_pos))
+  for (i = 0; i < rank; i++) {
+    if (rr.rows[i].find_leader_pos(dep_pos)) {
       free_flags[dep_pos] = 0;
+    }
+  }
 
-  for (i = 0; i < this->num_cols; i++)
-    if (free_flags[i])
+  for (i = 0; i < this->num_cols; i++) {
+    if (free_flags[i]) {
       free_indices[nfree++] = i;
+    }
+  }
 
   // For each free coefficient:
   //   Let that free coefficient be 1 and the rest be zero.
@@ -749,8 +802,9 @@ bool bit_matrix_t::get_kernel_basis(bit_matrix_t &rbas) const {
     // 01?0
 
     for (j = 0; j < rank; j++) {
-      if (rr.rows[j].get(free_indices[i]) == 0)
+      if (rr.rows[j].get(free_indices[i]) == 0) {
         continue;
+      }
 
       (void)rr.rows[j].find_leader_pos(dep_pos);
       basis.rows[i].set(dep_pos, rr.rows[j].get(free_indices[i]));
@@ -797,36 +851,43 @@ bit_matrix_t bit_matrix_t::paste(bit_matrix_t &that) {
   bit_matrix_t rv(this->num_rows, this->num_cols + that.num_cols);
   int i, j;
 
-  for (i = 0; i < this->num_rows; i++)
+  for (i = 0; i < this->num_rows; i++) {
     rv.rows[i] = this->rows[i];
-  for (i = 0; i < this->num_rows; i++)
-    for (j = 0; j < that.num_cols; j++)
+  }
+  for (i = 0; i < this->num_rows; i++) {
+    for (j = 0; j < that.num_cols; j++) {
       rv.rows[i].set(this->num_rows + j, that.rows[i].get(j));
+    }
+  }
 
   return rv;
 }
 
 // ----------------------------------------------------------------
-void bit_matrix_t::split(bit_matrix_t &rleft, bit_matrix_t &rright,
-                         int split_column) {
+void bit_matrix_t::split(
+    bit_matrix_t &rleft, bit_matrix_t &rright, int split_column) {
   if ((split_column < 0) || (split_column >= this->num_cols)) {
     std::cerr << "bit_matrix_t::split:  split column " << split_column
               << " out of bounds 0:" << this->num_rows - 1 << ".\n";
     exit(1);
   }
 
-  rleft = bit_matrix_t(this->num_rows, split_column);
+  rleft  = bit_matrix_t(this->num_rows, split_column);
   rright = bit_matrix_t(this->num_rows, this->num_cols - split_column);
 
   int i, j;
 
-  for (i = 0; i < this->num_rows; i++)
-    for (j = 0; j < split_column; j++)
+  for (i = 0; i < this->num_rows; i++) {
+    for (j = 0; j < split_column; j++) {
       rleft.rows[i].set(j, this->rows[i].get(j));
+    }
+  }
 
-  for (i = 0; i < this->num_rows; i++)
-    for (j = split_column; j < this->num_cols; j++)
+  for (i = 0; i < this->num_rows; i++) {
+    for (j = split_column; j < this->num_cols; j++) {
       rright.rows[i].set(j - split_column, this->rows[i].get(j));
+    }
+  }
 }
 
 // ----------------------------------------------------------------
@@ -836,7 +897,7 @@ bool bit_matrix_t::inverse(bit_matrix_t &rinv) {
     exit(1);
   }
 
-  bit_matrix_t I = this->make_I();
+  bit_matrix_t I    = this->make_I();
   bit_matrix_t pair = this->paste(I);
   pair.row_echelon_form();
 
@@ -880,14 +941,15 @@ int bit_matrix_t::get_num_cols(void) { return this->num_cols; }
 
 // ----------------------------------------------------------------
 void bit_matrix_t::mfree(void) {
-  if (this->rows != 0)
+  if (this->rows != 0) {
     delete[] this->rows;
+  }
   this->nullify();
 }
 
 // ----------------------------------------------------------------
 void bit_matrix_t::nullify(void) {
-  this->rows = 0;
+  this->rows     = 0;
   this->num_rows = 0;
   this->num_cols = 0;
 }

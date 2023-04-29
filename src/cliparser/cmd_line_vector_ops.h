@@ -75,7 +75,7 @@ template <class element_type> struct vec_lex_ctx_t {
 
 template <class element_type>
 static void E(vec_lex_ctx_t<element_type> &rlex_ctx,
-              tstack<vecatom_t<element_type>> &rstack);
+    tstack<vecatom_t<element_type>> &rstack);
 
 // ----------------------------------------------------------------
 template <class element_type> static const char *vec_token_desc(int t) {
@@ -132,14 +132,14 @@ template <class element_type> static const char *vec_token_desc(int t) {
 // ----------------------------------------------------------------
 template <class element_type>
 static void veclexinit(vec_lex_ctx_t<element_type> &rlex_ctx, int argc,
-                       char **argv, element_type zero, element_type one) {
-  rlex_ctx.argi = 0;
-  rlex_ctx.argc = argc;
-  rlex_ctx.argv = argv;
-  rlex_ctx.token = L_UNDEF;
+    char **argv, element_type zero, element_type one) {
+  rlex_ctx.argi       = 0;
+  rlex_ctx.argc       = argc;
+  rlex_ctx.argv       = argv;
+  rlex_ctx.token      = L_UNDEF;
   rlex_ctx.in_pow_rhs = 0;
-  rlex_ctx.zero = zero;
-  rlex_ctx.one = one;
+  rlex_ctx.zero       = zero;
+  rlex_ctx.one        = one;
 }
 
 // ----------------------------------------------------------------
@@ -151,33 +151,37 @@ static void veclexan(vec_lex_ctx_t<element_type> &rlex_ctx) {
   }
   char *s = rlex_ctx.argv[rlex_ctx.argi];
 
-  if (strcmp(s, "+") == 0)
+  if (strcmp(s, "+") == 0) {
     rlex_ctx.token = L_PLUS;
-  else if (strcmp(s, "-") == 0)
+  } else if (strcmp(s, "-") == 0) {
     rlex_ctx.token = L_MINUS;
-  else if (strcmp(s, "*") == 0)
+  } else if (strcmp(s, "*") == 0) {
     rlex_ctx.token = L_MUL;
-  else if (strcmp(s, ".") == 0)
+  } else if (strcmp(s, ".") == 0) {
     rlex_ctx.token = L_MUL;
-  else if (strcmp(s, "^") == 0)
+  } else if (strcmp(s, "^") == 0) {
     rlex_ctx.token = L_EXP;
+  }
 
-  else if (strcmp(s, "==") == 0)
+  else if (strcmp(s, "==") == 0) {
     rlex_ctx.token = L_EQ;
-  else if (strcmp(s, "!=") == 0)
+  } else if (strcmp(s, "!=") == 0) {
     rlex_ctx.token = L_NE;
-  else if (strcmp(s, "/=") == 0)
+  } else if (strcmp(s, "/=") == 0) {
     rlex_ctx.token = L_NE;
+  }
 
-  else if (strcmp(s, "(") == 0)
+  else if (strcmp(s, "(") == 0) {
     rlex_ctx.token = L_LPAREN;
-  else if (strcmp(s, ")") == 0)
+  } else if (strcmp(s, ")") == 0) {
     rlex_ctx.token = L_RPAREN;
+  }
 
-  else if (strcmp(s, "[") == 0)
+  else if (strcmp(s, "[") == 0) {
     rlex_ctx.token = L_LPAREN;
-  else if (strcmp(s, "]") == 0)
+  } else if (strcmp(s, "]") == 0) {
     rlex_ctx.token = L_RPAREN;
+  }
 
   else {
     rlex_ctx.token = L_VEC;
@@ -186,7 +190,7 @@ static void veclexan(vec_lex_ctx_t<element_type> &rlex_ctx) {
       rlex_ctx.atom.atom_type = INT_ATOM;
       iss >> rlex_ctx.atom.int_val;
     } else {
-      rlex_ctx.atom.vec_val = rlex_ctx.zero; // Set modulus
+      rlex_ctx.atom.vec_val   = rlex_ctx.zero; // Set modulus
       rlex_ctx.atom.atom_type = VEC_ATOM;
 
       if (strchr(rlex_ctx.argv[rlex_ctx.argi], '[')) {
@@ -222,7 +226,7 @@ static void veclexan(vec_lex_ctx_t<element_type> &rlex_ctx) {
 // ----------------------------------------------------------------
 template <class element_type>
 static void emit(vec_lex_ctx_t<element_type> &rlex_ctx,
-                 tstack<vecatom_t<element_type>> &rstack) {
+    tstack<vecatom_t<element_type>> &rstack) {
   vecatom_t<element_type> A, B, C;
   int msiform;
 
@@ -382,7 +386,7 @@ static void match(vec_lex_ctx_t<element_type> &rlex_ctx, int expected_token) {
 // ----------------------------------------------------------------
 template <class element_type>
 static void P(vec_lex_ctx_t<element_type> &rlex_ctx,
-              tstack<vecatom_t<element_type>> &rstack) {
+    tstack<vecatom_t<element_type>> &rstack) {
   switch (rlex_ctx.token) {
   case L_LPAREN:
     match<element_type>(rlex_ctx, L_LPAREN);
@@ -403,7 +407,7 @@ static void P(vec_lex_ctx_t<element_type> &rlex_ctx,
 // ----------------------------------------------------------------
 template <class element_type>
 static void U(vec_lex_ctx_t<element_type> &rlex_ctx,
-              tstack<vecatom_t<element_type>> &rstack) {
+    tstack<vecatom_t<element_type>> &rstack) {
   vec_lex_ctx_t<element_type> save;
   P<element_type>(rlex_ctx, rstack);
   while (1) {
@@ -430,7 +434,7 @@ static void U(vec_lex_ctx_t<element_type> &rlex_ctx,
 // ----------------------------------------------------------------
 template <class element_type>
 static void F(vec_lex_ctx_t<element_type> &rlex_ctx,
-              tstack<vecatom_t<element_type>> &rstack) {
+    tstack<vecatom_t<element_type>> &rstack) {
   vec_lex_ctx_t<element_type> save;
   switch (rlex_ctx.token) {
   case L_PLUS:
@@ -458,7 +462,7 @@ static void F(vec_lex_ctx_t<element_type> &rlex_ctx,
 // ----------------------------------------------------------------
 template <class element_type>
 static void T(vec_lex_ctx_t<element_type> &rlex_ctx,
-              tstack<vecatom_t<element_type>> &rstack) {
+    tstack<vecatom_t<element_type>> &rstack) {
   vec_lex_ctx_t<element_type> save;
   F<element_type>(rlex_ctx, rstack);
   while (1) {
@@ -480,7 +484,7 @@ static void T(vec_lex_ctx_t<element_type> &rlex_ctx,
 // ----------------------------------------------------------------
 template <class element_type>
 static void E(vec_lex_ctx_t<element_type> &rlex_ctx,
-              tstack<vecatom_t<element_type>> &rstack) {
+    tstack<vecatom_t<element_type>> &rstack) {
   vec_lex_ctx_t<element_type> save;
   T<element_type>(rlex_ctx, rstack);
   while (1) {
@@ -503,7 +507,7 @@ static void E(vec_lex_ctx_t<element_type> &rlex_ctx,
 // ----------------------------------------------------------------
 template <class element_type>
 static void Q(vec_lex_ctx_t<element_type> &rlex_ctx,
-              tstack<vecatom_t<element_type>> &rstack) {
+    tstack<vecatom_t<element_type>> &rstack) {
   vec_lex_ctx_t<element_type> save;
   E<element_type>(rlex_ctx, rstack);
   while (1) {
@@ -526,8 +530,8 @@ static void Q(vec_lex_ctx_t<element_type> &rlex_ctx,
 // ----------------------------------------------------------------
 // The "zero" argument is needed to set the modulus for parameterized types.
 template <class element_type>
-void cmd_line_vec_parse(int argc, char **argv, element_type zero,
-                        element_type one) {
+void cmd_line_vec_parse(
+    int argc, char **argv, element_type zero, element_type one) {
   vec_lex_ctx_t<element_type> lex_ctx;
   tstack<vecatom_t<element_type>> stack;
   vecatom_t<element_type> result;

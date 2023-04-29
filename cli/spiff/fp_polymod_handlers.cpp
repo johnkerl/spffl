@@ -19,20 +19,24 @@ int fp_pm_list_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t m;
   spffl::list::sp_list_type_t type = spffl::list::SP_LIST_ALL;
-  if (argc != 4)
+  if (argc != 4) {
     pusage(argv[0]);
-  if (strcmp(argv[1], "-a") == 0)
+  }
+  if (strcmp(argv[1], "-a") == 0) {
     type = spffl::list::SP_LIST_ALL;
-  else if (strcmp(argv[1], "-u") == 0)
+  } else if (strcmp(argv[1], "-u") == 0) {
     type = spffl::list::SP_LIST_UNITS;
-  else if (strcmp(argv[1], "-nu") == 0)
+  } else if (strcmp(argv[1], "-nu") == 0) {
     type = spffl::list::SP_LIST_NON_UNITS;
-  else
+  } else {
     pusage(argv[0]);
-  if (sscanf(argv[2], "%d", &p) != 1)
+  }
+  if (sscanf(argv[2], "%d", &p) != 1) {
     pusage(argv[0]);
-  if (!m.from_string(argv[3], p))
+  }
+  if (!m.from_string(argv[3], p)) {
     pusage(argv[0]);
+  }
   tvector<spffl::polynomials::fp_polymod_t> elts = fp_polymod_list(m, type);
   elts.crout(std::cout);
   return 0;
@@ -47,15 +51,17 @@ int fp_pm_op_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t m;
 
-  if (argc < 3)
+  if (argc < 3) {
     pusage(argv[0]);
-  if (sscanf(argv[1], "%d", &p) != 1)
+  }
+  if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
-  if (!m.from_string(argv[2], p))
+  }
+  if (!m.from_string(argv[2], p)) {
     pusage(argv[0]);
-  spffl::cliparser::cmd_line_parse<spffl::polynomials::fp_polymod_t>(
-      argc - 3, argv + 3,
-      spffl::polynomials::fp_polymod_t::prime_sfld_elt(0, m),
+  }
+  spffl::cliparser::cmd_line_parse<spffl::polynomials::fp_polymod_t>(argc - 3,
+      argv + 3, spffl::polynomials::fp_polymod_t::prime_sfld_elt(0, m),
       spffl::polynomials::fp_polymod_t::prime_sfld_elt(1, m));
   return 0;
 }
@@ -71,27 +77,31 @@ int fp_pm_tbl_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::fp_polymod_t g;
 
   int tbl_type = TBL_TYPE_PLUS;
-  if (argc != 4)
+  if (argc != 4) {
     pusage(argv[0]);
-  if (sscanf(argv[1], "%d", &p) != 1)
+  }
+  if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
-  if (!m.from_string(argv[2], p))
+  }
+  if (!m.from_string(argv[2], p)) {
     pusage(argv[0]);
+  }
 
-  if (strcmp(argv[3], "+") == 0)
+  if (strcmp(argv[3], "+") == 0) {
     tbl_type = TBL_TYPE_PLUS;
-  else if (strcmp(argv[3], "-") == 0)
+  } else if (strcmp(argv[3], "-") == 0) {
     tbl_type = TBL_TYPE_MINUS;
-  else if (strcmp(argv[3], "*") == 0)
+  } else if (strcmp(argv[3], "*") == 0) {
     tbl_type = TBL_TYPE_MUL;
-  else if (strcmp(argv[3], ".") == 0)
+  } else if (strcmp(argv[3], ".") == 0) {
     tbl_type = TBL_TYPE_MUL;
-  else if (strcmp(argv[3], "u*") == 0)
+  } else if (strcmp(argv[3], "u*") == 0) {
     tbl_type = TBL_TYPE_UNIT_MUL;
-  else if (strcmp(argv[3], "u.") == 0)
+  } else if (strcmp(argv[3], "u.") == 0) {
     tbl_type = TBL_TYPE_UNIT_MUL;
-  else if (strcmp(argv[3], "/") == 0)
+  } else if (strcmp(argv[3], "/") == 0) {
     tbl_type = TBL_TYPE_UNIT_DIV;
+  }
 
 #if 0
 	else if (strncmp(argv[3], "log:", 4) == 0) {
@@ -121,15 +131,17 @@ int fp_pm_tbl_main(int argc, char **argv, usage_t *pusage) {
 		tbl_type = TBL_TYPE_ALOG;
 	}
 #endif
-  else
+  else {
     pusage(argv[0]);
+  }
 
   tvector<spffl::polynomials::fp_polymod_t> elts;
   if ((tbl_type == TBL_TYPE_UNIT_MUL) || (tbl_type == TBL_TYPE_UNIT_DIV) ||
-      (tbl_type == TBL_TYPE_LOG) || (tbl_type == TBL_TYPE_ALOG))
+      (tbl_type == TBL_TYPE_LOG) || (tbl_type == TBL_TYPE_ALOG)) {
     elts = fp_polymod_list(m, spffl::list::SP_LIST_UNITS);
-  else
+  } else {
     elts = fp_polymod_list(m, spffl::list::SP_LIST_ALL);
+  }
   int n = elts.get_num_elements();
 
 #if 0
@@ -177,8 +189,9 @@ int fp_pm_tbl_main(int argc, char **argv, usage_t *pusage) {
         c = a / b;
         break;
       }
-      if (j > 0)
+      if (j > 0) {
         std::cout << " ";
+      }
       std::cout << c;
     }
     std::cout << "\n";
@@ -191,12 +204,15 @@ int fp_pm_mat_op_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t m;
 
-  if (argc < 3)
+  if (argc < 3) {
     pusage(argv[0]);
-  if (sscanf(argv[1], "%d", &p) != 1)
+  }
+  if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
-  if (!m.from_string(argv[2], p))
+  }
+  if (!m.from_string(argv[2], p)) {
     pusage(argv[0]);
+  }
   spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::fp_polymod_t>(
       argc - 3, argv + 3,
       spffl::polynomials::fp_polymod_t::prime_sfld_elt(0, m),
@@ -208,12 +224,15 @@ int fp_pm_vecop_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t m;
 
-  if (argc < 3)
+  if (argc < 3) {
     pusage(argv[0]);
-  if (sscanf(argv[1], "%d", &p) != 1)
+  }
+  if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
-  if (!m.from_string(argv[2], p))
+  }
+  if (!m.from_string(argv[2], p)) {
     pusage(argv[0]);
+  }
   spffl::cliparser::cmd_line_vec_parse<spffl::polynomials::fp_polymod_t>(
       argc - 3, argv + 3,
       spffl::polynomials::fp_polymod_t::prime_sfld_elt(0, m),
@@ -230,13 +249,16 @@ int fp_pm_mat_ord_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t m;
 
-  if ((argc != 3) && (argc != 4))
+  if ((argc != 3) && (argc != 4)) {
     pusage(argv[0]);
+  }
 
-  if (sscanf(argv[1], "%d", &p) != 1)
+  if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
-  if (!m.from_string(argv[2], p))
+  }
+  if (!m.from_string(argv[2], p)) {
     pusage(argv[0]);
+  }
 
   spffl::polynomials::fp_polymod_t zero =
       spffl::polynomials::fp_polymod_t::prime_sfld_elt(0, m);
@@ -278,22 +300,29 @@ int fp_pm_mat_random_main(int argc, char **argv, usage_t *pusage) {
   int p, nr, nc;
   spffl::polynomials::fp_poly_t m;
 
-  if (argc != 5)
+  if (argc != 5) {
     pusage(argv[0]);
+  }
 
-  if (sscanf(argv[1], "%d", &p) != 1)
+  if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
-  if (!m.from_string(argv[2], p))
+  }
+  if (!m.from_string(argv[2], p)) {
     pusage(argv[0]);
-  if (sscanf(argv[3], "%d", &nr) != 1)
+  }
+  if (sscanf(argv[3], "%d", &nr) != 1) {
     pusage(argv[0]);
-  if (sscanf(argv[4], "%d", &nc) != 1)
+  }
+  if (sscanf(argv[4], "%d", &nc) != 1) {
     pusage(argv[0]);
+  }
 
   tmatrix<spffl::polynomials::fp_polymod_t> A(nr, nc);
-  for (int i = 0; i < nr; i++)
-    for (int j = 0; j < nc; j++)
+  for (int i = 0; i < nr; i++) {
+    for (int j = 0; j < nc; j++) {
       A[i][j] = spffl::random::fp_polymod_random(m);
+    }
+  }
   std::cout << A;
   return 0;
 }
@@ -308,15 +337,19 @@ int fp_pm_ord_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::fp_poly_t m;
   spffl::polynomials::fp_polymod_t a;
 
-  if (argc != 4)
+  if (argc != 4) {
     pusage(argv[0]);
+  }
 
-  if (sscanf(argv[1], "%d", &p) != 1)
+  if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
-  if (!m.from_string(argv[2], p))
+  }
+  if (!m.from_string(argv[2], p)) {
     pusage(argv[0]);
-  if (!a.from_string(argv[3], m))
+  }
+  if (!a.from_string(argv[3], m)) {
     pusage(argv[0]);
+  }
 
   spffl::polynomials::fp_polymod_t ai;
   if (!a.recip(ai)) {
@@ -352,18 +385,23 @@ int fp_pm_ch_pol_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::fp_poly_t m;
   spffl::polynomials::fp_polymod_t a;
 
-  if (argc < 4)
+  if (argc < 4) {
     pusage(argv[0]);
-  if (sscanf(argv[1], "%d", &p) != 1)
+  }
+  if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
-  if (!m.from_string(argv[2], p))
+  }
+  if (!m.from_string(argv[2], p)) {
     pusage(argv[0]);
+  }
   for (int argi = 3; argi < argc; argi++) {
-    if (!a.from_string(argv[argi], m))
+    if (!a.from_string(argv[argi], m)) {
       pusage(argv[0]);
+    }
     spffl::polynomials::fp_poly_t cp = spffl::linalg::fppm_char_poly(a);
-    if (argc > 4)
+    if (argc > 4) {
       std::cout << a << ": ";
+    }
     std::cout << cp << "\n";
   }
 
@@ -380,18 +418,23 @@ int fp_pm_min_pol_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::fp_poly_t m;
   spffl::polynomials::fp_polymod_t a;
 
-  if (argc < 4)
+  if (argc < 4) {
     pusage(argv[0]);
-  if (sscanf(argv[1], "%d", &p) != 1)
+  }
+  if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
-  if (!m.from_string(argv[2], p))
+  }
+  if (!m.from_string(argv[2], p)) {
     pusage(argv[0]);
+  }
   for (int argi = 3; argi < argc; argi++) {
-    if (!a.from_string(argv[argi], m))
+    if (!a.from_string(argv[argi], m)) {
       pusage(argv[0]);
+    }
     spffl::polynomials::fp_poly_t cp = spffl::linalg::fppm_min_poly(a);
-    if (argc > 4)
+    if (argc > 4) {
       std::cout << a << ": ";
+    }
     std::cout << cp << "\n";
   }
 
@@ -407,19 +450,24 @@ int fp_pm_random_main(int argc, char **argv, usage_t *pusage) {
   int p, count = 1;
   spffl::polynomials::fp_poly_t m;
 
-  if ((argc != 3) && (argc != 4))
+  if ((argc != 3) && (argc != 4)) {
     pusage(argv[0]);
-  if (sscanf(argv[1], "%d", &p) != 1)
+  }
+  if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
-  if (!m.from_string(argv[2], p))
+  }
+  if (!m.from_string(argv[2], p)) {
     pusage(argv[0]);
+  }
   if (argc == 4) {
-    if (sscanf(argv[3], "%d", &count) != 1)
+    if (sscanf(argv[3], "%d", &count) != 1) {
       pusage(argv[0]);
+    }
   }
 
-  for (int i = 0; i < count; i++)
+  for (int i = 0; i < count; i++) {
     std::cout << spffl::random::fp_polymod_random(m) << std::endl;
+  }
 
   return 0;
 }

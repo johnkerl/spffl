@@ -10,10 +10,12 @@ void f2n_pr_op_usage(char *argv0) {
 }
 int f2n_pr_op_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t m;
-  if (argc < 2)
+  if (argc < 2) {
     pusage(argv[0]);
-  if (!m.from_string(argv[1]))
+  }
+  if (!m.from_string(argv[1])) {
     pusage(argv[0]);
+  }
   spffl::rationals::f2n_polyrat_t zero =
       spffl::rationals::f2n_polyrat_t::prime_sfld_elt(0, m);
   spffl::rationals::f2n_polyrat_t one =
@@ -30,10 +32,12 @@ void f2n_pr_mat_op_usage(char *argv0) {
 
 int f2n_pr_mat_op_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t m;
-  if (argc < 2)
+  if (argc < 2) {
     pusage(argv[0]);
-  if (!m.from_string(argv[1]))
+  }
+  if (!m.from_string(argv[1])) {
     pusage(argv[0]);
+  }
   spffl::rationals::f2n_polyrat_t zero =
       spffl::rationals::f2n_polyrat_t::prime_sfld_elt(0, m);
   spffl::rationals::f2n_polyrat_t one =

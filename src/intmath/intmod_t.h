@@ -80,8 +80,9 @@ inline intmod_t::intmod_t(int arg_residue, int arg_modulus) {
   this->residue = arg_residue;
   this->modulus = arg_modulus;
   this->residue = this->residue % this->modulus;
-  if (this->residue < 0) // Wacky C mod operator.
+  if (this->residue < 0) { // Wacky C mod operator.
     this->residue += this->modulus;
+  }
 }
 
 // ----------------------------------------------------------------
@@ -217,14 +218,14 @@ inline bool intmod_t::recip(intmod_t &rinv) {
   }
 
   static int mlast = 2;
-  static int phi = 1;
+  static int phi   = 1;
   if (this->modulus != mlast) { // Cache
     mlast = this->modulus;
-    phi = int_totient(this->modulus);
+    phi   = int_totient(this->modulus);
   }
 
   intmod_t rv = this->exp(phi - 1);
-  int check = (this->residue * rv.residue) % this->modulus;
+  int check   = (this->residue * rv.residue) % this->modulus;
   if (check != 1) {
     return false;
   } else {

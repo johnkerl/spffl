@@ -22,8 +22,9 @@ spffl::polynomials::fp_poly_t fp_poly_random(int p, int deg) {
   spffl::polynomials::fp_poly_t rv(zero);
   for (int i = deg; i >= 0; i--) {
     spffl::intmath::intmod_t c = intmod_random(p);
-    if ((i == deg) && (c == zero))
+    if ((i == deg) && (c == zero)) {
       c = one;
+    }
     rv.set_coeff(i, c);
   }
   return rv;

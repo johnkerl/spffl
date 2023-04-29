@@ -80,8 +80,9 @@ f2_polymod_t f2_polymod_t::operator*(int a) {
   f2_polymod_t rv(*this);
   if (a & 1)
     ;
-  else
+  else {
     rv = rv - rv;
+  }
   return rv;
 }
 
@@ -152,15 +153,15 @@ f2_polymod_t f2_polymod_t::exp(int e) {
       exit(1);
     }
     f2_polymod_t inv = one / *this;
-    xp = inv.residue;
-    e = -e;
+    xp               = inv.residue;
+    e                = -e;
   }
 
   while (e != 0) {
     if (e & 1) {
       rv.residue = (rv.residue * xp) % this->modulus;
     }
-    e = (unsigned)e >> 1;
+    e  = (unsigned)e >> 1;
     xp = (xp * xp) % this->modulus;
   }
   return rv;
@@ -252,10 +253,12 @@ f2_polymod_t &f2_polymod_t::operator%=(f2_polymod_t that) {
 
 // ----------------------------------------------------------------
 bool f2_polymod_t::operator==(f2_polymod_t that) const {
-  if (this->residue != that.residue)
+  if (this->residue != that.residue) {
     return false;
-  if (this->modulus != that.modulus)
+  }
+  if (this->modulus != that.modulus) {
     return false;
+  }
   return true;
 }
 

@@ -94,8 +94,9 @@ fpn_polymod_t fpn_polymod_t::operator*(fpn_polymod_t that) {
 fpn_polymod_t fpn_polymod_t::operator*(int a) {
   // xxx get the characteristic and reduce a mod that.
   fpn_polymod_t rv = *this - *this;
-  for (int i = 0; i < a; i++)
+  for (int i = 0; i < a; i++) {
     rv += *this;
+  }
   return rv;
 }
 
@@ -175,15 +176,15 @@ fpn_polymod_t fpn_polymod_t::exp(int e) {
       exit(1);
     }
     fpn_polymod_t inv = one / *this;
-    xp = inv.residue;
-    e = -e;
+    xp                = inv.residue;
+    e                 = -e;
   }
 
   while (e != 0) {
     if (e & 1) {
       rv.residue = (rv.residue * xp) % this->modulus;
     }
-    e = (unsigned)e >> 1;
+    e  = (unsigned)e >> 1;
     xp = (xp * xp) % this->modulus;
   }
 
@@ -192,18 +193,20 @@ fpn_polymod_t fpn_polymod_t::exp(int e) {
 
 // ----------------------------------------------------------------
 std::ostream &operator<<(std::ostream &os, const fpn_polymod_t &a) {
-  int adeg = a.residue.find_degree();
-  int rdeg = a.modulus.find_degree() - 1;
-  int max = adeg > rdeg ? adeg : rdeg;
+  int adeg    = a.residue.find_degree();
+  int rdeg    = a.modulus.find_degree() - 1;
+  int max     = adeg > rdeg ? adeg : rdeg;
   fp_poly_t m = a.residue.get_coeff(0).get_modulus();
 
   for (int i = max; i >= 0; i--) {
-    if (i < max)
+    if (i < max) {
       os << ":";
-    if (i > adeg)
+    }
+    if (i > adeg) {
       os << 0;
-    else
+    } else {
       os << a.residue.get_coeff(i).get_residue();
+    }
   }
 
   return os;
@@ -220,8 +223,9 @@ std::istringstream &operator>>(std::istringstream &iss, fpn_polymod_t &a) {
 bool fpn_polymod_t::from_string(const char *string, fpn_poly_t &m) {
   fpn_poly_t r;
   fp_poly_t mm = m.get_coeff(0).get_modulus();
-  if (!r.from_string(string, mm))
+  if (!r.from_string(string, mm)) {
     return false;
+  }
   *this = fpn_polymod_t(r, m);
   return true;
 }
@@ -264,10 +268,12 @@ fpn_polymod_t &fpn_polymod_t::operator%=(fpn_polymod_t that) {
 
 // ----------------------------------------------------------------
 bool fpn_polymod_t::operator==(fpn_polymod_t that) const {
-  if (this->residue != that.residue)
+  if (this->residue != that.residue) {
     return false;
-  if (this->modulus != that.modulus)
+  }
+  if (this->modulus != that.modulus) {
     return false;
+  }
   return true;
 }
 

@@ -37,8 +37,8 @@ public:
   friend std::ostream &operator<<(std::ostream &os, const f2_polymod_t &a);
   // Modulus must have already been set:  this sets only the residue.
   friend std::istream &operator>>(std::istream &is, f2_polymod_t &a);
-  friend std::istringstream &operator>>(std::istringstream &iss,
-                                        f2_polymod_t &a);
+  friend std::istringstream &operator>>(
+      std::istringstream &iss, f2_polymod_t &a);
   bool from_string(const char *string, f2_poly_t m);
 
   f2_polymod_t &operator+=(f2_polymod_t that);

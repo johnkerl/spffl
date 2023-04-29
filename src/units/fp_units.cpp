@@ -30,18 +30,19 @@ int fp_order(spffl::intmath::intmod_t a) {
     exit(1);
   }
 
-  int phi = spffl::intmath::int_totient(p);
-  tfacinfo<int> finfo = spffl::factorization::int_factor(phi);
+  int phi                   = spffl::intmath::int_totient(p);
+  tfacinfo<int> finfo       = spffl::factorization::int_factor(phi);
   tvector<int> phi_divisors = finfo.get_all_divisors(1);
-  int nd = phi_divisors.get_num_elements();
+  int nd                    = phi_divisors.get_num_elements();
   spffl::intmath::intmod_t one(1, p);
 
   // The output from get_all_divisors is guaranteed to be sorted up.
   // Thus, here we will find the *least* exponent e such that a^e = 1.
   for (int i = 0; i < nd; i++) {
     spffl::intmath::intmod_t ap = a.exp(phi_divisors[i]);
-    if (ap == one)
+    if (ap == one) {
       return phi_divisors[i];
+    }
   }
 
   // By Lagrange's theorem, g^m = 1 for all units g, with m the order
@@ -57,8 +58,9 @@ bool fp_find_generator(int p, spffl::intmath::intmod_t &rg) {
   int phi = spffl::intmath::int_totient(p);
 
   for (gres = 1; gres < p; gres++) {
-    if (spffl::intmath::int_gcd(gres, p) != 1)
+    if (spffl::intmath::int_gcd(gres, p) != 1) {
       continue;
+    }
 
     spffl::intmath::intmod_t g(gres, p);
     if (fp_order(g) == phi) {
@@ -89,24 +91,26 @@ typedef struct _poly_and_index_t {
 static int poly_and_index_qcmp(const void *pv1, const void *pv2) {
   const poly_and_index_t *p1 = (const poly_and_index_t *)pv1;
   const poly_and_index_t *p2 = (const poly_and_index_t *)pv2;
-  if (p1->elt < p2->elt)
+  if (p1->elt < p2->elt) {
     return -1;
-  if (p1->elt > p2->elt)
+  }
+  if (p1->elt > p2->elt) {
     return 1;
+  }
   return 0;
 }
 
 int fp_log( // Log base g of a.
     spffl::intmath::intmod_t g, spffl::intmath::intmod_t a) {
-  int rv = -1;
-  int p = g.get_modulus();
+  int rv     = -1;
+  int p      = g.get_modulus();
   unsigned k = (unsigned)spffl::intmath::int_sqrt_ceil(p);
 
   // xxx check gcd(g, p)
   // xxx check gcd(g, a)
 
   poly_and_index_t *agni = new poly_and_index_t[k];
-  poly_and_index_t *gkj = new poly_and_index_t[k];
+  poly_and_index_t *gkj  = new poly_and_index_t[k];
 
   spffl::intmath::intmod_t ginv;
   if (!g.recip(ginv)) {
@@ -119,8 +123,8 @@ int fp_log( // Log base g of a.
 
   agni[0].elt = a;
   agni[0].idx = 0;
-  gkj[0].elt = g / g;
-  gkj[0].idx = 0;
+  gkj[0].elt  = g / g;
+  gkj[0].idx  = 0;
 
   for (i = 1; i < k; i++) {
     agni[i].elt = agni[i - 1].elt * ginv;

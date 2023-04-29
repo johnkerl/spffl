@@ -54,8 +54,9 @@ int get_random_int(void) {
   }
   rv = buf[bufpos];
   bufpos++;
-  if (bufpos >= BUFSZ)
+  if (bufpos >= BUFSZ) {
     bufpos = 0;
+  }
   return rv;
 }
 #else

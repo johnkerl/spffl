@@ -10,8 +10,8 @@
 namespace spffl::linalg {
 
 // ----------------------------------------------------------------
-tvector<spffl::intmath::intmod_t> fp_vector_from_base_rep(int base_rep, int p,
-                                                          int len) {
+tvector<spffl::intmath::intmod_t> fp_vector_from_base_rep(
+    int base_rep, int p, int len) {
   tvector<spffl::intmath::intmod_t> v(len);
   int i;
 
@@ -23,8 +23,8 @@ tvector<spffl::intmath::intmod_t> fp_vector_from_base_rep(int base_rep, int p,
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::fp_poly_t
-fp_char_poly(tmatrix<spffl::intmath::intmod_t> &A) {
+spffl::polynomials::fp_poly_t fp_char_poly(
+    tmatrix<spffl::intmath::intmod_t> &A) {
   if (!A.is_square()) {
     std::cerr << "fp_char_poly():  non-square input.\n";
     exit(1);
@@ -42,8 +42,9 @@ fp_char_poly(tmatrix<spffl::intmath::intmod_t> &A) {
   for (i = 0; i < n; i++) {
     for (j = 0; j < n; j++) {
       tI_A[i][j] = -spffl::polynomials::fp_poly_t(A[i][j]);
-      if (i == j)
+      if (i == j) {
         tI_A[i][j] += t;
+      }
     }
   }
 
@@ -52,8 +53,8 @@ fp_char_poly(tmatrix<spffl::intmath::intmod_t> &A) {
 }
 
 // ----------------------------------------------------------------
-tmatrix<spffl::intmath::intmod_t>
-fp_companion_matrix(spffl::polynomials::fp_poly_t chpol) {
+tmatrix<spffl::intmath::intmod_t> fp_companion_matrix(
+    spffl::polynomials::fp_poly_t chpol) {
   int n = chpol.find_degree();
   int p = chpol.get_characteristic();
   tmatrix<spffl::intmath::intmod_t> rv(n, n);
@@ -66,10 +67,12 @@ fp_companion_matrix(spffl::polynomials::fp_poly_t chpol) {
   // 0 0 1 0
 
   rv = spffl::intmath::intmod_t(0, p);
-  for (i = 1; i < n; i++)
+  for (i = 1; i < n; i++) {
     rv[i][i - 1] = spffl::intmath::intmod_t(1, p);
-  for (i = 0; i < n; i++)
+  }
+  for (i = 0; i < n; i++) {
     rv[0][n - 1 - i] = -chpol.get_coeff(i);
+  }
 
   return rv;
 }

@@ -16,9 +16,9 @@
 namespace spffl::bits {
 
 const uint64_t BITS_PER_WORD = 64;
-const uint64_t BITS_SHIFT = 6;
-const uint64_t WORD_MASK = BITS_PER_WORD - 1;
-const uint64_t UONE = 1;
+const uint64_t BITS_SHIFT    = 6;
+const uint64_t WORD_MASK     = BITS_PER_WORD - 1;
+const uint64_t UONE          = 1;
 
 static inline uint64_t WORD_INDEX_FROM_BIT_INDEX(uint64_t bi) {
   return bi >> BITS_SHIFT;
@@ -30,7 +30,7 @@ static inline uint64_t WORD_POS_FROM_BIT_INDEX(uint64_t bi) {
 
 static uint64_t GET_BIT(uint64_t *wordptr, uint64_t bi) {
   return (wordptr[WORD_INDEX_FROM_BIT_INDEX(bi)] >>
-          WORD_POS_FROM_BIT_INDEX(bi)) &
+             WORD_POS_FROM_BIT_INDEX(bi)) &
          UONE;
 }
 
@@ -70,8 +70,8 @@ public:
 
   friend std::istream &operator>>(std::istream &is, bit_vector_t &v);
 
-  friend std::istringstream &operator>>(std::istringstream &is,
-                                        bit_vector_t &v);
+  friend std::istringstream &operator>>(
+      std::istringstream &is, bit_vector_t &v);
 
   // No spaces between elements.  (Instead, perhaps I could implement a
   // derived iomanip, and then just use ostream <<.)
@@ -81,34 +81,40 @@ public:
   void crout(std::ostream &os);
 
   bit_t get(int index) const {
-    if ((index < 0) || (index >= this->num_bits))
+    if ((index < 0) || (index >= this->num_bits)) {
       this->bounds_check(index);
+    }
     return bit_t(GET_BIT(this->words, index));
   }
 
   int get_int(int index) const {
-    if ((index < 0) || (index >= this->num_bits))
+    if ((index < 0) || (index >= this->num_bits)) {
       this->bounds_check(index);
+    }
     return GET_BIT(this->words, index);
   }
 
   void set(int index, bit_t value) {
-    if ((index < 0) || (index >= this->num_bits))
+    if ((index < 0) || (index >= this->num_bits)) {
       this->bounds_check(index);
+    }
 
-    if (value.get_residue())
+    if (value.get_residue()) {
       SET_BIT(this->words, index);
-    else
+    } else {
       CLEAR_BIT(this->words, index);
+    }
   }
 
   void set(int index, int value) {
-    if ((index < 0) || (index >= this->num_bits))
+    if ((index < 0) || (index >= this->num_bits)) {
       this->bounds_check(index);
-    if (value & 1)
+    }
+    if (value & 1) {
       SET_BIT(this->words, index);
-    else
+    } else {
       CLEAR_BIT(this->words, index);
+    }
   }
 
   void toggle_element(int index);

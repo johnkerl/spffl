@@ -13,7 +13,7 @@ namespace spffl::rationals {
 
 // ----------------------------------------------------------------
 fp_polyrat_t::fp_polyrat_t(spffl::polynomials::fp_poly_t numerator,
-                           spffl::polynomials::fp_poly_t denominator) {
+    spffl::polynomials::fp_poly_t denominator) {
   this->numer = numerator;
   this->denom = denominator;
   this->simplify();
@@ -154,12 +154,13 @@ fp_polyrat_t fp_polyrat_t::exp(int e) {
       exit(1);
     }
     xp = one / xp;
-    e = -e;
+    e  = -e;
   }
 
   while (e != 0) {
-    if (e & 1)
+    if (e & 1) {
       rv *= xp;
+    }
     e = (unsigned)e >> 1;
     xp *= xp;
   }
@@ -170,8 +171,9 @@ fp_polyrat_t fp_polyrat_t::exp(int e) {
 // ----------------------------------------------------------------
 std::ostream &operator<<(std::ostream &os, const fp_polyrat_t &a) {
   os << a.numer;
-  if (a.denom != 1)
+  if (a.denom != 1) {
     os << "/" << a.denom;
+  }
   return os;
 }
 
@@ -182,12 +184,15 @@ std::istream &operator>>(std::istream &is, fp_polyrat_t &a) {
   // characters.  E.g. if the input is 0, space, tab, space, 1, then the
   // following won't suffice.
 
-  while (is.peek() == ' ')
+  while (is.peek() == ' ') {
     is.ignore(1, ' ');
-  while (is.peek() == '\t')
+  }
+  while (is.peek() == '\t') {
     is.ignore(1, '\t');
-  while (is.peek() == '\n')
+  }
+  while (is.peek() == '\n') {
     is.ignore(1, '\n');
+  }
 
   is >> a.numer;
   if (is.eof()) {
@@ -212,12 +217,15 @@ std::istringstream &operator>>(std::istringstream &iss, fp_polyrat_t &a) {
   // characters.  E.g. if the input is 0, space, tab, space, 1, then the
   // following won't suffice.
 
-  while (iss.peek() == ' ')
+  while (iss.peek() == ' ') {
     iss.ignore(1, ' ');
-  while (iss.peek() == '\t')
+  }
+  while (iss.peek() == '\t') {
     iss.ignore(1, '\t');
-  while (iss.peek() == '\n')
+  }
+  while (iss.peek() == '\n') {
     iss.ignore(1, '\n');
+  }
 
   iss >> a.numer;
   if (iss.eof()) {
@@ -277,10 +285,12 @@ fp_polyrat_t &fp_polyrat_t::operator%=(fp_polyrat_t that) {
 bool fp_polyrat_t::operator==(fp_polyrat_t that) const {
   // Our constructor ensures both *this and that are already in
   // canonical form.
-  if (this->numer != that.numer)
+  if (this->numer != that.numer) {
     return false;
-  if (this->denom != that.denom)
+  }
+  if (this->denom != that.denom) {
     return false;
+  }
   return true;
 }
 
@@ -291,8 +301,9 @@ bool fp_polyrat_t::operator!=(fp_polyrat_t that) const {
 
 // ----------------------------------------------------------------
 bool fp_polyrat_t::operator==(spffl::polynomials::fp_poly_t that) const {
-  if (this->denom != this->numer.prime_sfld_elt(1))
+  if (this->denom != this->numer.prime_sfld_elt(1)) {
     return false;
+  }
   return this->numer == that;
 }
 

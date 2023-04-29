@@ -1,0 +1,6 @@
+# https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+
+InsertBraces: true
+AlignConsecutiveAssignments: Consecutive
+AlignAfterOpenBracket: DontAlign
+

@@ -13,9 +13,10 @@ int int_power(int b, int e) {
   int rv = 1;
 
   while (e != 0) {
-    if (e & 1)
+    if (e & 1) {
       rv = rv * b2;
-    e = (unsigned)e >> 1;
+    }
+    e  = (unsigned)e >> 1;
     b2 = b2 * b2;
   }
   return rv;

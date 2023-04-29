@@ -11,8 +11,8 @@
 
 namespace spffl::factorization {
 
-tfacinfo<spffl::polynomials::f2_poly_t>
-f2_poly_factor(spffl::polynomials::f2_poly_t f);
+tfacinfo<spffl::polynomials::f2_poly_t> f2_poly_factor(
+    spffl::polynomials::f2_poly_t f);
 
 bool f2_poly_is_irreducible(spffl::polynomials::f2_poly_t f);
 

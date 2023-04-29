@@ -12,20 +12,25 @@ namespace spffl::intmath {
 int int_gcd(int a, int b) {
   int r;
 
-  if (a == 0)
+  if (a == 0) {
     return b;
-  if (b == 0)
+  }
+  if (b == 0) {
     return a;
+  }
 
-  if (a < 0) // Breaks for most negative int (-2^63); I don't care.
+  if (a < 0) { // Breaks for most negative int (-2^63); I don't care.
     a = -a;
-  if (b < 0)
+  }
+  if (b < 0) {
     b = -b;
+  }
 
   while (1) {
     r = a % b;
-    if (r == 0)
+    if (r == 0) {
       break;
+    }
     a = b;
     b = r;
   }
@@ -40,11 +45,11 @@ int int_ext_gcd(int a, int b, int &m, int &n) {
 
   // Initialize
   mprime = 1;
-  n = 1;
-  m = 0;
+  n      = 1;
+  m      = 0;
   nprime = 0;
-  c = a;
-  d = b;
+  c      = a;
+  d      = b;
 
   while (1) {
 
@@ -54,22 +59,23 @@ int int_ext_gcd(int a, int b, int &m, int &n) {
     // Note:  now c = qd + r and 0 <= r < d
 
     // Remainder zero?
-    if (r == 0)
+    if (r == 0) {
       break;
+    }
 
     // Recycle
     c = d;
     d = r;
 
-    t = mprime;
+    t      = mprime;
     mprime = m;
-    qm = q * m;
-    m = t - qm;
+    qm     = q * m;
+    m      = t - qm;
 
-    t = nprime;
+    t      = nprime;
     nprime = n;
-    qn = q * n;
-    n = t - qn;
+    qn     = q * n;
+    n      = t - qn;
   }
   return d;
 }
