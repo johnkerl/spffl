@@ -43,27 +43,27 @@ public:
   bit_matrix_t operator+(const bit_t &e) const;
   bit_matrix_t operator-(const bit_t &e) const;
   bit_vector_t operator*(const bit_vector_t &v) const;
+  bit_matrix_t operator*(const bit_matrix_t &that) const;
 
   // Return value is 1 for success, 0 for failure (i.e. non-positive
   // exponent of a singular matrix).
   int exp(int power, bit_matrix_t &rout);
 
-  bit_matrix_t operator*(const bit_matrix_t &that);
-  bit_matrix_t &operator+=(bit_matrix_t that);
-  bit_matrix_t &operator-=(bit_matrix_t that);
-  bit_matrix_t &operator+=(bit_t e);
-  bit_matrix_t &operator-=(bit_t e);
+  bit_matrix_t &operator+=(const bit_matrix_t &that);
+  bit_matrix_t &operator-=(const bit_matrix_t &that);
+  bit_matrix_t &operator+=(const bit_t &e);
+  bit_matrix_t &operator-=(const bit_t &e);
   bit_matrix_t &operator*=(const bit_matrix_t &that);
 
   static bit_matrix_t outer(bit_vector_t &u, bit_vector_t &v);
   bit_matrix_t transpose(void) const;
 
   // Makes an identity matrix with the same dimensions as *this has.
-  bit_matrix_t make_I(void);
+  bit_matrix_t make_I(void) const;
   bool is_zero(void) const;
   bool is_square(void) const;
   bool is_I(void) const;
-  uint64_t **expose(void);
+  uint64_t **expose(void) const;
   void swap(int arow, int brow);
 
   // This is a general row-reduction method.  It operates on the matrix
@@ -83,23 +83,23 @@ public:
 
   // This method makes a copy of the matrix and row-reduces it.  To save
   // CPU cycles, use get_rank_rr() if the matrix is already row-reduced.
-  int get_rank(void);
+  int get_rank(void) const;
 
   // This method assumes the matrix is already row-reduced.  If not,
   // use get_rank() instead.
-  int get_rank_rr(void);
+  int get_rank_rr(void) const;
 
   bool get_kernel_basis(bit_matrix_t &rbas) const;
   void check_kernel_basis(bit_matrix_t &kerbas) const;
-  bit_matrix_t paste(bit_matrix_t &that);
+  bit_matrix_t paste(bit_matrix_t &that) const;
 
-  void split(bit_matrix_t &rleft, bit_matrix_t &rright, int split_column);
+  void split(bit_matrix_t &rleft, bit_matrix_t &rright, int split_column) const;
 
-  bool inverse(bit_matrix_t &rinv);
-  void check_inverse(bit_matrix_t &rinv);
-  bit_t det(void);
-  int get_num_rows(void);
-  int get_num_cols(void);
+  bool inverse(bit_matrix_t &rinv) const;
+  void check_inverse(bit_matrix_t &rinv) const;
+  bit_t det(void) const;
+  int get_num_rows(void) const;
+  int get_num_cols(void) const;
 
   // ----------------------------------------------------------------
 private:

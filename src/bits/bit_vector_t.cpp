@@ -209,7 +209,7 @@ std::istringstream &operator>>(std::istringstream &iss, bit_vector_t &v) {
 // ----------------------------------------------------------------
 // No spaces between elements.  (Instead, perhaps I could implement a
 // derived iomanip, and then just use ostream <<.)
-void bit_vector_t::sqzout(std::ostream &os) {
+void bit_vector_t::sqzout(std::ostream &os) const {
   for (int i = 0; i < this->num_bits; i++) {
     os << GET_BIT(this->words, i);
   }
@@ -217,7 +217,7 @@ void bit_vector_t::sqzout(std::ostream &os) {
 
 // ----------------------------------------------------------------
 // Carriage return between elements.
-void bit_vector_t::crout(std::ostream &os) {
+void bit_vector_t::crout(std::ostream &os) const {
   for (int i = 0; i < this->num_bits; i++) {
     os << GET_BIT(this->words, i);
     os << "\n";
@@ -243,7 +243,7 @@ bool bit_vector_t::is_zero(void) const {
 }
 
 // ----------------------------------------------------------------
-bit_vector_t bit_vector_t::operator+(bit_vector_t that) {
+bit_vector_t bit_vector_t::operator+(const bit_vector_t &that) {
   this->check_equal_lengths(that);
   bit_vector_t rv(this->num_bits);
   for (int i = 0; i < this->num_words; i++) {
@@ -253,7 +253,7 @@ bit_vector_t bit_vector_t::operator+(bit_vector_t that) {
 }
 
 // ----------------------------------------------------------------
-bit_vector_t bit_vector_t::operator-(bit_vector_t that) {
+bit_vector_t bit_vector_t::operator-(const bit_vector_t &that) {
   this->check_equal_lengths(that);
   bit_vector_t rv(this->num_bits);
   for (int i = 0; i < this->num_words; i++) {
@@ -263,7 +263,7 @@ bit_vector_t bit_vector_t::operator-(bit_vector_t that) {
 }
 
 // ----------------------------------------------------------------
-bit_vector_t bit_vector_t::operator*(bit_t s) {
+bit_vector_t bit_vector_t::operator*(const bit_t &s) {
   bit_vector_t rv(*this);
   if (s == bit_t(0)) {
     memset(rv.words, 0, rv.num_words * sizeof(uint64_t));
@@ -278,7 +278,7 @@ bit_vector_t bit_vector_t::operator*(bit_t s) {
 // Use dot() (e.g. u.dot(v)) for inner product, or tmatrix's outer() (e.g.
 // tmatrix::outer(u, v)) for outer product.
 
-bit_vector_t bit_vector_t::operator*(bit_vector_t that) {
+bit_vector_t bit_vector_t::operator*(const bit_vector_t &that) {
   this->check_equal_lengths(that);
   bit_vector_t rv(this->num_bits);
   for (int i = 0; i < this->num_words; i++) {
@@ -288,7 +288,7 @@ bit_vector_t bit_vector_t::operator*(bit_vector_t that) {
 }
 
 // ----------------------------------------------------------------
-bit_t bit_vector_t::dot(bit_vector_t that) {
+bit_t bit_vector_t::dot(const bit_vector_t &that) {
   if (this->num_bits != that.num_bits) {
     this->check_equal_lengths(that);
   }
@@ -391,7 +391,7 @@ void bit_vector_t::ptrswap(bit_vector_t &that) {
 }
 
 // ----------------------------------------------------------------
-void bit_vector_t::check_equal_lengths(bit_vector_t &that) {
+void bit_vector_t::check_equal_lengths(const bit_vector_t &that) const {
   if (this->num_bits != that.num_bits) {
     std::cerr << "bit_vector_t operator+():  Incompatibly sized "
               << "arguments (" << this->num_bits << ", " << that.num_bits

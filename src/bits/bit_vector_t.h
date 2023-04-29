@@ -75,10 +75,10 @@ public:
 
   // No spaces between elements.  (Instead, perhaps I could implement a
   // derived iomanip, and then just use ostream <<.)
-  void sqzout(std::ostream &os);
+  void sqzout(std::ostream &os) const;
 
   // Carriage return between elements.
-  void crout(std::ostream &os);
+  void crout(std::ostream &os) const;
 
   bit_t get(int index) const {
     if ((index < 0) || (index >= this->num_bits)) {
@@ -94,7 +94,7 @@ public:
     return GET_BIT(this->words, index);
   }
 
-  void set(int index, bit_t value) {
+  void set(int index, const bit_t & value) {
     if ((index < 0) || (index >= this->num_bits)) {
       this->bounds_check(index);
     }
@@ -120,17 +120,17 @@ public:
   void toggle_element(int index);
   bool is_zero(void) const;
 
-  bit_vector_t operator+(bit_vector_t that);
-  bit_vector_t operator-(bit_vector_t that);
-  bit_vector_t operator*(bit_t s);
+  bit_vector_t operator+(const bit_vector_t &that);
+  bit_vector_t operator-(const bit_vector_t &that);
+  bit_vector_t operator*(const bit_t &s);
 
   // This is componentwise multiplication (u * v), useful for
   // implementing direct products of rings.
   //
   // Use dot() (e.g. u.dot(v)) for inner product, or bit_matrix_t's
   // outer() (e.g.  bit_matrix_t::outer(u, v)) for outer product.
-  bit_vector_t operator*(bit_vector_t that);
-  bit_t dot(bit_vector_t that);
+  bit_vector_t operator*(const bit_vector_t &that);
+  bit_t dot(const bit_vector_t &that);
 
   // Componentwise division.
   bit_vector_t operator/(bit_vector_t that);
@@ -161,7 +161,7 @@ private:
   int num_bits;
 
   // Return value:  True/false.  rpos:  index, if found.
-  void check_equal_lengths(bit_vector_t &that);
+  void check_equal_lengths(const bit_vector_t &that) const;
   void bounds_check(int index) const;
   void trim(void);
 };

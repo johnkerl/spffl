@@ -428,7 +428,7 @@ int bit_matrix_t::exp(int power, bit_matrix_t &rout) {
 }
 
 // ----------------------------------------------------------------
-bit_matrix_t bit_matrix_t::operator*(const bit_matrix_t &that) {
+bit_matrix_t bit_matrix_t::operator*(const bit_matrix_t &that) const {
   int i, j;
 
   if (this->num_cols != that.num_rows) {
@@ -456,22 +456,22 @@ bit_matrix_t bit_matrix_t::operator*(const bit_matrix_t &that) {
 }
 
 // ----------------------------------------------------------------
-bit_matrix_t &bit_matrix_t::operator+=(bit_matrix_t that) {
+bit_matrix_t &bit_matrix_t::operator+=(const bit_matrix_t &that) {
   *this = *this + that;
   return *this;
 }
 
-bit_matrix_t &bit_matrix_t::operator-=(bit_matrix_t that) {
+bit_matrix_t &bit_matrix_t::operator-=(const bit_matrix_t &that) {
   *this = *this - that;
   return *this;
 }
 
-bit_matrix_t &bit_matrix_t::operator+=(bit_t e) {
+bit_matrix_t &bit_matrix_t::operator+=(const bit_t &e) {
   *this = *this + e;
   return *this;
 }
 
-bit_matrix_t &bit_matrix_t::operator-=(bit_t e) {
+bit_matrix_t &bit_matrix_t::operator-=(const bit_t &e) {
   *this = *this - e;
   return *this;
 }
@@ -509,7 +509,7 @@ bit_matrix_t bit_matrix_t::transpose(void) const {
 // ----------------------------------------------------------------
 // Makes an identity matrix with the same dimensions as *this has.
 
-bit_matrix_t bit_matrix_t::make_I(void) {
+bit_matrix_t bit_matrix_t::make_I(void) const {
   if (!this->is_square()) {
     std::cerr << "bit_matrix_t::make_I():  non-square input.\n";
     exit(1);
@@ -576,7 +576,7 @@ bool bit_matrix_t::is_I(void) const {
 }
 
 // ----------------------------------------------------------------
-uint64_t **bit_matrix_t::expose(void) {
+uint64_t **bit_matrix_t::expose(void) const {
   uint64_t **ptrs = new uint64_t *[this->num_rows];
   for (int i = 0; i < this->num_rows; i++) {
     ptrs[i] = this->rows[i].expose();
@@ -720,7 +720,7 @@ void bit_matrix_t::row_echelon_form(void) {
 // ----------------------------------------------------------------
 // This method makes a copy of the matrix and row-reduces it.  To save
 // CPU cycles, use get_rank_rr() if the matrix is already row-reduced.
-int bit_matrix_t::get_rank(void) {
+int bit_matrix_t::get_rank(void) const {
   bit_matrix_t rr(*this);
   rr.row_reduce_below();
   return rr.get_rank_rr();
@@ -728,7 +728,7 @@ int bit_matrix_t::get_rank(void) {
 
 // This method assumes the matrix is already row-reduced.  If not,
 // use get_rank() instead.
-int bit_matrix_t::get_rank_rr(void) {
+int bit_matrix_t::get_rank_rr(void) const {
   int rank = 0;
   for (int i = 0; i < this->num_rows; i++) {
     if (this->rows[i].is_zero()) {
@@ -841,7 +841,7 @@ void bit_matrix_t::check_kernel_basis(bit_matrix_t &kerbas) const {
 }
 
 // ----------------------------------------------------------------
-bit_matrix_t bit_matrix_t::paste(bit_matrix_t &that) {
+bit_matrix_t bit_matrix_t::paste(bit_matrix_t &that) const {
   if (this->num_rows != that.num_rows) {
     std::cerr << "bit_matrix_t::paste:  differing number of rows ("
               << this->num_rows << " vs. " << that.num_rows << ")\n";
@@ -865,7 +865,7 @@ bit_matrix_t bit_matrix_t::paste(bit_matrix_t &that) {
 
 // ----------------------------------------------------------------
 void bit_matrix_t::split(
-    bit_matrix_t &rleft, bit_matrix_t &rright, int split_column) {
+    bit_matrix_t &rleft, bit_matrix_t &rright, int split_column) const {
   if ((split_column < 0) || (split_column >= this->num_cols)) {
     std::cerr << "bit_matrix_t::split:  split column " << split_column
               << " out of bounds 0:" << this->num_rows - 1 << ".\n";
@@ -891,7 +891,7 @@ void bit_matrix_t::split(
 }
 
 // ----------------------------------------------------------------
-bool bit_matrix_t::inverse(bit_matrix_t &rinv) {
+bool bit_matrix_t::inverse(bit_matrix_t &rinv) const {
   if (!this->is_square()) {
     std::cerr << "bit_matrix_t::inverse():  non-square input.\n";
     exit(1);
@@ -906,7 +906,7 @@ bool bit_matrix_t::inverse(bit_matrix_t &rinv) {
 }
 
 // ----------------------------------------------------------------
-void bit_matrix_t::check_inverse(bit_matrix_t &rinv) {
+void bit_matrix_t::check_inverse(bit_matrix_t &rinv) const {
   bit_matrix_t AB = *this * rinv;
   bit_matrix_t BA = rinv * *this;
   if (!AB.is_I() || !BA.is_I()) {
@@ -916,7 +916,7 @@ void bit_matrix_t::check_inverse(bit_matrix_t &rinv) {
 }
 
 // ----------------------------------------------------------------
-bit_t bit_matrix_t::det(void) {
+bit_t bit_matrix_t::det(void) const {
   if (!this->is_square()) {
     std::cerr << "bit_matrix_t::det():  non-square input.\n";
     exit(1);
@@ -934,10 +934,10 @@ bit_t bit_matrix_t::det(void) {
 }
 
 // ----------------------------------------------------------------
-int bit_matrix_t::get_num_rows(void) { return this->num_rows; }
+int bit_matrix_t::get_num_rows(void) const { return this->num_rows; }
 
 // ----------------------------------------------------------------
-int bit_matrix_t::get_num_cols(void) { return this->num_cols; }
+int bit_matrix_t::get_num_cols(void) const { return this->num_cols; }
 
 // ----------------------------------------------------------------
 void bit_matrix_t::mfree(void) {
