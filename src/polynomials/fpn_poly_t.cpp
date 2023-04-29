@@ -20,7 +20,7 @@ fpn_poly_t::fpn_poly_t(void) {
 }
 
 // ----------------------------------------------------------------
-fpn_poly_t::fpn_poly_t(fp_polymod_t c0) {
+fpn_poly_t::fpn_poly_t(const fp_polymod_t &c0) {
   this->degree    = 0;
   this->coeffs    = new fp_polymod_t[this->degree + 1];
   this->coeffs[0] = c0;
@@ -28,7 +28,7 @@ fpn_poly_t::fpn_poly_t(fp_polymod_t c0) {
 }
 
 // ----------------------------------------------------------------
-fpn_poly_t::fpn_poly_t(fp_polymod_t c1, fp_polymod_t c0) {
+fpn_poly_t::fpn_poly_t(const fp_polymod_t &c1, const fp_polymod_t &c0) {
   this->degree    = 1;
   this->coeffs    = new fp_polymod_t[this->degree + 1];
   this->coeffs[1] = c1;
@@ -37,48 +37,9 @@ fpn_poly_t::fpn_poly_t(fp_polymod_t c1, fp_polymod_t c0) {
 }
 
 // ----------------------------------------------------------------
-fpn_poly_t::fpn_poly_t(fp_polymod_t c2, fp_polymod_t c1, fp_polymod_t c0) {
+fpn_poly_t::fpn_poly_t(const fp_polymod_t &c2, const fp_polymod_t &c1, const fp_polymod_t &c0) {
   this->degree    = 2;
   this->coeffs    = new fp_polymod_t[this->degree + 1];
-  this->coeffs[2] = c2;
-  this->coeffs[1] = c1;
-  this->coeffs[0] = c0;
-  this->recompute_degree();
-}
-
-// ----------------------------------------------------------------
-fpn_poly_t::fpn_poly_t(
-    fp_polymod_t c3, fp_polymod_t c2, fp_polymod_t c1, fp_polymod_t c0) {
-  this->degree    = 3;
-  this->coeffs    = new fp_polymod_t[this->degree + 1];
-  this->coeffs[3] = c3;
-  this->coeffs[2] = c2;
-  this->coeffs[1] = c1;
-  this->coeffs[0] = c0;
-  this->recompute_degree();
-}
-
-// ----------------------------------------------------------------
-fpn_poly_t::fpn_poly_t(fp_polymod_t c4, fp_polymod_t c3, fp_polymod_t c2,
-    fp_polymod_t c1, fp_polymod_t c0) {
-  this->degree    = 4;
-  this->coeffs    = new fp_polymod_t[this->degree + 1];
-  this->coeffs[4] = c4;
-  this->coeffs[3] = c3;
-  this->coeffs[2] = c2;
-  this->coeffs[1] = c1;
-  this->coeffs[0] = c0;
-  this->recompute_degree();
-}
-
-// ----------------------------------------------------------------
-fpn_poly_t::fpn_poly_t(fp_polymod_t c5, fp_polymod_t c4, fp_polymod_t c3,
-    fp_polymod_t c2, fp_polymod_t c1, fp_polymod_t c0) {
-  this->degree    = 5;
-  this->coeffs    = new fp_polymod_t[this->degree + 1];
-  this->coeffs[5] = c5;
-  this->coeffs[4] = c4;
-  this->coeffs[3] = c3;
   this->coeffs[2] = c2;
   this->coeffs[1] = c1;
   this->coeffs[0] = c0;
@@ -125,12 +86,12 @@ fpn_poly_t fpn_poly_t::prime_sfld_elt(int v, fp_poly_t m) {
 }
 
 // ----------------------------------------------------------------
-int fpn_poly_t::get_characteristic(void) {
+int fpn_poly_t::get_characteristic(void) const {
   return this->coeffs[0].get_characteristic();
 }
 
 // ----------------------------------------------------------------
-fpn_poly_t &fpn_poly_t::operator=(fpn_poly_t that) {
+fpn_poly_t &fpn_poly_t::operator=(const fpn_poly_t &that) {
   if (this->coeffs) {
     delete[] this->coeffs;
   }
@@ -143,7 +104,7 @@ fpn_poly_t &fpn_poly_t::operator=(fpn_poly_t that) {
 }
 
 // ----------------------------------------------------------------
-fpn_poly_t fpn_poly_t::operator+(fpn_poly_t that) const {
+fpn_poly_t fpn_poly_t::operator+(const fpn_poly_t &that) const {
   int i;
   fpn_poly_t rv;
 
@@ -179,7 +140,7 @@ fpn_poly_t fpn_poly_t::operator+(fp_polymod_t a) const {
 }
 
 // ----------------------------------------------------------------
-fpn_poly_t fpn_poly_t::operator-(fpn_poly_t that) const {
+fpn_poly_t fpn_poly_t::operator-(const fpn_poly_t &that) const {
   int i;
   fpn_poly_t rv;
 
@@ -225,7 +186,7 @@ fpn_poly_t fpn_poly_t::operator-(void) const {
 }
 
 // ----------------------------------------------------------------
-fpn_poly_t fpn_poly_t::operator*(fpn_poly_t that) const {
+fpn_poly_t fpn_poly_t::operator*(const fpn_poly_t &that) const {
   fpn_poly_t rv;
   rv.degree = this->degree + that.degree;
   rv.coeffs = new fp_polymod_t[rv.degree + 1];
@@ -264,14 +225,14 @@ fpn_poly_t fpn_poly_t::operator*(spffl::intmath::intmod_t a) {
 }
 
 // ----------------------------------------------------------------
-fpn_poly_t fpn_poly_t::operator/(fpn_poly_t that) {
+fpn_poly_t fpn_poly_t::operator/(const fpn_poly_t &that) {
   fpn_poly_t quot, rem;
   this->quot_and_rem(that, quot, rem);
   return quot;
 }
 
 // ----------------------------------------------------------------
-fpn_poly_t fpn_poly_t::operator%(fpn_poly_t that) {
+fpn_poly_t fpn_poly_t::operator%(const fpn_poly_t &that) {
   fpn_poly_t quot, rem;
   this->quot_and_rem(that, quot, rem);
   return rem;
@@ -288,7 +249,7 @@ fpn_poly_t fpn_poly_t::operator/(fp_polymod_t a) {
 }
 
 // ----------------------------------------------------------------
-fpn_poly_t &fpn_poly_t::operator+=(fpn_poly_t that) {
+fpn_poly_t &fpn_poly_t::operator+=(const fpn_poly_t &that) {
   *this = *this + that;
   return *this;
 }
@@ -296,7 +257,7 @@ fpn_poly_t &fpn_poly_t::operator+=(fp_polymod_t a) {
   *this = *this + a;
   return *this;
 }
-fpn_poly_t &fpn_poly_t::operator-=(fpn_poly_t that) {
+fpn_poly_t &fpn_poly_t::operator-=(const fpn_poly_t &that) {
   *this = *this - that;
   return *this;
 }
@@ -304,7 +265,7 @@ fpn_poly_t &fpn_poly_t::operator-=(fp_polymod_t a) {
   *this = *this - a;
   return *this;
 }
-fpn_poly_t &fpn_poly_t::operator*=(fpn_poly_t that) {
+fpn_poly_t &fpn_poly_t::operator*=(const fpn_poly_t &that) {
   *this = *this * that;
   return *this;
 }
@@ -343,7 +304,7 @@ fpn_poly_t &fpn_poly_t::operator/=(fp_polymod_t a) {
 
 // ----------------------------------------------------------------
 void fpn_poly_t::quot_and_rem(
-    fpn_poly_t &that, fpn_poly_t &rquot, fpn_poly_t &rrem) {
+    const fpn_poly_t &that, fpn_poly_t &rquot, fpn_poly_t &rrem) const {
   fp_polymod_t zero = this->coeffs[0] - this->coeffs[0];
 
   if (that == zero) {
@@ -421,7 +382,7 @@ void fpn_poly_t::quot_and_rem(
 }
 
 // ----------------------------------------------------------------
-fpn_poly_t fpn_poly_t::gcd(fpn_poly_t &that) {
+fpn_poly_t fpn_poly_t::gcd(const fpn_poly_t &that) const {
   fpn_poly_t c, q, r;
   fpn_poly_t d; // Return value.
 
@@ -452,7 +413,7 @@ fpn_poly_t fpn_poly_t::gcd(fpn_poly_t &that) {
 // Blankinship's algorithm.
 
 fpn_poly_t fpn_poly_t::ext_gcd(
-    fpn_poly_t &that, fpn_poly_t &rm, fpn_poly_t &rn) {
+    const fpn_poly_t &that, fpn_poly_t &rm, fpn_poly_t &rn) const {
   fpn_poly_t mprime, nprime, c, q, r, t, qm, qn;
   fpn_poly_t d; // Return value.
 
@@ -487,7 +448,7 @@ fpn_poly_t fpn_poly_t::ext_gcd(
 }
 
 // ----------------------------------------------------------------
-fpn_poly_t fpn_poly_t::exp(int e) {
+fpn_poly_t fpn_poly_t::exp(int e) const {
   int deg         = this->find_degree();
   fpn_poly_t xp   = *this;
   fpn_poly_t zero = this->prime_sfld_elt(0);
@@ -526,7 +487,7 @@ fpn_poly_t fpn_poly_t::exp(int e) {
 }
 
 // ----------------------------------------------------------------
-fpn_poly_t fpn_poly_t::deriv(void) {
+fpn_poly_t fpn_poly_t::deriv(void) const {
   if (this->degree == 0) {
     return this->prime_sfld_elt(0);
   }
@@ -544,7 +505,7 @@ fpn_poly_t fpn_poly_t::deriv(void) {
 // ----------------------------------------------------------------
 // Relies on the fact that f(x^p) = f^p(x) in Fp[x].
 
-bool fpn_poly_t::pth_root(fpn_poly_t &rroot) {
+bool fpn_poly_t::pth_root(fpn_poly_t &rroot) const {
   fp_poly_t m       = this->coeffs[0].get_modulus();
   fp_polymod_t zero = this->coeffs[0].prime_sfld_elt(0);
   int si, di, j;
@@ -574,7 +535,7 @@ bool fpn_poly_t::pth_root(fpn_poly_t &rroot) {
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t fpn_poly_t::eval(fp_polymod_t c) {
+fp_polymod_t fpn_poly_t::eval(const fp_polymod_t &c) const {
   fp_polymod_t rv = this->coeffs[this->degree];
   for (int i = this->degree - 1; i >= 0; i--) {
     rv *= c;
@@ -600,7 +561,7 @@ fp_polymod_t fpn_poly_t::get_coeff(int deg) const {
 }
 
 // ----------------------------------------------------------------
-void fpn_poly_t::set_coeff(int pos, fp_polymod_t c) {
+void fpn_poly_t::set_coeff(int pos, const fp_polymod_t &c) {
   if (pos < 0) {
     this->bounds_check(pos);
   }
@@ -660,32 +621,32 @@ bool fpn_poly_t::operator==(int v) const {
 bool fpn_poly_t::operator!=(int v) const { return !(*this == v); }
 
 // ----------------------------------------------------------------
-bool fpn_poly_t::operator==(fpn_poly_t that) const {
+bool fpn_poly_t::operator==(const fpn_poly_t &that) const {
   return this->cmp(CMP_EQ, that);
 }
 
 // ----------------------------------------------------------------
-bool fpn_poly_t::operator!=(fpn_poly_t that) const {
+bool fpn_poly_t::operator!=(const fpn_poly_t &that) const {
   return this->cmp(CMP_NE, that);
 }
 
 // ----------------------------------------------------------------
-bool fpn_poly_t::operator<(fpn_poly_t that) const {
+bool fpn_poly_t::operator<(const fpn_poly_t &that) const {
   return this->cmp(CMP_LT, that);
 }
 
 // ----------------------------------------------------------------
-bool fpn_poly_t::operator>(fpn_poly_t that) const {
+bool fpn_poly_t::operator>(const fpn_poly_t &that) const {
   return this->cmp(CMP_GT, that);
 }
 
 // ----------------------------------------------------------------
-bool fpn_poly_t::operator<=(fpn_poly_t that) const {
+bool fpn_poly_t::operator<=(const fpn_poly_t &that) const {
   return this->cmp(CMP_LE, that);
 }
 
 // ----------------------------------------------------------------
-bool fpn_poly_t::operator>=(fpn_poly_t that) const {
+bool fpn_poly_t::operator>=(const fpn_poly_t &that) const {
   return this->cmp(CMP_GE, that);
 }
 
@@ -717,7 +678,7 @@ void fpn_poly_t::increment(void) {
 }
 
 // ----------------------------------------------------------------
-bool fpn_poly_t::cmp(int cmp, fpn_poly_t &that) const {
+bool fpn_poly_t::cmp(int cmp, const fpn_poly_t &that) const {
   int direction = 0; // -1 = less, 0 = equal, +1 = greater;
 
   if (this->degree < that.degree) {
@@ -880,7 +841,7 @@ void fpn_poly_t::promote(void) {
 }
 
 // ----------------------------------------------------------------
-void fpn_poly_t::promote_and_add(fp_polymod_t c0) {
+void fpn_poly_t::promote_and_add(const fp_polymod_t &c0) {
   this->promote();
   this->coeffs[0] = c0;
 }
