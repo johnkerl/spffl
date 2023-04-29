@@ -28,20 +28,25 @@ static inline uint64_t WORD_POS_FROM_BIT_INDEX(uint64_t bi) {
   return 63 - (bi & WORD_MASK);
 }
 
-static uint64_t GET_BIT(uint64_t* wordptr, uint64_t bi) {
-  return (wordptr[WORD_INDEX_FROM_BIT_INDEX(bi)] >> WORD_POS_FROM_BIT_INDEX(bi)) & UONE;
+static uint64_t GET_BIT(uint64_t *wordptr, uint64_t bi) {
+  return (wordptr[WORD_INDEX_FROM_BIT_INDEX(bi)] >>
+          WORD_POS_FROM_BIT_INDEX(bi)) &
+         UONE;
 }
 
-static void SET_BIT(uint64_t* wordptr, uint64_t bi) {
-  wordptr[WORD_INDEX_FROM_BIT_INDEX(bi)] |= (UONE << WORD_POS_FROM_BIT_INDEX(bi));
+static void SET_BIT(uint64_t *wordptr, uint64_t bi) {
+  wordptr[WORD_INDEX_FROM_BIT_INDEX(bi)] |=
+      (UONE << WORD_POS_FROM_BIT_INDEX(bi));
 }
 
-static void CLEAR_BIT(uint64_t* wordptr, uint64_t bi) {
-  wordptr[WORD_INDEX_FROM_BIT_INDEX(bi)] &= ~(UONE << WORD_POS_FROM_BIT_INDEX(bi));
+static void CLEAR_BIT(uint64_t *wordptr, uint64_t bi) {
+  wordptr[WORD_INDEX_FROM_BIT_INDEX(bi)] &=
+      ~(UONE << WORD_POS_FROM_BIT_INDEX(bi));
 }
 
-static void TOGGLE_BIT(uint64_t* wordptr, uint64_t bi) {
-  wordptr[WORD_INDEX_FROM_BIT_INDEX(bi)] ^= (UONE << WORD_POS_FROM_BIT_INDEX(bi));
+static void TOGGLE_BIT(uint64_t *wordptr, uint64_t bi) {
+  wordptr[WORD_INDEX_FROM_BIT_INDEX(bi)] ^=
+      (UONE << WORD_POS_FROM_BIT_INDEX(bi));
 }
 
 static uint64_t NWORDS_FROM_NBITS(uint64_t nb) {

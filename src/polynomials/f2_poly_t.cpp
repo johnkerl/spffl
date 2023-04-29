@@ -13,14 +13,14 @@ namespace spffl::polynomials {
 
 // ----------------------------------------------------------------
 // Parts are 64-bit unsigned integers.
-static const uint64_t F2_POLY_PART_MASK        = 63;
-static const uint64_t F2_POLY_PART_LOG         = 6;
+static const uint64_t F2_POLY_PART_MASK = 63;
+static const uint64_t F2_POLY_PART_LOG = 6;
 static const uint64_t F2_POLY_NYBBLES_PER_PART = 16;
-static const uint64_t F2_POLY_BITS_PER_PART    = 64;
-static const uint64_t F2_POLY_MSB              = 0x8000000000000000LL;
-static const uint64_t F2_POLY_LSB              = 1LL;
-static const uint64_t F2_POLY_FOUR_MSBS        = 0xf000000000000000LL;
-static const uint64_t F2_POLY_01_MASK          = 0x5555555555555555LL;
+static const uint64_t F2_POLY_BITS_PER_PART = 64;
+static const uint64_t F2_POLY_MSB = 0x8000000000000000LL;
+static const uint64_t F2_POLY_LSB = 1LL;
+static const uint64_t F2_POLY_FOUR_MSBS = 0xf000000000000000LL;
+static const uint64_t F2_POLY_01_MASK = 0x5555555555555555LL;
 
 // ----------------------------------------------------------------
 f2_poly_t::f2_poly_t(void) {
@@ -64,7 +64,7 @@ f2_poly_t::f2_poly_t(int c5, int c4, int c3, int c2, int c1, int c0) {
                    ((c2 & 1) << 2) | ((c1 & 1) << 1) | (c0 & 1);
 }
 
-f2_poly_t::f2_poly_t(const std::string & s) {
+f2_poly_t::f2_poly_t(const std::string &s) {
   // TODO: neaten this up to have only a single alloc
   this->num_parts = 1;
   this->parts = new uint64_t[1];
@@ -439,7 +439,8 @@ int f2_poly_t::zcount_one_bits(void) {
 int f2_poly_t::find_degree(void) const {
   for (int i = this->num_parts - 1; i >= 0; i--) {
     if (this->parts[i]) {
-      return spffl::intmath::find_msb_64(this->parts[i]) + ((uint64_t)i << F2_POLY_PART_LOG);
+      return spffl::intmath::find_msb_64(this->parts[i]) +
+             ((uint64_t)i << F2_POLY_PART_LOG);
     }
   }
   return 0; // Zero polynomial.
@@ -716,14 +717,16 @@ void f2_poly_t::_promote_1(void) {
     this->extend_parts(this->num_parts + 1);
   }
   for (int i = this->num_parts - 1; i > 0; i--) {
-    this->parts[i] = (this->parts[i] << 1) | (this->parts[i - 1] >> (F2_POLY_BITS_PER_PART-1));
+    this->parts[i] = (this->parts[i] << 1) |
+                     (this->parts[i - 1] >> (F2_POLY_BITS_PER_PART - 1));
   }
   this->parts[0] <<= 1;
 }
 
 void f2_poly_t::_demote_1(void) {
   for (int i = 0; i < this->num_parts - 1; i++)
-    this->parts[i] = (this->parts[i] >> 1) | (this->parts[i + 1] << (F2_POLY_BITS_PER_PART-1));
+    this->parts[i] = (this->parts[i] >> 1) |
+                     (this->parts[i + 1] << (F2_POLY_BITS_PER_PART - 1));
   this->parts[this->num_parts - 1] >>= 1;
   if (this->parts[this->num_parts - 1] == 0)
     if (this->num_parts > 0)

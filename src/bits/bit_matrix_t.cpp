@@ -159,7 +159,9 @@ bool bit_matrix_t::operator==(const bit_t &e) const {
 }
 
 // ----------------------------------------------------------------
-bool bit_matrix_t::operator!=(const bit_matrix_t &that) const { return !(*this == that); }
+bool bit_matrix_t::operator!=(const bit_matrix_t &that) const {
+  return !(*this == that);
+}
 
 // ----------------------------------------------------------------
 bool bit_matrix_t::operator!=(const bit_t &e) const { return !(*this == e); }

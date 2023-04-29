@@ -12,7 +12,7 @@
 
 namespace spffl::factorization {
 
-//#define F2NPOLY_FACTOR_DEBUG
+// #define F2NPOLY_FACTOR_DEBUG
 
 static void
 f2n_poly_pre_berlekamp(spffl::polynomials::f2n_poly_t f,

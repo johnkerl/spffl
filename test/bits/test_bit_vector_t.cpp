@@ -40,9 +40,8 @@ TEST_CASE("spffl::bits::bit_vector_3") {
 // TODO: test:
 //  friend std::ostream &operator<<(std::ostream &os, const bit_vector_t &v);
 //  friend std::istream &operator>>(std::istream &is, bit_vector_t &v);
-//  friend std::istringstream &operator>>(std::istringstream &is, bit_vector_t &v);
-//  void sqzout(std::ostream &os);
-//  void crout(std::ostream &os);
+//  friend std::istringstream &operator>>(std::istringstream &is, bit_vector_t
+//  &v); void sqzout(std::ostream &os); void crout(std::ostream &os);
 
 TEST_CASE("spffl::bits::bit_vector_10") {
   bit_vector_t v(100);
@@ -52,9 +51,9 @@ TEST_CASE("spffl::bits::bit_vector_10") {
 
   for (int i = 0; i < 100; i++) {
     if (i == 43 || i == 97) {
-        CHECK(v.get(i) == 1);
+      CHECK(v.get(i) == 1);
     } else {
-        CHECK(v.get(i) == 0);
+      CHECK(v.get(i) == 0);
     }
   }
 
@@ -62,9 +61,9 @@ TEST_CASE("spffl::bits::bit_vector_10") {
 
   for (int i = 0; i < 100; i++) {
     if (i == 43 || i == 97 || i == 55) {
-        CHECK(v.get(i) == 1);
+      CHECK(v.get(i) == 1);
     } else {
-        CHECK(v.get(i) == 0);
+      CHECK(v.get(i) == 0);
     }
   }
 }
@@ -84,9 +83,9 @@ TEST_CASE("spffl::bits::bit_vector_11") {
 
   for (int i = 0; i < 100; i++) {
     if (i == 0 || i == 96 || i == 97) {
-        CHECK(w.get(i) == 1);
+      CHECK(w.get(i) == 1);
     } else {
-        CHECK(w.get(i) == 0);
+      CHECK(w.get(i) == 0);
     }
   }
 
@@ -94,9 +93,9 @@ TEST_CASE("spffl::bits::bit_vector_11") {
 
   for (int i = 0; i < 100; i++) {
     if (i == 0 || i == 96 || i == 97) {
-        CHECK(w.get(i) == 1);
+      CHECK(w.get(i) == 1);
     } else {
-        CHECK(w.get(i) == 0);
+      CHECK(w.get(i) == 0);
     }
   }
 
@@ -104,9 +103,9 @@ TEST_CASE("spffl::bits::bit_vector_11") {
 
   for (int i = 0; i < 100; i++) {
     if (i == 43) {
-        CHECK(w.get(i) == 1);
+      CHECK(w.get(i) == 1);
     } else {
-        CHECK(w.get(i) == 0);
+      CHECK(w.get(i) == 0);
     }
   }
 
@@ -122,7 +121,6 @@ TEST_CASE("spffl::bits::bit_vector_11") {
 
   bit_t b = u.dot(v);
   CHECK(b == 1);
-
 }
 
 // TODO:

@@ -6,7 +6,7 @@
 
 // Elements of the ring Q[x].
 
-//#error under construction
+// #error under construction
 
 #ifndef QPOLY_T_H
 #define QPOLY_T_H

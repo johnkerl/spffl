@@ -15,11 +15,15 @@ k int -> bool pass -- done??
 k manual clang-format
   - needs automated/CI clang-format
 
+* custom clang-format rules
+
+* regress.sh: auto -x; custom spiff exe; data relative to dirname $0; etc
+
 * renaming pass
   - needs more
   - other unabbrevs
 
-* no-malloc case for f2poly_t w/ <= 64 bits, and expand-to-malloc on overflow
+? no-malloc case for f2poly_t w/ <= 64 bits, and expand-to-malloc on overflow
 
 * char* vs string literals
 * int -> bool pass
@@ -29,19 +33,16 @@ k manual clang-format
   o intmath:
     - UTs for numbers over 2^32
     - is_prime/nth_prime abend beyond 2^31-1
-  o bits
-    - bit_vector_t
-  o polynomials
-    - f2_poly_t 64-bit parts
 
 * renaming pass
   o needs more
   o get_char -> get_characteristic
   o other unabbrevs
 
-* ctest pass(es)
+* ctest passes
 * commenting pass
 * rid of _1 _2 etc in test names
+* more pass-by-reference
 * more constness
 * STL replacements
   o get rid of rsstring_t entirely

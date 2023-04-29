@@ -6,66 +6,66 @@ using namespace spffl::bits;
 
 // ----------------------------------------------------------------
 TEST_CASE("spffl::bits::bit_matrix_0") {
-    bit_matrix_t A(44, 99);
-    CHECK(A.get_num_rows() == 44);
-    CHECK(A.get_num_cols() == 99);
+  bit_matrix_t A(44, 99);
+  CHECK(A.get_num_rows() == 44);
+  CHECK(A.get_num_cols() == 99);
 
-    bit_matrix_t B(bit_t(1), 44, 99);
-    CHECK(B.get_num_rows() == 44);
-    CHECK(B.get_num_cols() == 99);
+  bit_matrix_t B(bit_t(1), 44, 99);
+  CHECK(B.get_num_rows() == 44);
+  CHECK(B.get_num_cols() == 99);
 
-    bit_matrix_t C(55, 55);
+  bit_matrix_t C(55, 55);
 
-    CHECK(A == A);
-    CHECK(B == B);
-    CHECK(A != B);
-    // Check exception -- or have it not abend
-    // CHECK(A != C);
+  CHECK(A == A);
+  CHECK(B == B);
+  CHECK(A != B);
+  // Check exception -- or have it not abend
+  // CHECK(A != C);
 
-    CHECK(A == bit_t(0));
-    CHECK(B == bit_t(1));
-    CHECK(C == bit_t(0));
+  CHECK(A == bit_t(0));
+  CHECK(B == bit_t(1));
+  CHECK(C == bit_t(0));
 
-    CHECK(A.is_zero());
-    CHECK(!B.is_zero());
-    CHECK(C.is_zero());
+  CHECK(A.is_zero());
+  CHECK(!B.is_zero());
+  CHECK(C.is_zero());
 
-    CHECK(!A.is_square());
-    CHECK(!B.is_square());
-    CHECK(C.is_square());
+  CHECK(!A.is_square());
+  CHECK(!B.is_square());
+  CHECK(C.is_square());
 
-    bit_matrix_t T = A.transpose();
-    CHECK(T.get_num_rows() == 99);
-    CHECK(T.get_num_cols() == 44);
+  bit_matrix_t T = A.transpose();
+  CHECK(T.get_num_rows() == 99);
+  CHECK(T.get_num_cols() == 44);
 
-    bit_matrix_t Z;
-    CHECK(Z.get_num_rows() == 0);
-    CHECK(Z.get_num_cols() == 0);
+  bit_matrix_t Z;
+  CHECK(Z.get_num_rows() == 0);
+  CHECK(Z.get_num_cols() == 0);
 
-    // TODO: check exception on non-square
-    // bit_matrix_t I = A.make_I();
+  // TODO: check exception on non-square
+  // bit_matrix_t I = A.make_I();
 
-    bit_matrix_t I = C.make_I();
-    for (int i = 0; i < 55; i++) {
-        for (int j = 0; j < 55; j++) {
-            CHECK(I[i].get(j) == bit_t(i == j));
-        }
+  bit_matrix_t I = C.make_I();
+  for (int i = 0; i < 55; i++) {
+    for (int j = 0; j < 55; j++) {
+      CHECK(I[i].get(j) == bit_t(i == j));
     }
+  }
 
-    CHECK(!A.is_I());
-    CHECK(!B.is_I());
-    CHECK(!C.is_I());
-    CHECK(I.is_I());
+  CHECK(!A.is_I());
+  CHECK(!B.is_I());
+  CHECK(!C.is_I());
+  CHECK(I.is_I());
 
-    A = bit_t(1);
-    CHECK(A.get_num_rows() == 44);
-    CHECK(A.get_num_cols() == 99);
-    CHECK(!A.is_zero());
+  A = bit_t(1);
+  CHECK(A.get_num_rows() == 44);
+  CHECK(A.get_num_cols() == 99);
+  CHECK(!A.is_zero());
 
-    A = bit_t(0);
-    CHECK(A.get_num_rows() == 44);
-    CHECK(A.get_num_cols() == 99);
-    CHECK(A.is_zero());
+  A = bit_t(0);
+  CHECK(A.get_num_rows() == 44);
+  CHECK(A.get_num_cols() == 99);
+  CHECK(A.is_zero());
 }
 
 // TODO:

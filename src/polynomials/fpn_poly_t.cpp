@@ -124,7 +124,9 @@ fpn_poly_t fpn_poly_t::prime_sfld_elt(int v, fp_poly_t m) {
 }
 
 // ----------------------------------------------------------------
-int fpn_poly_t::get_characteristic(void) { return this->coeffs[0].get_characteristic(); }
+int fpn_poly_t::get_characteristic(void) {
+  return this->coeffs[0].get_characteristic();
+}
 
 // ----------------------------------------------------------------
 fpn_poly_t &fpn_poly_t::operator=(fpn_poly_t that) {

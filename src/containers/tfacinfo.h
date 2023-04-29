@@ -29,7 +29,7 @@ private:
   struct factor_and_count_t {
     element_type factor;
     int count;
-  } * pfactors_and_counts;
+  } *pfactors_and_counts;
   int num_distinct;
   int num_allocated;
 

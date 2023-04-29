@@ -61,7 +61,6 @@ TEST_CASE("spffl::bits::bit_t_3") {
   CHECK(z < o);
   CHECK(!(o < z));
   CHECK(!(o < o));
-
 }
 
 TEST_CASE("spffl::bits::bit_t_4") {
@@ -70,7 +69,6 @@ TEST_CASE("spffl::bits::bit_t_4") {
 
   CHECK(z.get_residue() == 0);
   CHECK(o.get_residue() == 1);
-
 }
 
 // TODO: op=

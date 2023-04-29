@@ -313,7 +313,9 @@ bool bit_vector_t::operator==(const bit_vector_t &that) const {
 }
 
 // ----------------------------------------------------------------
-bool bit_vector_t::operator!=(const bit_vector_t &that) const { return !(*this == that); }
+bool bit_vector_t::operator!=(const bit_vector_t &that) const {
+  return !(*this == that);
+}
 
 // ----------------------------------------------------------------
 bool bit_vector_t::operator==(const bit_t &scalar) const {
@@ -327,7 +329,9 @@ bool bit_vector_t::operator==(const bit_t &scalar) const {
 }
 
 // ----------------------------------------------------------------
-bool bit_vector_t::operator!=(const bit_t &scalar) const { return !(*this == scalar); }
+bool bit_vector_t::operator!=(const bit_t &scalar) const {
+  return !(*this == scalar);
+}
 
 // ----------------------------------------------------------------
 // Return value:  True/false.  rpos:  index, if found.
@@ -370,7 +374,8 @@ void bit_vector_t::trim(void) {
   if (num_dribble_bits == 0)
     return;
   this->words[this->num_words - 1] &=
-      ((1 << (BITS_PER_WORD - num_dribble_bits)) - 1) << (BITS_PER_WORD - this->num_bits);
+      ((1 << (BITS_PER_WORD - num_dribble_bits)) - 1)
+      << (BITS_PER_WORD - this->num_bits);
 }
 
 // ----------------------------------------------------------------

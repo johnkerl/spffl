@@ -52,7 +52,9 @@ fp_polyrat_t fp_polyrat_t::prime_sfld_elt(int v, int p) {
 }
 
 // ----------------------------------------------------------------
-int fp_polyrat_t::get_characteristic(void) { return this->numer.get_characteristic(); }
+int fp_polyrat_t::get_characteristic(void) {
+  return this->numer.get_characteristic();
+}
 
 // ----------------------------------------------------------------
 fp_polyrat_t &fp_polyrat_t::operator=(fp_polyrat_t that) {

@@ -189,7 +189,9 @@ fp_poly_t fp_poly_t::prime_sfld_elt(int v) const {
 }
 
 // ----------------------------------------------------------------
-int fp_poly_t::get_characteristic(void) { return this->coeffs[0].get_modulus(); }
+int fp_poly_t::get_characteristic(void) {
+  return this->coeffs[0].get_modulus();
+}
 
 // ----------------------------------------------------------------
 fp_poly_t &fp_poly_t::operator=(fp_poly_t that) {

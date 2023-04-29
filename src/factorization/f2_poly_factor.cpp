@@ -8,7 +8,7 @@
 #include "f2_poly_random.h"
 #include "tfacinfo.h"
 
-//#define F2POLY_FACTOR_DEBUG
+// #define F2POLY_FACTOR_DEBUG
 
 #include "bit_matrix_t.h"
 
@@ -23,9 +23,8 @@ static void f2_poly_berlekamp(spffl::polynomials::f2_poly_t f,
                               tfacinfo<spffl::polynomials::f2_poly_t> &rfinfo,
                               bool recurse);
 
-spffl::polynomials::f2_poly_t f2_poly_from_vector(
-    spffl::bits::bit_vector_t &v,
-    int n);
+spffl::polynomials::f2_poly_t f2_poly_from_vector(spffl::bits::bit_vector_t &v,
+                                                  int n);
 
 // ----------------------------------------------------------------
 tfacinfo<spffl::polynomials::f2_poly_t>
@@ -308,9 +307,8 @@ static void f2_poly_berlekamp(spffl::polynomials::f2_poly_t f,
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2_poly_t f2_poly_from_vector(
-    spffl::bits::bit_vector_t &v,
-    int n) {
+spffl::polynomials::f2_poly_t f2_poly_from_vector(spffl::bits::bit_vector_t &v,
+                                                  int n) {
   spffl::polynomials::f2_poly_t f(0);
   for (int i = 0; i < n; i++)
     if (v.get(n - 1 - i) == 1)

@@ -51,7 +51,9 @@ fp_polymod_t fp_polymod_t::prime_sfld_elt(int v, fp_poly_t m) {
 }
 
 // ----------------------------------------------------------------
-int fp_polymod_t::get_characteristic(void) { return this->residue.get_characteristic(); }
+int fp_polymod_t::get_characteristic(void) {
+  return this->residue.get_characteristic();
+}
 
 // ----------------------------------------------------------------
 fp_polymod_t &fp_polymod_t::operator=(fp_polymod_t that) {
