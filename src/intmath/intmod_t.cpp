@@ -88,7 +88,7 @@ std::istream &operator>>(std::istream &is, intmod_t &a) {
 }
 
 // ----------------------------------------------------------------
-bool intmod_t::from_string(char *string, int m) {
+bool intmod_t::from_string(const char *string, int m) {
   int r;
   std::istringstream iss(string, std::ios_base::in);
   iss >> r;

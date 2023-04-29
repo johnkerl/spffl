@@ -33,7 +33,7 @@ public:
   friend std::ostream &operator<<(std::ostream &os, const intrat_t &a);
   friend std::istream &operator>>(std::istream &is, intrat_t &a);
   friend std::istringstream &operator>>(std::istringstream &iss, intrat_t &a);
-  bool from_string(char *string);
+  bool from_string(const char *string);
 
   intrat_t &operator+=(intrat_t that);
   intrat_t &operator-=(intrat_t that);

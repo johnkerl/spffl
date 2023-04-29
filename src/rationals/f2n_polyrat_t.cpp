@@ -234,7 +234,7 @@ std::istringstream &operator>>(std::istringstream &iss, f2n_polyrat_t &a) {
 }
 
 // ----------------------------------------------------------------
-bool f2n_polyrat_t::from_string(char *string, spffl::polynomials::f2_poly_t m) {
+bool f2n_polyrat_t::from_string(const char *string, spffl::polynomials::f2_poly_t m) {
   this->numer = spffl::polynomials::f2n_poly_t(
       spffl::polynomials::f2_polymod_t(spffl::polynomials::f2_poly_t(0), m));
   this->denom = spffl::polynomials::f2n_poly_t(

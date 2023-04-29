@@ -229,7 +229,7 @@ std::istringstream &operator>>(std::istringstream &iss, fp_polymod_t &a) {
 }
 
 // ----------------------------------------------------------------
-bool fp_polymod_t::from_string(char *string, fp_poly_t &m) {
+bool fp_polymod_t::from_string(const char *string, fp_poly_t &m) {
   fp_poly_t r;
   int p = m.get_characteristic();
   if (!r.from_string(string, p))

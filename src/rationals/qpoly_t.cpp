@@ -6,7 +6,6 @@
 
 #include "qpoly_t.h"
 #include "cmps.h"
-#include "rsstring_t.h"
 #include "tokenize.h"
 #include <stdlib.h>
 #include <string.h>
@@ -651,7 +650,7 @@ std::ostream &operator<<(std::ostream &os, const qpoly_t &poly) {
 
 // ----------------------------------------------------------------
 std::istream &operator>>(std::istream &is, qpoly_t &poly) {
-  spffl::base::rsstring_t rss;
+  std::stringstream ss;
   char c;
 
   // Skip over whitespace.
@@ -673,7 +672,7 @@ std::istream &operator>>(std::istream &is, qpoly_t &poly) {
 
   while (isdigit(c) || (c == ',')) {
     c = is.get();
-    rss.append_char(c);
+    ss << c;
     c = is.peek();
     if (c == EOF) {
       is.setstate(std::ios::eofbit);
@@ -681,23 +680,25 @@ std::istream &operator>>(std::istream &is, qpoly_t &poly) {
     }
   }
 
-  if (rss.get_length() == 0) {
+  std::string s = ss.str();
+  if (s.length() == 0) {
     is.setstate(std::ios::failbit);
     return is;
   }
 
-  if (!poly.from_string(rss.get_buffer()))
+  if (!poly.from_string(s.c_str())) {
     is.setstate(std::ios::failbit);
+  }
   return is;
 }
 
 // ----------------------------------------------------------------
-bool qpoly_t::from_string(char *string) {
+bool qpoly_t::from_string(const char *string) {
   if (this->coeffs)
     delete[] this->coeffs;
 
   int num_commas = 0;
-  for (char *q = string; *q; q++)
+  for (const char *q = string; *q; q++)
     if (*q == ',')
       num_commas++;
 

@@ -202,7 +202,7 @@ std::istringstream &operator>>(std::istringstream &iss, f2_polymod_t &a) {
 }
 
 // ----------------------------------------------------------------
-bool f2_polymod_t::from_string(char *string, f2_poly_t m) {
+bool f2_polymod_t::from_string(const char *string, f2_poly_t m) {
   f2_poly_t r;
   std::istringstream iss(string, std::ios_base::in);
   iss >> r;
