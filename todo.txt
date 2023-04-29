@@ -1,24 +1,4 @@
-xx promote x n; demote; bit_at; set_bit; sqroot
-
 ================================================================
-k cmake (non-install) structure
-  k initial lib skeleton
-  k initial test skeleton
-  k initial exe skeleton
-k formatting pass
-  clang-format -i $(find src  -name '*.h' -o -name '*.cpp')
-  clang-format -i $(find cli  -name '*.h' -o -name '*.cpp')
-  clang-format -i $(find test -name '*.h' -o -name '*.cpp')
-k pointer -> reference pass
-k namespacing pass: int_gcd -> spffl::intmath::int_gcd etc
-k int -> bool pass -- done??
-k manual clang-format
-  - needs automated/CI clang-format
-
-* custom clang-format rules
-
-? no-malloc case for f2poly_t w/ <= 64 bits, and expand-to-malloc on overflow
-
 * char* vs string literals
 * more std::string in place of char*
 * int -> bool pass
@@ -28,12 +8,16 @@ k manual clang-format
   o intmath:
     - UTs for numbers over 2^32
     - is_prime/nth_prime abend beyond 2^31-1
+  o otherwise done -- ?
 
 * renaming pass
   o needs more
   o unabbrevs in particular
 
+? no-malloc case for f2poly_t w/ <= 64 bits, and expand-to-malloc on overflow
+
 * ctest passes
+  o f2_poly_t: promote x n; demote; bit_at; set_bit; sqroot
 * commenting pass
 * get rid of _1 _2 etc in test names
 * more pass-by-reference
@@ -48,6 +32,7 @@ k manual clang-format
 * install target
 * internal/external installs (if any internal api at all ...)
 * CI setups
+  o including automated/CI clang-format
 
 ----------------------------------------------------------------
 ./build/test/bits/test_bits --list-tests
