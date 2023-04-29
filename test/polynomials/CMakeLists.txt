@@ -1,3 +1,7 @@
+cmake_minimum_required (VERSION 3.24)
+
+project(test_polynomials)
+
 # ----------------------------------------------------------------
 # catch2 has a set-but-unused-variable warning as of MacOS 13.3.
 # So we need to not use -Werror, as that's third-party code out of our control.
@@ -39,7 +43,33 @@ if(APPLE AND OS_RELEASE VERSION_GREATER_EQUAL "13.0.0")
 endif()
 
 # ----------------------------------------------------------------
-add_subdirectory(base)
-add_subdirectory(intmath)
-add_subdirectory(bits)
-add_subdirectory(polynomials)
+add_executable(test_polynomials
+  test_f2_poly_t.cpp
+  # TODO:
+  # test_f2_polymod_t.cpp
+  # test_f2n_poly_t.cpp
+  # test_f2n_polymod_t.cpp
+  # test_fp_poly_t.cpp
+  # test_fp_polymod_t.cpp
+  # test_fpn_poly_t.cpp
+  # test_fpn_polymod_t.cpp
+)
+target_include_directories(${PROJECT_NAME}
+  PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../src/intmath
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../src/bits
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../src/polynomials
+)
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    intmath
+    bits
+    polynomials
+    Catch2::Catch2WithMain
+)
+
+# ----------------------------------------------------------------
+# This makes the following work:
+# cmake --build build --target test
+list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
+include(Catch)
+catch_discover_tests(test_polynomials)

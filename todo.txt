@@ -19,6 +19,7 @@ k manual clang-format
 
 * no-malloc case for f2poly_t w/ <= 64 bits, and expand-to-malloc on overflow
 
+* char* vs string literals
 * int -> bool pass
   - needs more
 * unsigned -> uint32_t etc pass
@@ -26,6 +27,7 @@ k manual clang-format
 
 * ctest pass(es)
 * commenting pass
+* rid of _1 _2 etc in test names
 * more constness
 * STL replacements
   o pointer+length to std::vec/std::span

@@ -7,6 +7,7 @@
 #include "f2_poly_t.h"
 #include "cmps.h"
 #include <ctype.h>
+#include <string.h>
 
 namespace spffl::polynomials {
 
@@ -59,6 +60,20 @@ f2_poly_t::f2_poly_t(int c5, int c4, int c3, int c2, int c1, int c0) {
                    ((c2 & 1) << 2) | ((c1 & 1) << 1) | (c0 & 1);
 }
 
+f2_poly_t::f2_poly_t(const std::string & s) {
+  // TODO: neaten this up to have only a single alloc
+  this->num_parts = 1;
+  this->parts = new unsigned[1];
+  this->parts[0] = 0;
+
+  std::istringstream iss(s, std::ios_base::in);
+  iss >> *this;
+  if (iss.fail()) {
+    std::cerr << "f2_poly_t:  could not construct from \"" << s << "\"\n";
+    exit(1);
+  }
+}
+
 // ----------------------------------------------------------------
 // This is a static method.
 f2_poly_t f2_poly_t::from_base_rep(unsigned b) {
@@ -70,7 +85,7 @@ f2_poly_t f2_poly_t::from_base_rep(unsigned b) {
 }
 
 // ----------------------------------------------------------------
-bool f2_poly_t::from_string(char *string) {
+bool f2_poly_t::from_string(const char *string) {
   std::istringstream iss(string, std::ios_base::in);
   iss >> *this;
   // return iss.fail() ? 0 : iss.eof() ? 0 : 1;
@@ -375,7 +390,7 @@ f2_poly_t f2_poly_t::deriv(void) {
   f2_poly_t rv = *this;
   rv.demote_1();
   for (int i = 0; i < rv.num_parts; i++)
-    rv.parts[i] &= 0x55555555;
+    rv.parts[i] &= 0x5555555555555555LL;
   rv.trim_parts();
   return rv;
 }
