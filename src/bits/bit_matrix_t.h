@@ -63,7 +63,7 @@ public:
   bool is_zero(void) const;
   bool is_square(void) const;
   bool is_I(void) const;
-  unsigned **expose(void);
+  uint64_t **expose(void);
   void swap(int arow, int brow);
 
   // This is a general row-reduction method.  It operates on the matrix
