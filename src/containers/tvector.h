@@ -39,7 +39,7 @@ public:
   // ----------------------------------------------------------------
   tvector(void) {
     this->num_elements = 0;
-    this->elements = 0;
+    this->elements     = 0;
   }
 
   // ----------------------------------------------------------------
@@ -51,7 +51,7 @@ public:
     }
 
     this->num_elements = init_num_elements;
-    this->elements = new element_type[init_num_elements];
+    this->elements     = new element_type[init_num_elements];
   }
 
   // ----------------------------------------------------------------
@@ -63,7 +63,7 @@ public:
     }
 
     this->num_elements = init_num_elements;
-    this->elements = new element_type[init_num_elements];
+    this->elements     = new element_type[init_num_elements];
     for (int i = 0; i < this->num_elements; i++) {
       this->elements[i] = e;
     }
@@ -72,7 +72,7 @@ public:
   // ----------------------------------------------------------------
   tvector(const tvector<element_type> &that) {
     this->num_elements = that.num_elements;
-    this->elements = new element_type[that.num_elements];
+    this->elements     = new element_type[that.num_elements];
     for (int i = 0; i < that.num_elements; i++) {
       this->elements[i] = that.elements[i];
     }
@@ -113,8 +113,8 @@ public:
       }
     } else {
       this->num_elements = 1;
-      this->elements = new element_type[1];
-      this->elements[0] = scalar;
+      this->elements     = new element_type[1];
+      this->elements[0]  = scalar;
     }
     return *this;
   }
@@ -204,8 +204,8 @@ public:
       delete[] this->elements;
     }
     this->num_elements = 1;
-    this->elements = new element_type[1];
-    this->elements[0] = zero;
+    this->elements     = new element_type[1];
+    this->elements[0]  = zero;
     return this->load_from_file(file_name);
   }
 
@@ -308,7 +308,7 @@ public:
     }
 
     tvector<element_type> rv(Anc);
-    element_type t0 = this->elements[0];
+    element_type t0   = this->elements[0];
     element_type zero = t0 - t0;
     for (j = 0; j < Anc; j++) {
       rv.elements[j] = zero;
@@ -472,8 +472,8 @@ public:
       (void)check_equal_lengths(that);
     }
     element_type *temp = this->elements;
-    this->elements = that.elements;
-    that.elements = temp;
+    this->elements     = that.elements;
+    that.elements      = temp;
   }
 
   // ----------------------------------------------------------------
@@ -549,7 +549,7 @@ static std::istringstream &operator>>(std::istringstream &iss,
                                       tvector<element_type> &v) {
   const int init_size = 10;
   const int more_size = 10;
-  int alloc_size = init_size;
+  int alloc_size      = init_size;
 
   if (!v.elements || (v.num_elements < 1)) {
     iss.setstate(std::ios::badbit);
@@ -561,7 +561,7 @@ static std::istringstream &operator>>(std::istringstream &iss,
   if (v.elements) {
     delete[] v.elements;
   }
-  v.elements = 0;
+  v.elements     = 0;
   v.num_elements = 0;
 
   v.elements = new element_type[alloc_size];

@@ -14,7 +14,7 @@ namespace spffl::linalg {
 
 // ----------------------------------------------------------------
 int f2pm_froblen(spffl::polynomials::f2_polymod_t a) {
-  int rv = 0;
+  int rv                              = 0;
   spffl::polynomials::f2_polymod_t ap = a;
 
   do {
@@ -28,7 +28,7 @@ int f2pm_froblen(spffl::polynomials::f2_polymod_t a) {
 // ----------------------------------------------------------------
 int f2npm_froblen(spffl::polynomials::f2n_polymod_t a) {
   int rv = 0;
-  int q = 1 << a.get_residue().get_coeff(0).get_modulus().find_degree();
+  int q  = 1 << a.get_residue().get_coeff(0).get_modulus().find_degree();
   spffl::polynomials::f2n_polymod_t ap = a;
 
   do {
@@ -41,8 +41,8 @@ int f2npm_froblen(spffl::polynomials::f2n_polymod_t a) {
 
 // ----------------------------------------------------------------
 int fppm_froblen(spffl::polynomials::fp_polymod_t a) {
-  int rv = 0;
-  int p = a.get_characteristic();
+  int rv                              = 0;
+  int p                               = a.get_characteristic();
   spffl::polynomials::fp_polymod_t ap = a;
 
   do {
@@ -91,10 +91,10 @@ int fppm_froblen(spffl::polynomials::fp_polymod_t a) {
 // ----------------------------------------------------------------
 spffl::polynomials::f2_poly_t
 f2pm_min_poly(spffl::polynomials::f2_polymod_t a) {
-  spffl::polynomials::f2_poly_t m = a.get_modulus();
+  spffl::polynomials::f2_poly_t m     = a.get_modulus();
   spffl::polynomials::f2_polymod_t ap = a.prime_sfld_elt(1);
-  int n = m.find_degree();
-  int l = f2pm_froblen(a);
+  int n                               = m.find_degree();
+  int l                               = f2pm_froblen(a);
   spffl::bits::bit_matrix_t A(n, l + 1);
   for (int j = 0; j <= l; j++) {
     for (int i = 0; i < n; i++) {
@@ -125,7 +125,7 @@ f2pm_min_poly(spffl::polynomials::f2_polymod_t a) {
 // ----------------------------------------------------------------
 spffl::polynomials::f2n_poly_t
 f2npm_min_poly(spffl::polynomials::f2n_polymod_t a) {
-  spffl::polynomials::f2n_poly_t m = a.get_modulus();
+  spffl::polynomials::f2n_poly_t m     = a.get_modulus();
   spffl::polynomials::f2n_polymod_t ap = a.prime_sfld_elt(1);
   spffl::polynomials::f2_polymod_t zero =
       a.get_residue().get_coeff(0).prime_sfld_elt(0);
@@ -137,7 +137,7 @@ f2npm_min_poly(spffl::polynomials::f2n_polymod_t a) {
   for (int j = 0; j <= l; j++) {
     for (int i = 0; i < n; i++) {
       spffl::polynomials::f2n_poly_t apr = ap.get_residue();
-      A[i][j] = apr.get_coeff(i);
+      A[i][j]                            = apr.get_coeff(i);
     }
     ap *= a;
   }
@@ -161,9 +161,9 @@ f2npm_min_poly(spffl::polynomials::f2n_polymod_t a) {
 // ----------------------------------------------------------------
 spffl::polynomials::fp_poly_t
 fppm_min_poly(spffl::polynomials::fp_polymod_t a) {
-  spffl::polynomials::fp_poly_t m = a.get_modulus();
+  spffl::polynomials::fp_poly_t m     = a.get_modulus();
   spffl::polynomials::fp_polymod_t ap = a.prime_sfld_elt(1);
-  int p = a.get_characteristic();
+  int p                               = a.get_characteristic();
   spffl::intmath::intmod_t zero(0, p);
   spffl::intmath::intmod_t one(1, p);
   int n = m.find_degree();
@@ -172,7 +172,7 @@ fppm_min_poly(spffl::polynomials::fp_polymod_t a) {
   for (int j = 0; j <= l; j++) {
     for (int i = 0; i < n; i++) {
       spffl::polynomials::fp_poly_t apr = ap.get_residue();
-      A[i][j] = apr.get_coeff(i);
+      A[i][j]                           = apr.get_coeff(i);
     }
     ap *= a;
   }
@@ -197,9 +197,9 @@ fppm_min_poly(spffl::polynomials::fp_polymod_t a) {
 spffl::polynomials::f2_poly_t
 f2pm_char_poly(spffl::polynomials::f2_polymod_t a) {
   spffl::polynomials::f2_poly_t mp = f2pm_min_poly(a);
-  spffl::polynomials::f2_poly_t m = a.get_modulus();
-  int n = m.find_degree();
-  int l = f2pm_froblen(a);
+  spffl::polynomials::f2_poly_t m  = a.get_modulus();
+  int n                            = m.find_degree();
+  int l                            = f2pm_froblen(a);
   spffl::polynomials::f2_poly_t cp = mp.exp(n / l);
   return cp;
 }
@@ -208,9 +208,9 @@ f2pm_char_poly(spffl::polynomials::f2_polymod_t a) {
 spffl::polynomials::f2n_poly_t
 f2npm_char_poly(spffl::polynomials::f2n_polymod_t a) {
   spffl::polynomials::f2n_poly_t mp = f2npm_min_poly(a);
-  spffl::polynomials::f2n_poly_t m = a.get_modulus();
-  int n = m.find_degree();
-  int l = f2npm_froblen(a);
+  spffl::polynomials::f2n_poly_t m  = a.get_modulus();
+  int n                             = m.find_degree();
+  int l                             = f2npm_froblen(a);
   spffl::polynomials::f2n_poly_t cp = mp.exp(n / l);
   return cp;
 }
@@ -219,9 +219,9 @@ f2npm_char_poly(spffl::polynomials::f2n_polymod_t a) {
 spffl::polynomials::fp_poly_t
 fppm_char_poly(spffl::polynomials::fp_polymod_t a) {
   spffl::polynomials::fp_poly_t mp = fppm_min_poly(a);
-  spffl::polynomials::fp_poly_t m = a.get_modulus();
-  int n = m.find_degree();
-  int l = fppm_froblen(a);
+  spffl::polynomials::fp_poly_t m  = a.get_modulus();
+  int n                            = m.find_degree();
+  int l                            = fppm_froblen(a);
   spffl::polynomials::fp_poly_t cp = mp.exp(n / l);
   return cp;
 }

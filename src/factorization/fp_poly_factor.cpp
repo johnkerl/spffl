@@ -170,7 +170,7 @@ static void fp_poly_berlekamp(spffl::polynomials::fp_poly_t f,
   std::cout << "B-I, rr =\n" << BI << "\n";
 #endif
 
-  rank = BI.get_rank_rr();
+  rank   = BI.get_rank_rr();
   dimker = n - rank;
 
   if (dimker == 1) {
@@ -208,12 +208,12 @@ static void fp_poly_berlekamp(spffl::polynomials::fp_poly_t f,
 
     for (int c = 0; c < p; c++) {
       spffl::polynomials::fp_poly_t hc = h - f.prime_sfld_elt(c);
-      f1 = f.gcd(hc);
+      f1                               = f.gcd(hc);
 #ifdef FPPOLY_FACTOR_DEBUG
       std::cout << "hc  = " << hc << "  f1 = " << f1 << "\n";
 #endif // FPPOLY_FACTOR_DEBUG
       int f1d = f1.find_degree();
-      int fd = f.find_degree();
+      int fd  = f.find_degree();
       if ((0 < f1d) && (f1d < fd)) {
         got_it = 1;
         break;

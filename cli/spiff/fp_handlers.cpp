@@ -240,7 +240,7 @@ int fp_max_ord_main(int argc, char **argv, usage_t *pusage) {
   }
   tvector<spffl::intmath::intmod_t> elts =
       intmod_list(p, spffl::list::SP_LIST_UNITS);
-  int n = elts.get_num_elements();
+  int n   = elts.get_num_elements();
   int max = 0;
   for (int i = 0; i < n; i++) {
     int cur = spffl::units::fp_order(elts[i]);

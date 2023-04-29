@@ -157,7 +157,7 @@ f2_polyrat_t f2_polyrat_t::exp(int e) {
       exit(1);
     }
     xp = one / xp;
-    e = -e;
+    e  = -e;
   }
 
   while (e != 0) {

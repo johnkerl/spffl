@@ -16,9 +16,9 @@
 namespace spffl::bits {
 
 const uint64_t BITS_PER_WORD = 64;
-const uint64_t BITS_SHIFT = 6;
-const uint64_t WORD_MASK = BITS_PER_WORD - 1;
-const uint64_t UONE = 1;
+const uint64_t BITS_SHIFT    = 6;
+const uint64_t WORD_MASK     = BITS_PER_WORD - 1;
+const uint64_t UONE          = 1;
 
 static inline uint64_t WORD_INDEX_FROM_BIT_INDEX(uint64_t bi) {
   return bi >> BITS_SHIFT;

@@ -195,7 +195,7 @@ static void f2_poly_berlekamp(spffl::polynomials::f2_poly_t f,
   std::cout << "B-I, rr =\n" << BI << "\n";
 #endif
 
-  rank = BI.get_rank_rr();
+  rank   = BI.get_rank_rr();
   dimker = n - rank;
 
   if (dimker == 1) {
@@ -256,7 +256,7 @@ static void f2_poly_berlekamp(spffl::polynomials::f2_poly_t f,
 
   for (row = 0; row < dimker; row++) {
     spffl::polynomials::f2_poly_t h, hc;
-    h = f2_poly_from_vector(nullspace_basis[row], n);
+    h  = f2_poly_from_vector(nullspace_basis[row], n);
     hc = h + spffl::polynomials::f2_poly_t(1);
 
     spffl::polynomials::f2_poly_t check1 = (h * h) % f;

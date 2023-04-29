@@ -15,23 +15,23 @@ namespace spffl::rationals {
 // ----------------------------------------------------------------
 qpoly_t::qpoly_t(void) {
   intrat_t zero(0);
-  this->degree = 0;
-  this->coeffs = new intrat_t[this->degree + 1];
+  this->degree    = 0;
+  this->coeffs    = new intrat_t[this->degree + 1];
   this->coeffs[0] = zero;
 }
 
 // ----------------------------------------------------------------
 qpoly_t::qpoly_t(intrat_t c0) {
-  this->degree = 0;
-  this->coeffs = new intrat_t[this->degree + 1];
+  this->degree    = 0;
+  this->coeffs    = new intrat_t[this->degree + 1];
   this->coeffs[0] = c0;
   this->recompute_degree();
 }
 
 // ----------------------------------------------------------------
 qpoly_t::qpoly_t(intrat_t c1, intrat_t c0) {
-  this->degree = 1;
-  this->coeffs = new intrat_t[this->degree + 1];
+  this->degree    = 1;
+  this->coeffs    = new intrat_t[this->degree + 1];
   this->coeffs[1] = c1;
   this->coeffs[0] = c0;
   this->recompute_degree();
@@ -39,8 +39,8 @@ qpoly_t::qpoly_t(intrat_t c1, intrat_t c0) {
 
 // ----------------------------------------------------------------
 qpoly_t::qpoly_t(intrat_t c2, intrat_t c1, intrat_t c0) {
-  this->degree = 2;
-  this->coeffs = new intrat_t[this->degree + 1];
+  this->degree    = 2;
+  this->coeffs    = new intrat_t[this->degree + 1];
   this->coeffs[2] = c2;
   this->coeffs[1] = c1;
   this->coeffs[0] = c0;
@@ -49,8 +49,8 @@ qpoly_t::qpoly_t(intrat_t c2, intrat_t c1, intrat_t c0) {
 
 // ----------------------------------------------------------------
 qpoly_t::qpoly_t(intrat_t c3, intrat_t c2, intrat_t c1, intrat_t c0) {
-  this->degree = 3;
-  this->coeffs = new intrat_t[this->degree + 1];
+  this->degree    = 3;
+  this->coeffs    = new intrat_t[this->degree + 1];
   this->coeffs[3] = c3;
   this->coeffs[2] = c2;
   this->coeffs[1] = c1;
@@ -61,8 +61,8 @@ qpoly_t::qpoly_t(intrat_t c3, intrat_t c2, intrat_t c1, intrat_t c0) {
 // ----------------------------------------------------------------
 qpoly_t::qpoly_t(intrat_t c4, intrat_t c3, intrat_t c2, intrat_t c1,
                  intrat_t c0) {
-  this->degree = 4;
-  this->coeffs = new intrat_t[this->degree + 1];
+  this->degree    = 4;
+  this->coeffs    = new intrat_t[this->degree + 1];
   this->coeffs[4] = c4;
   this->coeffs[3] = c3;
   this->coeffs[2] = c2;
@@ -74,8 +74,8 @@ qpoly_t::qpoly_t(intrat_t c4, intrat_t c3, intrat_t c2, intrat_t c1,
 // ----------------------------------------------------------------
 qpoly_t::qpoly_t(intrat_t c5, intrat_t c4, intrat_t c3, intrat_t c2,
                  intrat_t c1, intrat_t c0) {
-  this->degree = 5;
-  this->coeffs = new intrat_t[this->degree + 1];
+  this->degree    = 5;
+  this->coeffs    = new intrat_t[this->degree + 1];
   this->coeffs[5] = c5;
   this->coeffs[4] = c4;
   this->coeffs[3] = c3;
@@ -322,16 +322,16 @@ void qpoly_t::quot_and_rem(qpoly_t &that, qpoly_t &rquot, qpoly_t &rrem) {
   }
   if (*this == zero) {
     rquot = qpoly_t(0);
-    rrem = *this;
+    rrem  = *this;
     return;
   }
 
   int dividend_degree = this->degree;
-  int divisor_degree = that.degree;
+  int divisor_degree  = that.degree;
 
   if (dividend_degree < divisor_degree) {
     rquot = qpoly_t(0);
-    rrem = *this;
+    rrem  = *this;
     return;
   }
 
@@ -355,9 +355,9 @@ void qpoly_t::quot_and_rem(qpoly_t &that, qpoly_t &rquot, qpoly_t &rrem) {
   // quot deg = dividend deg - divisor deg
   // rem deg  < divisor deg
 
-  int max_shift = dividend_degree - divisor_degree;
+  int max_shift           = dividend_degree - divisor_degree;
   intrat_t divisor_leader = that.coeffs[divisor_degree];
-  intrat_t dlinv = intrat_t(1) / divisor_leader;
+  intrat_t dlinv          = intrat_t(1) / divisor_leader;
   // if (!divisor_leader.recip(dlinv)) {
   //	std::cerr << "qpoly_t::quot_and_rem:  zero or zero divisor "
   //		<< "in leading coefficient " << divisor_leader << "\n"
@@ -365,10 +365,10 @@ void qpoly_t::quot_and_rem(qpoly_t &that, qpoly_t &rquot, qpoly_t &rrem) {
   //	exit(1);
   // }
   for (int shift = max_shift; shift >= 0; shift--) {
-    intrat_t rem_leader = rem.coeffs[shift + divisor_degree];
-    intrat_t multiplier = rem_leader * dlinv;
+    intrat_t rem_leader      = rem.coeffs[shift + divisor_degree];
+    intrat_t multiplier      = rem_leader * dlinv;
     qpoly_t divisor_with_mul = that * multiplier;
-    quot.coeffs[shift] = multiplier;
+    quot.coeffs[shift]       = multiplier;
 
     int stop = shift + divisor_with_mul.degree;
     for (int i = shift; i <= stop; i++) {
@@ -387,7 +387,7 @@ void qpoly_t::quot_and_rem(qpoly_t &that, qpoly_t &rquot, qpoly_t &rrem) {
   rem.recompute_degree();
 
   rquot = quot;
-  rrem = rem;
+  rrem  = rem;
 }
 
 // ----------------------------------------------------------------
@@ -427,11 +427,11 @@ qpoly_t qpoly_t::ext_gcd(qpoly_t &that, qpoly_t &rm, qpoly_t &rn) {
 
   // Initialize
   mprime = qpoly_t(1);
-  rn = qpoly_t(1);
-  rm = qpoly_t(0);
+  rn     = qpoly_t(1);
+  rm     = qpoly_t(0);
   nprime = qpoly_t(0);
-  c = *this;
-  d = that;
+  c      = *this;
+  d      = that;
 
   while (1) {
     c.quot_and_rem(d, q, r);
@@ -442,26 +442,26 @@ qpoly_t qpoly_t::ext_gcd(qpoly_t &that, qpoly_t &rm, qpoly_t &rn) {
     c = d;
     d = r;
 
-    t = mprime;
+    t      = mprime;
     mprime = rm;
-    qm = q * rm;
-    rm = t - qm;
+    qm     = q * rm;
+    rm     = t - qm;
 
-    t = nprime;
+    t      = nprime;
     nprime = rn;
-    qn = q * rn;
-    rn = t - qn;
+    qn     = q * rn;
+    rn     = t - qn;
   }
   return d;
 }
 
 // ----------------------------------------------------------------
 qpoly_t qpoly_t::exp(int e) {
-  int deg = this->find_degree();
-  qpoly_t xp = *this;
+  int deg      = this->find_degree();
+  qpoly_t xp   = *this;
   qpoly_t zero = qpoly_t(0);
-  qpoly_t one = qpoly_t(1);
-  qpoly_t rv = one;
+  qpoly_t one  = qpoly_t(1);
+  qpoly_t rv   = one;
 
   if (*this == zero) {
     if (e == 0) {
@@ -568,12 +568,12 @@ void qpoly_t::set_coeff(int pos, intrat_t c) {
 
 // ----------------------------------------------------------------
 void qpoly_t::recompute_degree(void) {
-  bool is_zero = true;
+  bool is_zero  = true;
   intrat_t zero = this->coeffs[0] - this->coeffs[0];
 
   for (int i = this->degree; i >= 0; i--) {
     if (this->coeffs[i] != zero) {
-      is_zero = false;
+      is_zero      = false;
       this->degree = i;
       break;
     }
@@ -743,7 +743,7 @@ bool qpoly_t::from_string(const char *string) {
   if (num_commas == 0) {
     // Allow comma-free input as long as all residues are
     // single-digit.
-    int len = strlen(string);
+    int len      = strlen(string);
     this->degree = len - 1;
     this->coeffs = new intrat_t[this->degree + 1];
     int si, ci;
@@ -758,9 +758,9 @@ bool qpoly_t::from_string(const char *string) {
       this->coeffs[ci] = intrat_t(ascii_digit - '0');
     }
   } else {
-    char *dup = strdup(string);
+    char *dup   = strdup(string);
     char **argv = new char *[num_commas + 1];
-    int argc = spffl::base::tokenize(dup, ",", argv, num_commas + 1);
+    int argc    = spffl::base::tokenize(dup, ",", argv, num_commas + 1);
     if (argc < 1) {
       // Needs an error message, but this coding error is
       // unlikely since we already counted commas.
@@ -799,7 +799,7 @@ void qpoly_t::promote(void) {
     exit(1);
   }
   intrat_t *ocoeffs = this->coeffs;
-  this->coeffs = new intrat_t[this->degree + 2];
+  this->coeffs      = new intrat_t[this->degree + 2];
   for (int i = 0; i <= this->degree; i++) {
     this->coeffs[i + 1] = ocoeffs[i];
   }

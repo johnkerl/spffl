@@ -179,13 +179,13 @@ int f2_p_test_main(int argc, char **argv, usage_t *pusage) {
   }
 
   if (strcmp(argv[1], "-i") == 0) {
-    do_irr = true;
+    do_irr  = true;
     do_prim = false;
   } else if (strcmp(argv[1], "-p") == 0) {
-    do_irr = false;
+    do_irr  = false;
     do_prim = true;
   } else if (strcmp(argv[1], "-ip") == 0) {
-    do_irr = true;
+    do_irr  = true;
     do_prim = true;
   } else {
     pusage(argv[0]);
@@ -245,13 +245,13 @@ int f2_p_find_main(int argc, char **argv, usage_t *pusage) {
   }
 
   if (strcmp(argv[2], "-i") == 0) {
-    do_irr = true;
+    do_irr  = true;
     do_prim = false;
   } else if (strcmp(argv[2], "-p") == 0) {
-    do_irr = false;
+    do_irr  = false;
     do_prim = true;
   } else if (strcmp(argv[2], "-ip") == 0) {
-    do_irr = true;
+    do_irr  = true;
     do_prim = true;
   } else {
     pusage(argv[0]);
@@ -336,7 +336,7 @@ void f2_p_divisors_usage(char *argv0) {
 
 int f2_p_divisors_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t a;
-  int argb = 1;
+  int argb                = 1;
   int maximal_proper_only = 0;
   if ((argc >= 2) && (strcmp(argv[1], "-mp") == 0)) {
     maximal_proper_only = 1;

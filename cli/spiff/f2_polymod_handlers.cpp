@@ -424,7 +424,7 @@ int f2_pm_mat_op_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   }
   zero = spffl::polynomials::f2_polymod_t(m.prime_sfld_elt(0), m);
-  one = spffl::polynomials::f2_polymod_t(m.prime_sfld_elt(1), m);
+  one  = spffl::polynomials::f2_polymod_t(m.prime_sfld_elt(1), m);
   spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::f2_polymod_t>(
       argc - 2, argv + 2, zero, one);
   return 0;
@@ -446,7 +446,7 @@ int f2_pm_vec_op_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   }
   zero = spffl::polynomials::f2_polymod_t(m.prime_sfld_elt(0), m);
-  one = spffl::polynomials::f2_polymod_t(m.prime_sfld_elt(1), m);
+  one  = spffl::polynomials::f2_polymod_t(m.prime_sfld_elt(1), m);
   spffl::cliparser::cmd_line_vec_parse<spffl::polynomials::f2_polymod_t>(
       argc - 2, argv + 2, zero, one);
   return 0;
@@ -470,7 +470,7 @@ int f2_pm_mat_solve_main(int argc, char **argv, usage_t *pusage) {
   }
 
   zero = spffl::polynomials::f2_polymod_t(m.prime_sfld_elt(0), m);
-  one = spffl::polynomials::f2_polymod_t(m.prime_sfld_elt(1), m);
+  one  = spffl::polynomials::f2_polymod_t(m.prime_sfld_elt(1), m);
 
   tmatrix<spffl::polynomials::f2_polymod_t> A;
   tvector<spffl::polynomials::f2_polymod_t> x;

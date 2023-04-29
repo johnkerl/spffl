@@ -133,13 +133,13 @@ template <class element_type> static const char *vec_token_desc(int t) {
 template <class element_type>
 static void veclexinit(vec_lex_ctx_t<element_type> &rlex_ctx, int argc,
                        char **argv, element_type zero, element_type one) {
-  rlex_ctx.argi = 0;
-  rlex_ctx.argc = argc;
-  rlex_ctx.argv = argv;
-  rlex_ctx.token = L_UNDEF;
+  rlex_ctx.argi       = 0;
+  rlex_ctx.argc       = argc;
+  rlex_ctx.argv       = argv;
+  rlex_ctx.token      = L_UNDEF;
   rlex_ctx.in_pow_rhs = 0;
-  rlex_ctx.zero = zero;
-  rlex_ctx.one = one;
+  rlex_ctx.zero       = zero;
+  rlex_ctx.one        = one;
 }
 
 // ----------------------------------------------------------------
@@ -190,7 +190,7 @@ static void veclexan(vec_lex_ctx_t<element_type> &rlex_ctx) {
       rlex_ctx.atom.atom_type = INT_ATOM;
       iss >> rlex_ctx.atom.int_val;
     } else {
-      rlex_ctx.atom.vec_val = rlex_ctx.zero; // Set modulus
+      rlex_ctx.atom.vec_val   = rlex_ctx.zero; // Set modulus
       rlex_ctx.atom.atom_type = VEC_ATOM;
 
       if (strchr(rlex_ctx.argv[rlex_ctx.argi], '[')) {

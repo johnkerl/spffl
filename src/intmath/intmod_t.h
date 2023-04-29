@@ -218,14 +218,14 @@ inline bool intmod_t::recip(intmod_t &rinv) {
   }
 
   static int mlast = 2;
-  static int phi = 1;
+  static int phi   = 1;
   if (this->modulus != mlast) { // Cache
     mlast = this->modulus;
-    phi = int_totient(this->modulus);
+    phi   = int_totient(this->modulus);
   }
 
   intmod_t rv = this->exp(phi - 1);
-  int check = (this->residue * rv.residue) % this->modulus;
+  int check   = (this->residue * rv.residue) % this->modulus;
   if (check != 1) {
     return false;
   } else {

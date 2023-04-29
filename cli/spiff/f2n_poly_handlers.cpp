@@ -324,7 +324,7 @@ void f2n_p_divisors_usage(char *argv0) {
 int f2n_p_divisors_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t m;
   spffl::polynomials::f2n_poly_t a;
-  int argb = 1;
+  int argb                = 1;
   int maximal_proper_only = 0;
   if ((argc >= 2) && (strcmp(argv[1], "-mp") == 0)) {
     maximal_proper_only = 1;

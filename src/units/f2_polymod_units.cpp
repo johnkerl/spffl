@@ -32,10 +32,10 @@ int f2_polymod_order(spffl::polynomials::f2_polymod_t a) {
     exit(1);
   }
 
-  int phi = spffl::factorization::f2_poly_totient(m);
-  tfacinfo<int> finfo = spffl::factorization::int_factor(phi);
+  int phi                   = spffl::factorization::f2_poly_totient(m);
+  tfacinfo<int> finfo       = spffl::factorization::int_factor(phi);
   tvector<int> phi_divisors = finfo.get_all_divisors(1);
-  int nd = phi_divisors.get_num_elements();
+  int nd                    = phi_divisors.get_num_elements();
   spffl::polynomials::f2_polymod_t one(pol1, m);
 
   // The output from get_all_divisors is guaranteed to be sorted up.
@@ -102,7 +102,7 @@ bool f2_poly_is_primitive(spffl::polynomials::f2_poly_t m) {
       pol1, m); // Equiv. class of 1 in the residue class ring.
   spffl::polynomials::f2_polymod_t rcrx(polx, m);
 
-  int phi = spffl::factorization::f2_poly_totient(m);
+  int phi             = spffl::factorization::f2_poly_totient(m);
   tfacinfo<int> finfo = spffl::factorization::int_factor(phi);
   tvector<int> mpds;
   if (!finfo.get_maximal_proper_divisors(mpds, 1)) {
@@ -215,16 +215,16 @@ static int poly_and_index_qcmp(const void *pv1, const void *pv2) {
 
 int f2_polymod_log( // Log base g of a.
     spffl::polynomials::f2_polymod_t g, spffl::polynomials::f2_polymod_t a) {
-  int rv = -1;
+  int rv                          = -1;
   spffl::polynomials::f2_poly_t m = g.get_modulus();
-  int n = 1 << m.find_degree();
-  unsigned k = (unsigned)spffl::intmath::int_sqrt_ceil(n);
+  int n                           = 1 << m.find_degree();
+  unsigned k                      = (unsigned)spffl::intmath::int_sqrt_ceil(n);
 
   // xxx check gcd(g, m)
   // xxx check gcd(g, a)
 
   poly_and_index_t *agni = new poly_and_index_t[k];
-  poly_and_index_t *gkj = new poly_and_index_t[k];
+  poly_and_index_t *gkj  = new poly_and_index_t[k];
 
   spffl::polynomials::f2_polymod_t ginv;
   if (!g.recip(ginv)) {
@@ -237,8 +237,8 @@ int f2_polymod_log( // Log base g of a.
 
   agni[0].elt = a;
   agni[0].idx = 0;
-  gkj[0].elt = g / g;
-  gkj[0].idx = 0;
+  gkj[0].elt  = g / g;
+  gkj[0].idx  = 0;
 
   for (i = 1; i < k; i++) {
     agni[i].elt = agni[i - 1].elt * ginv;

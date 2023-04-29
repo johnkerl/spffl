@@ -176,15 +176,15 @@ fpn_polymod_t fpn_polymod_t::exp(int e) {
       exit(1);
     }
     fpn_polymod_t inv = one / *this;
-    xp = inv.residue;
-    e = -e;
+    xp                = inv.residue;
+    e                 = -e;
   }
 
   while (e != 0) {
     if (e & 1) {
       rv.residue = (rv.residue * xp) % this->modulus;
     }
-    e = (unsigned)e >> 1;
+    e  = (unsigned)e >> 1;
     xp = (xp * xp) % this->modulus;
   }
 
@@ -193,9 +193,9 @@ fpn_polymod_t fpn_polymod_t::exp(int e) {
 
 // ----------------------------------------------------------------
 std::ostream &operator<<(std::ostream &os, const fpn_polymod_t &a) {
-  int adeg = a.residue.find_degree();
-  int rdeg = a.modulus.find_degree() - 1;
-  int max = adeg > rdeg ? adeg : rdeg;
+  int adeg    = a.residue.find_degree();
+  int rdeg    = a.modulus.find_degree() - 1;
+  int max     = adeg > rdeg ? adeg : rdeg;
   fp_poly_t m = a.residue.get_coeff(0).get_modulus();
 
   for (int i = max; i >= 0; i--) {

@@ -20,15 +20,15 @@ public:
   // ----------------------------------------------------------------
   tstack(void) {
     this->num_allocated = TSTACK_INIT_SIZE;
-    this->elements = new element_type[this->num_allocated];
-    this->freeidx = 0;
+    this->elements      = new element_type[this->num_allocated];
+    this->freeidx       = 0;
   }
 
   // ----------------------------------------------------------------
   tstack(const tstack<element_type> &that) {
     this->num_allocated = that.num_allocated;
-    this->freeidx = that.freeidx;
-    this->elements = new element_type[that.num_allocated];
+    this->freeidx       = that.freeidx;
+    this->elements      = new element_type[that.num_allocated];
     for (int i = 0; i < that.freeidx; i++) {
       this->elements[i] = that.elements[i];
     }
@@ -41,7 +41,7 @@ public:
       this->elements = 0;
     }
     this->num_allocated = 0;
-    this->freeidx = 0;
+    this->freeidx       = 0;
   }
 
   // ----------------------------------------------------------------
@@ -50,8 +50,8 @@ public:
       delete[] this->elements;
     }
     this->num_allocated = that.num_allocated;
-    this->freeidx = that.freeidx;
-    this->elements = new element_type[that.num_allocated];
+    this->freeidx       = that.freeidx;
+    this->elements      = new element_type[that.num_allocated];
     for (int i = 0; i < that.freeidx; i++) {
       this->elements[i] = that.elements[i];
     }
@@ -130,7 +130,7 @@ static std::istringstream &operator>>(std::istringstream &iss,
                                       tstack<element_type> &v) {
   const int init_size = 10;
   const int more_size = 10;
-  int alloc_size = init_size;
+  int alloc_size      = init_size;
 
   if (!v.elements || (v.num_elements < 1)) {
     iss.setstate(std::ios::badbit);
@@ -142,7 +142,7 @@ static std::istringstream &operator>>(std::istringstream &iss,
   if (v.elements) {
     delete[] v.elements;
   }
-  v.elements = 0;
+  v.elements     = 0;
   v.num_elements = 0;
 
   v.elements = new element_type[alloc_size];

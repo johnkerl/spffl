@@ -93,7 +93,7 @@ static void replace(char *exename, int argcin, char **argvin, int &argcout,
 
   char line[4096];
   int totlen = 0;
-  char *buf = 0;
+  char *buf  = 0;
   while (fgets(line, sizeof(line), pipe)) {
     int curlen = strlen(line);
     if (line[curlen - 1] == '\n') {
@@ -157,7 +157,7 @@ static void cmd_interpolate_once(char *exename, int &argc, char **&argv,
 
   replace(exename, righti - lefti - 1, &argv[lefti + 1], argcout, argvout);
 
-  int newargc = lefti + argcout + argc - righti - 1;
+  int newargc    = lefti + argcout + argc - righti - 1;
   char **newargv = (char **)malloc(newargc * sizeof(char *));
   int si, di = 0;
   for (si = 0; si < lefti; si++, di++) {
@@ -170,8 +170,8 @@ static void cmd_interpolate_once(char *exename, int &argc, char **&argv,
     newargv[di] = argv[si];
   }
 
-  argc = newargc;
-  argv = newargv;
+  argc         = newargc;
+  argv         = newargv;
   interpolated = 1;
 }
 

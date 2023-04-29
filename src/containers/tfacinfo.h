@@ -42,23 +42,23 @@ public:
 
   // ----------------------------------------------------------------
   tfacinfo(void) {
-    this->num_distinct = 0;
-    this->num_allocated = TFACINFO_INIT_LENGTH;
+    this->num_distinct        = 0;
+    this->num_allocated       = TFACINFO_INIT_LENGTH;
     this->pfactors_and_counts = new factor_and_count_t[this->num_allocated];
-    this->have_unit = 0;
+    this->have_unit           = 0;
     // Let this->unit take its default constructor.
   }
 
   // ----------------------------------------------------------------
   tfacinfo(const tfacinfo<element_type> &that) {
-    this->num_distinct = that.num_distinct;
-    this->num_allocated = that.num_distinct;
+    this->num_distinct        = that.num_distinct;
+    this->num_allocated       = that.num_distinct;
     this->pfactors_and_counts = new factor_and_count_t[that.num_distinct];
     for (int i = 0; i < that.num_distinct; i++) {
       this->pfactors_and_counts[i] = that.pfactors_and_counts[i];
     }
     this->have_unit = that.have_unit;
-    this->unit = that.unit;
+    this->unit      = that.unit;
   }
 
   // ----------------------------------------------------------------
@@ -67,14 +67,14 @@ public:
       delete[] this->pfactors_and_counts;
     }
 
-    this->num_distinct = that.num_distinct;
-    this->num_allocated = that.num_distinct;
+    this->num_distinct        = that.num_distinct;
+    this->num_allocated       = that.num_distinct;
     this->pfactors_and_counts = new factor_and_count_t[that.num_distinct];
     for (int i = 0; i < that.num_distinct; i++) {
       this->pfactors_and_counts[i] = that.pfactors_and_counts[i];
     }
     this->have_unit = that.have_unit;
-    this->unit = that.unit;
+    this->unit      = that.unit;
   }
 
   // ----------------------------------------------------------------
@@ -82,10 +82,10 @@ public:
     if (this->pfactors_and_counts) {
       delete[] this->pfactors_and_counts;
     }
-    this->num_distinct = 0;
-    this->num_allocated = 0;
+    this->num_distinct        = 0;
+    this->num_allocated       = 0;
     this->pfactors_and_counts = 0;
-    this->have_unit = 0;
+    this->have_unit           = 0;
   }
 
   // ----------------------------------------------------------------
@@ -239,7 +239,7 @@ public:
     }
 
     this->pfactors_and_counts[idx].factor = e;
-    this->pfactors_and_counts[idx].count = count;
+    this->pfactors_and_counts[idx].count  = count;
     this->num_distinct++;
   }
 
@@ -248,7 +248,7 @@ public:
     if (this->have_unit) {
       this->unit *= e;
     } else {
-      this->unit = e;
+      this->unit      = e;
       this->have_unit = 1;
     }
   }
@@ -257,7 +257,7 @@ public:
   // The class being instantiated may or may not have an exp() method.
   element_type tf_exp(element_type x, int e) {
     element_type zero = x - x;
-    element_type xp = x;
+    element_type xp   = x;
 
     if (x == zero) {
       if (e < 0) {
@@ -271,7 +271,7 @@ public:
       return zero;
     }
     element_type one = x / x;
-    element_type rv = one;
+    element_type rv  = one;
 
     if (e == 0) {
       return rv;
@@ -283,7 +283,7 @@ public:
         exit(1);
       }
       xp = one / x;
-      e = -e;
+      e  = -e;
     }
 
     while (e != 0) {
@@ -336,9 +336,9 @@ public:
       rv *= this->unit;
     }
     for (int i = 0; i < this->num_distinct; i++) {
-      element_type f = this->pfactors_and_counts[i].factor;
+      element_type f      = this->pfactors_and_counts[i].factor;
       element_type fpower = one;
-      int power = this->pfactors_and_counts[i].count;
+      int power           = this->pfactors_and_counts[i].count;
       for (int j = 1; j <= power; j++) {
         fpower *= f;
       }
@@ -406,9 +406,9 @@ public:
     int base, power;
 
     for (int i = 0; i < this->num_distinct; i++) {
-      base = this->pfactors_and_counts[i].count + 1;
+      base  = this->pfactors_and_counts[i].count + 1;
       power = k % base;
-      k = k / base;
+      k     = k / base;
       rv *= this->tf_exp(this->pfactors_and_counts[i].factor, power);
     }
     return rv;
@@ -447,7 +447,7 @@ public:
       }
     }
     int nmpd = this->num_distinct;
-    rv = tvector<element_type>(nmpd);
+    rv       = tvector<element_type>(nmpd);
     for (int k = 0; k < nmpd; k++) {
       tfacinfo<element_type> other(*this);
       other.pfactors_and_counts[k].count--;

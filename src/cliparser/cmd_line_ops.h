@@ -153,13 +153,13 @@ template <class element_type> static const char *token_desc(int t) {
 template <class element_type>
 static void lexinit(lex_ctx_t<element_type> &rlex_ctx, int argc, char **argv,
                     element_type zero, element_type one) {
-  rlex_ctx.argi = 0;
-  rlex_ctx.argc = argc;
-  rlex_ctx.argv = argv;
-  rlex_ctx.token = L_UNDEF;
+  rlex_ctx.argi       = 0;
+  rlex_ctx.argc       = argc;
+  rlex_ctx.argv       = argv;
+  rlex_ctx.token      = L_UNDEF;
   rlex_ctx.in_pow_rhs = 0;
-  rlex_ctx.zero = zero;
-  rlex_ctx.one = one;
+  rlex_ctx.zero       = zero;
+  rlex_ctx.one        = one;
 
 #if 0
 	std::cout << "zero = " << zero << "\n";
@@ -228,7 +228,7 @@ static void lexan(lex_ctx_t<element_type> &rlex_ctx) {
       iss >> rlex_ctx.atom.int_val;
     } else {
       rlex_ctx.atom.type_val = rlex_ctx.zero; // Set modulus
-      rlex_ctx.atom.is_int = false;
+      rlex_ctx.atom.is_int   = false;
       iss >> rlex_ctx.atom.type_val;
     }
     if (iss.fail()) {
@@ -268,7 +268,7 @@ element_type clo_exp(element_type x, int e, element_type zero,
       exit(1);
     }
     xp = one / x;
-    e = -e;
+    e  = -e;
   }
 
   while (e != 0) {

@@ -38,7 +38,7 @@ spffl::rationals::qpoly_t get_cyclo_qpoly(int n) {
   if (n == 1) {
     rv = spffl::rationals::qpoly_t(1, -1);
     if (n <= CYCLO_MEMO_MAX) {
-      memo_data[n] = rv;
+      memo_data[n]  = rv;
       memo_flags[n] = 1;
     }
     return rv;
@@ -67,7 +67,7 @@ spffl::rationals::qpoly_t get_cyclo_qpoly(int n) {
   }
 
   if (n <= CYCLO_MEMO_MAX) {
-    memo_data[n] = rv;
+    memo_data[n]  = rv;
     memo_flags[n] = 1;
   }
 
@@ -76,14 +76,14 @@ spffl::rationals::qpoly_t get_cyclo_qpoly(int n) {
 
 // ----------------------------------------------------------------
 spffl::polynomials::f2_poly_t get_cyclo_f2_poly(int n) {
-  spffl::rationals::qpoly_t q = get_cyclo_qpoly(n);
+  spffl::rationals::qpoly_t q      = get_cyclo_qpoly(n);
   spffl::polynomials::f2_poly_t rv = f2_poly_from_q_poly(q);
   return rv;
 }
 
 // ----------------------------------------------------------------
 spffl::polynomials::fp_poly_t get_cyclo_fp_poly(int n, int p) {
-  spffl::rationals::qpoly_t q = get_cyclo_qpoly(n);
+  spffl::rationals::qpoly_t q      = get_cyclo_qpoly(n);
   spffl::polynomials::fp_poly_t rv = fp_poly_from_qpoly(q, p);
   return rv;
 }
@@ -91,7 +91,7 @@ spffl::polynomials::fp_poly_t get_cyclo_fp_poly(int n, int p) {
 // ----------------------------------------------------------------
 spffl::polynomials::f2n_poly_t
 get_cyclo_f2n_poly(int n, spffl::polynomials::f2_poly_t im) {
-  spffl::rationals::qpoly_t q = get_cyclo_qpoly(n);
+  spffl::rationals::qpoly_t q       = get_cyclo_qpoly(n);
   spffl::polynomials::f2n_poly_t rv = f2n_poly_from_qpoly(q, im);
   return rv;
 }
@@ -99,7 +99,7 @@ get_cyclo_f2n_poly(int n, spffl::polynomials::f2_poly_t im) {
 // ----------------------------------------------------------------
 spffl::polynomials::fpn_poly_t
 get_cyclo_fpn_poly(int n, spffl::polynomials::fp_poly_t im) {
-  spffl::rationals::qpoly_t q = get_cyclo_qpoly(n);
+  spffl::rationals::qpoly_t q       = get_cyclo_qpoly(n);
   spffl::polynomials::fpn_poly_t rv = fpn_poly_from_qpoly(q, im);
   return rv;
 }
@@ -107,7 +107,7 @@ get_cyclo_fpn_poly(int n, spffl::polynomials::fp_poly_t im) {
 // ----------------------------------------------------------------
 #ifdef CYCLOPOLY_TEST
 int main(void) {
-  int p = 3;
+  int p    = 3;
   int nmax = 30;
   spffl::polynomials::f2_poly_t m2 =
       spffl::polynomials::f2_poly_t::from_base_rep(0x13);

@@ -33,10 +33,10 @@ int f2n_polymod_order(spffl::polynomials::f2n_polymod_t a) {
     exit(1);
   }
 
-  int phi = spffl::factorization::f2n_poly_totient(m);
-  tfacinfo<int> finfo = spffl::factorization::int_factor(phi);
+  int phi                   = spffl::factorization::f2n_poly_totient(m);
+  tfacinfo<int> finfo       = spffl::factorization::int_factor(phi);
   tvector<int> phi_divisors = finfo.get_all_divisors(1);
-  int nd = phi_divisors.get_num_elements();
+  int nd                    = phi_divisors.get_num_elements();
   spffl::polynomials::f2n_polymod_t one(pol1, m);
 
   // The output from get_all_divisors is guaranteed to be sorted up.
@@ -58,7 +58,7 @@ int f2n_polymod_order(spffl::polynomials::f2n_polymod_t a) {
 // ----------------------------------------------------------------
 bool f2n_polymod_find_generator(spffl::polynomials::f2n_poly_t m,
                                 spffl::polynomials::f2n_polymod_t &rg) {
-  int mdeg = m.find_degree();
+  int mdeg                            = m.find_degree();
   spffl::polynomials::f2n_poly_t gres = m.prime_sfld_elt(1);
 
   if (mdeg < 1) {
@@ -116,7 +116,7 @@ int f2n_polymod_log( // Log base g of a.
   std::cout << "\n";
   std::cout << "g = " << g << "\n";
   std::cout << "a = " << a << "\n";
-  int rv = -1;
+  int rv                           = -1;
   spffl::polynomials::f2n_poly_t m = g.get_modulus();
   std::cout << "m = " << m << "\n";
   int n = 1 << m.find_degree();
@@ -128,7 +128,7 @@ int f2n_polymod_log( // Log base g of a.
   // xxx check gcd(g, a)
 
   poly_and_index_t *agni = new poly_and_index_t[k];
-  poly_and_index_t *gkj = new poly_and_index_t[k];
+  poly_and_index_t *gkj  = new poly_and_index_t[k];
 
   spffl::polynomials::f2n_polymod_t ginv;
   if (!g.recip(ginv)) {
@@ -143,8 +143,8 @@ int f2n_polymod_log( // Log base g of a.
 
   agni[0].elt = a;
   agni[0].idx = 0;
-  gkj[0].elt = g / g;
-  gkj[0].idx = 0;
+  gkj[0].elt  = g / g;
+  gkj[0].idx  = 0;
 
   std::cout << "agni[" << 0 << "] = " << agni[0].elt << "\n";
   for (i = 1; i < k; i++) {

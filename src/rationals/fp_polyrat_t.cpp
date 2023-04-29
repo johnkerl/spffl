@@ -154,7 +154,7 @@ fp_polyrat_t fp_polyrat_t::exp(int e) {
       exit(1);
     }
     xp = one / xp;
-    e = -e;
+    e  = -e;
   }
 
   while (e != 0) {

@@ -13,9 +13,9 @@ namespace spffl::bits {
 
 // ----------------------------------------------------------------
 bit_vector_t::bit_vector_t(void) {
-  this->words = 0;
+  this->words     = 0;
   this->num_words = 0;
-  this->num_bits = 0;
+  this->num_bits  = 0;
 }
 
 // ----------------------------------------------------------------
@@ -27,9 +27,9 @@ bit_vector_t::bit_vector_t(int init_num_elements) {
     exit(1);
   }
 
-  this->num_bits = init_num_elements;
+  this->num_bits  = init_num_elements;
   this->num_words = NWORDS_FROM_NBITS(this->num_bits);
-  this->words = new uint64_t[this->num_words];
+  this->words     = new uint64_t[this->num_words];
   memset(this->words, 0, this->num_words * sizeof(uint64_t));
 }
 
@@ -42,10 +42,10 @@ bit_vector_t::bit_vector_t(bit_t scalar, int init_num_elements) {
     exit(1);
   }
 
-  this->num_bits = init_num_elements;
+  this->num_bits  = init_num_elements;
   this->num_words = NWORDS_FROM_NBITS(this->num_bits);
-  this->words = new uint64_t[this->num_words];
-  uint64_t fill = 0;
+  this->words     = new uint64_t[this->num_words];
+  uint64_t fill   = 0;
   if (scalar == bit_t(1)) {
     fill = ~fill;
   }
@@ -64,10 +64,10 @@ bit_vector_t::bit_vector_t(int scalar, int init_num_elements) {
     exit(1);
   }
 
-  this->num_bits = init_num_elements;
+  this->num_bits  = init_num_elements;
   this->num_words = NWORDS_FROM_NBITS(this->num_bits);
-  this->words = new uint64_t[this->num_words];
-  uint64_t fill = 0;
+  this->words     = new uint64_t[this->num_words];
+  uint64_t fill   = 0;
   if (scalar == 1) {
     fill = ~fill;
   }
@@ -79,9 +79,9 @@ bit_vector_t::bit_vector_t(int scalar, int init_num_elements) {
 
 // ----------------------------------------------------------------
 bit_vector_t::bit_vector_t(const bit_vector_t &that) {
-  this->num_bits = that.num_bits;
+  this->num_bits  = that.num_bits;
   this->num_words = that.num_words;
-  this->words = new uint64_t[that.num_words];
+  this->words     = new uint64_t[that.num_words];
   memcpy(this->words, that.words, that.num_words * sizeof(uint64_t));
 }
 
@@ -91,13 +91,13 @@ bit_vector_t::~bit_vector_t(void) {
     delete[] this->words;
     this->words = 0;
   }
-  this->num_bits = 0;
+  this->num_bits  = 0;
   this->num_words = 0;
 }
 
 // ----------------------------------------------------------------
 bit_vector_t &bit_vector_t::operator=(bit_vector_t that) {
-  this->num_bits = that.num_bits;
+  this->num_bits  = that.num_bits;
   this->num_words = that.num_words;
   if (this->words == 0) {
     this->words = new uint64_t[that.num_words];
@@ -121,10 +121,10 @@ bit_vector_t &bit_vector_t::operator=(const bit_t scalar) {
     }
     this->trim();
   } else {
-    this->num_bits = 1;
+    this->num_bits  = 1;
     this->num_words = 1;
-    this->words = new uint64_t[1];
-    this->words[0] = 0;
+    this->words     = new uint64_t[1];
+    this->words[0]  = 0;
     if (scalar == bit_t(1)) {
       this->words[0] = 1LL << WORD_POS_FROM_BIT_INDEX(0);
     }
@@ -161,15 +161,15 @@ std::istream &operator>>(std::istream &is, bit_vector_t &v) {
 std::istringstream &operator>>(std::istringstream &iss, bit_vector_t &v) {
   const int init_size = 8;
   const int more_size = 8;
-  int alloc_size = init_size;
+  int alloc_size      = init_size;
   int bit;
 
   if (v.words) {
     delete[] v.words;
   }
-  v.words = new uint64_t[alloc_size];
+  v.words     = new uint64_t[alloc_size];
   v.num_words = 0;
-  v.num_bits = 0;
+  v.num_bits  = 0;
   for (int i = 0; i < alloc_size; i++) {
     v.words[i] = 0;
   }
@@ -386,8 +386,8 @@ void bit_vector_t::ptrswap(bit_vector_t &that) {
     (void)check_equal_lengths(that);
   }
   uint64_t *temp = this->words;
-  this->words = that.words;
-  that.words = temp;
+  this->words    = that.words;
+  that.words     = temp;
 }
 
 // ----------------------------------------------------------------

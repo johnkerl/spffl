@@ -30,11 +30,11 @@ f2n_poly_from_vector(tvector<spffl::polynomials::f2_polymod_t> v, int n);
 tfacinfo<spffl::polynomials::f2n_poly_t>
 f2n_poly_factor(spffl::polynomials::f2n_poly_t f) {
   tfacinfo<spffl::polynomials::f2n_poly_t> finfo;
-  int d = f.find_degree();
-  spffl::polynomials::f2_polymod_t c0 = f.get_coeff(0);
-  spffl::polynomials::f2_poly_t m = c0.get_modulus();
+  int d                                 = f.find_degree();
+  spffl::polynomials::f2_polymod_t c0   = f.get_coeff(0);
+  spffl::polynomials::f2_poly_t m       = c0.get_modulus();
   spffl::polynomials::f2_polymod_t zero = c0.prime_sfld_elt(0);
-  spffl::polynomials::f2_polymod_t one = c0.prime_sfld_elt(1);
+  spffl::polynomials::f2_polymod_t one  = c0.prime_sfld_elt(1);
 
   if (d == 0) {
     finfo.insert_unit(f);
@@ -116,12 +116,12 @@ f2n_poly_pre_berlekamp(spffl::polynomials::f2n_poly_t f,
 static void f2n_poly_berlekamp(spffl::polynomials::f2n_poly_t f,
                                tfacinfo<spffl::polynomials::f2n_poly_t> &rfinfo,
                                bool recurse) {
-  int n = f.find_degree();
-  spffl::polynomials::f2_polymod_t c0 = f.get_coeff(0);
-  spffl::polynomials::f2_poly_t m = c0.get_modulus();
-  int q = 1 << m.find_degree();
+  int n                                 = f.find_degree();
+  spffl::polynomials::f2_polymod_t c0   = f.get_coeff(0);
+  spffl::polynomials::f2_poly_t m       = c0.get_modulus();
+  int q                                 = 1 << m.find_degree();
   spffl::polynomials::f2_polymod_t zero = c0.prime_sfld_elt(0);
-  spffl::polynomials::f2_polymod_t one = c0.prime_sfld_elt(1);
+  spffl::polynomials::f2_polymod_t one  = c0.prime_sfld_elt(1);
   spffl::polynomials::f2n_poly_t x(one, zero);
   spffl::polynomials::f2n_poly_t xq;
   spffl::polynomials::f2n_poly_t xqi = one;
@@ -176,7 +176,7 @@ static void f2n_poly_berlekamp(spffl::polynomials::f2n_poly_t f,
   std::cout << "B-I, rr =\n" << BI << "\n";
 #endif
 
-  rank = BI.get_rank_rr();
+  rank   = BI.get_rank_rr();
   dimker = n - rank;
 
   if (dimker == 1) {
@@ -218,13 +218,13 @@ static void f2n_poly_berlekamp(spffl::polynomials::f2n_poly_t f,
       spffl::polynomials::f2_polymod_t f2pmc(f2pc, m);
       spffl::polynomials::f2n_poly_t f2npc(f2pmc);
       spffl::polynomials::f2n_poly_t hc = h - f2npc;
-      f1 = f.gcd(hc);
+      f1                                = f.gcd(hc);
 
 #ifdef F2NPOLY_FACTOR_DEBUG
       std::cout << "hc  = " << hc << "  f1 = " << f1 << "\n";
 #endif // F2NPOLY_FACTOR_DEBUG
       int f1d = f1.find_degree();
-      int fd = f.find_degree();
+      int fd  = f.find_degree();
       if ((0 < f1d) && (f1d < fd)) {
         got_it = 1;
         break;
@@ -281,13 +281,13 @@ f2n_poly_from_vector(tvector<spffl::polynomials::f2_polymod_t> v, int n) {
 bool f2n_poly_roots(spffl::polynomials::f2n_poly_t f,
                     tvector<spffl::polynomials::f2_polymod_t> &rroots) {
   tfacinfo<spffl::polynomials::f2n_poly_t> finfo = f2n_poly_factor(f);
-  int nf = finfo.get_num_distinct();
-  int nr = 0;
+  int nf                                         = finfo.get_num_distinct();
+  int nr                                         = 0;
   int i, j;
 
   for (i = 0; i < nf; i++) {
     spffl::polynomials::f2n_poly_t factor = finfo.get_ith_factor(i);
-    int deg = factor.find_degree();
+    int deg                               = factor.find_degree();
     if (deg != 1) {
       continue;
     }
@@ -304,13 +304,13 @@ bool f2n_poly_roots(spffl::polynomials::f2n_poly_t f,
 
   for (i = 0, j = 0; i < nf; i++) {
     spffl::polynomials::f2n_poly_t factor = finfo.get_ith_factor(i);
-    int deg = factor.find_degree();
+    int deg                               = factor.find_degree();
     if (deg != 1) {
       continue;
     }
     spffl::polynomials::f2_polymod_t c1 = factor.get_coeff(1);
     spffl::polynomials::f2_polymod_t c0 = factor.get_coeff(0);
-    rv[j++] = -c0 / c1;
+    rv[j++]                             = -c0 / c1;
   }
 
   rroots = rv;
