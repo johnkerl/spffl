@@ -45,7 +45,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  tstack<element_type> &operator=(tstack<element_type> that) {
+  tstack<element_type> &operator=(const tstack<element_type> &that) {
     if (this->elements != 0) {
       delete[] this->elements;
     }
@@ -58,7 +58,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  void push(element_type &re) {
+  void push(const element_type &re) {
     if (this->freeidx >= this->num_allocated) {
       element_type *temp = this->elements;
       this->num_allocated += TSTACK_INCR_SIZE;

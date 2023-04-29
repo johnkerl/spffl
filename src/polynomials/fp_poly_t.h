@@ -19,29 +19,18 @@ class fp_poly_t {
 public:
   fp_poly_t(void);
 
-  fp_poly_t(spffl::intmath::intmod_t c0);
-  fp_poly_t(spffl::intmath::intmod_t c1, spffl::intmath::intmod_t c0);
-  fp_poly_t(spffl::intmath::intmod_t c2, spffl::intmath::intmod_t c1,
-      spffl::intmath::intmod_t c0);
-  fp_poly_t(spffl::intmath::intmod_t c3, spffl::intmath::intmod_t c2,
-      spffl::intmath::intmod_t c1, spffl::intmath::intmod_t c0);
-  fp_poly_t(spffl::intmath::intmod_t c4, spffl::intmath::intmod_t c3,
-      spffl::intmath::intmod_t c2, spffl::intmath::intmod_t c1,
-      spffl::intmath::intmod_t c0);
-  fp_poly_t(spffl::intmath::intmod_t c5, spffl::intmath::intmod_t c4,
-      spffl::intmath::intmod_t c3, spffl::intmath::intmod_t c2,
-      spffl::intmath::intmod_t c1, spffl::intmath::intmod_t c0);
+  fp_poly_t(const spffl::intmath::intmod_t &c0);
+  fp_poly_t(const spffl::intmath::intmod_t &c1, const spffl::intmath::intmod_t &c0);
+  fp_poly_t(const spffl::intmath::intmod_t &c2, const spffl::intmath::intmod_t &c1,
+      const spffl::intmath::intmod_t &c0);
 
   fp_poly_t(int c0, int m);
   fp_poly_t(int c1, int c0, int m);
   fp_poly_t(int c2, int c1, int c0, int m);
-  fp_poly_t(int c3, int c2, int c1, int c0, int m);
-  fp_poly_t(int c4, int c3, int c2, int c1, int c0, int m);
-  fp_poly_t(int c5, int c4, int c3, int c2, int c1, int c0, int m);
 
   static fp_poly_t from_base_rep(int b, int modulus);
   fp_poly_t prime_sfld_elt(int v) const;
-  int get_characteristic(void);
+  int get_characteristic(void) const;
 
   fp_poly_t(const fp_poly_t &that);
   ~fp_poly_t(void);
