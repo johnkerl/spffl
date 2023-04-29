@@ -224,7 +224,7 @@ std::istringstream &operator>>(std::istringstream &iss, intrat_t &a) {
 }
 
 // ----------------------------------------------------------------
-bool intrat_t::from_string(char *string) {
+bool intrat_t::from_string(const char *string) {
   std::istringstream iss(string, std::ios_base::in);
   iss >> *this;
   return iss.fail() ? false : true;

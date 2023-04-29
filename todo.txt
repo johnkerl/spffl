@@ -26,28 +26,27 @@ k manual clang-format
 ? no-malloc case for f2poly_t w/ <= 64 bits, and expand-to-malloc on overflow
 
 * char* vs string literals
+* more std::string in place of char*
 * int -> bool pass
   - needs more
 
-* unsigned -> uint32_t etc pass
+* explicit 32-bit and 64-bit ints
   o intmath:
     - UTs for numbers over 2^32
     - is_prime/nth_prime abend beyond 2^31-1
 
 * renaming pass
   o needs more
-  o get_char -> get_characteristic
-  o other unabbrevs
+  o unabbrevs in particular
 
 * ctest passes
 * commenting pass
-* rid of _1 _2 etc in test names
+* get rid of _1 _2 etc in test names
 * more pass-by-reference
 * more constness
 * STL replacements
-  o get rid of rsstring_t entirely
   o pointer+length to std::vec/std::span
-  o bitvec to STL -- ?
+  ? bitvec to STL -- ?
   o more std::vec
   o ...
 * exit(1) -> exceptions

@@ -894,14 +894,16 @@ std::istringstream &operator>>(std::istringstream &iss, f2n_poly_t &poly) {
 }
 
 // ----------------------------------------------------------------
-bool f2n_poly_t::from_string(char *string, f2_poly_t m) {
+bool f2n_poly_t::from_string(const char *string, f2_poly_t m) {
   if (this->coeffs)
     delete[] this->coeffs;
 
   int num_colons = 0;
-  for (char *q = string; *q; q++)
-    if (*q == ':')
+  for (const char *q = string; *q; q++) {
+    if (*q == ':') {
       num_colons++;
+    }
+  }
 
   char *dup = strdup(string);
   char **argv = new char *[num_colons + 1];

@@ -6,7 +6,6 @@
 
 #include "fp_poly_t.h"
 #include "cmps.h"
-#include "rsstring_t.h"
 #include "tokenize.h"
 #include <string.h>
 
@@ -798,7 +797,7 @@ std::ostream &operator<<(std::ostream &os, const fp_poly_t &poly) {
 
 std::istream &operator>>(std::istream &is, fp_poly_t &poly) {
   int p = poly.get_characteristic();
-  spffl::base::rsstring_t rss;
+  std::stringstream ss;
   char c;
 
   // Skip over whitespace.
@@ -820,7 +819,7 @@ std::istream &operator>>(std::istream &is, fp_poly_t &poly) {
 
   while (isdigit(c) || (c == ',')) {
     c = is.get();
-    rss.append_char(c);
+    ss << c;
     c = is.peek();
     if (c == EOF) {
       is.setstate(std::ios::eofbit);
@@ -828,57 +827,24 @@ std::istream &operator>>(std::istream &is, fp_poly_t &poly) {
     }
   }
 
-  if (rss.get_length() == 0) {
+  std::string s = ss.str();
+  if (s.length() == 0) {
     is.setstate(std::ios::failbit);
     return is;
   }
 
-  if (!poly.from_string(rss.get_buffer(), p))
+  if (!poly.from_string(s.c_str(), p))
     is.setstate(std::ios::failbit);
   return is;
 }
 
 // ----------------------------------------------------------------
-// Coefficient 0 modulus must already be set.
-
-// std::istringstream & operator>>(std::istringstream & iss,
-//	fp_poly_t & poly)
-//{
-//	int p = poly.get_characteristic();
-//	spffl::base::rsstring_t rss;
-//
-//	char c = iss.peek();
-//	if (c == EOF) {
-//		iss.setstate(std::ios::failbit);
-//		return iss;
-//	}
-//	while (isdigit(c) || (c == ',')) {
-//		c = iss.get();
-//		rss.append_char(c);
-//		c = iss.peek();
-//		if (c == EOF) {
-//			iss.setstate(std::ios::eofbit);
-//			break;
-//		}
-//	}
-//
-//	if (rss.get_length() == 0) {
-//		iss.setstate(std::ios::failbit);
-//		return iss;
-//	}
-//
-//	if (!poly.from_string(rss.get_buffer(), p))
-//		iss.setstate(std::ios::failbit);
-//	return iss;
-// }
-
-// ----------------------------------------------------------------
-bool fp_poly_t::from_string(char *string, int p) {
+bool fp_poly_t::from_string(const char *string, int p) {
   if (this->coeffs)
     delete[] this->coeffs;
 
   int num_commas = 0;
-  for (char *q = string; *q; q++)
+  for (const char *q = string; *q; q++)
     if (*q == ',')
       num_commas++;
 

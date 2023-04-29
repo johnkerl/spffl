@@ -42,7 +42,7 @@ std::istream &operator>>(std::istream &is, bit_t &a) {
 }
 
 // ----------------------------------------------------------------
-bool bit_t::from_string(char *string) {
+bool bit_t::from_string(const char *string) {
   unsigned r;
   std::istringstream iss(string, std::ios_base::in);
   iss >> r;
