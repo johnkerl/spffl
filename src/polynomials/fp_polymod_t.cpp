@@ -11,7 +11,7 @@
 namespace spffl::polynomials {
 
 // ----------------------------------------------------------------
-fp_polymod_t::fp_polymod_t(fp_poly_t arg_residue, fp_poly_t arg_modulus) {
+fp_polymod_t::fp_polymod_t(const fp_poly_t &arg_residue, const fp_poly_t &arg_modulus) {
   this->residue = arg_residue;
   this->modulus = arg_modulus;
   this->residue = this->residue % this->modulus;
@@ -51,26 +51,26 @@ fp_polymod_t fp_polymod_t::prime_sfld_elt(int v, fp_poly_t m) {
 }
 
 // ----------------------------------------------------------------
-int fp_polymod_t::get_characteristic(void) {
+int fp_polymod_t::get_characteristic(void) const {
   return this->residue.get_characteristic();
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t &fp_polymod_t::operator=(fp_polymod_t that) {
+fp_polymod_t &fp_polymod_t::operator=(const fp_polymod_t &that) {
   this->residue = that.residue;
   this->modulus = that.modulus;
   return *this;
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t fp_polymod_t::operator+(fp_polymod_t that) {
+fp_polymod_t fp_polymod_t::operator+(const fp_polymod_t &that) {
   this->check_moduli(that);
   fp_polymod_t rv(this->residue + that.residue, this->modulus);
   return rv;
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t fp_polymod_t::operator-(fp_polymod_t that) {
+fp_polymod_t fp_polymod_t::operator-(const fp_polymod_t &that) {
   this->check_moduli(that);
   fp_polymod_t rv(this->residue - that.residue, this->modulus);
   return rv;
@@ -83,7 +83,7 @@ fp_polymod_t fp_polymod_t::operator-(void) {
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t fp_polymod_t::operator*(fp_polymod_t that) {
+fp_polymod_t fp_polymod_t::operator*(const fp_polymod_t &that) {
   this->check_moduli(that);
   fp_polymod_t rv(this->residue * that.residue, this->modulus);
   return rv;
@@ -112,7 +112,7 @@ fp_polymod_t fp_polymod_t::operator*(spffl::intmath::intmod_t a) {
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t fp_polymod_t::operator/(fp_polymod_t that) {
+fp_polymod_t fp_polymod_t::operator/(const fp_polymod_t &that) {
   this->check_moduli(that);
 
   fp_polymod_t bi;
@@ -126,7 +126,7 @@ fp_polymod_t fp_polymod_t::operator/(fp_polymod_t that) {
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t fp_polymod_t::operator%(fp_polymod_t that) {
+fp_polymod_t fp_polymod_t::operator%(const fp_polymod_t &that) {
   this->check_moduli(that);
 
   fp_polymod_t bi;
@@ -140,7 +140,7 @@ fp_polymod_t fp_polymod_t::operator%(fp_polymod_t that) {
 }
 
 // ----------------------------------------------------------------
-bool fp_polymod_t::recip(fp_polymod_t &rinv) {
+bool fp_polymod_t::recip(fp_polymod_t &rinv) const {
   fp_poly_t g, a, b;
   g = this->residue.ext_gcd(this->modulus, a, b);
 
@@ -244,19 +244,19 @@ bool fp_polymod_t::from_string(const char *string, fp_poly_t &m) {
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t &fp_polymod_t::operator+=(fp_polymod_t that) {
+fp_polymod_t &fp_polymod_t::operator+=(const fp_polymod_t &that) {
   *this = *this + that;
   return *this;
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t &fp_polymod_t::operator-=(fp_polymod_t that) {
+fp_polymod_t &fp_polymod_t::operator-=(const fp_polymod_t &that) {
   *this = *this - that;
   return *this;
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t &fp_polymod_t::operator*=(fp_polymod_t that) {
+fp_polymod_t &fp_polymod_t::operator*=(const fp_polymod_t &that) {
   *this = *this * that;
   return *this;
 }
@@ -274,19 +274,19 @@ fp_polymod_t &fp_polymod_t::operator*=(spffl::intmath::intmod_t a) {
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t &fp_polymod_t::operator/=(fp_polymod_t that) {
+fp_polymod_t &fp_polymod_t::operator/=(const fp_polymod_t &that) {
   *this = *this / that;
   return *this;
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t &fp_polymod_t::operator%=(fp_polymod_t that) {
+fp_polymod_t &fp_polymod_t::operator%=(const fp_polymod_t &that) {
   *this = *this % that;
   return *this;
 }
 
 // ----------------------------------------------------------------
-bool fp_polymod_t::operator==(fp_polymod_t that) const {
+bool fp_polymod_t::operator==(const fp_polymod_t &that) const {
   if (this->residue != that.residue) {
     return false;
   }
@@ -297,7 +297,7 @@ bool fp_polymod_t::operator==(fp_polymod_t that) const {
 }
 
 // ----------------------------------------------------------------
-bool fp_polymod_t::operator!=(fp_polymod_t that) const {
+bool fp_polymod_t::operator!=(const fp_polymod_t &that) const {
   return !(*this == that);
 }
 
@@ -308,25 +308,25 @@ bool fp_polymod_t::operator==(int that) const { return this->residue == that; }
 bool fp_polymod_t::operator!=(int that) const { return this->residue != that; }
 
 // ----------------------------------------------------------------
-bool fp_polymod_t::operator<(fp_polymod_t that) const {
+bool fp_polymod_t::operator<(const fp_polymod_t &that) const {
   this->check_moduli(that);
   return this->residue < that.residue;
 }
 
 // ----------------------------------------------------------------
-bool fp_polymod_t::operator<=(fp_polymod_t that) const {
+bool fp_polymod_t::operator<=(const fp_polymod_t &that) const {
   this->check_moduli(that);
   return this->residue <= that.residue;
 }
 
 // ----------------------------------------------------------------
-bool fp_polymod_t::operator>(fp_polymod_t that) const {
+bool fp_polymod_t::operator>(const fp_polymod_t &that) const {
   this->check_moduli(that);
   return this->residue > that.residue;
 }
 
 // ----------------------------------------------------------------
-bool fp_polymod_t::operator>=(fp_polymod_t that) const {
+bool fp_polymod_t::operator>=(const fp_polymod_t &that) const {
   this->check_moduli(that);
   return this->residue >= that.residue;
 }
@@ -338,7 +338,7 @@ fp_poly_t fp_polymod_t::get_residue(void) const { return this->residue; }
 fp_poly_t fp_polymod_t::get_modulus(void) const { return this->modulus; }
 
 // ----------------------------------------------------------------
-void fp_polymod_t::check_moduli(fp_polymod_t &that) const {
+void fp_polymod_t::check_moduli(const fp_polymod_t &that) const {
   if (this->modulus != that.modulus) {
     std::cerr << "fp_polymod_t: mixed moduli " << this->modulus << ", "
               << that.modulus << ".";
