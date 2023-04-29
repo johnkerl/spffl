@@ -25,16 +25,17 @@ public:
   int get_characteristic(void) const;
 
   fp_polymod_t &operator=(const fp_polymod_t& that);
-  fp_polymod_t operator+(const fp_polymod_t& that);
-  fp_polymod_t operator-(const fp_polymod_t& that);
-  fp_polymod_t operator-(void);
-  fp_polymod_t operator*(const fp_polymod_t& that);
-  fp_polymod_t operator*(int a); // Repeated addition.
-  fp_polymod_t operator*(spffl::intmath::intmod_t a);
-  fp_polymod_t operator/(const fp_polymod_t& that);
-  fp_polymod_t operator%(const fp_polymod_t& that);
+
+  fp_polymod_t operator+(const fp_polymod_t& that) const;
+  fp_polymod_t operator-(const fp_polymod_t& that) const;
+  fp_polymod_t operator-(void) const;
+  fp_polymod_t operator*(const fp_polymod_t& that) const;
+  fp_polymod_t operator*(int a) const; // Repeated addition.
+  fp_polymod_t operator*(spffl::intmath::intmod_t a) const;
+  fp_polymod_t operator/(const fp_polymod_t& that) const;
+  fp_polymod_t operator%(const fp_polymod_t& that) const;
   bool recip(fp_polymod_t &rinv) const;
-  fp_polymod_t exp(int e);
+  fp_polymod_t exp(int e) const;
   friend std::ostream &operator<<(std::ostream &os, const fp_polymod_t &a);
   // Modulus must have already been set:  this sets only the residue.
   friend std::istream &operator>>(std::ostream &os, const fp_polymod_t &a);

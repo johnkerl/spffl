@@ -36,6 +36,7 @@ public:
   ~fp_poly_t(void);
 
   fp_poly_t &operator=(const fp_poly_t& that);
+
   fp_poly_t operator+(const fp_poly_t& that) const;
   fp_poly_t operator+(spffl::intmath::intmod_t a) const;
   fp_poly_t operator-(const fp_poly_t& that) const;

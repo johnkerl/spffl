@@ -63,34 +63,34 @@ fp_polymod_t &fp_polymod_t::operator=(const fp_polymod_t &that) {
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t fp_polymod_t::operator+(const fp_polymod_t &that) {
+fp_polymod_t fp_polymod_t::operator+(const fp_polymod_t &that) const {
   this->check_moduli(that);
   fp_polymod_t rv(this->residue + that.residue, this->modulus);
   return rv;
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t fp_polymod_t::operator-(const fp_polymod_t &that) {
+fp_polymod_t fp_polymod_t::operator-(const fp_polymod_t &that) const {
   this->check_moduli(that);
   fp_polymod_t rv(this->residue - that.residue, this->modulus);
   return rv;
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t fp_polymod_t::operator-(void) {
+fp_polymod_t fp_polymod_t::operator-(void) const {
   fp_polymod_t rv(-this->residue, this->modulus);
   return rv;
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t fp_polymod_t::operator*(const fp_polymod_t &that) {
+fp_polymod_t fp_polymod_t::operator*(const fp_polymod_t &that) const {
   this->check_moduli(that);
   fp_polymod_t rv(this->residue * that.residue, this->modulus);
   return rv;
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t fp_polymod_t::operator*(int a) {
+fp_polymod_t fp_polymod_t::operator*(int a) const {
   fp_polymod_t rv(*this);
   int p = this->get_characteristic();
   a %= p;
@@ -105,14 +105,14 @@ fp_polymod_t fp_polymod_t::operator*(int a) {
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t fp_polymod_t::operator*(spffl::intmath::intmod_t a) {
+fp_polymod_t fp_polymod_t::operator*(spffl::intmath::intmod_t a) const {
   fp_polymod_t rv(*this);
   rv.modulus *= a;
   return rv;
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t fp_polymod_t::operator/(const fp_polymod_t &that) {
+fp_polymod_t fp_polymod_t::operator/(const fp_polymod_t &that) const {
   this->check_moduli(that);
 
   fp_polymod_t bi;
@@ -126,7 +126,7 @@ fp_polymod_t fp_polymod_t::operator/(const fp_polymod_t &that) {
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t fp_polymod_t::operator%(const fp_polymod_t &that) {
+fp_polymod_t fp_polymod_t::operator%(const fp_polymod_t &that) const {
   this->check_moduli(that);
 
   fp_polymod_t bi;
@@ -164,7 +164,7 @@ bool fp_polymod_t::recip(fp_polymod_t &rinv) const {
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t fp_polymod_t::exp(int e) {
+fp_polymod_t fp_polymod_t::exp(int e) const {
   fp_poly_t xp = this->residue;
   fp_polymod_t zero(this->residue.prime_sfld_elt(0), this->modulus);
   fp_polymod_t one(this->residue.prime_sfld_elt(1), this->modulus);
