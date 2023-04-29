@@ -228,7 +228,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  element_type &operator[](int index) {
+  element_type &operator[](int index) const {
     if ((index < 0) || (index >= this->num_elements)) {
       std::cerr << "tvector array operator: index " << index
                 << " out of bounds " << 0 << ":" << (this->num_elements - 1)
@@ -450,7 +450,7 @@ public:
 
   // ----------------------------------------------------------------
   // Return value:  True/false.  rpos:  index, if found.
-  bool find_leader_pos(element_type &rzero, int &rpos) {
+  bool find_leader_pos(const element_type &rzero, int &rpos) const {
     for (int j = 0; j < this->num_elements; j++) {
       if (this->elements[j] != rzero) {
         rpos = j;
@@ -498,10 +498,10 @@ public:
   }
 
   // ----------------------------------------------------------------
-  element_type *expose(void) { return this->elements; }
+  element_type *expose(void) const { return this->elements; }
 
   // ----------------------------------------------------------------
-  int get_num_elements(void) { return this->num_elements; }
+  int get_num_elements(void) const { return this->num_elements; }
 
 private:
   // ================================================================

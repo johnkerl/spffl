@@ -180,7 +180,7 @@ $spiff fp_pm_mat_op 11 1,0,9 inv $indir/fppm-mat1.txt \
 	> $outdir/fppm-mat-inv-1.txt
 
 # ----------------------------------------------------------------
-diff -r $expdir $outdir > $outdir/diffs
+diff -r $expdir $outdir > diffs
 rv=$?
 if [ $rv -eq 0 ]; then
 	echo SPFFL REGRESSION PASSED

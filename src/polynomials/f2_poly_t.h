@@ -51,16 +51,16 @@ public:
   f2_poly_t operator/(f2_poly_t that);
   f2_poly_t operator%(f2_poly_t that);
 
-  f2_poly_t &operator+=(f2_poly_t that);
-  f2_poly_t &operator-=(f2_poly_t that);
-  f2_poly_t &operator*=(f2_poly_t that);
+  f2_poly_t &operator+=(const f2_poly_t &that);
+  f2_poly_t &operator-=(const f2_poly_t &that);
+  f2_poly_t &operator*=(const f2_poly_t &that);
   f2_poly_t &operator*=(int bit); // 0 or 1; other bits ignored.
-  f2_poly_t &operator/=(f2_poly_t &that);
-  f2_poly_t &operator%=(f2_poly_t &that);
+  f2_poly_t &operator/=(const f2_poly_t &that);
+  f2_poly_t &operator%=(const f2_poly_t &that);
 
   void quot_and_rem(f2_poly_t &that, f2_poly_t &rquot, f2_poly_t &rrem);
   f2_poly_t gcd(f2_poly_t &that);
-  f2_poly_t ext_gcd(f2_poly_t &that, f2_poly_t &rm, f2_poly_t &rn);
+  f2_poly_t ext_gcd(const f2_poly_t &that, f2_poly_t &rm, f2_poly_t &rn) const;
   f2_poly_t exp(int power);
   f2_poly_t deriv(void);
   bool square_root(f2_poly_t &rroot);

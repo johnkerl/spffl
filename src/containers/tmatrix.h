@@ -270,7 +270,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  bool store_to_file(char *file_name) {
+  bool store_to_file(char *file_name) const {
     if ((strcmp(file_name, "-") == 0) || (strcmp(file_name, "@") == 0)) {
       std::cout << *this;
       return true;
@@ -298,12 +298,15 @@ public:
   }
 
   // ----------------------------------------------------------------
-  void store_to_file_or_die(char *file_name) {
+  void store_to_file_or_die(char *file_name) const {
     if (!this->store_to_file(file_name)) {
       std::cerr << "tmatrix:  couldn't write to \"" << file_name << "\".\n";
       exit(1);
     }
   }
+
+  // ================================================================
+  // Operators
 
   // ----------------------------------------------------------------
   tmatrix<element_type> &operator=(const element_type scalar) {
@@ -322,9 +325,6 @@ public:
     }
     return *this;
   }
-
-  // ================================================================
-  // Operators
 
   // ----------------------------------------------------------------
   tmatrix<element_type> &operator=(tmatrix<element_type> that) {
@@ -350,7 +350,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  bool operator==(tmatrix<element_type> that) {
+  bool operator==(const tmatrix<element_type> & that) const {
     this->check_dims(that, "operator==");
     for (int i = 0; i < this->num_rows; i++) {
       if (this->rows[i] != that.rows[i]) {
@@ -361,7 +361,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  bool operator==(element_type e) {
+  bool operator==(const element_type &e) const {
     for (int i = 0; i < this->num_rows; i++) {
       if (this->rows[i] != e) {
         return false;
@@ -371,10 +371,10 @@ public:
   }
 
   // ----------------------------------------------------------------
-  bool operator!=(tmatrix<element_type> that) { return !(*this == that); }
+  bool operator!=(const tmatrix<element_type> &that) const { return !(*this == that); }
 
   // ----------------------------------------------------------------
-  bool operator!=(element_type e) { return !(*this == e); }
+  bool operator!=(const element_type &e) const { return !(*this == e); }
 
   // ----------------------------------------------------------------
   tvector<element_type> &operator[](int row_index) {
@@ -389,7 +389,7 @@ public:
 
   // ----------------------------------------------------------------
   // Returns a *copy* of the column, *not* a reference to it.
-  tvector<element_type> get_column(int col_index) {
+  tvector<element_type> get_column(int col_index) const {
     if ((col_index < 0) || (col_index >= this->num_cols)) {
       std::cerr << "tmatrix get_column: col index " << col_index
                 << " out of bounds " << 0 << ":" << (this->num_cols - 1)
@@ -423,7 +423,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  tmatrix<element_type> operator+(tmatrix<element_type> that) {
+  tmatrix<element_type> operator+(const tmatrix<element_type> & that) const {
     this->check_dims(that, "operator+");
     tmatrix<element_type> rv(this->num_rows, this->num_cols);
     for (int i = 0; i < this->num_rows; i++) {
@@ -435,7 +435,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  tmatrix<element_type> operator-(tmatrix<element_type> that) {
+  tmatrix<element_type> operator-(const tmatrix<element_type> &that) const {
     if ((this->num_rows != that.num_rows) ||
         (this->num_cols != that.num_cols)) {
       std::cerr << "tmatrix operator-():  Incompatibly sized "
@@ -455,7 +455,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  tmatrix<element_type> operator-(void) {
+  tmatrix<element_type> operator-(void) const {
     tmatrix<element_type> rv(this->num_rows, this->num_cols);
     for (int i = 0; i < this->num_rows; i++) {
       for (int j = 0; j < this->num_cols; j++) {
@@ -466,7 +466,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  tmatrix<element_type> operator+(element_type e) {
+  tmatrix<element_type> operator+(const element_type &e) const {
     if (!this->is_square()) {
       std::cerr << "tmatrix plus scalar:  non-square input.\n";
       exit(1);
@@ -479,7 +479,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  tmatrix<element_type> operator-(element_type e) {
+  tmatrix<element_type> operator-(const element_type &e) const {
     if (!this->is_square()) {
       std::cerr << "tmatrix minus scalar:  non-square input.\n";
       exit(1);
@@ -494,7 +494,7 @@ public:
   // ----------------------------------------------------------------
   // Matrix times (column) vector.
 
-  tvector<element_type> operator*(tvector<element_type> v) {
+  tvector<element_type> operator*(const tvector<element_type> &v) const {
     int i, j;
     int v_num_elements = v.get_num_elements();
 
@@ -525,7 +525,7 @@ private:
   // ----------------------------------------------------------------
   // This is a private auxiliary function for the exp() method.
 
-  tmatrix<element_type> posexp(int power, tmatrix<element_type> &I) {
+  tmatrix<element_type> posexp(int power, const tmatrix<element_type> &I) const {
     tmatrix<element_type> a2(*this);
     tmatrix<element_type> apower = I;
 
@@ -545,7 +545,7 @@ public:
   // * power ==  0:
   // * power <= -1:  if singular, ret 0.  else invert & posexp the inverse.
 
-  int exp(int power, tmatrix<element_type> &rout) {
+  int exp(int power, tmatrix<element_type> &rout) const {
     if (!this->is_square()) {
       std::cerr << "tmatrix::exp():  non-square input.\n";
       exit(1);
@@ -589,7 +589,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  tmatrix<element_type> operator*(tmatrix<element_type> that) {
+  tmatrix<element_type> operator*(const tmatrix<element_type> &that) const {
     int i, j, k;
 
     if (this->num_cols != that.num_rows) {
@@ -622,7 +622,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  tmatrix<element_type> operator*(element_type e) {
+  tmatrix<element_type> operator*(const element_type &e) const {
     tmatrix<element_type> rv(this->num_rows, this->num_cols);
 
     for (int i = 0; i < this->num_rows; i++) {
@@ -635,44 +635,44 @@ public:
   }
 
   // ----------------------------------------------------------------
-  tmatrix<element_type> &operator+=(tmatrix<element_type> that) {
+  tmatrix<element_type> &operator+=(const tmatrix<element_type> &that) {
     *this = *this + that;
     return *this;
   }
 
-  tmatrix<element_type> &operator-=(tmatrix<element_type> that) {
+  tmatrix<element_type> &operator-=(const tmatrix<element_type> &that) {
     *this = *this - that;
     return *this;
   }
 
-  tmatrix<element_type> &operator+=(element_type e) {
+  tmatrix<element_type> &operator+=(const element_type &e) {
     *this = *this + e;
     return *this;
   }
 
-  tmatrix<element_type> &operator-=(element_type e) {
+  tmatrix<element_type> &operator-=(const element_type &e) {
     *this = *this - e;
     return *this;
   }
 
-  tvector<element_type> &operator*=(tvector<element_type> v) {
+  tvector<element_type> &operator*=(const tvector<element_type> &v) {
     *this = *this * v;
     return *this;
   }
 
-  tmatrix<element_type> &operator*=(tmatrix<element_type> that) {
+  tmatrix<element_type> &operator*=(const tmatrix<element_type> &that) {
     *this = *this * that;
     return *this;
   }
 
-  tmatrix<element_type> &operator*=(element_type e) {
+  tmatrix<element_type> &operator*=(const element_type &e) {
     *this = *this * e;
     return *this;
   }
 
   // ----------------------------------------------------------------
   static tmatrix<element_type> outer(
-      tvector<element_type> &u, tvector<element_type> &v) {
+      const tvector<element_type> &u, const tvector<element_type> &v) {
     int m = u.get_num_elements();
     int n = v.get_num_elements();
     tmatrix<element_type> rv(m, n);
@@ -685,7 +685,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  tmatrix<element_type> transpose(void) {
+  tmatrix<element_type> transpose(void) const {
     tmatrix<element_type> rv(this->num_cols, this->num_rows);
     for (int i = 0; i < this->num_rows; i++) {
       for (int j = 0; j < this->num_cols; j++) {
@@ -696,7 +696,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  tmatrix<element_type> flip_horiz(void) {
+  tmatrix<element_type> flip_horiz(void) const {
     tmatrix<element_type> rv(this->num_rows, this->num_cols);
     int nr = this->num_rows;
     int nc = this->num_cols;
@@ -709,7 +709,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  tmatrix<element_type> flip_vert(void) {
+  tmatrix<element_type> flip_vert(void) const {
     tmatrix<element_type> rv(this->num_rows, this->num_cols);
     int nr = this->num_rows;
     int nc = this->num_cols;
@@ -722,7 +722,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  tmatrix<element_type> flip_horiz_vert(void) {
+  tmatrix<element_type> flip_horiz_vert(void) const {
     tmatrix<element_type> rv(this->num_rows, this->num_cols);
     int nr = this->num_rows;
     int nc = this->num_cols;
@@ -735,7 +735,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  bool find_row(tvector<element_type> &v, int &row_index) {
+  bool find_row(tvector<element_type> &v, int &row_index) const {
     for (int i = 0; i < this->num_rows; i++) {
       if (this->rows[i] == v) {
         row_index = i;
@@ -753,7 +753,7 @@ public:
   // any matrix element minus itself.  If there is any non-zero element, then
   // 1 is that element divided by itself.
 
-  bool find_one(element_type &rone) {
+  bool find_one(element_type &rone) const {
     element_type a    = this->rows[0][0];
     element_type zero = a - a;
     for (int i = 0; i < this->num_rows; i++) {
@@ -771,7 +771,7 @@ public:
   // ----------------------------------------------------------------
   // Makes an identity matrix with the same dimensions as *this has.
 
-  tmatrix<element_type> make_I(element_type zero, element_type one) {
+  tmatrix<element_type> make_I(element_type zero, element_type one) const {
     if (!this->is_square()) {
       std::cerr << "tmatrix::make_I():  non-square input.\n";
       exit(1);
@@ -791,7 +791,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  bool is_zero(void) {
+  bool is_zero(void) const {
     element_type one;
     if (this->find_one(one)) {
       return false;
@@ -801,7 +801,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  bool is_square(void) {
+  bool is_square(void) const {
     if (this->num_rows == this->num_cols) {
       return true;
     } else {
@@ -810,7 +810,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  bool is_I(void) {
+  bool is_I(void) const {
     int i, j;
 
     if (!this->is_square()) {
@@ -1021,7 +1021,7 @@ public:
   // ----------------------------------------------------------------
   // This method makes a copy of the matrix and row-reduces it.  To save
   // CPU cycles, use get_rank_rr() if the matrix is already row-reduced.
-  int get_rank(void) {
+  int get_rank(void) const {
     tmatrix<element_type> rr(*this);
     rr.row_reduce_below();
     return rr.get_rank_rr();
@@ -1029,7 +1029,7 @@ public:
 
   // This method assumes the matrix is already row-reduced.  If not,
   // use get_rank() instead.
-  int get_rank_rr(void) {
+  int get_rank_rr(void) const {
     int rank          = 0;
     element_type zero = this->rows[0][0] - this->rows[0][0];
 
@@ -1050,7 +1050,7 @@ public:
 
   // ----------------------------------------------------------------
   bool get_kernel_basis(
-      tmatrix<element_type> &rbas, element_type zero, element_type one) {
+      tmatrix<element_type> &rbas, const element_type &zero, const element_type &one) const {
     int i, j;
     tmatrix<element_type> rr(*this);
     rr.row_echelon_form();
@@ -1151,7 +1151,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  void check_kernel_basis(tmatrix<element_type> &kerbas) {
+  void check_kernel_basis(const tmatrix<element_type> &kerbas) const {
     element_type zero = this->rows[0][0] - this->rows[0][0];
     int i;
     int dimker = kerbas.num_rows;
@@ -1217,8 +1217,9 @@ public:
   // For efficiency, if the matrix is already known to have full rank, invoke
   // solve_unique_full_rank.
   bool solve_unique(tvector<element_type> &x, // Output
-      tvector<element_type> &b,               // Input
-      element_type zero, element_type one) {
+      const tvector<element_type> &b,         // Input
+      const element_type &zero,
+      const element_type &one) const {
     int indim  = this->get_num_cols();
     int outdim = this->get_num_rows();
     //  A linear transformation from a higher-dimensional space to a
@@ -1241,8 +1242,9 @@ public:
   // have full rank (rank=n).  If this is not known, please invoke solve_unique
   // instead.
   bool solve_unique_full_rank(tvector<element_type> &x, // Output
-      tvector<element_type> &b,                         // Input
-      element_type zero, element_type one) {
+      const tvector<element_type> &b,                   // Input
+      const element_type &zero,
+      const element_type &one) const {
     int indim                   = this->get_num_cols();
     tmatrix<element_type> Ab_rr = this->paste_vector(b);
     Ab_rr.row_echelon_form();
@@ -1275,7 +1277,7 @@ public:
   //                             0 0 0 0 0 0 1 2  0 0 0 0 0 0 0 0
 
   // ----------------------------------------------------------------
-  tmatrix<element_type> paste(tmatrix<element_type> &that) {
+  tmatrix<element_type> paste(const tmatrix<element_type> &that) const {
     if (this->num_rows != that.num_rows) {
       std::cerr << "tmatrix::paste:  differing number of rows ("
                 << this->num_rows << " vs. " << that.num_rows << ")\n";
@@ -1300,7 +1302,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  tmatrix<element_type> paste_vector(tvector<element_type> &v) {
+  tmatrix<element_type> paste_vector(const tvector<element_type> &v) const {
     int vne = v.get_num_elements();
     if (this->num_rows != vne) {
       std::cerr << "tmatrix::paste_vector:  differing number of rows ("
@@ -1324,7 +1326,7 @@ public:
 
   // ----------------------------------------------------------------
   void split(tmatrix<element_type> &rleft, tmatrix<element_type> &rright,
-      int split_column) {
+      int split_column) const {
     if ((split_column < 0) || (split_column >= this->num_cols)) {
       std::cerr << "tmatrix::split:  split column " << split_column
                 << " out of bounds 0:" << this->num_rows - 1 << ".\n";
@@ -1351,7 +1353,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  bool inverse(tmatrix<element_type> &rinv) {
+  bool inverse(tmatrix<element_type> &rinv) const {
     element_type zero = this->rows[0][0] - this->rows[0][0];
     element_type one;
 
@@ -1373,7 +1375,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  void check_inverse(tmatrix<element_type> &rinv) {
+  void check_inverse(tmatrix<element_type> &rinv) const {
     tmatrix<element_type> AB = *this * rinv;
     tmatrix<element_type> BA = rinv * *this;
     if (!AB.is_I() || !BA.is_I()) {
@@ -1383,7 +1385,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  element_type det(void) {
+  element_type det(void) const {
     if (!this->is_square()) {
       std::cerr << "tmatrix::det():  non-square input.\n";
       exit(1);
@@ -1488,7 +1490,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  element_type ed_det(void) {
+  element_type ed_det(void) const {
     if (!this->is_square()) {
       std::cerr << "tmatrix::ed_det():  non-square input.\n";
       exit(1);
@@ -1550,7 +1552,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  bool ed_inverse(tmatrix<element_type> &rinv) {
+  bool ed_inverse(tmatrix<element_type> &rinv) const {
     element_type zero = this->rows[0][0] - this->rows[0][0];
     element_type one;
 
@@ -1583,7 +1585,7 @@ public:
 
   // ----------------------------------------------------------------
   // The caller must delete [] the return value.
-  element_type **expose(void) {
+  element_type **expose(void) const {
     element_type **rv = new element_type *[this->num_rows];
     for (int i = 0; i < this->num_rows; i++) {
       rv[i] = this->rows[i].expose();
@@ -1592,10 +1594,10 @@ public:
   }
 
   // ----------------------------------------------------------------
-  int get_num_rows(void) { return this->num_rows; }
+  int get_num_rows(void) const { return this->num_rows; }
 
   // ----------------------------------------------------------------
-  int get_num_cols(void) { return this->num_cols; }
+  int get_num_cols(void) const { return this->num_cols; }
 
   // ================================================================
 private:
@@ -1619,7 +1621,7 @@ private:
   }
 
   // ----------------------------------------------------------------
-  void check_dims(tmatrix<element_type> that, const char *msg) {
+  void check_dims(const tmatrix<element_type> &that, const char *msg) const {
     if ((this->num_rows != that.num_rows) ||
         (this->num_cols != that.num_cols)) {
       std::cerr << "tmatrix " << msg << ":  Incompatibly sized arguments ("
