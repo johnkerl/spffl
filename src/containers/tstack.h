@@ -92,8 +92,8 @@ private:
 
 // ================================================================
 template <class element_type>
-static std::ostream &operator<<(std::ostream &os,
-                                const tstack<element_type> &v) {
+static std::ostream &operator<<(
+    std::ostream &os, const tstack<element_type> &v) {
   for (int i = 0; i < v.num_elements; i++) {
     os << v.elements[i];
     if (i < (v.num_elements - 1)) {
@@ -126,8 +126,8 @@ static std::istream &operator>>(std::istream &is, tstack<element_type> &v) {
 // element (yuk).
 
 template <class element_type>
-static std::istringstream &operator>>(std::istringstream &iss,
-                                      tstack<element_type> &v) {
+static std::istringstream &operator>>(
+    std::istringstream &iss, tstack<element_type> &v) {
   const int init_size = 10;
   const int more_size = 10;
   int alloc_size      = init_size;

@@ -18,8 +18,8 @@
 template <typename element_type> class tmatrix;
 
 template <typename element_type>
-static std::ostream &operator<<(std::ostream &os,
-                                const tmatrix<element_type> &);
+static std::ostream &operator<<(
+    std::ostream &os, const tmatrix<element_type> &);
 
 template <typename element_type>
 static std::istream &operator>>(std::istream &is, tmatrix<element_type> &);
@@ -671,8 +671,8 @@ public:
   }
 
   // ----------------------------------------------------------------
-  static tmatrix<element_type> outer(tvector<element_type> &u,
-                                     tvector<element_type> &v) {
+  static tmatrix<element_type> outer(
+      tvector<element_type> &u, tvector<element_type> &v) {
     int m = u.get_num_elements();
     int n = v.get_num_elements();
     tmatrix<element_type> rv(m, n);
@@ -900,7 +900,7 @@ public:
     s         = one;
     for (top_row = 0, left_column = 0;
          (top_row < this->num_rows) && (left_column < this->num_cols);
-         /* increment in loop body */) {
+        /* increment in loop body */) {
       // Find the nearest row with a non-zero value in this column;
       // exchange that row with this one.
       int pivot_row        = top_row;
@@ -943,8 +943,8 @@ public:
           // this->rows[cur_row] =
           //	this->rows[cur_row] * top_row_lead -
           //	this->rows[top_row] * current_row_lead;
-          this->rows[cur_row].accum_row_mul(top_row_lead, current_row_lead,
-                                            this->rows[top_row]);
+          this->rows[cur_row].accum_row_mul(
+              top_row_lead, current_row_lead, this->rows[top_row]);
 
           s /= top_row_lead;
         }
@@ -1049,8 +1049,8 @@ public:
   }
 
   // ----------------------------------------------------------------
-  bool get_kernel_basis(tmatrix<element_type> &rbas, element_type zero,
-                        element_type one) {
+  bool get_kernel_basis(
+      tmatrix<element_type> &rbas, element_type zero, element_type one) {
     int i, j;
     tmatrix<element_type> rr(*this);
     rr.row_echelon_form();
@@ -1217,8 +1217,8 @@ public:
   // For efficiency, if the matrix is already known to have full rank, invoke
   // solve_unique_full_rank.
   bool solve_unique(tvector<element_type> &x, // Output
-                    tvector<element_type> &b, // Input
-                    element_type zero, element_type one) {
+      tvector<element_type> &b,               // Input
+      element_type zero, element_type one) {
     int indim  = this->get_num_cols();
     int outdim = this->get_num_rows();
     //  A linear transformation from a higher-dimensional space to a
@@ -1241,8 +1241,8 @@ public:
   // have full rank (rank=n).  If this is not known, please invoke solve_unique
   // instead.
   bool solve_unique_full_rank(tvector<element_type> &x, // Output
-                              tvector<element_type> &b, // Input
-                              element_type zero, element_type one) {
+      tvector<element_type> &b,                         // Input
+      element_type zero, element_type one) {
     int indim                   = this->get_num_cols();
     tmatrix<element_type> Ab_rr = this->paste_vector(b);
     Ab_rr.row_echelon_form();
@@ -1324,7 +1324,7 @@ public:
 
   // ----------------------------------------------------------------
   void split(tmatrix<element_type> &rleft, tmatrix<element_type> &rright,
-             int split_column) {
+      int split_column) {
     if ((split_column < 0) || (split_column >= this->num_cols)) {
       std::cerr << "tmatrix::split:  split column " << split_column
                 << " out of bounds 0:" << this->num_rows - 1 << ".\n";
@@ -1398,8 +1398,8 @@ public:
   }
 
   // ----------------------------------------------------------------
-  void ed_row_reduce_below_with_scalar(element_type &snumer,
-                                       element_type &sdenom) {
+  void ed_row_reduce_below_with_scalar(
+      element_type &snumer, element_type &sdenom) {
     int top_row, left_column, cur_row;
     element_type zero = this->rows[0][0] - this->rows[0][0];
     element_type one;
@@ -1413,7 +1413,7 @@ public:
 
     for (top_row = 0, left_column = 0;
          (top_row < this->num_rows) && (left_column < this->num_cols);
-         /* increment in loop body */) {
+        /* increment in loop body */) {
       // Find the nearest row with a non-zero value in this column; exchange
       // that row with this one.
       int pivot_row        = top_row;
@@ -1459,8 +1459,8 @@ public:
           element_type lead_gcd = gcd(top_row_lead, current_row_lead);
           element_type top_mul  = current_row_lead / lead_gcd;
           element_type cur_mul  = top_row_lead / lead_gcd;
-          this->rows[cur_row].accum_row_mul(cur_mul, top_mul,
-                                            this->rows[top_row]);
+          this->rows[cur_row].accum_row_mul(
+              cur_mul, top_mul, this->rows[top_row]);
           sdenom *= cur_mul;
 
           g = this->rows[cur_row].vgcd();
@@ -1538,8 +1538,8 @@ public:
           continue;
         }
 
-        this->rows[row].accum_row_mul(row2_leader_val, row_clear_val,
-                                      this->rows[row2]);
+        this->rows[row].accum_row_mul(
+            row2_leader_val, row_clear_val, this->rows[row2]);
 
         element_type g = this->rows[row].vgcd();
         if (g != zero) {
@@ -1630,16 +1630,16 @@ private:
   }
 
   // ----------------------------------------------------------------
-  friend std::ostream &operator<< <>(std::ostream &os,
-                                     const tmatrix<element_type> &m);
+  friend std::ostream &operator<< <>(
+      std::ostream &os, const tmatrix<element_type> &m);
 
   friend std::istream &operator>><>(std::istream &is, tmatrix<element_type> &m);
 };
 
 // ================================================================
 template <typename element_type>
-static std::ostream &operator<<(std::ostream &os,
-                                const tmatrix<element_type> &m) {
+static std::ostream &operator<<(
+    std::ostream &os, const tmatrix<element_type> &m) {
   for (int i = 0; i < m.num_rows; i++) {
     os << m.rows[i] << std::endl;
   }

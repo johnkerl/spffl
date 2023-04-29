@@ -266,8 +266,8 @@ f2_poly_t &f2_poly_t::operator%=(f2_poly_t &that) {
 // ----------------------------------------------------------------
 // dividend = *this
 // divisor  =  that
-void f2_poly_t::quot_and_rem(f2_poly_t &that, f2_poly_t &rquot,
-                             f2_poly_t &rrem) {
+void f2_poly_t::quot_and_rem(
+    f2_poly_t &that, f2_poly_t &rquot, f2_poly_t &rrem) {
   int dividend_l1_pos;
   int divisor_l1_pos;
   int l1_diff;
@@ -450,9 +450,8 @@ int f2_poly_t::eval(int c) {
 }
 // ----------------------------------------------------------------
 int f2_poly_t::zcount_one_bits(void) {
-  return 1 &
-         spffl::bits::count_one_bits((unsigned char *)this->parts,
-                                     this->num_parts * sizeof(this->parts[0]));
+  return 1 & spffl::bits::count_one_bits((unsigned char *)this->parts,
+                 this->num_parts * sizeof(this->parts[0]));
 }
 // ----------------------------------------------------------------
 int f2_poly_t::find_degree(void) const {
@@ -848,7 +847,7 @@ void f2_poly_t::check_neg_pos(int pos) const {
 }
 } // namespace spffl::polynomials
 // ----------------------------------------------------------------
-spffl::polynomials::f2_poly_t gcd(spffl::polynomials::f2_poly_t a,
-                                  spffl::polynomials::f2_poly_t b) {
+spffl::polynomials::f2_poly_t gcd(
+    spffl::polynomials::f2_poly_t a, spffl::polynomials::f2_poly_t b) {
   return a.gcd(b);
 }

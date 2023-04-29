@@ -47,8 +47,8 @@ f2n_poly_t::f2n_poly_t(f2_polymod_t c2, f2_polymod_t c1, f2_polymod_t c0) {
 }
 
 // ----------------------------------------------------------------
-f2n_poly_t::f2n_poly_t(f2_polymod_t c3, f2_polymod_t c2, f2_polymod_t c1,
-                       f2_polymod_t c0) {
+f2n_poly_t::f2n_poly_t(
+    f2_polymod_t c3, f2_polymod_t c2, f2_polymod_t c1, f2_polymod_t c0) {
   this->degree    = 3;
   this->coeffs    = new f2_polymod_t[this->degree + 1];
   this->coeffs[3] = c3;
@@ -60,7 +60,7 @@ f2n_poly_t::f2n_poly_t(f2_polymod_t c3, f2_polymod_t c2, f2_polymod_t c1,
 
 // ----------------------------------------------------------------
 f2n_poly_t::f2n_poly_t(f2_polymod_t c4, f2_polymod_t c3, f2_polymod_t c2,
-                       f2_polymod_t c1, f2_polymod_t c0) {
+    f2_polymod_t c1, f2_polymod_t c0) {
   this->degree    = 4;
   this->coeffs    = new f2_polymod_t[this->degree + 1];
   this->coeffs[4] = c4;
@@ -73,7 +73,7 @@ f2n_poly_t::f2n_poly_t(f2_polymod_t c4, f2_polymod_t c3, f2_polymod_t c2,
 
 // ----------------------------------------------------------------
 f2n_poly_t::f2n_poly_t(f2_polymod_t c5, f2_polymod_t c4, f2_polymod_t c3,
-                       f2_polymod_t c2, f2_polymod_t c1, f2_polymod_t c0) {
+    f2_polymod_t c2, f2_polymod_t c1, f2_polymod_t c0) {
   this->degree    = 5;
   this->coeffs    = new f2_polymod_t[this->degree + 1];
   this->coeffs[5] = c5;
@@ -126,8 +126,8 @@ f2n_poly_t::f2n_poly_t(int c4, int c3, int c2, int c1, int c0, f2_poly_t m) {
   this->coeffs[0] = f2_polymod_t(f2_poly_t(c0), m);
   this->recompute_degree();
 }
-f2n_poly_t::f2n_poly_t(int c5, int c4, int c3, int c2, int c1, int c0,
-                       f2_poly_t m) {
+f2n_poly_t::f2n_poly_t(
+    int c5, int c4, int c3, int c2, int c1, int c0, f2_poly_t m) {
   this->degree    = 5;
   this->coeffs    = new f2_polymod_t[this->degree + 1];
   this->coeffs[5] = f2_polymod_t(f2_poly_t(c5), m);
@@ -404,8 +404,8 @@ f2n_poly_t &f2n_poly_t::operator/=(f2_polymod_t a) {
 //        |  4 3
 
 // ----------------------------------------------------------------
-void f2n_poly_t::quot_and_rem(f2n_poly_t &that, f2n_poly_t &rquot,
-                              f2n_poly_t &rrem) {
+void f2n_poly_t::quot_and_rem(
+    f2n_poly_t &that, f2n_poly_t &rquot, f2n_poly_t &rrem) {
   f2_polymod_t zero = this->coeffs[0] - this->coeffs[0];
 
   if (that == zero) {
@@ -513,8 +513,8 @@ f2n_poly_t f2n_poly_t::gcd(f2n_poly_t &that) {
 // ----------------------------------------------------------------
 // Blankinship's algorithm.
 
-f2n_poly_t f2n_poly_t::ext_gcd(f2n_poly_t &that, f2n_poly_t &rm,
-                               f2n_poly_t &rn) {
+f2n_poly_t f2n_poly_t::ext_gcd(
+    f2n_poly_t &that, f2n_poly_t &rm, f2n_poly_t &rn) {
   f2n_poly_t mprime, nprime, c, q, r, t, qm, qn;
   f2n_poly_t d; // Return value.
 
@@ -1004,7 +1004,7 @@ void f2n_poly_t::promote_and_add(f2_polymod_t c0) {
 } // namespace spffl::polynomials
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2n_poly_t gcd(spffl::polynomials::f2n_poly_t a,
-                                   spffl::polynomials::f2n_poly_t b) {
+spffl::polynomials::f2n_poly_t gcd(
+    spffl::polynomials::f2n_poly_t a, spffl::polynomials::f2n_poly_t b) {
   return a.gcd(b);
 }

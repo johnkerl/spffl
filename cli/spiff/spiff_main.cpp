@@ -45,8 +45,7 @@ typedef struct _lookup_t {
 
 lookup_t lookups[] = {
 
-    {"z_op", z_op_main, 0 /*zop_usage*/},
-    {"z_gcd", z_gcd_main, z_gcd_usage},
+    {"z_op", z_op_main, 0 /*zop_usage*/}, {"z_gcd", z_gcd_main, z_gcd_usage},
     {"z_lcm", z_lcm_main, z_lcm_usage},
     {"z_totient", z_totient_main, z_totient_usage},
     {"z_test_prime", z_test_prime_main, z_test_prime_usage},
@@ -105,7 +104,7 @@ lookup_t lookups[] = {
     {"f2_pm_mat_solve", f2_pm_mat_solve_main, f2_pm_mat_solve_usage},
     {"f2_pm_mat_ch_pol", f2_pm_mat_ch_pol_main, f2_pm_mat_ch_pol_usage},
     {"f2_pm_mat_diagonalizable", f2_pm_mat_diagonalizable_main,
-     f2_pm_mat_diagonalizable_usage},
+        f2_pm_mat_diagonalizable_usage},
     {"f2_pm_mat_ord", f2_pm_mat_ord_main, f2_pm_mat_ord_usage},
     {"f2_pm_mat_random", f2_pm_mat_random_main, f2_pm_mat_random_usage},
 
@@ -148,8 +147,7 @@ lookup_t lookups[] = {
     {"f2n_pr_mat_op", f2n_pr_mat_op_main, f2n_pr_mat_op_usage},
 
     {"fp_list", fp_list_main, fp_list_usage},
-    {"fp_op", fp_op_main, fp_op_usage},
-    {"fp_tbl", fp_tbl_main, fp_tbl_usage},
+    {"fp_op", fp_op_main, fp_op_usage}, {"fp_tbl", fp_tbl_main, fp_tbl_usage},
     {"fp_ord", fp_ord_main, fp_ord_usage},
     {"fp_max_ord", fp_max_ord_main, fp_max_ord_usage},
     {"fp_orbit", fp_orbit_main, fp_orbit_usage},

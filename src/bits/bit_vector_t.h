@@ -30,7 +30,7 @@ static inline uint64_t WORD_POS_FROM_BIT_INDEX(uint64_t bi) {
 
 static uint64_t GET_BIT(uint64_t *wordptr, uint64_t bi) {
   return (wordptr[WORD_INDEX_FROM_BIT_INDEX(bi)] >>
-          WORD_POS_FROM_BIT_INDEX(bi)) &
+             WORD_POS_FROM_BIT_INDEX(bi)) &
          UONE;
 }
 
@@ -70,8 +70,8 @@ public:
 
   friend std::istream &operator>>(std::istream &is, bit_vector_t &v);
 
-  friend std::istringstream &operator>>(std::istringstream &is,
-                                        bit_vector_t &v);
+  friend std::istringstream &operator>>(
+      std::istringstream &is, bit_vector_t &v);
 
   // No spaces between elements.  (Instead, perhaps I could implement a
   // derived iomanip, and then just use ostream <<.)

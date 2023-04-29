@@ -38,7 +38,7 @@ fp_poly_t::fp_poly_t(spffl::intmath::intmod_t c1, spffl::intmath::intmod_t c0) {
 
 // ----------------------------------------------------------------
 fp_poly_t::fp_poly_t(spffl::intmath::intmod_t c2, spffl::intmath::intmod_t c1,
-                     spffl::intmath::intmod_t c0) {
+    spffl::intmath::intmod_t c0) {
   this->degree    = 2;
   this->coeffs    = new spffl::intmath::intmod_t[this->degree + 1];
   this->coeffs[2] = c2;
@@ -49,7 +49,7 @@ fp_poly_t::fp_poly_t(spffl::intmath::intmod_t c2, spffl::intmath::intmod_t c1,
 
 // ----------------------------------------------------------------
 fp_poly_t::fp_poly_t(spffl::intmath::intmod_t c3, spffl::intmath::intmod_t c2,
-                     spffl::intmath::intmod_t c1, spffl::intmath::intmod_t c0) {
+    spffl::intmath::intmod_t c1, spffl::intmath::intmod_t c0) {
   this->degree    = 3;
   this->coeffs    = new spffl::intmath::intmod_t[this->degree + 1];
   this->coeffs[3] = c3;
@@ -61,8 +61,8 @@ fp_poly_t::fp_poly_t(spffl::intmath::intmod_t c3, spffl::intmath::intmod_t c2,
 
 // ----------------------------------------------------------------
 fp_poly_t::fp_poly_t(spffl::intmath::intmod_t c4, spffl::intmath::intmod_t c3,
-                     spffl::intmath::intmod_t c2, spffl::intmath::intmod_t c1,
-                     spffl::intmath::intmod_t c0) {
+    spffl::intmath::intmod_t c2, spffl::intmath::intmod_t c1,
+    spffl::intmath::intmod_t c0) {
   this->degree    = 4;
   this->coeffs    = new spffl::intmath::intmod_t[this->degree + 1];
   this->coeffs[4] = c4;
@@ -75,8 +75,8 @@ fp_poly_t::fp_poly_t(spffl::intmath::intmod_t c4, spffl::intmath::intmod_t c3,
 
 // ----------------------------------------------------------------
 fp_poly_t::fp_poly_t(spffl::intmath::intmod_t c5, spffl::intmath::intmod_t c4,
-                     spffl::intmath::intmod_t c3, spffl::intmath::intmod_t c2,
-                     spffl::intmath::intmod_t c1, spffl::intmath::intmod_t c0) {
+    spffl::intmath::intmod_t c3, spffl::intmath::intmod_t c2,
+    spffl::intmath::intmod_t c1, spffl::intmath::intmod_t c0) {
   this->degree    = 5;
   this->coeffs    = new spffl::intmath::intmod_t[this->degree + 1];
   this->coeffs[5] = c5;
@@ -396,8 +396,8 @@ fp_poly_t &fp_poly_t::operator/=(spffl::intmath::intmod_t a) {
 //        |  4 3
 
 // ----------------------------------------------------------------
-void fp_poly_t::quot_and_rem(fp_poly_t &that, fp_poly_t &rquot,
-                             fp_poly_t &rrem) {
+void fp_poly_t::quot_and_rem(
+    fp_poly_t &that, fp_poly_t &rquot, fp_poly_t &rrem) {
   spffl::intmath::intmod_t zero = this->coeffs[0] - this->coeffs[0];
 
   if (that == zero) {
@@ -968,7 +968,7 @@ void fp_poly_t::promote_and_add(spffl::intmath::intmod_t c0) {
 } // namespace spffl::polynomials
 
 // ----------------------------------------------------------------
-spffl::polynomials::fp_poly_t gcd(spffl::polynomials::fp_poly_t a,
-                                  spffl::polynomials::fp_poly_t b) {
+spffl::polynomials::fp_poly_t gcd(
+    spffl::polynomials::fp_poly_t a, spffl::polynomials::fp_poly_t b) {
   return a.gcd(b);
 }

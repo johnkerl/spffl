@@ -55,8 +55,8 @@ int f2_polymod_order(spffl::polynomials::f2_polymod_t a) {
 }
 
 // ----------------------------------------------------------------
-bool f2_polymod_find_generator(spffl::polynomials::f2_poly_t m,
-                               spffl::polynomials::f2_polymod_t &rg) {
+bool f2_polymod_find_generator(
+    spffl::polynomials::f2_poly_t m, spffl::polynomials::f2_polymod_t &rg) {
   int mdeg = m.find_degree();
   spffl::polynomials::f2_poly_t gres(1);
 

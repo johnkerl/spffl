@@ -13,7 +13,7 @@ namespace spffl::rationals {
 
 // ----------------------------------------------------------------
 f2n_polyrat_t::f2n_polyrat_t(spffl::polynomials::f2n_poly_t numerator,
-                             spffl::polynomials::f2n_poly_t denominator) {
+    spffl::polynomials::f2n_poly_t denominator) {
   this->numer = numerator;
   this->denom = denominator;
   this->simplify();
@@ -46,8 +46,8 @@ f2n_polyrat_t f2n_polyrat_t::prime_sfld_elt(int v) const {
 
 // ----------------------------------------------------------------
 // This is a static method.
-f2n_polyrat_t f2n_polyrat_t::prime_sfld_elt(int v,
-                                            spffl::polynomials::f2_poly_t m) {
+f2n_polyrat_t f2n_polyrat_t::prime_sfld_elt(
+    int v, spffl::polynomials::f2_poly_t m) {
   return f2n_polyrat_t(spffl::polynomials::f2n_poly_t::prime_sfld_elt(v, m));
 }
 
@@ -62,8 +62,8 @@ f2n_polyrat_t &f2n_polyrat_t::operator=(f2n_polyrat_t that) {
 }
 
 // ----------------------------------------------------------------
-f2n_polyrat_t &
-f2n_polyrat_t::operator=(spffl::polynomials::f2n_poly_t numerator) {
+f2n_polyrat_t &f2n_polyrat_t::operator=(
+    spffl::polynomials::f2n_poly_t numerator) {
   this->numer = numerator;
   this->denom = numerator.prime_sfld_elt(1);
   this->simplify();
@@ -242,8 +242,8 @@ std::istringstream &operator>>(std::istringstream &iss, f2n_polyrat_t &a) {
 }
 
 // ----------------------------------------------------------------
-bool f2n_polyrat_t::from_string(const char *string,
-                                spffl::polynomials::f2_poly_t m) {
+bool f2n_polyrat_t::from_string(
+    const char *string, spffl::polynomials::f2_poly_t m) {
   this->numer = spffl::polynomials::f2n_poly_t(
       spffl::polynomials::f2_polymod_t(spffl::polynomials::f2_poly_t(0), m));
   this->denom = spffl::polynomials::f2n_poly_t(

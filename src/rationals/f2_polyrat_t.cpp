@@ -13,7 +13,7 @@ namespace spffl::rationals {
 
 // ----------------------------------------------------------------
 f2_polyrat_t::f2_polyrat_t(spffl::polynomials::f2_poly_t numerator,
-                           spffl::polynomials::f2_poly_t denominator) {
+    spffl::polynomials::f2_poly_t denominator) {
   this->numer = numerator;
   this->denom = denominator;
   this->simplify();

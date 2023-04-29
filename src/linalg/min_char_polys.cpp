@@ -89,8 +89,8 @@ int fppm_froblen(spffl::polynomials::fp_polymod_t a) {
 // x^4 + x^3 + 1 is the minimal polynomial for 1011 = u^3 + u + 1.
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2_poly_t
-f2pm_min_poly(spffl::polynomials::f2_polymod_t a) {
+spffl::polynomials::f2_poly_t f2pm_min_poly(
+    spffl::polynomials::f2_polymod_t a) {
   spffl::polynomials::f2_poly_t m     = a.get_modulus();
   spffl::polynomials::f2_polymod_t ap = a.prime_sfld_elt(1);
   int n                               = m.find_degree();
@@ -123,8 +123,8 @@ f2pm_min_poly(spffl::polynomials::f2_polymod_t a) {
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2n_poly_t
-f2npm_min_poly(spffl::polynomials::f2n_polymod_t a) {
+spffl::polynomials::f2n_poly_t f2npm_min_poly(
+    spffl::polynomials::f2n_polymod_t a) {
   spffl::polynomials::f2n_poly_t m     = a.get_modulus();
   spffl::polynomials::f2n_polymod_t ap = a.prime_sfld_elt(1);
   spffl::polynomials::f2_polymod_t zero =
@@ -159,8 +159,8 @@ f2npm_min_poly(spffl::polynomials::f2n_polymod_t a) {
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::fp_poly_t
-fppm_min_poly(spffl::polynomials::fp_polymod_t a) {
+spffl::polynomials::fp_poly_t fppm_min_poly(
+    spffl::polynomials::fp_polymod_t a) {
   spffl::polynomials::fp_poly_t m     = a.get_modulus();
   spffl::polynomials::fp_polymod_t ap = a.prime_sfld_elt(1);
   int p                               = a.get_characteristic();
@@ -194,8 +194,8 @@ fppm_min_poly(spffl::polynomials::fp_polymod_t a) {
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2_poly_t
-f2pm_char_poly(spffl::polynomials::f2_polymod_t a) {
+spffl::polynomials::f2_poly_t f2pm_char_poly(
+    spffl::polynomials::f2_polymod_t a) {
   spffl::polynomials::f2_poly_t mp = f2pm_min_poly(a);
   spffl::polynomials::f2_poly_t m  = a.get_modulus();
   int n                            = m.find_degree();
@@ -205,8 +205,8 @@ f2pm_char_poly(spffl::polynomials::f2_polymod_t a) {
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2n_poly_t
-f2npm_char_poly(spffl::polynomials::f2n_polymod_t a) {
+spffl::polynomials::f2n_poly_t f2npm_char_poly(
+    spffl::polynomials::f2n_polymod_t a) {
   spffl::polynomials::f2n_poly_t mp = f2npm_min_poly(a);
   spffl::polynomials::f2n_poly_t m  = a.get_modulus();
   int n                             = m.find_degree();
@@ -216,8 +216,8 @@ f2npm_char_poly(spffl::polynomials::f2n_polymod_t a) {
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::fp_poly_t
-fppm_char_poly(spffl::polynomials::fp_polymod_t a) {
+spffl::polynomials::fp_poly_t fppm_char_poly(
+    spffl::polynomials::fp_polymod_t a) {
   spffl::polynomials::fp_poly_t mp = fppm_min_poly(a);
   spffl::polynomials::fp_poly_t m  = a.get_modulus();
   int n                            = m.find_degree();

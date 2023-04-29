@@ -78,8 +78,8 @@ uint32_t iran32_r(uint32_t &state0, uint32_t &state1) {
 }
 
 // ----------------------------------------------------------------
-void iran64_r(uint32_t &out0, uint32_t &out1, uint32_t &state0,
-              uint32_t &state1) {
+void iran64_r(
+    uint32_t &out0, uint32_t &out1, uint32_t &state0, uint32_t &state1) {
   out0 = state0;
   out1 = state1;
   psdes_hash_64(out0, out1);

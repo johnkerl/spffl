@@ -60,9 +60,8 @@ int fp_pm_op_main(int argc, char **argv, usage_t *pusage) {
   if (!m.from_string(argv[2], p)) {
     pusage(argv[0]);
   }
-  spffl::cliparser::cmd_line_parse<spffl::polynomials::fp_polymod_t>(
-      argc - 3, argv + 3,
-      spffl::polynomials::fp_polymod_t::prime_sfld_elt(0, m),
+  spffl::cliparser::cmd_line_parse<spffl::polynomials::fp_polymod_t>(argc - 3,
+      argv + 3, spffl::polynomials::fp_polymod_t::prime_sfld_elt(0, m),
       spffl::polynomials::fp_polymod_t::prime_sfld_elt(1, m));
   return 0;
 }

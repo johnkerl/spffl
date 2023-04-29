@@ -45,8 +45,8 @@ spffl::rationals::qpoly_t get_cyclo_qpoly(int n) {
   }
 
   // x^n - 1
-  rv = spffl::rationals::qpoly_t::binomial(spffl::rationals::intrat_t(1), n,
-                                           spffl::rationals::intrat_t(-1), 0);
+  rv = spffl::rationals::qpoly_t::binomial(
+      spffl::rationals::intrat_t(1), n, spffl::rationals::intrat_t(-1), 0);
 
   for (d = 1; d < n; d++) {
     if ((n % d) != 0) {
@@ -89,16 +89,16 @@ spffl::polynomials::fp_poly_t get_cyclo_fp_poly(int n, int p) {
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2n_poly_t
-get_cyclo_f2n_poly(int n, spffl::polynomials::f2_poly_t im) {
+spffl::polynomials::f2n_poly_t get_cyclo_f2n_poly(
+    int n, spffl::polynomials::f2_poly_t im) {
   spffl::rationals::qpoly_t q       = get_cyclo_qpoly(n);
   spffl::polynomials::f2n_poly_t rv = f2n_poly_from_qpoly(q, im);
   return rv;
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::fpn_poly_t
-get_cyclo_fpn_poly(int n, spffl::polynomials::fp_poly_t im) {
+spffl::polynomials::fpn_poly_t get_cyclo_fpn_poly(
+    int n, spffl::polynomials::fp_poly_t im) {
   spffl::rationals::qpoly_t q       = get_cyclo_qpoly(n);
   spffl::polynomials::fpn_poly_t rv = fpn_poly_from_qpoly(q, im);
   return rv;
@@ -111,9 +111,9 @@ int main(void) {
   int nmax = 30;
   spffl::polynomials::f2_poly_t m2 =
       spffl::polynomials::f2_poly_t::from_base_rep(0x13);
-  spffl::polynomials::fp_poly_t mp(
-      spffl::intmath::intmod_t(1, 3), spffl::intmath::intmod_t(0, 3),
-      spffl::intmath::intmod_t(2, 3), spffl::intmath::intmod_t(1, 3));
+  spffl::polynomials::fp_poly_t mp(spffl::intmath::intmod_t(1, 3),
+      spffl::intmath::intmod_t(0, 3), spffl::intmath::intmod_t(2, 3),
+      spffl::intmath::intmod_t(1, 3));
 
   for (int n = 1; n < nmax; n++) {
     std::cout << n << ": " << get_cyclo_qpoly(n) << "\n";

@@ -59,8 +59,8 @@ qpoly_t::qpoly_t(intrat_t c3, intrat_t c2, intrat_t c1, intrat_t c0) {
 }
 
 // ----------------------------------------------------------------
-qpoly_t::qpoly_t(intrat_t c4, intrat_t c3, intrat_t c2, intrat_t c1,
-                 intrat_t c0) {
+qpoly_t::qpoly_t(
+    intrat_t c4, intrat_t c3, intrat_t c2, intrat_t c1, intrat_t c0) {
   this->degree    = 4;
   this->coeffs    = new intrat_t[this->degree + 1];
   this->coeffs[4] = c4;
@@ -73,7 +73,7 @@ qpoly_t::qpoly_t(intrat_t c4, intrat_t c3, intrat_t c2, intrat_t c1,
 
 // ----------------------------------------------------------------
 qpoly_t::qpoly_t(intrat_t c5, intrat_t c4, intrat_t c3, intrat_t c2,
-                 intrat_t c1, intrat_t c0) {
+    intrat_t c1, intrat_t c0) {
   this->degree    = 5;
   this->coeffs    = new intrat_t[this->degree + 1];
   this->coeffs[5] = c5;

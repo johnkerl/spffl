@@ -635,7 +635,7 @@ void bit_matrix_t::row_reduce_below_with_scalar(bit_t &s) {
   s = 1;
   for (top_row = 0, left_column = 0;
        (top_row < this->num_rows) && (left_column < this->num_cols);
-       /* increment in loop body */) {
+      /* increment in loop body */) {
     // Find the nearest row with a non-zero value in this column;
     // exchange that row with this one.  If this is the last row,
     // there are no rows below to pivot into place, so don't
@@ -864,8 +864,8 @@ bit_matrix_t bit_matrix_t::paste(bit_matrix_t &that) {
 }
 
 // ----------------------------------------------------------------
-void bit_matrix_t::split(bit_matrix_t &rleft, bit_matrix_t &rright,
-                         int split_column) {
+void bit_matrix_t::split(
+    bit_matrix_t &rleft, bit_matrix_t &rright, int split_column) {
   if ((split_column < 0) || (split_column >= this->num_cols)) {
     std::cerr << "bit_matrix_t::split:  split column " << split_column
               << " out of bounds 0:" << this->num_rows - 1 << ".\n";

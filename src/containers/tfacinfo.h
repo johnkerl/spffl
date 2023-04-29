@@ -19,8 +19,8 @@
 template <class element_type> class tfacinfo;
 
 template <class element_type>
-static std::ostream &operator<<(std::ostream &os,
-                                const tfacinfo<element_type> &v);
+static std::ostream &operator<<(
+    std::ostream &os, const tfacinfo<element_type> &v);
 
 // ================================================================
 template <class element_type> class tfacinfo {
@@ -90,8 +90,8 @@ public:
 
   // ----------------------------------------------------------------
   // I/O format:  all elements on one line, delimited by whitespace.
-  friend std::ostream &operator<< <>(std::ostream &os,
-                                     const tfacinfo<element_type> &v);
+  friend std::ostream &operator<< <>(
+      std::ostream &os, const tfacinfo<element_type> &v);
 
   // ----------------------------------------------------------------
   int get_num_distinct(void) { return this->num_distinct; }
@@ -313,7 +313,7 @@ public:
   void merge(tfacinfo<element_type> &that) {
     for (int i = 0; i < that.num_distinct; i++) {
       this->insert_factor(that.pfactors_and_counts[i].factor,
-                          that.pfactors_and_counts[i].count);
+          that.pfactors_and_counts[i].count);
     }
     if (that.have_unit) {
       if (this->have_unit) {
@@ -435,8 +435,8 @@ public:
 
   // ----------------------------------------------------------------
   // The output will be sorted from smallest to largest.
-  bool get_maximal_proper_divisors(tvector<element_type> &rv,
-                                   element_type one) {
+  bool get_maximal_proper_divisors(
+      tvector<element_type> &rv, element_type one) {
     if (this->num_distinct <= 0) {
       if (!this->have_unit) {
         std::cerr << "tfacinfo::get_maximal_proper_divisors():  "
@@ -460,8 +460,8 @@ public:
 
 // ================================================================
 template <class element_type>
-static std::ostream &operator<<(std::ostream &os,
-                                const tfacinfo<element_type> &finfo) {
+static std::ostream &operator<<(
+    std::ostream &os, const tfacinfo<element_type> &finfo) {
   if (finfo.have_unit) {
     os << finfo.unit;
   }

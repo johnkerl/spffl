@@ -45,8 +45,8 @@ static int check_balance(int argc, char **argv) {
 }
 
 // ----------------------------------------------------------------
-static void find_matching_right_bracket(int argc, char **argv, int lefti,
-                                        int &righti) {
+static void find_matching_right_bracket(
+    int argc, char **argv, int lefti, int &righti) {
   int depth = 1;
   for (righti = lefti + 1; righti < argc; righti++) {
     if (strcmp(argv[righti], RBRK) == 0) {
@@ -80,8 +80,8 @@ static char *flatten(char *exename, int argc, char **argv) {
 }
 
 // ----------------------------------------------------------------
-static void replace(char *exename, int argcin, char **argvin, int &argcout,
-                    char **&argvout) {
+static void replace(
+    char *exename, int argcin, char **argvin, int &argcout, char **&argvout) {
   char *flat_cmd = flatten(exename, argcin, argvin);
 
   FILE *pipe = popen(flat_cmd, "r");
@@ -125,8 +125,8 @@ static void replace(char *exename, int argcin, char **argvin, int &argcout,
 }
 
 // ----------------------------------------------------------------
-static void cmd_interpolate_once(char *exename, int &argc, char **&argv,
-                                 int &interpolated) {
+static void cmd_interpolate_once(
+    char *exename, int &argc, char **&argv, int &interpolated) {
   interpolated = 0;
   int lefti, righti;
   if (!find_first_bracket(argc, argv, (char *)LBRK, lefti)) {

@@ -20,8 +20,8 @@ tvector<spffl::bits::bit_t> f2_vector_from_base_rep(int base_rep, int len) {
 }
 
 // ----------------------------------------------------------------
-tmatrix<spffl::bits::bit_t> f2_matrix_from_base_rep(int base_rep, int num_rows,
-                                                    int num_cols) {
+tmatrix<spffl::bits::bit_t> f2_matrix_from_base_rep(
+    int base_rep, int num_rows, int num_cols) {
   tmatrix<spffl::bits::bit_t> A(num_rows, num_cols);
   for (int i = num_rows - 1; i >= 0; i--) {
     for (int j = num_cols - 1; j >= 0; j--) {
@@ -60,8 +60,8 @@ spffl::polynomials::f2_poly_t f2_char_poly(tmatrix<spffl::bits::bit_t> &A) {
 }
 
 // ----------------------------------------------------------------
-tmatrix<spffl::bits::bit_t>
-f2_companion_matrix(spffl::polynomials::f2_poly_t chpol) {
+tmatrix<spffl::bits::bit_t> f2_companion_matrix(
+    spffl::polynomials::f2_poly_t chpol) {
   int n = chpol.find_degree();
   tmatrix<spffl::bits::bit_t> rv(n, n);
   int i;
@@ -86,8 +86,8 @@ f2_companion_matrix(spffl::polynomials::f2_poly_t chpol) {
 }
 
 // ----------------------------------------------------------------
-static spffl::polynomials::f2n_poly_t
-f2_polymod_char_or_min_poly(spffl::polynomials::f2_polymod_t a, bool do_min) {
+static spffl::polynomials::f2n_poly_t f2_polymod_char_or_min_poly(
+    spffl::polynomials::f2_polymod_t a, bool do_min) {
   spffl::polynomials::f2_poly_t m = a.get_modulus();
   int d                           = m.find_degree();
   spffl::polynomials::f2_poly_t r1(1);
@@ -108,14 +108,14 @@ f2_polymod_char_or_min_poly(spffl::polynomials::f2_polymod_t a, bool do_min) {
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2n_poly_t
-f2_polymod_char_poly(spffl::polynomials::f2_polymod_t a) {
+spffl::polynomials::f2n_poly_t f2_polymod_char_poly(
+    spffl::polynomials::f2_polymod_t a) {
   return f2_polymod_char_or_min_poly(a, 0);
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2n_poly_t
-f2_polymod_min_poly(spffl::polynomials::f2_polymod_t a) {
+spffl::polynomials::f2n_poly_t f2_polymod_min_poly(
+    spffl::polynomials::f2_polymod_t a) {
   return f2_polymod_char_or_min_poly(a, 1);
 }
 

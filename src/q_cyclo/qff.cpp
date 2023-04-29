@@ -28,8 +28,8 @@ spffl::polynomials::f2_poly_t f2_poly_from_q_poly(spffl::rationals::qpoly_t q) {
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::fp_poly_t fp_poly_from_qpoly(spffl::rationals::qpoly_t q,
-                                                 int p) {
+spffl::polynomials::fp_poly_t fp_poly_from_qpoly(
+    spffl::rationals::qpoly_t q, int p) {
   spffl::polynomials::fp_poly_t rv;
   int d = q.find_degree();
   for (int i = d; i >= 0; i--) {
@@ -39,9 +39,8 @@ spffl::polynomials::fp_poly_t fp_poly_from_qpoly(spffl::rationals::qpoly_t q,
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2n_poly_t
-f2n_poly_from_qpoly(spffl::rationals::qpoly_t q,
-                    spffl::polynomials::f2_poly_t im) {
+spffl::polynomials::f2n_poly_t f2n_poly_from_qpoly(
+    spffl::rationals::qpoly_t q, spffl::polynomials::f2_poly_t im) {
   spffl::polynomials::f2n_poly_t rv;
   int d = q.find_degree();
   for (int i = d; i >= 0; i--) {
@@ -55,9 +54,8 @@ f2n_poly_from_qpoly(spffl::rationals::qpoly_t q,
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::fpn_poly_t
-fpn_poly_from_qpoly(spffl::rationals::qpoly_t q,
-                    spffl::polynomials::fp_poly_t im) {
+spffl::polynomials::fpn_poly_t fpn_poly_from_qpoly(
+    spffl::rationals::qpoly_t q, spffl::polynomials::fp_poly_t im) {
   int d = q.find_degree();
   int p = im.get_characteristic();
   spffl::intmath::intmod_t z0(0, p);

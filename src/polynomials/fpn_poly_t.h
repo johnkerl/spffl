@@ -22,12 +22,12 @@ public:
   fpn_poly_t(fp_polymod_t c0);
   fpn_poly_t(fp_polymod_t c1, fp_polymod_t c0);
   fpn_poly_t(fp_polymod_t c2, fp_polymod_t c1, fp_polymod_t c0);
-  fpn_poly_t(fp_polymod_t c3, fp_polymod_t c2, fp_polymod_t c1,
-             fp_polymod_t c0);
+  fpn_poly_t(
+      fp_polymod_t c3, fp_polymod_t c2, fp_polymod_t c1, fp_polymod_t c0);
   fpn_poly_t(fp_polymod_t c4, fp_polymod_t c3, fp_polymod_t c2, fp_polymod_t c1,
-             fp_polymod_t c0);
+      fp_polymod_t c0);
   fpn_poly_t(fp_polymod_t c5, fp_polymod_t c4, fp_polymod_t c3, fp_polymod_t c2,
-             fp_polymod_t c1, fp_polymod_t c0);
+      fp_polymod_t c1, fp_polymod_t c0);
 
   static fpn_poly_t from_base_rep(int b, fp_poly_t m);
 
@@ -105,7 +105,7 @@ private:
 } // namespace spffl::polynomials
 
 // Same as the gcd method, but overloaded.  This is important for template use.
-spffl::polynomials::fpn_poly_t gcd(spffl::polynomials::fpn_poly_t a,
-                                   spffl::polynomials::fpn_poly_t b);
+spffl::polynomials::fpn_poly_t gcd(
+    spffl::polynomials::fpn_poly_t a, spffl::polynomials::fpn_poly_t b);
 
 #endif // FPNPOLY_T_H

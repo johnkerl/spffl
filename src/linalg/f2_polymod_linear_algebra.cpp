@@ -15,8 +15,8 @@
 namespace spffl::linalg {
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2n_poly_t
-f2pm_char_poly(tmatrix<spffl::polynomials::f2_polymod_t> &A) {
+spffl::polynomials::f2n_poly_t f2pm_char_poly(
+    tmatrix<spffl::polynomials::f2_polymod_t> &A) {
   if (!A.is_square()) {
     std::cerr << "f2pm_char_poly():  non-square input.\n";
     exit(1);
@@ -46,8 +46,8 @@ f2pm_char_poly(tmatrix<spffl::polynomials::f2_polymod_t> &A) {
 }
 
 // ----------------------------------------------------------------
-tmatrix<spffl::polynomials::f2_polymod_t>
-f2np_companion_matrix(spffl::polynomials::f2n_poly_t chpol) {
+tmatrix<spffl::polynomials::f2_polymod_t> f2np_companion_matrix(
+    spffl::polynomials::f2n_poly_t chpol) {
   int n                           = chpol.find_degree();
   spffl::polynomials::f2_poly_t m = chpol.get_coeff(0).get_modulus();
   spffl::polynomials::f2_poly_t zero(0);
@@ -77,8 +77,7 @@ f2np_companion_matrix(spffl::polynomials::f2n_poly_t chpol) {
 // ----------------------------------------------------------------
 // Diagonalizability test
 
-bool f2pm_matrix_is_diagonalizable(
-    tmatrix<spffl::polynomials::f2_polymod_t> &A,
+bool f2pm_matrix_is_diagonalizable(tmatrix<spffl::polynomials::f2_polymod_t> &A,
 
     // int allow_field_extension,
     spffl::polynomials::f2_poly_t &rext_modulus,
@@ -249,9 +248,8 @@ bool f2pm_matrix_is_diagonalizable(
 }
 
 // ----------------------------------------------------------------
-tvector<spffl::polynomials::f2_polymod_t>
-ft_vector_from_base_rep(int base_rep, spffl::polynomials::f2_poly_t m,
-                        int len) {
+tvector<spffl::polynomials::f2_polymod_t> ft_vector_from_base_rep(
+    int base_rep, spffl::polynomials::f2_poly_t m, int len) {
   tvector<spffl::polynomials::f2_polymod_t> v(len);
   int i;
   int t = 1 << m.find_degree();

@@ -84,8 +84,8 @@ public:
 
   friend std::ostream &operator<<(std::ostream &os, const f2_poly_t &poly);
   friend std::istream &operator>>(std::istream &is, f2_poly_t &poly);
-  friend std::istringstream &operator>>(std::istringstream &iss,
-                                        f2_poly_t &poly);
+  friend std::istringstream &operator>>(
+      std::istringstream &iss, f2_poly_t &poly);
 
   // If the polynomial's degree is less than deg, zero-padding is done.
   // This facilitates nice tabular output in certain situations.
@@ -115,8 +115,8 @@ private:
 } // namespace spffl::polynomials
 
 // Same as the gcd method, but overloaded.  This is important for template use.
-spffl::polynomials::f2_poly_t gcd(spffl::polynomials::f2_poly_t a,
-                                  spffl::polynomials::f2_poly_t b);
+spffl::polynomials::f2_poly_t gcd(
+    spffl::polynomials::f2_poly_t a, spffl::polynomials::f2_poly_t b);
 
 // ================================================================
 #endif // F2POLY_T_H
