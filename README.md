@@ -11,18 +11,23 @@ from [yamm](https://github.com/johnkerl/scripts/blob/main/fundam/yamm) to [cmake
 
 # Setup
 
-Still a WIP.
+Still a WIP. Generate/build/test/install steps:
 
 ```
-cmake -B build
-cmake --build build
-cmake --build build --target test
-cmake --build build --target install # <-- WIP as of 2023-03-13
+alias cmg='cmake -B build'
+alias cmb='cmake --build build'
+alias cmt='cmake --build build --target test'
+alias cmi='cmake --build build --target install' # <-- WIP as of 2023-03-13
 
 export PATH=$(pwd)/build/cli/spiff:$PATH
 cd regression
 sh regress.sh
 ```
+
+To get more details about failed unit tests including line numbers:
+
+* Run `cmg` and `cmb`
+* In place of `cmt`, `./build/test/bits/test_bits` (or whichever test executable)
 
 TODO: more here about tests, libraries, and executables.
 
