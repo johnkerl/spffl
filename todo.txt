@@ -1,3 +1,5 @@
+xx promote x n; demote; bit_at; set_bit; sqroot
+
 ================================================================
 k cmake (non-install) structure
   k initial lib skeleton
