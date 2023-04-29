@@ -28,12 +28,15 @@ void z_gcd_usage(char *argv0) {
 int z_gcd_main(int argc, char **argv, usage_t *pusage) {
   if ((argc >= 2) && (strcmp(argv[1], "-e") == 0)) {
     int a, b, g, r, s;
-    if (argc != 4)
+    if (argc != 4) {
       pusage(argv[0]);
-    if (sscanf(argv[2], "%d", &a) != 1)
+    }
+    if (sscanf(argv[2], "%d", &a) != 1) {
       pusage(argv[0]);
-    if (sscanf(argv[3], "%d", &b) != 1)
+    }
+    if (sscanf(argv[3], "%d", &b) != 1) {
       pusage(argv[0]);
+    }
 
     g = spffl::intmath::int_ext_gcd(a, b, r, s);
     std::cout << g << " = " << r << " * " << a << " + " << s << " * " << b
@@ -46,14 +49,17 @@ int z_gcd_main(int argc, char **argv, usage_t *pusage) {
     }
   } else {
     int a, g;
-    if (argc < 2)
+    if (argc < 2) {
       pusage(argv[0]);
-    if (sscanf(argv[1], "%d", &a) != 1)
+    }
+    if (sscanf(argv[1], "%d", &a) != 1) {
       pusage(argv[0]);
+    }
     g = a;
     for (int argi = 2; argi < argc; argi++) {
-      if (sscanf(argv[argi], "%d", &a) != 1)
+      if (sscanf(argv[argi], "%d", &a) != 1) {
         pusage(argv[0]);
+      }
       g = spffl::intmath::int_gcd(g, a);
     }
     std::cout << g << std::endl;
@@ -68,14 +74,17 @@ void z_lcm_usage(char *argv0) {
 
 int z_lcm_main(int argc, char **argv, usage_t *pusage) {
   int a, l;
-  if (argc < 2)
+  if (argc < 2) {
     pusage(argv[0]);
-  if (sscanf(argv[1], "%d", &a) != 1)
+  }
+  if (sscanf(argv[1], "%d", &a) != 1) {
     pusage(argv[0]);
+  }
   l = a;
   for (int argi = 2; argi < argc; argi++) {
-    if (sscanf(argv[argi], "%d", &a) != 1)
+    if (sscanf(argv[argi], "%d", &a) != 1) {
       pusage(argv[0]);
+    }
     l = spffl::intmath::int_lcm(l, a);
   }
   std::cout << l << std::endl;
@@ -89,14 +98,17 @@ void z_totient_usage(char *argv0) {
 
 int z_totient_main(int argc, char **argv, usage_t *pusage) {
   int a, phi;
-  if (argc < 2)
+  if (argc < 2) {
     pusage(argv[0]);
+  }
   for (int argi = 1; argi < argc; argi++) {
-    if (sscanf(argv[argi], "%d", &a) != 1)
+    if (sscanf(argv[argi], "%d", &a) != 1) {
       pusage(argv[0]);
+    }
     phi = spffl::intmath::int_totient(a);
-    if (argc > 2)
+    if (argc > 2) {
       std::cout << a << ": ";
+    }
     std::cout << phi << std::endl;
   }
   return 0;
@@ -110,14 +122,17 @@ void z_test_prime_usage(char *argv0) {
 int z_test_prime_main(int argc, char **argv, usage_t *pusage) {
   int a;
   for (int argi = 1; argi < argc; argi++) {
-    if (sscanf(argv[argi], "%d", &a) != 1)
+    if (sscanf(argv[argi], "%d", &a) != 1) {
       pusage(argv[0]);
-    if (argc > 2)
+    }
+    if (argc > 2) {
       std::cout << a << ": ";
-    if (spffl::intmath::is_prime(a))
+    }
+    if (spffl::intmath::is_prime(a)) {
       std::cout << "PRIME\n";
-    else
+    } else {
       std::cout << "not prime\n";
+    }
   }
   return 0;
 }
@@ -128,16 +143,18 @@ void nth_prime_usage(char *argv0) {
 }
 
 int nth_prime_main(int argc, char **argv, usage_t *pusage) {
-  if (argc < 2)
+  if (argc < 2) {
     pusage(argv[0]);
+  }
   for (int argi = 1; argi < argc; argi++) {
     int lo, hi;
     if (sscanf(argv[argi], "%d-%d", &lo, &hi) == 2)
       ;
-    else if (sscanf(argv[argi], "%d", &lo) == 1)
+    else if (sscanf(argv[argi], "%d", &lo) == 1) {
       hi = lo;
-    else
+    } else {
       pusage(argv[0]);
+    }
     for (int n = lo; n <= hi; n++) {
       std::cout << spffl::intmath::nth_prime(n) << std::endl;
     }
@@ -155,19 +172,23 @@ int z_list_main(int argc, char **argv, usage_t *pusage) {
   int reps = 1;
   int stride = 1;
 
-  if (argc < 2 || argc > 4)
+  if (argc < 2 || argc > 4) {
     pusage(argv[0]);
+  }
   if (argc >= 2) {
-    if (sscanf(argv[1], "%d", &walker) != 1)
+    if (sscanf(argv[1], "%d", &walker) != 1) {
       pusage(argv[0]);
+    }
   }
   if (argc >= 3) {
-    if (sscanf(argv[2], "%d", &reps) != 1)
+    if (sscanf(argv[2], "%d", &reps) != 1) {
       pusage(argv[0]);
+    }
   }
   if (argc >= 4) {
-    if (sscanf(argv[3], "%d", &stride) != 1)
+    if (sscanf(argv[3], "%d", &stride) != 1) {
       pusage(argv[0]);
+    }
   }
 
   while (reps > 0) {
@@ -187,10 +208,12 @@ void z_factor_usage(char *argv0) {
 int z_factor_main(int argc, char **argv, usage_t *pusage) {
   int a;
   for (int argi = 1; argi < argc; argi++) {
-    if (sscanf(argv[argi], "%d", &a) != 1)
+    if (sscanf(argv[argi], "%d", &a) != 1) {
       pusage(argv[0]);
-    if (argc > 2)
+    }
+    if (argc > 2) {
       std::cout << a << " = ";
+    }
     tfacinfo<int> finfo = spffl::factorization::int_factor(a);
     std::cout << finfo << std::endl;
 
@@ -219,13 +242,16 @@ int z_divisors_main(int argc, char **argv, usage_t *pusage) {
     argb++;
     maximal_proper_only = 1;
   }
-  if ((argc - argb) < 1)
+  if ((argc - argb) < 1) {
     pusage(argv[0]);
+  }
   for (int argi = argb; argi < argc; argi++) {
-    if (sscanf(argv[argi], "%d", &a) != 1)
+    if (sscanf(argv[argi], "%d", &a) != 1) {
       pusage(argv[0]);
-    if ((argc - argb) > 1)
+    }
+    if ((argc - argb) > 1) {
       std::cout << a << ": ";
+    }
     tfacinfo<int> finfo = spffl::factorization::int_factor(a);
     tvector<int> divisors;
     if (maximal_proper_only) {
@@ -238,8 +264,9 @@ int z_divisors_main(int argc, char **argv, usage_t *pusage) {
     }
     int nd = divisors.get_num_elements();
     for (int k = 0; k < nd; k++) {
-      if (k > 0)
+      if (k > 0) {
         std::cout << " ";
+      }
       std::cout << divisors[k];
     }
     std::cout << std::endl;

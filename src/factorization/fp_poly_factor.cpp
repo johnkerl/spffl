@@ -88,8 +88,9 @@ fp_poly_pre_berlekamp(spffl::polynomials::fp_poly_t f,
 
     // Multiplicity is p only if degree is > 0.
     fp_poly_pre_berlekamp(s, sfinfo, recurse);
-    if (f.find_degree() > 0)
+    if (f.find_degree() > 0) {
       sfinfo.exp_all(p);
+    }
     rfinfo.merge(sfinfo);
   } else {
     spffl::polynomials::fp_poly_t q = f / g;
@@ -122,8 +123,9 @@ static void fp_poly_berlekamp(spffl::polynomials::fp_poly_t f,
   int i, j, row, rank, dimker;
 
   xp = x;
-  for (int i = 1; i < p; i++)
+  for (int i = 1; i < p; i++) {
     xp = (xp * x) % f;
+  }
 
 #ifdef FPPOLY_FACTOR_DEBUG
   std::cout << "\n";
@@ -154,8 +156,9 @@ static void fp_poly_berlekamp(spffl::polynomials::fp_poly_t f,
 #endif
 
   // Form B - I.
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     BI[i][i] -= one;
+  }
 
 #ifdef FPPOLY_FACTOR_DEBUG
   std::cout << "B-I =\n" << BI << "\n";
@@ -199,8 +202,9 @@ static void fp_poly_berlekamp(spffl::polynomials::fp_poly_t f,
 #ifdef FPPOLY_FACTOR_DEBUG
     std::cout << "h  = " << h << "\n";
 #endif // FPPOLY_FACTOR_DEBUG
-    if (h == 1)
+    if (h == 1) {
       continue;
+    }
 
     for (int c = 0; c < p; c++) {
       spffl::polynomials::fp_poly_t hc = h - f.prime_sfld_elt(c);
@@ -256,8 +260,9 @@ spffl::polynomials::fp_poly_t
 fp_poly_from_vector(tvector<spffl::intmath::intmod_t> v, int n) {
   spffl::polynomials::fp_poly_t f;
   f.set_coeff(0, v[0] - v[0]);
-  for (int i = 0; i < n; i++)
+  for (int i = 0; i < n; i++) {
     f.set_coeff(n - 1 - i, v[i]);
+  }
   return f;
 }
 
@@ -266,10 +271,12 @@ bool fp_poly_is_irreducible(spffl::polynomials::fp_poly_t f) {
   tfacinfo<spffl::polynomials::fp_poly_t> finfo;
 
   int d = f.find_degree();
-  if (d == 0)
+  if (d == 0) {
     return false;
-  if (d == 1)
+  }
+  if (d == 1) {
     return true;
+  }
 
   f /= f.get_coeff(d);
   fp_poly_pre_berlekamp(f, finfo, false);
@@ -280,10 +287,11 @@ bool fp_poly_is_irreducible(spffl::polynomials::fp_poly_t f) {
   std::cout << "# factors = " << finfo.get_num_factors() << "\n";
 #endif // FPPOLY_FACTOR_DEBUG
 
-  if (finfo.get_num_factors() == 1)
+  if (finfo.get_num_factors() == 1) {
     return true;
-  else
+  } else {
     return false;
+  }
 }
 
 // ----------------------------------------------------------------
@@ -301,8 +309,9 @@ spffl::polynomials::fp_poly_t fp_poly_find_irr(int p, int degree) {
 
   while (rv.find_degree() == degree) {
     if (rv.get_coeff(0) != zero) {
-      if (fp_poly_is_irreducible(rv))
+      if (fp_poly_is_irreducible(rv)) {
         return rv;
+      }
     }
     rv.increment();
     // xxx smarter
@@ -329,8 +338,9 @@ spffl::polynomials::fp_poly_t fp_poly_random_irr(int p, int degree) {
 
   for (;;) {
     rv = spffl::random::fp_poly_random(p, degree);
-    if (rv.get_coeff(0) == zero)
+    if (rv.get_coeff(0) == zero) {
       continue;
+    }
     if (fp_poly_is_irreducible(rv)) {
       rv /= rv.get_coeff(degree); // make monic
       return rv;

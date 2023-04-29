@@ -247,21 +247,25 @@ int main(int argc, char **argv) {
   //   spiff f2_p_deg { f2_p_factor { f2_p_op 2 ^ 127 - 1 } }
   spffl::cliparser::cmd_interpolate(exename, argc, argv);
 
-  if (argc < 1)
+  if (argc < 1) {
     main_usage(exename);
+  }
 
   if (strcmp(argv[0], "-l") == 0) {
     for (int i = 0; lookups[i].name; i++) {
-      if (i > 0)
+      if (i > 0) {
         std::cout << " ";
+      }
       std::cout << lookups[i].name;
     }
     std::cout << "\n";
     exit(1);
   }
-  for (int i = 0; lookups[i].name; i++)
-    if (strcmp(argv[0], lookups[i].name) == 0)
+  for (int i = 0; lookups[i].name; i++) {
+    if (strcmp(argv[0], lookups[i].name) == 0) {
       return lookups[i].pmain(argc, argv, lookups[i].pusage);
+    }
+  }
   std::cerr << exename << ": subcommand \"" << argv[0] << "\" not found.\n";
   return 1;
 }

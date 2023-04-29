@@ -13,12 +13,15 @@ void fpn_p_op_usage(char *argv0) {
 int fpn_p_op_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t im;
-  if (argc < 3)
+  if (argc < 3) {
     pusage(argv[0]);
-  if (sscanf(argv[1], "%d", &p) != 1)
+  }
+  if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
-  if (!im.from_string(argv[2], p))
+  }
+  if (!im.from_string(argv[2], p)) {
     pusage(argv[0]);
+  }
   spffl::polynomials::fpn_poly_t zero =
       spffl::polynomials::fpn_poly_t::prime_sfld_elt(0, im);
   spffl::polynomials::fpn_poly_t one =
@@ -37,12 +40,15 @@ void fpn_p_mat_op_usage(char *argv0) {
 int fpn_p_mat_op_main(int argc, char **argv, usage_t *pusage) {
   int p;
   spffl::polynomials::fp_poly_t im;
-  if (argc < 3)
+  if (argc < 3) {
     pusage(argv[0]);
-  if (sscanf(argv[1], "%d", &p) != 1)
+  }
+  if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
-  if (!im.from_string(argv[2], p))
+  }
+  if (!im.from_string(argv[2], p)) {
     pusage(argv[0]);
+  }
   spffl::polynomials::fpn_poly_t zero =
       spffl::polynomials::fpn_poly_t::prime_sfld_elt(0, im);
   spffl::polynomials::fpn_poly_t one =
@@ -63,27 +69,36 @@ int fpn_p_gcd_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::fpn_poly_t a, b, g, r, s;
 
   if (argc == 5) {
-    if (sscanf(argv[1], "%d", &p) != 1)
+    if (sscanf(argv[1], "%d", &p) != 1) {
       pusage(argv[0]);
-    if (!im.from_string(argv[2], p))
+    }
+    if (!im.from_string(argv[2], p)) {
       pusage(argv[0]);
-    if (!a.from_string(argv[3], im))
+    }
+    if (!a.from_string(argv[3], im)) {
       pusage(argv[0]);
-    if (!b.from_string(argv[4], im))
+    }
+    if (!b.from_string(argv[4], im)) {
       pusage(argv[0]);
+    }
     g = a.gcd(b);
     std::cout << g << std::endl;
   } else if (argc == 6) {
-    if (strcmp(argv[1], "-e") != 0)
+    if (strcmp(argv[1], "-e") != 0) {
       pusage(argv[0]);
-    if (sscanf(argv[2], "%d", &p) != 1)
+    }
+    if (sscanf(argv[2], "%d", &p) != 1) {
       pusage(argv[0]);
-    if (!im.from_string(argv[3], p))
+    }
+    if (!im.from_string(argv[3], p)) {
       pusage(argv[0]);
-    if (!a.from_string(argv[4], im))
+    }
+    if (!a.from_string(argv[4], im)) {
       pusage(argv[0]);
-    if (!b.from_string(argv[5], im))
+    }
+    if (!b.from_string(argv[5], im)) {
       pusage(argv[0]);
+    }
     g = a.ext_gcd(b, r, s);
     std::cout << g << " = " << r << " * " << a << " + " << s << " * " << b
               << std::endl;
@@ -104,15 +119,19 @@ int fpn_p_qp_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::fp_poly_t m;
   spffl::rationals::qpoly_t qp;
   spffl::polynomials::fpn_poly_t fpnp;
-  if (argc < 4)
+  if (argc < 4) {
     pusage(argv[0]);
-  if (sscanf(argv[1], "%d", &p) != 1)
+  }
+  if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
-  if (!m.from_string(argv[2], p))
+  }
+  if (!m.from_string(argv[2], p)) {
     pusage(argv[0]);
+  }
   for (int argi = 3; argi < argc; argi++) {
-    if (!qp.from_string(argv[argi]))
+    if (!qp.from_string(argv[argi])) {
       pusage(argv[0]);
+    }
     fpnp = spffl::q_cyclo::fpn_poly_from_qpoly(qp, m);
     std::cout << fpnp << "\n";
   }

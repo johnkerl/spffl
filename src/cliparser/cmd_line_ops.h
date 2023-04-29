@@ -176,45 +176,49 @@ static void lexan(lex_ctx_t<element_type> &rlex_ctx) {
   }
   char *s = rlex_ctx.argv[rlex_ctx.argi];
 
-  if (strcmp(s, "+") == 0)
+  if (strcmp(s, "+") == 0) {
     rlex_ctx.token = L_PLUS;
-  else if (strcmp(s, "-") == 0)
+  } else if (strcmp(s, "-") == 0) {
     rlex_ctx.token = L_MINUS;
-  else if (strcmp(s, "*") == 0)
+  } else if (strcmp(s, "*") == 0) {
     rlex_ctx.token = L_MUL;
-  else if (strcmp(s, ".") == 0)
+  } else if (strcmp(s, ".") == 0) {
     rlex_ctx.token = L_MUL;
-  else if (strcmp(s, "/") == 0)
+  } else if (strcmp(s, "/") == 0) {
     rlex_ctx.token = L_DIV;
-  else if (strcmp(s, "%") == 0)
+  } else if (strcmp(s, "%") == 0) {
     rlex_ctx.token = L_MOD;
-  else if (strcmp(s, "^") == 0)
+  } else if (strcmp(s, "^") == 0) {
     rlex_ctx.token = L_EXP;
+  }
 
-  else if (strcmp(s, "==") == 0)
+  else if (strcmp(s, "==") == 0) {
     rlex_ctx.token = L_EQ;
-  else if (strcmp(s, "!=") == 0)
+  } else if (strcmp(s, "!=") == 0) {
     rlex_ctx.token = L_NE;
-  else if (strcmp(s, "/=") == 0)
+  } else if (strcmp(s, "/=") == 0) {
     rlex_ctx.token = L_NE;
-  else if (strcmp(s, "<") == 0)
+  } else if (strcmp(s, "<") == 0) {
     rlex_ctx.token = L_LT;
-  else if (strcmp(s, "<=") == 0)
+  } else if (strcmp(s, "<=") == 0) {
     rlex_ctx.token = L_LE;
-  else if (strcmp(s, ">") == 0)
+  } else if (strcmp(s, ">") == 0) {
     rlex_ctx.token = L_GT;
-  else if (strcmp(s, ">=") == 0)
+  } else if (strcmp(s, ">=") == 0) {
     rlex_ctx.token = L_GE;
+  }
 
-  else if (strcmp(s, "(") == 0)
+  else if (strcmp(s, "(") == 0) {
     rlex_ctx.token = L_LPAREN;
-  else if (strcmp(s, ")") == 0)
+  } else if (strcmp(s, ")") == 0) {
     rlex_ctx.token = L_RPAREN;
+  }
 
-  else if (strcmp(s, "[") == 0)
+  else if (strcmp(s, "[") == 0) {
     rlex_ctx.token = L_LPAREN;
-  else if (strcmp(s, "]") == 0)
+  } else if (strcmp(s, "]") == 0) {
     rlex_ctx.token = L_RPAREN;
+  }
 
   else {
     rlex_ctx.token = L_NUM;
@@ -254,8 +258,9 @@ element_type clo_exp(element_type x, int e, element_type zero,
   }
   element_type rv = one;
 
-  if (e == 0)
+  if (e == 0) {
     return rv;
+  }
 
   if (e < 0) {
     if (e == -e) {
@@ -637,10 +642,11 @@ void cmd_line_parse(int argc, char **argv, element_type zero,
       std::cerr << "Stack underflow.\n";
       exit(1);
     }
-    if (result.is_int)
+    if (result.is_int) {
       std::cout << result.int_val << "\n";
-    else
+    } else {
       std::cout << result.type_val << "\n";
+    }
     // Check for extraneous text.
     match<element_type>(lex_ctx, L_EOL);
   }

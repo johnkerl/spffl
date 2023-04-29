@@ -151,33 +151,37 @@ static void veclexan(vec_lex_ctx_t<element_type> &rlex_ctx) {
   }
   char *s = rlex_ctx.argv[rlex_ctx.argi];
 
-  if (strcmp(s, "+") == 0)
+  if (strcmp(s, "+") == 0) {
     rlex_ctx.token = L_PLUS;
-  else if (strcmp(s, "-") == 0)
+  } else if (strcmp(s, "-") == 0) {
     rlex_ctx.token = L_MINUS;
-  else if (strcmp(s, "*") == 0)
+  } else if (strcmp(s, "*") == 0) {
     rlex_ctx.token = L_MUL;
-  else if (strcmp(s, ".") == 0)
+  } else if (strcmp(s, ".") == 0) {
     rlex_ctx.token = L_MUL;
-  else if (strcmp(s, "^") == 0)
+  } else if (strcmp(s, "^") == 0) {
     rlex_ctx.token = L_EXP;
+  }
 
-  else if (strcmp(s, "==") == 0)
+  else if (strcmp(s, "==") == 0) {
     rlex_ctx.token = L_EQ;
-  else if (strcmp(s, "!=") == 0)
+  } else if (strcmp(s, "!=") == 0) {
     rlex_ctx.token = L_NE;
-  else if (strcmp(s, "/=") == 0)
+  } else if (strcmp(s, "/=") == 0) {
     rlex_ctx.token = L_NE;
+  }
 
-  else if (strcmp(s, "(") == 0)
+  else if (strcmp(s, "(") == 0) {
     rlex_ctx.token = L_LPAREN;
-  else if (strcmp(s, ")") == 0)
+  } else if (strcmp(s, ")") == 0) {
     rlex_ctx.token = L_RPAREN;
+  }
 
-  else if (strcmp(s, "[") == 0)
+  else if (strcmp(s, "[") == 0) {
     rlex_ctx.token = L_LPAREN;
-  else if (strcmp(s, "]") == 0)
+  } else if (strcmp(s, "]") == 0) {
     rlex_ctx.token = L_RPAREN;
+  }
 
   else {
     rlex_ctx.token = L_VEC;

@@ -80,8 +80,9 @@ inline intmod_t::intmod_t(int arg_residue, int arg_modulus) {
   this->residue = arg_residue;
   this->modulus = arg_modulus;
   this->residue = this->residue % this->modulus;
-  if (this->residue < 0) // Wacky C mod operator.
+  if (this->residue < 0) { // Wacky C mod operator.
     this->residue += this->modulus;
+  }
 }
 
 // ----------------------------------------------------------------

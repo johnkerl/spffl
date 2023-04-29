@@ -14,9 +14,11 @@ namespace spffl::base {
 // Removes trailing CR, if any.  (The name "chomp" comes from Perl.)
 void chomp(char *line) {
   int len = strlen(line);
-  if (len > 0)
-    if (line[len - 1] == '\n')
+  if (len > 0) {
+    if (line[len - 1] == '\n') {
       line[len - 1] = 0;
+    }
+  }
 }
 
 // ----------------------------------------------------------------

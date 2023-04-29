@@ -25,10 +25,12 @@ tfacinfo<int> int_factor(int n) {
 
   for (int i = 0; i < spffl::intmath::numprimes16; i++) {
     int p = spffl::intmath::primes_16[i];
-    if (n == 1)
+    if (n == 1) {
       return finfo;
-    if ((n % p) != 0)
+    }
+    if ((n % p) != 0) {
       continue;
+    }
     int count = 0;
     while ((n % p) == 0) {
       count++;
@@ -36,8 +38,9 @@ tfacinfo<int> int_factor(int n) {
     }
     finfo.insert_factor(p, count);
   }
-  if (n != 1)
+  if (n != 1) {
     finfo.insert_factor(n);
+  }
   return finfo;
 }
 

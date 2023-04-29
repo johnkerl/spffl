@@ -41,11 +41,13 @@ int q_p_op_main(int argc, char **argv, usage_t *pusage) {
 
 int q_cyclo_main(int argc, char **argv, usage_t *pusage) {
   int n;
-  if (argc < 2)
+  if (argc < 2) {
     pusage(argv[0]);
+  }
   for (int argi = 1; argi < argc; argi++) {
-    if (sscanf(argv[argi], "%d", &n) != 1)
+    if (sscanf(argv[argi], "%d", &n) != 1) {
       pusage(argv[0]);
+    }
     std::cout << spffl::q_cyclo::get_cyclo_qpoly(n) << std::endl;
   }
   return 0;

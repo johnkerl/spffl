@@ -31,10 +31,11 @@ static int check_balance(int argc, char **argv) {
       std::cerr << "Bracket imbalance.\n";
       return 0;
     }
-    if (strcmp(argv[argi], LBRK) == 0)
+    if (strcmp(argv[argi], LBRK) == 0) {
       depth++;
-    else if (strcmp(argv[argi], RBRK) == 0)
+    } else if (strcmp(argv[argi], RBRK) == 0) {
       depth--;
+    }
   }
   if (depth != 0) {
     std::cerr << "Bracket imbalance.\n";
@@ -49,8 +50,9 @@ static void find_matching_right_bracket(int argc, char **argv, int lefti,
   int depth = 1;
   for (righti = lefti + 1; righti < argc; righti++) {
     if (strcmp(argv[righti], RBRK) == 0) {
-      if (--depth == 0)
+      if (--depth == 0) {
         return;
+      }
     } else if (strcmp(argv[righti], LBRK) == 0) {
       depth++;
     }
@@ -61,8 +63,9 @@ static void find_matching_right_bracket(int argc, char **argv, int lefti,
 // The caller must free the return value.
 static char *flatten(char *exename, int argc, char **argv) {
   int len = strlen(exename) + 1;
-  for (int argi = 0; argi < argc; argi++)
+  for (int argi = 0; argi < argc; argi++) {
     len += strlen(argv[argi]) + 1;
+  }
   char *rv = (char *)malloc(len);
   if (rv == 0) {
     std::cerr << "malloc(" << len << ") failed.\n";
@@ -157,12 +160,15 @@ static void cmd_interpolate_once(char *exename, int &argc, char **&argv,
   int newargc = lefti + argcout + argc - righti - 1;
   char **newargv = (char **)malloc(newargc * sizeof(char *));
   int si, di = 0;
-  for (si = 0; si < lefti; si++, di++)
+  for (si = 0; si < lefti; si++, di++) {
     newargv[di] = argv[si];
-  for (si = 0; si < argcout; si++, di++)
+  }
+  for (si = 0; si < argcout; si++, di++) {
     newargv[di] = argvout[si];
-  for (si = righti + 1; si < argc; si++, di++)
+  }
+  for (si = righti + 1; si < argc; si++, di++) {
     newargv[di] = argv[si];
+  }
 
   argc = newargc;
   argv = newargv;

@@ -134,10 +134,12 @@ intmod_t &intmod_t::operator%=(intmod_t that) {
 bool intmod_t::operator==(intmod_t that) const {
   this->check_modulus();
   that.check_modulus();
-  if (this->residue != that.residue)
+  if (this->residue != that.residue) {
     return false;
-  if (this->modulus != that.modulus)
+  }
+  if (this->modulus != that.modulus) {
     return false;
+  }
   return true;
 }
 

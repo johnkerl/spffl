@@ -48,8 +48,9 @@ spffl::polynomials::f2_poly_t f2_char_poly(tmatrix<spffl::bits::bit_t> &A) {
   for (i = 0; i < n; i++) {
     for (j = 0; j < n; j++) {
       A_lI[i][j] = spffl::polynomials::f2_poly_t(A[i][j].get_residue());
-      if (i == j)
+      if (i == j) {
         A_lI[i][j] -= lambda;
+      }
     }
   }
 
@@ -72,11 +73,14 @@ f2_companion_matrix(spffl::polynomials::f2_poly_t chpol) {
   // 0 0 1 0
 
   rv = spffl::bits::bit_t(0);
-  for (i = 1; i < n; i++)
+  for (i = 1; i < n; i++) {
     rv[i][i - 1] = spffl::bits::bit_t(1);
-  for (i = 0; i < n; i++)
-    if (chpol.bit_at(i))
+  }
+  for (i = 0; i < n; i++) {
+    if (chpol.bit_at(i)) {
       rv[0][n - 1 - i] = spffl::bits::bit_t(1);
+    }
+  }
 
   return rv;
 }
@@ -95,8 +99,9 @@ f2_polymod_char_or_min_poly(spffl::polynomials::f2_polymod_t a, bool do_min) {
     spffl::polynomials::f2n_poly_t factor(one, ap);
     rv *= factor;
     ap = ap * ap; // Frobenius
-    if (do_min && (ap == a))
+    if (do_min && (ap == a)) {
       break;
+    }
   }
 
   return rv;

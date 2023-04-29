@@ -14,8 +14,9 @@ int int_totient(int n) {
 
   phi = 0;
   for (i = 1; i < n; i++) {
-    if (int_gcd(n, i) == 1)
+    if (int_gcd(n, i) == 1) {
       phi++;
+    }
   }
 
   return phi;

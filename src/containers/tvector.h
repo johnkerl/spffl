@@ -64,16 +64,18 @@ public:
 
     this->num_elements = init_num_elements;
     this->elements = new element_type[init_num_elements];
-    for (int i = 0; i < this->num_elements; i++)
+    for (int i = 0; i < this->num_elements; i++) {
       this->elements[i] = e;
+    }
   }
 
   // ----------------------------------------------------------------
   tvector(const tvector<element_type> &that) {
     this->num_elements = that.num_elements;
     this->elements = new element_type[that.num_elements];
-    for (int i = 0; i < that.num_elements; i++)
+    for (int i = 0; i < that.num_elements; i++) {
       this->elements[i] = that.elements[i];
+    }
   }
 
   // ----------------------------------------------------------------
@@ -97,16 +99,18 @@ public:
       delete[] this->elements;
       this->elements = new element_type[that.num_elements];
     }
-    for (int i = 0; i < that.num_elements; i++)
+    for (int i = 0; i < that.num_elements; i++) {
       this->elements[i] = that.elements[i];
+    }
     return *this;
   }
 
   // ----------------------------------------------------------------
   tvector<element_type> &operator=(const element_type scalar) {
     if (this->elements) {
-      for (int i = 0; i < this->num_elements; i++)
+      for (int i = 0; i < this->num_elements; i++) {
         this->elements[i] = scalar;
+      }
     } else {
       this->num_elements = 1;
       this->elements = new element_type[1];
@@ -164,10 +168,11 @@ public:
   bool load_from_file(char *file_name) {
     if ((strcmp(file_name, "-") == 0) || (strcmp(file_name, "@") == 0)) {
       std::cin >> *this;
-      if (std::cin.fail())
+      if (std::cin.fail()) {
         return false;
-      else
+      } else {
         return true;
+      }
     }
 
     std::ifstream ifs;
@@ -195,8 +200,9 @@ public:
   // For this method, the vector may have the default constructor.
   // The "zero" argument is used to set the modulus for parameterized types.
   bool load_from_file(char *file_name, element_type zero) {
-    if (this->elements)
+    if (this->elements) {
       delete[] this->elements;
+    }
     this->num_elements = 1;
     this->elements = new element_type[1];
     this->elements[0] = zero;
@@ -207,8 +213,9 @@ public:
   // No spaces between elements.  (Instead, perhaps I could implement a
   // derived iomanip, and then just use ostream <<.)
   void sqzout(std::ostream &os) {
-    for (int i = 0; i < this->num_elements; i++)
+    for (int i = 0; i < this->num_elements; i++) {
       os << this->elements[i];
+    }
   }
 
   // ----------------------------------------------------------------
@@ -235,8 +242,9 @@ public:
   tvector<element_type> operator+(tvector<element_type> that) {
     this->check_equal_lengths(that);
     tvector<element_type> rv(this->num_elements);
-    for (int i = 0; i < this->num_elements; i++)
+    for (int i = 0; i < this->num_elements; i++) {
       rv.elements[i] = this->elements[i] + that.elements[i];
+    }
     return rv;
   }
 
@@ -244,24 +252,27 @@ public:
   tvector<element_type> operator-(tvector<element_type> that) {
     this->check_equal_lengths(that);
     tvector<element_type> rv(this->num_elements);
-    for (int i = 0; i < this->num_elements; i++)
+    for (int i = 0; i < this->num_elements; i++) {
       rv.elements[i] = this->elements[i] - that.elements[i];
+    }
     return rv;
   }
 
   // ----------------------------------------------------------------
   tvector<element_type> operator-(void) {
     tvector<element_type> rv(this->num_elements);
-    for (int i = 0; i < this->num_elements; i++)
+    for (int i = 0; i < this->num_elements; i++) {
       rv.elements[i] = -this->elements[i];
+    }
     return rv;
   }
 
   // ----------------------------------------------------------------
   tvector<element_type> operator*(element_type s) {
     tvector<element_type> rv(this->num_elements);
-    for (int i = 0; i < this->num_elements; i++)
+    for (int i = 0; i < this->num_elements; i++) {
       rv.elements[i] = this->elements[i] * s;
+    }
     return rv;
   }
 
@@ -275,8 +286,9 @@ public:
   tvector<element_type> operator*(tvector<element_type> that) {
     this->check_equal_lengths(that);
     tvector<element_type> rv(this->num_elements);
-    for (int i = 0; i < this->num_elements; i++)
+    for (int i = 0; i < this->num_elements; i++) {
       rv.elements[i] = this->elements[i] * that.elements[i];
+    }
     return rv;
   }
 
@@ -298,12 +310,15 @@ public:
     tvector<element_type> rv(Anc);
     element_type t0 = this->elements[0];
     element_type zero = t0 - t0;
-    for (j = 0; j < Anc; j++)
+    for (j = 0; j < Anc; j++) {
       rv.elements[j] = zero;
+    }
 
-    for (j = 0; j < Anc; j++)
-      for (i = 0; i < Anr; i++)
+    for (j = 0; j < Anc; j++) {
+      for (i = 0; i < Anr; i++) {
         rv.elements[j] += this->elements[i] * A[i][j];
+      }
+    }
 
     // [ 0 1 2 3 ] = [ 0 1 2 ]   [ 00 01 02 03 ]j
     //   rv            t       *i[ 10 11 12 13 ]
@@ -316,8 +331,9 @@ public:
   element_type dot(tvector<element_type> that) {
     this->check_equal_lengths(that);
     element_type rv = this->elements[0] - this->elements[0];
-    for (int i = 0; i < this->num_elements; i++)
+    for (int i = 0; i < this->num_elements; i++) {
       rv += this->elements[i] * that.elements[i];
+    }
     return rv;
   }
 
@@ -325,8 +341,9 @@ public:
   // Elementwise exponentiation.
   tvector<element_type> exp(int power) {
     tvector<element_type> rv(this->num_elements);
-    for (int i = 0; i < this->num_elements; i++)
+    for (int i = 0; i < this->num_elements; i++) {
       rv.elements[i] = this->elements[i].exp(power);
+    }
     return rv;
   }
 
@@ -335,8 +352,9 @@ public:
   tvector<element_type> operator/(tvector<element_type> that) {
     this->check_equal_lengths(that);
     tvector<element_type> rv(this->num_elements);
-    for (int i = 0; i < this->num_elements; i++)
+    for (int i = 0; i < this->num_elements; i++) {
       rv.elements[i] = this->elements[i] / that.elements[i];
+    }
     return rv;
   }
 
@@ -350,23 +368,27 @@ public:
     return *this;
   }
   tvector<element_type> operator*=(element_type e) {
-    for (int i = 0; i < this->num_elements; i++)
+    for (int i = 0; i < this->num_elements; i++) {
       this->elements[i] *= e;
+    }
     return *this;
   }
   void mult_by(element_type e) {
-    for (int i = 0; i < this->num_elements; i++)
+    for (int i = 0; i < this->num_elements; i++) {
       this->elements[i] *= e;
+    }
   }
   tvector<element_type> operator*=(tvector<element_type> that) {
     this->check_equal_lengths(that);
-    for (int i = 0; i < this->num_elements; i++)
+    for (int i = 0; i < this->num_elements; i++) {
       this->elements[i] *= that.elements[i];
+    }
     return *this;
   }
   tvector<element_type> operator/=(element_type e) {
-    for (int i = 0; i < this->num_elements; i++)
+    for (int i = 0; i < this->num_elements; i++) {
       this->elements[i] /= e;
+    }
     return *this;
   }
 
@@ -389,19 +411,24 @@ public:
 
   void accum_row_mul(element_type a, element_type b,
                      tvector<element_type> &that) {
-    if (this->num_elements != that.num_elements)
+    if (this->num_elements != that.num_elements) {
       (void)check_equal_lengths(that);
-    for (int i = 0; i < this->num_elements; i++)
+    }
+    for (int i = 0; i < this->num_elements; i++) {
       this->elements[i] = this->elements[i] * a - that.elements[i] * b;
+    }
   }
 
   // ----------------------------------------------------------------
   bool operator==(tvector<element_type> &that) {
-    if (this->num_elements != that.num_elements)
+    if (this->num_elements != that.num_elements) {
       return false;
-    for (int i = 0; i < this->num_elements; i++)
-      if (this->elements[i] != that.elements[i])
+    }
+    for (int i = 0; i < this->num_elements; i++) {
+      if (this->elements[i] != that.elements[i]) {
         return false;
+      }
+    }
     return true;
   }
 
@@ -410,9 +437,11 @@ public:
 
   // ----------------------------------------------------------------
   bool operator==(element_type e) {
-    for (int i = 0; i < this->num_elements; i++)
-      if (this->elements[i] != e)
+    for (int i = 0; i < this->num_elements; i++) {
+      if (this->elements[i] != e) {
         return false;
+      }
+    }
     return true;
   }
 
@@ -439,8 +468,9 @@ public:
 
   // ----------------------------------------------------------------
   void ptrswap(tvector<element_type> &that) {
-    if (this->num_elements != that.num_elements)
+    if (this->num_elements != that.num_elements) {
       (void)check_equal_lengths(that);
+    }
     element_type *temp = this->elements;
     this->elements = that.elements;
     that.elements = temp;
@@ -485,8 +515,9 @@ static std::ostream &operator<<(std::ostream &os,
                                 const tvector<element_type> &v) {
   for (int i = 0; i < v.num_elements; i++) {
     os << v.elements[i];
-    if (i < (v.num_elements - 1))
+    if (i < (v.num_elements - 1)) {
       os << " ";
+    }
   }
   return os;
 }
@@ -527,8 +558,9 @@ static std::istringstream &operator>>(std::istringstream &iss,
   }
 
   element_type zero = v.elements[0] - v.elements[0];
-  if (v.elements)
+  if (v.elements) {
     delete[] v.elements;
+  }
   v.elements = 0;
   v.num_elements = 0;
 
@@ -542,8 +574,9 @@ static std::istringstream &operator>>(std::istringstream &iss,
     if (v.num_elements >= alloc_size) {
       alloc_size += more_size;
       element_type *ptemp = new element_type[alloc_size];
-      for (int i = 0; i < v.num_elements; i++)
+      for (int i = 0; i < v.num_elements; i++) {
         ptemp[i] = v.elements[i];
+      }
       delete[] v.elements;
       v.elements = ptemp;
     }
@@ -567,10 +600,12 @@ template <class element_type>
 static int tvqcmp(const void *pv1, const void *pv2) {
   const element_type *p1 = (const element_type *)pv1;
   const element_type *p2 = (const element_type *)pv2;
-  if (*p1 < *p2)
+  if (*p1 < *p2) {
     return -1;
-  if (*p1 > *p2)
+  }
+  if (*p1 > *p2) {
     return 1;
+  }
   return 0;
 }
 

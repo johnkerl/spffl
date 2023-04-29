@@ -157,8 +157,9 @@ f2n_polyrat_t f2n_polyrat_t::exp(int e) {
   }
 
   while (e != 0) {
-    if (e & 1)
+    if (e & 1) {
       rv *= xp;
+    }
     e = (unsigned)e >> 1;
     xp *= xp;
   }
@@ -169,8 +170,9 @@ f2n_polyrat_t f2n_polyrat_t::exp(int e) {
 // ----------------------------------------------------------------
 std::ostream &operator<<(std::ostream &os, const f2n_polyrat_t &a) {
   os << a.numer;
-  if (a.denom != 1)
+  if (a.denom != 1) {
     os << "/" << a.denom;
+  }
   return os;
 }
 
@@ -181,12 +183,15 @@ std::istream &operator>>(std::istream &is, f2n_polyrat_t &a) {
   // characters.  E.g. if the input is 0, space, tab, space, 1, then the
   // following won't suffice.
 
-  while (is.peek() == ' ')
+  while (is.peek() == ' ') {
     is.ignore(1, ' ');
-  while (is.peek() == '\t')
+  }
+  while (is.peek() == '\t') {
     is.ignore(1, '\t');
-  while (is.peek() == '\n')
+  }
+  while (is.peek() == '\n') {
     is.ignore(1, '\n');
+  }
 
   is >> a.numer;
   if (is.eof()) {
@@ -211,12 +216,15 @@ std::istringstream &operator>>(std::istringstream &iss, f2n_polyrat_t &a) {
   // characters.  E.g. if the input is 0, space, tab, space, 1, then the
   // following won't suffice.
 
-  while (iss.peek() == ' ')
+  while (iss.peek() == ' ') {
     iss.ignore(1, ' ');
-  while (iss.peek() == '\t')
+  }
+  while (iss.peek() == '\t') {
     iss.ignore(1, '\t');
-  while (iss.peek() == '\n')
+  }
+  while (iss.peek() == '\n') {
     iss.ignore(1, '\n');
+  }
 
   iss >> a.numer;
   if (iss.eof()) {
@@ -234,7 +242,8 @@ std::istringstream &operator>>(std::istringstream &iss, f2n_polyrat_t &a) {
 }
 
 // ----------------------------------------------------------------
-bool f2n_polyrat_t::from_string(const char *string, spffl::polynomials::f2_poly_t m) {
+bool f2n_polyrat_t::from_string(const char *string,
+                                spffl::polynomials::f2_poly_t m) {
   this->numer = spffl::polynomials::f2n_poly_t(
       spffl::polynomials::f2_polymod_t(spffl::polynomials::f2_poly_t(0), m));
   this->denom = spffl::polynomials::f2n_poly_t(
@@ -278,10 +287,12 @@ f2n_polyrat_t &f2n_polyrat_t::operator%=(f2n_polyrat_t that) {
 bool f2n_polyrat_t::operator==(f2n_polyrat_t that) const {
   // Our constructor ensures both *this and that are already in
   // canonical form.
-  if (this->numer != that.numer)
+  if (this->numer != that.numer) {
     return false;
-  if (this->denom != that.denom)
+  }
+  if (this->denom != that.denom) {
     return false;
+  }
   return true;
 }
 
@@ -292,8 +303,9 @@ bool f2n_polyrat_t::operator!=(f2n_polyrat_t that) const {
 
 // ----------------------------------------------------------------
 bool f2n_polyrat_t::operator==(spffl::polynomials::f2n_poly_t that) const {
-  if (this->denom != this->numer.prime_sfld_elt(1))
+  if (this->denom != this->numer.prime_sfld_elt(1)) {
     return false;
+  }
   return this->numer == that;
 }
 

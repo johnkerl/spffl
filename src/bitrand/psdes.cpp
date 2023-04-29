@@ -17,22 +17,25 @@ static uint32_t non_reentrant_seeded = 0;
 
 // ----------------------------------------------------------------
 uint32_t iran32(void) {
-  if (!non_reentrant_seeded)
+  if (!non_reentrant_seeded) {
     sran32_timeofday();
+  }
   return iran32_r(non_reentrant_state0, non_reentrant_state1);
 }
 
 // ----------------------------------------------------------------
 void iran64(uint32_t &out0, uint32_t &out1) {
-  if (!non_reentrant_seeded)
+  if (!non_reentrant_seeded) {
     sran32_timeofday();
+  }
   return iran64_r(out0, out1, non_reentrant_state0, non_reentrant_state1);
 }
 
 // ----------------------------------------------------------------
 float fran32(void) {
-  if (!non_reentrant_seeded)
+  if (!non_reentrant_seeded) {
     sran32_timeofday();
+  }
   return fran32_r(non_reentrant_state0, non_reentrant_state1);
 }
 
@@ -66,8 +69,9 @@ uint32_t iran32_r(uint32_t &state0, uint32_t &state1) {
   psdes_hash_64(word0, word1);
 
   state1++;
-  if (state1 == 0)
+  if (state1 == 0) {
     state0++;
+  }
 
   // Return low 32 bits of hash output; discard high 32 bits.
   return word1;
@@ -81,8 +85,9 @@ void iran64_r(uint32_t &out0, uint32_t &out1, uint32_t &state0,
   psdes_hash_64(out0, out1);
 
   state1++;
-  if (state1 == 0)
+  if (state1 == 0) {
     state0++;
+  }
 }
 
 // ----------------------------------------------------------------

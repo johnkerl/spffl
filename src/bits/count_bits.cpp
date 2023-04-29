@@ -52,8 +52,9 @@ static unsigned char byte_num_one_bits[] = {
 int count_one_bits(unsigned char *p, int nbytes) {
   int rv = 0;
   int i;
-  for (i = 0; i < nbytes; i++)
+  for (i = 0; i < nbytes; i++) {
     rv += byte_num_one_bits[p[i]];
+  }
   return rv;
 }
 
@@ -64,8 +65,9 @@ int count_one_bits(unsigned char *p, int nbytes) {
 int slow_count_one_bits(unsigned char u) {
   int rv = 0;
   while (u) {
-    if (u & 1)
+    if (u & 1) {
       rv++;
+    }
     u >>= 1;
   }
   return rv;
@@ -78,16 +80,18 @@ int main(void) {
   int nb;
 
   for (i = 0, u = 0; i < 256; i++, u++) {
-    if ((i & 7) == 0)
+    if ((i & 7) == 0) {
       printf("\t");
-    else
+    } else {
       printf(" ");
+    }
 
     nb = slow_count_one_bits(u);
     printf("%d /*%02x/,", nb, u);
 
-    if ((i & 7) == 7)
+    if ((i & 7) == 7) {
       printf("\n");
+    }
   }
 
   return 0;

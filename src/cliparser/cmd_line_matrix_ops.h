@@ -192,54 +192,59 @@ static void matlexan(mat_lex_ctx_t<element_type> &rlex_ctx) {
   }
   const char *s = rlex_ctx.argv[rlex_ctx.argi];
 
-  if (strcmp(s, "+") == 0)
+  if (strcmp(s, "+") == 0) {
     rlex_ctx.token = L_PLUS;
-  else if (strcmp(s, "-") == 0)
+  } else if (strcmp(s, "-") == 0) {
     rlex_ctx.token = L_MINUS;
-  else if (strcmp(s, "*") == 0)
+  } else if (strcmp(s, "*") == 0) {
     rlex_ctx.token = L_MUL;
-  else if (strcmp(s, ".") == 0)
+  } else if (strcmp(s, ".") == 0) {
     rlex_ctx.token = L_MUL;
-  else if (strcmp(s, "^") == 0)
+  } else if (strcmp(s, "^") == 0) {
     rlex_ctx.token = L_EXP;
+  }
 
-  else if (strcmp(s, "==") == 0)
+  else if (strcmp(s, "==") == 0) {
     rlex_ctx.token = L_EQ;
-  else if (strcmp(s, "!=") == 0)
+  } else if (strcmp(s, "!=") == 0) {
     rlex_ctx.token = L_NE;
-  else if (strcmp(s, "/=") == 0)
+  } else if (strcmp(s, "/=") == 0) {
     rlex_ctx.token = L_NE;
-  else if (strcmp(s, "rank") == 0)
+  } else if (strcmp(s, "rank") == 0) {
     rlex_ctx.token = L_RANK;
+  }
 
-  else if (strcmp(s, "det") == 0)
+  else if (strcmp(s, "det") == 0) {
     rlex_ctx.token = L_DET;
-  else if (strcmp(s, "inv") == 0)
+  } else if (strcmp(s, "inv") == 0) {
     rlex_ctx.token = L_INV;
-  else if (strcmp(s, "kerbas") == 0)
+  } else if (strcmp(s, "kerbas") == 0) {
     rlex_ctx.token = L_KERBAS;
-  else if (strcmp(s, "rr") == 0)
+  } else if (strcmp(s, "rr") == 0) {
     rlex_ctx.token = L_RR;
-  else if (strcmp(s, "rech") == 0)
+  } else if (strcmp(s, "rech") == 0) {
     rlex_ctx.token = L_RECH;
-  else if (strcmp(s, "rechr") == 0)
+  } else if (strcmp(s, "rechr") == 0) {
     rlex_ctx.token = L_RECHR;
-  else if (strcmp(s, "rrnz") == 0)
+  } else if (strcmp(s, "rrnz") == 0) {
     rlex_ctx.token = L_RRNZ;
-  else if (strcmp(s, "rechnz") == 0)
+  } else if (strcmp(s, "rechnz") == 0) {
     rlex_ctx.token = L_RECHNZ;
-  else if (strcmp(s, "transpose") == 0)
+  } else if (strcmp(s, "transpose") == 0) {
     rlex_ctx.token = L_TRANSPOSE;
+  }
 
-  else if (strcmp(s, "(") == 0)
+  else if (strcmp(s, "(") == 0) {
     rlex_ctx.token = L_LPAREN;
-  else if (strcmp(s, ")") == 0)
+  } else if (strcmp(s, ")") == 0) {
     rlex_ctx.token = L_RPAREN;
+  }
 
-  else if (strcmp(s, "[") == 0)
+  else if (strcmp(s, "[") == 0) {
     rlex_ctx.token = L_LPAREN;
-  else if (strcmp(s, "]") == 0)
+  } else if (strcmp(s, "]") == 0) {
     rlex_ctx.token = L_RPAREN;
+  }
 
   else {
     rlex_ctx.token = L_MAT;

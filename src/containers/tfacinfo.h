@@ -54,30 +54,34 @@ public:
     this->num_distinct = that.num_distinct;
     this->num_allocated = that.num_distinct;
     this->pfactors_and_counts = new factor_and_count_t[that.num_distinct];
-    for (int i = 0; i < that.num_distinct; i++)
+    for (int i = 0; i < that.num_distinct; i++) {
       this->pfactors_and_counts[i] = that.pfactors_and_counts[i];
+    }
     this->have_unit = that.have_unit;
     this->unit = that.unit;
   }
 
   // ----------------------------------------------------------------
   tfacinfo<element_type> &operator=(tfacinfo<element_type> that) {
-    if (this->pfactors_and_counts)
+    if (this->pfactors_and_counts) {
       delete[] this->pfactors_and_counts;
+    }
 
     this->num_distinct = that.num_distinct;
     this->num_allocated = that.num_distinct;
     this->pfactors_and_counts = new factor_and_count_t[that.num_distinct];
-    for (int i = 0; i < that.num_distinct; i++)
+    for (int i = 0; i < that.num_distinct; i++) {
       this->pfactors_and_counts[i] = that.pfactors_and_counts[i];
+    }
     this->have_unit = that.have_unit;
     this->unit = that.unit;
   }
 
   // ----------------------------------------------------------------
   ~tfacinfo(void) {
-    if (this->pfactors_and_counts)
+    if (this->pfactors_and_counts) {
       delete[] this->pfactors_and_counts;
+    }
     this->num_distinct = 0;
     this->num_allocated = 0;
     this->pfactors_and_counts = 0;
@@ -96,8 +100,9 @@ public:
   // Units don't count.
   int get_num_factors(void) {
     int rv = 0;
-    for (int i = 0; i < this->num_distinct; i++)
+    for (int i = 0; i < this->num_distinct; i++) {
       rv += this->pfactors_and_counts[i].count;
+    }
     return rv;
   }
 
@@ -222,14 +227,16 @@ public:
       factor_and_count_t *temp = this->pfactors_and_counts;
       this->num_allocated += TFACINFO_INCR_LENGTH;
       this->pfactors_and_counts = new factor_and_count_t[this->num_allocated];
-      for (int i = 0; i < this->num_distinct; i++)
+      for (int i = 0; i < this->num_distinct; i++) {
         this->pfactors_and_counts[i] = temp[i];
+      }
     }
 
     // Insert a new factor.  The find() method has returned the correct
     // insertion point.
-    for (int i = this->num_distinct; i > idx; i--)
+    for (int i = this->num_distinct; i > idx; i--) {
       this->pfactors_and_counts[i] = this->pfactors_and_counts[i - 1];
+    }
 
     this->pfactors_and_counts[idx].factor = e;
     this->pfactors_and_counts[idx].count = count;
@@ -266,8 +273,9 @@ public:
     element_type one = x / x;
     element_type rv = one;
 
-    if (e == 0)
+    if (e == 0) {
       return rv;
+    }
 
     if (e < 0) {
       if (e == -e) {
@@ -296,20 +304,23 @@ public:
       // may not have an exp() method.
       this->unit = this->tf_exp(this->unit, power);
     }
-    for (int i = 0; i < this->num_distinct; i++)
+    for (int i = 0; i < this->num_distinct; i++) {
       this->pfactors_and_counts[i].count *= power;
+    }
   }
 
   // ----------------------------------------------------------------
   void merge(tfacinfo<element_type> &that) {
-    for (int i = 0; i < that.num_distinct; i++)
+    for (int i = 0; i < that.num_distinct; i++) {
       this->insert_factor(that.pfactors_and_counts[i].factor,
                           that.pfactors_and_counts[i].count);
+    }
     if (that.have_unit) {
-      if (this->have_unit)
+      if (this->have_unit) {
         this->unit *= that.unit;
-      else
+      } else {
         this->unit = that.unit;
+      }
       this->have_unit = 1;
     }
   }
@@ -321,14 +332,16 @@ public:
   element_type unfactor(element_type one) {
     element_type rv = one;
 
-    if (this->have_unit)
+    if (this->have_unit) {
       rv *= this->unit;
+    }
     for (int i = 0; i < this->num_distinct; i++) {
       element_type f = this->pfactors_and_counts[i].factor;
       element_type fpower = one;
       int power = this->pfactors_and_counts[i].count;
-      for (int j = 1; j <= power; j++)
+      for (int j = 1; j <= power; j++) {
         fpower *= f;
+      }
       rv *= fpower;
     }
     return rv;
@@ -364,8 +377,9 @@ public:
       }
     }
     int rv = 1;
-    for (int i = 0; i < this->num_distinct; i++)
+    for (int i = 0; i < this->num_distinct; i++) {
       rv *= this->pfactors_and_counts[i].count + 1;
+    }
     return rv;
   }
 
@@ -412,8 +426,9 @@ public:
     }
     int nd = this->get_num_divisors();
     tvector<element_type> rv(nd);
-    for (int k = 0; k < nd; k++)
+    for (int k = 0; k < nd; k++) {
       rv[k] = this->get_kth_divisor(k, one);
+    }
     rv.sort();
     return rv;
   }
@@ -451,11 +466,13 @@ static std::ostream &operator<<(std::ostream &os,
     os << finfo.unit;
   }
   for (int i = 0; i < finfo.num_distinct; i++) {
-    if ((i > 0) || finfo.have_unit)
+    if ((i > 0) || finfo.have_unit) {
       os << " ";
+    }
     os << finfo.pfactors_and_counts[i].factor;
-    if (finfo.pfactors_and_counts[i].count != 1)
+    if (finfo.pfactors_and_counts[i].count != 1) {
       os << "^" << finfo.pfactors_and_counts[i].count;
+    }
   }
   return os;
 }

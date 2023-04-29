@@ -49,8 +49,9 @@ int tokenize(char *line, const char *seps, char **argv, int max_arguments) {
     } else {               // Not a separator
       if (!inside_token) { // Start of token
         inside_token = true;
-        if (argc >= max_arguments)
+        if (argc >= max_arguments) {
           break;
+        }
         argv[argc] = readp;
         argc++;
       }

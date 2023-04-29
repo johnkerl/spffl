@@ -114,9 +114,11 @@ f2pm_min_poly(spffl::polynomials::f2_polymod_t a) {
     exit(1);
   }
   spffl::polynomials::f2_poly_t p;
-  for (int j = 0; j <= l; j++)
-    if (B[0].get(j) == 1)
+  for (int j = 0; j <= l; j++) {
+    if (B[0].get(j) == 1) {
       p.set_bit(j);
+    }
+  }
   return p;
 }
 
@@ -150,8 +152,9 @@ f2npm_min_poly(spffl::polynomials::f2n_polymod_t a) {
     exit(1);
   }
   spffl::polynomials::f2n_poly_t mp;
-  for (int j = 0; j <= l; j++)
+  for (int j = 0; j <= l; j++) {
     mp.set_coeff(j, B[0][j]);
+  }
   return mp;
 }
 
@@ -184,8 +187,9 @@ fppm_min_poly(spffl::polynomials::fp_polymod_t a) {
     exit(1);
   }
   spffl::polynomials::fp_poly_t mp;
-  for (int j = 0; j <= l; j++)
+  for (int j = 0; j <= l; j++) {
     mp.set_coeff(j, B[0][j]);
+  }
   return mp;
 }
 

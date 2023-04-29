@@ -29,8 +29,9 @@ public:
     this->num_allocated = that.num_allocated;
     this->freeidx = that.freeidx;
     this->elements = new element_type[that.num_allocated];
-    for (int i = 0; i < that.freeidx; i++)
+    for (int i = 0; i < that.freeidx; i++) {
       this->elements[i] = that.elements[i];
+    }
   }
 
   // ----------------------------------------------------------------
@@ -45,13 +46,15 @@ public:
 
   // ----------------------------------------------------------------
   tstack<element_type> &operator=(tstack<element_type> that) {
-    if (this->elements != 0)
+    if (this->elements != 0) {
       delete[] this->elements;
+    }
     this->num_allocated = that.num_allocated;
     this->freeidx = that.freeidx;
     this->elements = new element_type[that.num_allocated];
-    for (int i = 0; i < that.freeidx; i++)
+    for (int i = 0; i < that.freeidx; i++) {
       this->elements[i] = that.elements[i];
+    }
   }
 
   // ----------------------------------------------------------------
@@ -60,8 +63,9 @@ public:
       element_type *temp = this->elements;
       this->num_allocated += TSTACK_INCR_SIZE;
       this->elements = new element_type[this->num_allocated];
-      for (int i = 0; i < this->freeidx; i++)
+      for (int i = 0; i < this->freeidx; i++) {
         this->elements[i] = temp[i];
+      }
       delete[] temp;
     }
     this->elements[this->freeidx] = re;
@@ -92,8 +96,9 @@ static std::ostream &operator<<(std::ostream &os,
                                 const tstack<element_type> &v) {
   for (int i = 0; i < v.num_elements; i++) {
     os << v.elements[i];
-    if (i < (v.num_elements - 1))
+    if (i < (v.num_elements - 1)) {
       os << " ";
+    }
   }
   return os;
 }
@@ -134,8 +139,9 @@ static std::istringstream &operator>>(std::istringstream &iss,
   }
 
   element_type zero = v.elements[0] - v.elements[0];
-  if (v.elements)
+  if (v.elements) {
     delete[] v.elements;
+  }
   v.elements = 0;
   v.num_elements = 0;
 
@@ -149,8 +155,9 @@ static std::istringstream &operator>>(std::istringstream &iss,
     if (v.num_elements >= alloc_size) {
       alloc_size += more_size;
       element_type *ptemp = new element_type[alloc_size];
-      for (int i = 0; i < v.num_elements; i++)
+      for (int i = 0; i < v.num_elements; i++) {
         ptemp[i] = v.elements[i];
+      }
       delete[] v.elements;
       v.elements = ptemp;
     }

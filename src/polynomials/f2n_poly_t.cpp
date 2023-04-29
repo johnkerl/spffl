@@ -173,8 +173,9 @@ f2n_poly_t f2n_poly_t::from_base_rep(int b, f2_poly_t m) {
 f2n_poly_t::f2n_poly_t(const f2n_poly_t &that) {
   this->degree = that.degree;
   this->coeffs = new f2_polymod_t[this->degree + 1];
-  for (int i = 0; i <= that.degree; i++)
+  for (int i = 0; i <= that.degree; i++) {
     this->coeffs[i] = that.coeffs[i];
+  }
 }
 
 // ----------------------------------------------------------------
@@ -202,12 +203,14 @@ int f2n_poly_t::get_characteristic(void) { return 2; }
 
 // ----------------------------------------------------------------
 f2n_poly_t &f2n_poly_t::operator=(f2n_poly_t that) {
-  if (this->coeffs)
+  if (this->coeffs) {
     delete[] this->coeffs;
+  }
   this->degree = that.degree;
   this->coeffs = new f2_polymod_t[this->degree + 1];
-  for (int i = 0; i <= that.degree; i++)
+  for (int i = 0; i <= that.degree; i++) {
     this->coeffs[i] = that.coeffs[i];
+  }
   return *this;
 }
 
@@ -219,17 +222,21 @@ f2n_poly_t f2n_poly_t::operator+(f2n_poly_t that) const {
   if (this->degree < that.degree) {
     rv.degree = that.degree;
     rv.coeffs = new f2_polymod_t[rv.degree + 1];
-    for (i = 0; i <= this->degree; i++)
+    for (i = 0; i <= this->degree; i++) {
       rv.coeffs[i] = this->coeffs[i] + that.coeffs[i];
-    for (i = this->degree + 1; i <= that.degree; i++)
+    }
+    for (i = this->degree + 1; i <= that.degree; i++) {
       rv.coeffs[i] = that.coeffs[i];
+    }
   } else {
     rv.degree = this->degree;
     rv.coeffs = new f2_polymod_t[rv.degree + 1];
-    for (i = 0; i <= that.degree; i++)
+    for (i = 0; i <= that.degree; i++) {
       rv.coeffs[i] = this->coeffs[i] + that.coeffs[i];
-    for (i = that.degree + 1; i <= this->degree; i++)
+    }
+    for (i = that.degree + 1; i <= this->degree; i++) {
       rv.coeffs[i] = this->coeffs[i];
+    }
   }
   rv.recompute_degree();
   return rv;
@@ -251,17 +258,21 @@ f2n_poly_t f2n_poly_t::operator-(f2n_poly_t that) const {
   if (this->degree < that.degree) {
     rv.degree = that.degree;
     rv.coeffs = new f2_polymod_t[rv.degree + 1];
-    for (i = 0; i <= this->degree; i++)
+    for (i = 0; i <= this->degree; i++) {
       rv.coeffs[i] = this->coeffs[i] - that.coeffs[i];
-    for (i = this->degree + 1; i <= that.degree; i++)
+    }
+    for (i = this->degree + 1; i <= that.degree; i++) {
       rv.coeffs[i] = -that.coeffs[i];
+    }
   } else {
     rv.degree = this->degree;
     rv.coeffs = new f2_polymod_t[rv.degree + 1];
-    for (i = 0; i <= that.degree; i++)
+    for (i = 0; i <= that.degree; i++) {
       rv.coeffs[i] = this->coeffs[i] - that.coeffs[i];
-    for (i = that.degree + 1; i <= this->degree; i++)
+    }
+    for (i = that.degree + 1; i <= this->degree; i++) {
       rv.coeffs[i] = this->coeffs[i];
+    }
   }
   rv.recompute_degree();
   return rv;
@@ -279,8 +290,9 @@ f2n_poly_t f2n_poly_t::operator-(f2_polymod_t a) const {
 f2n_poly_t f2n_poly_t::operator-(void) const {
   f2n_poly_t rv;
   rv.coeffs = new f2_polymod_t[rv.degree + 1];
-  for (int i = 0; i <= this->degree; i++)
+  for (int i = 0; i <= this->degree; i++) {
     rv.coeffs[i] = -this->coeffs[i];
+  }
   return rv;
 }
 
@@ -291,11 +303,14 @@ f2n_poly_t f2n_poly_t::operator*(f2n_poly_t that) const {
   rv.coeffs = new f2_polymod_t[rv.degree + 1];
 
   f2_polymod_t zero = this->coeffs[0] - this->coeffs[0];
-  for (int k = 0; k <= rv.degree; k++)
+  for (int k = 0; k <= rv.degree; k++) {
     rv.coeffs[k] = zero;
-  for (int i = 0; i <= this->degree; i++)
-    for (int j = 0; j <= that.degree; j++)
+  }
+  for (int i = 0; i <= this->degree; i++) {
+    for (int j = 0; j <= that.degree; j++) {
       rv.coeffs[i + j] += this->coeffs[i] * that.coeffs[j];
+    }
+  }
   rv.recompute_degree();
   return rv;
 }
@@ -303,8 +318,9 @@ f2n_poly_t f2n_poly_t::operator*(f2n_poly_t that) const {
 // ----------------------------------------------------------------
 f2n_poly_t f2n_poly_t::operator*(f2_polymod_t a) {
   f2n_poly_t rv = *this;
-  for (int i = 0; i <= rv.degree; i++)
+  for (int i = 0; i <= rv.degree; i++) {
     rv.coeffs[i] *= a;
+  }
   rv.recompute_degree();
   return rv;
 }
@@ -326,8 +342,9 @@ f2n_poly_t f2n_poly_t::operator%(f2n_poly_t that) {
 // ----------------------------------------------------------------
 f2n_poly_t f2n_poly_t::operator/(f2_polymod_t a) {
   f2n_poly_t rv = *this;
-  for (int i = 0; i <= rv.degree; i++)
+  for (int i = 0; i <= rv.degree; i++) {
     rv.coeffs[i] /= a;
+  }
   rv.recompute_degree();
   return rv;
 }
@@ -446,8 +463,9 @@ void f2n_poly_t::quot_and_rem(f2n_poly_t &that, f2n_poly_t &rquot,
     quot.coeffs[shift] = multiplier;
 
     int stop = shift + divisor_with_mul.degree;
-    for (int i = shift; i <= stop; i++)
+    for (int i = shift; i <= stop; i++) {
       rem.coeffs[i] -= divisor_with_mul.coeffs[i - shift];
+    }
   }
 
   // Quotient degree must be the difference of dividend and divisor
@@ -469,10 +487,12 @@ f2n_poly_t f2n_poly_t::gcd(f2n_poly_t &that) {
   f2n_poly_t c, q, r;
   f2n_poly_t d; // Return value.
 
-  if (*this == 0)
+  if (*this == 0) {
     return that;
-  if (that == 0)
+  }
+  if (that == 0) {
     return *this;
+  }
 
   c = *this;
   d = that;
@@ -481,8 +501,9 @@ f2n_poly_t f2n_poly_t::gcd(f2n_poly_t &that) {
 
     c.quot_and_rem(d, q, r);
 
-    if (r == 0)
+    if (r == 0) {
       break;
+    }
     c = d;
     d = r;
   }
@@ -507,8 +528,9 @@ f2n_poly_t f2n_poly_t::ext_gcd(f2n_poly_t &that, f2n_poly_t &rm,
 
   while (1) {
     c.quot_and_rem(d, q, r);
-    if (r == 0)
+    if (r == 0) {
       break;
+    }
 
     c = d;
     d = r;
@@ -554,8 +576,9 @@ f2n_poly_t f2n_poly_t::exp(int e) {
       exit(1);
     } else {
       while (e != 0) {
-        if (e & 1)
+        if (e & 1) {
           rv *= xp;
+        }
         e = (unsigned)e >> 1;
         xp *= xp;
       }
@@ -566,14 +589,16 @@ f2n_poly_t f2n_poly_t::exp(int e) {
 
 // ----------------------------------------------------------------
 f2n_poly_t f2n_poly_t::deriv(void) {
-  if (this->degree == 0)
+  if (this->degree == 0) {
     return this->prime_sfld_elt(0);
+  }
 
   f2n_poly_t rv(*this);
   f2_poly_t m = this->coeffs[0].get_modulus();
   rv.degree--;
-  for (int i = 1; i <= this->degree; i++)
+  for (int i = 1; i <= this->degree; i++) {
     rv.coeffs[i - 1] = this->coeffs[i] * f2_polymod_t(i, m);
+  }
   rv.recompute_degree();
   return rv;
 }
@@ -599,15 +624,18 @@ bool f2n_poly_t::square_root(f2n_poly_t &rroot) {
   int pow = 1 << (n - 1);
 
   out.set_coeff(this->degree, zero);
-  for (di = this->degree - 1; di >= 0; di--)
+  for (di = this->degree - 1; di >= 0; di--) {
     out.coeffs[di] = zero;
+  }
 
   for (si = 0, di = 0; si <= this->degree; si += 2, di++) {
     out.coeffs[di] = this->coeffs[si].exp(pow);
-    if (si + 1 > this->degree)
+    if (si + 1 > this->degree) {
       break;
-    if (this->coeffs[si + 1] != zero)
+    }
+    if (this->coeffs[si + 1] != zero) {
       return false;
+    }
   }
   out.recompute_degree();
   rroot = out;
@@ -629,45 +657,53 @@ int f2n_poly_t::find_degree(void) const { return this->degree; }
 
 // ----------------------------------------------------------------
 f2_polymod_t f2n_poly_t::get_coeff(int deg) const {
-  if (deg < 0)
+  if (deg < 0) {
     this->bounds_check(deg);
+  }
 
-  if (deg > this->degree)
+  if (deg > this->degree) {
     return (this->coeffs[0] - this->coeffs[0]);
-  else
+  } else {
     return this->coeffs[deg];
+  }
 }
 
 // ----------------------------------------------------------------
 void f2n_poly_t::set_coeff(int pos, f2_polymod_t c) {
-  if (pos < 0)
+  if (pos < 0) {
     this->bounds_check(pos);
+  }
 
   f2_polymod_t zero(0, this->coeffs[0].get_modulus());
   if (pos > this->degree) {
     f2_polymod_t *temp = new f2_polymod_t[pos + 1];
-    for (int i = 0; i <= this->degree; i++)
+    for (int i = 0; i <= this->degree; i++) {
       temp[i] = this->coeffs[i];
-    for (int i = this->degree + 1; i < pos; i++)
+    }
+    for (int i = this->degree + 1; i < pos; i++) {
       temp[i] = zero;
+    }
     temp[pos] = c;
 
     delete[] this->coeffs;
     this->coeffs = temp;
     this->degree = pos;
-    if (c == zero)
+    if (c == zero) {
       this->recompute_degree();
+    }
   } else {
     this->coeffs[pos] = c;
-    if ((pos == this->degree) && (c == zero))
+    if ((pos == this->degree) && (c == zero)) {
       this->recompute_degree();
+    }
   }
 }
 
 // ----------------------------------------------------------------
 void f2n_poly_t::change_modulus(f2_poly_t new_modulus) {
-  for (int i = 0; i <= this->degree; i++)
+  for (int i = 0; i <= this->degree; i++) {
     this->coeffs[i].change_modulus(new_modulus);
+  }
 }
 
 // ----------------------------------------------------------------
@@ -682,15 +718,17 @@ void f2n_poly_t::recompute_degree(void) {
       break;
     }
   }
-  if (is_zero)
+  if (is_zero) {
     this->degree = 0;
+  }
 }
 
 // ----------------------------------------------------------------
 bool f2n_poly_t::operator==(int v) const {
   int d = this->degree;
-  if (d != 0)
+  if (d != 0) {
     return false;
+  }
   return this->coeffs[0].get_residue() == v;
 }
 
@@ -811,9 +849,11 @@ std::ostream &operator<<(std::ostream &os, const f2n_poly_t &poly) {
   f2_poly_t m = poly.get_coeff(0).get_modulus();
 
   for (int i = d; i >= 0; i--) {
-    if (m > 9)
-      if (i < d)
+    if (m > 9) {
+      if (i < d) {
         os << ":";
+      }
+    }
     os << poly.get_coeff(i).get_residue();
   }
 
@@ -895,8 +935,9 @@ std::istringstream &operator>>(std::istringstream &iss, f2n_poly_t &poly) {
 
 // ----------------------------------------------------------------
 bool f2n_poly_t::from_string(const char *string, f2_poly_t m) {
-  if (this->coeffs)
+  if (this->coeffs) {
     delete[] this->coeffs;
+  }
 
   int num_colons = 0;
   for (const char *q = string; *q; q++) {
@@ -946,8 +987,9 @@ void f2n_poly_t::promote(void) {
   }
   f2_polymod_t *ocoeffs = this->coeffs;
   this->coeffs = new f2_polymod_t[this->degree + 2];
-  for (int i = 0; i <= this->degree; i++)
+  for (int i = 0; i <= this->degree; i++) {
     this->coeffs[i + 1] = ocoeffs[i];
+  }
   this->coeffs[0] = this->coeffs[1] - this->coeffs[1];
   this->degree++;
   delete[] ocoeffs;

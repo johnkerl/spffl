@@ -16,22 +16,25 @@ namespace spffl::intmath {
 bool isprime_trial(int n) {
   int d, q;
 
-  if (n == -n)
+  if (n == -n) {
     return false;
-  else if (n < 0)
+  } else if (n < 0) {
     n = -n;
+  }
 
-  if (n <= 1)
+  if (n <= 1) {
     return false;
-  else if (n <= 3)
+  } else if (n <= 3) {
     return true;
-  else if ((n & 1) == 0)
+  } else if ((n & 1) == 0) {
     return false;
+  }
 
   for (d = 3, q = n; d <= q; d += 2) {
     q = n / d;
-    if (n == q * d)
+    if (n == q * d) {
       return false;
+    }
   }
 
   return true;
@@ -42,24 +45,28 @@ bool isprime_table(int n) {
   int i;
   unsigned un;
 
-  if (n == -n)
+  if (n == -n) {
     return false;
-  else if (n < 0)
+  } else if (n < 0) {
     n = -n;
+  }
 
-  if (n <= 1)
+  if (n <= 1) {
     return false;
+  }
 
   un = (unsigned)n;
   for (i = 0; i < numprimes16; i++) {
     if ((un % primes_16[i]) == 0) {
-      if (un == primes_16[i])
+      if (un == primes_16[i]) {
         return 1;
-      else
+      } else {
         return false;
+      }
     }
-    if (primes_16[i] * primes_16[i] > un)
+    if (primes_16[i] * primes_16[i] > un) {
       return 1;
+    }
   }
   return true;
 }

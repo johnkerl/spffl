@@ -94,8 +94,9 @@ f2n_polymod_t f2n_polymod_t::operator*(int a) {
   f2n_polymod_t rv(*this);
   if (a & 1)
     ;
-  else
+  else {
     rv = rv - rv;
+  }
   return rv;
 }
 
@@ -198,13 +199,16 @@ std::ostream &operator<<(std::ostream &os, const f2n_polymod_t &a) {
   f2_poly_t m = a.residue.get_coeff(0).get_modulus();
 
   for (int i = max; i >= 0; i--) {
-    if (m > 9)
-      if (i < max)
+    if (m > 9) {
+      if (i < max) {
         os << ":";
-    if (i > adeg)
+      }
+    }
+    if (i > adeg) {
       os << 0;
-    else
+    } else {
       os << a.residue.get_coeff(i).get_residue();
+    }
   }
 
   return os;
@@ -221,8 +225,9 @@ std::istringstream &operator>>(std::istringstream &iss, f2n_polymod_t &a) {
 bool f2n_polymod_t::from_string(const char *string, f2n_poly_t &m) {
   f2n_poly_t r;
   f2_poly_t mm = m.get_coeff(0).get_modulus();
-  if (!r.from_string(string, mm))
+  if (!r.from_string(string, mm)) {
     return false;
+  }
   *this = f2n_polymod_t(r, m);
   return true;
 }
@@ -265,10 +270,12 @@ f2n_polymod_t &f2n_polymod_t::operator%=(f2n_polymod_t that) {
 
 // ----------------------------------------------------------------
 bool f2n_polymod_t::operator==(f2n_polymod_t that) const {
-  if (this->residue != that.residue)
+  if (this->residue != that.residue) {
     return false;
-  if (this->modulus != that.modulus)
+  }
+  if (this->modulus != that.modulus) {
     return false;
+  }
   return true;
 }
 

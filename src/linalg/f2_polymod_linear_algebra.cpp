@@ -35,8 +35,9 @@ f2pm_char_poly(tmatrix<spffl::polynomials::f2_polymod_t> &A) {
   for (i = 0; i < n; i++) {
     for (j = 0; j < n; j++) {
       tI_A[i][j] = -spffl::polynomials::f2n_poly_t(A[i][j]);
-      if (i == j)
+      if (i == j) {
         tI_A[i][j] += t;
+      }
     }
   }
 
@@ -63,10 +64,12 @@ f2np_companion_matrix(spffl::polynomials::f2n_poly_t chpol) {
   // 0 0 1 0
 
   rv = zero_m;
-  for (i = 1; i < n; i++)
+  for (i = 1; i < n; i++) {
     rv[i][i - 1] = one_m;
-  for (i = 0; i < n; i++)
+  }
+  for (i = 0; i < n; i++) {
     rv[0][n - 1 - i] = -chpol.get_coeff(i);
+  }
 
   return rv;
 }
@@ -104,15 +107,17 @@ bool f2pm_matrix_is_diagonalizable(
   // Compute the matrix's characteristic polynomial.
   spffl::polynomials::f2n_poly_t chpol = f2pm_char_poly(A);
 
-  if (verbose)
+  if (verbose) {
     std::cout << "chpoly = " << chpol << "\n";
+  }
 
   // Factor the char poly into irreducibles over the base field.
   tfacinfo<spffl::polynomials::f2n_poly_t> base_finfo =
       spffl::factorization::f2n_poly_factor(chpol);
 
-  if (verbose)
+  if (verbose) {
     std::cout << "factors = " << base_finfo << "\n";
+  }
 
   // Find the LCM of the degrees of the factors, over the base field.
   int deglcm = 1;
@@ -123,8 +128,9 @@ bool f2pm_matrix_is_diagonalizable(
     deglcm = spffl::intmath::int_lcm(deglcm, deg);
   }
 
-  if (verbose)
+  if (verbose) {
     std::cout << "LCM of degrees = " << deglcm << "\n";
+  }
 
   // Find a modulus for the splitting field of the char poly.
   // The absolute degree is the degree over F2, not over the base field.
@@ -174,8 +180,9 @@ bool f2pm_matrix_is_diagonalizable(
   for (int i = 0; i < ext_finfo.get_num_distinct(); i++) {
     spffl::polynomials::f2n_poly_t factor = ext_finfo.get_ith_factor(i);
     int d = factor.find_degree();
-    if (d == 1)
+    if (d == 1) {
       nev++;
+    }
   }
 
   reigenvalues = tvector<spffl::polynomials::f2_polymod_t>(nev);
@@ -198,8 +205,9 @@ bool f2pm_matrix_is_diagonalizable(
     int rank = A_tI.get_rank();
     int nullity = n - rank;
     int multiplicity = ext_finfo.get_ith_count(i);
-    if (nullity != multiplicity)
+    if (nullity != multiplicity) {
       rv = false;
+    }
 
     if (verbose) {
       std::cout << "Eigenvalue " << reigenvalues[i] << " multiplicity "

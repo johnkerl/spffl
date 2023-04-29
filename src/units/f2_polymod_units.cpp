@@ -42,8 +42,9 @@ int f2_polymod_order(spffl::polynomials::f2_polymod_t a) {
   // Thus, here we will find the *least* exponent e such that a^e = 1.
   for (int i = 0; i < nd; i++) {
     spffl::polynomials::f2_polymod_t ap = a.exp(phi_divisors[i]);
-    if (ap == one)
+    if (ap == one) {
       return phi_divisors[i];
+    }
   }
 
   // By Lagrange's theorem, g^m = 1 for all units g, with m the order
@@ -93,8 +94,9 @@ bool f2_polymod_find_generator(spffl::polynomials::f2_poly_t m,
 bool f2_poly_is_primitive(spffl::polynomials::f2_poly_t m) {
   spffl::polynomials::f2_poly_t pol1(1); // 1 as a polynomial.
   spffl::polynomials::f2_poly_t polx(1, 0);
-  if (polx.gcd(m) != pol1)
+  if (polx.gcd(m) != pol1) {
     return false;
+  }
 
   spffl::polynomials::f2_polymod_t rcr1(
       pol1, m); // Equiv. class of 1 in the residue class ring.
@@ -111,14 +113,16 @@ bool f2_poly_is_primitive(spffl::polynomials::f2_poly_t m) {
   int nmpd = mpds.get_num_elements();
   for (int i = 0; i < nmpd; i++) {
     spffl::polynomials::f2_polymod_t rcrxpower = rcrx.exp(mpds[i]);
-    if (rcrxpower == rcr1)
+    if (rcrxpower == rcr1) {
       return false;
+    }
   }
 
   // This can happen when m is reducible.
   spffl::polynomials::f2_polymod_t rcrxpower = rcrx.exp(phi);
-  if (rcrxpower != rcr1)
+  if (rcrxpower != rcr1) {
     return false;
+  }
 
   return true;
 }
@@ -127,8 +131,9 @@ bool f2_poly_is_primitive(spffl::polynomials::f2_poly_t m) {
 int f2_poly_period(spffl::polynomials::f2_poly_t m) {
   spffl::polynomials::f2_poly_t x(1, 0);
   spffl::polynomials::f2_poly_t one(1);
-  if (x.gcd(m) != one)
+  if (x.gcd(m) != one) {
     return 0;
+  }
   return f2_polymod_order(spffl::polynomials::f2_polymod_t(x, m));
 }
 
@@ -147,8 +152,9 @@ spffl::polynomials::f2_poly_t f2_poly_find_prim(int degree, int need_irr) {
 
   while (rv.find_degree() == degree) {
     if (f2_poly_is_primitive(rv)) {
-      if (!need_irr || spffl::factorization::f2_poly_is_irreducible(rv))
+      if (!need_irr || spffl::factorization::f2_poly_is_irreducible(rv)) {
         return rv;
+      }
     }
     rv.increment();
   }
@@ -174,8 +180,9 @@ spffl::polynomials::f2_poly_t f2_poly_random_prim(int degree, int need_irr) {
   for (;;) {
     rv = spffl::random::f2_poly_random(degree);
     if (f2_poly_is_primitive(rv)) {
-      if (!need_irr || spffl::factorization::f2_poly_is_irreducible(rv))
+      if (!need_irr || spffl::factorization::f2_poly_is_irreducible(rv)) {
         return rv;
+      }
     }
   }
 }
@@ -197,10 +204,12 @@ typedef struct _poly_and_index_t {
 static int poly_and_index_qcmp(const void *pv1, const void *pv2) {
   const poly_and_index_t *p1 = (const poly_and_index_t *)pv1;
   const poly_and_index_t *p2 = (const poly_and_index_t *)pv2;
-  if (p1->elt < p2->elt)
+  if (p1->elt < p2->elt) {
     return -1;
-  if (p1->elt > p2->elt)
+  }
+  if (p1->elt > p2->elt) {
     return 1;
+  }
   return 0;
 }
 

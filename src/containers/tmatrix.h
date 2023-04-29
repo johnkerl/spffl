@@ -42,8 +42,9 @@ public:
     this->num_rows = init_num_rows;
     this->num_cols = init_num_cols;
     this->rows = new tvector<element_type>[init_num_rows];
-    for (int i = 0; i < init_num_rows; i++)
+    for (int i = 0; i < init_num_rows; i++) {
       this->rows[i] = tvector<element_type>(init_num_cols);
+    }
   }
 
   // ----------------------------------------------------------------
@@ -70,8 +71,9 @@ public:
     this->num_rows = that.num_rows;
     this->num_cols = that.num_cols;
     this->rows = new tvector<element_type>[that.num_rows];
-    for (int i = 0; i < that.num_rows; i++)
+    for (int i = 0; i < that.num_rows; i++) {
       this->rows[i] = that.rows[i];
+    }
   }
 
   // ----------------------------------------------------------------
@@ -87,10 +89,12 @@ public:
     int max_cols = 0;
     for (int i = 0; i < this->num_rows; i++) {
       int cur_cols = this->rows[i].get_num_elements();
-      if (cur_cols > max_cols)
+      if (cur_cols > max_cols) {
         max_cols = cur_cols;
-      if (cur_cols < min_cols)
+      }
+      if (cur_cols < min_cols) {
         min_cols = cur_cols;
+      }
     }
     if (min_cols != max_cols) {
       std::cerr << "tmatrix:  ragged input.  # rows = " << this->num_rows
@@ -108,10 +112,11 @@ public:
   bool load_from_file(char *file_name) {
     if ((strcmp(file_name, "-") == 0) || (strcmp(file_name, "@") == 0)) {
       std::cin >> *this;
-      if (std::cin.fail())
+      if (std::cin.fail()) {
         return false;
-      else
+      } else {
         return true;
+      }
     }
 
     std::ifstream ifs;
@@ -190,8 +195,9 @@ public:
       return false;
     }
     char *pinnerstart = pouterleft + 1;
-    while ((*pinnerstart == ' ') || (*pinnerstart == '\t'))
+    while ((*pinnerstart == ' ') || (*pinnerstart == '\t')) {
       pinnerstart++;
+    }
 
     char *pouterright = strrchr(pouterleft, ']');
     if (pouterright == 0) {
@@ -251,10 +257,12 @@ public:
       // for (int i = 0; i < this->num_rows; i++)
       // this->rows[i][0] = column[i];
       this->rows = new tvector<element_type>[this->num_rows];
-      for (int i = 0; i < this->num_rows; i++)
+      for (int i = 0; i < this->num_rows; i++) {
         this->rows[i] = temp;
-      for (int i = 0; i < this->num_rows; i++)
+      }
+      for (int i = 0; i < this->num_rows; i++) {
         this->rows[i][0] = column[i];
+      }
     }
 
     free(copy);
@@ -300,9 +308,11 @@ public:
   // ----------------------------------------------------------------
   tmatrix<element_type> &operator=(const element_type scalar) {
     if (this->rows) {
-      for (int i = 0; i < this->num_rows; i++)
-        for (int j = 0; j < this->num_cols; j++)
+      for (int i = 0; i < this->num_rows; i++) {
+        for (int j = 0; j < this->num_cols; j++) {
           this->rows[i][j] = scalar;
+        }
+      }
     } else {
       this->num_rows = 1;
       this->num_cols = 1;
@@ -328,29 +338,35 @@ public:
       this->num_rows = that.num_rows;
       this->num_cols = that.num_cols;
       this->rows = new tvector<element_type>[that.num_rows];
-      for (i = 0; i < that.num_rows; i++)
+      for (i = 0; i < that.num_rows; i++) {
         this->rows[i] = tvector<element_type>(that.num_cols);
+      }
     }
 
-    for (i = 0; i < that.num_rows; i++)
+    for (i = 0; i < that.num_rows; i++) {
       this->rows[i] = that.rows[i];
+    }
     return *this;
   }
 
   // ----------------------------------------------------------------
   bool operator==(tmatrix<element_type> that) {
     this->check_dims(that, "operator==");
-    for (int i = 0; i < this->num_rows; i++)
-      if (this->rows[i] != that.rows[i])
+    for (int i = 0; i < this->num_rows; i++) {
+      if (this->rows[i] != that.rows[i]) {
         return false;
+      }
+    }
     return true;
   }
 
   // ----------------------------------------------------------------
   bool operator==(element_type e) {
-    for (int i = 0; i < this->num_rows; i++)
-      if (this->rows[i] != e)
+    for (int i = 0; i < this->num_rows; i++) {
+      if (this->rows[i] != e) {
         return false;
+      }
+    }
     return true;
   }
 
@@ -381,8 +397,9 @@ public:
       exit(1);
     }
     tvector<element_type> rv(this->num_rows);
-    for (int i = 0; i < this->num_rows; i++)
+    for (int i = 0; i < this->num_rows; i++) {
       rv[i] = this->rows[i][col_index];
+    }
     return rv;
   }
 
@@ -400,17 +417,20 @@ public:
                 << v.get_num_elements() << ".\n";
       exit(1);
     }
-    for (int i = 0; i < this->num_rows; i++)
+    for (int i = 0; i < this->num_rows; i++) {
       this->rows[i][col_index] = v[i];
+    }
   }
 
   // ----------------------------------------------------------------
   tmatrix<element_type> operator+(tmatrix<element_type> that) {
     this->check_dims(that, "operator+");
     tmatrix<element_type> rv(this->num_rows, this->num_cols);
-    for (int i = 0; i < this->num_rows; i++)
-      for (int j = 0; j < this->num_cols; j++)
+    for (int i = 0; i < this->num_rows; i++) {
+      for (int j = 0; j < this->num_cols; j++) {
         rv[i][j] = this->rows[i][j] + that.rows[i][j];
+      }
+    }
     return rv;
   }
 
@@ -426,18 +446,22 @@ public:
     }
 
     tmatrix<element_type> rv(this->num_rows, this->num_cols);
-    for (int i = 0; i < this->num_rows; i++)
-      for (int j = 0; j < this->num_cols; j++)
+    for (int i = 0; i < this->num_rows; i++) {
+      for (int j = 0; j < this->num_cols; j++) {
         rv[i][j] = this->rows[i][j] - that.rows[i][j];
+      }
+    }
     return rv;
   }
 
   // ----------------------------------------------------------------
   tmatrix<element_type> operator-(void) {
     tmatrix<element_type> rv(this->num_rows, this->num_cols);
-    for (int i = 0; i < this->num_rows; i++)
-      for (int j = 0; j < this->num_cols; j++)
+    for (int i = 0; i < this->num_rows; i++) {
+      for (int j = 0; j < this->num_cols; j++) {
         rv[i][j] = -this->rows[i][j];
+      }
+    }
     return rv;
   }
 
@@ -448,8 +472,9 @@ public:
       exit(1);
     }
     tmatrix<element_type> rv(*this);
-    for (int i = 0; i < this->num_rows; i++)
+    for (int i = 0; i < this->num_rows; i++) {
       rv[i][i] += e;
+    }
     return rv;
   }
 
@@ -460,8 +485,9 @@ public:
       exit(1);
     }
     tmatrix<element_type> rv(*this);
-    for (int i = 0; i < this->num_rows; i++)
+    for (int i = 0; i < this->num_rows; i++) {
       rv[i][i] -= e;
+    }
     return rv;
   }
 
@@ -482,12 +508,15 @@ public:
     tvector<element_type> rv(this->num_rows);
     element_type t00 = this->rows[0][0];
     element_type zero = t00 - t00;
-    for (i = 0; i < this->num_rows; i++)
+    for (i = 0; i < this->num_rows; i++) {
       rv[i] = zero;
+    }
 
-    for (i = 0; i < this->num_rows; i++)
-      for (j = 0; j < this->num_cols; j++)
+    for (i = 0; i < this->num_rows; i++) {
+      for (j = 0; j < this->num_cols; j++) {
         rv[i] += this->rows[i][j] * v[j];
+      }
+    }
 
     return rv;
   }
@@ -501,8 +530,9 @@ private:
     tmatrix<element_type> apower = I;
 
     while (power != 0) { // Repeated squaring.
-      if (power & 1)
+      if (power & 1) {
         apower *= a2;
+      }
       power = (unsigned)power >> 1;
       a2 *= a2;
     }
@@ -573,15 +603,20 @@ public:
     tmatrix<element_type> rv(this->num_rows, that.num_cols);
     element_type t00 = this->rows[0][0];
     element_type zero = t00 - t00;
-    for (i = 0; i < this->num_rows; i++)
-      for (j = 0; j < that.num_cols; j++)
+    for (i = 0; i < this->num_rows; i++) {
+      for (j = 0; j < that.num_cols; j++) {
         // rv[i][j] = element_type(0);
         rv[i][j] = zero;
+      }
+    }
 
-    for (i = 0; i < this->num_rows; i++)
-      for (j = 0; j < that.num_cols; j++)
-        for (k = 0; k < this->num_cols; k++)
+    for (i = 0; i < this->num_rows; i++) {
+      for (j = 0; j < that.num_cols; j++) {
+        for (k = 0; k < this->num_cols; k++) {
           rv[i][j] += this->rows[i][k] * that.rows[k][j];
+        }
+      }
+    }
 
     return rv;
   }
@@ -590,9 +625,11 @@ public:
   tmatrix<element_type> operator*(element_type e) {
     tmatrix<element_type> rv(this->num_rows, this->num_cols);
 
-    for (int i = 0; i < this->num_rows; i++)
-      for (int j = 0; j < this->num_cols; j++)
+    for (int i = 0; i < this->num_rows; i++) {
+      for (int j = 0; j < this->num_cols; j++) {
         rv[i][j] = this->rows[i][j] * e;
+      }
+    }
 
     return rv;
   }
@@ -639,18 +676,22 @@ public:
     int m = u.get_num_elements();
     int n = v.get_num_elements();
     tmatrix<element_type> rv(m, n);
-    for (int i = 0; i < m; i++)
-      for (int j = 0; j < n; j++)
+    for (int i = 0; i < m; i++) {
+      for (int j = 0; j < n; j++) {
         rv[i][j] = u[i] * v[j];
+      }
+    }
     return rv;
   }
 
   // ----------------------------------------------------------------
   tmatrix<element_type> transpose(void) {
     tmatrix<element_type> rv(this->num_cols, this->num_rows);
-    for (int i = 0; i < this->num_rows; i++)
-      for (int j = 0; j < this->num_cols; j++)
+    for (int i = 0; i < this->num_rows; i++) {
+      for (int j = 0; j < this->num_cols; j++) {
         rv.rows[j][i] = this->rows[i][j];
+      }
+    }
     return rv;
   }
 
@@ -659,9 +700,11 @@ public:
     tmatrix<element_type> rv(this->num_rows, this->num_cols);
     int nr = this->num_rows;
     int nc = this->num_cols;
-    for (int i = 0; i < nr; i++)
-      for (int j = 0; j < nc; j++)
+    for (int i = 0; i < nr; i++) {
+      for (int j = 0; j < nc; j++) {
         rv.rows[i][j] = this->rows[i][nc - j - 1];
+      }
+    }
     return rv;
   }
 
@@ -670,9 +713,11 @@ public:
     tmatrix<element_type> rv(this->num_rows, this->num_cols);
     int nr = this->num_rows;
     int nc = this->num_cols;
-    for (int i = 0; i < nr; i++)
-      for (int j = 0; j < nc; j++)
+    for (int i = 0; i < nr; i++) {
+      for (int j = 0; j < nc; j++) {
         rv.rows[i][j] = this->rows[nr - i - 1][j];
+      }
+    }
     return rv;
   }
 
@@ -681,9 +726,11 @@ public:
     tmatrix<element_type> rv(this->num_rows, this->num_cols);
     int nr = this->num_rows;
     int nc = this->num_cols;
-    for (int i = 0; i < nr; i++)
-      for (int j = 0; j < nc; j++)
+    for (int i = 0; i < nr; i++) {
+      for (int j = 0; j < nc; j++) {
         rv.rows[i][j] = this->rows[nr - i - 1][nc - j - 1];
+      }
+    }
     return rv;
   }
 
@@ -733,10 +780,11 @@ public:
     tmatrix<element_type> rv(*this);
     for (int i = 0; i < this->num_rows; i++) {
       for (int j = 0; j < this->num_cols; j++) {
-        if (i == j)
+        if (i == j) {
           rv.rows[i][j] = one;
-        else
+        } else {
           rv.rows[i][j] = zero;
+        }
       }
     }
     return rv;
@@ -745,41 +793,47 @@ public:
   // ----------------------------------------------------------------
   bool is_zero(void) {
     element_type one;
-    if (this->find_one(one))
+    if (this->find_one(one)) {
       return false;
-    else
+    } else {
       return true;
+    }
   }
 
   // ----------------------------------------------------------------
   bool is_square(void) {
-    if (this->num_rows == this->num_cols)
+    if (this->num_rows == this->num_cols) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 
   // ----------------------------------------------------------------
   bool is_I(void) {
     int i, j;
 
-    if (!this->is_square())
+    if (!this->is_square()) {
       return false;
+    }
 
     element_type a = this->rows[0][0];
     element_type zero = a - a;
     element_type one;
-    if (!this->find_one(one))
+    if (!this->find_one(one)) {
       return false;
+    }
     for (i = 0; i < this->num_rows; i++) {
-      if (this->rows[i][i] != one)
+      if (this->rows[i][i] != one) {
         return false;
+      }
     }
     for (i = 0; i < this->num_rows; i++) {
       for (j = 0; j < this->num_cols; j++) {
         if (i != j) {
-          if (this->rows[i][j] != zero)
+          if (this->rows[i][j] != zero) {
             return false;
+          }
         }
       }
     }
@@ -926,8 +980,9 @@ public:
         }
         row2_leader_val = this->rows[row2][row2_leader_pos];
         row_clear_val = this->rows[row][row2_leader_pos];
-        if (row_clear_val == zero)
+        if (row_clear_val == zero) {
           continue;
+        }
 
         mul = row_clear_val / row2_leader_val;
         this->rows[row] -= this->rows[row2] * mul;
@@ -986,8 +1041,9 @@ public:
           break;
         }
       }
-      if (!row_is_zero)
+      if (!row_is_zero) {
         rank++;
+      }
     }
     return rank;
   }
@@ -1000,30 +1056,38 @@ public:
     rr.row_echelon_form();
     int rank = rr.get_rank_rr();
     int dimker = rr.num_cols - rank;
-    if (dimker == 0)
+    if (dimker == 0) {
       return false;
+    }
 
     tmatrix<element_type> basis(dimker, rr.num_cols);
 
-    for (i = 0; i < dimker; i++)
-      for (j = 0; j < rr.num_cols; j++)
+    for (i = 0; i < dimker; i++) {
+      for (j = 0; j < rr.num_cols; j++) {
         basis[i][j] = zero;
+      }
+    }
 
     unsigned char *free_flags = new unsigned char[this->num_cols];
     int *free_indices = new int[this->num_cols];
     int nfree = 0; // == dimker but I'll compute it anyway
     int dep_pos = 0;
 
-    for (i = 0; i < this->num_cols; i++)
+    for (i = 0; i < this->num_cols; i++) {
       free_flags[i] = 1;
+    }
 
-    for (i = 0; i < rank; i++)
-      if (rr.rows[i].find_leader_pos(zero, dep_pos))
+    for (i = 0; i < rank; i++) {
+      if (rr.rows[i].find_leader_pos(zero, dep_pos)) {
         free_flags[dep_pos] = 0;
+      }
+    }
 
-    for (i = 0; i < this->num_cols; i++)
-      if (free_flags[i])
+    for (i = 0; i < this->num_cols; i++) {
+      if (free_flags[i]) {
         free_indices[nfree++] = i;
+      }
+    }
 
     // For each free coefficient:
     //   Let that free coefficient be 1 and the rest be zero.
@@ -1053,8 +1117,9 @@ public:
       // 01?0
 
       for (j = 0; j < rank; j++) {
-        if (rr.rows[j][free_indices[i]] == zero)
+        if (rr.rows[j][free_indices[i]] == zero) {
           continue;
+        }
 
         (void)rr.rows[j].find_leader_pos(zero, dep_pos);
         basis.rows[i][dep_pos] = -rr.rows[j][free_indices[i]];
@@ -1189,8 +1254,9 @@ public:
     }
 
     x = tvector<element_type>(indim);
-    for (int i = 0; i < indim; i++)
+    for (int i = 0; i < indim; i++) {
       x[i] = Ab_rr.rows[i][indim];
+    }
     return true;
   }
 
@@ -1219,12 +1285,16 @@ public:
     tmatrix<element_type> rv(this->num_rows, this->num_cols + that.num_cols);
     int i, j;
 
-    for (i = 0; i < this->num_rows; i++)
-      for (j = 0; j < this->num_cols; j++)
+    for (i = 0; i < this->num_rows; i++) {
+      for (j = 0; j < this->num_cols; j++) {
         rv.rows[i][j] = this->rows[i][j];
-    for (i = 0; i < this->num_rows; i++)
-      for (j = 0; j < that.num_cols; j++)
+      }
+    }
+    for (i = 0; i < this->num_rows; i++) {
+      for (j = 0; j < that.num_cols; j++) {
         rv.rows[i][this->num_rows + j] = that.rows[i][j];
+      }
+    }
 
     return rv;
   }
@@ -1240,11 +1310,14 @@ public:
 
     tmatrix<element_type> rv(this->num_rows, this->num_cols + 1);
     int i, j;
-    for (i = 0; i < this->num_rows; i++)
-      for (j = 0; j < this->num_cols; j++)
+    for (i = 0; i < this->num_rows; i++) {
+      for (j = 0; j < this->num_cols; j++) {
         rv.rows[i][j] = this->rows[i][j];
-    for (i = 0; i < this->num_rows; i++)
+      }
+    }
+    for (i = 0; i < this->num_rows; i++) {
       rv.rows[i][this->num_cols] = v[i];
+    }
 
     return rv;
   }
@@ -1264,13 +1337,17 @@ public:
 
     int i, j;
 
-    for (i = 0; i < this->num_rows; i++)
-      for (j = 0; j < split_column; j++)
+    for (i = 0; i < this->num_rows; i++) {
+      for (j = 0; j < split_column; j++) {
         rleft.rows[i][j] = this->rows[i][j];
+      }
+    }
 
-    for (i = 0; i < this->num_rows; i++)
-      for (j = split_column; j < this->num_cols; j++)
+    for (i = 0; i < this->num_rows; i++) {
+      for (j = split_column; j < this->num_cols; j++) {
         rright.rows[i][j - split_column] = this->rows[i][j];
+      }
+    }
   }
 
   // ----------------------------------------------------------------
@@ -1283,8 +1360,9 @@ public:
       exit(1);
     }
 
-    if (!this->find_one(one))
+    if (!this->find_one(one)) {
       return false;
+    }
 
     tmatrix<element_type> I = this->make_I(zero, one);
     tmatrix<element_type> pair = this->paste(I);
@@ -1456,15 +1534,17 @@ public:
         }
         row2_leader_val = this->rows[row2][row2_leader_pos];
         row_clear_val = this->rows[row][row2_leader_pos];
-        if (row_clear_val == zero)
+        if (row_clear_val == zero) {
           continue;
+        }
 
         this->rows[row].accum_row_mul(row2_leader_val, row_clear_val,
                                       this->rows[row2]);
 
         element_type g = this->rows[row].vgcd();
-        if (g != zero)
+        if (g != zero) {
           this->rows[row] /= g;
+        }
       }
     }
   }
@@ -1479,8 +1559,9 @@ public:
       exit(1);
     }
 
-    if (!this->find_one(one))
+    if (!this->find_one(one)) {
       return false;
+    }
 
     tmatrix<element_type> I = this->make_I(zero, one);
     tmatrix<element_type> pair = this->paste(I);
@@ -1504,8 +1585,9 @@ public:
   // The caller must delete [] the return value.
   element_type **expose(void) {
     element_type **rv = new element_type *[this->num_rows];
-    for (int i = 0; i < this->num_rows; i++)
+    for (int i = 0; i < this->num_rows; i++) {
       rv[i] = this->rows[i].expose();
+    }
     return rv;
   }
 
@@ -1523,8 +1605,9 @@ private:
 
   // ----------------------------------------------------------------
   void mfree(void) {
-    if (this->rows != 0)
+    if (this->rows != 0) {
       delete[] this->rows;
+    }
     this->nullify();
   }
 
@@ -1557,8 +1640,9 @@ private:
 template <typename element_type>
 static std::ostream &operator<<(std::ostream &os,
                                 const tmatrix<element_type> &m) {
-  for (int i = 0; i < m.num_rows; i++)
+  for (int i = 0; i < m.num_rows; i++) {
     os << m.rows[i] << std::endl;
+  }
   return os;
 }
 
@@ -1590,14 +1674,16 @@ static std::istream &operator>>(std::istream &is, tmatrix<element_type> &m) {
   m.rows = new tvector<element_type>[init_num_rows];
 
   while (1) {
-    if (is.eof())
+    if (is.eof()) {
       break;
+    }
 
     if (m.num_rows >= alloc_num_rows) {
       alloc_num_rows += more_num_rows;
       tvector<element_type> *ptemp = new tvector<element_type>[alloc_num_rows];
-      for (int i = 0; i < m.num_rows; i++)
+      for (int i = 0; i < m.num_rows; i++) {
         ptemp[i] = m.rows[i];
+      }
       delete[] m.rows;
       m.rows = ptemp;
     }
@@ -1613,12 +1699,14 @@ static std::istream &operator>>(std::istream &is, tmatrix<element_type> &m) {
 
     // Allow comments.
     char *phash = strstr(pline, "#");
-    if (phash)
+    if (phash) {
       *phash = 0;
+    }
 
     // Strip leading whitespace.
-    while (isspace(pline[0]))
+    while (isspace(pline[0])) {
       pline++;
+    }
 
     // Strip trailing whitespace.
     int len = strlen(pline);
@@ -1630,10 +1718,11 @@ static std::istream &operator>>(std::istream &is, tmatrix<element_type> &m) {
     // Allow multiple matrices in the same stream, delimited by
     // carriage returns.
     if (spffl::base::is_whitespace_line(pline)) {
-      if (m.num_rows == 0)
+      if (m.num_rows == 0) {
         continue;
-      else
+      } else {
         break;
+      }
     }
 
     // E.g. set modulus.
@@ -1653,8 +1742,9 @@ static std::istream &operator>>(std::istream &is, tmatrix<element_type> &m) {
     m.num_rows++;
   }
 
-  if (is.peek() == EOF)
+  if (is.peek() == EOF) {
     is.setstate(std::ios::eofbit);
+  }
 
   if (m.num_rows == 0) {
     is.setstate(std::ios::badbit);

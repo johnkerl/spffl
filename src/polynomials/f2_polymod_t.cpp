@@ -80,8 +80,9 @@ f2_polymod_t f2_polymod_t::operator*(int a) {
   f2_polymod_t rv(*this);
   if (a & 1)
     ;
-  else
+  else {
     rv = rv - rv;
+  }
   return rv;
 }
 
@@ -252,10 +253,12 @@ f2_polymod_t &f2_polymod_t::operator%=(f2_polymod_t that) {
 
 // ----------------------------------------------------------------
 bool f2_polymod_t::operator==(f2_polymod_t that) const {
-  if (this->residue != that.residue)
+  if (this->residue != that.residue) {
     return false;
-  if (this->modulus != that.modulus)
+  }
+  if (this->modulus != that.modulus) {
     return false;
+  }
   return true;
 }
 

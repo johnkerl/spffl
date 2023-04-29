@@ -36,15 +36,17 @@ unsigned find_msb_16(unsigned short n) {
   if (upper) {
     rv += 8;
     n = upper;
-  } else
+  } else {
     n &= 0xff;
+  }
 
   upper = n >> 4;
   if (upper) {
     rv += 4;
     n = upper;
-  } else
+  } else {
     n &= 0x0f;
+  }
 
   rv += u4_table[n];
   return rv;
@@ -75,22 +77,25 @@ unsigned find_msb_32(unsigned n) {
   if (upper) {
     rv += 16;
     n = upper;
-  } else
+  } else {
     n &= 0xffff;
+  }
 
   upper = n >> 8;
   if (upper) {
     rv += 8;
     n = upper;
-  } else
+  } else {
     n &= 0xff;
+  }
 
   upper = n >> 4;
   if (upper) {
     rv += 4;
     n = upper;
-  } else
+  } else {
     n &= 0x0f;
+  }
 
   rv += u4_table[n];
   return rv;
@@ -103,10 +108,11 @@ unsigned find_msb_64(uint64_t n) {
   //	if (n < MSB_TABLE_SIZE)
   //		return msb_table[n];
 
-  if (upper)
+  if (upper) {
     return find_msb_32(upper) + 32;
-  else
+  } else {
     return find_msb_32((unsigned)n);
+  }
 }
 
 // ----------------------------------------------------------------
@@ -145,10 +151,11 @@ unsigned find_lsb_32(unsigned n) {
 // ----------------------------------------------------------------
 unsigned find_lsb_64(uint64_t n) {
   unsigned lower = n;
-  if (lower)
+  if (lower) {
     return find_lsb_32(lower);
-  else
+  } else {
     return find_lsb_32((unsigned)(n >> 32)) + 32;
+  }
 }
 
 // ----------------------------------------------------------------
@@ -191,11 +198,13 @@ int main(void) {
   printf("unsigned msb_table[] = {\n");
   for (unsigned i = 0; i < n; i++) {
     unsigned pos = find_msb_32((unsigned short)i);
-    if ((i & 3) == 0)
+    if ((i & 3) == 0) {
       printf("\t");
+    }
     printf("%2u /*%4u*/,", pos, i);
-    if ((i & 3) == 3)
+    if ((i & 3) == 3) {
       printf("\n");
+    }
   }
   printf("};\n");
   printf("#define MSB_TABLE_SIZE (sizeof(msb_table)/sizeof(msb_table[0]))\n");

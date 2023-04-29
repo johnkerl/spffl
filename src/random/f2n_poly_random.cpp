@@ -25,8 +25,9 @@ spffl::polynomials::f2n_poly_t f2n_poly_random(spffl::polynomials::f2_poly_t m,
   spffl::polynomials::f2n_poly_t rv(am0);
   for (int i = deg; i >= 0; i--) {
     spffl::polynomials::f2_polymod_t am = f2_polymod_random(m);
-    if ((i == deg) && (am == am0))
+    if ((i == deg) && (am == am0)) {
       am = am1;
+    }
     rv.set_coeff(i, am);
   }
   return rv;

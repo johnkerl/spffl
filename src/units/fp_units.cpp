@@ -40,8 +40,9 @@ int fp_order(spffl::intmath::intmod_t a) {
   // Thus, here we will find the *least* exponent e such that a^e = 1.
   for (int i = 0; i < nd; i++) {
     spffl::intmath::intmod_t ap = a.exp(phi_divisors[i]);
-    if (ap == one)
+    if (ap == one) {
       return phi_divisors[i];
+    }
   }
 
   // By Lagrange's theorem, g^m = 1 for all units g, with m the order
@@ -57,8 +58,9 @@ bool fp_find_generator(int p, spffl::intmath::intmod_t &rg) {
   int phi = spffl::intmath::int_totient(p);
 
   for (gres = 1; gres < p; gres++) {
-    if (spffl::intmath::int_gcd(gres, p) != 1)
+    if (spffl::intmath::int_gcd(gres, p) != 1) {
       continue;
+    }
 
     spffl::intmath::intmod_t g(gres, p);
     if (fp_order(g) == phi) {
@@ -89,10 +91,12 @@ typedef struct _poly_and_index_t {
 static int poly_and_index_qcmp(const void *pv1, const void *pv2) {
   const poly_and_index_t *p1 = (const poly_and_index_t *)pv1;
   const poly_and_index_t *p2 = (const poly_and_index_t *)pv2;
-  if (p1->elt < p2->elt)
+  if (p1->elt < p2->elt) {
     return -1;
-  if (p1->elt > p2->elt)
+  }
+  if (p1->elt > p2->elt) {
     return 1;
+  }
   return 0;
 }
 

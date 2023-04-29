@@ -98,8 +98,9 @@ qpoly_t qpoly_t::binomial(intrat_t ci, int i, intrat_t cj, int j) {
 qpoly_t::qpoly_t(const qpoly_t &that) {
   this->degree = that.degree;
   this->coeffs = new intrat_t[this->degree + 1];
-  for (int i = 0; i <= that.degree; i++)
+  for (int i = 0; i <= that.degree; i++) {
     this->coeffs[i] = that.coeffs[i];
+  }
 }
 
 // ----------------------------------------------------------------
@@ -111,12 +112,14 @@ qpoly_t::~qpoly_t(void) {
 
 // ----------------------------------------------------------------
 qpoly_t &qpoly_t::operator=(qpoly_t that) {
-  if (this->coeffs)
+  if (this->coeffs) {
     delete[] this->coeffs;
+  }
   this->degree = that.degree;
   this->coeffs = new intrat_t[this->degree + 1];
-  for (int i = 0; i <= that.degree; i++)
+  for (int i = 0; i <= that.degree; i++) {
     this->coeffs[i] = that.coeffs[i];
+  }
   return *this;
 }
 
@@ -128,17 +131,21 @@ qpoly_t qpoly_t::operator+(qpoly_t that) const {
   if (this->degree < that.degree) {
     rv.degree = that.degree;
     rv.coeffs = new intrat_t[rv.degree + 1];
-    for (i = 0; i <= this->degree; i++)
+    for (i = 0; i <= this->degree; i++) {
       rv.coeffs[i] = this->coeffs[i] + that.coeffs[i];
-    for (i = this->degree + 1; i <= that.degree; i++)
+    }
+    for (i = this->degree + 1; i <= that.degree; i++) {
       rv.coeffs[i] = that.coeffs[i];
+    }
   } else {
     rv.degree = this->degree;
     rv.coeffs = new intrat_t[rv.degree + 1];
-    for (i = 0; i <= that.degree; i++)
+    for (i = 0; i <= that.degree; i++) {
       rv.coeffs[i] = this->coeffs[i] + that.coeffs[i];
-    for (i = that.degree + 1; i <= this->degree; i++)
+    }
+    for (i = that.degree + 1; i <= this->degree; i++) {
       rv.coeffs[i] = this->coeffs[i];
+    }
   }
   rv.recompute_degree();
   return rv;
@@ -160,17 +167,21 @@ qpoly_t qpoly_t::operator-(qpoly_t that) const {
   if (this->degree < that.degree) {
     rv.degree = that.degree;
     rv.coeffs = new intrat_t[rv.degree + 1];
-    for (i = 0; i <= this->degree; i++)
+    for (i = 0; i <= this->degree; i++) {
       rv.coeffs[i] = this->coeffs[i] - that.coeffs[i];
-    for (i = this->degree + 1; i <= that.degree; i++)
+    }
+    for (i = this->degree + 1; i <= that.degree; i++) {
       rv.coeffs[i] = -that.coeffs[i];
+    }
   } else {
     rv.degree = this->degree;
     rv.coeffs = new intrat_t[rv.degree + 1];
-    for (i = 0; i <= that.degree; i++)
+    for (i = 0; i <= that.degree; i++) {
       rv.coeffs[i] = this->coeffs[i] - that.coeffs[i];
-    for (i = that.degree + 1; i <= this->degree; i++)
+    }
+    for (i = that.degree + 1; i <= this->degree; i++) {
       rv.coeffs[i] = this->coeffs[i];
+    }
   }
   rv.recompute_degree();
   return rv;
@@ -188,8 +199,9 @@ qpoly_t qpoly_t::operator-(intrat_t a) const {
 qpoly_t qpoly_t::operator-(void) const {
   qpoly_t rv;
   rv.coeffs = new intrat_t[rv.degree + 1];
-  for (int i = 0; i <= this->degree; i++)
+  for (int i = 0; i <= this->degree; i++) {
     rv.coeffs[i] = -this->coeffs[i];
+  }
   return rv;
 }
 
@@ -200,11 +212,14 @@ qpoly_t qpoly_t::operator*(qpoly_t that) const {
   rv.coeffs = new intrat_t[rv.degree + 1];
 
   intrat_t zero = this->coeffs[0] - this->coeffs[0];
-  for (int k = 0; k <= rv.degree; k++)
+  for (int k = 0; k <= rv.degree; k++) {
     rv.coeffs[k] = zero;
-  for (int i = 0; i <= this->degree; i++)
-    for (int j = 0; j <= that.degree; j++)
+  }
+  for (int i = 0; i <= this->degree; i++) {
+    for (int j = 0; j <= that.degree; j++) {
       rv.coeffs[i + j] += this->coeffs[i] * that.coeffs[j];
+    }
+  }
   rv.recompute_degree();
   return rv;
 }
@@ -212,8 +227,9 @@ qpoly_t qpoly_t::operator*(qpoly_t that) const {
 // ----------------------------------------------------------------
 qpoly_t qpoly_t::operator*(intrat_t a) {
   qpoly_t rv = *this;
-  for (int i = 0; i <= rv.degree; i++)
+  for (int i = 0; i <= rv.degree; i++) {
     rv.coeffs[i] *= a;
+  }
   rv.recompute_degree();
   return rv;
 }
@@ -235,8 +251,9 @@ qpoly_t qpoly_t::operator%(qpoly_t that) {
 // ----------------------------------------------------------------
 qpoly_t qpoly_t::operator/(intrat_t a) {
   qpoly_t rv = *this;
-  for (int i = 0; i <= rv.degree; i++)
+  for (int i = 0; i <= rv.degree; i++) {
     rv.coeffs[i] /= a;
+  }
   rv.recompute_degree();
   return rv;
 }
@@ -354,8 +371,9 @@ void qpoly_t::quot_and_rem(qpoly_t &that, qpoly_t &rquot, qpoly_t &rrem) {
     quot.coeffs[shift] = multiplier;
 
     int stop = shift + divisor_with_mul.degree;
-    for (int i = shift; i <= stop; i++)
+    for (int i = shift; i <= stop; i++) {
       rem.coeffs[i] -= divisor_with_mul.coeffs[i - shift];
+    }
   }
 
   // Quotient degree must be the difference of dividend and divisor
@@ -377,10 +395,12 @@ qpoly_t qpoly_t::gcd(qpoly_t &that) {
   qpoly_t c, q, r;
   qpoly_t d; // Return value.
 
-  if (*this == 0)
+  if (*this == 0) {
     return that;
-  if (that == 0)
+  }
+  if (that == 0) {
     return *this;
+  }
 
   c = *this;
   d = that;
@@ -389,8 +409,9 @@ qpoly_t qpoly_t::gcd(qpoly_t &that) {
 
     c.quot_and_rem(d, q, r);
 
-    if (r == 0)
+    if (r == 0) {
       break;
+    }
     c = d;
     d = r;
   }
@@ -414,8 +435,9 @@ qpoly_t qpoly_t::ext_gcd(qpoly_t &that, qpoly_t &rm, qpoly_t &rn) {
 
   while (1) {
     c.quot_and_rem(d, q, r);
-    if (r == 0)
+    if (r == 0) {
       break;
+    }
 
     c = d;
     d = r;
@@ -461,8 +483,9 @@ qpoly_t qpoly_t::exp(int e) {
       exit(1);
     } else {
       while (e != 0) {
-        if (e & 1)
+        if (e & 1) {
           rv *= xp;
+        }
         e = (unsigned)e >> 1;
         xp *= xp;
       }
@@ -473,13 +496,15 @@ qpoly_t qpoly_t::exp(int e) {
 
 // ----------------------------------------------------------------
 qpoly_t qpoly_t::deriv(void) {
-  if (this->degree == 0)
+  if (this->degree == 0) {
     return qpoly_t(0);
+  }
 
   qpoly_t rv(*this);
   rv.degree--;
-  for (int i = 1; i <= this->degree; i++)
+  for (int i = 1; i <= this->degree; i++) {
     rv.coeffs[i - 1] = this->coeffs[i] * intrat_t(i);
+  }
   rv.recompute_degree();
   return rv;
 }
@@ -499,38 +524,45 @@ int qpoly_t::find_degree(void) const { return this->degree; }
 
 // ----------------------------------------------------------------
 intrat_t qpoly_t::get_coeff(int deg) const {
-  if (deg < 0)
+  if (deg < 0) {
     this->bounds_check(deg);
+  }
 
-  if (deg > this->degree)
+  if (deg > this->degree) {
     return (this->coeffs[0] - this->coeffs[0]);
-  else
+  } else {
     return this->coeffs[deg];
+  }
 }
 
 // ----------------------------------------------------------------
 void qpoly_t::set_coeff(int pos, intrat_t c) {
-  if (pos < 0)
+  if (pos < 0) {
     this->bounds_check(pos);
+  }
 
   intrat_t zero(0);
   if (pos > this->degree) {
     intrat_t *temp = new intrat_t[pos + 1];
-    for (int i = 0; i <= this->degree; i++)
+    for (int i = 0; i <= this->degree; i++) {
       temp[i] = this->coeffs[i];
-    for (int i = this->degree + 1; i < pos; i++)
+    }
+    for (int i = this->degree + 1; i < pos; i++) {
       temp[i] = zero;
+    }
     temp[pos] = c;
 
     delete[] this->coeffs;
     this->coeffs = temp;
     this->degree = pos;
-    if (c == zero)
+    if (c == zero) {
       this->recompute_degree();
+    }
   } else {
     this->coeffs[pos] = c;
-    if ((pos == this->degree) && (c == zero))
+    if ((pos == this->degree) && (c == zero)) {
       this->recompute_degree();
+    }
   }
 }
 
@@ -546,15 +578,17 @@ void qpoly_t::recompute_degree(void) {
       break;
     }
   }
-  if (is_zero)
+  if (is_zero) {
     this->degree = 0;
+  }
 }
 
 // ----------------------------------------------------------------
 bool qpoly_t::operator==(int v) const {
   int d = this->degree;
-  if (d != 0)
+  if (d != 0) {
     return false;
+  }
   return this->coeffs[0] == v;
 }
 
@@ -640,8 +674,9 @@ std::ostream &operator<<(std::ostream &os, const qpoly_t &poly) {
   int d = poly.find_degree();
 
   for (int i = d; i >= 0; i--) {
-    if (i < d)
+    if (i < d) {
       os << ",";
+    }
     os << poly.get_coeff(i);
   }
 
@@ -694,13 +729,16 @@ std::istream &operator>>(std::istream &is, qpoly_t &poly) {
 
 // ----------------------------------------------------------------
 bool qpoly_t::from_string(const char *string) {
-  if (this->coeffs)
+  if (this->coeffs) {
     delete[] this->coeffs;
+  }
 
   int num_commas = 0;
-  for (const char *q = string; *q; q++)
-    if (*q == ',')
+  for (const char *q = string; *q; q++) {
+    if (*q == ',') {
       num_commas++;
+    }
+  }
 
   if (num_commas == 0) {
     // Allow comma-free input as long as all residues are
@@ -762,8 +800,9 @@ void qpoly_t::promote(void) {
   }
   intrat_t *ocoeffs = this->coeffs;
   this->coeffs = new intrat_t[this->degree + 2];
-  for (int i = 0; i <= this->degree; i++)
+  for (int i = 0; i <= this->degree; i++) {
     this->coeffs[i + 1] = ocoeffs[i];
+  }
   this->coeffs[0] = this->coeffs[1] - this->coeffs[1];
   this->degree++;
   delete[] ocoeffs;

@@ -31,8 +31,9 @@ spffl::rationals::qpoly_t get_cyclo_qpoly(int n) {
     exit(1);
   }
 
-  if ((n <= CYCLO_MEMO_MAX) && (memo_flags[n]))
+  if ((n <= CYCLO_MEMO_MAX) && (memo_flags[n])) {
     return memo_data[n];
+  }
 
   if (n == 1) {
     rv = spffl::rationals::qpoly_t(1, -1);
@@ -48,13 +49,15 @@ spffl::rationals::qpoly_t get_cyclo_qpoly(int n) {
                                            spffl::rationals::intrat_t(-1), 0);
 
   for (d = 1; d < n; d++) {
-    if ((n % d) != 0)
+    if ((n % d) != 0) {
       continue;
+    }
 
-    if ((d <= CYCLO_MEMO_MAX) && (memo_flags[d]))
+    if ((d <= CYCLO_MEMO_MAX) && (memo_flags[d])) {
       dth = memo_data[d];
-    else
+    } else {
       dth = get_cyclo_qpoly(d);
+    }
 
     rv.quot_and_rem(dth, rv, rem);
     if (rem != zero) {
@@ -112,24 +115,29 @@ int main(void) {
       spffl::intmath::intmod_t(1, 3), spffl::intmath::intmod_t(0, 3),
       spffl::intmath::intmod_t(2, 3), spffl::intmath::intmod_t(1, 3));
 
-  for (int n = 1; n < nmax; n++)
+  for (int n = 1; n < nmax; n++) {
     std::cout << n << ": " << get_cyclo_qpoly(n) << "\n";
+  }
   std::cout << "\n";
 
-  for (int n = 1; n < nmax; n++)
+  for (int n = 1; n < nmax; n++) {
     std::cout << n << ": " << get_cyclo_f2_poly(n) << "\n";
+  }
   std::cout << "\n";
 
-  for (int n = 1; n < nmax; n++)
+  for (int n = 1; n < nmax; n++) {
     std::cout << n << ": " << get_cyclo_fp_poly(n, p) << "\n";
+  }
   std::cout << "\n";
 
-  for (int n = 1; n < nmax; n++)
+  for (int n = 1; n < nmax; n++) {
     std::cout << n << ": " << get_cyclo_f2n_poly(n, m2) << "\n";
+  }
   std::cout << "\n";
 
-  for (int n = 1; n < nmax; n++)
+  for (int n = 1; n < nmax; n++) {
     std::cout << n << ": " << get_cyclo_fpn_poly(n, mp) << "\n";
+  }
   std::cout << "\n";
 
   return 0;
