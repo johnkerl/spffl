@@ -106,7 +106,7 @@ bool bit_matrix_t::load_from_file(char *file_name) {
 }
 
 // ----------------------------------------------------------------
-bit_matrix_t &bit_matrix_t::operator=(const bit_t scalar) {
+bit_matrix_t &bit_matrix_t::operator=(const bit_t &scalar) {
   if (this->rows) {
     for (int i = 0; i < this->num_rows; i++)
       for (int j = 0; j < this->num_cols; j++)
@@ -122,7 +122,7 @@ bit_matrix_t &bit_matrix_t::operator=(const bit_t scalar) {
 }
 
 // ----------------------------------------------------------------
-bit_matrix_t &bit_matrix_t::operator=(bit_matrix_t that) {
+bit_matrix_t &bit_matrix_t::operator=(const bit_matrix_t &that) {
   int i;
 
   if ((this->num_rows == that.num_rows) && (this->num_cols == that.num_cols)) {
@@ -142,7 +142,7 @@ bit_matrix_t &bit_matrix_t::operator=(bit_matrix_t that) {
 }
 
 // ----------------------------------------------------------------
-bool bit_matrix_t::operator==(bit_matrix_t that) {
+bool bit_matrix_t::operator==(const bit_matrix_t &that) const {
   this->check_dims(that, (char *)"operator==");
   for (int i = 0; i < this->num_rows; i++)
     if (this->rows[i] != that.rows[i])
@@ -151,7 +151,7 @@ bool bit_matrix_t::operator==(bit_matrix_t that) {
 }
 
 // ----------------------------------------------------------------
-bool bit_matrix_t::operator==(bit_t e) {
+bool bit_matrix_t::operator==(const bit_t &e) const {
   for (int i = 0; i < this->num_rows; i++)
     if (this->rows[i] != e)
       return false;
@@ -159,10 +159,10 @@ bool bit_matrix_t::operator==(bit_t e) {
 }
 
 // ----------------------------------------------------------------
-bool bit_matrix_t::operator!=(bit_matrix_t that) { return !(*this == that); }
+bool bit_matrix_t::operator!=(const bit_matrix_t &that) const { return !(*this == that); }
 
 // ----------------------------------------------------------------
-bool bit_matrix_t::operator!=(bit_t e) { return !(*this == e); }
+bool bit_matrix_t::operator!=(const bit_t &e) const { return !(*this == e); }
 
 // ----------------------------------------------------------------
 std::ostream &operator<<(std::ostream &os, const bit_matrix_t &m) {
@@ -270,7 +270,7 @@ bit_vector_t &bit_matrix_t::operator[](int row_index) {
 }
 
 // ----------------------------------------------------------------
-bit_matrix_t bit_matrix_t::operator+(bit_matrix_t that) {
+bit_matrix_t bit_matrix_t::operator+(const bit_matrix_t &that) const {
   this->check_dims(that, (char *)"operator+");
   bit_matrix_t rv(this->num_rows, this->num_cols);
   for (int i = 0; i < this->num_rows; i++)
@@ -279,7 +279,7 @@ bit_matrix_t bit_matrix_t::operator+(bit_matrix_t that) {
 }
 
 // ----------------------------------------------------------------
-bit_matrix_t bit_matrix_t::operator-(bit_matrix_t that) {
+bit_matrix_t bit_matrix_t::operator-(const bit_matrix_t &that) const {
   if ((this->num_rows != that.num_rows) || (this->num_cols != that.num_cols)) {
     std::cerr << "bit_matrix_t operator-():  Incompatibly sized "
               << "arguments (" << this->num_rows << "x" << this->num_cols
@@ -295,12 +295,12 @@ bit_matrix_t bit_matrix_t::operator-(bit_matrix_t that) {
 }
 
 // ----------------------------------------------------------------
-bit_matrix_t bit_matrix_t::operator-(void) {
+bit_matrix_t bit_matrix_t::operator-(void) const {
   return *this; // Characteristic 2.
 }
 
 // ----------------------------------------------------------------
-bit_matrix_t bit_matrix_t::operator+(bit_t e) {
+bit_matrix_t bit_matrix_t::operator+(const bit_t &e) const {
   if (!this->is_square()) {
     std::cerr << "bit_matrix_t plus scalar:  non-square input.\n";
     exit(1);
@@ -314,7 +314,7 @@ bit_matrix_t bit_matrix_t::operator+(bit_t e) {
 }
 
 // ----------------------------------------------------------------
-bit_matrix_t bit_matrix_t::operator-(bit_t e) {
+bit_matrix_t bit_matrix_t::operator-(const bit_t &e) const {
   if (!this->is_square()) {
     std::cerr << "bit_matrix_t minus scalar:  non-square input.\n";
     exit(1);
@@ -328,7 +328,7 @@ bit_matrix_t bit_matrix_t::operator-(bit_t e) {
 }
 
 // ----------------------------------------------------------------
-bit_vector_t bit_matrix_t::operator*(bit_vector_t v) {
+bit_vector_t bit_matrix_t::operator*(const bit_vector_t &v) const {
   int i, j;
   int v_num_elements = v.get_num_elements();
 
@@ -398,7 +398,7 @@ int bit_matrix_t::exp(int power, bit_matrix_t &rout) {
 }
 
 // ----------------------------------------------------------------
-bit_matrix_t bit_matrix_t::operator*(bit_matrix_t that) {
+bit_matrix_t bit_matrix_t::operator*(const bit_matrix_t &that) {
   int i, j;
 
   if (this->num_cols != that.num_rows) {
@@ -445,7 +445,7 @@ bit_matrix_t &bit_matrix_t::operator-=(bit_t e) {
   return *this;
 }
 
-bit_matrix_t &bit_matrix_t::operator*=(bit_matrix_t that) {
+bit_matrix_t &bit_matrix_t::operator*=(const bit_matrix_t &that) {
   *this = *this * that;
   return *this;
 }
@@ -463,7 +463,7 @@ bit_matrix_t bit_matrix_t::outer(bit_vector_t &u, bit_vector_t &v) {
 }
 
 // ----------------------------------------------------------------
-bit_matrix_t bit_matrix_t::transpose(void) {
+bit_matrix_t bit_matrix_t::transpose(void) const {
   bit_matrix_t rv(this->num_cols, this->num_rows);
   for (int i = 0; i < this->num_rows; i++)
     for (int j = 0; j < this->num_cols; j++)
@@ -493,15 +493,15 @@ bit_matrix_t bit_matrix_t::make_I(void) {
 }
 
 // ----------------------------------------------------------------
-bool bit_matrix_t::is_zero(void) {
+bool bit_matrix_t::is_zero(void) const {
   for (int i = 0; i < this->num_rows; i++)
-    if (this->rows[i].is_zero())
+    if (!this->rows[i].is_zero())
       return false;
   return true;
 }
 
 // ----------------------------------------------------------------
-bool bit_matrix_t::is_square(void) {
+bool bit_matrix_t::is_square(void) const {
   if (this->num_rows == this->num_cols)
     return true;
   else
@@ -509,7 +509,7 @@ bool bit_matrix_t::is_square(void) {
 }
 
 // ----------------------------------------------------------------
-bool bit_matrix_t::is_I(void) {
+bool bit_matrix_t::is_I(void) const {
   int i, j;
 
   if (!this->is_square())
@@ -692,7 +692,7 @@ int bit_matrix_t::get_rank_rr(void) {
 }
 
 // ----------------------------------------------------------------
-bool bit_matrix_t::get_kernel_basis(bit_matrix_t &rbas) {
+bool bit_matrix_t::get_kernel_basis(bit_matrix_t &rbas) const {
   int i, j;
   bit_matrix_t rr(*this);
   rr.row_echelon_form();
@@ -763,7 +763,7 @@ bool bit_matrix_t::get_kernel_basis(bit_matrix_t &rbas) {
 }
 
 // ----------------------------------------------------------------
-void bit_matrix_t::check_kernel_basis(bit_matrix_t &kerbas) {
+void bit_matrix_t::check_kernel_basis(bit_matrix_t &kerbas) const {
   bit_t zero(0);
   int i;
   int dimker = kerbas.num_rows;
@@ -891,7 +891,7 @@ void bit_matrix_t::nullify(void) {
 }
 
 // ----------------------------------------------------------------
-void bit_matrix_t::check_dims(bit_matrix_t that, char *msg) {
+void bit_matrix_t::check_dims(const bit_matrix_t that, char *msg) const {
   if ((this->num_rows != that.num_rows) || (this->num_cols != that.num_cols)) {
     std::cerr << "bit_matrix_t " << msg << ":  Incompatibly sized arguments ("
               << this->num_rows << "x" << this->num_cols << ", "

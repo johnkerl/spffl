@@ -44,45 +44,88 @@ TEST_CASE("spffl::bits::bit_vector_3") {
 //  void sqzout(std::ostream &os);
 //  void crout(std::ostream &os);
 
-//  bit_t get(int index) {
-//    if ((index < 0) || (index >= this->num_bits))
-//      this->bounds_check(index);
-//    return bit_t(GET_BIT(this->words, index));
-//  }
-//
-//  void set(int index, bit_t value) {
-//    if ((index < 0) || (index >= this->num_bits))
-//      this->bounds_check(index);
-//    if (value.get_residue())
-//      SET_BIT(this->words, index);
-//    else
-//      CLEAR_BIT(this->words, index);
-//  }
-//
-//  void set(int index, int value) {
-//    if ((index < 0) || (index >= this->num_bits))
-//      this->bounds_check(index);
-//    if (value & 1)
-//      SET_BIT(this->words, index);
-//    else
-//      CLEAR_BIT(this->words, index);
-//  }
-//
-//  void toggle_element(int index);
+TEST_CASE("spffl::bits::bit_vector_10") {
+  bit_vector_t v(100);
+  v.set(43, 1);
+  v.set(44, 0);
+  v.set(97, 1);
 
-//  bit_vector_t operator+(bit_vector_t that);
-//  bit_vector_t operator-(bit_vector_t that);
-//  bit_vector_t operator*(bit_t s);
-//
-//  // This is componentwise multiplication (u * v), useful for
-//  // implementing direct products of rings.
-//  //
-//  // Use dot() (e.g. u.dot(v)) for inner product, or bit_matrix_t's
-//  // outer() (e.g.  bit_matrix_t::outer(u, v)) for outer product.
-//  bit_vector_t operator*(bit_vector_t that);
-//  bit_t dot(bit_vector_t that);
-//
-//  // Componentwise division.
+  for (int i = 0; i < 100; i++) {
+    if (i == 43 || i == 97) {
+        CHECK(v.get(i) == 1);
+    } else {
+        CHECK(v.get(i) == 0);
+    }
+  }
+
+  v.toggle_element(55);
+
+  for (int i = 0; i < 100; i++) {
+    if (i == 43 || i == 97 || i == 55) {
+        CHECK(v.get(i) == 1);
+    } else {
+        CHECK(v.get(i) == 0);
+    }
+  }
+}
+
+TEST_CASE("spffl::bits::bit_vector_11") {
+  bit_vector_t u(100);
+  bit_vector_t v(100);
+
+  u.set(43, 1);
+  u.set(97, 1);
+
+  v.set(0, 1);
+  v.set(43, 1);
+  v.set(96, 1);
+
+  bit_vector_t w = u + v;
+
+  for (int i = 0; i < 100; i++) {
+    if (i == 0 || i == 96 || i == 97) {
+        CHECK(w.get(i) == 1);
+    } else {
+        CHECK(w.get(i) == 0);
+    }
+  }
+
+  w = u - v;
+
+  for (int i = 0; i < 100; i++) {
+    if (i == 0 || i == 96 || i == 97) {
+        CHECK(w.get(i) == 1);
+    } else {
+        CHECK(w.get(i) == 0);
+    }
+  }
+
+  w = u * v;
+
+  for (int i = 0; i < 100; i++) {
+    if (i == 43) {
+        CHECK(w.get(i) == 1);
+    } else {
+        CHECK(w.get(i) == 0);
+    }
+  }
+
+  w = u * bit_t(1);
+
+  CHECK(w == u);
+
+  w = u * bit_t(0);
+
+  for (int i = 0; i < 100; i++) {
+    CHECK(w.get(i) == 0);
+  }
+
+  bit_t b = u.dot(v);
+  CHECK(b == 1);
+
+}
+
+// TODO:
 //  bit_vector_t operator/(bit_vector_t that);
 //  bit_vector_t operator+=(bit_vector_t that);
 //  bit_vector_t operator-=(bit_vector_t that);
@@ -94,9 +137,17 @@ TEST_CASE("spffl::bits::bit_vector_3") {
 //  bool operator==(bit_t scalar);
 //  bool operator!=(bit_t scalar);
 
-//  // Warning:  trusts the caller to remain in bounds!
-//  int get_bit(int index) { return GET_BIT(this->words, index); }
-//
 //  void accum_row(bit_vector_t &that);
-//  int get_num_elements(void);
-//  bool find_leader_pos(int &rpos);
+
+TEST_CASE("spffl::bits::bit_vector_20") {
+  bit_vector_t z(100);
+  bit_vector_t u(100);
+
+  u.set(43, 1);
+  u.set(97, 1);
+
+  int rpos = 999;
+  CHECK(z.find_leader_pos(rpos) == false);
+  CHECK(u.find_leader_pos(rpos) == true);
+  CHECK(rpos == 43);
+}

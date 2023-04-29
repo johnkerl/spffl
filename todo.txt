@@ -26,11 +26,13 @@ k manual clang-format
 
 * ctest pass(es)
 * commenting pass
+* more constness
 * STL replacements
   o pointer+length to std::vec/std::span
   o bitvec to STL -- ?
   o more std::vec
   o ...
+* exit(1) -> exceptions
 * core-guidelines pass
 * install target
 * internal/external installs (if any internal api at all ...)

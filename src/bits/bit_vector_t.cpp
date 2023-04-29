@@ -217,7 +217,7 @@ void bit_vector_t::toggle_element(int index) {
 }
 
 // ----------------------------------------------------------------
-bool bit_vector_t::is_zero(void) {
+bool bit_vector_t::is_zero(void) const {
   for (int i = 0; i < this->num_words; i++)
     if (this->words[i])
       return false;
@@ -374,7 +374,7 @@ void bit_vector_t::trim(void) {
 }
 
 // ----------------------------------------------------------------
-void bit_vector_t::bounds_check(int index) {
+void bit_vector_t::bounds_check(int index) const {
   if ((index < 0) || (index >= this->num_bits)) {
     std::cerr << "bit_vector_t array operator: index " << index
               << " out of bounds " << 0 << ":" << (this->num_bits - 1)
@@ -397,7 +397,7 @@ void bit_vector_t::accum_row(bit_vector_t &that) {
 }
 
 // ----------------------------------------------------------------
-int bit_vector_t::get_num_elements(void) { return this->num_bits; }
+int bit_vector_t::get_num_elements(void) const { return this->num_bits; }
 
 // ----------------------------------------------------------------
 #ifdef BVTEST

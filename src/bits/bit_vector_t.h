@@ -69,7 +69,7 @@ public:
   // Carriage return between elements.
   void crout(std::ostream &os);
 
-  bit_t get(int index) {
+  bit_t get(int index) const {
     if ((index < 0) || (index >= this->num_bits))
       this->bounds_check(index);
     return bit_t(GET_BIT(this->words, index));
@@ -94,7 +94,7 @@ public:
   }
 
   void toggle_element(int index);
-  bool is_zero(void);
+  bool is_zero(void) const;
 
   bit_vector_t operator+(bit_vector_t that);
   bit_vector_t operator-(bit_vector_t that);
@@ -124,7 +124,7 @@ public:
   int get_bit(int index) { return GET_BIT(this->words, index); }
 
   void accum_row(bit_vector_t &that);
-  int get_num_elements(void);
+  int get_num_elements(void) const;
   void ptrswap(bit_vector_t &that);
   bool find_leader_pos(int &rpos);
 
@@ -138,7 +138,7 @@ private:
 
   // Return value:  True/false.  rpos:  index, if found.
   void check_equal_lengths(bit_vector_t &that);
-  void bounds_check(int index);
+  void bounds_check(int index) const;
   void trim(void);
 };
 
