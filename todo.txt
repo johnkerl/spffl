@@ -1,3 +1,5 @@
+xx promote x n; demote; bit_at; set_bit; sqroot
+
 ================================================================
 k cmake (non-install) structure
   k initial lib skeleton
@@ -9,12 +11,12 @@ k formatting pass
   clang-format -i $(find test -name '*.h' -o -name '*.cpp')
 k pointer -> reference pass
 k namespacing pass: int_gcd -> spffl::intmath::int_gcd etc
+k int -> bool pass -- done??
 k manual clang-format
   - needs automated/CI clang-format
 
 * renaming pass
   - needs more
-  - get_characteristic -> get_characteristic
   - other unabbrevs
 
 * no-malloc case for f2poly_t w/ <= 64 bits, and expand-to-malloc on overflow
@@ -22,14 +24,27 @@ k manual clang-format
 * char* vs string literals
 * int -> bool pass
   - needs more
+
 * unsigned -> uint32_t etc pass
-  - needs more
+  o intmath:
+    - UTs for numbers over 2^32
+    - is_prime/nth_prime abend beyond 2^31-1
+  o bits
+    - bit_vector_t
+  o polynomials
+    - f2_poly_t 64-bit parts
+
+* renaming pass
+  o needs more
+  o get_char -> get_characteristic
+  o other unabbrevs
 
 * ctest pass(es)
 * commenting pass
 * rid of _1 _2 etc in test names
 * more constness
 * STL replacements
+  o get rid of rsstring_t entirely
   o pointer+length to std::vec/std::span
   o bitvec to STL -- ?
   o more std::vec

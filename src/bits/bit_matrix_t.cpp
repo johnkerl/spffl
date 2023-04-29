@@ -358,7 +358,7 @@ bit_matrix_t bit_matrix_t::posexp(int power, bit_matrix_t &I) {
   while (power != 0) { // Repeated squaring.
     if (power & 1)
       apower *= a2;
-    power = (unsigned)power >> 1;
+    power = (uint64_t)power >> 1;
     a2 *= a2;
   }
   return apower;
@@ -531,8 +531,8 @@ bool bit_matrix_t::is_I(void) const {
 }
 
 // ----------------------------------------------------------------
-unsigned **bit_matrix_t::expose(void) {
-  unsigned **ptrs = new unsigned *[this->num_rows];
+uint64_t **bit_matrix_t::expose(void) {
+  uint64_t **ptrs = new uint64_t *[this->num_rows];
   for (int i = 0; i < this->num_rows; i++)
     ptrs[i] = this->rows[i].expose();
   return ptrs;
@@ -583,8 +583,8 @@ void bit_matrix_t::swap(int arow, int brow) {
 
 void bit_matrix_t::row_reduce_below_with_scalar(bit_t &s) {
   int top_row, left_column, row;
-  unsigned **ptrs = this->expose();
-  unsigned *temp;
+  uint64_t **ptrs = this->expose();
+  uint64_t *temp;
 
   s = 1;
   for (top_row = 0, left_column = 0;

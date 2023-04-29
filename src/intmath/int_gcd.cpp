@@ -17,7 +17,7 @@ int int_gcd(int a, int b) {
   if (b == 0)
     return a;
 
-  if (a < 0) // Breaks for most negative int (-2^31); I don't care.
+  if (a < 0) // Breaks for most negative int (-2^63); I don't care.
     a = -a;
   if (b < 0)
     b = -b;

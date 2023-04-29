@@ -6,10 +6,12 @@
 
 #ifndef ISPRIME_H
 #define ISPRIME_H
+
 namespace spffl::intmath {
 
 bool is_prime(int m);
 int nth_prime(int n);
 
 } // namespace spffl::intmath
+
 #endif // ISPRIME_H

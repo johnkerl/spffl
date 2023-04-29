@@ -12,6 +12,7 @@
 #include "bit_t.h"
 #include "count_bits.h"
 #include "log2.h"
+#include <cstdint>
 #include <iomanip>
 #include <iostream>
 #include <sstream>
@@ -32,7 +33,7 @@ public:
 
   f2_poly_t(const std::string & s);
 
-  static f2_poly_t from_base_rep(unsigned b);
+  static f2_poly_t from_base_rep(uint64_t b);
   f2_poly_t prime_sfld_elt(int v) const;
   bool from_string(const char *string);
   int get_characteristic(void);
@@ -94,15 +95,17 @@ public:
   void set_bit(int pos);
   int bit_at(int pos) const;
 
+  // Not for general use, but exposed for unit test.
+  void _promote_n(uint64_t shamt);
+  void _promote_4(void);
+  void _promote_1(void);
+  void _demote_1(void);
+
 private:
-  unsigned *parts;
+  uint64_t *parts;
   int num_parts;
 
   bool cmp(int op, f2_poly_t &that) const;
-  void promote_n(unsigned shamt);
-  void promote_4(void);
-  void promote_1(void);
-  void demote_1(void);
   void extend_parts(int new_num_parts);
   void trim_parts(void);
   void check_neg_pos(int pos) const;

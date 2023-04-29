@@ -8,7 +8,9 @@
 #define COUNT_BITS_H
 
 namespace spffl::bits {
+
 int count_one_bits(unsigned char *p, int nbytes);
+
 } // namespace spffl::bits
 
 #endif // COUNT_BITS_H
