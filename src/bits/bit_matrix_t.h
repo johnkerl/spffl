@@ -23,12 +23,12 @@ public:
 
   bool load_from_file(char *file_name);
 
-  bit_matrix_t &operator=(const bit_t scalar);
-  bit_matrix_t &operator=(bit_matrix_t that);
-  bool operator==(bit_matrix_t that);
-  bool operator==(bit_t e);
-  bool operator!=(bit_matrix_t that);
-  bool operator!=(bit_t e);
+  bit_matrix_t &operator=(const bit_t &scalar);
+  bit_matrix_t &operator=(const bit_matrix_t &that);
+  bool operator==(const bit_matrix_t &that) const;
+  bool operator==(const bit_t &e) const;
+  bool operator!=(const bit_matrix_t &that) const;
+  bool operator!=(const bit_t &e) const;
 
   friend std::ostream &operator<<(std::ostream &os, const bit_matrix_t &m);
 
@@ -37,32 +37,32 @@ public:
   // For this class, since bits aren't individually addressable, please
   // use A[i].set(j, x) and x = A[i].get(j) in place of A[i][j].
   bit_vector_t &operator[](int row_index);
-  bit_matrix_t operator+(bit_matrix_t that);
-  bit_matrix_t operator-(bit_matrix_t that);
-  bit_matrix_t operator-(void);
-  bit_matrix_t operator+(bit_t e);
-  bit_matrix_t operator-(bit_t e);
-  bit_vector_t operator*(bit_vector_t v);
+  bit_matrix_t operator+(const bit_matrix_t &that) const;
+  bit_matrix_t operator-(const bit_matrix_t &that) const;
+  bit_matrix_t operator-(void) const;
+  bit_matrix_t operator+(const bit_t &e) const;
+  bit_matrix_t operator-(const bit_t &e) const;
+  bit_vector_t operator*(const bit_vector_t &v) const;
 
   // Return value is 1 for success, 0 for failure (i.e. non-positive
   // exponent of a singular matrix).
   int exp(int power, bit_matrix_t &rout);
 
-  bit_matrix_t operator*(bit_matrix_t that);
+  bit_matrix_t operator*(const bit_matrix_t &that);
   bit_matrix_t &operator+=(bit_matrix_t that);
   bit_matrix_t &operator-=(bit_matrix_t that);
   bit_matrix_t &operator+=(bit_t e);
   bit_matrix_t &operator-=(bit_t e);
-  bit_matrix_t &operator*=(bit_matrix_t that);
+  bit_matrix_t &operator*=(const bit_matrix_t &that);
 
   static bit_matrix_t outer(bit_vector_t &u, bit_vector_t &v);
-  bit_matrix_t transpose(void);
+  bit_matrix_t transpose(void) const;
 
   // Makes an identity matrix with the same dimensions as *this has.
   bit_matrix_t make_I(void);
-  bool is_zero(void);
-  bool is_square(void);
-  bool is_I(void);
+  bool is_zero(void) const;
+  bool is_square(void) const;
+  bool is_I(void) const;
   unsigned **expose(void);
   void swap(int arow, int brow);
 
@@ -89,8 +89,8 @@ public:
   // use get_rank() instead.
   int get_rank_rr(void);
 
-  bool get_kernel_basis(bit_matrix_t &rbas);
-  void check_kernel_basis(bit_matrix_t &kerbas);
+  bool get_kernel_basis(bit_matrix_t &rbas) const;
+  void check_kernel_basis(bit_matrix_t &kerbas) const;
   bit_matrix_t paste(bit_matrix_t &that);
 
   void split(bit_matrix_t &rleft, bit_matrix_t &rright, int split_column);
@@ -109,7 +109,7 @@ private:
 
   void mfree(void);
   void nullify(void);
-  void check_dims(bit_matrix_t that, char *msg);
+  void check_dims(const bit_matrix_t that, char *msg) const;
 
   // This is a private auxiliary function for the exp() method.
   bit_matrix_t posexp(int power, bit_matrix_t &I);
