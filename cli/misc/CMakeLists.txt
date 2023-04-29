@@ -1,9 +1,9 @@
 cmake_minimum_required (VERSION 3.24)
 
-project(spffl_misc)
+project(misc_main)
 
 add_executable(
-    spffl_misc
+    misc_main
     misc_main.cpp
 )
 

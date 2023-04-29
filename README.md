@@ -14,10 +14,12 @@ from [yamm](https://github.com/johnkerl/scripts/blob/main/fundam/yamm) to [cmake
 Still a WIP. Generate/build/test/install steps:
 
 ```
-alias cmg='cmake -B build'
-alias cmb='cmake --build build'
-alias cmt='cmake --build build --target test'
-alias cmi='cmake --build build --target install' # <-- WIP as of 2023-03-13
+alias  cmg='cmake -B build'
+alias cmgd='cmake -B build -DCMAKE_BUILD_TYPE=Debug'
+
+alias  cmb='cmake --build build'
+alias  cmt='cmake --build build --target test'
+alias  cmi='cmake --build build --target install' # <-- WIP as of 2023-03-13
 
 export PATH=$(pwd)/build/cli/spiff:$PATH
 cd regression

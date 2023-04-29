@@ -316,8 +316,8 @@ bool bit_vector_t::operator==(const bit_vector_t &that) const {
 bool bit_vector_t::operator!=(const bit_vector_t &that) const { return !(*this == that); }
 
 // ----------------------------------------------------------------
-bool bit_vector_t::operator==(const bit_t scalar) const {
-  unsigned fill = 0;
+bool bit_vector_t::operator==(const bit_t &scalar) const {
+  uint64_t fill = 0;
   if (scalar == bit_t(1))
     fill = ~fill;
   for (int i = 0; i < this->num_words - 1; i++)
@@ -327,14 +327,14 @@ bool bit_vector_t::operator==(const bit_t scalar) const {
 }
 
 // ----------------------------------------------------------------
-bool bit_vector_t::operator!=(const bit_t scalar) const { return !(*this == scalar); }
+bool bit_vector_t::operator!=(const bit_t &scalar) const { return !(*this == scalar); }
 
 // ----------------------------------------------------------------
 // Return value:  True/false.  rpos:  index, if found.
 bool bit_vector_t::find_leader_pos(int &rpos) {
   for (int i = 0; i < this->num_words; i++) {
     if (this->words[i]) {
-      rpos = (31 - spffl::intmath::find_msb_32(this->words[i])) +
+      rpos = (63 - spffl::intmath::find_msb_64(this->words[i])) +
              (i << BITS_SHIFT);
       return true;
     }
@@ -370,7 +370,7 @@ void bit_vector_t::trim(void) {
   if (num_dribble_bits == 0)
     return;
   this->words[this->num_words - 1] &=
-      ((1 << (BITS_PER_WORD - num_dribble_bits)) - 1) << (32 - this->num_bits);
+      ((1 << (BITS_PER_WORD - num_dribble_bits)) - 1) << (BITS_PER_WORD - this->num_bits);
 }
 
 // ----------------------------------------------------------------
