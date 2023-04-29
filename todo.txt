@@ -17,12 +17,6 @@ k manual clang-format
 
 * custom clang-format rules
 
-* regress.sh: auto -x; custom spiff exe; data relative to dirname $0; etc
-
-* renaming pass
-  - needs more
-  - other unabbrevs
-
 ? no-malloc case for f2poly_t w/ <= 64 bits, and expand-to-malloc on overflow
 
 * char* vs string literals
