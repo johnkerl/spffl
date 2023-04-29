@@ -9,14 +9,8 @@
 #include "tfacinfo.h"
 
 //#define F2POLY_FACTOR_DEBUG
-#define USE_BIT_MATRIX
 
-#ifdef USE_BIT_MATRIX
 #include "bit_matrix_t.h"
-#else
-#include "bit_t.h"
-#include "tmatrix.h"
-#endif
 
 namespace spffl::factorization {
 
@@ -30,11 +24,7 @@ static void f2_poly_berlekamp(spffl::polynomials::f2_poly_t f,
                               bool recurse);
 
 spffl::polynomials::f2_poly_t f2_poly_from_vector(
-#ifdef USE_BIT_MATRIX
     spffl::bits::bit_vector_t &v,
-#else
-    tvector<spffl::bits::bit_t> &v,
-#endif
     int n);
 
 // ----------------------------------------------------------------
@@ -168,11 +158,7 @@ static void f2_poly_berlekamp(spffl::polynomials::f2_poly_t f,
   std::cout << "\n";
   std::cout << "f2_poly_berlekamp input = " << f << "\n";
 #endif
-#ifdef USE_BIT_MATRIX
   spffl::bits::bit_matrix_t BI(n, n);
-#else
-  tmatrix<spffl::bits::bit_t> BI(n, n);
-#endif
 
   if (n < 2) {
     rfinfo.insert_factor(f);
@@ -185,11 +171,7 @@ static void f2_poly_berlekamp(spffl::polynomials::f2_poly_t f,
   // Populate the B matrix.
   for (j = 0; j < n; j++) {
     for (i = 0; i < n; i++) {
-#ifdef USE_BIT_MATRIX
       BI[n - 1 - i].set(n - 1 - j, spffl::bits::bit_t(x2i.bit_at(i)));
-#else
-      BI[n - 1 - i][n - 1 - j] = spffl::bits::bit_t(x2i.bit_at(i));
-#endif
     }
     x2i = (x2i * x2) % f;
   }
@@ -200,11 +182,7 @@ static void f2_poly_berlekamp(spffl::polynomials::f2_poly_t f,
 
   // Form B - I.
   for (i = 0; i < n; i++) {
-#ifdef USE_BIT_MATRIX
     BI[i].toggle_element(i);
-#else
-    BI[i][i] = BI[i][i] - one;
-#endif
   }
 
 #ifdef F2POLY_FACTOR_DEBUG
@@ -229,17 +207,9 @@ static void f2_poly_berlekamp(spffl::polynomials::f2_poly_t f,
   }
 
   // Find a basis for the nullspace of B - I.
-#ifdef USE_BIT_MATRIX
   spffl::bits::bit_matrix_t nullspace_basis;
-#else
-  tmatrix<spffl::bits::bit_t> nullspace_basis;
-#endif
 
-#ifdef USE_BIT_MATRIX
   bool got = BI.get_kernel_basis(nullspace_basis);
-#else
-  bool got = BI.get_kernel_basis(nullspace_basis, zero, one);
-#endif
 
   if (!got) {
     std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
@@ -339,11 +309,7 @@ static void f2_poly_berlekamp(spffl::polynomials::f2_poly_t f,
 
 // ----------------------------------------------------------------
 spffl::polynomials::f2_poly_t f2_poly_from_vector(
-#ifdef USE_BIT_MATRIX
     spffl::bits::bit_vector_t &v,
-#else
-    tvector<spffl::bits::bit_t> &v,
-#endif
     int n) {
   spffl::polynomials::f2_poly_t f(0);
   for (int i = 0; i < n; i++)
