@@ -94,11 +94,11 @@ public:
       std::ostream &os, const tfacinfo<element_type> &v);
 
   // ----------------------------------------------------------------
-  int get_num_distinct(void) { return this->num_distinct; }
+  int get_num_distinct(void) const { return this->num_distinct; }
 
   // ----------------------------------------------------------------
   // Units don't count.
-  int get_num_factors(void) {
+  int get_num_factors(void) const {
     int rv = 0;
     for (int i = 0; i < this->num_distinct; i++) {
       rv += this->pfactors_and_counts[i].count;
@@ -107,19 +107,19 @@ public:
   }
 
   // ----------------------------------------------------------------
-  element_type get_ith_factor(int which) {
+  element_type get_ith_factor(int which) const {
     this->bounds_check(which);
     return this->pfactors_and_counts[which].factor;
   }
 
   // ----------------------------------------------------------------
-  int get_ith_count(int which) {
+  int get_ith_count(int which) const {
     this->bounds_check(which);
     return this->pfactors_and_counts[which].count;
   }
 
   // ----------------------------------------------------------------
-  bool get_unit(element_type &runit) {
+  bool get_unit(element_type &runit) const {
     if (this->have_unit) {
       runit = this->unit;
       return true;
@@ -129,7 +129,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  void bounds_check(int which) {
+  void bounds_check(int which) const {
     if ((which < 0) || (which >= this->num_distinct)) {
       std::cerr << "tfacinfo:  index " << which
                 << " out of bounds 0:" << this->num_distinct - 1 << ".\n";
@@ -255,7 +255,7 @@ public:
 
   // ----------------------------------------------------------------
   // The class being instantiated may or may not have an exp() method.
-  element_type tf_exp(element_type x, int e) {
+  element_type tf_exp(element_type x, int e) const {
     element_type zero = x - x;
     element_type xp   = x;
 
@@ -329,7 +329,7 @@ public:
   // In a template class, we don't know what 1 looks like.  It's simplest
   // to have it passed in.
 
-  element_type unfactor(element_type one) {
+  element_type unfactor(const element_type &one) const {
     element_type rv = one;
 
     if (this->have_unit) {
@@ -368,7 +368,7 @@ public:
   //	2^3 3^1   24
   //	2^3 3^2   72
 
-  int get_num_divisors(void) {
+  int get_num_divisors(void) const {
     if (this->num_distinct <= 0) {
       if (!this->have_unit) {
         std::cerr << "tfacinfo::get_num_divisors():  "
@@ -390,7 +390,7 @@ public:
   // has more than a billion factors, it is impractical to loop over all
   // its factors anyway.)
 
-  element_type get_kth_divisor(int k, element_type one) {
+  element_type get_kth_divisor(int k, element_type one) const {
     if (this->num_distinct <= 0) {
       if (this->have_unit) {
         // if (k == 0)
@@ -416,7 +416,7 @@ public:
 
   // ----------------------------------------------------------------
   // The output will be sorted from smallest to largest.
-  tvector<element_type> get_all_divisors(element_type one) {
+  tvector<element_type> get_all_divisors(element_type one) const {
     if (this->num_distinct <= 0) {
       if (!this->have_unit) {
         std::cerr << "tfacinfo::get_all_divisors():  "
@@ -436,7 +436,7 @@ public:
   // ----------------------------------------------------------------
   // The output will be sorted from smallest to largest.
   bool get_maximal_proper_divisors(
-      tvector<element_type> &rv, element_type one) {
+      tvector<element_type> &rv, element_type one) const {
     if (this->num_distinct <= 0) {
       if (!this->have_unit) {
         std::cerr << "tfacinfo::get_maximal_proper_divisors():  "
