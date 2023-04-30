@@ -433,7 +433,9 @@ public:
   }
 
   // ----------------------------------------------------------------
-  bool operator!=(const tvector<element_type> &that) const { return !(*this == that); }
+  bool operator!=(const tvector<element_type> &that) const {
+    return !(*this == that);
+  }
 
   // ----------------------------------------------------------------
   bool operator==(const element_type &e) const {

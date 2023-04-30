@@ -955,7 +955,8 @@ void bit_matrix_t::nullify(void) {
 }
 
 // ----------------------------------------------------------------
-void bit_matrix_t::check_dims(const bit_matrix_t that, const std::string &msg) const {
+void bit_matrix_t::check_dims(
+    const bit_matrix_t that, const std::string &msg) const {
   if ((this->num_rows != that.num_rows) || (this->num_cols != that.num_cols)) {
     std::cerr << "bit_matrix_t " << msg << ":  Incompatibly sized arguments ("
               << this->num_rows << "x" << this->num_cols << ", "

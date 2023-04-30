@@ -103,7 +103,7 @@ private:
 } // namespace spffl::polynomials
 
 // Same as the gcd method, but overloaded.  This is important for template use.
-spffl::polynomials::fpn_poly_t gcd(
-    const spffl::polynomials::fpn_poly_t &a, const spffl::polynomials::fpn_poly_t &b);
+spffl::polynomials::fpn_poly_t gcd(const spffl::polynomials::fpn_poly_t &a,
+    const spffl::polynomials::fpn_poly_t &b);
 
 #endif // FPNPOLY_T_H

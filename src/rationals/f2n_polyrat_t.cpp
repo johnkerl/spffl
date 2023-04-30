@@ -48,7 +48,8 @@ f2n_polyrat_t f2n_polyrat_t::prime_subfield_element(int v) const {
 // This is a static method.
 f2n_polyrat_t f2n_polyrat_t::prime_subfield_element(
     int v, const spffl::polynomials::f2_poly_t &m) {
-  return f2n_polyrat_t(spffl::polynomials::f2n_poly_t::prime_subfield_element(v, m));
+  return f2n_polyrat_t(
+      spffl::polynomials::f2n_poly_t::prime_subfield_element(v, m));
 }
 
 // ----------------------------------------------------------------

@@ -10,7 +10,8 @@ spffl::bits::bit_t bit_from_rat(const spffl::rationals::intrat_t &r) {
 }
 
 // ----------------------------------------------------------------
-spffl::intmath::intmod_t intmod_from_rat(const spffl::rationals::intrat_t &r, int p) {
+spffl::intmath::intmod_t intmod_from_rat(
+    const spffl::rationals::intrat_t &r, int p) {
   spffl::intmath::intmod_t numer(r.get_numerator(), p);
   spffl::intmath::intmod_t denom(r.get_denominator(), p);
 
@@ -18,7 +19,8 @@ spffl::intmath::intmod_t intmod_from_rat(const spffl::rationals::intrat_t &r, in
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2_poly_t f2_poly_from_q_poly(const spffl::rationals::qpoly_t &q) {
+spffl::polynomials::f2_poly_t f2_poly_from_q_poly(
+    const spffl::rationals::qpoly_t &q) {
   spffl::polynomials::f2_poly_t rv;
   int d = q.find_degree();
   for (int i = d; i >= 0; i--) {
@@ -40,14 +42,16 @@ spffl::polynomials::fp_poly_t fp_poly_from_qpoly(
 
 // ----------------------------------------------------------------
 spffl::polynomials::f2n_poly_t f2n_poly_from_qpoly(
-    const spffl::rationals::qpoly_t &q, const spffl::polynomials::f2_poly_t &im) {
+    const spffl::rationals::qpoly_t &q,
+    const spffl::polynomials::f2_poly_t &im) {
   spffl::polynomials::f2n_poly_t rv;
   int d = q.find_degree();
   for (int i = d; i >= 0; i--) {
     // xxx unimpl
     spffl::intmath::intmod_t m = intmod_from_rat(q.get_coeff(i), 2);
     spffl::polynomials::f2_polymod_t c =
-        spffl::polynomials::f2_polymod_t::prime_subfield_element(m.get_residue(), im);
+        spffl::polynomials::f2_polymod_t::prime_subfield_element(
+            m.get_residue(), im);
     rv.set_coeff(i, c);
   }
   return rv;
@@ -55,7 +59,8 @@ spffl::polynomials::f2n_poly_t f2n_poly_from_qpoly(
 
 // ----------------------------------------------------------------
 spffl::polynomials::fpn_poly_t fpn_poly_from_qpoly(
-    const spffl::rationals::qpoly_t &q, const spffl::polynomials::fp_poly_t &im) {
+    const spffl::rationals::qpoly_t &q,
+    const spffl::polynomials::fp_poly_t &im) {
   int d = q.find_degree();
   int p = im.get_characteristic();
   spffl::intmath::intmod_t z0(0, p);
@@ -65,7 +70,8 @@ spffl::polynomials::fpn_poly_t fpn_poly_from_qpoly(
   for (int i = d; i >= 0; i--) {
     spffl::intmath::intmod_t m = intmod_from_rat(q.get_coeff(i), p);
     spffl::polynomials::fp_polymod_t c =
-        spffl::polynomials::fp_polymod_t::prime_subfield_element(m.get_residue(), im);
+        spffl::polynomials::fp_polymod_t::prime_subfield_element(
+            m.get_residue(), im);
     rv.set_coeff(i, c);
   }
   return rv;

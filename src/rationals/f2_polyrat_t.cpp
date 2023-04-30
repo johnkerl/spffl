@@ -67,7 +67,8 @@ f2_polyrat_t &f2_polyrat_t::operator=(const f2_polyrat_t &that) {
 }
 
 // ----------------------------------------------------------------
-f2_polyrat_t &f2_polyrat_t::operator=(const spffl::polynomials::f2_poly_t &numerator) {
+f2_polyrat_t &f2_polyrat_t::operator=(
+    const spffl::polynomials::f2_poly_t &numerator) {
   this->numer = numerator;
   this->denom = 1;
   this->simplify();

@@ -14,7 +14,7 @@ namespace spffl::factorization {
 
 // #define FPPOLY_FACTOR_DEBUG
 
-static void fp_poly_pre_berlekamp(const spffl::polynomials::fp_poly_t& f,
+static void fp_poly_pre_berlekamp(const spffl::polynomials::fp_poly_t &f,
     tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo, bool recurse);
 
 static void fp_poly_berlekamp(const spffl::polynomials::fp_poly_t &f,

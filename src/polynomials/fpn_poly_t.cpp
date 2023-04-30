@@ -851,7 +851,7 @@ void fpn_poly_t::promote_and_add(const fp_polymod_t &c0) {
 } // namespace spffl::polynomials
 
 // ----------------------------------------------------------------
-spffl::polynomials::fpn_poly_t gcd(
-    const spffl::polynomials::fpn_poly_t &a, const spffl::polynomials::fpn_poly_t &b) {
+spffl::polynomials::fpn_poly_t gcd(const spffl::polynomials::fpn_poly_t &a,
+    const spffl::polynomials::fpn_poly_t &b) {
   return a.gcd(b);
 }

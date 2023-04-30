@@ -21,7 +21,8 @@ public:
 
   f2n_poly_t(const f2_polymod_t &c0);
   f2n_poly_t(const f2_polymod_t &c1, const f2_polymod_t &c0);
-  f2n_poly_t(const f2_polymod_t &c2, const f2_polymod_t &c1, const f2_polymod_t &c0);
+  f2n_poly_t(
+      const f2_polymod_t &c2, const f2_polymod_t &c1, const f2_polymod_t &c0);
 
   f2n_poly_t(int c0, const f2_poly_t &m);
   f2n_poly_t(int c1, int c0, const f2_poly_t &m);
@@ -59,7 +60,8 @@ public:
   f2n_poly_t &operator%=(const f2n_poly_t &that);
   f2n_poly_t &operator/=(const f2_polymod_t &a);
 
-  void quot_and_rem(const f2n_poly_t &that, f2n_poly_t &rquot, f2n_poly_t &rrem) const;
+  void quot_and_rem(
+      const f2n_poly_t &that, f2n_poly_t &rquot, f2n_poly_t &rrem) const;
   f2n_poly_t gcd(const f2n_poly_t &that) const;
   f2n_poly_t ext_gcd(
       const f2n_poly_t &that, f2n_poly_t &rm, f2n_poly_t &rn) const;
@@ -107,7 +109,7 @@ private:
 } // namespace spffl::polynomials
 
 // Same as the gcd method, but overloaded.  This is important for template use.
-spffl::polynomials::f2n_poly_t gcd(
-    const spffl::polynomials::f2n_poly_t &a, const spffl::polynomials::f2n_poly_t &b);
+spffl::polynomials::f2n_poly_t gcd(const spffl::polynomials::f2n_poly_t &a,
+    const spffl::polynomials::f2n_poly_t &b);
 
 #endif // F2NPOLY_T_H

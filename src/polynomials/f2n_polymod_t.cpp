@@ -47,7 +47,8 @@ f2n_polymod_t f2n_polymod_t::prime_subfield_element(int v) const {
 
 // ----------------------------------------------------------------
 // This is a static method.
-f2n_polymod_t f2n_polymod_t::prime_subfield_element(int v, const f2n_poly_t &om) {
+f2n_polymod_t f2n_polymod_t::prime_subfield_element(
+    int v, const f2n_poly_t &om) {
   f2_poly_t im = om.get_coeff(0).get_modulus();
   return f2n_polymod_t(f2n_poly_t::prime_subfield_element(v, im), om);
 }

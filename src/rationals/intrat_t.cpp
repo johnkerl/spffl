@@ -282,7 +282,9 @@ bool intrat_t::operator==(const intrat_t &that) const {
 }
 
 // ----------------------------------------------------------------
-bool intrat_t::operator!=(const intrat_t &that) const { return !(*this == that); }
+bool intrat_t::operator!=(const intrat_t &that) const {
+  return !(*this == that);
+}
 
 // ----------------------------------------------------------------
 bool intrat_t::operator==(int that) const {

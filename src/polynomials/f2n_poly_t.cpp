@@ -37,7 +37,8 @@ f2n_poly_t::f2n_poly_t(const f2_polymod_t &c1, const f2_polymod_t &c0) {
 }
 
 // ----------------------------------------------------------------
-f2n_poly_t::f2n_poly_t(const f2_polymod_t &c2, const f2_polymod_t &c1, const f2_polymod_t &c0) {
+f2n_poly_t::f2n_poly_t(
+    const f2_polymod_t &c2, const f2_polymod_t &c1, const f2_polymod_t &c0) {
   this->degree    = 2;
   this->coeffs    = new f2_polymod_t[this->degree + 1];
   this->coeffs[2] = c2;
@@ -935,7 +936,7 @@ void f2n_poly_t::promote_and_add(const f2_polymod_t &c0) {
 } // namespace spffl::polynomials
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2n_poly_t gcd(
-    const spffl::polynomials::f2n_poly_t &a, const spffl::polynomials::f2n_poly_t &b) {
+spffl::polynomials::f2n_poly_t gcd(const spffl::polynomials::f2n_poly_t &a,
+    const spffl::polynomials::f2n_poly_t &b) {
   return a.gcd(b);
 }

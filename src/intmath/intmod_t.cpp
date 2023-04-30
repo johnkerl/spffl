@@ -144,7 +144,9 @@ bool intmod_t::operator==(const intmod_t &that) const {
 }
 
 // ----------------------------------------------------------------
-bool intmod_t::operator!=(const intmod_t &that) const { return !(*this == that); }
+bool intmod_t::operator!=(const intmod_t &that) const {
+  return !(*this == that);
+}
 
 // ----------------------------------------------------------------
 bool intmod_t::operator==(int that) const {
