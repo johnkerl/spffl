@@ -34,7 +34,7 @@ bit_vector_t::bit_vector_t(int init_num_elements) {
 }
 
 // ----------------------------------------------------------------
-bit_vector_t::bit_vector_t(bit_t scalar, int init_num_elements) {
+bit_vector_t::bit_vector_t(const bit_t &scalar, int init_num_elements) {
   if (init_num_elements <= 0) {
     std::cerr << "bit_vector_t::bit_vector_t():  Vector size must be"
               << " > 0; got " << init_num_elements << ".  Exiting."
@@ -96,7 +96,7 @@ bit_vector_t::~bit_vector_t(void) {
 }
 
 // ----------------------------------------------------------------
-bit_vector_t &bit_vector_t::operator=(bit_vector_t that) {
+bit_vector_t &bit_vector_t::operator=(const bit_vector_t that) {
   this->num_bits  = that.num_bits;
   this->num_words = that.num_words;
   if (this->words == 0) {
@@ -110,7 +110,7 @@ bit_vector_t &bit_vector_t::operator=(bit_vector_t that) {
 }
 
 // ----------------------------------------------------------------
-bit_vector_t &bit_vector_t::operator=(const bit_t scalar) {
+bit_vector_t &bit_vector_t::operator=(const bit_t &scalar) {
   if (this->words) {
     uint64_t fill = 0;
     if (scalar == bit_t(1)) {

@@ -483,7 +483,7 @@ bit_matrix_t &bit_matrix_t::operator*=(const bit_matrix_t &that) {
 
 // ----------------------------------------------------------------
 // This is a static method.
-bit_matrix_t bit_matrix_t::outer(bit_vector_t &u, bit_vector_t &v) {
+bit_matrix_t bit_matrix_t::outer(const bit_vector_t &u, const bit_vector_t &v) {
   int m = u.get_num_elements();
   int n = v.get_num_elements();
   bit_matrix_t rv;

@@ -57,13 +57,13 @@ class bit_vector_t {
 public:
   bit_vector_t(void);
   bit_vector_t(int init_num_elements);
-  bit_vector_t(bit_t scalar, int init_num_elements);
+  bit_vector_t(const bit_t &scalar, int init_num_elements);
   bit_vector_t(int scalar, int init_num_elements);
   bit_vector_t(const bit_vector_t &that);
   ~bit_vector_t(void);
 
-  bit_vector_t &operator=(bit_vector_t that);
-  bit_vector_t &operator=(const bit_t scalar);
+  bit_vector_t &operator=(const bit_vector_t that);
+  bit_vector_t &operator=(const bit_t &scalar);
 
   // I/O format:  all elements on one line, delimited by whitespace.
   friend std::ostream &operator<<(std::ostream &os, const bit_vector_t &v);

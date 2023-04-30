@@ -55,7 +55,7 @@ public:
   bit_matrix_t &operator-=(const bit_t &e);
   bit_matrix_t &operator*=(const bit_matrix_t &that);
 
-  static bit_matrix_t outer(bit_vector_t &u, bit_vector_t &v);
+  static bit_matrix_t outer(const bit_vector_t &u, const bit_vector_t &v);
   bit_matrix_t transpose(void) const;
 
   // Makes an identity matrix with the same dimensions as *this has.
