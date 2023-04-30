@@ -14,6 +14,8 @@ from [yamm](https://github.com/johnkerl/scripts/blob/main/fundam/yamm) to [cmake
 Still a WIP. Generate/build/test/install steps:
 
 ```
+alias cmz='cmake --build build --target clean && rm -rf build'
+
 alias  cmg='cmake -B build'
 alias cmgd='cmake -B build -DCMAKE_BUILD_TYPE=Debug'
 
@@ -32,6 +34,14 @@ To get more details about failed unit tests including line numbers:
 * In place of `cmt`, `./build/test/bits/test_bits` (or whichever test executable)
 
 TODO: more here about tests, libraries, and executables.
+
+# Compiler selection
+
+```
+cmz
+cmg -D CMAKE_C_COMPILER=gcc -D CMAKE_CXX_COMPILER=g++
+cmb -v
+```
 
 # See also
 
