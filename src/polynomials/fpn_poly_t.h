@@ -86,7 +86,7 @@ public:
   friend std::ostream &operator<<(std::ostream &os, const fpn_poly_t &poly);
   // Modulus must have already been set:
   friend std::istream &operator>>(std::istream &is, fpn_poly_t &poly);
-  bool from_string(const char *string, fp_poly_t m);
+  bool from_string(const std::string &string, fp_poly_t m);
 
   void promote(void);
   void promote_and_add(const fp_polymod_t &c0);

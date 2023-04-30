@@ -780,19 +780,20 @@ std::istream &operator>>(std::istream &is, fpn_poly_t &poly) {
 }
 
 // ----------------------------------------------------------------
-bool fpn_poly_t::from_string(const char *string, fp_poly_t m) {
+bool fpn_poly_t::from_string(const std::string &string, fp_poly_t m) {
   if (this->coeffs) {
     delete[] this->coeffs;
   }
 
   int num_colons = 0;
-  for (const char *q = string; *q; q++) {
+  for (const char *q = string.c_str(); *q; q++) {
     if (*q == ':') {
       num_colons++;
     }
   }
 
-  char *dup   = strdup(string);
+  // TODO: more use of std::string methods
+  char *dup   = strdup(string.c_str());
   char **argv = new char *[num_colons + 1];
   int argc    = spffl::base::tokenize(dup, ":", argv, num_colons + 1);
   if (argc < 1) {

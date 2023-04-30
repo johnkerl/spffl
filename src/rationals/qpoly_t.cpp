@@ -683,20 +683,20 @@ std::istream &operator>>(std::istream &is, qpoly_t &poly) {
     return is;
   }
 
-  if (!poly.from_string(s.c_str())) {
+  if (!poly.from_string(s)) {
     is.setstate(std::ios::failbit);
   }
   return is;
 }
 
 // ----------------------------------------------------------------
-bool qpoly_t::from_string(const char *string) {
+bool qpoly_t::from_string(const std::string &string) {
   if (this->coeffs) {
     delete[] this->coeffs;
   }
 
   int num_commas = 0;
-  for (const char *q = string; *q; q++) {
+  for (const char *q = string.c_str(); *q; q++) {
     if (*q == ',') {
       num_commas++;
     }
@@ -705,7 +705,7 @@ bool qpoly_t::from_string(const char *string) {
   if (num_commas == 0) {
     // Allow comma-free input as long as all residues are
     // single-digit.
-    int len      = strlen(string);
+    int len      = string.length();
     this->degree = len - 1;
     this->coeffs = new intrat_t[this->degree + 1];
     int si, ci;
@@ -720,7 +720,7 @@ bool qpoly_t::from_string(const char *string) {
       this->coeffs[ci] = intrat_t(ascii_digit - '0');
     }
   } else {
-    char *dup   = strdup(string);
+    char *dup   = strdup(string.c_str());
     char **argv = new char *[num_commas + 1];
     int argc    = spffl::base::tokenize(dup, ",", argv, num_commas + 1);
     if (argc < 1) {

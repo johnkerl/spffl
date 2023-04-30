@@ -1622,7 +1622,7 @@ private:
   }
 
   // ----------------------------------------------------------------
-  void check_dims(const tmatrix<element_type> &that, const char *msg) const {
+  void check_dims(const tmatrix<element_type> &that, const std::string& msg) const {
     if ((this->num_rows != that.num_rows) ||
         (this->num_cols != that.num_cols)) {
       std::cerr << "tmatrix " << msg << ":  Incompatibly sized arguments ("

@@ -152,7 +152,7 @@ bit_matrix_t &bit_matrix_t::operator=(const bit_matrix_t &that) {
 
 // ----------------------------------------------------------------
 bool bit_matrix_t::operator==(const bit_matrix_t &that) const {
-  this->check_dims(that, (char *)"operator==");
+  this->check_dims(that, "operator==");
   for (int i = 0; i < this->num_rows; i++) {
     if (this->rows[i] != that.rows[i]) {
       return false;
@@ -294,7 +294,7 @@ bit_vector_t &bit_matrix_t::operator[](int row_index) {
 
 // ----------------------------------------------------------------
 bit_matrix_t bit_matrix_t::operator+(const bit_matrix_t &that) const {
-  this->check_dims(that, (char *)"operator+");
+  this->check_dims(that, "operator+");
   bit_matrix_t rv(this->num_rows, this->num_cols);
   for (int i = 0; i < this->num_rows; i++) {
     rv[i] = this->rows[i] + that.rows[i];
@@ -955,7 +955,7 @@ void bit_matrix_t::nullify(void) {
 }
 
 // ----------------------------------------------------------------
-void bit_matrix_t::check_dims(const bit_matrix_t that, char *msg) const {
+void bit_matrix_t::check_dims(const bit_matrix_t that, const std::string &msg) const {
   if ((this->num_rows != that.num_rows) || (this->num_cols != that.num_cols)) {
     std::cerr << "bit_matrix_t " << msg << ":  Incompatibly sized arguments ("
               << this->num_rows << "x" << this->num_cols << ", "

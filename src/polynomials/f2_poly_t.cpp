@@ -63,7 +63,7 @@ f2_poly_t f2_poly_t::from_base_rep(uint64_t b) {
 }
 
 // ----------------------------------------------------------------
-bool f2_poly_t::from_string(const char *string) {
+bool f2_poly_t::from_string(const std::string &string) {
   std::istringstream iss(string, std::ios_base::in);
   iss >> *this;
   // return iss.fail() ? 0 : iss.eof() ? 0 : 1;

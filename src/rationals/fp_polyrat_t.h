@@ -40,7 +40,7 @@ public:
   friend std::istream &operator>>(std::istream &is, fp_polyrat_t &a);
   friend std::istringstream &operator>>(
       std::istringstream &iss, fp_polyrat_t &a);
-  bool from_string(const char *string, int p);
+  bool from_string(const std::string &string, int p);
 
   fp_polyrat_t &operator+=(const fp_polyrat_t &that);
   fp_polyrat_t &operator-=(const fp_polyrat_t &that);
