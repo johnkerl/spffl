@@ -21,7 +21,7 @@ qpoly_t::qpoly_t(void) {
 }
 
 // ----------------------------------------------------------------
-qpoly_t::qpoly_t(intrat_t c0) {
+qpoly_t::qpoly_t(const intrat_t &c0) {
   this->degree    = 0;
   this->coeffs    = new intrat_t[this->degree + 1];
   this->coeffs[0] = c0;
@@ -29,7 +29,7 @@ qpoly_t::qpoly_t(intrat_t c0) {
 }
 
 // ----------------------------------------------------------------
-qpoly_t::qpoly_t(intrat_t c1, intrat_t c0) {
+qpoly_t::qpoly_t(const intrat_t &c1, const intrat_t &c0) {
   this->degree    = 1;
   this->coeffs    = new intrat_t[this->degree + 1];
   this->coeffs[1] = c1;
@@ -38,7 +38,7 @@ qpoly_t::qpoly_t(intrat_t c1, intrat_t c0) {
 }
 
 // ----------------------------------------------------------------
-qpoly_t::qpoly_t(intrat_t c2, intrat_t c1, intrat_t c0) {
+qpoly_t::qpoly_t(const intrat_t &c2, const intrat_t &c1, const intrat_t &c0) {
   this->degree    = 2;
   this->coeffs    = new intrat_t[this->degree + 1];
   this->coeffs[2] = c2;
@@ -48,46 +48,8 @@ qpoly_t::qpoly_t(intrat_t c2, intrat_t c1, intrat_t c0) {
 }
 
 // ----------------------------------------------------------------
-qpoly_t::qpoly_t(intrat_t c3, intrat_t c2, intrat_t c1, intrat_t c0) {
-  this->degree    = 3;
-  this->coeffs    = new intrat_t[this->degree + 1];
-  this->coeffs[3] = c3;
-  this->coeffs[2] = c2;
-  this->coeffs[1] = c1;
-  this->coeffs[0] = c0;
-  this->recompute_degree();
-}
-
-// ----------------------------------------------------------------
-qpoly_t::qpoly_t(
-    intrat_t c4, intrat_t c3, intrat_t c2, intrat_t c1, intrat_t c0) {
-  this->degree    = 4;
-  this->coeffs    = new intrat_t[this->degree + 1];
-  this->coeffs[4] = c4;
-  this->coeffs[3] = c3;
-  this->coeffs[2] = c2;
-  this->coeffs[1] = c1;
-  this->coeffs[0] = c0;
-  this->recompute_degree();
-}
-
-// ----------------------------------------------------------------
-qpoly_t::qpoly_t(intrat_t c5, intrat_t c4, intrat_t c3, intrat_t c2,
-    intrat_t c1, intrat_t c0) {
-  this->degree    = 5;
-  this->coeffs    = new intrat_t[this->degree + 1];
-  this->coeffs[5] = c5;
-  this->coeffs[4] = c4;
-  this->coeffs[3] = c3;
-  this->coeffs[2] = c2;
-  this->coeffs[1] = c1;
-  this->coeffs[0] = c0;
-  this->recompute_degree();
-}
-
-// ----------------------------------------------------------------
 // This is a static method.
-qpoly_t qpoly_t::binomial(intrat_t ci, int i, intrat_t cj, int j) {
+qpoly_t qpoly_t::binomial(const intrat_t &ci, int i, const intrat_t &cj, int j) {
   qpoly_t rv(0);
   rv.set_coeff(i, ci);
   rv.set_coeff(j, cj);
@@ -111,7 +73,7 @@ qpoly_t::~qpoly_t(void) {
 }
 
 // ----------------------------------------------------------------
-qpoly_t &qpoly_t::operator=(qpoly_t that) {
+qpoly_t &qpoly_t::operator=(const qpoly_t &that) {
   if (this->coeffs) {
     delete[] this->coeffs;
   }
@@ -124,7 +86,7 @@ qpoly_t &qpoly_t::operator=(qpoly_t that) {
 }
 
 // ----------------------------------------------------------------
-qpoly_t qpoly_t::operator+(qpoly_t that) const {
+qpoly_t qpoly_t::operator+(const qpoly_t &that) const {
   int i;
   qpoly_t rv;
 
@@ -152,7 +114,7 @@ qpoly_t qpoly_t::operator+(qpoly_t that) const {
 }
 
 // ----------------------------------------------------------------
-qpoly_t qpoly_t::operator+(intrat_t a) const {
+qpoly_t qpoly_t::operator+(const intrat_t &a) const {
   qpoly_t rv(*this);
   rv.coeffs[0] += a;
   rv.recompute_degree();
@@ -160,7 +122,7 @@ qpoly_t qpoly_t::operator+(intrat_t a) const {
 }
 
 // ----------------------------------------------------------------
-qpoly_t qpoly_t::operator-(qpoly_t that) const {
+qpoly_t qpoly_t::operator-(const qpoly_t &that) const {
   int i;
   qpoly_t rv;
 
@@ -188,7 +150,7 @@ qpoly_t qpoly_t::operator-(qpoly_t that) const {
 }
 
 // ----------------------------------------------------------------
-qpoly_t qpoly_t::operator-(intrat_t a) const {
+qpoly_t qpoly_t::operator-(const intrat_t &a) const {
   qpoly_t rv(*this);
   rv.coeffs[0] -= a;
   rv.recompute_degree();
@@ -206,7 +168,7 @@ qpoly_t qpoly_t::operator-(void) const {
 }
 
 // ----------------------------------------------------------------
-qpoly_t qpoly_t::operator*(qpoly_t that) const {
+qpoly_t qpoly_t::operator*(const qpoly_t &that) const {
   qpoly_t rv;
   rv.degree = this->degree + that.degree;
   rv.coeffs = new intrat_t[rv.degree + 1];
@@ -225,7 +187,7 @@ qpoly_t qpoly_t::operator*(qpoly_t that) const {
 }
 
 // ----------------------------------------------------------------
-qpoly_t qpoly_t::operator*(intrat_t a) {
+qpoly_t qpoly_t::operator*(const intrat_t &a) {
   qpoly_t rv = *this;
   for (int i = 0; i <= rv.degree; i++) {
     rv.coeffs[i] *= a;
@@ -235,21 +197,21 @@ qpoly_t qpoly_t::operator*(intrat_t a) {
 }
 
 // ----------------------------------------------------------------
-qpoly_t qpoly_t::operator/(qpoly_t that) {
+qpoly_t qpoly_t::operator/(const qpoly_t &that) {
   qpoly_t quot, rem;
   this->quot_and_rem(that, quot, rem);
   return quot;
 }
 
 // ----------------------------------------------------------------
-qpoly_t qpoly_t::operator%(qpoly_t that) {
+qpoly_t qpoly_t::operator%(const qpoly_t &that) {
   qpoly_t quot, rem;
   this->quot_and_rem(that, quot, rem);
   return rem;
 }
 
 // ----------------------------------------------------------------
-qpoly_t qpoly_t::operator/(intrat_t a) {
+qpoly_t qpoly_t::operator/(const intrat_t &a) {
   qpoly_t rv = *this;
   for (int i = 0; i <= rv.degree; i++) {
     rv.coeffs[i] /= a;
@@ -259,39 +221,39 @@ qpoly_t qpoly_t::operator/(intrat_t a) {
 }
 
 // ----------------------------------------------------------------
-qpoly_t &qpoly_t::operator+=(qpoly_t that) {
+qpoly_t &qpoly_t::operator+=(const qpoly_t &that) {
   *this = *this + that;
   return *this;
 }
-qpoly_t &qpoly_t::operator+=(intrat_t a) {
+qpoly_t &qpoly_t::operator+=(const intrat_t &a) {
   *this = *this + a;
   return *this;
 }
-qpoly_t &qpoly_t::operator-=(qpoly_t that) {
+qpoly_t &qpoly_t::operator-=(const qpoly_t &that) {
   *this = *this - that;
   return *this;
 }
-qpoly_t &qpoly_t::operator-=(intrat_t a) {
+qpoly_t &qpoly_t::operator-=(const intrat_t &a) {
   *this = *this - a;
   return *this;
 }
-qpoly_t &qpoly_t::operator*=(qpoly_t that) {
+qpoly_t &qpoly_t::operator*=(const qpoly_t &that) {
   *this = *this * that;
   return *this;
 }
-qpoly_t &qpoly_t::operator*=(intrat_t a) {
+qpoly_t &qpoly_t::operator*=(const intrat_t &a) {
   *this = *this * a;
   return *this;
 }
-qpoly_t &qpoly_t::operator/=(qpoly_t &that) {
+qpoly_t &qpoly_t::operator/=(const qpoly_t &that) {
   *this = *this / that;
   return *this;
 }
-qpoly_t &qpoly_t::operator%=(qpoly_t &that) {
+qpoly_t &qpoly_t::operator%=(const qpoly_t &that) {
   *this = *this % that;
   return *this;
 }
-qpoly_t &qpoly_t::operator/=(intrat_t a) {
+qpoly_t &qpoly_t::operator/=(const intrat_t &a) {
   *this = *this / a;
   return *this;
 }
@@ -313,7 +275,7 @@ qpoly_t &qpoly_t::operator/=(intrat_t a) {
 //        |  4 3
 
 // ----------------------------------------------------------------
-void qpoly_t::quot_and_rem(qpoly_t &that, qpoly_t &rquot, qpoly_t &rrem) {
+void qpoly_t::quot_and_rem(const qpoly_t &that, qpoly_t &rquot, qpoly_t &rrem) const {
   intrat_t zero = this->coeffs[0] - this->coeffs[0];
 
   if (that == zero) {
@@ -596,25 +558,25 @@ bool qpoly_t::operator==(int v) const {
 bool qpoly_t::operator!=(int v) const { return !(*this == v); }
 
 // ----------------------------------------------------------------
-bool qpoly_t::operator==(qpoly_t that) const { return this->cmp(CMP_EQ, that); }
+bool qpoly_t::operator==(const qpoly_t &that) const { return this->cmp(CMP_EQ, that); }
 
 // ----------------------------------------------------------------
-bool qpoly_t::operator!=(qpoly_t that) const { return this->cmp(CMP_NE, that); }
+bool qpoly_t::operator!=(const qpoly_t &that) const { return this->cmp(CMP_NE, that); }
 
 // ----------------------------------------------------------------
-bool qpoly_t::operator<(qpoly_t that) const { return this->cmp(CMP_LT, that); }
+bool qpoly_t::operator<(const qpoly_t &that) const { return this->cmp(CMP_LT, that); }
 
 // ----------------------------------------------------------------
-bool qpoly_t::operator>(qpoly_t that) const { return this->cmp(CMP_GT, that); }
+bool qpoly_t::operator>(const qpoly_t &that) const { return this->cmp(CMP_GT, that); }
 
 // ----------------------------------------------------------------
-bool qpoly_t::operator<=(qpoly_t that) const { return this->cmp(CMP_LE, that); }
+bool qpoly_t::operator<=(const qpoly_t &that) const { return this->cmp(CMP_LE, that); }
 
 // ----------------------------------------------------------------
-bool qpoly_t::operator>=(qpoly_t that) const { return this->cmp(CMP_GE, that); }
+bool qpoly_t::operator>=(const qpoly_t &that) const { return this->cmp(CMP_GE, that); }
 
 // ----------------------------------------------------------------
-bool qpoly_t::cmp(int cmp, qpoly_t &that) const {
+bool qpoly_t::cmp(int cmp, const qpoly_t &that) const {
   int direction = 0; // -1 = less, 0 = equal, +1 = greater;
 
   if (this->degree < that.degree) {
