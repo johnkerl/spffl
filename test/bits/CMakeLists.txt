@@ -49,7 +49,7 @@ add_executable(test_bits
 )
 target_include_directories(${PROJECT_NAME}
   PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../src
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../spffl
 )
 target_link_libraries(${PROJECT_NAME} PRIVATE
     base

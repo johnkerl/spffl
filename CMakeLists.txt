@@ -11,7 +11,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O2")
 set(CMAKE_CXX_STANDARD 20 CACHE STRING "C++ Standard")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_subdirectory(src)
+add_subdirectory(spffl)
 add_subdirectory(lib)
 add_subdirectory(cli)
 
@@ -21,7 +21,7 @@ add_subdirectory(test)
 
 # ----------------------------------------------------------------
 install(
-  DIRECTORY "src/" # The trailing slash is important so "src" isn't a part of the install path
+  DIRECTORY "spffl/" # The trailing slash is important so "spffl" isn't a part of the install path
   DESTINATION "spffl/include"
   FILES_MATCHING PATTERN "*.h"
 )

@@ -1,11 +1,13 @@
 cmake_minimum_required (VERSION 3.24)
 
-project(bitrand)
+project(base)
 
 add_library(${PROJECT_NAME}
-  psdes.cpp
+  spffl_exception.cpp
+  tokenize.cpp
+  line_scan.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
-    PUBLIC ${PROJECT_SOURCE_DIR}/../../src
+    PUBLIC ${PROJECT_SOURCE_DIR}/../../spffl
 )
