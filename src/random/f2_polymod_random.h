@@ -9,6 +9,6 @@
 #include "f2_polymod_t.h"
 namespace spffl::random {
 spffl::polynomials::f2_polymod_t f2_polymod_random(
-    spffl::polynomials::f2_poly_t m);
+    const spffl::polynomials::f2_poly_t &m);
 } // namespace spffl::random
 #endif // F2POLYMOD_RANDOM_H

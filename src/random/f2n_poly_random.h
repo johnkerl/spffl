@@ -9,6 +9,6 @@
 #include "f2n_poly_t.h"
 namespace spffl::random {
 spffl::polynomials::f2n_poly_t f2n_poly_random(
-    spffl::polynomials::f2_poly_t m, int deg);
+    const spffl::polynomials::f2_poly_t &m, int deg);
 } // namespace spffl::random
 #endif // F2NPOLY_RANDOM_H

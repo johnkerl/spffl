@@ -90,7 +90,7 @@ spffl::polynomials::fp_poly_t get_cyclo_fp_poly(int n, int p) {
 
 // ----------------------------------------------------------------
 spffl::polynomials::f2n_poly_t get_cyclo_f2n_poly(
-    int n, spffl::polynomials::f2_poly_t im) {
+    int n, const spffl::polynomials::f2_poly_t &im) {
   spffl::rationals::qpoly_t q       = get_cyclo_qpoly(n);
   spffl::polynomials::f2n_poly_t rv = f2n_poly_from_qpoly(q, im);
   return rv;
@@ -98,7 +98,7 @@ spffl::polynomials::f2n_poly_t get_cyclo_f2n_poly(
 
 // ----------------------------------------------------------------
 spffl::polynomials::fpn_poly_t get_cyclo_fpn_poly(
-    int n, spffl::polynomials::fp_poly_t im) {
+    int n, const spffl::polynomials::fp_poly_t &im) {
   spffl::rationals::qpoly_t q       = get_cyclo_qpoly(n);
   spffl::polynomials::fpn_poly_t rv = fpn_poly_from_qpoly(q, im);
   return rv;

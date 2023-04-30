@@ -12,7 +12,7 @@ namespace spffl::random {
 
 // ----------------------------------------------------------------
 spffl::polynomials::f2_polymod_t f2_polymod_random(
-    spffl::polynomials::f2_poly_t m) {
+    const spffl::polynomials::f2_poly_t &m) {
   int deg = m.find_degree();
   if (deg < 1) {
     std::cerr << "f2_polymod_random:  degree (" << deg << ") of " << m
