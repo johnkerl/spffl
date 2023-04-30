@@ -49,10 +49,13 @@ add_executable(test_bits
 )
 target_include_directories(${PROJECT_NAME}
   PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../src/base
     ${CMAKE_CURRENT_SOURCE_DIR}/../../src/bits
 )
 target_link_libraries(${PROJECT_NAME} PRIVATE
-    bits Catch2::Catch2WithMain
+    base
+    bits
+    Catch2::Catch2WithMain
 )
 
 # ----------------------------------------------------------------

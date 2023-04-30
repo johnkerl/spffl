@@ -7,6 +7,7 @@
 #ifndef TVECTOR_H
 #define TVECTOR_H
 
+#include "spffl_exception.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>

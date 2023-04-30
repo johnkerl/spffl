@@ -4,6 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
+#include "spffl_exception.h"
 #include "min_char_polys.h"
 #include <iostream>
 

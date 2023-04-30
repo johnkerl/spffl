@@ -7,6 +7,7 @@
 #ifndef TMATRIX_H
 #define TMATRIX_H
 
+#include "spffl_exception.h"
 #include "int_gcd.h"
 #include "line_scan.h"
 #include "tokenize.h"

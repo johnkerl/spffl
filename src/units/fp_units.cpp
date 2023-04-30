@@ -4,6 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
+#include "spffl_exception.h"
 #include "fp_units.h"
 #include "int_factor.h"
 #include "int_gcd.h"

@@ -4,6 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
+#include "spffl_exception.h"
 #include "f2n_polymod_t.h"
 #include <iomanip>
 #include <iostream>

@@ -1,3 +1,4 @@
+#include "spffl_exception.h"
 #include "tokenize.h"
 #include <iostream>
 #include <stdio.h> // For perror

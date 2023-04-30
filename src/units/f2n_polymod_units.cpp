@@ -4,6 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
+#include "spffl_exception.h"
 #include "f2n_polymod_units.h"
 #include "f2n_poly_totient.h"
 #include "int_factor.h"

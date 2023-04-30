@@ -4,6 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
+#include "spffl_exception.h"
 #include "intrat_t.h"
 #include "cmps.h"
 #include "int_gcd.h"

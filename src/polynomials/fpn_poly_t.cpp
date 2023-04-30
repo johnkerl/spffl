@@ -4,6 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
+#include "spffl_exception.h"
 #include "fpn_poly_t.h"
 #include "cmps.h"
 #include "tokenize.h"

@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 
+#include "spffl_exception.h"
 #include "cyclo_poly.h"
 #include "qff.h"
 

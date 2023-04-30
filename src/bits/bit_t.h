@@ -12,6 +12,7 @@
 #include <iostream>
 #include <sstream>
 #include <stdlib.h>
+#include "spffl_exception.h"
 
 namespace spffl::bits {
 

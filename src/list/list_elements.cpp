@@ -4,6 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
+#include "spffl_exception.h"
 #include "list_elements.h"
 #include "f2_poly_totient.h"
 #include "f2n_poly_totient.h"

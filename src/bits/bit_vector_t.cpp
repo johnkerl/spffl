@@ -4,6 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
+#include "spffl_exception.h"
 #include "bit_vector_t.h"
 #include "count_bits.h"
 #include "log2.h"

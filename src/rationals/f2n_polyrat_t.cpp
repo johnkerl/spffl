@@ -4,6 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
+#include "spffl_exception.h"
 #include "f2n_polyrat_t.h"
 #include "cmps.h"
 #include <iomanip>

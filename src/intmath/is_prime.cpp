@@ -4,6 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
+#include "spffl_exception.h"
 #include "is_prime.h"
 #include "primes_16.h"
 #include <iostream>

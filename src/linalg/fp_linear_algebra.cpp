@@ -4,6 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
+#include "spffl_exception.h"
 #include "fp_linear_algebra.h"
 #include "fp_poly_t.h"
 

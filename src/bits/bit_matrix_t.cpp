@@ -4,6 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
+#include "spffl_exception.h"
 #include "bit_matrix_t.h"
 #include "line_scan.h"
 #include <stdlib.h>
@@ -14,10 +15,11 @@ namespace spffl::bits {
 // ----------------------------------------------------------------
 bit_matrix_t::bit_matrix_t(int init_num_rows, int init_num_cols) {
   if ((init_num_rows <= 0) || (init_num_cols <= 0)) {
-    std::cerr << "bit_matrix_t::bit_matrix_t():  Matrix dimensions "
+    std::stringstream ss;
+    ss << "bit_matrix_t::bit_matrix_t():  Matrix dimensions "
               << "must be >= 0; got " << init_num_rows << " x " << init_num_cols
               << ".  Exiting." << std::endl;
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   this->num_rows = init_num_rows;
@@ -31,10 +33,11 @@ bit_matrix_t::bit_matrix_t(int init_num_rows, int init_num_cols) {
 // ----------------------------------------------------------------
 bit_matrix_t::bit_matrix_t(bit_t e, int init_num_rows, int init_num_cols) {
   if ((init_num_rows <= 0) || (init_num_cols <= 0)) {
-    std::cerr << "bit_matrix_t::bit_matrix_t():  Matrix dimensions "
+    std::stringstream ss;
+    ss << "bit_matrix_t::bit_matrix_t():  Matrix dimensions "
               << "must be > 0; got " << init_num_rows << " x " << init_num_cols
               << ".  Exiting." << std::endl;
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
   this->num_rows = init_num_rows;
   this->num_cols = init_num_cols;

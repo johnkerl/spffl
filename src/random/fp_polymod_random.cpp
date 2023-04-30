@@ -4,6 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
+#include "spffl_exception.h"
 #include "fp_polymod_random.h"
 #include "fp_poly_random.h"
 
