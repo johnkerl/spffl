@@ -47,7 +47,7 @@ intrat_t::~intrat_t(void) {
 }
 
 // ----------------------------------------------------------------
-intrat_t &intrat_t::operator=(intrat_t that) {
+intrat_t &intrat_t::operator=(const intrat_t &that) {
   this->numer = that.numer;
   this->denom = that.denom;
   return *this;
@@ -66,7 +66,7 @@ intrat_t &intrat_t::operator=(int numerator) {
 // --- + --- = -------
 //  b     d      bd
 
-intrat_t intrat_t::operator+(intrat_t that) const {
+intrat_t intrat_t::operator+(const intrat_t &that) const {
   intrat_t rv;
   rv.numer = this->numer * that.denom + this->denom * that.numer;
   rv.denom = this->denom * that.denom;
@@ -75,7 +75,7 @@ intrat_t intrat_t::operator+(intrat_t that) const {
 }
 
 // ----------------------------------------------------------------
-intrat_t intrat_t::operator-(intrat_t that) const {
+intrat_t intrat_t::operator-(const intrat_t &that) const {
   intrat_t rv;
   rv.numer = this->numer * that.denom - this->denom * that.numer;
   rv.denom = this->denom * that.denom;
@@ -91,7 +91,7 @@ intrat_t intrat_t::operator-(void) const {
 }
 
 // ----------------------------------------------------------------
-intrat_t intrat_t::operator*(intrat_t that) {
+intrat_t intrat_t::operator*(const intrat_t &that) {
   intrat_t rv;
   rv.numer = this->numer * that.numer;
   rv.denom = this->denom * that.denom;
@@ -100,7 +100,7 @@ intrat_t intrat_t::operator*(intrat_t that) {
 }
 
 // ----------------------------------------------------------------
-intrat_t intrat_t::operator/(intrat_t that) {
+intrat_t intrat_t::operator/(const intrat_t &that) {
   intrat_t rv;
   rv.numer = this->numer * that.denom;
   rv.denom = this->denom * that.numer;
@@ -109,7 +109,7 @@ intrat_t intrat_t::operator/(intrat_t that) {
 }
 
 // ----------------------------------------------------------------
-intrat_t intrat_t::operator%(intrat_t that) {
+intrat_t intrat_t::operator%(const intrat_t &that) {
   intrat_t rv;
   intrat_t zero = that - that;
   if (that == zero) {
@@ -239,37 +239,37 @@ bool intrat_t::from_string(const char *string) {
 }
 
 // ----------------------------------------------------------------
-intrat_t &intrat_t::operator+=(intrat_t that) {
+intrat_t &intrat_t::operator+=(const intrat_t &that) {
   *this = *this + that;
   return *this;
 }
 
 // ----------------------------------------------------------------
-intrat_t &intrat_t::operator-=(intrat_t that) {
+intrat_t &intrat_t::operator-=(const intrat_t &that) {
   *this = *this - that;
   return *this;
 }
 
 // ----------------------------------------------------------------
-intrat_t &intrat_t::operator*=(intrat_t that) {
+intrat_t &intrat_t::operator*=(const intrat_t &that) {
   *this = *this * that;
   return *this;
 }
 
 // ----------------------------------------------------------------
-intrat_t &intrat_t::operator/=(intrat_t that) {
+intrat_t &intrat_t::operator/=(const intrat_t &that) {
   *this = *this / that;
   return *this;
 }
 
 // ----------------------------------------------------------------
-intrat_t &intrat_t::operator%=(intrat_t that) {
+intrat_t &intrat_t::operator%=(const intrat_t &that) {
   *this = *this % that;
   return *this;
 }
 
 // ----------------------------------------------------------------
-bool intrat_t::operator==(intrat_t that) const {
+bool intrat_t::operator==(const intrat_t &that) const {
   // Our constructor ensures both *this and that are already in
   // canonical form.
   if (this->numer != that.numer) {
@@ -282,7 +282,7 @@ bool intrat_t::operator==(intrat_t that) const {
 }
 
 // ----------------------------------------------------------------
-bool intrat_t::operator!=(intrat_t that) const { return !(*this == that); }
+bool intrat_t::operator!=(const intrat_t &that) const { return !(*this == that); }
 
 // ----------------------------------------------------------------
 bool intrat_t::operator==(int that) const {
@@ -296,22 +296,22 @@ bool intrat_t::operator==(int that) const {
 bool intrat_t::operator!=(int that) const { return !(*this == that); }
 
 // ----------------------------------------------------------------
-bool intrat_t::operator<(intrat_t that) const {
+bool intrat_t::operator<(const intrat_t &that) const {
   return ((this->numer * that.denom) < (this->denom * that.numer));
 }
 
 // ----------------------------------------------------------------
-bool intrat_t::operator<=(intrat_t that) const {
+bool intrat_t::operator<=(const intrat_t &that) const {
   return ((this->numer * that.denom) <= (this->denom * that.numer));
 }
 
 // ----------------------------------------------------------------
-bool intrat_t::operator>(intrat_t that) const {
+bool intrat_t::operator>(const intrat_t &that) const {
   return ((this->numer * that.denom) > (this->denom * that.numer));
 }
 
 // ----------------------------------------------------------------
-bool intrat_t::operator>=(intrat_t that) const {
+bool intrat_t::operator>=(const intrat_t &that) const {
   return ((this->numer * that.denom) >= (this->denom * that.numer));
 }
 

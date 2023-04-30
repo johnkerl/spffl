@@ -12,15 +12,15 @@
 namespace spffl::rationals {
 
 // ----------------------------------------------------------------
-f2n_polyrat_t::f2n_polyrat_t(spffl::polynomials::f2n_poly_t numerator,
-    spffl::polynomials::f2n_poly_t denominator) {
+f2n_polyrat_t::f2n_polyrat_t(const spffl::polynomials::f2n_poly_t &numerator,
+    const spffl::polynomials::f2n_poly_t &denominator) {
   this->numer = numerator;
   this->denom = denominator;
   this->simplify();
 }
 
 // ----------------------------------------------------------------
-f2n_polyrat_t::f2n_polyrat_t(spffl::polynomials::f2n_poly_t numerator) {
+f2n_polyrat_t::f2n_polyrat_t(const spffl::polynomials::f2n_poly_t &numerator) {
   this->numer = numerator;
   this->denom = numerator.prime_sfld_elt(1);
   this->simplify();
@@ -47,15 +47,15 @@ f2n_polyrat_t f2n_polyrat_t::prime_sfld_elt(int v) const {
 // ----------------------------------------------------------------
 // This is a static method.
 f2n_polyrat_t f2n_polyrat_t::prime_sfld_elt(
-    int v, spffl::polynomials::f2_poly_t m) {
+    int v, const spffl::polynomials::f2_poly_t &m) {
   return f2n_polyrat_t(spffl::polynomials::f2n_poly_t::prime_sfld_elt(v, m));
 }
 
 // ----------------------------------------------------------------
-int f2n_polyrat_t::get_characteristic(void) { return 2; }
+int f2n_polyrat_t::get_characteristic(void) const { return 2; }
 
 // ----------------------------------------------------------------
-f2n_polyrat_t &f2n_polyrat_t::operator=(f2n_polyrat_t that) {
+f2n_polyrat_t &f2n_polyrat_t::operator=(const f2n_polyrat_t &that) {
   this->numer = that.numer;
   this->denom = that.denom;
   return *this;
@@ -63,7 +63,7 @@ f2n_polyrat_t &f2n_polyrat_t::operator=(f2n_polyrat_t that) {
 
 // ----------------------------------------------------------------
 f2n_polyrat_t &f2n_polyrat_t::operator=(
-    spffl::polynomials::f2n_poly_t numerator) {
+    const spffl::polynomials::f2n_poly_t &numerator) {
   this->numer = numerator;
   this->denom = numerator.prime_sfld_elt(1);
   this->simplify();
@@ -75,7 +75,7 @@ f2n_polyrat_t &f2n_polyrat_t::operator=(
 // --- + --- = -------
 //  b     d      bd
 
-f2n_polyrat_t f2n_polyrat_t::operator+(f2n_polyrat_t that) const {
+f2n_polyrat_t f2n_polyrat_t::operator+(const f2n_polyrat_t &that) const {
   f2n_polyrat_t rv;
   rv.numer = this->numer * that.denom + this->denom * that.numer;
   rv.denom = this->denom * that.denom;
@@ -84,7 +84,7 @@ f2n_polyrat_t f2n_polyrat_t::operator+(f2n_polyrat_t that) const {
 }
 
 // ----------------------------------------------------------------
-f2n_polyrat_t f2n_polyrat_t::operator-(f2n_polyrat_t that) const {
+f2n_polyrat_t f2n_polyrat_t::operator-(const f2n_polyrat_t &that) const {
   f2n_polyrat_t rv;
   rv.numer = this->numer * that.denom - this->denom * that.numer;
   rv.denom = this->denom * that.denom;
@@ -101,7 +101,7 @@ f2n_polyrat_t f2n_polyrat_t::operator-(void) const {
 }
 
 // ----------------------------------------------------------------
-f2n_polyrat_t f2n_polyrat_t::operator*(f2n_polyrat_t that) {
+f2n_polyrat_t f2n_polyrat_t::operator*(const f2n_polyrat_t &that) {
   f2n_polyrat_t rv;
   rv.numer = this->numer * that.numer;
   rv.denom = this->denom * that.denom;
@@ -110,7 +110,7 @@ f2n_polyrat_t f2n_polyrat_t::operator*(f2n_polyrat_t that) {
 }
 
 // ----------------------------------------------------------------
-f2n_polyrat_t f2n_polyrat_t::operator/(f2n_polyrat_t that) {
+f2n_polyrat_t f2n_polyrat_t::operator/(const f2n_polyrat_t &that) {
   f2n_polyrat_t rv;
   rv.numer = this->numer * that.denom;
   rv.denom = this->denom * that.numer;
@@ -119,7 +119,7 @@ f2n_polyrat_t f2n_polyrat_t::operator/(f2n_polyrat_t that) {
 }
 
 // ----------------------------------------------------------------
-f2n_polyrat_t f2n_polyrat_t::operator%(f2n_polyrat_t that) {
+f2n_polyrat_t f2n_polyrat_t::operator%(const f2n_polyrat_t &that) {
   f2n_polyrat_t rv;
   f2n_polyrat_t zero = that - that;
   if (that == zero) {
@@ -130,7 +130,7 @@ f2n_polyrat_t f2n_polyrat_t::operator%(f2n_polyrat_t that) {
 }
 
 // ----------------------------------------------------------------
-f2n_polyrat_t f2n_polyrat_t::exp(int e) {
+f2n_polyrat_t f2n_polyrat_t::exp(int e) const {
   f2n_polyrat_t xp = *this;
   f2n_polyrat_t zero(this->numer.prime_sfld_elt(0));
   f2n_polyrat_t one(this->numer.prime_sfld_elt(1));
@@ -254,37 +254,37 @@ bool f2n_polyrat_t::from_string(
 }
 
 // ----------------------------------------------------------------
-f2n_polyrat_t &f2n_polyrat_t::operator+=(f2n_polyrat_t that) {
+f2n_polyrat_t &f2n_polyrat_t::operator+=(const f2n_polyrat_t &that) {
   *this = *this + that;
   return *this;
 }
 
 // ----------------------------------------------------------------
-f2n_polyrat_t &f2n_polyrat_t::operator-=(f2n_polyrat_t that) {
+f2n_polyrat_t &f2n_polyrat_t::operator-=(const f2n_polyrat_t &that) {
   *this = *this - that;
   return *this;
 }
 
 // ----------------------------------------------------------------
-f2n_polyrat_t &f2n_polyrat_t::operator*=(f2n_polyrat_t that) {
+f2n_polyrat_t &f2n_polyrat_t::operator*=(const f2n_polyrat_t &that) {
   *this = *this * that;
   return *this;
 }
 
 // ----------------------------------------------------------------
-f2n_polyrat_t &f2n_polyrat_t::operator/=(f2n_polyrat_t that) {
+f2n_polyrat_t &f2n_polyrat_t::operator/=(const f2n_polyrat_t &that) {
   *this = *this / that;
   return *this;
 }
 
 // ----------------------------------------------------------------
-f2n_polyrat_t &f2n_polyrat_t::operator%=(f2n_polyrat_t that) {
+f2n_polyrat_t &f2n_polyrat_t::operator%=(const f2n_polyrat_t &that) {
   *this = *this % that;
   return *this;
 }
 
 // ----------------------------------------------------------------
-bool f2n_polyrat_t::operator==(f2n_polyrat_t that) const {
+bool f2n_polyrat_t::operator==(const f2n_polyrat_t &that) const {
   // Our constructor ensures both *this and that are already in
   // canonical form.
   if (this->numer != that.numer) {
@@ -297,7 +297,7 @@ bool f2n_polyrat_t::operator==(f2n_polyrat_t that) const {
 }
 
 // ----------------------------------------------------------------
-bool f2n_polyrat_t::operator!=(f2n_polyrat_t that) const {
+bool f2n_polyrat_t::operator!=(const f2n_polyrat_t &that) const {
   return !(*this == that);
 }
 
@@ -315,22 +315,22 @@ bool f2n_polyrat_t::operator!=(spffl::polynomials::f2n_poly_t that) const {
 }
 
 // ----------------------------------------------------------------
-bool f2n_polyrat_t::operator<(f2n_polyrat_t that) const {
+bool f2n_polyrat_t::operator<(const f2n_polyrat_t &that) const {
   return ((this->numer * that.denom) < (this->denom * that.numer));
 }
 
 // ----------------------------------------------------------------
-bool f2n_polyrat_t::operator<=(f2n_polyrat_t that) const {
+bool f2n_polyrat_t::operator<=(const f2n_polyrat_t &that) const {
   return ((this->numer * that.denom) <= (this->denom * that.numer));
 }
 
 // ----------------------------------------------------------------
-bool f2n_polyrat_t::operator>(f2n_polyrat_t that) const {
+bool f2n_polyrat_t::operator>(const f2n_polyrat_t &that) const {
   return ((this->numer * that.denom) > (this->denom * that.numer));
 }
 
 // ----------------------------------------------------------------
-bool f2n_polyrat_t::operator>=(f2n_polyrat_t that) const {
+bool f2n_polyrat_t::operator>=(const f2n_polyrat_t &that) const {
   return ((this->numer * that.denom) >= (this->denom * that.numer));
 }
 
