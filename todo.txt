@@ -1,4 +1,9 @@
 ================================================================
+! ctest passes
+  o f2_poly_t: promote x n; demote; bit_at; set_bit; sqroot
+! exit(1) -> exceptions
+! installable headers/libspffl.so/bins; internals vs externals
+
 * char* vs string literals
 * more std::string all around
 * int -> bool pass
@@ -10,8 +15,6 @@
     - is_prime/nth_prime abend beyond 2^31-1
   o otherwise done -- ?
 
-* ctest passes
-  o f2_poly_t: promote x n; demote; bit_at; set_bit; sqroot
 * commenting pass
 * get rid of _1 _2 etc in test names
 * more pass-by-reference
@@ -20,10 +23,7 @@
   ? bitvec to STL -- ?
   o more std::vec
   o ...
-* exit(1) -> exceptions
 * core-guidelines pass
-* install target
-* internal/external installs (if any internal api at all ...)
 * CI setups
   o including automated/CI clang-format
 
