@@ -1,9 +1,9 @@
 #include "fpn_polymod_handlers.h"
 
 #include "polynomials/fpn_polymod_t.h"
-#include "cliparser/cmd_line_matrix_ops.h"
-#include "cliparser/cmd_line_ops.h"
-#include "cliparser/cmd_line_vector_ops.h"
+#include "cli_parser/cmd_line_matrix_ops.h"
+#include "cli_parser/cmd_line_ops.h"
+#include "cli_parser/cmd_line_vector_ops.h"
 
 // ----------------------------------------------------------------
 void fpn_pm_op_usage(char *argv0) {
@@ -31,7 +31,7 @@ int fpn_pm_op_main(int argc, char **argv, usage_t *pusage) {
       spffl::polynomials::fpn_polymod_t::prime_subfield_element(0, om);
   spffl::polynomials::fpn_polymod_t one =
       spffl::polynomials::fpn_polymod_t::prime_subfield_element(1, om);
-  spffl::cliparser::cmd_line_parse<spffl::polynomials::fpn_polymod_t>(
+  spffl::cli_parser::cmd_line_parse<spffl::polynomials::fpn_polymod_t>(
       argc - 4, argv + 4, zero, one);
   return 0;
 }
@@ -62,7 +62,7 @@ int fpn_pm_mat_op_main(int argc, char **argv, usage_t *pusage) {
       spffl::polynomials::fpn_polymod_t::prime_subfield_element(0, om);
   spffl::polynomials::fpn_polymod_t one =
       spffl::polynomials::fpn_polymod_t::prime_subfield_element(1, om);
-  spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::fpn_polymod_t>(
+  spffl::cli_parser::cmd_line_mat_parse<spffl::polynomials::fpn_polymod_t>(
       argc - 4, argv + 4, zero, one);
   return 0;
 }

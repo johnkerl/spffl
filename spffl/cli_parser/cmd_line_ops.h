@@ -4,13 +4,14 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#ifndef CMDLINEVECOPS_H
-#define CMDLINEVECOPS_H
+#ifndef CMDLINEOPS_H
+#define CMDLINEOPS_H
 
 // Grammar:
 //
 //   S := E {terminator}
-//   Q := E | E == E | E != E
+//   Q := C | C == C | C != C
+//   C := E | E < E | E <= E | E > E | E >= E
 //   E := T | T + T | T - T
 //   T := F | F * F | F / F | F % F
 //   F := + U | - U | U
@@ -19,70 +20,68 @@
 
 #include "base/spffl_exception.h"
 #include "containers/tstack.h"
-#include "containers/tvector.h"
 #include <iostream>
 #include <sstream>
 #include <string.h>
-#include <string>
 
-namespace spffl::cliparser {
+namespace spffl::cli_parser {
 
-template <class element_type> struct vecatom_t {
-  tvector<element_type> vec_val;
-  element_type scalar_val;
+template <class element_type> struct atom_t {
+  element_type type_val;
   int int_val;
-  int atom_type;
+  bool is_int;
 };
 
-template <class element_type> struct vec_lex_ctx_t {
+template <class element_type> struct lex_ctx_t {
   int argi;
   int argc;
   char **argv;
-  vecatom_t<element_type> atom;
+  atom_t<element_type> atom;
   int token;
   int in_pow_rhs;
   element_type zero;
   element_type one;
 };
 
-#define L_VEC 100
+#define L_NUM 100
 #define L_EOL 101
 #define L_UNDEF 102
 
 #define L_PLUS 110
 #define L_MINUS 111
 #define L_MUL 112
+#define L_DIV 113
+#define L_MOD 114
 #define L_EXP 115
 #define L_UPLUS 120
 #define L_UMINUS 121
 
+#define L_ORD 130
+
 #define L_EQ 140
 #define L_NE 141
-#define L_RANK 142
+#define L_LT 142
+#define L_LE 143
+#define L_GT 144
+#define L_GE 145
 
 #define L_LPAREN 200
 #define L_RPAREN 201
 
-#define S_V_OP 3  // scalar = op vec, i.e. -- none here?
-#define V_V_OP 4  // vec = op vec, i.e. left-unary operators
-#define V_VV_OP 5 // vec = vec op vec, e.g. almost all.
-#define V_VI_OP 6 // vec = vec op int,  e.g. exponentiation
-#define I_VV_OP 7 // int = vec op vec, e.g. equality and ordering.
-#define I_V_OP 8  // int = vec, e.g. -- none here?
-
-#define VEC_ATOM 17
-#define SCALAR_ATOM 18
-#define INT_ATOM 19
+#define T_T_OP 3  // type = op type, i.e. left-unary operators
+#define T_TT_OP 4 // type = type op type, e.g. almost all.
+#define T_TI_OP 5 // type = type op int,  e.g. exponentiation
+#define I_TT_OP 6 // int  = type op type, e.g. equality and ordering.
 
 template <class element_type>
-static void E(vec_lex_ctx_t<element_type> &rlex_ctx,
-    tstack<vecatom_t<element_type>> &rstack);
+static void E(
+    lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack);
 
 // ----------------------------------------------------------------
-template <class element_type> static const char *vec_token_desc(int t) {
+template <class element_type> static const char *token_desc(int t) {
   switch (t) {
-  case L_VEC:
-    return "vector";
+  case L_NUM:
+    return "num";
     break;
   case L_EOL:
     return "EOL";
@@ -100,6 +99,12 @@ template <class element_type> static const char *vec_token_desc(int t) {
   case L_MUL:
     return "*";
     break;
+  case L_DIV:
+    return "/";
+    break;
+  case L_MOD:
+    return "%";
+    break;
   case L_EXP:
     return "^";
     break;
@@ -116,6 +121,22 @@ template <class element_type> static const char *vec_token_desc(int t) {
   case L_NE:
     return "!=";
     break;
+  case L_LT:
+    return "<";
+    break;
+  case L_LE:
+    return "<=";
+    break;
+  case L_GT:
+    return ">";
+    break;
+  case L_GE:
+    return ">=";
+    break;
+
+  case L_ORD:
+    return "ord";
+    break;
 
   case L_LPAREN:
     return "(";
@@ -123,7 +144,6 @@ template <class element_type> static const char *vec_token_desc(int t) {
   case L_RPAREN:
     return ")";
     break;
-
   default:
     return "{???}";
     break;
@@ -132,8 +152,8 @@ template <class element_type> static const char *vec_token_desc(int t) {
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void veclexinit(vec_lex_ctx_t<element_type> &rlex_ctx, int argc,
-    char **argv, element_type zero, element_type one) {
+static void lexinit(lex_ctx_t<element_type> &rlex_ctx, int argc, char **argv,
+    element_type zero, element_type one) {
   rlex_ctx.argi       = 0;
   rlex_ctx.argc       = argc;
   rlex_ctx.argv       = argv;
@@ -141,11 +161,16 @@ static void veclexinit(vec_lex_ctx_t<element_type> &rlex_ctx, int argc,
   rlex_ctx.in_pow_rhs = 0;
   rlex_ctx.zero       = zero;
   rlex_ctx.one        = one;
+
+#if 0
+	std::cout << "zero = " << zero << "\n";
+	std::cout << "one  = " << one  << "\n";
+#endif
 }
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void veclexan(vec_lex_ctx_t<element_type> &rlex_ctx) {
+static void lexan(lex_ctx_t<element_type> &rlex_ctx) {
   if (rlex_ctx.argi >= rlex_ctx.argc) {
     rlex_ctx.token = L_EOL;
     return;
@@ -160,6 +185,10 @@ static void veclexan(vec_lex_ctx_t<element_type> &rlex_ctx) {
     rlex_ctx.token = L_MUL;
   } else if (strcmp(s, ".") == 0) {
     rlex_ctx.token = L_MUL;
+  } else if (strcmp(s, "/") == 0) {
+    rlex_ctx.token = L_DIV;
+  } else if (strcmp(s, "%") == 0) {
+    rlex_ctx.token = L_MOD;
   } else if (strcmp(s, "^") == 0) {
     rlex_ctx.token = L_EXP;
   }
@@ -170,6 +199,14 @@ static void veclexan(vec_lex_ctx_t<element_type> &rlex_ctx) {
     rlex_ctx.token = L_NE;
   } else if (strcmp(s, "/=") == 0) {
     rlex_ctx.token = L_NE;
+  } else if (strcmp(s, "<") == 0) {
+    rlex_ctx.token = L_LT;
+  } else if (strcmp(s, "<=") == 0) {
+    rlex_ctx.token = L_LE;
+  } else if (strcmp(s, ">") == 0) {
+    rlex_ctx.token = L_GT;
+  } else if (strcmp(s, ">=") == 0) {
+    rlex_ctx.token = L_GE;
   }
 
   else if (strcmp(s, "(") == 0) {
@@ -185,38 +222,15 @@ static void veclexan(vec_lex_ctx_t<element_type> &rlex_ctx) {
   }
 
   else {
-    rlex_ctx.token = L_VEC;
+    rlex_ctx.token = L_NUM;
     std::istringstream iss(s, std::ios_base::in);
     if (rlex_ctx.in_pow_rhs) {
-      rlex_ctx.atom.atom_type = INT_ATOM;
+      rlex_ctx.atom.is_int = true;
       iss >> rlex_ctx.atom.int_val;
     } else {
-      rlex_ctx.atom.vec_val   = rlex_ctx.zero; // Set modulus
-      rlex_ctx.atom.atom_type = VEC_ATOM;
-
-      if (strchr(rlex_ctx.argv[rlex_ctx.argi], '[')) {
-        if (!rlex_ctx.atom.vec_val.bracket_in(rlex_ctx.argv[rlex_ctx.argi])) {
-          std::stringstream ss;
-          ss << "Couldn't scan \"" << rlex_ctx.argv[rlex_ctx.argi] << "\"\n";
-          throw spffl::exception_t(ss.str());
-        }
-      } else {
-#if 0
-				if (!rlex_ctx.atom.vec_val.load_from_file(
-					rlex_ctx.argv[rlex_ctx.argi]))
-				{
-					std::stringstream ss;
-          ss << "Couldn't read \""
-						<< rlex_ctx.argv[rlex_ctx.argi]
-						<< "\"\n";
-					throw spffl::exception_t(ss.str());
-				}
-#else
-        std::stringstream ss;
-        ss << "cmd_line_vector_ops: file I/O not yet implemented.\n";
-        throw spffl::exception_t(ss.str());
-#endif
-      }
+      rlex_ctx.atom.type_val = rlex_ctx.zero; // Set modulus
+      rlex_ctx.atom.is_int   = false;
+      iss >> rlex_ctx.atom.type_val;
     }
     if (iss.fail()) {
       std::stringstream ss;
@@ -229,12 +243,58 @@ static void veclexan(vec_lex_ctx_t<element_type> &rlex_ctx) {
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void emit(vec_lex_ctx_t<element_type> &rlex_ctx,
-    tstack<vecatom_t<element_type>> &rstack) {
-  vecatom_t<element_type> A, B, C;
-  int msiform;
+element_type clo_exp(
+    element_type x, int e, element_type zero, element_type one) {
+  element_type xp = x;
 
-  if (rlex_ctx.token == L_VEC) {
+  if (x == zero) {
+    if (e < 0) {
+      std::stringstream ss;
+      ss << "Division by zero.\n";
+      throw spffl::exception_t(ss.str());
+    }
+    if (e == 0) {
+      std::stringstream ss;
+      ss << "0 ^ 0 undefined.\n";
+      throw spffl::exception_t(ss.str());
+    }
+    return zero;
+  }
+  element_type rv = one;
+
+  if (e == 0) {
+    return rv;
+  }
+
+  if (e < 0) {
+    if (e == -e) {
+      std::stringstream ss;
+      ss << "Can't handle MIN_INT.\n";
+      throw spffl::exception_t(ss.str());
+    }
+    xp = one / x;
+    e  = -e;
+  }
+
+  while (e != 0) {
+    if (e & 1) {
+      rv *= xp;
+    }
+    e = (unsigned)e >> 1;
+    xp *= xp;
+  }
+
+  return rv;
+}
+
+// ----------------------------------------------------------------
+template <class element_type>
+static void emit(
+    lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
+  atom_t<element_type> a, b, c;
+  int tiform;
+
+  if (rlex_ctx.token == L_NUM) {
     rstack.push(rlex_ctx.atom);
     return;
   }
@@ -246,80 +306,68 @@ static void emit(vec_lex_ctx_t<element_type> &rlex_ctx,
 
   switch (rlex_ctx.token) {
   case L_UMINUS:
-    msiform = V_V_OP;
-    break;
-
-  case L_DET: // TODO: defined in cmdlintmatops.h -- needs some common define
-              // location ...
-    msiform = S_V_OP;
+    tiform = T_T_OP;
     break;
 
   case L_PLUS:
   case L_MINUS:
   case L_MUL:
-    msiform = V_VV_OP;
+  case L_DIV:
+  case L_MOD:
+    tiform = T_TT_OP;
     break;
 
   case L_EXP:
-    msiform = V_VI_OP;
+    tiform = T_TI_OP;
     break;
 
   case L_EQ:
   case L_NE:
-    msiform = I_VV_OP;
-    break;
-
-  case L_RANK:
-    msiform = I_V_OP;
+  case L_LT:
+  case L_LE:
+  case L_GT:
+  case L_GE:
+    tiform = I_TT_OP;
     break;
 
   default:
     std::stringstream ss;
-    ss << "Unhandled operator " << vec_token_desc<element_type>(rlex_ctx.token)
+    ss << "Unhandled operator " << token_desc<element_type>(rlex_ctx.token)
        << ".\n";
     throw spffl::exception_t(ss.str());
     break;
   }
 
-  if ((msiform == V_V_OP) || (msiform == S_V_OP) || (msiform == I_V_OP)) {
-    rstack.pop(A);
+  if (tiform == T_T_OP) {
+    rstack.pop(a);
   } else {
-    rstack.pop(B);
-    rstack.pop(A);
+    rstack.pop(b);
+    rstack.pop(a);
   }
 
-  switch (msiform) {
-  case V_V_OP:
-  case S_V_OP:
-    if (A.atom_type != VEC_ATOM) {
+  switch (tiform) {
+  case T_T_OP:
+    if (a.is_int) {
       std::stringstream ss;
-      ss << "Operator " << vec_token_desc<element_type>(rlex_ctx.token)
-         << " requires vector argument.\n";
+      ss << "Operator " << token_desc<element_type>(rlex_ctx.token)
+         << " requires type-specific argument.\n";
       throw spffl::exception_t(ss.str());
     }
     break;
-  case V_VV_OP:
-  case I_VV_OP:
-    if ((A.atom_type != VEC_ATOM) || (B.atom_type != VEC_ATOM)) {
+  case T_TT_OP:
+  case I_TT_OP:
+    if (a.is_int || b.is_int) {
       std::stringstream ss;
-      ss << "Operator " << vec_token_desc<element_type>(rlex_ctx.token)
-         << " requires two vector arguments.\n";
+      ss << "Operator " << token_desc<element_type>(rlex_ctx.token)
+         << " requires two type-specific arguments.\n";
       throw spffl::exception_t(ss.str());
     }
     break;
-  case I_V_OP:
-    if (A.atom_type != VEC_ATOM) {
+  case T_TI_OP:
+    if (a.is_int || !b.is_int) {
       std::stringstream ss;
-      ss << "Operator " << vec_token_desc<element_type>(rlex_ctx.token)
-         << " requires one vector argument.\n";
-      throw spffl::exception_t(ss.str());
-    }
-    break;
-  case V_VI_OP:
-    if ((A.atom_type != VEC_ATOM) || (B.atom_type != INT_ATOM)) {
-      std::stringstream ss;
-      ss << "Operator " << vec_token_desc<element_type>(rlex_ctx.token)
-         << " requires one vector argument "
+      ss << "Operator " << token_desc<element_type>(rlex_ctx.token)
+         << " requires one type-specific argument "
          << " and one integer argument.\n";
       throw spffl::exception_t(ss.str());
     }
@@ -328,101 +376,115 @@ static void emit(vec_lex_ctx_t<element_type> &rlex_ctx,
 
   switch (rlex_ctx.token) {
   case L_UMINUS:
-    C.vec_val = -A.vec_val;
+    c.type_val = -a.type_val;
     break;
   case L_PLUS:
-    C.vec_val = A.vec_val + B.vec_val;
+    c.type_val = a.type_val + b.type_val;
     break;
   case L_MINUS:
-    C.vec_val = A.vec_val - B.vec_val;
+    c.type_val = a.type_val - b.type_val;
     break;
   case L_MUL:
-    C.vec_val = A.vec_val * B.vec_val;
+    c.type_val = a.type_val * b.type_val;
     break;
-
-  case L_EQ:
-    C.int_val = A.vec_val == B.vec_val;
+  case L_DIV:
+    c.type_val = a.type_val / b.type_val;
     break;
-  case L_NE:
-    C.int_val = A.vec_val != B.vec_val;
+  case L_MOD:
+    c.type_val = a.type_val % b.type_val;
     break;
 
   case L_EXP:
-    C.vec_val = A.vec_val.exp(B.int_val);
+    c.type_val = clo_exp(a.type_val, b.int_val, rlex_ctx.zero, rlex_ctx.one);
+    break;
+
+  case L_EQ:
+    c.int_val = a.type_val == b.type_val;
+    break;
+  case L_NE:
+    c.int_val = a.type_val != b.type_val;
+    break;
+  case L_LT:
+    c.int_val = a.type_val < b.type_val;
+    break;
+  case L_LE:
+    c.int_val = a.type_val <= b.type_val;
+    break;
+  case L_GT:
+    c.int_val = a.type_val > b.type_val;
+    break;
+  case L_GE:
+    c.int_val = a.type_val >= b.type_val;
     break;
 
   default:
     std::stringstream ss;
-    ss << "Unhandled operator " << vec_token_desc<element_type>(rlex_ctx.token)
+    ss << "Unhandled operator " << token_desc<element_type>(rlex_ctx.token)
        << ".\n";
     throw spffl::exception_t(ss.str());
     break;
   }
 
-  switch (msiform) {
-  case V_V_OP:
-  case V_VV_OP:
-  case V_VI_OP:
-    C.atom_type = VEC_ATOM;
+  switch (tiform) {
+  case T_T_OP:
+  case T_TT_OP:
+  case T_TI_OP:
+    c.is_int = false;
     break;
-  case S_V_OP:
-    C.atom_type = SCALAR_ATOM;
-    break;
-  case I_VV_OP:
-    C.atom_type = INT_ATOM;
-    break;
-  case I_V_OP:
-    C.atom_type = INT_ATOM;
+  case I_TT_OP:
+    c.is_int = true;
     break;
   }
-
-  rstack.push(C);
+  rstack.push(c);
 }
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void match(vec_lex_ctx_t<element_type> &rlex_ctx, int expected_token) {
+static void match(lex_ctx_t<element_type> &rlex_ctx, int expected_token) {
   if (rlex_ctx.token == expected_token) {
-    veclexan<element_type>(rlex_ctx);
+    lexan<element_type>(rlex_ctx);
   } else {
     std::stringstream ss;
     ss << "Syntax error.\n";
-    ss << "Expected " << vec_token_desc<element_type>(expected_token)
-       << "; got " << vec_token_desc<element_type>(rlex_ctx.token) << ".\n";
+    ss << "Expected " << token_desc<element_type>(expected_token) << "; got "
+       << token_desc<element_type>(rlex_ctx.token) << ".\n";
     throw spffl::exception_t(ss.str());
   }
 }
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void P(vec_lex_ctx_t<element_type> &rlex_ctx,
-    tstack<vecatom_t<element_type>> &rstack) {
+static void P(
+    lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
   switch (rlex_ctx.token) {
   case L_LPAREN:
     match<element_type>(rlex_ctx, L_LPAREN);
     E<element_type>(rlex_ctx, rstack);
     match<element_type>(rlex_ctx, L_RPAREN);
     break;
-  case L_VEC:
+  case L_NUM:
     emit<element_type>(rlex_ctx, rstack);
-    match<element_type>(rlex_ctx, L_VEC);
+    match<element_type>(rlex_ctx, L_NUM);
     break;
   default:
     std::stringstream ss;
-    ss << "syntax error at token "
-       << vec_token_desc<element_type>(rlex_ctx.token) << "\n";
+    ss << "syntax error at token " << token_desc<element_type>(rlex_ctx.token)
+       << "\n";
     throw spffl::exception_t(ss.str());
   }
 }
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void U(vec_lex_ctx_t<element_type> &rlex_ctx,
-    tstack<vecatom_t<element_type>> &rstack) {
-  vec_lex_ctx_t<element_type> save;
+static void U(
+    lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
+  lex_ctx_t<element_type> save;
   P<element_type>(rlex_ctx, rstack);
   while (1) {
     switch (rlex_ctx.token) {
+      //		case L_GCD: // xxx temp; need to find appropriate
+      // precedence. 		case L_CHOOSE: // xxx temp; need to find
+      // appropriate precedence.
     case L_EXP:
       // This match() gets the next token after the **.
       // Which might be a number (atom), or might be
@@ -444,9 +506,9 @@ static void U(vec_lex_ctx_t<element_type> &rlex_ctx,
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void F(vec_lex_ctx_t<element_type> &rlex_ctx,
-    tstack<vecatom_t<element_type>> &rstack) {
-  vec_lex_ctx_t<element_type> save;
+static void F(
+    lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
+  lex_ctx_t<element_type> save;
   switch (rlex_ctx.token) {
   case L_PLUS:
     save = rlex_ctx;
@@ -464,6 +526,15 @@ static void F(vec_lex_ctx_t<element_type> &rlex_ctx,
     emit<element_type>(save, rstack);
     break;
 
+    //	case L_EXP:
+    //	case L_LOG:
+    //	case L_ORD:
+    //		t = pc->lookahead1;
+    //		match<element_type>(t, lookahead_token);
+    //		U<element_type>(rlex_ctx, rstack);
+    //		emit<element_type>(rlex_ctx, rstack);
+    //		break;
+    //
   default:
     U<element_type>(rlex_ctx, rstack);
     return;
@@ -472,13 +543,15 @@ static void F(vec_lex_ctx_t<element_type> &rlex_ctx,
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void T(vec_lex_ctx_t<element_type> &rlex_ctx,
-    tstack<vecatom_t<element_type>> &rstack) {
-  vec_lex_ctx_t<element_type> save;
+static void T(
+    lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
+  lex_ctx_t<element_type> save;
   F<element_type>(rlex_ctx, rstack);
   while (1) {
     switch (rlex_ctx.token) {
     case L_MUL:
+    case L_DIV:
+    case L_MOD:
       save = rlex_ctx;
       match<element_type>(rlex_ctx, rlex_ctx.token);
       F<element_type>(rlex_ctx, rstack);
@@ -494,9 +567,9 @@ static void T(vec_lex_ctx_t<element_type> &rlex_ctx,
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void E(vec_lex_ctx_t<element_type> &rlex_ctx,
-    tstack<vecatom_t<element_type>> &rstack) {
-  vec_lex_ctx_t<element_type> save;
+static void E(
+    lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
+  lex_ctx_t<element_type> save;
   T<element_type>(rlex_ctx, rstack);
   while (1) {
     switch (rlex_ctx.token) {
@@ -517,14 +590,16 @@ static void E(vec_lex_ctx_t<element_type> &rlex_ctx,
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void Q(vec_lex_ctx_t<element_type> &rlex_ctx,
-    tstack<vecatom_t<element_type>> &rstack) {
-  vec_lex_ctx_t<element_type> save;
+static void C(
+    lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
+  lex_ctx_t<element_type> save;
   E<element_type>(rlex_ctx, rstack);
   while (1) {
     switch (rlex_ctx.token) {
-    case L_EQ:
-    case L_NE:
+    case L_LT:
+    case L_LE:
+    case L_GT:
+    case L_GE:
       save = rlex_ctx;
       match<element_type>(rlex_ctx, rlex_ctx.token);
       E<element_type>(rlex_ctx, rstack);
@@ -539,16 +614,39 @@ static void Q(vec_lex_ctx_t<element_type> &rlex_ctx,
 }
 
 // ----------------------------------------------------------------
+template <class element_type>
+static void Q(
+    lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
+  lex_ctx_t<element_type> save;
+  C<element_type>(rlex_ctx, rstack);
+  while (1) {
+    switch (rlex_ctx.token) {
+    case L_EQ:
+    case L_NE:
+      save = rlex_ctx;
+      match<element_type>(rlex_ctx, rlex_ctx.token);
+      C<element_type>(rlex_ctx, rstack);
+      emit<element_type>(save, rstack);
+      continue;
+      break;
+    default:
+      return;
+      break;
+    }
+  }
+}
+
+// ----------------------------------------------------------------
 // The "zero" argument is needed to set the modulus for parameterized types.
 template <class element_type>
-void cmd_line_vec_parse(
+void cmd_line_parse(
     int argc, char **argv, element_type zero, element_type one) {
-  vec_lex_ctx_t<element_type> lex_ctx;
-  tstack<vecatom_t<element_type>> stack;
-  vecatom_t<element_type> result;
+  lex_ctx_t<element_type> lex_ctx;
+  tstack<atom_t<element_type>> stack;
+  atom_t<element_type> result;
 
-  veclexinit<element_type>(lex_ctx, argc, argv, zero, one);
-  veclexan<element_type>(lex_ctx);
+  lexinit<element_type>(lex_ctx, argc, argv, zero, one);
+  lexan<element_type>(lex_ctx);
 
   while (lex_ctx.token != L_EOL) {
     Q<element_type>(lex_ctx, stack);
@@ -557,29 +655,16 @@ void cmd_line_vec_parse(
       ss << "Stack underflow.\n";
       throw spffl::exception_t(ss.str());
     }
-
-    switch (result.atom_type) {
-    case VEC_ATOM:
-      std::cout << result.vec_val << "\n";
-      break;
-    case SCALAR_ATOM:
-      std::cout << result.scalar_val << "\n";
-      break;
-    case INT_ATOM:
+    if (result.is_int) {
       std::cout << result.int_val << "\n";
-      break;
-    default:
-      std::stringstream ss;
-      ss << "Coding error file " << __FILE__ << " line " << __LINE__ << "\n";
-      throw spffl::exception_t(ss.str());
-      break;
+    } else {
+      std::cout << result.type_val << "\n";
     }
-
     // Check for extraneous text.
     match<element_type>(lex_ctx, L_EOL);
   }
 }
 
-} // namespace spffl::cliparser
+} // namespace spffl::cli_parser
 
-#endif // CMDLINEVECOPS_H
+#endif // CMDLINEOPS_H

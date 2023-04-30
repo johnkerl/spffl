@@ -13,10 +13,10 @@
 #include "intmath/int_totient.h"
 #include "intmath/is_prime.h"
 #include "factorization/int_factor.h"
-#include "cliparser/cmd_line_matrix_ops.h"
+#include "cli_parser/cmd_line_matrix_ops.h"
 
 int z_op_main(int argc, char **argv, usage_t *pusage) {
-  spffl::cliparser::cmd_line_parse<int>(argc - 1, argv + 1, 0, 1);
+  spffl::cli_parser::cmd_line_parse<int>(argc - 1, argv + 1, 0, 1);
   return 0;
 }
 
@@ -275,6 +275,6 @@ int z_divisors_main(int argc, char **argv, usage_t *pusage) {
 }
 
 int z_mat_op_main(int argc, char **argv, usage_t *pusage) {
-  spffl::cliparser::cmd_line_mat_parse<int>(argc - 1, argv + 1, 0, 1);
+  spffl::cli_parser::cmd_line_mat_parse<int>(argc - 1, argv + 1, 0, 1);
   return 0;
 }

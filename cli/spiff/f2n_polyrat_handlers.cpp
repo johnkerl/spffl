@@ -1,9 +1,9 @@
 #include "f2n_polyrat_handlers.h"
 
 #include "rationals/f2n_polyrat_t.h"
-#include "cliparser/cmd_line_matrix_ops.h"
-#include "cliparser/cmd_line_ops.h"
-#include "cliparser/cmd_line_vector_ops.h"
+#include "cli_parser/cmd_line_matrix_ops.h"
+#include "cli_parser/cmd_line_ops.h"
+#include "cli_parser/cmd_line_vector_ops.h"
 
 void f2n_pr_op_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {m} {...}\n";
@@ -21,7 +21,7 @@ int f2n_pr_op_main(int argc, char **argv, usage_t *pusage) {
       spffl::rationals::f2n_polyrat_t::prime_subfield_element(0, m);
   spffl::rationals::f2n_polyrat_t one =
       spffl::rationals::f2n_polyrat_t::prime_subfield_element(1, m);
-  spffl::cliparser::cmd_line_parse<spffl::rationals::f2n_polyrat_t>(
+  spffl::cli_parser::cmd_line_parse<spffl::rationals::f2n_polyrat_t>(
       argc - 2, argv + 2, zero, one);
   return 0;
 }
@@ -43,7 +43,7 @@ int f2n_pr_mat_op_main(int argc, char **argv, usage_t *pusage) {
       spffl::rationals::f2n_polyrat_t::prime_subfield_element(0, m);
   spffl::rationals::f2n_polyrat_t one =
       spffl::rationals::f2n_polyrat_t::prime_subfield_element(1, m);
-  spffl::cliparser::cmd_line_mat_parse<spffl::rationals::f2n_polyrat_t>(
+  spffl::cli_parser::cmd_line_mat_parse<spffl::rationals::f2n_polyrat_t>(
       argc - 2, argv + 2, zero, one);
   return 0;
 }

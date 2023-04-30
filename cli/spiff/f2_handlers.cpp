@@ -4,11 +4,11 @@
 #include "polynomials/f2_poly_t.h"
 #include "random/int_random.h"
 #include "linalg/f2_linear_algebra.h"
-#include "cliparser/cmd_line_matrix_ops.h"
-#include "cliparser/cmd_line_vector_ops.h"
+#include "cli_parser/cmd_line_matrix_ops.h"
+#include "cli_parser/cmd_line_vector_ops.h"
 
 int f2_op_main(int argc, char **argv, usage_t *pusage) {
-  spffl::cliparser::cmd_line_parse<spffl::bits::bit_t>(
+  spffl::cli_parser::cmd_line_parse<spffl::bits::bit_t>(
       argc - 1, argv + 1, spffl::bits::bit_t(0), spffl::bits::bit_t(1));
   return 0;
 }
@@ -38,13 +38,13 @@ int f2_random_main(int argc, char **argv, usage_t *pusage) {
 }
 
 int f2_mat_op_main(int argc, char **argv, usage_t *pusage) {
-  spffl::cliparser::cmd_line_mat_parse<spffl::bits::bit_t>(
+  spffl::cli_parser::cmd_line_mat_parse<spffl::bits::bit_t>(
       argc - 1, argv + 1, spffl::bits::bit_t(0), spffl::bits::bit_t(1));
   return 0;
 }
 
 int f2_vec_op_main(int argc, char **argv, usage_t *pusage) {
-  spffl::cliparser::cmd_line_vec_parse<spffl::bits::bit_t>(
+  spffl::cli_parser::cmd_line_vec_parse<spffl::bits::bit_t>(
       argc - 1, argv + 1, spffl::bits::bit_t(0), spffl::bits::bit_t(1));
   return 0;
 }

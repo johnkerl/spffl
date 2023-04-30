@@ -3,12 +3,6 @@
   o f2_poly_t: promote x n; demote; bit_at; set_bit; sqroot
 ! installable headers/libspffl.so/bins; internals vs externals
   o default install path _not_ /usr/local but rather ./dist -- ?
-  o flattened header-installs
-    - or, include-parented in lib cpps ...
-  o install_rpath
-  ! src -> spffl
-  o cliparser -> cli_parser
-  o cyclo -> cyclotomic
   o qpoly_t should be in polynomails not rationals
   o top-level cmake variable for shared or static libspffl
     - or, just build both

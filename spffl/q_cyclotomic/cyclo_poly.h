@@ -7,7 +7,7 @@
 #include "polynomials/fpn_poly_t.h"
 #include "rationals/qpoly_t.h"
 
-namespace spffl::q_cyclo {
+namespace spffl::q_cyclotomic {
 
 spffl::rationals::qpoly_t get_cyclo_qpoly(int n);
 spffl::polynomials::f2_poly_t get_cyclo_f2_poly(int n);
@@ -17,6 +17,6 @@ spffl::polynomials::f2n_poly_t get_cyclo_f2n_poly(
 spffl::polynomials::fpn_poly_t get_cyclo_fpn_poly(
     int n, const spffl::polynomials::fp_poly_t &im);
 
-} // namespace spffl::q_cyclo
+} // namespace spffl::q_cyclotomic
 
 #endif // CYCLOPOLY_H

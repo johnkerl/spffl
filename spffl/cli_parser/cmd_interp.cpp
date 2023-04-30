@@ -7,7 +7,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-namespace spffl::cliparser {
+namespace spffl::cli_parser {
 
 #define LBRK "{"
 #define RBRK "}"
@@ -191,4 +191,4 @@ void cmd_interpolate(char *exename, int &argc, char **&argv) {
   } while (interpolated);
 }
 
-} // namespace spffl::cliparser
+} // namespace spffl::cli_parser

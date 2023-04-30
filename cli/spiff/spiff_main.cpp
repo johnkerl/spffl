@@ -10,7 +10,7 @@
 
 #include "base/spffl_exception.h"
 
-#include "cliparser/cmd_interp.h"
+#include "cli_parser/cmd_interp.h"
 
 #include "handlers.h"
 
@@ -61,7 +61,7 @@ lookup_t lookups[] = {
     {"q_vec_op", q_vec_op_main, 0 /*q_vec_op_usage*/},
     {"q_mat_op", q_mat_op_main, 0 /*q_mat_op_usage*/},
 
-    {"q_cyclo", q_cyclo_main, q_cyclo_usage},
+    {"q_cyclotomic", q_cyclo_main, q_cyclo_usage},
     {"q_p_op", q_p_op_main, 0 /*q_p_op_usage*/},
 
     {"f2_op", f2_op_main, 0 /*f2op_usage*/},
@@ -245,7 +245,7 @@ static int try_main(int argc, char **argv) {
 
   // Recursively invokes this program to handle {} pairs, e.g.
   //   spiff f2_p_deg { f2_p_factor { f2_p_op 2 ^ 127 - 1 } }
-  spffl::cliparser::cmd_interpolate(exename, argc, argv);
+  spffl::cli_parser::cmd_interpolate(exename, argc, argv);
 
   if (argc < 1) {
     main_usage(exename);

@@ -9,10 +9,10 @@
 #include <string>
 
 #include "base/spffl_exception.h"
-#include "q_cyclo/cyclo_poly.h"
-#include "q_cyclo/qff.h"
+#include "q_cyclotomic/cyclo_poly.h"
+#include "q_cyclotomic/qff.h"
 
-namespace spffl::q_cyclo {
+namespace spffl::q_cyclotomic {
 
 #define CYCLO_MEMO_MAX 16
 static int memo_flags[CYCLO_MEMO_MAX + 1] = {0};
@@ -146,4 +146,4 @@ int main(void) {
 }
 #endif
 
-} // namespace spffl::q_cyclo
+} // namespace spffl::q_cyclotomic

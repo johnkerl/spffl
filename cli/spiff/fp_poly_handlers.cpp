@@ -5,11 +5,11 @@
 #include "factorization/fp_poly_factor.h"
 #include "factorization/fp_poly_totient.h"
 #include "list/list_elements.h"
-#include "q_cyclo/qff.h"
+#include "q_cyclotomic/qff.h"
 #include "linalg/fp_linear_algebra.h"
-#include "cliparser/cmd_line_matrix_ops.h"
-#include "cliparser/cmd_line_ops.h"
-#include "cliparser/cmd_line_vector_ops.h"
+#include "cli_parser/cmd_line_matrix_ops.h"
+#include "cli_parser/cmd_line_ops.h"
+#include "cli_parser/cmd_line_vector_ops.h"
 
 #include <string.h>
 
@@ -54,7 +54,7 @@ int fp_p_op_main(int argc, char **argv, usage_t *pusage) {
   if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
   }
-  spffl::cliparser::cmd_line_parse<spffl::polynomials::fp_poly_t>(argc - 2,
+  spffl::cli_parser::cmd_line_parse<spffl::polynomials::fp_poly_t>(argc - 2,
       argv + 2, spffl::polynomials::fp_poly_t(0, p),
       spffl::polynomials::fp_poly_t(1, p));
   return 0;
@@ -73,7 +73,7 @@ int fp_p_mat_op_main(int argc, char **argv, usage_t *pusage) {
   if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
   }
-  spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::fp_poly_t>(argc - 2,
+  spffl::cli_parser::cmd_line_mat_parse<spffl::polynomials::fp_poly_t>(argc - 2,
       argv + 2, spffl::polynomials::fp_poly_t(0, p),
       spffl::polynomials::fp_poly_t(1, p));
   return 0;
@@ -479,7 +479,7 @@ int fp_p_qp_main(int argc, char **argv, usage_t *pusage) {
     if (!qp.from_string(argv[argi])) {
       pusage(argv[0]);
     }
-    fpp = spffl::q_cyclo::fp_poly_from_qpoly(qp, p);
+    fpp = spffl::q_cyclotomic::fp_poly_from_qpoly(qp, p);
     std::cout << fpp << "\n";
   }
   return 0;

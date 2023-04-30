@@ -7,9 +7,9 @@
 #include "random/intmod_random.h"
 #include "list/list_elements.h"
 #include "linalg/fp_linear_algebra.h"
-#include "cliparser/cmd_line_matrix_ops.h"
-#include "cliparser/cmd_line_ops.h"
-#include "cliparser/cmd_line_vector_ops.h"
+#include "cli_parser/cmd_line_matrix_ops.h"
+#include "cli_parser/cmd_line_ops.h"
+#include "cli_parser/cmd_line_vector_ops.h"
 
 #include <string.h>
 
@@ -73,7 +73,7 @@ int fp_op_main(int argc, char **argv, usage_t *pusage) {
   if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
   }
-  spffl::cliparser::cmd_line_parse<spffl::intmath::intmod_t>(argc - 2, argv + 2,
+  spffl::cli_parser::cmd_line_parse<spffl::intmath::intmod_t>(argc - 2, argv + 2,
       spffl::intmath::intmod_t(0, p), spffl::intmath::intmod_t(1, p));
   return 0;
 }
@@ -403,7 +403,7 @@ int fp_mat_op_main(int argc, char **argv, usage_t *pusage) {
   if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
   }
-  spffl::cliparser::cmd_line_mat_parse<spffl::intmath::intmod_t>(argc - 2,
+  spffl::cli_parser::cmd_line_mat_parse<spffl::intmath::intmod_t>(argc - 2,
       argv + 2, spffl::intmath::intmod_t(0, p), spffl::intmath::intmod_t(1, p));
   return 0;
 }
@@ -421,7 +421,7 @@ int fp_vec_op_main(int argc, char **argv, usage_t *pusage) {
   if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
   }
-  spffl::cliparser::cmd_line_vec_parse<spffl::intmath::intmod_t>(argc - 2,
+  spffl::cli_parser::cmd_line_vec_parse<spffl::intmath::intmod_t>(argc - 2,
       argv + 2, spffl::intmath::intmod_t(0, p), spffl::intmath::intmod_t(1, p));
   return 0;
 }

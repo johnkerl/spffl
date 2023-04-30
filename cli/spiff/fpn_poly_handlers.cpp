@@ -1,8 +1,8 @@
 #include "fpn_poly_handlers.h"
 
 #include "polynomials/fpn_poly_t.h"
-#include "q_cyclo/qff.h"
-#include "cliparser/cmd_line_matrix_ops.h"
+#include "q_cyclotomic/qff.h"
+#include "cli_parser/cmd_line_matrix_ops.h"
 #include <string.h>
 
 // ----------------------------------------------------------------
@@ -27,7 +27,7 @@ int fpn_p_op_main(int argc, char **argv, usage_t *pusage) {
       spffl::polynomials::fpn_poly_t::prime_subfield_element(0, im);
   spffl::polynomials::fpn_poly_t one =
       spffl::polynomials::fpn_poly_t::prime_subfield_element(1, im);
-  spffl::cliparser::cmd_line_parse<spffl::polynomials::fpn_poly_t>(
+  spffl::cli_parser::cmd_line_parse<spffl::polynomials::fpn_poly_t>(
       argc - 3, argv + 3, zero, one);
   return 0;
 }
@@ -54,7 +54,7 @@ int fpn_p_mat_op_main(int argc, char **argv, usage_t *pusage) {
       spffl::polynomials::fpn_poly_t::prime_subfield_element(0, im);
   spffl::polynomials::fpn_poly_t one =
       spffl::polynomials::fpn_poly_t::prime_subfield_element(1, im);
-  spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::fpn_poly_t>(
+  spffl::cli_parser::cmd_line_mat_parse<spffl::polynomials::fpn_poly_t>(
       argc - 3, argv + 3, zero, one);
   return 0;
 }
@@ -133,7 +133,7 @@ int fpn_p_qp_main(int argc, char **argv, usage_t *pusage) {
     if (!qp.from_string(argv[argi])) {
       pusage(argv[0]);
     }
-    fpnp = spffl::q_cyclo::fpn_poly_from_qpoly(qp, m);
+    fpnp = spffl::q_cyclotomic::fpn_poly_from_qpoly(qp, m);
     std::cout << fpnp << "\n";
   }
   return 0;

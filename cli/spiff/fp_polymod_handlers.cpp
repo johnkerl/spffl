@@ -5,9 +5,9 @@
 #include "random/fp_polymod_random.h"
 #include "list/list_elements.h"
 #include "linalg/min_char_polys.h"
-#include "cliparser/cmd_line_matrix_ops.h"
-#include "cliparser/cmd_line_ops.h"
-#include "cliparser/cmd_line_vector_ops.h"
+#include "cli_parser/cmd_line_matrix_ops.h"
+#include "cli_parser/cmd_line_ops.h"
+#include "cli_parser/cmd_line_vector_ops.h"
 
 #include <string.h>
 
@@ -61,7 +61,7 @@ int fp_pm_op_main(int argc, char **argv, usage_t *pusage) {
   if (!m.from_string(argv[2], p)) {
     pusage(argv[0]);
   }
-  spffl::cliparser::cmd_line_parse<spffl::polynomials::fp_polymod_t>(argc - 3,
+  spffl::cli_parser::cmd_line_parse<spffl::polynomials::fp_polymod_t>(argc - 3,
       argv + 3, spffl::polynomials::fp_polymod_t::prime_subfield_element(0, m),
       spffl::polynomials::fp_polymod_t::prime_subfield_element(1, m));
   return 0;
@@ -214,7 +214,7 @@ int fp_pm_mat_op_main(int argc, char **argv, usage_t *pusage) {
   if (!m.from_string(argv[2], p)) {
     pusage(argv[0]);
   }
-  spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::fp_polymod_t>(
+  spffl::cli_parser::cmd_line_mat_parse<spffl::polynomials::fp_polymod_t>(
       argc - 3, argv + 3,
       spffl::polynomials::fp_polymod_t::prime_subfield_element(0, m),
       spffl::polynomials::fp_polymod_t::prime_subfield_element(1, m));
@@ -234,7 +234,7 @@ int fp_pm_vecop_main(int argc, char **argv, usage_t *pusage) {
   if (!m.from_string(argv[2], p)) {
     pusage(argv[0]);
   }
-  spffl::cliparser::cmd_line_vec_parse<spffl::polynomials::fp_polymod_t>(
+  spffl::cli_parser::cmd_line_vec_parse<spffl::polynomials::fp_polymod_t>(
       argc - 3, argv + 3,
       spffl::polynomials::fp_polymod_t::prime_subfield_element(0, m),
       spffl::polynomials::fp_polymod_t::prime_subfield_element(1, m));

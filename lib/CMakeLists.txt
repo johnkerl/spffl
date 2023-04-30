@@ -22,7 +22,7 @@ add_library(
   ../spffl/bits/bit_t.cpp
   ../spffl/bits/bit_vector_t.cpp
   ../spffl/bits/count_bits.cpp
-  ../spffl/cliparser/cmd_interp.cpp
+  ../spffl/cli_parser/cmd_interp.cpp
   ../spffl/containers/containers.cpp
   ../spffl/factorization/f2_poly_factor.cpp
   ../spffl/factorization/f2_poly_totient.cpp
@@ -54,8 +54,8 @@ add_library(
   ../spffl/polynomials/fp_polymod_t.cpp
   ../spffl/polynomials/fpn_poly_t.cpp
   ../spffl/polynomials/fpn_polymod_t.cpp
-  ../spffl/q_cyclo/cyclo_poly.cpp
-  ../spffl/q_cyclo/qff.cpp
+  ../spffl/q_cyclotomic/cyclo_poly.cpp
+  ../spffl/q_cyclotomic/qff.cpp
   ../spffl/random/f2_poly_random.cpp
   ../spffl/random/f2_polymod_random.cpp
   ../spffl/random/f2n_poly_random.cpp
@@ -85,12 +85,12 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
     bits
     polynomials
     rationals
-    q_cyclo
+    q_cyclotomic
     random
     factorization
     units
     list
     linalg
     containers
-    cliparser
+    cli_parser
 )

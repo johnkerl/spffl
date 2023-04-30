@@ -13,8 +13,8 @@
 #include "units/f2_polymod_units.h"
 #include "linalg/f2_linear_algebra.h"
 #include "list/list_elements.h"
-#include "q_cyclo/qff.h"
-#include "cliparser/cmd_line_matrix_ops.h"
+#include "q_cyclotomic/qff.h"
+#include "cli_parser/cmd_line_matrix_ops.h"
 #include <string.h>
 
 void f2_p_list_usage(char *argv0) {
@@ -45,7 +45,7 @@ int f2_p_list_main(int argc, char **argv, usage_t *pusage) {
 }
 
 int f2_p_op_main(int argc, char **argv, usage_t *pusage) {
-  spffl::cliparser::cmd_line_parse<spffl::polynomials::f2_poly_t>(argc - 1,
+  spffl::cli_parser::cmd_line_parse<spffl::polynomials::f2_poly_t>(argc - 1,
       argv + 1, spffl::polynomials::f2_poly_t(0),
       spffl::polynomials::f2_poly_t(1));
   return 0;
@@ -448,7 +448,7 @@ int f2_p_comp_mx_main(int argc, char **argv, usage_t *pusage) {
 }
 
 int f2_p_mat_op_main(int argc, char **argv, usage_t *pusage) {
-  spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::f2_poly_t>(argc - 1,
+  spffl::cli_parser::cmd_line_mat_parse<spffl::polynomials::f2_poly_t>(argc - 1,
       argv + 1, spffl::polynomials::f2_poly_t(0),
       spffl::polynomials::f2_poly_t(1));
   return 0;
@@ -469,7 +469,7 @@ int f2_p_qp_main(int argc, char **argv, usage_t *pusage) {
     if (!qp.from_string(argv[argi])) {
       pusage(argv[0]);
     }
-    f2p = spffl::q_cyclo::f2_poly_from_q_poly(qp);
+    f2p = spffl::q_cyclotomic::f2_poly_from_q_poly(qp);
     std::cout << f2p << std::endl;
   }
   return 0;

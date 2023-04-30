@@ -1,6 +1,6 @@
-#include "q_cyclo/qff.h"
+#include "q_cyclotomic/qff.h"
 
-namespace spffl::q_cyclo {
+namespace spffl::q_cyclotomic {
 
 // ----------------------------------------------------------------
 spffl::bits::bit_t bit_from_rat(const spffl::rationals::intrat_t &r) {
@@ -77,4 +77,4 @@ spffl::polynomials::fpn_poly_t fpn_poly_from_qpoly(
   return rv;
 }
 
-} // namespace spffl::q_cyclo
+} // namespace spffl::q_cyclotomic

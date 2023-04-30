@@ -9,7 +9,7 @@
 #include "rationals/qpoly_t.h"
 #include "rationals/intrat_t.h"
 
-namespace spffl::q_cyclo {
+namespace spffl::q_cyclotomic {
 
 spffl::bits::bit_t bit_from_rat(const spffl::rationals::intrat_t &r);
 spffl::intmath::intmod_t intmod_from_rat(
@@ -26,6 +26,6 @@ spffl::polynomials::fpn_poly_t fpn_poly_from_qpoly(
     const spffl::rationals::qpoly_t &q,
     const spffl::polynomials::fp_poly_t &im);
 
-} // namespace spffl::q_cyclo
+} // namespace spffl::q_cyclotomic
 
 #endif // QFF_H
