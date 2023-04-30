@@ -4,6 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
+#include "spffl_exception.h"
 #include <fcntl.h>
 #include <iostream>
 #include <sys/stat.h>
@@ -39,17 +40,17 @@ int get_random_int(void) {
   if (fd == -1) {
     fd = open("/dev/urandom", O_RDONLY);
     if (fd < 0) {
-      std::cerr << "Couldn't open /dev/urandom.\n";
-      perror("Reason");
-      exit(1);
+      std::stringstream ss;
+      ss << "Couldn't open /dev/urandom.\n";
+      throw spffl::exception_t(ss.str());
     }
   }
 
   if (bufpos == 0) {
     if (read(fd, buf, BUFSZ * sizeof(int)) < 0) {
-      std::cerr << "Couldn't read /dev/urandom.\n";
-      perror("Reason");
-      exit(1);
+      std::stringstream ss;
+      ss << "Couldn't read /dev/urandom.\n";
+      throw spffl::exception_t(ss.str());
     }
   }
   rv = buf[bufpos];

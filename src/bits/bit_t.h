@@ -7,6 +7,7 @@
 #ifndef BIT_T_H
 #define BIT_T_H
 
+#include "spffl_exception.h"
 #include <cstdint>
 #include <iomanip>
 #include <iostream>
@@ -65,16 +66,18 @@ public:
 
   bit_t operator/(bit_t that) {
     if (that.residue == 0) {
-      std::cerr << "bit_t::operator/:  division by zero.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "bit_t::operator/:  division by zero.\n";
+      throw spffl::exception_t(ss.str());
     }
     return *this;
   }
 
   bit_t operator%(bit_t that) {
     if (that.residue == 0) {
-      std::cerr << "bit_t::operator%:  division by zero.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "bit_t::operator%:  division by zero.\n";
+      throw spffl::exception_t(ss.str());
     }
     return bit_t(0);
   }
@@ -96,16 +99,18 @@ public:
 
   bit_t &operator/=(bit_t that) {
     if (that.residue == 0) {
-      std::cerr << "bit_t::operator/:  division by zero.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "bit_t::operator/:  division by zero.\n";
+      throw spffl::exception_t(ss.str());
     }
     return *this;
   }
 
   bit_t &operator%=(bit_t that) {
     if (that.residue == 0) {
-      std::cerr << "bit_t::operator/:  division by zero.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "bit_t::operator/:  division by zero.\n";
+      throw spffl::exception_t(ss.str());
     }
     this->residue = 0;
     return *this;

@@ -6,6 +6,7 @@
 
 #include "f2n_poly_t.h"
 #include "cmps.h"
+#include "spffl_exception.h"
 #include "tokenize.h"
 #include <string.h>
 
@@ -74,8 +75,9 @@ f2n_poly_t::f2n_poly_t(int c2, int c1, int c0, const f2_poly_t &m) {
 // This is a static method.
 f2n_poly_t f2n_poly_t::from_base_rep(int b, const f2_poly_t &m) {
   f2n_poly_t rv;
-  std::cerr << "unimplemented function!\n";
-  exit(1);
+  std::stringstream ss;
+  ss << "unimplemented function!\n";
+  throw spffl::exception_t(ss.str());
 // xxx fix me
 #if 0
 	// Find degree.
@@ -340,8 +342,9 @@ void f2n_poly_t::quot_and_rem(
   f2_polymod_t zero = this->coeffs[0] - this->coeffs[0];
 
   if (that == zero) {
-    std::cerr << "f2n_poly_t::quot_and_rem:  division by zero.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "f2n_poly_t::quot_and_rem:  division by zero.\n";
+    throw spffl::exception_t(ss.str());
   }
   if (*this == zero) {
     rquot = this->prime_subfield_element(0);
@@ -382,10 +385,11 @@ void f2n_poly_t::quot_and_rem(
   f2_polymod_t divisor_leader = that.coeffs[divisor_degree];
   f2_polymod_t dlinv;
   if (!divisor_leader.recip(dlinv)) {
-    std::cerr << "f2n_poly_t::quot_and_rem:  zero or zero divisor "
-              << "in leading coefficient " << divisor_leader << "\n"
-              << "  of divisor " << that << ".\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "f2n_poly_t::quot_and_rem:  zero or zero divisor "
+       << "in leading coefficient " << divisor_leader << "\n"
+       << "  of divisor " << that << ".\n";
+    throw spffl::exception_t(ss.str());
   }
   for (int shift = max_shift; shift >= 0; shift--) {
     f2_polymod_t rem_leader     = rem.coeffs[shift + divisor_degree];
@@ -402,8 +406,9 @@ void f2n_poly_t::quot_and_rem(
   // Quotient degree must be the difference of dividend and divisor
   // degrees.  If not, we have made a mistake.
   if (quot.coeffs[quot.degree] == zero) {
-    std::cerr << "f2n_poly_t division: coding error.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "f2n_poly_t division: coding error.\n";
+    throw spffl::exception_t(ss.str());
   }
 
   // The remainder degree is less than the divisor's degree.
@@ -489,11 +494,13 @@ f2n_poly_t f2n_poly_t::exp(int e) const {
 
   if (*this == zero) {
     if (e == 0) {
-      std::cerr << "f2n_poly_t::exp:  0 ^ 0 undefined.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "f2n_poly_t::exp:  0 ^ 0 undefined.\n";
+      throw spffl::exception_t(ss.str());
     } else if (e < 0) {
-      std::cerr << "f2n_poly_t::exp:  division by zero.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "f2n_poly_t::exp:  division by zero.\n";
+      throw spffl::exception_t(ss.str());
     } else {
       return zero;
     }
@@ -503,8 +510,9 @@ f2n_poly_t f2n_poly_t::exp(int e) const {
   } else {
     // Degree 1 or higher.
     if (e < 0) {
-      std::cerr << "f2n_poly_t::exp:  division by non-unit.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "f2n_poly_t::exp:  division by non-unit.\n";
+      throw spffl::exception_t(ss.str());
     } else {
       while (e != 0) {
         if (e & 1) {
@@ -758,8 +766,9 @@ bool f2n_poly_t::cmp(int cmp, const f2n_poly_t &that) const {
     return (direction > 0);
     break;
   default:
-    std::cerr << "Ack!\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "Ack!\n";
+    throw spffl::exception_t(ss.str());
     return false;
     break;
   }
@@ -768,9 +777,10 @@ bool f2n_poly_t::cmp(int cmp, const f2n_poly_t &that) const {
 // ----------------------------------------------------------------
 void f2n_poly_t::bounds_check(int deg) const {
   if ((deg < 0) || (deg > this->degree)) {
-    std::cerr << "f2n_poly_t: degree " << deg
-              << " out of bounds 0:" << this->degree << ".\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "f2n_poly_t: degree " << deg << " out of bounds 0:" << this->degree
+       << ".\n";
+    throw spffl::exception_t(ss.str());
   }
 }
 
@@ -801,11 +811,13 @@ std::istream &operator>>(std::istream &is, f2n_poly_t &poly) {
     char c;
     is >> c;
     if (is.fail()) {
-      std::cerr << "f2n_poly_t: scan failure.\n";
+      std::stringstream ss;
+      ss << "f2n_poly_t: scan failure.\n";
       return is;
     }
     if (!isdigit(c)) {
-      std::cerr << "f2n_poly_t: non-numeric input '" << c << "'\n";
+      std::stringstream ss;
+      ss << "f2n_poly_t: non-numeric input '" << c << "'\n";
       return is;
     }
     r              = c - '0';
@@ -818,7 +830,8 @@ std::istream &operator>>(std::istream &is, f2n_poly_t &poly) {
   } else {
     is >> r;
     if (is.fail()) {
-      std::cerr << "f2n_poly_t: scan failure.\n";
+      std::stringstream ss;
+      ss << "f2n_poly_t: scan failure.\n";
       return is;
     }
     poly.coeffs[0] = f2_polymod_t(r, m);
@@ -826,7 +839,8 @@ std::istream &operator>>(std::istream &is, f2n_poly_t &poly) {
       (void)is.get();
       is >> r;
       if (is.fail()) {
-        std::cerr << "f2n_poly_t: scan failure.\n";
+        std::stringstream ss;
+        ss << "f2n_poly_t: scan failure.\n";
         return is;
       }
       poly.promote_and_add(f2_polymod_t(r, m));
@@ -846,7 +860,8 @@ std::istringstream &operator>>(std::istringstream &iss, f2n_poly_t &poly) {
 
   iss >> r;
   if (iss.fail()) {
-    std::cerr << "f2n_poly_t: scan failure at \"" << iss.str() << "\"\n";
+    std::stringstream ss;
+    ss << "f2n_poly_t: scan failure at \"" << iss.str() << "\"\n";
     return iss;
   }
   poly.coeffs[0] = f2_polymod_t(r, m);
@@ -854,7 +869,8 @@ std::istringstream &operator>>(std::istringstream &iss, f2n_poly_t &poly) {
     (void)iss.get();
     iss >> r;
     if (iss.fail()) {
-      std::cerr << "f2n_poly_t: scan failure at \"" << iss.str() << "\"\n";
+      std::stringstream ss;
+      ss << "f2n_poly_t: scan failure at \"" << iss.str() << "\"\n";
       return iss;
     }
     poly.promote_and_add(f2_polymod_t(r, m));
@@ -897,8 +913,9 @@ bool f2n_poly_t::from_string(const std::string &string, const f2_poly_t &m) {
     std::istringstream iss(argv[argi], std::ios_base::in);
     iss >> r;
     if (iss.fail()) {
-      std::cerr << "f2n_poly_t::from_string: "
-                << "scan failure at \"" << string << "\"\n";
+      std::stringstream ss;
+      ss << "f2n_poly_t::from_string: "
+         << "scan failure at \"" << string << "\"\n";
       return false;
     } else {
       this->coeffs[ci] = f2_polymod_t(r, m);
@@ -914,8 +931,9 @@ bool f2n_poly_t::from_string(const std::string &string, const f2_poly_t &m) {
 // ----------------------------------------------------------------
 void f2n_poly_t::promote(void) {
   if (!this->coeffs) {
-    std::cerr << "f2n_poly_t::promote: null data.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "f2n_poly_t::promote: null data.\n";
+    throw spffl::exception_t(ss.str());
   }
   f2_polymod_t *ocoeffs = this->coeffs;
   this->coeffs          = new f2_polymod_t[this->degree + 2];

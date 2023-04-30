@@ -7,6 +7,7 @@
 #ifndef TVECTOR_H
 #define TVECTOR_H
 
+#include "spffl_exception.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -45,9 +46,10 @@ public:
   // ----------------------------------------------------------------
   tvector(int init_num_elements) {
     if (init_num_elements <= 0) {
-      std::cerr << "tvector::tvector():  Vector size must be > 0; got "
-                << init_num_elements << ".  Exiting." << std::endl;
-      exit(1);
+      std::stringstream ss;
+      ss << "tvector::tvector():  Vector size must be > 0; got "
+         << init_num_elements << ".  Exiting." << std::endl;
+      throw spffl::exception_t(ss.str());
     }
 
     this->num_elements = init_num_elements;
@@ -57,9 +59,10 @@ public:
   // ----------------------------------------------------------------
   tvector(const element_type &e, int init_num_elements) {
     if (init_num_elements <= 0) {
-      std::cerr << "tvector::tvector():  Vector size must be > 0; got "
-                << init_num_elements << ".  Exiting." << std::endl;
-      exit(1);
+      std::stringstream ss;
+      ss << "tvector::tvector():  Vector size must be > 0; got "
+         << init_num_elements << ".  Exiting." << std::endl;
+      throw spffl::exception_t(ss.str());
     }
 
     this->num_elements = init_num_elements;
@@ -179,16 +182,17 @@ public:
     ifs.open(file_name, std::ifstream::in);
 
     if (ifs.fail()) {
-      std::cerr << "tvector::load_from_file:  couldn't open \"" << file_name
-                << "\"\n";
+      std::stringstream ss;
+      ss << "tvector::load_from_file:  couldn't open \"" << file_name << "\"\n";
       return false;
     }
 
     ifs >> *this;
 
     if (ifs.fail()) {
-      std::cerr << "tvector::load_from_file:  scan failure reading \""
-                << file_name << "\"\n";
+      std::stringstream ss;
+      ss << "tvector::load_from_file:  scan failure reading \"" << file_name
+         << "\"\n";
       ifs.close();
       return false;
     }
@@ -230,10 +234,10 @@ public:
   // ----------------------------------------------------------------
   element_type &operator[](int index) const {
     if ((index < 0) || (index >= this->num_elements)) {
-      std::cerr << "tvector array operator: index " << index
-                << " out of bounds " << 0 << ":" << (this->num_elements - 1)
-                << std::endl;
-      exit(1);
+      std::stringstream ss;
+      ss << "tvector array operator: index " << index << " out of bounds " << 0
+         << ":" << (this->num_elements - 1) << std::endl;
+      throw spffl::exception_t(ss.str());
     }
     return this->elements[index];
   }
@@ -301,10 +305,11 @@ public:
     int Anc = A.get_num_cols();
 
     if (this->num_elements != Anr) {
-      std::cerr << "tvector operator*(): Incompatibly dimensioned "
-                << "operands (" << this->num_elements << "," << Anr << "x"
-                << Anc << ")." << std::endl;
-      exit(1);
+      std::stringstream ss;
+      ss << "tvector operator*(): Incompatibly dimensioned "
+         << "operands (" << this->num_elements << "," << Anr << "x" << Anc
+         << ")." << std::endl;
+      throw spffl::exception_t(ss.str());
     }
 
     tvector<element_type> rv(Anc);
@@ -481,20 +486,21 @@ public:
   // ----------------------------------------------------------------
   void check_equal_lengths(const tvector<element_type> &that) const {
     if (this->num_elements != that.num_elements) {
-      std::cerr << "tvector operator+():  Incompatibly sized arguments ("
-                << this->num_elements << ", " << that.num_elements << ")."
-                << std::endl;
-      exit(1);
+      std::stringstream ss;
+      ss << "tvector operator+():  Incompatibly sized arguments ("
+         << this->num_elements << ", " << that.num_elements << ")."
+         << std::endl;
+      throw spffl::exception_t(ss.str());
     }
   }
 
   // ----------------------------------------------------------------
   void trim_num_elements(int new_num_elements) {
     if ((new_num_elements < 1) || (new_num_elements > this->num_elements)) {
-      std::cerr << "tvector trim_num_elements: new count " << new_num_elements
-                << " out of bounds " << 1 << ":" << this->num_elements
-                << std::endl;
-      exit(1);
+      std::stringstream ss;
+      ss << "tvector trim_num_elements: new count " << new_num_elements
+         << " out of bounds " << 1 << ":" << this->num_elements << std::endl;
+      throw spffl::exception_t(ss.str());
     }
     this->num_elements = new_num_elements;
   }
@@ -555,7 +561,8 @@ static std::istringstream &operator>>(
 
   if (!v.elements || (v.num_elements < 1)) {
     iss.setstate(std::ios::badbit);
-    std::cerr << "tvector string >>:  must already have one element.\n";
+    std::stringstream ss;
+    ss << "tvector string >>:  must already have one element.\n";
     return iss;
   }
 
@@ -585,10 +592,11 @@ static std::istringstream &operator>>(
     v.elements[v.num_elements] = zero; // E.g. set modulus.
     iss >> v.elements[v.num_elements];
     if (iss.fail()) {
-      std::cerr << "tvector istringstream >>: scan failure"
-                << " at vector element " << v.num_elements << ".\n";
-      std::cerr << "String: <<" << iss.str() << ">>\n";
-      std::cerr << "Position: " << iss.tellg() << "\n";
+      std::stringstream ss;
+      ss << "tvector istringstream >>: scan failure"
+         << " at vector element " << v.num_elements << ".\n";
+      ss << "String: <<" << iss.str() << ">>\n";
+      ss << "Position: " << iss.tellg() << "\n";
       return iss;
     }
     v.num_elements++;

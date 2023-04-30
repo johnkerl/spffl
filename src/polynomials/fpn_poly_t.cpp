@@ -6,6 +6,7 @@
 
 #include "fpn_poly_t.h"
 #include "cmps.h"
+#include "spffl_exception.h"
 #include "tokenize.h"
 #include <string.h>
 
@@ -51,8 +52,9 @@ fpn_poly_t::fpn_poly_t(
 // This is a static method.
 fpn_poly_t fpn_poly_t::from_base_rep(int b, const fp_poly_t &m) {
   fpn_poly_t rv;
-  std::cerr << "unimplemented function!\n";
-  exit(1);
+  std::stringstream ss;
+  ss << "unimplemented function!\n";
+  throw spffl::exception_t(ss.str());
   return rv;
 }
 
@@ -309,8 +311,9 @@ void fpn_poly_t::quot_and_rem(
   fp_polymod_t zero = this->coeffs[0] - this->coeffs[0];
 
   if (that == zero) {
-    std::cerr << "fpn_poly_t::quot_and_rem:  division by zero.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "fpn_poly_t::quot_and_rem:  division by zero.\n";
+    throw spffl::exception_t(ss.str());
   }
   if (*this == zero) {
     rquot = this->prime_subfield_element(0);
@@ -351,10 +354,11 @@ void fpn_poly_t::quot_and_rem(
   fp_polymod_t divisor_leader = that.coeffs[divisor_degree];
   fp_polymod_t dlinv;
   if (!divisor_leader.recip(dlinv)) {
-    std::cerr << "fpn_poly_t::quot_and_rem:  zero or zero divisor "
-              << "in leading coefficient " << divisor_leader << "\n"
-              << "  of divisor " << that << ".\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "fpn_poly_t::quot_and_rem:  zero or zero divisor "
+       << "in leading coefficient " << divisor_leader << "\n"
+       << "  of divisor " << that << ".\n";
+    throw spffl::exception_t(ss.str());
   }
   for (int shift = max_shift; shift >= 0; shift--) {
     fp_polymod_t rem_leader     = rem.coeffs[shift + divisor_degree];
@@ -371,8 +375,9 @@ void fpn_poly_t::quot_and_rem(
   // Quotient degree must be the difference of dividend and divisor
   // degrees.  If not, we have made a mistake.
   if (quot.coeffs[quot.degree] == zero) {
-    std::cerr << "fpn_poly_t division: coding error.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "fpn_poly_t division: coding error.\n";
+    throw spffl::exception_t(ss.str());
   }
 
   // The remainder degree is less than the divisor's degree.
@@ -458,11 +463,13 @@ fpn_poly_t fpn_poly_t::exp(int e) const {
 
   if (*this == zero) {
     if (e == 0) {
-      std::cerr << "fpn_poly_t::exp:  0 ^ 0 undefined.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "fpn_poly_t::exp:  0 ^ 0 undefined.\n";
+      throw spffl::exception_t(ss.str());
     } else if (e < 0) {
-      std::cerr << "fpn_poly_t::exp:  division by zero.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "fpn_poly_t::exp:  division by zero.\n";
+      throw spffl::exception_t(ss.str());
     } else {
       return zero;
     }
@@ -472,8 +479,9 @@ fpn_poly_t fpn_poly_t::exp(int e) const {
   } else {
     // Degree 1 or higher.
     if (e < 0) {
-      std::cerr << "fpn_poly_t::exp:  division by non-unit.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "fpn_poly_t::exp:  division by non-unit.\n";
+      throw spffl::exception_t(ss.str());
     } else {
       while (e != 0) {
         if (e & 1) {
@@ -653,8 +661,9 @@ bool fpn_poly_t::operator>=(const fpn_poly_t &that) const {
 
 // ----------------------------------------------------------------
 void fpn_poly_t::increment(void) {
-  std::cerr << "fpn_poly_t::increment:  unimplemented.\n";
-  exit(1);
+  std::stringstream ss;
+  ss << "fpn_poly_t::increment:  unimplemented.\n";
+  throw spffl::exception_t(ss.str());
 #if 0
 	fp_poly_t m = this->coeffs[0].get_modulus();
 	int d = m.find_degree();
@@ -718,8 +727,9 @@ bool fpn_poly_t::cmp(int cmp, const fpn_poly_t &that) const {
     return (direction > 0);
     break;
   default:
-    std::cerr << "Ack!\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "Ack!\n";
+    throw spffl::exception_t(ss.str());
     return false;
     break;
   }
@@ -728,9 +738,10 @@ bool fpn_poly_t::cmp(int cmp, const fpn_poly_t &that) const {
 // ----------------------------------------------------------------
 void fpn_poly_t::bounds_check(int deg) const {
   if ((deg < 0) || (deg > this->degree)) {
-    std::cerr << "fpn_poly_t: degree " << deg
-              << " out of bounds 0:" << this->degree << ".\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "fpn_poly_t: degree " << deg << " out of bounds 0:" << this->degree
+       << ".\n";
+    throw spffl::exception_t(ss.str());
   }
 }
 
@@ -761,7 +772,8 @@ std::istream &operator>>(std::istream &is, fpn_poly_t &poly) {
   r = m; // set modulus
   is >> r;
   if (is.fail()) {
-    std::cerr << "fpn_poly_t: scan failure.\n";
+    std::stringstream ss;
+    ss << "fpn_poly_t: scan failure.\n";
     return is;
   }
   poly.coeffs[0] = fp_polymod_t(r, m);
@@ -769,7 +781,8 @@ std::istream &operator>>(std::istream &is, fpn_poly_t &poly) {
     (void)is.get();
     is >> r;
     if (is.fail()) {
-      std::cerr << "fpn_poly_t: scan failure.\n";
+      std::stringstream ss;
+      ss << "fpn_poly_t: scan failure.\n";
       return is;
     }
     poly.promote_and_add(fp_polymod_t(r, m));
@@ -812,8 +825,9 @@ bool fpn_poly_t::from_string(const std::string &string, fp_poly_t m) {
     std::istringstream iss(argv[argi], std::ios_base::in);
     iss >> r;
     if (iss.fail()) {
-      std::cerr << "fpn_poly_t::from_string: "
-                << "scan failure at \"" << string << "\"\n";
+      std::stringstream ss;
+      ss << "fpn_poly_t::from_string: "
+         << "scan failure at \"" << string << "\"\n";
       return false;
     } else {
       this->coeffs[ci] = fp_polymod_t(r, m);
@@ -829,8 +843,9 @@ bool fpn_poly_t::from_string(const std::string &string, fp_poly_t m) {
 // ----------------------------------------------------------------
 void fpn_poly_t::promote(void) {
   if (!this->coeffs) {
-    std::cerr << "fpn_poly_t::promote: null data.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "fpn_poly_t::promote: null data.\n";
+    throw spffl::exception_t(ss.str());
   }
   fp_polymod_t *ocoeffs = this->coeffs;
   this->coeffs          = new fp_polymod_t[this->degree + 2];

@@ -5,6 +5,7 @@
 // ================================================================
 
 #include "intmod_t.h"
+#include "spffl_exception.h"
 #include <iomanip>
 #include <iostream>
 
@@ -27,19 +28,22 @@ intmod_t intmod_t::exp(int e) const {
 
   if (e == 0) {
     if (*this == zero) {
-      std::cerr << "intmod_t::exp:  0 ^ 0 undefined.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "intmod_t::exp:  0 ^ 0 undefined.";
+      throw spffl::exception_t(ss.str());
     }
     return one;
   } else if (e < 0) {
     if (*this == zero) {
-      std::cerr << "intmod_t::exp:  division by zero.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "intmod_t::exp:  division by zero.\n";
+      throw spffl::exception_t(ss.str());
     }
     if (e == -e) {
-      std::cerr << "intmod_t::exp:  can't handle "
-                   "MIN_INT.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "intmod_t::exp:  can't handle "
+            "MIN_INT.\n";
+      throw spffl::exception_t(ss.str());
     }
     intmod_t inv = one / *this;
     xp           = inv.residue;
@@ -189,5 +193,174 @@ int intmod_t::get_residue(void) const { return this->residue; }
 
 // ----------------------------------------------------------------
 int intmod_t::get_modulus(void) const { return this->modulus; }
+
+// ----------------------------------------------------------------
+intmod_t::intmod_t(int arg_residue, int arg_modulus) {
+  if (arg_modulus <= 0) {
+    std::stringstream ss;
+    ss << "intmod_t: non-positive modulus " << arg_modulus << " disallowed.";
+    ss << std::endl;
+    throw spffl::exception_t(ss.str());
+  }
+  this->residue = arg_residue;
+  this->modulus = arg_modulus;
+  this->residue = this->residue % this->modulus;
+  if (this->residue < 0) { // Wacky C mod operator.
+    this->residue += this->modulus;
+  }
+}
+
+// ----------------------------------------------------------------
+intmod_t::intmod_t(const intmod_t &that) {
+  this->residue = that.residue;
+  this->modulus = that.modulus;
+}
+
+// ----------------------------------------------------------------
+intmod_t::intmod_t(void) {
+  this->residue = -1;
+  this->modulus = 0;
+}
+
+// ----------------------------------------------------------------
+intmod_t::~intmod_t(void) {}
+
+// ----------------------------------------------------------------
+void intmod_t::check_moduli(const intmod_t &that) const {
+  this->check_modulus();
+  that.check_modulus();
+  if (this->modulus != that.modulus) {
+    std::stringstream ss;
+    ss << "intmod_t: mixed moduli " << this->modulus << ", " << that.modulus
+       << ".";
+    ss << std::endl;
+    throw spffl::exception_t(ss.str());
+  }
+}
+
+// ----------------------------------------------------------------
+// Unfortunately a default ctor is sometimes necessary (e.g. for matrices
+// and vectors): the modulus must sometimes be specified *after* construction.
+// Yet we don't want such data being used for arithmetic.
+void intmod_t::check_modulus(void) const {
+  if (this->modulus == 0) {
+    std::stringstream ss;
+    ss << "intmod_t: unspecified modulus.\n";
+    throw spffl::exception_t(ss.str());
+  }
+}
+
+// ----------------------------------------------------------------
+intmod_t &intmod_t::operator=(const intmod_t &that) {
+  this->residue = that.residue;
+  this->modulus = that.modulus;
+  return *this;
+}
+
+// ----------------------------------------------------------------
+intmod_t intmod_t::operator+(const intmod_t &that) const {
+  this->check_moduli(that);
+  intmod_t rv(this->residue + that.residue, this->modulus);
+  return rv;
+}
+
+// ----------------------------------------------------------------
+intmod_t intmod_t::operator-(const intmod_t &that) const {
+  this->check_moduli(that);
+  intmod_t rv(this->modulus + this->residue - that.residue, this->modulus);
+  return rv;
+}
+
+// ----------------------------------------------------------------
+intmod_t intmod_t::operator-(void) const {
+  this->check_modulus();
+  intmod_t rv(this->modulus - this->residue, this->modulus);
+  return rv;
+}
+
+// ----------------------------------------------------------------
+intmod_t intmod_t::operator*(const intmod_t &that) const {
+  this->check_moduli(that);
+  intmod_t rv(this->residue * that.residue, this->modulus);
+  return rv;
+}
+
+// ----------------------------------------------------------------
+intmod_t intmod_t::operator+(int a) const {
+  intmod_t rv(this->residue + a, this->modulus);
+  return rv;
+}
+
+// ----------------------------------------------------------------
+intmod_t intmod_t::operator-(int a) const {
+  intmod_t rv(this->modulus + this->residue - a, this->modulus);
+  return rv;
+}
+
+// ----------------------------------------------------------------
+intmod_t intmod_t::operator*(int a) const {
+  intmod_t rv(this->residue * a, this->modulus);
+  return rv;
+}
+
+// ----------------------------------------------------------------
+intmod_t intmod_t::operator/(const intmod_t &that) const {
+  this->check_moduli(that);
+
+  intmod_t bi;
+  if (!that.recip(bi)) {
+    std::stringstream ss;
+    ss << "intmod_t::operator/:  zero or zero divisor: " << that.residue
+       << " mod " << that.modulus << ".";
+    throw spffl::exception_t(ss.str());
+  }
+
+  return *this * bi;
+}
+
+// ----------------------------------------------------------------
+intmod_t intmod_t::operator%(const intmod_t &that) const {
+  this->check_moduli(that);
+
+  intmod_t bi;
+  if (!that.recip(bi)) {
+    std::stringstream ss;
+    ss << "intmod_t::operator%:  zero or zero divisor: " << that.residue
+       << " mod " << that.modulus << ".\n";
+    throw spffl::exception_t(ss.str());
+  }
+
+  return *this - *this;
+}
+
+// ----------------------------------------------------------------
+bool intmod_t::recip(intmod_t &rinv) const {
+  this->check_modulus();
+
+  if (this->modulus == 2) {
+    if (this->residue == 0) {
+      return false;
+    } else {
+      rinv = *this;
+      return true;
+    }
+  }
+
+  static int mlast = 2;
+  static int phi   = 1;
+  if (this->modulus != mlast) { // Cache
+    mlast = this->modulus;
+    phi   = int_totient(this->modulus);
+  }
+
+  intmod_t rv = this->exp(phi - 1);
+  int check   = (this->residue * rv.residue) % this->modulus;
+  if (check != 1) {
+    return false;
+  } else {
+    rinv = rv;
+    return true;
+  }
+}
 
 } // namespace spffl::intmath

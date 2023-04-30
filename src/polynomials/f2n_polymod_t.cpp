@@ -5,6 +5,7 @@
 // ================================================================
 
 #include "f2n_polymod_t.h"
+#include "spffl_exception.h"
 #include <iomanip>
 #include <iostream>
 
@@ -108,9 +109,10 @@ f2n_polymod_t f2n_polymod_t::operator/(const f2n_polymod_t &that) const {
 
   f2n_polymod_t bi;
   if (!that.recip(bi)) {
-    std::cerr << "f2n_polymod_t::operator/:  zero or zero divisor: "
-              << that.residue << " mod " << that.modulus << ".\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "f2n_polymod_t::operator/:  zero or zero divisor: " << that.residue
+       << " mod " << that.modulus << ".\n";
+    throw spffl::exception_t(ss.str());
   }
 
   return *this * bi;
@@ -122,9 +124,10 @@ f2n_polymod_t f2n_polymod_t::operator%(const f2n_polymod_t &that) const {
 
   f2n_polymod_t bi;
   if (!that.recip(bi)) {
-    std::cerr << "f2n_polymod_t::operator%:  zero or zero divisor: "
-              << that.residue << " mod " << that.modulus << ".\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "f2n_polymod_t::operator%:  zero or zero divisor: " << that.residue
+       << " mod " << that.modulus << ".\n";
+    throw spffl::exception_t(ss.str());
   }
 
   return *this - *this;
@@ -137,16 +140,16 @@ bool f2n_polymod_t::recip(f2n_polymod_t &rinv) const {
 
   // Error check:
   if (g.find_degree() != 0) {
-    // std::cerr << "f2n_polymod recip: zero or zero divisor.\n";
     return false;
   }
 
   // Ext. GCD actually returns a scalar multiple of 1.  Divide this out.
   f2_polymod_t c0i;
   if (!g.get_coeff(0).recip(c0i)) {
-    std::cerr << "f2n_polymod_t::recip:  zero or zero divisor "
-              << " in GCD " << g << ".\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "f2n_polymod_t::recip:  zero or zero divisor "
+       << " in GCD " << g << ".\n";
+    throw spffl::exception_t(ss.str());
   }
   a *= c0i;
   f2n_polymod_t rv(a, this->modulus);
@@ -163,19 +166,22 @@ f2n_polymod_t f2n_polymod_t::exp(int e) const {
 
   if (e == 0) {
     if (*this == zero) {
-      std::cerr << "f2n_polymod_t::exp:  0 ^ 0 undefined.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "f2n_polymod_t::exp:  0 ^ 0 undefined.\n";
+      throw spffl::exception_t(ss.str());
     }
     return one;
   } else if (e < 0) {
     if (*this == zero) {
-      std::cerr << "f2n_polymod_t::exp:  division by zero.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "f2n_polymod_t::exp:  division by zero.\n";
+      throw spffl::exception_t(ss.str());
     }
     if (e == -e) {
-      std::cerr << "f2n_polymod_t::exp:  can't handle "
-                   "MIN_INT.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "f2n_polymod_t::exp:  can't handle "
+            "MIN_INT.\n";
+      throw spffl::exception_t(ss.str());
     }
     f2n_polymod_t inv = one / *this;
     xp                = inv.residue;
@@ -325,10 +331,11 @@ f2n_poly_t f2n_polymod_t::get_modulus(void) const { return this->modulus; }
 // ----------------------------------------------------------------
 void f2n_polymod_t::check_moduli(const f2n_polymod_t &that) const {
   if (this->modulus != that.modulus) {
-    std::cerr << "f2n_polymod_t: mixed moduli " << this->modulus << ", "
-              << that.modulus << ".";
-    std::cerr << std::endl;
-    exit(1);
+    std::stringstream ss;
+    ss << "f2n_polymod_t: mixed moduli " << this->modulus << ", "
+       << that.modulus << ".";
+    ss << std::endl;
+    throw spffl::exception_t(ss.str());
   }
 }
 

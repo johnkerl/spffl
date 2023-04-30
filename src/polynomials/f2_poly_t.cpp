@@ -6,6 +6,7 @@
 
 #include "f2_poly_t.h"
 #include "cmps.h"
+#include "spffl_exception.h"
 #include <ctype.h>
 #include <string.h>
 
@@ -49,8 +50,9 @@ f2_poly_t::f2_poly_t(const std::string &s) {
   std::istringstream iss(s, std::ios_base::in);
   iss >> *this;
   if (iss.fail()) {
-    std::cerr << "f2_poly_t:  could not construct from \"" << s << "\"\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "f2_poly_t:  could not construct from \"" << s << "\"\n";
+    throw spffl::exception_t(ss.str());
   }
 }
 
@@ -227,8 +229,9 @@ void f2_poly_t::quot_and_rem(
   divisor_l1_pos = that.find_degree();
   if ((divisor_l1_pos == 0) && (that.parts[0] == 0)) {
     // Divisor is zero.
-    std::cerr << "f2_poly_quot_and_rem:  Divide by zero.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "f2_poly_quot_and_rem:  Divide by zero.\n";
+    throw spffl::exception_t(ss.str());
   }
   dividend_l1_pos = this->find_degree();
   if ((dividend_l1_pos == 0) && (this->parts[0] == 0)) {
@@ -330,11 +333,13 @@ f2_poly_t f2_poly_t::exp(int e) const {
   f2_poly_t rv = one;
   if (*this == zero) {
     if (e == 0) {
-      std::cerr << "f2_poly_t::exp:  0 ^ 0 undefined.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "f2_poly_t::exp:  0 ^ 0 undefined.\n";
+      throw spffl::exception_t(ss.str());
     } else if (e < 0) {
-      std::cerr << "f2_poly_t::exp:  division by zero.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "f2_poly_t::exp:  division by zero.\n";
+      throw spffl::exception_t(ss.str());
     } else {
       return zero;
     }
@@ -344,8 +349,9 @@ f2_poly_t f2_poly_t::exp(int e) const {
   } else {
     // Degree 1 or higher.
     if (e < 0) {
-      std::cerr << "f2_poly_t::exp:  division by non-unit.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "f2_poly_t::exp:  division by non-unit.\n";
+      throw spffl::exception_t(ss.str());
     } else {
       while (e != 0) {
         if (e & 1) {
@@ -489,8 +495,9 @@ bool f2_poly_t::cmp(int op, const f2_poly_t &that) const {
     return (direction > 0);
     break;
   default:
-    std::cerr << "Ack!\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "Ack!\n";
+    throw spffl::exception_t(ss.str());
     return false;
     break;
   }
@@ -511,8 +518,9 @@ void f2_poly_t::increment(void) {
 // ----------------------------------------------------------------
 std::ostream &operator<<(std::ostream &os, const f2_poly_t &poly) {
   if (poly.parts.size() <= 0) {
-    std::cerr << "f2_poly_t ostream <<:  empty polynomial.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "f2_poly_t ostream <<:  empty polynomial.\n";
+    throw spffl::exception_t(ss.str());
   }
   std::ios_base::fmtflags svflags = os.flags();
   os.flags(std::ios_base::hex);
@@ -788,8 +796,9 @@ void f2_poly_t::trim_parts(void) {
 }
 void f2_poly_t::check_neg_pos(int pos) const {
   if (pos < 0) {
-    std::cerr << "f2_poly: negative bit position " << pos << " disallowed.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "f2_poly: negative bit position " << pos << " disallowed.\n";
+    throw spffl::exception_t(ss.str());
   }
 }
 } // namespace spffl::polynomials

@@ -6,6 +6,7 @@
 
 #include "f2_poly_factor.h"
 #include "f2_poly_random.h"
+#include "spffl_exception.h"
 #include "tfacinfo.h"
 
 // #define F2POLY_FACTOR_DEBUG
@@ -49,9 +50,9 @@ static void f2_poly_pre_berlekamp(const spffl::polynomials::f2_poly_t &f,
 
   if (g == 0) {
     if (f != 0) {
-      std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
-                << "\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
+      throw spffl::exception_t(ss.str());
     }
 #ifdef F2POLY_FACTOR_DEBUG
     std::cout << "g=0 f=0 insert " << f << "\n";
@@ -66,9 +67,9 @@ static void f2_poly_pre_berlekamp(const spffl::polynomials::f2_poly_t &f,
     spffl::polynomials::f2_poly_t s;
     tfacinfo<spffl::polynomials::f2_poly_t> sfinfo;
     if (!f.square_root(s)) {
-      std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
-                << "\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
+      throw spffl::exception_t(ss.str());
     }
 
     // Multiplicity is p only if degree is > 0.
@@ -206,14 +207,14 @@ static void f2_poly_berlekamp(const spffl::polynomials::f2_poly_t &f,
   bool got = BI.get_kernel_basis(nullspace_basis);
 
   if (!got) {
-    std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
-              << "\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
+    throw spffl::exception_t(ss.str());
   }
   if (nullspace_basis.get_num_rows() != dimker) {
-    std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
-              << "\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
+    throw spffl::exception_t(ss.str());
   }
 #ifdef F2POLY_FACTOR_DEBUG
   std::cout << "nullity = " << dimker << "\n";
@@ -256,11 +257,11 @@ static void f2_poly_berlekamp(const spffl::polynomials::f2_poly_t &f,
     spffl::polynomials::f2_poly_t check1 = (h * h) % f;
     spffl::polynomials::f2_poly_t check2 = (hc * hc) % f;
     if ((h != check1) || (hc != check2)) {
-      std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
-                << "\n";
-      std::cerr << "  h  = " << h << "  h^2  = " << check1 << "\n";
-      std::cerr << "  hc = " << hc << "  hc^2 = " << check2 << "\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
+      ss << "  h  = " << h << "  h^2  = " << check1 << "\n";
+      ss << "  hc = " << hc << "  hc^2 = " << check2 << "\n";
+      throw spffl::exception_t(ss.str());
     }
 
     spffl::polynomials::f2_poly_t f1 = f.gcd(h);
@@ -297,9 +298,9 @@ static void f2_poly_berlekamp(const spffl::polynomials::f2_poly_t &f,
     }
     return;
   }
-  std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
-            << "\n";
-  exit(1);
+  std::stringstream ss;
+  ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
+  throw spffl::exception_t(ss.str());
 }
 
 // ----------------------------------------------------------------
@@ -347,7 +348,7 @@ spffl::polynomials::f2_poly_t f2_poly_from_vector(
 //		fprintf(stderr, "f2_poly_num_divisors:  num distinct (%d) "
 //			"out of bounds 0-%d\n",
 //			pfinfo->num_distinct, F2POLY_MAX_NUM_FACTORS);
-//		exit(1);
+//		throw spffl::exception_t(ss.str());
 //	}
 //
 //	rv = 1;
@@ -442,9 +443,10 @@ spffl::polynomials::f2_poly_t f2_poly_find_irreducible(int degree) {
   rv.set_bit(0);
 
   if (degree < 1) {
-    std::cout << "f2_poly_find_irreducible:  degree must be positive; got "
-              << degree << ".\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "f2_poly_find_irreducible:  degree must be positive; got " << degree
+       << ".\n";
+    throw spffl::exception_t(ss.str());
   }
 
   while (rv.find_degree() == degree) {
@@ -457,8 +459,9 @@ spffl::polynomials::f2_poly_t f2_poly_find_irreducible(int degree) {
 
   // There are irreducibles of all positive degrees, so it is
   // an error if we failed to find one.
-  std::cout << "f2_poly_find_irreducible:  coding error.\n";
-  exit(1);
+  std::stringstream ss;
+  ss << "f2_poly_find_irreducible:  coding error.\n";
+  throw spffl::exception_t(ss.str());
 
   return rv;
 }
@@ -468,9 +471,10 @@ spffl::polynomials::f2_poly_t f2_poly_random_irreducible(int degree) {
   spffl::polynomials::f2_poly_t rv;
 
   if (degree < 1) {
-    std::cout << "f2_poly_random_irreducible:  degree must be positive; got "
+    std::stringstream ss;
+    std::cerr << "f2_poly_random_irreducible:  degree must be positive; got "
               << degree << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   for (;;) {

@@ -5,6 +5,7 @@
 // ================================================================
 
 #include "min_char_polys.h"
+#include "spffl_exception.h"
 #include <iostream>
 
 #include "bit_matrix_t.h"
@@ -105,13 +106,15 @@ spffl::polynomials::f2_poly_t f2_polymod_minimal_polynomial(
   }
   spffl::bits::bit_matrix_t B;
   if (!A.get_kernel_basis(B)) {
-    std::cerr << "poo!\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "poo!\n";
+    throw spffl::exception_t(ss.str());
   }
   if (B.get_rank_rr() != 1) {
-    std::cerr << "double poo!\n";
-    std::cerr << B << "\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "double poo!\n";
+    ss << B << "\n";
+    throw spffl::exception_t(ss.str());
   }
   spffl::polynomials::f2_poly_t p;
   for (int j = 0; j <= l; j++) {
@@ -143,13 +146,15 @@ spffl::polynomials::f2n_poly_t f2npm_min_poly(
   }
   tmatrix<spffl::polynomials::f2_polymod_t> B;
   if (!A.get_kernel_basis(B, zero, one)) {
-    std::cerr << "poo!\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "poo!\n";
+    throw spffl::exception_t(ss.str());
   }
   if (B.get_rank_rr() != 1) {
-    std::cerr << "double poo!\n";
-    std::cerr << B << "\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "double poo!\n";
+    ss << B << "\n";
+    throw spffl::exception_t(ss.str());
   }
   spffl::polynomials::f2n_poly_t mp;
   for (int j = 0; j <= l; j++) {
@@ -178,13 +183,15 @@ spffl::polynomials::fp_poly_t fp_polymod_minimal_polynomial(
   }
   tmatrix<spffl::intmath::intmod_t> B;
   if (!A.get_kernel_basis(B, zero, one)) {
-    std::cerr << "poo!\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "poo!\n";
+    throw spffl::exception_t(ss.str());
   }
   if (B.get_rank_rr() != 1) {
-    std::cerr << "double poo!\n";
-    std::cerr << B << "\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "double poo!\n";
+    ss << B << "\n";
+    throw spffl::exception_t(ss.str());
   }
   spffl::polynomials::fp_poly_t mp;
   for (int j = 0; j <= l; j++) {

@@ -11,6 +11,7 @@
 #include "int_gcd.h"
 #include "int_power.h"
 #include "int_totient.h"
+#include "spffl_exception.h"
 
 namespace spffl::list {
 
@@ -88,8 +89,9 @@ tvector<spffl::intmath::intmod_t> intmod_list(int p, sp_list_type_t type) {
   } else if (type == SP_LIST_NON_UNITS) {
     nel = p - spffl::intmath::int_totient(p);
   } else {
-    std::cerr << "intmod_list:  unhandled code option.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "intmod_list:  unhandled code option.\n";
+    throw spffl::exception_t(ss.str());
   }
   tvector<spffl::intmath::intmod_t> rv(nel);
   if (type == SP_LIST_UNITS) {
@@ -126,8 +128,9 @@ tvector<spffl::polynomials::f2_polymod_t> f2_polymod_list(
   } else if (type == SP_LIST_NON_UNITS) {
     nel = (1 << deg) - spffl::factorization::f2_poly_totient(m);
   } else {
-    std::cerr << "f2_polymod_list:  unhandled code option.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "f2_polymod_list:  unhandled code option.\n";
+    throw spffl::exception_t(ss.str());
   }
   tvector<spffl::polynomials::f2_polymod_t> rv(nel);
 
@@ -177,8 +180,9 @@ tvector<spffl::polynomials::f2n_polymod_t> f2n_polymod_list(
     nel = (1 << (outerdeg * innerdeg)) -
           spffl::factorization::f2n_poly_totient(om);
   } else {
-    std::cerr << "f2n_polymod_list:  unhandled code option.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "f2n_polymod_list:  unhandled code option.\n";
+    throw spffl::exception_t(ss.str());
   }
   tvector<spffl::polynomials::f2n_polymod_t> rv(nel);
 
@@ -227,8 +231,9 @@ tvector<spffl::polynomials::fp_polymod_t> fp_polymod_list(
     nel = spffl::intmath::int_power(p, n) -
           spffl::factorization::fp_poly_totient(m);
   } else {
-    std::cerr << "fp_polymod_list:  unhandled code option.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "fp_polymod_list:  unhandled code option.\n";
+    throw spffl::exception_t(ss.str());
   }
   tvector<spffl::polynomials::fp_polymod_t> rv(nel);
 
@@ -391,8 +396,9 @@ tmatrix<spffl::polynomials::f2_polymod_t> f2_polymod_Pn_list(
   }
 
   if (didx != oP) {
-    std::cerr << "Pn_Fq_list:  coding error.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "Pn_Fq_list:  coding error.\n";
+    throw spffl::exception_t(ss.str());
   }
 
   return rv;
@@ -466,8 +472,9 @@ tmatrix<spffl::polynomials::fp_polymod_t> fp_polymod_Pn_list(
   }
 
   if (didx != oP) {
-    std::cerr << "Pn_Fq_list:  coding error.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "Pn_Fq_list:  coding error.\n";
+    throw spffl::exception_t(ss.str());
   }
 
   return rv;

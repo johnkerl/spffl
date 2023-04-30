@@ -52,10 +52,13 @@ add_executable(test_intmath
 )
 target_include_directories(${PROJECT_NAME}
   PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../src/base
     ${CMAKE_CURRENT_SOURCE_DIR}/../../src/intmath
 )
 target_link_libraries(${PROJECT_NAME} PRIVATE
-    intmath Catch2::Catch2WithMain
+    base
+    intmath
+    Catch2::Catch2WithMain
 )
 
 # ----------------------------------------------------------------

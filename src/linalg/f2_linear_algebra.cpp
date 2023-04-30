@@ -6,6 +6,7 @@
 
 #include "f2_linear_algebra.h"
 #include "f2_poly_t.h"
+#include "spffl_exception.h"
 
 namespace spffl::linalg {
 
@@ -35,8 +36,9 @@ tmatrix<spffl::bits::bit_t> f2_matrix_from_base_rep(
 // ----------------------------------------------------------------
 spffl::polynomials::f2_poly_t f2_char_poly(tmatrix<spffl::bits::bit_t> &A) {
   if (!A.is_square()) {
-    std::cerr << "f2_char_poly():  non-square input.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "f2_char_poly():  non-square input.\n";
+    throw spffl::exception_t(ss.str());
   }
 
   int i, j;

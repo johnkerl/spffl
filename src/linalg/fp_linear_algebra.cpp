@@ -6,6 +6,7 @@
 
 #include "fp_linear_algebra.h"
 #include "fp_poly_t.h"
+#include "spffl_exception.h"
 
 namespace spffl::linalg {
 
@@ -26,8 +27,9 @@ tvector<spffl::intmath::intmod_t> fp_vector_from_base_rep(
 spffl::polynomials::fp_poly_t fp_char_poly(
     tmatrix<spffl::intmath::intmod_t> &A) {
   if (!A.is_square()) {
-    std::cerr << "fp_char_poly():  non-square input.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "fp_char_poly():  non-square input.\n";
+    throw spffl::exception_t(ss.str());
   }
 
   int i, j;

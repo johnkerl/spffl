@@ -6,6 +6,7 @@
 
 #include "f2_polyrat_t.h"
 #include "cmps.h"
+#include "spffl_exception.h"
 #include <iomanip>
 #include <iostream>
 
@@ -128,8 +129,9 @@ f2_polyrat_t f2_polyrat_t::operator%(const f2_polyrat_t &that) {
   f2_polyrat_t rv;
   f2_polyrat_t zero = that - that;
   if (that == zero) {
-    std::cerr << "f2_polyrat_t: Divide by zero.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "f2_polyrat_t: Divide by zero.\n";
+    throw spffl::exception_t(ss.str());
   }
   return zero;
 }
@@ -143,19 +145,22 @@ f2_polyrat_t f2_polyrat_t::exp(int e) const {
 
   if (e == 0) {
     if (*this == zero) {
-      std::cerr << "f2_polyrat_t::exp:  0 ^ 0 undefined.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "f2_polyrat_t::exp:  0 ^ 0 undefined.\n";
+      throw spffl::exception_t(ss.str());
     }
     return one;
   } else if (e < 0) {
     if (*this == zero) {
-      std::cerr << "f2_polyrat_t::exp:  division by zero.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "f2_polyrat_t::exp:  division by zero.\n";
+      throw spffl::exception_t(ss.str());
     }
     if (e == -e) {
-      std::cerr << "f2_polyrat_t::exp:  can't handle "
-                   "MIN_F2POLY.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "f2_polyrat_t::exp:  can't handle "
+            "MIN_F2POLY.\n";
+      throw spffl::exception_t(ss.str());
     }
     xp = one / xp;
     e  = -e;
@@ -351,8 +356,9 @@ spffl::polynomials::f2_poly_t f2_polyrat_t::get_denominator(void) const {
 void f2_polyrat_t::simplify(void) {
   spffl::polynomials::f2_poly_t g;
   if (this->denom == 0) {
-    std::cerr << "rat: Divide by zero.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "rat: Divide by zero.\n";
+    throw spffl::exception_t(ss.str());
   }
   g = this->numer.gcd(this->denom);
   this->numer /= g;

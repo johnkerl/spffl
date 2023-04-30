@@ -7,6 +7,7 @@
 #ifndef TFACINFO_H
 #define TFACINFO_H
 
+#include "spffl_exception.h"
 #include "tvector.h"
 #include <fstream>
 #include <iostream>
@@ -131,9 +132,10 @@ public:
   // ----------------------------------------------------------------
   void bounds_check(int which) const {
     if ((which < 0) || (which >= this->num_distinct)) {
-      std::cerr << "tfacinfo:  index " << which
-                << " out of bounds 0:" << this->num_distinct - 1 << ".\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "tfacinfo:  index " << which
+         << " out of bounds 0:" << this->num_distinct - 1 << ".\n";
+      throw spffl::exception_t(ss.str());
     }
   }
 
@@ -261,12 +263,14 @@ public:
 
     if (x == zero) {
       if (e < 0) {
-        std::cerr << "Division by zero.\n";
-        exit(1);
+        std::stringstream ss;
+        ss << "Division by zero.\n";
+        throw spffl::exception_t(ss.str());
       }
       if (e == 0) {
-        std::cerr << "0 ^ 0 undefined.\n";
-        exit(1);
+        std::stringstream ss;
+        ss << "0 ^ 0 undefined.\n";
+        throw spffl::exception_t(ss.str());
       }
       return zero;
     }
@@ -279,8 +283,9 @@ public:
 
     if (e < 0) {
       if (e == -e) {
-        std::cerr << "Can't handle MIN_INT.\n";
-        exit(1);
+        std::stringstream ss;
+        ss << "Can't handle MIN_INT.\n";
+        throw spffl::exception_t(ss.str());
       }
       xp = one / x;
       e  = -e;
@@ -371,9 +376,10 @@ public:
   int get_num_divisors(void) const {
     if (this->num_distinct <= 0) {
       if (!this->have_unit) {
-        std::cerr << "tfacinfo::get_num_divisors():  "
-                     "No factors have been inserted.\n";
-        exit(1);
+        std::stringstream ss;
+        ss << "tfacinfo::get_num_divisors():  "
+              "No factors have been inserted.\n";
+        throw spffl::exception_t(ss.str());
       }
     }
     int rv = 1;
@@ -396,9 +402,10 @@ public:
         // if (k == 0)
         return one;
       } else {
-        std::cerr << "tfacinfo::get_kth_divisor():  "
-                     "No factors have been inserted.\n";
-        exit(1);
+        std::stringstream ss;
+        ss << "tfacinfo::get_kth_divisor():  "
+              "No factors have been inserted.\n";
+        throw spffl::exception_t(ss.str());
       }
     }
 
@@ -419,9 +426,10 @@ public:
   tvector<element_type> get_all_divisors(element_type one) const {
     if (this->num_distinct <= 0) {
       if (!this->have_unit) {
-        std::cerr << "tfacinfo::get_all_divisors():  "
-                  << "No factors have been inserted.\n";
-        exit(1);
+        std::stringstream ss;
+        ss << "tfacinfo::get_all_divisors():  "
+           << "No factors have been inserted.\n";
+        throw spffl::exception_t(ss.str());
       }
     }
     int nd = this->get_num_divisors();
@@ -439,9 +447,10 @@ public:
       tvector<element_type> &rv, element_type one) const {
     if (this->num_distinct <= 0) {
       if (!this->have_unit) {
-        std::cerr << "tfacinfo::get_maximal_proper_divisors():  "
-                  << "No factors have been inserted.\n";
-        exit(1);
+        std::stringstream ss;
+        ss << "tfacinfo::get_maximal_proper_divisors():  "
+           << "No factors have been inserted.\n";
+        throw spffl::exception_t(ss.str());
       } else {
         return false;
       }

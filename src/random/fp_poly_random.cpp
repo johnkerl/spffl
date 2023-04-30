@@ -6,15 +6,16 @@
 
 #include "fp_poly_random.h"
 #include "intmod_random.h"
+#include "spffl_exception.h"
 
 namespace spffl::random {
 
 // ----------------------------------------------------------------
 spffl::polynomials::fp_poly_t fp_poly_random(int p, int deg) {
   if (deg < 0) {
-    std::cerr << "fp_poly_random:  degree " << deg
-              << " must be non-negative.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "fp_poly_random:  degree " << deg << " must be non-negative.\n";
+    throw spffl::exception_t(ss.str());
   }
 
   spffl::intmath::intmod_t zero(0, p);

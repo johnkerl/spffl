@@ -10,6 +10,7 @@
 
 #include "cyclo_poly.h"
 #include "qff.h"
+#include "spffl_exception.h"
 
 namespace spffl::q_cyclo {
 
@@ -26,9 +27,9 @@ spffl::rationals::qpoly_t get_cyclo_qpoly(int n) {
   spffl::rationals::qpoly_t zero(0);
 
   if (n < 1) {
-    std::cerr << "get_cyclo_qpoly: argument must be positive; got " << n
-              << ".\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "get_cyclo_qpoly: argument must be positive; got " << n << ".\n";
+    throw spffl::exception_t(ss.str());
   }
 
   if ((n <= CYCLO_MEMO_MAX) && (memo_flags[n])) {
@@ -61,8 +62,9 @@ spffl::rationals::qpoly_t get_cyclo_qpoly(int n) {
 
     rv.quot_and_rem(dth, rv, rem);
     if (rem != zero) {
-      std::cerr << "get_cyclo_qpoly: internal error.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "get_cyclo_qpoly: internal error.\n";
+      throw spffl::exception_t(ss.str());
     }
   }
 

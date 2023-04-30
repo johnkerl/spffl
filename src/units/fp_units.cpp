@@ -9,6 +9,7 @@
 #include "int_gcd.h"
 #include "int_sqrt.h"
 #include "int_totient.h"
+#include "spffl_exception.h"
 #include "tfacinfo.h"
 #include "tvector.h"
 
@@ -25,9 +26,9 @@ int fp_order(spffl::intmath::intmod_t a) {
   int g = spffl::intmath::int_gcd(r, p);
 
   if (g != 1) {
-    std::cerr << "fp_order:  zero or zero divisor " << r << " mod " << p
-              << ".\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "fp_order:  zero or zero divisor " << r << " mod " << p << ".\n";
+    throw spffl::exception_t(ss.str());
   }
 
   int phi                   = spffl::intmath::int_totient(p);
@@ -48,8 +49,9 @@ int fp_order(spffl::intmath::intmod_t a) {
   // By Lagrange's theorem, g^m = 1 for all units g, with m the order
   // of the unit group.  If we've not found the order of a unit,
   // something is wrong.
-  std::cout << "fp_order:  Coding error.\n";
-  exit(1);
+  std::stringstream ss;
+  ss << "fp_order:  Coding error.\n";
+  throw spffl::exception_t(ss.str());
 }
 
 // ----------------------------------------------------------------
@@ -114,9 +116,10 @@ int fp_log( // Log base g of a.
 
   spffl::intmath::intmod_t ginv;
   if (!g.recip(ginv)) {
-    std::cerr << "fp_log:  g="
-              << " is a zero divisor.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "fp_log:  g="
+       << " is a zero divisor.\n";
+    throw spffl::exception_t(ss.str());
   }
   spffl::intmath::intmod_t gk = g.exp(k);
   unsigned i, j;
@@ -152,8 +155,9 @@ int fp_log( // Log base g of a.
 
   if (rv == -1) {
     // xxx
-    std::cerr << "fp_log:  error message goes here.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "fp_log:  error message goes here.\n";
+    throw spffl::exception_t(ss.str());
   }
 
   delete[] agni;

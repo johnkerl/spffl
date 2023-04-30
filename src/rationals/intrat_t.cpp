@@ -8,6 +8,7 @@
 #include "cmps.h"
 #include "int_gcd.h"
 #include "int_totient.h"
+#include "spffl_exception.h"
 #include <iomanip>
 #include <iostream>
 #include <stdlib.h>
@@ -113,8 +114,9 @@ intrat_t intrat_t::operator%(const intrat_t &that) {
   intrat_t rv;
   intrat_t zero = that - that;
   if (that == zero) {
-    std::cerr << "intrat_t: Divide by zero.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "intrat_t: Divide by zero.\n";
+    throw spffl::exception_t(ss.str());
   }
   return zero;
 }
@@ -128,19 +130,22 @@ intrat_t intrat_t::exp(int e) {
 
   if (e == 0) {
     if (*this == zero) {
-      std::cerr << "intrat_t::exp:  0 ^ 0 undefined.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "intrat_t::exp:  0 ^ 0 undefined.\n";
+      throw spffl::exception_t(ss.str());
     }
     return one;
   } else if (e < 0) {
     if (*this == zero) {
-      std::cerr << "intrat_t::exp:  division by zero.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "intrat_t::exp:  division by zero.\n";
+      throw spffl::exception_t(ss.str());
     }
     if (e == -e) {
-      std::cerr << "intrat_t::exp:  can't handle "
-                   "MIN_INT.\n";
-      exit(1);
+      std::stringstream ss;
+      ss << "intrat_t::exp:  can't handle "
+            "MIN_INT.\n";
+      throw spffl::exception_t(ss.str());
     }
     xp = one / xp;
     e  = -e;
@@ -331,8 +336,9 @@ int intrat_t::get_denominator(void) const { return this->denom; }
 void intrat_t::simplify(void) {
   int g;
   if (this->denom == 0) {
-    std::cerr << "rat: Divide by zero.\n";
-    exit(1);
+    std::stringstream ss;
+    ss << "rat: Divide by zero.\n";
+    throw spffl::exception_t(ss.str());
   }
   if (this->denom < 0) {
     this->numer = -this->numer;
