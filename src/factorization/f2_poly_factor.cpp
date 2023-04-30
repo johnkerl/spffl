@@ -4,9 +4,9 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "spffl_exception.h"
 #include "f2_poly_factor.h"
 #include "f2_poly_random.h"
+#include "spffl_exception.h"
 #include "tfacinfo.h"
 
 // #define F2POLY_FACTOR_DEBUG
@@ -51,8 +51,7 @@ static void f2_poly_pre_berlekamp(const spffl::polynomials::f2_poly_t &f,
   if (g == 0) {
     if (f != 0) {
       std::stringstream ss;
-      ss << "Coding error: file " << __FILE__ << " line " << __LINE__
-                << "\n";
+      ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
       throw spffl::exception_t(ss.str());
     }
 #ifdef F2POLY_FACTOR_DEBUG
@@ -69,8 +68,7 @@ static void f2_poly_pre_berlekamp(const spffl::polynomials::f2_poly_t &f,
     tfacinfo<spffl::polynomials::f2_poly_t> sfinfo;
     if (!f.square_root(s)) {
       std::stringstream ss;
-      ss << "Coding error: file " << __FILE__ << " line " << __LINE__
-                << "\n";
+      ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
       throw spffl::exception_t(ss.str());
     }
 
@@ -210,14 +208,12 @@ static void f2_poly_berlekamp(const spffl::polynomials::f2_poly_t &f,
 
   if (!got) {
     std::stringstream ss;
-    ss << "Coding error: file " << __FILE__ << " line " << __LINE__
-              << "\n";
+    ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
     throw spffl::exception_t(ss.str());
   }
   if (nullspace_basis.get_num_rows() != dimker) {
     std::stringstream ss;
-    ss << "Coding error: file " << __FILE__ << " line " << __LINE__
-              << "\n";
+    ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
     throw spffl::exception_t(ss.str());
   }
 #ifdef F2POLY_FACTOR_DEBUG
@@ -262,8 +258,7 @@ static void f2_poly_berlekamp(const spffl::polynomials::f2_poly_t &f,
     spffl::polynomials::f2_poly_t check2 = (hc * hc) % f;
     if ((h != check1) || (hc != check2)) {
       std::stringstream ss;
-      ss << "Coding error: file " << __FILE__ << " line " << __LINE__
-                << "\n";
+      ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
       ss << "  h  = " << h << "  h^2  = " << check1 << "\n";
       ss << "  hc = " << hc << "  hc^2 = " << check2 << "\n";
       throw spffl::exception_t(ss.str());
@@ -304,8 +299,7 @@ static void f2_poly_berlekamp(const spffl::polynomials::f2_poly_t &f,
     return;
   }
   std::stringstream ss;
-  ss << "Coding error: file " << __FILE__ << " line " << __LINE__
-            << "\n";
+  ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
   throw spffl::exception_t(ss.str());
 }
 
@@ -450,8 +444,8 @@ spffl::polynomials::f2_poly_t f2_poly_find_irreducible(int degree) {
 
   if (degree < 1) {
     std::stringstream ss;
-    ss << "f2_poly_find_irreducible:  degree must be positive; got "
-              << degree << ".\n";
+    ss << "f2_poly_find_irreducible:  degree must be positive; got " << degree
+       << ".\n";
     throw spffl::exception_t(ss.str());
   }
 

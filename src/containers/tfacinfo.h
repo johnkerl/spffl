@@ -134,7 +134,7 @@ public:
     if ((which < 0) || (which >= this->num_distinct)) {
       std::stringstream ss;
       ss << "tfacinfo:  index " << which
-                << " out of bounds 0:" << this->num_distinct - 1 << ".\n";
+         << " out of bounds 0:" << this->num_distinct - 1 << ".\n";
       throw spffl::exception_t(ss.str());
     }
   }
@@ -378,7 +378,7 @@ public:
       if (!this->have_unit) {
         std::stringstream ss;
         ss << "tfacinfo::get_num_divisors():  "
-                     "No factors have been inserted.\n";
+              "No factors have been inserted.\n";
         throw spffl::exception_t(ss.str());
       }
     }
@@ -404,7 +404,7 @@ public:
       } else {
         std::stringstream ss;
         ss << "tfacinfo::get_kth_divisor():  "
-                     "No factors have been inserted.\n";
+              "No factors have been inserted.\n";
         throw spffl::exception_t(ss.str());
       }
     }
@@ -428,7 +428,7 @@ public:
       if (!this->have_unit) {
         std::stringstream ss;
         ss << "tfacinfo::get_all_divisors():  "
-                  << "No factors have been inserted.\n";
+           << "No factors have been inserted.\n";
         throw spffl::exception_t(ss.str());
       }
     }
@@ -449,7 +449,7 @@ public:
       if (!this->have_unit) {
         std::stringstream ss;
         ss << "tfacinfo::get_maximal_proper_divisors():  "
-                  << "No factors have been inserted.\n";
+           << "No factors have been inserted.\n";
         throw spffl::exception_t(ss.str());
       } else {
         return false;

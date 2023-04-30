@@ -2,11 +2,8 @@
 
 namespace spffl {
 
-exception_t::exception_t(const std::string& msg) : msg(msg) {
-}
+exception_t::exception_t(const std::string &msg) : msg(msg) {}
 
-const char* exception_t::what() const noexcept {
-  return this->msg.c_str();
-}
+const char *exception_t::what() const noexcept { return this->msg.c_str(); }
 
-} // namespace
+} // namespace spffl

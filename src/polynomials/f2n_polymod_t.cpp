@@ -4,8 +4,8 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "spffl_exception.h"
 #include "f2n_polymod_t.h"
+#include "spffl_exception.h"
 #include <iomanip>
 #include <iostream>
 
@@ -110,8 +110,8 @@ f2n_polymod_t f2n_polymod_t::operator/(const f2n_polymod_t &that) const {
   f2n_polymod_t bi;
   if (!that.recip(bi)) {
     std::stringstream ss;
-    ss << "f2n_polymod_t::operator/:  zero or zero divisor: "
-              << that.residue << " mod " << that.modulus << ".\n";
+    ss << "f2n_polymod_t::operator/:  zero or zero divisor: " << that.residue
+       << " mod " << that.modulus << ".\n";
     throw spffl::exception_t(ss.str());
   }
 
@@ -125,8 +125,8 @@ f2n_polymod_t f2n_polymod_t::operator%(const f2n_polymod_t &that) const {
   f2n_polymod_t bi;
   if (!that.recip(bi)) {
     std::stringstream ss;
-    ss << "f2n_polymod_t::operator%:  zero or zero divisor: "
-              << that.residue << " mod " << that.modulus << ".\n";
+    ss << "f2n_polymod_t::operator%:  zero or zero divisor: " << that.residue
+       << " mod " << that.modulus << ".\n";
     throw spffl::exception_t(ss.str());
   }
 
@@ -148,7 +148,7 @@ bool f2n_polymod_t::recip(f2n_polymod_t &rinv) const {
   if (!g.get_coeff(0).recip(c0i)) {
     std::stringstream ss;
     ss << "f2n_polymod_t::recip:  zero or zero divisor "
-              << " in GCD " << g << ".\n";
+       << " in GCD " << g << ".\n";
     throw spffl::exception_t(ss.str());
   }
   a *= c0i;
@@ -180,7 +180,7 @@ f2n_polymod_t f2n_polymod_t::exp(int e) const {
     if (e == -e) {
       std::stringstream ss;
       ss << "f2n_polymod_t::exp:  can't handle "
-                   "MIN_INT.\n";
+            "MIN_INT.\n";
       throw spffl::exception_t(ss.str());
     }
     f2n_polymod_t inv = one / *this;
@@ -333,7 +333,7 @@ void f2n_polymod_t::check_moduli(const f2n_polymod_t &that) const {
   if (this->modulus != that.modulus) {
     std::stringstream ss;
     ss << "f2n_polymod_t: mixed moduli " << this->modulus << ", "
-              << that.modulus << ".";
+       << that.modulus << ".";
     ss << std::endl;
     throw spffl::exception_t(ss.str());
   }

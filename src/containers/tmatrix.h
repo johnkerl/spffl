@@ -7,9 +7,9 @@
 #ifndef TMATRIX_H
 #define TMATRIX_H
 
-#include "spffl_exception.h"
 #include "int_gcd.h"
 #include "line_scan.h"
+#include "spffl_exception.h"
 #include "tokenize.h"
 #include "tvector.h"
 #include <iostream>
@@ -36,8 +36,8 @@ public:
     if ((init_num_rows <= 0) || (init_num_cols <= 0)) {
       std::stringstream ss;
       ss << "tmatrix::tmatrix():  Matrix dimensions must be >= 0; got "
-                << init_num_rows << " x " << init_num_cols << ".  Exiting."
-                << std::endl;
+         << init_num_rows << " x " << init_num_cols << ".  Exiting."
+         << std::endl;
       throw spffl::exception_t(ss.str());
     }
 
@@ -54,8 +54,8 @@ public:
     if ((init_num_rows <= 0) || (init_num_cols <= 0)) {
       std::stringstream ss;
       ss << "tmatrix::tmatrix():  Matrix dimensions "
-                << "must be > 0; got " << init_num_rows << " x "
-                << init_num_cols << ".  Exiting." << std::endl;
+         << "must be > 0; got " << init_num_rows << " x " << init_num_cols
+         << ".  Exiting." << std::endl;
       throw spffl::exception_t(ss.str());
     }
     this->num_rows = init_num_rows;
@@ -102,8 +102,8 @@ public:
     if (min_cols != max_cols) {
       std::stringstream ss;
       ss << "tmatrix:  ragged input.  # rows = " << this->num_rows
-                << " min # cols = " << min_cols << " max # cols = " << max_cols
-                << ".\n";
+         << " min # cols = " << min_cols << " max # cols = " << max_cols
+         << ".\n";
       return false;
     }
     this->num_cols = max_cols;
@@ -128,8 +128,7 @@ public:
 
     if (ifs.fail()) {
       std::stringstream ss;
-      ss << "tmatrix::load_from_file:  couldn't open \"" << file_name
-                << "\"\n";
+      ss << "tmatrix::load_from_file:  couldn't open \"" << file_name << "\"\n";
       return false;
     }
 
@@ -137,8 +136,8 @@ public:
 
     if (ifs.fail()) {
       std::stringstream ss;
-      ss << "tmatrix::load_from_file:  scan failure reading \""
-                << file_name << "\"\n";
+      ss << "tmatrix::load_from_file:  scan failure reading \"" << file_name
+         << "\"\n";
       ifs.close();
       return false;
     }
@@ -197,8 +196,7 @@ public:
     char *pouterleft = strchr(copy, '[');
     if (pouterleft == 0) {
       std::stringstream ss;
-      ss 
-          << "tmatrix::bracket_in:  couldn't find leading left bracket.\n";
+      ss << "tmatrix::bracket_in:  couldn't find leading left bracket.\n";
       free(copy);
       return false;
     }
@@ -210,8 +208,7 @@ public:
     char *pouterright = strrchr(pouterleft, ']');
     if (pouterright == 0) {
       std::stringstream ss;
-      ss 
-          << "tmatrix::bracket_in:  couldn't find trailing right bracket.\n";
+      ss << "tmatrix::bracket_in:  couldn't find trailing right bracket.\n";
       free(copy);
       return false;
     }
@@ -291,8 +288,7 @@ public:
 
     if (ofs.fail()) {
       std::stringstream ss;
-      ss << "tmatrix::store_to_file:  couldn't open \"" << file_name
-                << "\"\n";
+      ss << "tmatrix::store_to_file:  couldn't open \"" << file_name << "\"\n";
       return false;
     }
 
@@ -300,8 +296,7 @@ public:
 
     if (ofs.fail()) {
       std::stringstream ss;
-      ss << "tmatrix::store_to_file:  couldn't write \"" << file_name
-                << "\"\n";
+      ss << "tmatrix::store_to_file:  couldn't write \"" << file_name << "\"\n";
       ofs.close();
       return false;
     }
@@ -396,8 +391,7 @@ public:
     if ((row_index < 0) || (row_index >= this->num_rows)) {
       std::stringstream ss;
       ss << "tmatrix array operator: row index " << row_index
-                << " out of bounds " << 0 << ":" << (this->num_rows - 1)
-                << std::endl;
+         << " out of bounds " << 0 << ":" << (this->num_rows - 1) << std::endl;
       throw spffl::exception_t(ss.str());
     }
     return this->rows[row_index];
@@ -408,9 +402,8 @@ public:
   tvector<element_type> get_column(int col_index) const {
     if ((col_index < 0) || (col_index >= this->num_cols)) {
       std::stringstream ss;
-      ss << "tmatrix get_column: col index " << col_index
-                << " out of bounds " << 0 << ":" << (this->num_cols - 1)
-                << std::endl;
+      ss << "tmatrix get_column: col index " << col_index << " out of bounds "
+         << 0 << ":" << (this->num_cols - 1) << std::endl;
       throw spffl::exception_t(ss.str());
     }
     tvector<element_type> rv(this->num_rows);
@@ -424,16 +417,15 @@ public:
   void put_column(int col_index, tvector<element_type> &v) {
     if ((col_index < 0) || (col_index >= this->num_cols)) {
       std::stringstream ss;
-      ss << "tmatrix put_column: col index " << col_index
-                << " out of bounds " << 0 << ":" << (this->num_cols - 1)
-                << std::endl;
+      ss << "tmatrix put_column: col index " << col_index << " out of bounds "
+         << 0 << ":" << (this->num_cols - 1) << std::endl;
       throw spffl::exception_t(ss.str());
     }
     if (v.get_num_elements() != this->num_rows) {
       std::stringstream ss;
       ss << "tmatrix::put_column:  matrix is " << this->num_rows << " x "
-                << this->num_cols << ", but the vector has height "
-                << v.get_num_elements() << ".\n";
+         << this->num_cols << ", but the vector has height "
+         << v.get_num_elements() << ".\n";
       throw spffl::exception_t(ss.str());
     }
     for (int i = 0; i < this->num_rows; i++) {
@@ -459,9 +451,8 @@ public:
         (this->num_cols != that.num_cols)) {
       std::stringstream ss;
       ss << "tmatrix operator-():  Incompatibly sized "
-                << "arguments (" << this->num_rows << "x" << this->num_cols
-                << ", " << that.num_rows << "x" << that.num_cols << ")."
-                << std::endl;
+         << "arguments (" << this->num_rows << "x" << this->num_cols << ", "
+         << that.num_rows << "x" << that.num_cols << ")." << std::endl;
       throw spffl::exception_t(ss.str());
     }
 
@@ -523,8 +514,8 @@ public:
     if (this->num_cols != v_num_elements) {
       std::stringstream ss;
       ss << "tmatrix operator*(): Incompatibly dimensioned "
-                << "operands (" << this->num_rows << "x" << this->num_cols
-                << "," << v_num_elements << ")." << std::endl;
+         << "operands (" << this->num_rows << "x" << this->num_cols << ","
+         << v_num_elements << ")." << std::endl;
       throw spffl::exception_t(ss.str());
     }
 
@@ -584,7 +575,7 @@ public:
       if (power <= 0) {
         std::stringstream ss;
         ss << "tmatrix::exp:  non-postive power of "
-                  << "zero matrix is undefined.\n";
+           << "zero matrix is undefined.\n";
         throw spffl::exception_t(ss.str());
       } else {
         rout = *this;
@@ -622,9 +613,8 @@ public:
     if (this->num_cols != that.num_rows) {
       std::stringstream ss;
       ss << "tmatrix operator*(): Incompatibly dimensioned "
-                << "operands (" << this->num_rows << "x" << this->num_cols
-                << "," << that.num_rows << "x" << that.num_cols << ")."
-                << std::endl;
+         << "operands (" << this->num_rows << "x" << this->num_cols << ","
+         << that.num_rows << "x" << that.num_cols << ")." << std::endl;
       throw spffl::exception_t(ss.str());
     }
 
@@ -1282,7 +1272,7 @@ public:
     if (Ab_rank != indim) {
       std::stringstream ss;
       ss << "tmatrix::solve_unique_full_rank:  augmented matrix does "
-                   "not have full rank.\n";
+            "not have full rank.\n";
       return false;
     }
 
@@ -1311,8 +1301,8 @@ public:
   tmatrix<element_type> paste(const tmatrix<element_type> &that) const {
     if (this->num_rows != that.num_rows) {
       std::stringstream ss;
-      ss << "tmatrix::paste:  differing number of rows ("
-                << this->num_rows << " vs. " << that.num_rows << ")\n";
+      ss << "tmatrix::paste:  differing number of rows (" << this->num_rows
+         << " vs. " << that.num_rows << ")\n";
       throw spffl::exception_t(ss.str());
     }
 
@@ -1339,7 +1329,7 @@ public:
     if (this->num_rows != vne) {
       std::stringstream ss;
       ss << "tmatrix::paste_vector:  differing number of rows ("
-                << this->num_rows << " vs. " << vne << ")\n";
+         << this->num_rows << " vs. " << vne << ")\n";
       throw spffl::exception_t(ss.str());
     }
 
@@ -1363,7 +1353,7 @@ public:
     if ((split_column < 0) || (split_column >= this->num_cols)) {
       std::stringstream ss;
       ss << "tmatrix::split:  split column " << split_column
-                << " out of bounds 0:" << this->num_rows - 1 << ".\n";
+         << " out of bounds 0:" << this->num_rows - 1 << ".\n";
       throw spffl::exception_t(ss.str());
     }
 
@@ -1618,7 +1608,7 @@ public:
     if ((new_num_rows < 1) || (new_num_rows > this->num_rows)) {
       std::stringstream ss;
       ss << "tmatrix trim_num_rows: new count " << new_num_rows
-                << " out of bounds " << 1 << ":" << this->num_rows << std::endl;
+         << " out of bounds " << 1 << ":" << this->num_rows << std::endl;
       throw spffl::exception_t(ss.str());
     }
     this->num_rows = new_num_rows;
@@ -1668,8 +1658,8 @@ private:
         (this->num_cols != that.num_cols)) {
       std::stringstream ss;
       ss << "tmatrix " << msg << ":  Incompatibly sized arguments ("
-                << this->num_rows << "x" << this->num_cols << ", "
-                << that.num_rows << "x" << that.num_cols << ")." << std::endl;
+         << this->num_rows << "x" << this->num_cols << ", " << that.num_rows
+         << "x" << that.num_cols << ")." << std::endl;
       throw spffl::exception_t(ss.str());
     }
   }

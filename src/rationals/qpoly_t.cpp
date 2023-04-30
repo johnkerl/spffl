@@ -4,9 +4,9 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "spffl_exception.h"
 #include "qpoly_t.h"
 #include "cmps.h"
+#include "spffl_exception.h"
 #include "tokenize.h"
 #include <stdlib.h>
 #include <string.h>
@@ -641,8 +641,8 @@ bool qpoly_t::cmp(int cmp, const qpoly_t &that) const {
 void qpoly_t::bounds_check(int deg) const {
   if ((deg < 0) || (deg > this->degree)) {
     std::stringstream ss;
-    ss << "qpoly_t: degree " << deg
-              << " out of bounds 0:" << this->degree << ".\n";
+    ss << "qpoly_t: degree " << deg << " out of bounds 0:" << this->degree
+       << ".\n";
     throw spffl::exception_t(ss.str());
   }
 }
@@ -730,7 +730,7 @@ bool qpoly_t::from_string(const std::string &string) {
       if ((ascii_digit < '0') || (ascii_digit > '9')) {
         std::stringstream ss;
         ss << "qpoly_t::from_string: "
-                  << "non-numerical input \"" << string << "\"\n";
+           << "non-numerical input \"" << string << "\"\n";
         ss << "Didn't like '" << ascii_digit << "'\n";
         return false;
       }
@@ -758,7 +758,7 @@ bool qpoly_t::from_string(const std::string &string) {
       if (iss.fail()) {
         std::stringstream ss;
         ss << "qpoly_t::from_string: "
-                  << "scan failure at \"" << string << "\"\n";
+           << "scan failure at \"" << string << "\"\n";
         return false;
       } else {
         this->coeffs[ci] = intrat_t(r);

@@ -4,11 +4,11 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "spffl_exception.h"
 #include "f2n_polymod_units.h"
 #include "f2n_poly_totient.h"
 #include "int_factor.h"
 #include "int_sqrt.h"
+#include "spffl_exception.h"
 #include "tfacinfo.h"
 #include "tvector.h"
 
@@ -29,8 +29,8 @@ int f2n_polymod_order(const spffl::polynomials::f2n_polymod_t &a) {
 
   if (g != pol1) {
     std::stringstream ss;
-    ss << "f2n_polymod_order:  zero or zero divisor " << r << " mod "
-              << m << ".\n";
+    ss << "f2n_polymod_order:  zero or zero divisor " << r << " mod " << m
+       << ".\n";
     ss << "gcd(" << r << ", " << m << ") = " << g << "\n";
     throw spffl::exception_t(ss.str());
   }
@@ -67,7 +67,7 @@ bool f2n_polymod_find_generator(const spffl::polynomials::f2n_poly_t &m,
   if (mdeg < 1) {
     std::stringstream ss;
     ss << "f2n_polymod_find_generator:  modulus degree "
-              << "must be positive; got " << mdeg << ".\n";
+       << "must be positive; got " << mdeg << ".\n";
     throw spffl::exception_t(ss.str());
   }
   int phi = spffl::factorization::f2n_poly_totient(m);
@@ -139,7 +139,7 @@ int f2n_polymod_log( // Log base g of a.
   if (!g.recip(ginv)) {
     std::stringstream ss;
     ss << "f2n_polymod_log:  g="
-              << " is a zero divisor.\n";
+       << " is a zero divisor.\n";
     throw spffl::exception_t(ss.str());
   }
   std::cout << "gi = " << ginv << "\n";
@@ -190,7 +190,7 @@ int f2n_polymod_log( // Log base g of a.
   if (rv == -1) {
     std::stringstream ss;
     ss << "f2n_polymod_log:  couldn't find log base " << g << " of " << a
-              << " mod " << m << ".\n";
+       << " mod " << m << ".\n";
     throw spffl::exception_t(ss.str());
   }
 

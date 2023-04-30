@@ -8,9 +8,9 @@
 #include <iostream>
 #include <string>
 
-#include "spffl_exception.h"
 #include "cyclo_poly.h"
 #include "qff.h"
+#include "spffl_exception.h"
 
 namespace spffl::q_cyclo {
 
@@ -28,8 +28,7 @@ spffl::rationals::qpoly_t get_cyclo_qpoly(int n) {
 
   if (n < 1) {
     std::stringstream ss;
-    ss << "get_cyclo_qpoly: argument must be positive; got " << n
-              << ".\n";
+    ss << "get_cyclo_qpoly: argument must be positive; got " << n << ".\n";
     throw spffl::exception_t(ss.str());
   }
 

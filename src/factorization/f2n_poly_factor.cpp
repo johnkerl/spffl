@@ -4,10 +4,10 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "spffl_exception.h"
 #include "f2n_poly_factor.h"
 #include "f2_polymod_t.h"
 #include "f2n_poly_random.h"
+#include "spffl_exception.h"
 #include "tfacinfo.h"
 #include "tmatrix.h"
 
@@ -66,8 +66,7 @@ static void f2n_poly_pre_berlekamp(const spffl::polynomials::f2n_poly_t &f,
   if (g == 0) {
     if (f != 0) {
       std::stringstream ss;
-      ss << "Coding error: file " << __FILE__ << " line " << __LINE__
-                << "\n";
+      ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
       throw spffl::exception_t(ss.str());
     }
     rfinfo.insert_factor(f);
@@ -82,8 +81,7 @@ static void f2n_poly_pre_berlekamp(const spffl::polynomials::f2n_poly_t &f,
     spffl::polynomials::f2_poly_t m = f.get_coeff(0).get_modulus();
     if (!f.square_root(s)) {
       std::stringstream ss;
-      ss << "Coding error: file " << __FILE__ << " line " << __LINE__
-                << "\n";
+      ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
       throw spffl::exception_t(ss.str());
     }
 #ifdef F2NPOLY_FACTOR_DEBUG
@@ -187,14 +185,12 @@ static void f2n_poly_berlekamp(const spffl::polynomials::f2n_poly_t &f,
   tmatrix<spffl::polynomials::f2_polymod_t> nullspace_basis;
   if (!BI.get_kernel_basis(nullspace_basis, zero, one)) {
     std::stringstream ss;
-    ss << "Coding error: file " << __FILE__ << " line " << __LINE__
-              << "\n";
+    ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
     throw spffl::exception_t(ss.str());
   }
   if (nullspace_basis.get_num_rows() != dimker) {
     std::stringstream ss;
-    ss << "Coding error: file " << __FILE__ << " line " << __LINE__
-              << "\n";
+    ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
     throw spffl::exception_t(ss.str());
   }
 #ifdef F2NPOLY_FACTOR_DEBUG
@@ -236,8 +232,7 @@ static void f2n_poly_berlekamp(const spffl::polynomials::f2n_poly_t &f,
   if (!got_it) {
     // No non-trivial factors found.
     std::stringstream ss;
-    ss << "Coding error: file " << __FILE__ << " line " << __LINE__
-              << "\n";
+    ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
     throw spffl::exception_t(ss.str());
   }
 
@@ -361,7 +356,7 @@ spffl::polynomials::f2n_poly_t f2n_poly_find_irr(
   if (degree < 1) {
     std::stringstream ss;
     ss << "f2n_poly_find_irr:  degree must be positive; got " << degree
-              << ".\n";
+       << ".\n";
     throw spffl::exception_t(ss.str());
   }
 
@@ -393,7 +388,7 @@ spffl::polynomials::f2n_poly_t f2n_poly_random_irr(
   if (degree < 1) {
     std::stringstream ss;
     ss << "f2n_poly_random_irr:  degree must be positive; got " << degree
-              << ".\n";
+       << ".\n";
     throw spffl::exception_t(ss.str());
   }
 

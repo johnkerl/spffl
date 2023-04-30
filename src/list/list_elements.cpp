@@ -4,7 +4,6 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "spffl_exception.h"
 #include "list_elements.h"
 #include "f2_poly_totient.h"
 #include "f2n_poly_totient.h"
@@ -12,6 +11,7 @@
 #include "int_gcd.h"
 #include "int_power.h"
 #include "int_totient.h"
+#include "spffl_exception.h"
 
 namespace spffl::list {
 

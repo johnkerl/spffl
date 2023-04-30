@@ -4,9 +4,9 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "spffl_exception.h"
 #include "f2n_poly_t.h"
 #include "cmps.h"
+#include "spffl_exception.h"
 #include "tokenize.h"
 #include <string.h>
 
@@ -387,8 +387,8 @@ void f2n_poly_t::quot_and_rem(
   if (!divisor_leader.recip(dlinv)) {
     std::stringstream ss;
     ss << "f2n_poly_t::quot_and_rem:  zero or zero divisor "
-              << "in leading coefficient " << divisor_leader << "\n"
-              << "  of divisor " << that << ".\n";
+       << "in leading coefficient " << divisor_leader << "\n"
+       << "  of divisor " << that << ".\n";
     throw spffl::exception_t(ss.str());
   }
   for (int shift = max_shift; shift >= 0; shift--) {
@@ -778,8 +778,8 @@ bool f2n_poly_t::cmp(int cmp, const f2n_poly_t &that) const {
 void f2n_poly_t::bounds_check(int deg) const {
   if ((deg < 0) || (deg > this->degree)) {
     std::stringstream ss;
-    ss << "f2n_poly_t: degree " << deg
-              << " out of bounds 0:" << this->degree << ".\n";
+    ss << "f2n_poly_t: degree " << deg << " out of bounds 0:" << this->degree
+       << ".\n";
     throw spffl::exception_t(ss.str());
   }
 }
@@ -915,7 +915,7 @@ bool f2n_poly_t::from_string(const std::string &string, const f2_poly_t &m) {
     if (iss.fail()) {
       std::stringstream ss;
       ss << "f2n_poly_t::from_string: "
-                << "scan failure at \"" << string << "\"\n";
+         << "scan failure at \"" << string << "\"\n";
       return false;
     } else {
       this->coeffs[ci] = f2_polymod_t(r, m);

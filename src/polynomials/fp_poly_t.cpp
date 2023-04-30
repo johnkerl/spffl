@@ -4,9 +4,9 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "spffl_exception.h"
 #include "fp_poly_t.h"
 #include "cmps.h"
+#include "spffl_exception.h"
 #include "tokenize.h"
 #include <string.h>
 
@@ -377,8 +377,8 @@ void fp_poly_t::quot_and_rem(
   if (!divisor_leader.recip(dlinv)) {
     std::stringstream ss;
     ss << "fp_poly_t::quot_and_rem:  zero or zero divisor "
-              << "in leading coefficient " << divisor_leader << "\n"
-              << "  of divisor " << that << ".\n";
+       << "in leading coefficient " << divisor_leader << "\n"
+       << "  of divisor " << that << ".\n";
     throw spffl::exception_t(ss.str());
   }
   for (int shift = max_shift; shift >= 0; shift--) {
@@ -749,8 +749,8 @@ void fp_poly_t::increment(void) {
 void fp_poly_t::bounds_check(int deg) const {
   if ((deg < 0) || (deg > this->degree)) {
     std::stringstream ss;
-    ss << "fp_poly_t: degree " << deg
-              << " out of bounds 0:" << this->degree << ".\n";
+    ss << "fp_poly_t: degree " << deg << " out of bounds 0:" << this->degree
+       << ".\n";
     throw spffl::exception_t(ss.str());
   }
 }
@@ -844,7 +844,7 @@ bool fp_poly_t::from_string(const std::string &string, int p) {
       if ((ascii_digit < '0') || (ascii_digit > '9')) {
         std::stringstream ss;
         ss << "fp_poly_t::from_string: "
-                  << "non-numerical input \"" << string << "\"\n";
+           << "non-numerical input \"" << string << "\"\n";
         ss << "Didn't like '" << ascii_digit << "'\n";
         return false;
       }
@@ -872,7 +872,7 @@ bool fp_poly_t::from_string(const std::string &string, int p) {
       if (iss.fail()) {
         std::stringstream ss;
         ss << "fp_poly_t::from_string: "
-                  << "scan failure at \"" << string << "\"\n";
+           << "scan failure at \"" << string << "\"\n";
         return false;
       } else {
         this->coeffs[ci] = spffl::intmath::intmod_t(r, p);

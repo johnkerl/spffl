@@ -4,8 +4,8 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "spffl_exception.h"
 #include "min_char_polys.h"
+#include "spffl_exception.h"
 #include <iostream>
 
 #include "bit_matrix_t.h"

@@ -4,9 +4,9 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "spffl_exception.h"
 #include "fp_poly_random.h"
 #include "intmod_random.h"
+#include "spffl_exception.h"
 
 namespace spffl::random {
 
@@ -14,8 +14,7 @@ namespace spffl::random {
 spffl::polynomials::fp_poly_t fp_poly_random(int p, int deg) {
   if (deg < 0) {
     std::stringstream ss;
-    ss << "fp_poly_random:  degree " << deg
-              << " must be non-negative.\n";
+    ss << "fp_poly_random:  degree " << deg << " must be non-negative.\n";
     throw spffl::exception_t(ss.str());
   }
 

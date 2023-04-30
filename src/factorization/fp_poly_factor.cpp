@@ -4,10 +4,10 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "spffl_exception.h"
 #include "fp_poly_factor.h"
 #include "fp_poly_random.h"
 #include "intmod_t.h"
+#include "spffl_exception.h"
 #include "tfacinfo.h"
 #include "tmatrix.h"
 
@@ -66,8 +66,7 @@ static void fp_poly_pre_berlekamp(const spffl::polynomials::fp_poly_t &f,
   if (g == 0) {
     if (f != 0) {
       std::stringstream ss;
-      ss << "Coding error: file " << __FILE__ << " line " << __LINE__
-                << "\n";
+      ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
       throw spffl::exception_t(ss.str());
     }
     rfinfo.insert_factor(f);
@@ -82,8 +81,7 @@ static void fp_poly_pre_berlekamp(const spffl::polynomials::fp_poly_t &f,
     int p = f.get_characteristic();
     if (!f.pth_root(s)) {
       std::stringstream ss;
-      ss << "Coding error: file " << __FILE__ << " line " << __LINE__
-                << "\n";
+      ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
       throw spffl::exception_t(ss.str());
     }
 
@@ -182,14 +180,12 @@ static void fp_poly_berlekamp(const spffl::polynomials::fp_poly_t &f,
   tmatrix<spffl::intmath::intmod_t> nullspace_basis;
   if (!BI.get_kernel_basis(nullspace_basis, zero, one)) {
     std::stringstream ss;
-    ss << "Coding error: file " << __FILE__ << " line " << __LINE__
-              << "\n";
+    ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
     throw spffl::exception_t(ss.str());
   }
   if (nullspace_basis.get_num_rows() != dimker) {
     std::stringstream ss;
-    ss << "Coding error: file " << __FILE__ << " line " << __LINE__
-              << "\n";
+    ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
     throw spffl::exception_t(ss.str());
   }
 #ifdef FPPOLY_FACTOR_DEBUG
@@ -226,8 +222,7 @@ static void fp_poly_berlekamp(const spffl::polynomials::fp_poly_t &f,
   if (!got_it) {
     // No non-trivial factors found.
     std::stringstream ss;
-    ss << "Coding error: file " << __FILE__ << " line " << __LINE__
-              << "\n";
+    ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
     throw spffl::exception_t(ss.str());
   }
 
@@ -307,8 +302,7 @@ spffl::polynomials::fp_poly_t fp_poly_find_irr(int p, int degree) {
 
   if (degree < 1) {
     std::stringstream ss;
-    ss << "fp_poly_find_irr:  degree must be positive; got " << degree
-              << ".\n";
+    ss << "fp_poly_find_irr:  degree must be positive; got " << degree << ".\n";
     throw spffl::exception_t(ss.str());
   }
 
@@ -339,7 +333,7 @@ spffl::polynomials::fp_poly_t fp_poly_random_irr(int p, int degree) {
   if (degree < 1) {
     std::stringstream ss;
     ss << "fp_poly_random_irr:  degree must be positive; got " << degree
-              << ".\n";
+       << ".\n";
     throw spffl::exception_t(ss.str());
   }
 

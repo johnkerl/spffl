@@ -4,9 +4,9 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "spffl_exception.h"
 #include "fp_polymod_random.h"
 #include "fp_poly_random.h"
+#include "spffl_exception.h"
 
 namespace spffl::random {
 
@@ -17,7 +17,7 @@ spffl::polynomials::fp_polymod_t fp_polymod_random(
   if (deg < 1) {
     std::stringstream ss;
     ss << "fp_polymod_random:  degree (" << deg << ") of " << m
-              << " should be >= 1.\n";
+       << " should be >= 1.\n";
     throw spffl::exception_t(ss.str());
   }
   int p = m.get_characteristic();

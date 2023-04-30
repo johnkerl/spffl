@@ -4,10 +4,10 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "spffl_exception.h"
 #include "bit_vector_t.h"
 #include "count_bits.h"
 #include "log2.h"
+#include "spffl_exception.h"
 #include <string.h>
 
 namespace spffl::bits {
@@ -24,8 +24,7 @@ bit_vector_t::bit_vector_t(int init_num_elements) {
   if (init_num_elements <= 0) {
     std::stringstream ss;
     ss << "bit_vector_t::bit_vector_t():  Vector size must be"
-              << " > 0; got " << init_num_elements << ".  Exiting."
-              << std::endl;
+       << " > 0; got " << init_num_elements << ".  Exiting." << std::endl;
     throw spffl::exception_t(ss.str());
   }
 
@@ -40,8 +39,7 @@ bit_vector_t::bit_vector_t(const bit_t &scalar, int init_num_elements) {
   if (init_num_elements <= 0) {
     std::stringstream ss;
     ss << "bit_vector_t::bit_vector_t():  Vector size must be"
-              << " > 0; got " << init_num_elements << ".  Exiting."
-              << std::endl;
+       << " > 0; got " << init_num_elements << ".  Exiting." << std::endl;
     throw spffl::exception_t(ss.str());
   }
 
@@ -63,8 +61,7 @@ bit_vector_t::bit_vector_t(int scalar, int init_num_elements) {
   if (init_num_elements <= 0) {
     std::stringstream ss;
     ss << "bit_vector_t::bit_vector_t():  Vector size must be"
-              << " > 0; got " << init_num_elements << ".  Exiting."
-              << std::endl;
+       << " > 0; got " << init_num_elements << ".  Exiting." << std::endl;
     throw spffl::exception_t(ss.str());
   }
 
@@ -197,7 +194,7 @@ std::istringstream &operator>>(std::istringstream &iss, bit_vector_t &v) {
     if (iss.fail()) {
       std::stringstream ss;
       ss << "bit_vector_t istringstream >>: scan failure"
-                << " at vector element " << v.num_bits << ".\n";
+         << " at vector element " << v.num_bits << ".\n";
       ss << "String: <<" << iss.str() << ">>\n";
       ss << "Position: " << iss.tellg() << "\n";
       return iss;
@@ -400,8 +397,8 @@ void bit_vector_t::check_equal_lengths(const bit_vector_t &that) const {
   if (this->num_bits != that.num_bits) {
     std::stringstream ss;
     ss << "bit_vector_t operator+():  Incompatibly sized "
-              << "arguments (" << this->num_bits << ", " << that.num_bits
-              << ")." << std::endl;
+       << "arguments (" << this->num_bits << ", " << that.num_bits << ")."
+       << std::endl;
     throw spffl::exception_t(ss.str());
   }
 }
@@ -424,9 +421,8 @@ void bit_vector_t::trim(void) {
 void bit_vector_t::bounds_check(int index) const {
   if ((index < 0) || (index >= this->num_bits)) {
     std::stringstream ss;
-    ss << "bit_vector_t array operator: index " << index
-              << " out of bounds " << 0 << ":" << (this->num_bits - 1)
-              << std::endl;
+    ss << "bit_vector_t array operator: index " << index << " out of bounds "
+       << 0 << ":" << (this->num_bits - 1) << std::endl;
     throw spffl::exception_t(ss.str());
   }
 }

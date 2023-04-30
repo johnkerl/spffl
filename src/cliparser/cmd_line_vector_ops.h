@@ -197,8 +197,7 @@ static void veclexan(vec_lex_ctx_t<element_type> &rlex_ctx) {
       if (strchr(rlex_ctx.argv[rlex_ctx.argi], '[')) {
         if (!rlex_ctx.atom.vec_val.bracket_in(rlex_ctx.argv[rlex_ctx.argi])) {
           std::stringstream ss;
-          ss << "Couldn't scan \"" << rlex_ctx.argv[rlex_ctx.argi]
-                    << "\"\n";
+          ss << "Couldn't scan \"" << rlex_ctx.argv[rlex_ctx.argi] << "\"\n";
           throw spffl::exception_t(ss.str());
         }
       } else {
@@ -276,8 +275,8 @@ static void emit(vec_lex_ctx_t<element_type> &rlex_ctx,
 
   default:
     std::stringstream ss;
-    ss << "Unhandled operator "
-              << vec_token_desc<element_type>(rlex_ctx.token) << ".\n";
+    ss << "Unhandled operator " << vec_token_desc<element_type>(rlex_ctx.token)
+       << ".\n";
     throw spffl::exception_t(ss.str());
     break;
   }
@@ -295,7 +294,7 @@ static void emit(vec_lex_ctx_t<element_type> &rlex_ctx,
     if (A.atom_type != VEC_ATOM) {
       std::stringstream ss;
       ss << "Operator " << vec_token_desc<element_type>(rlex_ctx.token)
-                << " requires vector argument.\n";
+         << " requires vector argument.\n";
       throw spffl::exception_t(ss.str());
     }
     break;
@@ -304,7 +303,7 @@ static void emit(vec_lex_ctx_t<element_type> &rlex_ctx,
     if ((A.atom_type != VEC_ATOM) || (B.atom_type != VEC_ATOM)) {
       std::stringstream ss;
       ss << "Operator " << vec_token_desc<element_type>(rlex_ctx.token)
-                << " requires two vector arguments.\n";
+         << " requires two vector arguments.\n";
       throw spffl::exception_t(ss.str());
     }
     break;
@@ -312,7 +311,7 @@ static void emit(vec_lex_ctx_t<element_type> &rlex_ctx,
     if (A.atom_type != VEC_ATOM) {
       std::stringstream ss;
       ss << "Operator " << vec_token_desc<element_type>(rlex_ctx.token)
-                << " requires one vector argument.\n";
+         << " requires one vector argument.\n";
       throw spffl::exception_t(ss.str());
     }
     break;
@@ -320,8 +319,8 @@ static void emit(vec_lex_ctx_t<element_type> &rlex_ctx,
     if ((A.atom_type != VEC_ATOM) || (B.atom_type != INT_ATOM)) {
       std::stringstream ss;
       ss << "Operator " << vec_token_desc<element_type>(rlex_ctx.token)
-                << " requires one vector argument "
-                << " and one integer argument.\n";
+         << " requires one vector argument "
+         << " and one integer argument.\n";
       throw spffl::exception_t(ss.str());
     }
     break;
@@ -354,8 +353,8 @@ static void emit(vec_lex_ctx_t<element_type> &rlex_ctx,
 
   default:
     std::stringstream ss;
-    ss << "Unhandled operator "
-              << vec_token_desc<element_type>(rlex_ctx.token) << ".\n";
+    ss << "Unhandled operator " << vec_token_desc<element_type>(rlex_ctx.token)
+       << ".\n";
     throw spffl::exception_t(ss.str());
     break;
   }
@@ -389,8 +388,7 @@ static void match(vec_lex_ctx_t<element_type> &rlex_ctx, int expected_token) {
     std::stringstream ss;
     ss << "Syntax error.\n";
     ss << "Expected " << vec_token_desc<element_type>(expected_token)
-              << "; got " << vec_token_desc<element_type>(rlex_ctx.token)
-              << ".\n";
+       << "; got " << vec_token_desc<element_type>(rlex_ctx.token) << ".\n";
     throw spffl::exception_t(ss.str());
   }
 }
@@ -412,7 +410,7 @@ static void P(vec_lex_ctx_t<element_type> &rlex_ctx,
   default:
     std::stringstream ss;
     ss << "syntax error at token "
-              << vec_token_desc<element_type>(rlex_ctx.token) << "\n";
+       << vec_token_desc<element_type>(rlex_ctx.token) << "\n";
     throw spffl::exception_t(ss.str());
   }
 }
@@ -572,8 +570,7 @@ void cmd_line_vec_parse(
       break;
     default:
       std::stringstream ss;
-      ss << "Coding error file " << __FILE__ << " line " << __LINE__
-                << "\n";
+      ss << "Coding error file " << __FILE__ << " line " << __LINE__ << "\n";
       throw spffl::exception_t(ss.str());
       break;
     }

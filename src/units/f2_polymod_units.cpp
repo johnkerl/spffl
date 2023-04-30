@@ -4,13 +4,13 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "spffl_exception.h"
 #include "f2_polymod_units.h"
 #include "f2_poly_factor.h"
 #include "f2_poly_random.h"
 #include "f2_poly_totient.h"
 #include "int_factor.h"
 #include "int_sqrt.h"
+#include "spffl_exception.h"
 #include "tfacinfo.h"
 #include "tvector.h"
 
@@ -30,7 +30,7 @@ int f2_polymod_order(spffl::polynomials::f2_polymod_t a) {
   if (g != pol1) {
     std::stringstream ss;
     ss << "f2_polymod_order:  zero or zero divisor " << r << " mod " << m
-              << ".\n";
+       << ".\n";
     throw spffl::exception_t(ss.str());
   }
 
@@ -66,7 +66,7 @@ bool f2_polymod_find_generator(
   if (mdeg < 1) {
     std::stringstream ss;
     ss << "f2_polymod_find_generator:  modulus degree "
-              << "must be positive; got " << mdeg << ".\n";
+       << "must be positive; got " << mdeg << ".\n";
     throw spffl::exception_t(ss.str());
   }
   int phi = spffl::factorization::f2_poly_totient(m);
@@ -151,7 +151,7 @@ spffl::polynomials::f2_poly_t f2_poly_find_prim(int degree, int need_irr) {
   if (degree < 1) {
     std::stringstream ss;
     ss << "f2_poly_find_prim:  degree must be positive; got " << degree
-              << ".\n";
+       << ".\n";
     throw spffl::exception_t(ss.str());
   }
 
@@ -180,7 +180,7 @@ spffl::polynomials::f2_poly_t f2_poly_random_prim(int degree, int need_irr) {
   if (degree < 1) {
     std::stringstream ss;
     ss << "f2_poly_random_prim:  degree must be positive; "
-              << "got " << degree << ".\n";
+       << "got " << degree << ".\n";
     throw spffl::exception_t(ss.str());
   }
 
@@ -237,7 +237,7 @@ int f2_polymod_log( // Log base g of a.
   if (!g.recip(ginv)) {
     std::stringstream ss;
     ss << "f2_polymod_log:  g="
-              << " is a zero divisor.\n";
+       << " is a zero divisor.\n";
     throw spffl::exception_t(ss.str());
   }
   spffl::polynomials::f2_polymod_t gk = g.exp(k);

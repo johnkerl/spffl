@@ -4,11 +4,11 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "spffl_exception.h"
 #include "intrat_t.h"
 #include "cmps.h"
 #include "int_gcd.h"
 #include "int_totient.h"
+#include "spffl_exception.h"
 #include <iomanip>
 #include <iostream>
 #include <stdlib.h>
@@ -144,7 +144,7 @@ intrat_t intrat_t::exp(int e) {
     if (e == -e) {
       std::stringstream ss;
       ss << "intrat_t::exp:  can't handle "
-                   "MIN_INT.\n";
+            "MIN_INT.\n";
       throw spffl::exception_t(ss.str());
     }
     xp = one / xp;

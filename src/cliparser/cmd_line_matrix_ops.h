@@ -260,16 +260,14 @@ static void matlexan(mat_lex_ctx_t<element_type> &rlex_ctx) {
       if (strchr(rlex_ctx.argv[rlex_ctx.argi], '[')) {
         if (!rlex_ctx.atom.mat_val.bracket_in(rlex_ctx.argv[rlex_ctx.argi])) {
           std::stringstream ss;
-          ss << "Couldn't scan \"" << rlex_ctx.argv[rlex_ctx.argi]
-                    << "\"\n";
+          ss << "Couldn't scan \"" << rlex_ctx.argv[rlex_ctx.argi] << "\"\n";
           throw spffl::exception_t(ss.str());
         }
       } else {
         if (!rlex_ctx.atom.mat_val.load_from_file(
                 rlex_ctx.argv[rlex_ctx.argi])) {
           std::stringstream ss;
-          ss << "Couldn't read \"" << rlex_ctx.argv[rlex_ctx.argi]
-                    << "\"\n";
+          ss << "Couldn't read \"" << rlex_ctx.argv[rlex_ctx.argi] << "\"\n";
           throw spffl::exception_t(ss.str());
         }
       }
@@ -338,8 +336,8 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
 
   default:
     std::stringstream ss;
-    ss << "Unhandled operator "
-              << mat_token_desc<element_type>(rlex_ctx.token) << ".\n";
+    ss << "Unhandled operator " << mat_token_desc<element_type>(rlex_ctx.token)
+       << ".\n";
     throw spffl::exception_t(ss.str());
     break;
   }
@@ -357,7 +355,7 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
     if (A.atom_type != MAT_ATOM) {
       std::stringstream ss;
       ss << "Operator " << mat_token_desc<element_type>(rlex_ctx.token)
-                << " requires matrix argument.\n";
+         << " requires matrix argument.\n";
       throw spffl::exception_t(ss.str());
     }
     break;
@@ -366,7 +364,7 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
     if ((A.atom_type != MAT_ATOM) || (B.atom_type != MAT_ATOM)) {
       std::stringstream ss;
       ss << "Operator " << mat_token_desc<element_type>(rlex_ctx.token)
-                << " requires two matrix arguments.\n";
+         << " requires two matrix arguments.\n";
       throw spffl::exception_t(ss.str());
     }
     break;
@@ -374,7 +372,7 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
     if (A.atom_type != MAT_ATOM) {
       std::stringstream ss;
       ss << "Operator " << mat_token_desc<element_type>(rlex_ctx.token)
-                << " requires one matrix argument.\n";
+         << " requires one matrix argument.\n";
       throw spffl::exception_t(ss.str());
     }
     break;
@@ -382,8 +380,8 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
     if ((A.atom_type != MAT_ATOM) || (B.atom_type != INT_ATOM)) {
       std::stringstream ss;
       ss << "Operator " << mat_token_desc<element_type>(rlex_ctx.token)
-                << " requires one matrix argument "
-                << " and one integer argument.\n";
+         << " requires one matrix argument "
+         << " and one integer argument.\n";
       throw spffl::exception_t(ss.str());
     }
     break;
@@ -481,8 +479,8 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
 
   default:
     std::stringstream ss;
-    ss << "Unhandled operator "
-              << mat_token_desc<element_type>(rlex_ctx.token) << ".\n";
+    ss << "Unhandled operator " << mat_token_desc<element_type>(rlex_ctx.token)
+       << ".\n";
     throw spffl::exception_t(ss.str());
     break;
   }
@@ -513,10 +511,10 @@ static void match(mat_lex_ctx_t<element_type> &rlex_ctx, int expected_token) {
   if (rlex_ctx.token == expected_token) {
     matlexan<element_type>(rlex_ctx);
   } else {
-      std::stringstream ss;
-    ss << "Syntax error: expected " << mat_token_desc<element_type>(expected_token)
-              << "; got " << mat_token_desc<element_type>(rlex_ctx.token)
-              << ".\n";
+    std::stringstream ss;
+    ss << "Syntax error: expected "
+       << mat_token_desc<element_type>(expected_token) << "; got "
+       << mat_token_desc<element_type>(rlex_ctx.token) << ".\n";
     throw spffl::exception_t(ss.str());
   }
 }
@@ -538,7 +536,7 @@ static void P(mat_lex_ctx_t<element_type> &rlex_ctx,
   default:
     std::stringstream ss;
     ss << "syntax error at token "
-              << mat_token_desc<element_type>(rlex_ctx.token) << "\n";
+       << mat_token_desc<element_type>(rlex_ctx.token) << "\n";
     throw spffl::exception_t(ss.str());
   }
 }
@@ -714,8 +712,7 @@ void cmd_line_mat_parse(
       break;
     default:
       std::stringstream ss;
-      ss << "Coding error file " << __FILE__ << " line " << __LINE__
-                << "\n";
+      ss << "Coding error file " << __FILE__ << " line " << __LINE__ << "\n";
       throw spffl::exception_t(ss.str());
       break;
     }

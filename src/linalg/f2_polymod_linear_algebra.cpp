@@ -4,7 +4,6 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "spffl_exception.h"
 #include "f2_polymod_linear_algebra.h"
 #include "f2_poly_factor.h"
 #include "f2_polymod_convert.h"
@@ -12,6 +11,7 @@
 #include "f2n_poly_factor.h"
 #include "f2n_poly_t.h"
 #include "int_gcd.h"
+#include "spffl_exception.h"
 
 namespace spffl::linalg {
 
@@ -247,7 +247,7 @@ bool f2_polymod_matrix_is_diagonalizable(
   //	if (PD != AP) {
   //		std::stringstream ss;
   //    ss << "f2_polymod_matrix_is_diagonalizable: coding
-  //error.\n"; 		throw spffl::exception_t(ss.str());
+  // error.\n"; 		throw spffl::exception_t(ss.str());
   //	}
   // }
 

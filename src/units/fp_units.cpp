@@ -4,12 +4,12 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "spffl_exception.h"
 #include "fp_units.h"
 #include "int_factor.h"
 #include "int_gcd.h"
 #include "int_sqrt.h"
 #include "int_totient.h"
+#include "spffl_exception.h"
 #include "tfacinfo.h"
 #include "tvector.h"
 
@@ -27,8 +27,7 @@ int fp_order(spffl::intmath::intmod_t a) {
 
   if (g != 1) {
     std::stringstream ss;
-    ss << "fp_order:  zero or zero divisor " << r << " mod " << p
-              << ".\n";
+    ss << "fp_order:  zero or zero divisor " << r << " mod " << p << ".\n";
     throw spffl::exception_t(ss.str());
   }
 
@@ -119,7 +118,7 @@ int fp_log( // Log base g of a.
   if (!g.recip(ginv)) {
     std::stringstream ss;
     ss << "fp_log:  g="
-              << " is a zero divisor.\n";
+       << " is a zero divisor.\n";
     throw spffl::exception_t(ss.str());
   }
   spffl::intmath::intmod_t gk = g.exp(k);

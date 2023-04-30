@@ -4,8 +4,8 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "spffl_exception.h"
 #include "fp_polymod_t.h"
+#include "spffl_exception.h"
 #include <iomanip>
 #include <iostream>
 
@@ -120,8 +120,8 @@ fp_polymod_t fp_polymod_t::operator/(const fp_polymod_t &that) const {
   fp_polymod_t bi;
   if (!that.recip(bi)) {
     std::stringstream ss;
-    ss << "fp_polymod_t::operator/:  zero or zero divisor: "
-              << that.residue << " mod " << that.modulus << ".\n";
+    ss << "fp_polymod_t::operator/:  zero or zero divisor: " << that.residue
+       << " mod " << that.modulus << ".\n";
     throw spffl::exception_t(ss.str());
   }
 
@@ -135,8 +135,8 @@ fp_polymod_t fp_polymod_t::operator%(const fp_polymod_t &that) const {
   fp_polymod_t bi;
   if (!that.recip(bi)) {
     std::stringstream ss;
-    ss << "fp_polymod_t::operator%:  zero or zero divisor: "
-              << that.residue << " mod " << that.modulus << ".\n";
+    ss << "fp_polymod_t::operator%:  zero or zero divisor: " << that.residue
+       << " mod " << that.modulus << ".\n";
     throw spffl::exception_t(ss.str());
   }
 
@@ -158,7 +158,7 @@ bool fp_polymod_t::recip(fp_polymod_t &rinv) const {
   if (!g.get_coeff(0).recip(c0i)) {
     std::stringstream ss;
     ss << "fp_polymod_t::recip:  zero or zero divisor "
-              << " in GCD " << g << ".\n";
+       << " in GCD " << g << ".\n";
     throw spffl::exception_t(ss.str());
   }
   a *= c0i;
@@ -190,7 +190,7 @@ fp_polymod_t fp_polymod_t::exp(int e) const {
     if (e == -e) {
       std::stringstream ss;
       ss << "fp_polymod_t::exp:  can't handle "
-                   "MIN_INT.\n";
+            "MIN_INT.\n";
       throw spffl::exception_t(ss.str());
     }
     fp_polymod_t inv = one / *this;
@@ -348,8 +348,8 @@ fp_poly_t fp_polymod_t::get_modulus(void) const { return this->modulus; }
 void fp_polymod_t::check_moduli(const fp_polymod_t &that) const {
   if (this->modulus != that.modulus) {
     std::stringstream ss;
-    ss << "fp_polymod_t: mixed moduli " << this->modulus << ", "
-              << that.modulus << ".";
+    ss << "fp_polymod_t: mixed moduli " << this->modulus << ", " << that.modulus
+       << ".";
     ss << std::endl;
     throw spffl::exception_t(ss.str());
   }

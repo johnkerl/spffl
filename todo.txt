@@ -1,7 +1,6 @@
 ================================================================
 ! ctest passes
   o f2_poly_t: promote x n; demote; bit_at; set_bit; sqroot
-! exit(1) -> exceptions
 ! installable headers/libspffl.so/bins; internals vs externals
 
 * char* vs string literals

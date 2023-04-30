@@ -4,9 +4,9 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "spffl_exception.h"
 #include "f2_polyrat_t.h"
 #include "cmps.h"
+#include "spffl_exception.h"
 #include <iomanip>
 #include <iostream>
 
@@ -159,7 +159,7 @@ f2_polyrat_t f2_polyrat_t::exp(int e) const {
     if (e == -e) {
       std::stringstream ss;
       ss << "f2_polyrat_t::exp:  can't handle "
-                   "MIN_F2POLY.\n";
+            "MIN_F2POLY.\n";
       throw spffl::exception_t(ss.str());
     }
     xp = one / xp;

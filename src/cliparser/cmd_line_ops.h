@@ -332,8 +332,8 @@ static void emit(
 
   default:
     std::stringstream ss;
-    ss << "Unhandled operator "
-              << token_desc<element_type>(rlex_ctx.token) << ".\n";
+    ss << "Unhandled operator " << token_desc<element_type>(rlex_ctx.token)
+       << ".\n";
     throw spffl::exception_t(ss.str());
     break;
   }
@@ -350,7 +350,7 @@ static void emit(
     if (a.is_int) {
       std::stringstream ss;
       ss << "Operator " << token_desc<element_type>(rlex_ctx.token)
-                << " requires type-specific argument.\n";
+         << " requires type-specific argument.\n";
       throw spffl::exception_t(ss.str());
     }
     break;
@@ -359,7 +359,7 @@ static void emit(
     if (a.is_int || b.is_int) {
       std::stringstream ss;
       ss << "Operator " << token_desc<element_type>(rlex_ctx.token)
-                << " requires two type-specific arguments.\n";
+         << " requires two type-specific arguments.\n";
       throw spffl::exception_t(ss.str());
     }
     break;
@@ -367,8 +367,8 @@ static void emit(
     if (a.is_int || !b.is_int) {
       std::stringstream ss;
       ss << "Operator " << token_desc<element_type>(rlex_ctx.token)
-                << " requires one type-specific argument "
-                << " and one integer argument.\n";
+         << " requires one type-specific argument "
+         << " and one integer argument.\n";
       throw spffl::exception_t(ss.str());
     }
     break;
@@ -419,8 +419,8 @@ static void emit(
 
   default:
     std::stringstream ss;
-    ss << "Unhandled operator "
-              << token_desc<element_type>(rlex_ctx.token) << ".\n";
+    ss << "Unhandled operator " << token_desc<element_type>(rlex_ctx.token)
+       << ".\n";
     throw spffl::exception_t(ss.str());
     break;
   }
@@ -446,8 +446,8 @@ static void match(lex_ctx_t<element_type> &rlex_ctx, int expected_token) {
   } else {
     std::stringstream ss;
     ss << "Syntax error.\n";
-    ss << "Expected " << token_desc<element_type>(expected_token)
-              << "; got " << token_desc<element_type>(rlex_ctx.token) << ".\n";
+    ss << "Expected " << token_desc<element_type>(expected_token) << "; got "
+       << token_desc<element_type>(rlex_ctx.token) << ".\n";
     throw spffl::exception_t(ss.str());
   }
 }
@@ -468,8 +468,8 @@ static void P(
     break;
   default:
     std::stringstream ss;
-    ss << "syntax error at token "
-              << token_desc<element_type>(rlex_ctx.token) << "\n";
+    ss << "syntax error at token " << token_desc<element_type>(rlex_ctx.token)
+       << "\n";
     throw spffl::exception_t(ss.str());
   }
 }
