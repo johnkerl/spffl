@@ -1,6 +1,6 @@
 ================================================================
 * char* vs string literals
-* more std::string in place of char*
+* more std::string all around
 * int -> bool pass
   - needs more
 
@@ -13,8 +13,6 @@
 * renaming pass
   o needs more
   o unabbrevs in particular
-
-? no-malloc case for f2poly_t w/ <= 64 bits, and expand-to-malloc on overflow
 
 * ctest passes
   o f2_poly_t: promote x n; demote; bit_at; set_bit; sqroot

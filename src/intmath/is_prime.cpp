@@ -59,13 +59,13 @@ bool isprime_table(int n) {
   for (i = 0; i < numprimes16; i++) {
     if ((un % primes_16[i]) == 0) {
       if (un == primes_16[i]) {
-        return 1;
+        return true;
       } else {
         return false;
       }
     }
     if (primes_16[i] * primes_16[i] > un) {
-      return 1;
+      return true;
     }
   }
   return true;
