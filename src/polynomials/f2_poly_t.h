@@ -13,6 +13,7 @@
 #include "count_bits.h"
 #include "log2.h"
 #include <cstdint>
+#include <vector>
 #include <iomanip>
 #include <iostream>
 #include <sstream>
@@ -100,8 +101,7 @@ public:
   void _demote_1(void);
 
 private:
-  uint64_t *parts;
-  int num_parts;
+  std::vector<uint64_t> parts;
 
   bool cmp(int op, const f2_poly_t &that) const;
   void extend_parts(int new_num_parts);
