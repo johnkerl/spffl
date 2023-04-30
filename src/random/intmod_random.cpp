@@ -13,7 +13,8 @@ namespace spffl::random {
 // ----------------------------------------------------------------
 spffl::intmath::intmod_t intmod_random(int m) {
   if (m < 2) {
-    std::cerr << "intmod_random:  modulus " << m << " should be >= 2.\n";
+    std::stringstream ss;
+    ss << "intmod_random:  modulus " << m << " should be >= 2.\n";
     exit(1);
   }
   return spffl::intmath::intmod_t(get_random_int(), m);

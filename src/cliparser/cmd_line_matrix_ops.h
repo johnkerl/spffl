@@ -259,21 +259,24 @@ static void matlexan(mat_lex_ctx_t<element_type> &rlex_ctx) {
 
       if (strchr(rlex_ctx.argv[rlex_ctx.argi], '[')) {
         if (!rlex_ctx.atom.mat_val.bracket_in(rlex_ctx.argv[rlex_ctx.argi])) {
-          std::cerr << "Couldn't scan \"" << rlex_ctx.argv[rlex_ctx.argi]
+          std::stringstream ss;
+          ss << "Couldn't scan \"" << rlex_ctx.argv[rlex_ctx.argi]
                     << "\"\n";
           exit(1);
         }
       } else {
         if (!rlex_ctx.atom.mat_val.load_from_file(
                 rlex_ctx.argv[rlex_ctx.argi])) {
-          std::cerr << "Couldn't read \"" << rlex_ctx.argv[rlex_ctx.argi]
+          std::stringstream ss;
+          ss << "Couldn't read \"" << rlex_ctx.argv[rlex_ctx.argi]
                     << "\"\n";
           exit(1);
         }
       }
     }
     if (iss.fail()) {
-      std::cerr << "Scan failure at \"" << s << "\".\n";
+      std::stringstream ss;
+      ss << "Scan failure at \"" << s << "\".\n";
       exit(1);
     }
   }
@@ -334,7 +337,8 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
     break;
 
   default:
-    std::cerr << "Unhandled operator "
+    std::stringstream ss;
+    ss << "Unhandled operator "
               << mat_token_desc<element_type>(rlex_ctx.token) << ".\n";
     exit(1);
     break;
@@ -351,7 +355,8 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
   case M_M_OP:
   case S_M_OP:
     if (A.atom_type != MAT_ATOM) {
-      std::cerr << "Operator " << mat_token_desc<element_type>(rlex_ctx.token)
+      std::stringstream ss;
+      ss << "Operator " << mat_token_desc<element_type>(rlex_ctx.token)
                 << " requires matrix argument.\n";
       exit(1);
     }
@@ -359,21 +364,24 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
   case M_MM_OP:
   case I_MM_OP:
     if ((A.atom_type != MAT_ATOM) || (B.atom_type != MAT_ATOM)) {
-      std::cerr << "Operator " << mat_token_desc<element_type>(rlex_ctx.token)
+      std::stringstream ss;
+      ss << "Operator " << mat_token_desc<element_type>(rlex_ctx.token)
                 << " requires two matrix arguments.\n";
       exit(1);
     }
     break;
   case I_M_OP:
     if (A.atom_type != MAT_ATOM) {
-      std::cerr << "Operator " << mat_token_desc<element_type>(rlex_ctx.token)
+      std::stringstream ss;
+      ss << "Operator " << mat_token_desc<element_type>(rlex_ctx.token)
                 << " requires one matrix argument.\n";
       exit(1);
     }
     break;
   case M_MI_OP:
     if ((A.atom_type != MAT_ATOM) || (B.atom_type != INT_ATOM)) {
-      std::cerr << "Operator " << mat_token_desc<element_type>(rlex_ctx.token)
+      std::stringstream ss;
+      ss << "Operator " << mat_token_desc<element_type>(rlex_ctx.token)
                 << " requires one matrix argument "
                 << " and one integer argument.\n";
       exit(1);
@@ -407,14 +415,16 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
 
   case L_EXP:
     if (!A.mat_val.exp(B.int_val, C.mat_val)) {
-      std::cerr << "Non-invertible.\n";
+      std::stringstream ss;
+      ss << "Non-invertible.\n";
       exit(1);
     }
     break;
 
   case L_INV:
     if (!A.mat_val.inverse(C.mat_val)) {
-      std::cerr << "Non-invertible.\n";
+      std::stringstream ss;
+      ss << "Non-invertible.\n";
       exit(1);
     }
     A.mat_val.check_inverse(C.mat_val);
@@ -426,7 +436,8 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
 
   case L_KERBAS:
     if (!A.mat_val.get_kernel_basis(C.mat_val, rlex_ctx.zero, rlex_ctx.one)) {
-      std::cerr << "{empty)\n";
+      std::stringstream ss;
+      ss << "{empty)\n";
       exit(1);
     }
     A.mat_val.check_kernel_basis(C.mat_val);
@@ -450,14 +461,16 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
 
   case L_RRNZ:
     if (!A.mat_val.get_rr_non_zero_rows(C.mat_val)) {
-      std::cerr << "{empty)\n";
+      std::stringstream ss;
+      ss << "{empty)\n";
       exit(1);
     }
     break;
 
   case L_RECHNZ:
     if (!A.mat_val.get_rech_non_zero_rows(C.mat_val)) {
-      std::cerr << "{empty)\n";
+      std::stringstream ss;
+      ss << "{empty)\n";
       exit(1);
     }
     break;
@@ -467,7 +480,8 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
     break;
 
   default:
-    std::cerr << "Unhandled operator "
+    std::stringstream ss;
+    ss << "Unhandled operator "
               << mat_token_desc<element_type>(rlex_ctx.token) << ".\n";
     exit(1);
     break;
@@ -499,8 +513,8 @@ static void match(mat_lex_ctx_t<element_type> &rlex_ctx, int expected_token) {
   if (rlex_ctx.token == expected_token) {
     matlexan<element_type>(rlex_ctx);
   } else {
-    std::cerr << "Syntax error.\n";
-    std::cerr << "Expected " << mat_token_desc<element_type>(expected_token)
+      std::stringstream ss;
+    ss << "Syntax error: expected " << mat_token_desc<element_type>(expected_token)
               << "; got " << mat_token_desc<element_type>(rlex_ctx.token)
               << ".\n";
     exit(1);
@@ -522,7 +536,8 @@ static void P(mat_lex_ctx_t<element_type> &rlex_ctx,
     match<element_type>(rlex_ctx, L_MAT);
     break;
   default:
-    std::cerr << "syntax error at token "
+    std::stringstream ss;
+    ss << "syntax error at token "
               << mat_token_desc<element_type>(rlex_ctx.token) << "\n";
     exit(1);
   }
@@ -682,7 +697,8 @@ void cmd_line_mat_parse(
   while (lex_ctx.token != L_EOL) {
     Q<element_type>(lex_ctx, stack);
     if (!stack.pop(result)) {
-      std::cerr << "Stack underflow.\n";
+      std::stringstream ss;
+      ss << "Stack underflow.\n";
       exit(1);
     }
 
@@ -697,7 +713,8 @@ void cmd_line_mat_parse(
       std::cout << result.int_val << "\n";
       break;
     default:
-      std::cerr << "Coding error file " << __FILE__ << " line " << __LINE__
+      std::stringstream ss;
+      ss << "Coding error file " << __FILE__ << " line " << __LINE__
                 << "\n";
       exit(1);
       break;

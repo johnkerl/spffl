@@ -233,7 +233,8 @@ static void lexan(lex_ctx_t<element_type> &rlex_ctx) {
       iss >> rlex_ctx.atom.type_val;
     }
     if (iss.fail()) {
-      std::cerr << "Scan failure at \"" << s << "\".\n";
+      std::stringstream ss;
+      ss << "Scan failure at \"" << s << "\".\n";
       exit(1);
     }
   }
@@ -248,11 +249,13 @@ element_type clo_exp(
 
   if (x == zero) {
     if (e < 0) {
-      std::cerr << "Division by zero.\n";
+      std::stringstream ss;
+      ss << "Division by zero.\n";
       exit(1);
     }
     if (e == 0) {
-      std::cerr << "0 ^ 0 undefined.\n";
+      std::stringstream ss;
+      ss << "0 ^ 0 undefined.\n";
       exit(1);
     }
     return zero;
@@ -265,7 +268,8 @@ element_type clo_exp(
 
   if (e < 0) {
     if (e == -e) {
-      std::cerr << "Can't handle MIN_INT.\n";
+      std::stringstream ss;
+      ss << "Can't handle MIN_INT.\n";
       exit(1);
     }
     xp = one / x;
@@ -327,7 +331,8 @@ static void emit(
     break;
 
   default:
-    std::cerr << "Unhandled operator "
+    std::stringstream ss;
+    ss << "Unhandled operator "
               << token_desc<element_type>(rlex_ctx.token) << ".\n";
     exit(1);
     break;
@@ -343,7 +348,8 @@ static void emit(
   switch (tiform) {
   case T_T_OP:
     if (a.is_int) {
-      std::cerr << "Operator " << token_desc<element_type>(rlex_ctx.token)
+      std::stringstream ss;
+      ss << "Operator " << token_desc<element_type>(rlex_ctx.token)
                 << " requires type-specific argument.\n";
       exit(1);
     }
@@ -351,14 +357,16 @@ static void emit(
   case T_TT_OP:
   case I_TT_OP:
     if (a.is_int || b.is_int) {
-      std::cerr << "Operator " << token_desc<element_type>(rlex_ctx.token)
+      std::stringstream ss;
+      ss << "Operator " << token_desc<element_type>(rlex_ctx.token)
                 << " requires two type-specific arguments.\n";
       exit(1);
     }
     break;
   case T_TI_OP:
     if (a.is_int || !b.is_int) {
-      std::cerr << "Operator " << token_desc<element_type>(rlex_ctx.token)
+      std::stringstream ss;
+      ss << "Operator " << token_desc<element_type>(rlex_ctx.token)
                 << " requires one type-specific argument "
                 << " and one integer argument.\n";
       exit(1);
@@ -410,7 +418,8 @@ static void emit(
     break;
 
   default:
-    std::cerr << "Unhandled operator "
+    std::stringstream ss;
+    ss << "Unhandled operator "
               << token_desc<element_type>(rlex_ctx.token) << ".\n";
     exit(1);
     break;
@@ -435,8 +444,9 @@ static void match(lex_ctx_t<element_type> &rlex_ctx, int expected_token) {
   if (rlex_ctx.token == expected_token) {
     lexan<element_type>(rlex_ctx);
   } else {
-    std::cerr << "Syntax error.\n";
-    std::cerr << "Expected " << token_desc<element_type>(expected_token)
+    std::stringstream ss;
+    ss << "Syntax error.\n";
+    ss << "Expected " << token_desc<element_type>(expected_token)
               << "; got " << token_desc<element_type>(rlex_ctx.token) << ".\n";
     exit(1);
   }
@@ -457,7 +467,8 @@ static void P(
     match<element_type>(rlex_ctx, L_NUM);
     break;
   default:
-    std::cerr << "syntax error at token "
+    std::stringstream ss;
+    ss << "syntax error at token "
               << token_desc<element_type>(rlex_ctx.token) << "\n";
     exit(1);
   }
@@ -640,7 +651,8 @@ void cmd_line_parse(
   while (lex_ctx.token != L_EOL) {
     Q<element_type>(lex_ctx, stack);
     if (!stack.pop(result)) {
-      std::cerr << "Stack underflow.\n";
+      std::stringstream ss;
+      ss << "Stack underflow.\n";
       exit(1);
     }
     if (result.is_int) {

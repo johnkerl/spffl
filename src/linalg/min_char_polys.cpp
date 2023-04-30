@@ -106,12 +106,14 @@ spffl::polynomials::f2_poly_t f2_polymod_minimal_polynomial(
   }
   spffl::bits::bit_matrix_t B;
   if (!A.get_kernel_basis(B)) {
-    std::cerr << "poo!\n";
+    std::stringstream ss;
+    ss << "poo!\n";
     exit(1);
   }
   if (B.get_rank_rr() != 1) {
-    std::cerr << "double poo!\n";
-    std::cerr << B << "\n";
+    std::stringstream ss;
+    ss << "double poo!\n";
+    ss << B << "\n";
     exit(1);
   }
   spffl::polynomials::f2_poly_t p;
@@ -144,12 +146,14 @@ spffl::polynomials::f2n_poly_t f2npm_min_poly(
   }
   tmatrix<spffl::polynomials::f2_polymod_t> B;
   if (!A.get_kernel_basis(B, zero, one)) {
-    std::cerr << "poo!\n";
+    std::stringstream ss;
+    ss << "poo!\n";
     exit(1);
   }
   if (B.get_rank_rr() != 1) {
-    std::cerr << "double poo!\n";
-    std::cerr << B << "\n";
+    std::stringstream ss;
+    ss << "double poo!\n";
+    ss << B << "\n";
     exit(1);
   }
   spffl::polynomials::f2n_poly_t mp;
@@ -179,12 +183,14 @@ spffl::polynomials::fp_poly_t fp_polymod_minimal_polynomial(
   }
   tmatrix<spffl::intmath::intmod_t> B;
   if (!A.get_kernel_basis(B, zero, one)) {
-    std::cerr << "poo!\n";
+    std::stringstream ss;
+    ss << "poo!\n";
     exit(1);
   }
   if (B.get_rank_rr() != 1) {
-    std::cerr << "double poo!\n";
-    std::cerr << B << "\n";
+    std::stringstream ss;
+    ss << "double poo!\n";
+    ss << B << "\n";
     exit(1);
   }
   spffl::polynomials::fp_poly_t mp;

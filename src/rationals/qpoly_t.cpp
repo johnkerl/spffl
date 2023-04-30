@@ -282,7 +282,8 @@ void qpoly_t::quot_and_rem(
   intrat_t zero = this->coeffs[0] - this->coeffs[0];
 
   if (that == zero) {
-    std::cerr << "qpoly_t::quot_and_rem:  division by zero.\n";
+    std::stringstream ss;
+    ss << "qpoly_t::quot_and_rem:  division by zero.\n";
     exit(1);
   }
   if (*this == zero) {
@@ -323,12 +324,6 @@ void qpoly_t::quot_and_rem(
   int max_shift           = dividend_degree - divisor_degree;
   intrat_t divisor_leader = that.coeffs[divisor_degree];
   intrat_t dlinv          = intrat_t(1) / divisor_leader;
-  // if (!divisor_leader.recip(dlinv)) {
-  //	std::cerr << "qpoly_t::quot_and_rem:  zero or zero divisor "
-  //		<< "in leading coefficient " << divisor_leader << "\n"
-  //		<< "  of divisor " << that << ".\n";
-  //	exit(1);
-  // }
   for (int shift = max_shift; shift >= 0; shift--) {
     intrat_t rem_leader      = rem.coeffs[shift + divisor_degree];
     intrat_t multiplier      = rem_leader * dlinv;
@@ -344,7 +339,8 @@ void qpoly_t::quot_and_rem(
   // Quotient degree must be the difference of dividend and divisor
   // degrees.  If not, we have made a mistake.
   if (quot.coeffs[quot.degree] == zero) {
-    std::cerr << "qpoly_t division: coding error.\n";
+    std::stringstream ss;
+    ss << "qpoly_t division: coding error.\n";
     exit(1);
   }
 
@@ -430,10 +426,12 @@ qpoly_t qpoly_t::exp(int e) const {
 
   if (*this == zero) {
     if (e == 0) {
-      std::cerr << "qpoly_t::exp:  0 ^ 0 undefined.\n";
+      std::stringstream ss;
+      ss << "qpoly_t::exp:  0 ^ 0 undefined.\n";
       exit(1);
     } else if (e < 0) {
-      std::cerr << "qpoly_t::exp:  division by zero.\n";
+      std::stringstream ss;
+      ss << "qpoly_t::exp:  division by zero.\n";
       exit(1);
     } else {
       return zero;
@@ -444,7 +442,8 @@ qpoly_t qpoly_t::exp(int e) const {
   } else {
     // Degree 1 or higher.
     if (e < 0) {
-      std::cerr << "qpoly_t::exp:  division by non-unit.\n";
+      std::stringstream ss;
+      ss << "qpoly_t::exp:  division by non-unit.\n";
       exit(1);
     } else {
       while (e != 0) {
@@ -630,7 +629,8 @@ bool qpoly_t::cmp(int cmp, const qpoly_t &that) const {
     return (direction > 0);
     break;
   default:
-    std::cerr << "Ack!\n";
+    std::stringstream ss;
+    ss << "Ack!\n";
     exit(1);
     return false;
     break;
@@ -640,7 +640,8 @@ bool qpoly_t::cmp(int cmp, const qpoly_t &that) const {
 // ----------------------------------------------------------------
 void qpoly_t::bounds_check(int deg) const {
   if ((deg < 0) || (deg > this->degree)) {
-    std::cerr << "qpoly_t: degree " << deg
+    std::stringstream ss;
+    ss << "qpoly_t: degree " << deg
               << " out of bounds 0:" << this->degree << ".\n";
     exit(1);
   }
@@ -727,9 +728,10 @@ bool qpoly_t::from_string(const std::string &string) {
     for (si = 0, ci = this->degree; si < len; si++, ci--) {
       char ascii_digit = string[si];
       if ((ascii_digit < '0') || (ascii_digit > '9')) {
-        std::cerr << "qpoly_t::from_string: "
+        std::stringstream ss;
+        ss << "qpoly_t::from_string: "
                   << "non-numerical input \"" << string << "\"\n";
-        std::cerr << "Didn't like '" << ascii_digit << "'\n";
+        ss << "Didn't like '" << ascii_digit << "'\n";
         return false;
       }
       this->coeffs[ci] = intrat_t(ascii_digit - '0');
@@ -754,7 +756,8 @@ bool qpoly_t::from_string(const std::string &string) {
       std::istringstream iss(argv[argi], std::ios_base::in);
       iss >> r;
       if (iss.fail()) {
-        std::cerr << "qpoly_t::from_string: "
+        std::stringstream ss;
+        ss << "qpoly_t::from_string: "
                   << "scan failure at \"" << string << "\"\n";
         return false;
       } else {
@@ -772,7 +775,8 @@ bool qpoly_t::from_string(const std::string &string) {
 // ----------------------------------------------------------------
 void qpoly_t::promote(void) {
   if (!this->coeffs) {
-    std::cerr << "qpoly_t::promote: null data.\n";
+    std::stringstream ss;
+    ss << "qpoly_t::promote: null data.\n";
     exit(1);
   }
   intrat_t *ocoeffs = this->coeffs;

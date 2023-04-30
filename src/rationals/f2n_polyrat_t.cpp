@@ -125,7 +125,8 @@ f2n_polyrat_t f2n_polyrat_t::operator%(const f2n_polyrat_t &that) {
   f2n_polyrat_t rv;
   f2n_polyrat_t zero = that - that;
   if (that == zero) {
-    std::cerr << "f2n_polyrat_t: Divide by zero.\n";
+    std::stringstream ss;
+    ss << "f2n_polyrat_t: Divide by zero.\n";
     exit(1);
   }
   return zero;
@@ -140,17 +141,20 @@ f2n_polyrat_t f2n_polyrat_t::exp(int e) const {
 
   if (e == 0) {
     if (*this == zero) {
-      std::cerr << "f2n_polyrat_t::exp:  0 ^ 0 undefined.\n";
+      std::stringstream ss;
+      ss << "f2n_polyrat_t::exp:  0 ^ 0 undefined.\n";
       exit(1);
     }
     return one;
   } else if (e < 0) {
     if (*this == zero) {
-      std::cerr << "f2n_polyrat_t::exp:  division by zero.\n";
+      std::stringstream ss;
+      ss << "f2n_polyrat_t::exp:  division by zero.\n";
       exit(1);
     }
     if (e == -e) {
-      std::cerr << "f2n_polyrat_t::exp:  can't handle "
+      std::stringstream ss;
+      ss << "f2n_polyrat_t::exp:  can't handle "
                    "MIN_F2NPOLY.\n";
       exit(1);
     }
@@ -353,7 +357,8 @@ spffl::polynomials::f2n_poly_t f2n_polyrat_t::get_denominator(void) const {
 void f2n_polyrat_t::simplify(void) {
   spffl::polynomials::f2n_poly_t g;
   if (this->denom == 0) {
-    std::cerr << "rat: Divide by zero.\n";
+    std::stringstream ss;
+    ss << "rat: Divide by zero.\n";
     exit(1);
   }
   g = this->numer.gcd(this->denom);

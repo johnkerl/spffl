@@ -109,7 +109,8 @@ fpn_polymod_t fpn_polymod_t::operator/(const fpn_polymod_t &that) const {
 
   fpn_polymod_t bi;
   if (!that.recip(bi)) {
-    std::cerr << "fpn_polymod_t::operator/:  zero or zero divisor: "
+    std::stringstream ss;
+    ss << "fpn_polymod_t::operator/:  zero or zero divisor: "
               << that.residue << " mod " << that.modulus << ".\n";
     exit(1);
   }
@@ -123,7 +124,8 @@ fpn_polymod_t fpn_polymod_t::operator%(const fpn_polymod_t &that) const {
 
   fpn_polymod_t bi;
   if (!that.recip(bi)) {
-    std::cerr << "fpn_polymod_t::operator%:  zero or zero divisor: "
+    std::stringstream ss;
+    ss << "fpn_polymod_t::operator%:  zero or zero divisor: "
               << that.residue << " mod " << that.modulus << ".\n";
     exit(1);
   }
@@ -138,14 +140,14 @@ bool fpn_polymod_t::recip(fpn_polymod_t &rinv) const {
 
   // Error check:
   if (g.find_degree() != 0) {
-    // std::cerr << "fpn_polymod recip: zero or zero divisor.\n";
     return false;
   }
 
   // Ext. GCD actually returns a scalar multiple of 1.  Divide this out.
   fp_polymod_t c0i;
   if (!g.get_coeff(0).recip(c0i)) {
-    std::cerr << "fpn_polymod_t::recip:  zero or zero divisor "
+    std::stringstream ss;
+    ss << "fpn_polymod_t::recip:  zero or zero divisor "
               << " in GCD " << g << ".\n";
     exit(1);
   }
@@ -164,17 +166,20 @@ fpn_polymod_t fpn_polymod_t::exp(int e) const {
 
   if (e == 0) {
     if (*this == zero) {
-      std::cerr << "fpn_polymod_t::exp:  0 ^ 0 undefined.\n";
+      std::stringstream ss;
+      ss << "fpn_polymod_t::exp:  0 ^ 0 undefined.\n";
       exit(1);
     }
     return one;
   } else if (e < 0) {
     if (*this == zero) {
-      std::cerr << "fpn_polymod_t::exp:  division by zero.\n";
+      std::stringstream ss;
+      ss << "fpn_polymod_t::exp:  division by zero.\n";
       exit(1);
     }
     if (e == -e) {
-      std::cerr << "fpn_polymod_t::exp:  can't handle "
+      std::stringstream ss;
+      ss << "fpn_polymod_t::exp:  can't handle "
                    "MIN_INT.\n";
       exit(1);
     }
@@ -324,9 +329,10 @@ fpn_poly_t fpn_polymod_t::get_modulus(void) const { return this->modulus; }
 // ----------------------------------------------------------------
 void fpn_polymod_t::check_moduli(const fpn_polymod_t &that) const {
   if (this->modulus != that.modulus) {
-    std::cerr << "fpn_polymod_t: mixed moduli " << this->modulus << ", "
+    std::stringstream ss;
+    ss << "fpn_polymod_t: mixed moduli " << this->modulus << ", "
               << that.modulus << ".";
-    std::cerr << std::endl;
+    ss << std::endl;
     exit(1);
   }
 }

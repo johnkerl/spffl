@@ -27,7 +27,8 @@ spffl::rationals::qpoly_t get_cyclo_qpoly(int n) {
   spffl::rationals::qpoly_t zero(0);
 
   if (n < 1) {
-    std::cerr << "get_cyclo_qpoly: argument must be positive; got " << n
+    std::stringstream ss;
+    ss << "get_cyclo_qpoly: argument must be positive; got " << n
               << ".\n";
     exit(1);
   }
@@ -62,7 +63,8 @@ spffl::rationals::qpoly_t get_cyclo_qpoly(int n) {
 
     rv.quot_and_rem(dth, rv, rem);
     if (rem != zero) {
-      std::cerr << "get_cyclo_qpoly: internal error.\n";
+      std::stringstream ss;
+      ss << "get_cyclo_qpoly: internal error.\n";
       exit(1);
     }
   }

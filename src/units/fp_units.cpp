@@ -26,7 +26,8 @@ int fp_order(spffl::intmath::intmod_t a) {
   int g = spffl::intmath::int_gcd(r, p);
 
   if (g != 1) {
-    std::cerr << "fp_order:  zero or zero divisor " << r << " mod " << p
+    std::stringstream ss;
+    ss << "fp_order:  zero or zero divisor " << r << " mod " << p
               << ".\n";
     exit(1);
   }
@@ -115,7 +116,8 @@ int fp_log( // Log base g of a.
 
   spffl::intmath::intmod_t ginv;
   if (!g.recip(ginv)) {
-    std::cerr << "fp_log:  g="
+    std::stringstream ss;
+    ss << "fp_log:  g="
               << " is a zero divisor.\n";
     exit(1);
   }
@@ -153,7 +155,8 @@ int fp_log( // Log base g of a.
 
   if (rv == -1) {
     // xxx
-    std::cerr << "fp_log:  error message goes here.\n";
+    std::stringstream ss;
+    ss << "fp_log:  error message goes here.\n";
     exit(1);
   }
 

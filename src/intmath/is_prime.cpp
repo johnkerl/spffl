@@ -81,10 +81,12 @@ bool is_prime(int n) {
 // ----------------------------------------------------------------
 int nth_prime(int n) {
   if (n > numprimes16) {
-    std::cerr << "nth_prime:  n=" << n << " past end of table.\n";
+    std::stringstream ss;
+    ss << "nth_prime:  n=" << n << " past end of table.\n";
     exit(1);
   } else if (n < 1) {
-    std::cerr << "nth_prime:  n=" << n << " should have been positive.\n";
+    std::stringstream ss;
+    ss << "nth_prime:  n=" << n << " should have been positive.\n";
     exit(1);
   }
   return (int)primes_16[n - 1];

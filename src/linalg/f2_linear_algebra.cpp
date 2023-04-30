@@ -36,7 +36,8 @@ tmatrix<spffl::bits::bit_t> f2_matrix_from_base_rep(
 // ----------------------------------------------------------------
 spffl::polynomials::f2_poly_t f2_char_poly(tmatrix<spffl::bits::bit_t> &A) {
   if (!A.is_square()) {
-    std::cerr << "f2_char_poly():  non-square input.\n";
+    std::stringstream ss;
+    ss << "f2_char_poly():  non-square input.\n";
     exit(1);
   }
 

@@ -34,7 +34,8 @@ public:
   // ----------------------------------------------------------------
   tmatrix(int init_num_rows, int init_num_cols) {
     if ((init_num_rows <= 0) || (init_num_cols <= 0)) {
-      std::cerr << "tmatrix::tmatrix():  Matrix dimensions must be >= 0; got "
+      std::stringstream ss;
+      ss << "tmatrix::tmatrix():  Matrix dimensions must be >= 0; got "
                 << init_num_rows << " x " << init_num_cols << ".  Exiting."
                 << std::endl;
       exit(1);
@@ -51,7 +52,8 @@ public:
   // ----------------------------------------------------------------
   tmatrix(element_type e, int init_num_rows, int init_num_cols) {
     if ((init_num_rows <= 0) || (init_num_cols <= 0)) {
-      std::cerr << "tmatrix::tmatrix():  Matrix dimensions "
+      std::stringstream ss;
+      ss << "tmatrix::tmatrix():  Matrix dimensions "
                 << "must be > 0; got " << init_num_rows << " x "
                 << init_num_cols << ".  Exiting." << std::endl;
       exit(1);
@@ -98,7 +100,8 @@ public:
       }
     }
     if (min_cols != max_cols) {
-      std::cerr << "tmatrix:  ragged input.  # rows = " << this->num_rows
+      std::stringstream ss;
+      ss << "tmatrix:  ragged input.  # rows = " << this->num_rows
                 << " min # cols = " << min_cols << " max # cols = " << max_cols
                 << ".\n";
       return false;
@@ -124,7 +127,8 @@ public:
     ifs.open(file_name, std::ifstream::in);
 
     if (ifs.fail()) {
-      std::cerr << "tmatrix::load_from_file:  couldn't open \"" << file_name
+      std::stringstream ss;
+      ss << "tmatrix::load_from_file:  couldn't open \"" << file_name
                 << "\"\n";
       return false;
     }
@@ -132,7 +136,8 @@ public:
     ifs >> *this;
 
     if (ifs.fail()) {
-      std::cerr << "tmatrix::load_from_file:  scan failure reading \""
+      std::stringstream ss;
+      ss << "tmatrix::load_from_file:  scan failure reading \""
                 << file_name << "\"\n";
       ifs.close();
       return false;
@@ -181,7 +186,8 @@ public:
     // Make sure the matrix already contains an element.  Remember it,
     // then free the old matrix contents.
     if (!this->rows || (this->num_rows < 1) || (this->num_cols < 1)) {
-      std::cerr << "tmatrix::bracket_in:  must already have one element.\n";
+      std::stringstream ss;
+      ss << "tmatrix::bracket_in:  must already have one element.\n";
       return false;
     }
     element_type zero = this->rows[0][0] - this->rows[0][0];
@@ -190,7 +196,8 @@ public:
     char *copy       = strdup(string);
     char *pouterleft = strchr(copy, '[');
     if (pouterleft == 0) {
-      std::cerr
+      std::stringstream ss;
+      ss 
           << "tmatrix::bracket_in:  couldn't find leading left bracket.\n";
       free(copy);
       return false;
@@ -202,7 +209,8 @@ public:
 
     char *pouterright = strrchr(pouterleft, ']');
     if (pouterright == 0) {
-      std::cerr
+      std::stringstream ss;
+      ss 
           << "tmatrix::bracket_in:  couldn't find trailing right bracket.\n";
       free(copy);
       return false;
@@ -222,7 +230,8 @@ public:
         strcat(rowcopy, stringv[i]);
         this->rows[i] = zero;
         if (!this->rows[i].bracket_in(rowcopy)) {
-          std::cerr << "tmatrix::bracket_in:  couldn't read row " << i << ".\n";
+          std::stringstream ss;
+          ss << "tmatrix::bracket_in:  couldn't read row " << i << ".\n";
           delete[] rowcopy;
           delete[] stringv;
           free(copy);
@@ -281,7 +290,8 @@ public:
     ofs.open(file_name, std::ofstream::out);
 
     if (ofs.fail()) {
-      std::cerr << "tmatrix::store_to_file:  couldn't open \"" << file_name
+      std::stringstream ss;
+      ss << "tmatrix::store_to_file:  couldn't open \"" << file_name
                 << "\"\n";
       return false;
     }
@@ -289,7 +299,8 @@ public:
     ofs << *this;
 
     if (ofs.fail()) {
-      std::cerr << "tmatrix::store_to_file:  couldn't write \"" << file_name
+      std::stringstream ss;
+      ss << "tmatrix::store_to_file:  couldn't write \"" << file_name
                 << "\"\n";
       ofs.close();
       return false;
@@ -301,7 +312,8 @@ public:
   // ----------------------------------------------------------------
   void store_to_file_or_die(char *file_name) const {
     if (!this->store_to_file(file_name)) {
-      std::cerr << "tmatrix:  couldn't write to \"" << file_name << "\".\n";
+      std::stringstream ss;
+      ss << "tmatrix:  couldn't write to \"" << file_name << "\".\n";
       exit(1);
     }
   }
@@ -382,7 +394,8 @@ public:
   // ----------------------------------------------------------------
   tvector<element_type> &operator[](int row_index) const {
     if ((row_index < 0) || (row_index >= this->num_rows)) {
-      std::cerr << "tmatrix array operator: row index " << row_index
+      std::stringstream ss;
+      ss << "tmatrix array operator: row index " << row_index
                 << " out of bounds " << 0 << ":" << (this->num_rows - 1)
                 << std::endl;
       exit(1);
@@ -394,7 +407,8 @@ public:
   // Returns a *copy* of the column, *not* a reference to it.
   tvector<element_type> get_column(int col_index) const {
     if ((col_index < 0) || (col_index >= this->num_cols)) {
-      std::cerr << "tmatrix get_column: col index " << col_index
+      std::stringstream ss;
+      ss << "tmatrix get_column: col index " << col_index
                 << " out of bounds " << 0 << ":" << (this->num_cols - 1)
                 << std::endl;
       exit(1);
@@ -409,13 +423,15 @@ public:
   // ----------------------------------------------------------------
   void put_column(int col_index, tvector<element_type> &v) {
     if ((col_index < 0) || (col_index >= this->num_cols)) {
-      std::cerr << "tmatrix put_column: col index " << col_index
+      std::stringstream ss;
+      ss << "tmatrix put_column: col index " << col_index
                 << " out of bounds " << 0 << ":" << (this->num_cols - 1)
                 << std::endl;
       exit(1);
     }
     if (v.get_num_elements() != this->num_rows) {
-      std::cerr << "tmatrix::put_column:  matrix is " << this->num_rows << " x "
+      std::stringstream ss;
+      ss << "tmatrix::put_column:  matrix is " << this->num_rows << " x "
                 << this->num_cols << ", but the vector has height "
                 << v.get_num_elements() << ".\n";
       exit(1);
@@ -441,7 +457,8 @@ public:
   tmatrix<element_type> operator-(const tmatrix<element_type> &that) const {
     if ((this->num_rows != that.num_rows) ||
         (this->num_cols != that.num_cols)) {
-      std::cerr << "tmatrix operator-():  Incompatibly sized "
+      std::stringstream ss;
+      ss << "tmatrix operator-():  Incompatibly sized "
                 << "arguments (" << this->num_rows << "x" << this->num_cols
                 << ", " << that.num_rows << "x" << that.num_cols << ")."
                 << std::endl;
@@ -471,7 +488,8 @@ public:
   // ----------------------------------------------------------------
   tmatrix<element_type> operator+(const element_type &e) const {
     if (!this->is_square()) {
-      std::cerr << "tmatrix plus scalar:  non-square input.\n";
+      std::stringstream ss;
+      ss << "tmatrix plus scalar:  non-square input.\n";
       exit(1);
     }
     tmatrix<element_type> rv(*this);
@@ -484,7 +502,8 @@ public:
   // ----------------------------------------------------------------
   tmatrix<element_type> operator-(const element_type &e) const {
     if (!this->is_square()) {
-      std::cerr << "tmatrix minus scalar:  non-square input.\n";
+      std::stringstream ss;
+      ss << "tmatrix minus scalar:  non-square input.\n";
       exit(1);
     }
     tmatrix<element_type> rv(*this);
@@ -502,7 +521,8 @@ public:
     int v_num_elements = v.get_num_elements();
 
     if (this->num_cols != v_num_elements) {
-      std::cerr << "tmatrix operator*(): Incompatibly dimensioned "
+      std::stringstream ss;
+      ss << "tmatrix operator*(): Incompatibly dimensioned "
                 << "operands (" << this->num_rows << "x" << this->num_cols
                 << "," << v_num_elements << ")." << std::endl;
       exit(1);
@@ -551,7 +571,8 @@ public:
 
   int exp(int power, tmatrix<element_type> &rout) const {
     if (!this->is_square()) {
-      std::cerr << "tmatrix::exp():  non-square input.\n";
+      std::stringstream ss;
+      ss << "tmatrix::exp():  non-square input.\n";
       exit(1);
     }
 
@@ -561,7 +582,8 @@ public:
     // Zero matrix
     if (!this->find_one(one)) {
       if (power <= 0) {
-        std::cerr << "tmatrix::exp:  non-postive power of "
+        std::stringstream ss;
+        ss << "tmatrix::exp:  non-postive power of "
                   << "zero matrix is undefined.\n";
         exit(1);
       } else {
@@ -583,7 +605,8 @@ public:
         rout = I;
         return 1;
       } else if (power == -power) {
-        std::cerr << "tmatrix::exp:  can't handle MIN_INT.\n";
+        std::stringstream ss;
+        ss << "tmatrix::exp:  can't handle MIN_INT.\n";
         exit(1);
       } else {
         rout = ai.posexp(-power, I);
@@ -597,7 +620,8 @@ public:
     int i, j, k;
 
     if (this->num_cols != that.num_rows) {
-      std::cerr << "tmatrix operator*(): Incompatibly dimensioned "
+      std::stringstream ss;
+      ss << "tmatrix operator*(): Incompatibly dimensioned "
                 << "operands (" << this->num_rows << "x" << this->num_cols
                 << "," << that.num_rows << "x" << that.num_cols << ")."
                 << std::endl;
@@ -777,7 +801,8 @@ public:
 
   tmatrix<element_type> make_I(element_type zero, element_type one) const {
     if (!this->is_square()) {
-      std::cerr << "tmatrix::make_I():  non-square input.\n";
+      std::stringstream ss;
+      ss << "tmatrix::make_I():  non-square input.\n";
       exit(1);
     }
 
@@ -1163,14 +1188,15 @@ public:
     for (i = 0; i < dimker; i++) {
       tvector<element_type> Av = *this * kerbas.rows[i];
       if (Av != zero) {
-        std::cerr << "Coding error in kernel basis.\n";
-        std::cerr << "Matrix =\n";
-        std::cerr << *this;
-        std::cerr << "Vector =\n";
-        std::cerr << kerbas.rows[i] << "\n";
-        std::cerr << "Product =\n";
-        std::cerr << Av << "\n";
-        std::cerr << "Zero scalar = " << zero << "\n";
+        std::stringstream ss;
+        ss << "Coding error in kernel basis.\n";
+        ss << "Matrix =\n";
+        ss << *this;
+        ss << "Vector =\n";
+        ss << kerbas.rows[i] << "\n";
+        ss << "Product =\n";
+        ss << Av << "\n";
+        ss << "Zero scalar = " << zero << "\n";
         exit(1);
       }
     }
@@ -1229,12 +1255,14 @@ public:
     //  lower-dimensional space cannot be injective, hence there can be no
     //  unique solution.
     if (indim > outdim) {
-      std::cerr << "tmatrix::solve_unique:  matrix cannot have full rank.\n";
+      std::stringstream ss;
+      ss << "tmatrix::solve_unique:  matrix cannot have full rank.\n";
       return false;
     }
     int A_rank = this->get_rank();
     if (A_rank != indim) {
-      std::cerr << "tmatrix::solve_unique:  matrix does not have full rank.\n";
+      std::stringstream ss;
+      ss << "tmatrix::solve_unique:  matrix does not have full rank.\n";
       return false;
     }
 
@@ -1252,7 +1280,8 @@ public:
     Ab_rr.row_echelon_form();
     int Ab_rank = Ab_rr.get_rank_rr();
     if (Ab_rank != indim) {
-      std::cerr << "tmatrix::solve_unique_full_rank:  augmented matrix does "
+      std::stringstream ss;
+      ss << "tmatrix::solve_unique_full_rank:  augmented matrix does "
                    "not have full rank.\n";
       return false;
     }
@@ -1281,7 +1310,8 @@ public:
   // ----------------------------------------------------------------
   tmatrix<element_type> paste(const tmatrix<element_type> &that) const {
     if (this->num_rows != that.num_rows) {
-      std::cerr << "tmatrix::paste:  differing number of rows ("
+      std::stringstream ss;
+      ss << "tmatrix::paste:  differing number of rows ("
                 << this->num_rows << " vs. " << that.num_rows << ")\n";
       exit(1);
     }
@@ -1307,7 +1337,8 @@ public:
   tmatrix<element_type> paste_vector(const tvector<element_type> &v) const {
     int vne = v.get_num_elements();
     if (this->num_rows != vne) {
-      std::cerr << "tmatrix::paste_vector:  differing number of rows ("
+      std::stringstream ss;
+      ss << "tmatrix::paste_vector:  differing number of rows ("
                 << this->num_rows << " vs. " << vne << ")\n";
       exit(1);
     }
@@ -1330,7 +1361,8 @@ public:
   void split(tmatrix<element_type> &rleft, tmatrix<element_type> &rright,
       int split_column) const {
     if ((split_column < 0) || (split_column >= this->num_cols)) {
-      std::cerr << "tmatrix::split:  split column " << split_column
+      std::stringstream ss;
+      ss << "tmatrix::split:  split column " << split_column
                 << " out of bounds 0:" << this->num_rows - 1 << ".\n";
       exit(1);
     }
@@ -1360,7 +1392,8 @@ public:
     element_type one;
 
     if (!this->is_square()) {
-      std::cerr << "tmatrix::inverse():  non-square input.\n";
+      std::stringstream ss;
+      ss << "tmatrix::inverse():  non-square input.\n";
       exit(1);
     }
 
@@ -1381,7 +1414,8 @@ public:
     tmatrix<element_type> AB = *this * rinv;
     tmatrix<element_type> BA = rinv * *this;
     if (!AB.is_I() || !BA.is_I()) {
-      std::cerr << "coding error:  not really inverses.\n";
+      std::stringstream ss;
+      ss << "coding error:  not really inverses.\n";
       exit(1);
     }
   }
@@ -1389,7 +1423,8 @@ public:
   // ----------------------------------------------------------------
   element_type det(void) const {
     if (!this->is_square()) {
-      std::cerr << "tmatrix::det():  non-square input.\n";
+      std::stringstream ss;
+      ss << "tmatrix::det():  non-square input.\n";
       exit(1);
     }
     tmatrix<element_type> rr(*this);
@@ -1494,7 +1529,8 @@ public:
   // ----------------------------------------------------------------
   element_type ed_det(void) const {
     if (!this->is_square()) {
-      std::cerr << "tmatrix::ed_det():  non-square input.\n";
+      std::stringstream ss;
+      ss << "tmatrix::ed_det():  non-square input.\n";
       exit(1);
     }
     tmatrix<element_type> rr(*this);
@@ -1509,8 +1545,9 @@ public:
     element_type rem  = dn % dd;
     element_type quot = dn / dd;
     if (rem != zero) {
-      std::cerr << "tmatrix::ed_det:  coding error:  dd must divide dn.\n";
-      std::cerr << "Got " << dn << "% " << dd << " = " << rem << "\n";
+      std::stringstream ss;
+      ss << "tmatrix::ed_det:  coding error:  dd must divide dn.\n";
+      ss << "Got " << dn << "% " << dd << " = " << rem << "\n";
       exit(1);
     }
     return quot;
@@ -1559,7 +1596,8 @@ public:
     element_type one;
 
     if (!this->is_square()) {
-      std::cerr << "tmatrix::ed_inverse():  non-square input.\n";
+      std::stringstream ss;
+      ss << "tmatrix::ed_inverse():  non-square input.\n";
       exit(1);
     }
 
@@ -1578,7 +1616,8 @@ public:
   // ----------------------------------------------------------------
   void trim_num_rows(int new_num_rows) {
     if ((new_num_rows < 1) || (new_num_rows > this->num_rows)) {
-      std::cerr << "tmatrix trim_num_rows: new count " << new_num_rows
+      std::stringstream ss;
+      ss << "tmatrix trim_num_rows: new count " << new_num_rows
                 << " out of bounds " << 1 << ":" << this->num_rows << std::endl;
       exit(1);
     }
@@ -1627,7 +1666,8 @@ private:
       const tmatrix<element_type> &that, const std::string &msg) const {
     if ((this->num_rows != that.num_rows) ||
         (this->num_cols != that.num_cols)) {
-      std::cerr << "tmatrix " << msg << ":  Incompatibly sized arguments ("
+      std::stringstream ss;
+      ss << "tmatrix " << msg << ":  Incompatibly sized arguments ("
                 << this->num_rows << "x" << this->num_cols << ", "
                 << that.num_rows << "x" << that.num_cols << ")." << std::endl;
       exit(1);
@@ -1666,7 +1706,8 @@ static std::istream &operator>>(std::istream &is, tmatrix<element_type> &m) {
   // then free the old matrix contents.
   if (!m.rows || (m.num_rows < 1) || (m.num_cols < 1)) {
     is.setstate(std::ios::badbit);
-    std::cerr << "tmatrix >>:  must already have one element.\n";
+    std::stringstream ss;
+    ss << "tmatrix >>:  must already have one element.\n";
     delete[] line;
     return is;
   }
@@ -1739,7 +1780,8 @@ static std::istream &operator>>(std::istream &is, tmatrix<element_type> &m) {
     iss >> m.rows[m.num_rows];
     if (iss.fail()) {
       is.setstate(std::ios::failbit);
-      std::cerr << "tmatrix scan failure: \"" << pline << "\"\n";
+      std::stringstream ss;
+      ss << "tmatrix scan failure: \"" << pline << "\"\n";
       delete[] line;
       return is;
     }
@@ -1753,7 +1795,8 @@ static std::istream &operator>>(std::istream &is, tmatrix<element_type> &m) {
 
   if (m.num_rows == 0) {
     is.setstate(std::ios::badbit);
-    std::cerr << "tmatrix >>:  zero-row matrix.\n";
+    std::stringstream ss;
+    ss << "tmatrix >>:  zero-row matrix.\n";
     delete[] line;
     return is;
   }

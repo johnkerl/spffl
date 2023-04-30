@@ -29,7 +29,8 @@ static int check_balance(int argc, char **argv) {
   int depth = 0;
   for (int argi = 0; argi < argc; argi++) {
     if (depth < 0) {
-      std::cerr << "Bracket imbalance.\n";
+      std::stringstream ss;
+      ss << "Bracket imbalance.\n";
       return 0;
     }
     if (strcmp(argv[argi], LBRK) == 0) {
@@ -39,7 +40,8 @@ static int check_balance(int argc, char **argv) {
     }
   }
   if (depth != 0) {
-    std::cerr << "Bracket imbalance.\n";
+    std::stringstream ss;
+    ss << "Bracket imbalance.\n";
     return 0;
   }
   return 1;
@@ -69,7 +71,8 @@ static char *flatten(char *exename, int argc, char **argv) {
   }
   char *rv = (char *)malloc(len);
   if (rv == 0) {
-    std::cerr << "malloc(" << len << ") failed.\n";
+    std::stringstream ss;
+    ss << "malloc(" << len << ") failed.\n";
     exit(1);
   }
   strcpy(rv, exename);
@@ -87,8 +90,8 @@ static void replace(
 
   FILE *pipe = popen(flat_cmd, "r");
   if (pipe == 0) {
-    perror("popen");
-    std::cerr << "Failed popen \"" << flat_cmd << "\".\n";
+    std::stringstream ss;
+    ss << "Failed popen \"" << flat_cmd << "\".\n";
     exit(1);
   }
 
@@ -119,7 +122,8 @@ static void replace(
 
   int check = spffl::base::tokenize(buf, " \t", argvout, argcout);
   if (check != argcout) {
-    std::cerr << "Coding error in replace.\n";
+    std::stringstream ss;
+    ss << "Coding error in replace.\n";
     exit(1);
   }
   // buf is not freed since argvout points into it.
@@ -133,7 +137,8 @@ static void cmd_interpolate_once(
   if (!find_first_bracket(argc, argv, (char *)LBRK, lefti)) {
     int dummy;
     if (find_first_bracket(argc, argv, (char *)RBRK, dummy)) {
-      std::cerr << "Bracket imbalance.\n";
+      std::stringstream ss;
+      ss << "Bracket imbalance.\n";
       exit(1);
     }
     return;

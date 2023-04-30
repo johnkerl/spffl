@@ -27,7 +27,8 @@ tvector<spffl::intmath::intmod_t> fp_vector_from_base_rep(
 spffl::polynomials::fp_poly_t fp_char_poly(
     tmatrix<spffl::intmath::intmod_t> &A) {
   if (!A.is_square()) {
-    std::cerr << "fp_char_poly():  non-square input.\n";
+    std::stringstream ss;
+    ss << "fp_char_poly():  non-square input.\n";
     exit(1);
   }
 

@@ -196,7 +196,8 @@ static void veclexan(vec_lex_ctx_t<element_type> &rlex_ctx) {
 
       if (strchr(rlex_ctx.argv[rlex_ctx.argi], '[')) {
         if (!rlex_ctx.atom.vec_val.bracket_in(rlex_ctx.argv[rlex_ctx.argi])) {
-          std::cerr << "Couldn't scan \"" << rlex_ctx.argv[rlex_ctx.argi]
+          std::stringstream ss;
+          ss << "Couldn't scan \"" << rlex_ctx.argv[rlex_ctx.argi]
                     << "\"\n";
           exit(1);
         }
@@ -205,19 +206,22 @@ static void veclexan(vec_lex_ctx_t<element_type> &rlex_ctx) {
 				if (!rlex_ctx.atom.vec_val.load_from_file(
 					rlex_ctx.argv[rlex_ctx.argi]))
 				{
-					std::cerr << "Couldn't read \""
+					std::stringstream ss;
+          ss << "Couldn't read \""
 						<< rlex_ctx.argv[rlex_ctx.argi]
 						<< "\"\n";
 					exit(1);
 				}
 #else
-        std::cerr << "cmd_line_vector_ops: file I/O not yet implemented.\n";
+        std::stringstream ss;
+        ss << "cmd_line_vector_ops: file I/O not yet implemented.\n";
         exit(1);
 #endif
       }
     }
     if (iss.fail()) {
-      std::cerr << "Scan failure at \"" << s << "\".\n";
+      std::stringstream ss;
+      ss << "Scan failure at \"" << s << "\".\n";
       exit(1);
     }
   }
@@ -271,7 +275,8 @@ static void emit(vec_lex_ctx_t<element_type> &rlex_ctx,
     break;
 
   default:
-    std::cerr << "Unhandled operator "
+    std::stringstream ss;
+    ss << "Unhandled operator "
               << vec_token_desc<element_type>(rlex_ctx.token) << ".\n";
     exit(1);
     break;
@@ -288,7 +293,8 @@ static void emit(vec_lex_ctx_t<element_type> &rlex_ctx,
   case V_V_OP:
   case S_V_OP:
     if (A.atom_type != VEC_ATOM) {
-      std::cerr << "Operator " << vec_token_desc<element_type>(rlex_ctx.token)
+      std::stringstream ss;
+      ss << "Operator " << vec_token_desc<element_type>(rlex_ctx.token)
                 << " requires vector argument.\n";
       exit(1);
     }
@@ -296,21 +302,24 @@ static void emit(vec_lex_ctx_t<element_type> &rlex_ctx,
   case V_VV_OP:
   case I_VV_OP:
     if ((A.atom_type != VEC_ATOM) || (B.atom_type != VEC_ATOM)) {
-      std::cerr << "Operator " << vec_token_desc<element_type>(rlex_ctx.token)
+      std::stringstream ss;
+      ss << "Operator " << vec_token_desc<element_type>(rlex_ctx.token)
                 << " requires two vector arguments.\n";
       exit(1);
     }
     break;
   case I_V_OP:
     if (A.atom_type != VEC_ATOM) {
-      std::cerr << "Operator " << vec_token_desc<element_type>(rlex_ctx.token)
+      std::stringstream ss;
+      ss << "Operator " << vec_token_desc<element_type>(rlex_ctx.token)
                 << " requires one vector argument.\n";
       exit(1);
     }
     break;
   case V_VI_OP:
     if ((A.atom_type != VEC_ATOM) || (B.atom_type != INT_ATOM)) {
-      std::cerr << "Operator " << vec_token_desc<element_type>(rlex_ctx.token)
+      std::stringstream ss;
+      ss << "Operator " << vec_token_desc<element_type>(rlex_ctx.token)
                 << " requires one vector argument "
                 << " and one integer argument.\n";
       exit(1);
@@ -344,7 +353,8 @@ static void emit(vec_lex_ctx_t<element_type> &rlex_ctx,
     break;
 
   default:
-    std::cerr << "Unhandled operator "
+    std::stringstream ss;
+    ss << "Unhandled operator "
               << vec_token_desc<element_type>(rlex_ctx.token) << ".\n";
     exit(1);
     break;
@@ -376,8 +386,9 @@ static void match(vec_lex_ctx_t<element_type> &rlex_ctx, int expected_token) {
   if (rlex_ctx.token == expected_token) {
     veclexan<element_type>(rlex_ctx);
   } else {
-    std::cerr << "Syntax error.\n";
-    std::cerr << "Expected " << vec_token_desc<element_type>(expected_token)
+    std::stringstream ss;
+    ss << "Syntax error.\n";
+    ss << "Expected " << vec_token_desc<element_type>(expected_token)
               << "; got " << vec_token_desc<element_type>(rlex_ctx.token)
               << ".\n";
     exit(1);
@@ -399,7 +410,8 @@ static void P(vec_lex_ctx_t<element_type> &rlex_ctx,
     match<element_type>(rlex_ctx, L_VEC);
     break;
   default:
-    std::cerr << "syntax error at token "
+    std::stringstream ss;
+    ss << "syntax error at token "
               << vec_token_desc<element_type>(rlex_ctx.token) << "\n";
     exit(1);
   }
@@ -543,7 +555,8 @@ void cmd_line_vec_parse(
   while (lex_ctx.token != L_EOL) {
     Q<element_type>(lex_ctx, stack);
     if (!stack.pop(result)) {
-      std::cerr << "Stack underflow.\n";
+      std::stringstream ss;
+      ss << "Stack underflow.\n";
       exit(1);
     }
 
@@ -558,7 +571,8 @@ void cmd_line_vec_parse(
       std::cout << result.int_val << "\n";
       break;
     default:
-      std::cerr << "Coding error file " << __FILE__ << " line " << __LINE__
+      std::stringstream ss;
+      ss << "Coding error file " << __FILE__ << " line " << __LINE__
                 << "\n";
       exit(1);
       break;

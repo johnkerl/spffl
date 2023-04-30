@@ -28,7 +28,8 @@ int f2_polymod_order(spffl::polynomials::f2_polymod_t a) {
   spffl::polynomials::f2_poly_t g = r.gcd(m);
 
   if (g != pol1) {
-    std::cerr << "f2_polymod_order:  zero or zero divisor " << r << " mod " << m
+    std::stringstream ss;
+    ss << "f2_polymod_order:  zero or zero divisor " << r << " mod " << m
               << ".\n";
     exit(1);
   }
@@ -229,7 +230,8 @@ int f2_polymod_log( // Log base g of a.
 
   spffl::polynomials::f2_polymod_t ginv;
   if (!g.recip(ginv)) {
-    std::cerr << "f2_polymod_log:  g="
+    std::stringstream ss;
+    ss << "f2_polymod_log:  g="
               << " is a zero divisor.\n";
     exit(1);
   }
@@ -267,7 +269,8 @@ int f2_polymod_log( // Log base g of a.
 
   if (rv == -1) {
     // xxx
-    std::cerr << "f2_polymod_log:  error message goes here.\n";
+    std::stringstream ss;
+    ss << "f2_polymod_log:  error message goes here.\n";
     exit(1);
   }
 

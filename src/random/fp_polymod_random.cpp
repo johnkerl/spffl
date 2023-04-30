@@ -15,7 +15,8 @@ spffl::polynomials::fp_polymod_t fp_polymod_random(
     const spffl::polynomials::fp_poly_t &m) {
   int deg = m.find_degree();
   if (deg < 1) {
-    std::cerr << "fp_polymod_random:  degree (" << deg << ") of " << m
+    std::stringstream ss;
+    ss << "fp_polymod_random:  degree (" << deg << ") of " << m
               << " should be >= 1.\n";
     exit(1);
   }

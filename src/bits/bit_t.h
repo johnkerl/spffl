@@ -66,7 +66,8 @@ public:
 
   bit_t operator/(bit_t that) {
     if (that.residue == 0) {
-      std::cerr << "bit_t::operator/:  division by zero.\n";
+      std::stringstream ss;
+      ss << "bit_t::operator/:  division by zero.\n";
       exit(1);
     }
     return *this;
@@ -74,7 +75,8 @@ public:
 
   bit_t operator%(bit_t that) {
     if (that.residue == 0) {
-      std::cerr << "bit_t::operator%:  division by zero.\n";
+      std::stringstream ss;
+      ss << "bit_t::operator%:  division by zero.\n";
       exit(1);
     }
     return bit_t(0);
@@ -97,7 +99,8 @@ public:
 
   bit_t &operator/=(bit_t that) {
     if (that.residue == 0) {
-      std::cerr << "bit_t::operator/:  division by zero.\n";
+      std::stringstream ss;
+      ss << "bit_t::operator/:  division by zero.\n";
       exit(1);
     }
     return *this;
@@ -105,7 +108,8 @@ public:
 
   bit_t &operator%=(bit_t that) {
     if (that.residue == 0) {
-      std::cerr << "bit_t::operator/:  division by zero.\n";
+      std::stringstream ss;
+      ss << "bit_t::operator/:  division by zero.\n";
       exit(1);
     }
     this->residue = 0;

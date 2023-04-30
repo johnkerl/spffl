@@ -50,7 +50,8 @@ static void f2_poly_pre_berlekamp(const spffl::polynomials::f2_poly_t &f,
 
   if (g == 0) {
     if (f != 0) {
-      std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
+      std::stringstream ss;
+      ss << "Coding error: file " << __FILE__ << " line " << __LINE__
                 << "\n";
       exit(1);
     }
@@ -67,7 +68,8 @@ static void f2_poly_pre_berlekamp(const spffl::polynomials::f2_poly_t &f,
     spffl::polynomials::f2_poly_t s;
     tfacinfo<spffl::polynomials::f2_poly_t> sfinfo;
     if (!f.square_root(s)) {
-      std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
+      std::stringstream ss;
+      ss << "Coding error: file " << __FILE__ << " line " << __LINE__
                 << "\n";
       exit(1);
     }
@@ -207,12 +209,14 @@ static void f2_poly_berlekamp(const spffl::polynomials::f2_poly_t &f,
   bool got = BI.get_kernel_basis(nullspace_basis);
 
   if (!got) {
-    std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
+    std::stringstream ss;
+    ss << "Coding error: file " << __FILE__ << " line " << __LINE__
               << "\n";
     exit(1);
   }
   if (nullspace_basis.get_num_rows() != dimker) {
-    std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
+    std::stringstream ss;
+    ss << "Coding error: file " << __FILE__ << " line " << __LINE__
               << "\n";
     exit(1);
   }
@@ -257,10 +261,11 @@ static void f2_poly_berlekamp(const spffl::polynomials::f2_poly_t &f,
     spffl::polynomials::f2_poly_t check1 = (h * h) % f;
     spffl::polynomials::f2_poly_t check2 = (hc * hc) % f;
     if ((h != check1) || (hc != check2)) {
-      std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
+      std::stringstream ss;
+      ss << "Coding error: file " << __FILE__ << " line " << __LINE__
                 << "\n";
-      std::cerr << "  h  = " << h << "  h^2  = " << check1 << "\n";
-      std::cerr << "  hc = " << hc << "  hc^2 = " << check2 << "\n";
+      ss << "  h  = " << h << "  h^2  = " << check1 << "\n";
+      ss << "  hc = " << hc << "  hc^2 = " << check2 << "\n";
       exit(1);
     }
 
@@ -298,7 +303,8 @@ static void f2_poly_berlekamp(const spffl::polynomials::f2_poly_t &f,
     }
     return;
   }
-  std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
+  std::stringstream ss;
+  ss << "Coding error: file " << __FILE__ << " line " << __LINE__
             << "\n";
   exit(1);
 }

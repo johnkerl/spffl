@@ -22,7 +22,8 @@ bit_vector_t::bit_vector_t(void) {
 // ----------------------------------------------------------------
 bit_vector_t::bit_vector_t(int init_num_elements) {
   if (init_num_elements <= 0) {
-    std::cerr << "bit_vector_t::bit_vector_t():  Vector size must be"
+    std::stringstream ss;
+    ss << "bit_vector_t::bit_vector_t():  Vector size must be"
               << " > 0; got " << init_num_elements << ".  Exiting."
               << std::endl;
     exit(1);
@@ -37,7 +38,8 @@ bit_vector_t::bit_vector_t(int init_num_elements) {
 // ----------------------------------------------------------------
 bit_vector_t::bit_vector_t(const bit_t &scalar, int init_num_elements) {
   if (init_num_elements <= 0) {
-    std::cerr << "bit_vector_t::bit_vector_t():  Vector size must be"
+    std::stringstream ss;
+    ss << "bit_vector_t::bit_vector_t():  Vector size must be"
               << " > 0; got " << init_num_elements << ".  Exiting."
               << std::endl;
     exit(1);
@@ -59,7 +61,8 @@ bit_vector_t::bit_vector_t(const bit_t &scalar, int init_num_elements) {
 // ----------------------------------------------------------------
 bit_vector_t::bit_vector_t(int scalar, int init_num_elements) {
   if (init_num_elements <= 0) {
-    std::cerr << "bit_vector_t::bit_vector_t():  Vector size must be"
+    std::stringstream ss;
+    ss << "bit_vector_t::bit_vector_t():  Vector size must be"
               << " > 0; got " << init_num_elements << ".  Exiting."
               << std::endl;
     exit(1);
@@ -192,10 +195,11 @@ std::istringstream &operator>>(std::istringstream &iss, bit_vector_t &v) {
     }
     iss >> bit;
     if (iss.fail()) {
-      std::cerr << "bit_vector_t istringstream >>: scan failure"
+      std::stringstream ss;
+      ss << "bit_vector_t istringstream >>: scan failure"
                 << " at vector element " << v.num_bits << ".\n";
-      std::cerr << "String: <<" << iss.str() << ">>\n";
-      std::cerr << "Position: " << iss.tellg() << "\n";
+      ss << "String: <<" << iss.str() << ">>\n";
+      ss << "Position: " << iss.tellg() << "\n";
       return iss;
     }
     if (bit & 1) {
@@ -394,7 +398,8 @@ void bit_vector_t::ptrswap(bit_vector_t &that) {
 // ----------------------------------------------------------------
 void bit_vector_t::check_equal_lengths(const bit_vector_t &that) const {
   if (this->num_bits != that.num_bits) {
-    std::cerr << "bit_vector_t operator+():  Incompatibly sized "
+    std::stringstream ss;
+    ss << "bit_vector_t operator+():  Incompatibly sized "
               << "arguments (" << this->num_bits << ", " << that.num_bits
               << ")." << std::endl;
     exit(1);
@@ -418,7 +423,8 @@ void bit_vector_t::trim(void) {
 // ----------------------------------------------------------------
 void bit_vector_t::bounds_check(int index) const {
   if ((index < 0) || (index >= this->num_bits)) {
-    std::cerr << "bit_vector_t array operator: index " << index
+    std::stringstream ss;
+    ss << "bit_vector_t array operator: index " << index
               << " out of bounds " << 0 << ":" << (this->num_bits - 1)
               << std::endl;
     exit(1);

@@ -14,7 +14,8 @@ namespace spffl::random {
 spffl::polynomials::f2n_poly_t f2n_poly_random(
     const spffl::polynomials::f2_poly_t &m, int deg) {
   if (deg < 0) {
-    std::cerr << "f2n_poly_random:  degree " << deg
+    std::stringstream ss;
+    ss << "f2n_poly_random:  degree " << deg
               << " should be non-negative.\n";
     exit(1);
   }

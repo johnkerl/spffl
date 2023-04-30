@@ -19,7 +19,8 @@ namespace spffl::linalg {
 spffl::polynomials::f2n_poly_t f2_polymod_characteristic_polynomial(
     tmatrix<spffl::polynomials::f2_polymod_t> &A) {
   if (!A.is_square()) {
-    std::cerr << "f2_polymod_characteristic_polynomial():  non-square input.\n";
+    std::stringstream ss;
+    ss << "f2_polymod_characteristic_polynomial():  non-square input.\n";
     exit(1);
   }
 
@@ -163,11 +164,13 @@ bool f2_polymod_matrix_is_diagonalizable(
     spffl::polynomials::f2_polymod_t base_g, ext_g;
 
     if (!spffl::units::f2_polymod_find_generator(base_modulus, base_g)) {
-      std::cerr << "Can't find generator mod " << base_modulus << ".\n";
+      std::stringstream ss;
+      ss << "Can't find generator mod " << base_modulus << ".\n";
       exit(1);
     }
     if (!f2_polymod_convert_prep(base_g, rext_modulus, ext_g)) {
-      std::cerr << "Can't find generator mod " << rext_modulus << ".\n";
+      std::stringstream ss;
+      ss << "Can't find generator mod " << rext_modulus << ".\n";
       exit(1);
     }
 
@@ -242,7 +245,8 @@ bool f2_polymod_matrix_is_diagonalizable(
   //	tmatrix<spffl::polynomials::f2_polymod_t> PD = P * D;
   //	tmatrix<spffl::polynomials::f2_polymod_t> AP = splitA * P;
   //	if (PD != AP) {
-  //		std::cerr << "f2_polymod_matrix_is_diagonalizable: coding
+  //		std::stringstream ss;
+  //    ss << "f2_polymod_matrix_is_diagonalizable: coding
   //error.\n"; 		exit(1);
   //	}
   // }

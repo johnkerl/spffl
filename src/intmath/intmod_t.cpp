@@ -35,11 +35,13 @@ intmod_t intmod_t::exp(int e) const {
     return one;
   } else if (e < 0) {
     if (*this == zero) {
-      std::cerr << "intmod_t::exp:  division by zero.\n";
+      std::stringstream ss;
+      ss << "intmod_t::exp:  division by zero.\n";
       exit(1);
     }
     if (e == -e) {
-      std::cerr << "intmod_t::exp:  can't handle "
+      std::stringstream ss;
+      ss << "intmod_t::exp:  can't handle "
                    "MIN_INT.\n";
       exit(1);
     }
@@ -195,9 +197,10 @@ int intmod_t::get_modulus(void) const { return this->modulus; }
 // ----------------------------------------------------------------
 intmod_t::intmod_t(int arg_residue, int arg_modulus) {
   if (arg_modulus <= 0) {
-    std::cerr << "intmod_t: non-positive modulus " << arg_modulus
+    std::stringstream ss;
+    ss << "intmod_t: non-positive modulus " << arg_modulus
               << " disallowed.";
-    std::cerr << std::endl;
+    ss << std::endl;
     exit(1);
   }
   this->residue = arg_residue;
@@ -228,9 +231,10 @@ void intmod_t::check_moduli(const intmod_t &that) const {
   this->check_modulus();
   that.check_modulus();
   if (this->modulus != that.modulus) {
-    std::cerr << "intmod_t: mixed moduli " << this->modulus << ", "
+    std::stringstream ss;
+    ss << "intmod_t: mixed moduli " << this->modulus << ", "
               << that.modulus << ".";
-    std::cerr << std::endl;
+    ss << std::endl;
     exit(1);
   }
 }
@@ -241,7 +245,8 @@ void intmod_t::check_moduli(const intmod_t &that) const {
 // Yet we don't want such data being used for arithmetic.
 void intmod_t::check_modulus(void) const {
   if (this->modulus == 0) {
-    std::cerr << "intmod_t: unspecified modulus.\n";
+    std::stringstream ss;
+    ss << "intmod_t: unspecified modulus.\n";
     exit(1);
   }
 }
@@ -320,7 +325,8 @@ intmod_t intmod_t::operator%(const intmod_t &that) const {
 
   intmod_t bi;
   if (!that.recip(bi)) {
-    std::cerr << "intmod_t::operator%:  zero or zero divisor: " << that.residue
+    std::stringstream ss;
+    ss << "intmod_t::operator%:  zero or zero divisor: " << that.residue
               << " mod " << that.modulus << ".\n";
     exit(1);
   }

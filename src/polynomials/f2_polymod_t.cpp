@@ -93,7 +93,8 @@ f2_polymod_t f2_polymod_t::operator/(const f2_polymod_t &that) const {
 
   f2_polymod_t bi;
   if (!that.recip(bi)) {
-    std::cerr << "f2_polymod_t::operator/:  zero or zero divisor: "
+    std::stringstream ss;
+    ss << "f2_polymod_t::operator/:  zero or zero divisor: "
               << that.residue << " mod " << that.modulus << ".\n";
     exit(1);
   }
@@ -107,7 +108,8 @@ f2_polymod_t f2_polymod_t::operator%(const f2_polymod_t &that) const {
 
   f2_polymod_t bi;
   if (!that.recip(bi)) {
-    std::cerr << "f2_polymod_t::operator%:  zero or zero divisor: "
+    std::stringstream ss;
+    ss << "f2_polymod_t::operator%:  zero or zero divisor: "
               << that.residue << " mod " << that.modulus << ".\n";
     exit(1);
   }
@@ -122,7 +124,6 @@ bool f2_polymod_t::recip(f2_polymod_t &rinv) const {
 
   // Error check:
   if (g.find_degree() != 0) {
-    // std::cerr << "f2_polymod recip: zero or zero divisor.\n";
     return false;
   } else {
     rinv = f2_polymod_t(a, this->modulus);
@@ -139,17 +140,20 @@ f2_polymod_t f2_polymod_t::exp(int e) const {
 
   if (e == 0) {
     if (*this == zero) {
-      std::cerr << "f2_polymod_t::exp:  0 ^ 0 undefined.\n";
+      std::stringstream ss;
+      ss << "f2_polymod_t::exp:  0 ^ 0 undefined.\n";
       exit(1);
     }
     return one;
   } else if (e < 0) {
     if (*this == zero) {
-      std::cerr << "f2_polymod_t::exp:  division by zero.\n";
+      std::stringstream ss;
+      ss << "f2_polymod_t::exp:  division by zero.\n";
       exit(1);
     }
     if (e == -e) {
-      std::cerr << "f2_polymod_t::exp:  can't handle "
+      std::stringstream ss;
+      ss << "f2_polymod_t::exp:  can't handle "
                    "MIN_INT.\n";
       exit(1);
     }
@@ -299,9 +303,10 @@ void f2_polymod_t::change_modulus(const f2_poly_t &new_modulus) {
 // ----------------------------------------------------------------
 void f2_polymod_t::check_moduli(const f2_polymod_t &that) const {
   if (this->modulus != that.modulus) {
-    std::cerr << "f2_polymod_t: mixed moduli " << this->modulus << ", "
+    std::stringstream ss;
+    ss << "f2_polymod_t: mixed moduli " << this->modulus << ", "
               << that.modulus << ".";
-    std::cerr << std::endl;
+    ss << std::endl;
     exit(1);
   }
 }

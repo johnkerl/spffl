@@ -114,7 +114,8 @@ intrat_t intrat_t::operator%(const intrat_t &that) {
   intrat_t rv;
   intrat_t zero = that - that;
   if (that == zero) {
-    std::cerr << "intrat_t: Divide by zero.\n";
+    std::stringstream ss;
+    ss << "intrat_t: Divide by zero.\n";
     exit(1);
   }
   return zero;
@@ -129,17 +130,20 @@ intrat_t intrat_t::exp(int e) {
 
   if (e == 0) {
     if (*this == zero) {
-      std::cerr << "intrat_t::exp:  0 ^ 0 undefined.\n";
+      std::stringstream ss;
+      ss << "intrat_t::exp:  0 ^ 0 undefined.\n";
       exit(1);
     }
     return one;
   } else if (e < 0) {
     if (*this == zero) {
-      std::cerr << "intrat_t::exp:  division by zero.\n";
+      std::stringstream ss;
+      ss << "intrat_t::exp:  division by zero.\n";
       exit(1);
     }
     if (e == -e) {
-      std::cerr << "intrat_t::exp:  can't handle "
+      std::stringstream ss;
+      ss << "intrat_t::exp:  can't handle "
                    "MIN_INT.\n";
       exit(1);
     }
@@ -332,7 +336,8 @@ int intrat_t::get_denominator(void) const { return this->denom; }
 void intrat_t::simplify(void) {
   int g;
   if (this->denom == 0) {
-    std::cerr << "rat: Divide by zero.\n";
+    std::stringstream ss;
+    ss << "rat: Divide by zero.\n";
     exit(1);
   }
   if (this->denom < 0) {

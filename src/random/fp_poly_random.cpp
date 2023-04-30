@@ -13,7 +13,8 @@ namespace spffl::random {
 // ----------------------------------------------------------------
 spffl::polynomials::fp_poly_t fp_poly_random(int p, int deg) {
   if (deg < 0) {
-    std::cerr << "fp_poly_random:  degree " << deg
+    std::stringstream ss;
+    ss << "fp_poly_random:  degree " << deg
               << " must be non-negative.\n";
     exit(1);
   }

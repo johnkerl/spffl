@@ -28,9 +28,10 @@ int f2n_polymod_order(const spffl::polynomials::f2n_polymod_t &a) {
   spffl::polynomials::f2n_poly_t pol1 = m.prime_subfield_element(1);
 
   if (g != pol1) {
-    std::cerr << "f2n_polymod_order:  zero or zero divisor " << r << " mod "
+    std::stringstream ss;
+    ss << "f2n_polymod_order:  zero or zero divisor " << r << " mod "
               << m << ".\n";
-    std::cerr << "gcd(" << r << ", " << m << ") = " << g << "\n";
+    ss << "gcd(" << r << ", " << m << ") = " << g << "\n";
     exit(1);
   }
 
@@ -134,7 +135,8 @@ int f2n_polymod_log( // Log base g of a.
 
   spffl::polynomials::f2n_polymod_t ginv;
   if (!g.recip(ginv)) {
-    std::cerr << "f2n_polymod_log:  g="
+    std::stringstream ss;
+    ss << "f2n_polymod_log:  g="
               << " is a zero divisor.\n";
     exit(1);
   }
@@ -184,7 +186,8 @@ int f2n_polymod_log( // Log base g of a.
   }
 
   if (rv == -1) {
-    std::cerr << "f2n_polymod_log:  couldn't find log base " << g << " of " << a
+    std::stringstream ss;
+    ss << "f2n_polymod_log:  couldn't find log base " << g << " of " << a
               << " mod " << m << ".\n";
     exit(1);
   }

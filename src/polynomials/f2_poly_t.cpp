@@ -50,7 +50,8 @@ f2_poly_t::f2_poly_t(const std::string &s) {
   std::istringstream iss(s, std::ios_base::in);
   iss >> *this;
   if (iss.fail()) {
-    std::cerr << "f2_poly_t:  could not construct from \"" << s << "\"\n";
+    std::stringstream ss;
+    ss << "f2_poly_t:  could not construct from \"" << s << "\"\n";
     exit(1);
   }
 }
@@ -228,7 +229,8 @@ void f2_poly_t::quot_and_rem(
   divisor_l1_pos = that.find_degree();
   if ((divisor_l1_pos == 0) && (that.parts[0] == 0)) {
     // Divisor is zero.
-    std::cerr << "f2_poly_quot_and_rem:  Divide by zero.\n";
+    std::stringstream ss;
+    ss << "f2_poly_quot_and_rem:  Divide by zero.\n";
     exit(1);
   }
   dividend_l1_pos = this->find_degree();
@@ -331,10 +333,12 @@ f2_poly_t f2_poly_t::exp(int e) const {
   f2_poly_t rv = one;
   if (*this == zero) {
     if (e == 0) {
-      std::cerr << "f2_poly_t::exp:  0 ^ 0 undefined.\n";
+      std::stringstream ss;
+      ss << "f2_poly_t::exp:  0 ^ 0 undefined.\n";
       exit(1);
     } else if (e < 0) {
-      std::cerr << "f2_poly_t::exp:  division by zero.\n";
+      std::stringstream ss;
+      ss << "f2_poly_t::exp:  division by zero.\n";
       exit(1);
     } else {
       return zero;
@@ -345,7 +349,8 @@ f2_poly_t f2_poly_t::exp(int e) const {
   } else {
     // Degree 1 or higher.
     if (e < 0) {
-      std::cerr << "f2_poly_t::exp:  division by non-unit.\n";
+      std::stringstream ss;
+      ss << "f2_poly_t::exp:  division by non-unit.\n";
       exit(1);
     } else {
       while (e != 0) {
@@ -490,7 +495,8 @@ bool f2_poly_t::cmp(int op, const f2_poly_t &that) const {
     return (direction > 0);
     break;
   default:
-    std::cerr << "Ack!\n";
+    std::stringstream ss;
+    ss << "Ack!\n";
     exit(1);
     return false;
     break;
@@ -512,7 +518,8 @@ void f2_poly_t::increment(void) {
 // ----------------------------------------------------------------
 std::ostream &operator<<(std::ostream &os, const f2_poly_t &poly) {
   if (poly.parts.size() <= 0) {
-    std::cerr << "f2_poly_t ostream <<:  empty polynomial.\n";
+    std::stringstream ss;
+    ss << "f2_poly_t ostream <<:  empty polynomial.\n";
     exit(1);
   }
   std::ios_base::fmtflags svflags = os.flags();
@@ -789,7 +796,8 @@ void f2_poly_t::trim_parts(void) {
 }
 void f2_poly_t::check_neg_pos(int pos) const {
   if (pos < 0) {
-    std::cerr << "f2_poly: negative bit position " << pos << " disallowed.\n";
+    std::stringstream ss;
+    ss << "f2_poly: negative bit position " << pos << " disallowed.\n";
     exit(1);
   }
 }

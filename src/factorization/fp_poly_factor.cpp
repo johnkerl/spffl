@@ -65,7 +65,8 @@ static void fp_poly_pre_berlekamp(const spffl::polynomials::fp_poly_t &f,
 
   if (g == 0) {
     if (f != 0) {
-      std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
+      std::stringstream ss;
+      ss << "Coding error: file " << __FILE__ << " line " << __LINE__
                 << "\n";
       exit(1);
     }
@@ -80,7 +81,8 @@ static void fp_poly_pre_berlekamp(const spffl::polynomials::fp_poly_t &f,
     tfacinfo<spffl::polynomials::fp_poly_t> sfinfo;
     int p = f.get_characteristic();
     if (!f.pth_root(s)) {
-      std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
+      std::stringstream ss;
+      ss << "Coding error: file " << __FILE__ << " line " << __LINE__
                 << "\n";
       exit(1);
     }
@@ -179,12 +181,14 @@ static void fp_poly_berlekamp(const spffl::polynomials::fp_poly_t &f,
   // Find a basis for the nullspace of B - I.
   tmatrix<spffl::intmath::intmod_t> nullspace_basis;
   if (!BI.get_kernel_basis(nullspace_basis, zero, one)) {
-    std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
+    std::stringstream ss;
+    ss << "Coding error: file " << __FILE__ << " line " << __LINE__
               << "\n";
     exit(1);
   }
   if (nullspace_basis.get_num_rows() != dimker) {
-    std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
+    std::stringstream ss;
+    ss << "Coding error: file " << __FILE__ << " line " << __LINE__
               << "\n";
     exit(1);
   }
@@ -221,7 +225,8 @@ static void fp_poly_berlekamp(const spffl::polynomials::fp_poly_t &f,
 
   if (!got_it) {
     // No non-trivial factors found.
-    std::cerr << "Coding error: file " << __FILE__ << " line " << __LINE__
+    std::stringstream ss;
+    ss << "Coding error: file " << __FILE__ << " line " << __LINE__
               << "\n";
     exit(1);
   }

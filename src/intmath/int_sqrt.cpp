@@ -18,7 +18,8 @@ static int int_sqrt(int nsigned, bool want_ceil) {
   unsigned half_diff, middle, middle_sq;
 
   if (nsigned < 0) {
-    std::cerr << "int_sqrt:  Can't handle negative input " << nsigned << "\n";
+    std::stringstream ss;
+    ss << "int_sqrt:  Can't handle negative input " << nsigned << "\n";
     exit(1);
   }
 

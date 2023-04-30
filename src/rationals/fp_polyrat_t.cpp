@@ -125,7 +125,8 @@ fp_polyrat_t fp_polyrat_t::operator%(const fp_polyrat_t &that) {
   fp_polyrat_t rv;
   fp_polyrat_t zero = that - that;
   if (that == zero) {
-    std::cerr << "fp_polyrat_t: Divide by zero.\n";
+    std::stringstream ss;
+    ss << "fp_polyrat_t: Divide by zero.\n";
     exit(1);
   }
   return zero;
@@ -140,17 +141,20 @@ fp_polyrat_t fp_polyrat_t::exp(int e) const {
 
   if (e == 0) {
     if (*this == zero) {
-      std::cerr << "fp_polyrat_t::exp:  0 ^ 0 undefined.\n";
+      std::stringstream ss;
+      ss << "fp_polyrat_t::exp:  0 ^ 0 undefined.\n";
       exit(1);
     }
     return one;
   } else if (e < 0) {
     if (*this == zero) {
-      std::cerr << "fp_polyrat_t::exp:  division by zero.\n";
+      std::stringstream ss;
+      ss << "fp_polyrat_t::exp:  division by zero.\n";
       exit(1);
     }
     if (e == -e) {
-      std::cerr << "fp_polyrat_t::exp:  can't handle "
+      std::stringstream ss;
+      ss << "fp_polyrat_t::exp:  can't handle "
                    "MIN_FPPOLY.\n";
       exit(1);
     }
@@ -350,7 +354,8 @@ spffl::polynomials::fp_poly_t fp_polyrat_t::get_denominator(void) const {
 void fp_polyrat_t::simplify(void) {
   spffl::polynomials::fp_poly_t g;
   if (this->denom == 0) {
-    std::cerr << "rat: Divide by zero.\n";
+    std::stringstream ss;
+    ss << "rat: Divide by zero.\n";
     exit(1);
   }
   g = this->numer.gcd(this->denom);

@@ -332,7 +332,8 @@ void fp_poly_t::quot_and_rem(
   spffl::intmath::intmod_t zero = this->coeffs[0] - this->coeffs[0];
 
   if (that == zero) {
-    std::cerr << "fp_poly_t::quot_and_rem:  division by zero.\n";
+    std::stringstream ss;
+    ss << "fp_poly_t::quot_and_rem:  division by zero.\n";
     exit(1);
   }
   if (*this == zero) {
@@ -374,7 +375,8 @@ void fp_poly_t::quot_and_rem(
   spffl::intmath::intmod_t divisor_leader = that.coeffs[divisor_degree];
   spffl::intmath::intmod_t dlinv;
   if (!divisor_leader.recip(dlinv)) {
-    std::cerr << "fp_poly_t::quot_and_rem:  zero or zero divisor "
+    std::stringstream ss;
+    ss << "fp_poly_t::quot_and_rem:  zero or zero divisor "
               << "in leading coefficient " << divisor_leader << "\n"
               << "  of divisor " << that << ".\n";
     exit(1);
@@ -394,7 +396,8 @@ void fp_poly_t::quot_and_rem(
   // Quotient degree must be the difference of dividend and divisor
   // degrees.  If not, we have made a mistake.
   if (quot.coeffs[quot.degree] == zero) {
-    std::cerr << "fp_poly_t division: coding error.\n";
+    std::stringstream ss;
+    ss << "fp_poly_t division: coding error.\n";
     exit(1);
   }
 
@@ -481,10 +484,12 @@ fp_poly_t fp_poly_t::exp(int e) const {
 
   if (*this == zero) {
     if (e == 0) {
-      std::cerr << "fp_poly_t::exp:  0 ^ 0 undefined.\n";
+      std::stringstream ss;
+      ss << "fp_poly_t::exp:  0 ^ 0 undefined.\n";
       exit(1);
     } else if (e < 0) {
-      std::cerr << "fp_poly_t::exp:  division by zero.\n";
+      std::stringstream ss;
+      ss << "fp_poly_t::exp:  division by zero.\n";
       exit(1);
     } else {
       return zero;
@@ -495,7 +500,8 @@ fp_poly_t fp_poly_t::exp(int e) const {
   } else {
     // Degree 1 or higher.
     if (e < 0) {
-      std::cerr << "fp_poly_t::exp:  division by non-unit.\n";
+      std::stringstream ss;
+      ss << "fp_poly_t::exp:  division by non-unit.\n";
       exit(1);
     } else {
       while (e != 0) {
@@ -714,7 +720,8 @@ bool fp_poly_t::cmp(int cmp, const fp_poly_t &that) const {
     return (direction > 0);
     break;
   default:
-    std::cerr << "Ack!\n";
+    std::stringstream ss;
+    ss << "Ack!\n";
     exit(1);
     return false;
     break;
@@ -741,7 +748,8 @@ void fp_poly_t::increment(void) {
 // ----------------------------------------------------------------
 void fp_poly_t::bounds_check(int deg) const {
   if ((deg < 0) || (deg > this->degree)) {
-    std::cerr << "fp_poly_t: degree " << deg
+    std::stringstream ss;
+    ss << "fp_poly_t: degree " << deg
               << " out of bounds 0:" << this->degree << ".\n";
     exit(1);
   }
@@ -834,9 +842,10 @@ bool fp_poly_t::from_string(const std::string &string, int p) {
     for (si = 0, ci = this->degree; si < len; si++, ci--) {
       char ascii_digit = string[si];
       if ((ascii_digit < '0') || (ascii_digit > '9')) {
-        std::cerr << "fp_poly_t::from_string: "
+        std::stringstream ss;
+        ss << "fp_poly_t::from_string: "
                   << "non-numerical input \"" << string << "\"\n";
-        std::cerr << "Didn't like '" << ascii_digit << "'\n";
+        ss << "Didn't like '" << ascii_digit << "'\n";
         return false;
       }
       this->coeffs[ci] = spffl::intmath::intmod_t(ascii_digit - '0', p);
@@ -861,7 +870,8 @@ bool fp_poly_t::from_string(const std::string &string, int p) {
       std::istringstream iss(argv[argi], std::ios_base::in);
       iss >> r;
       if (iss.fail()) {
-        std::cerr << "fp_poly_t::from_string: "
+        std::stringstream ss;
+        ss << "fp_poly_t::from_string: "
                   << "scan failure at \"" << string << "\"\n";
         return false;
       } else {
@@ -879,7 +889,8 @@ bool fp_poly_t::from_string(const std::string &string, int p) {
 // ----------------------------------------------------------------
 void fp_poly_t::promote(void) {
   if (!this->coeffs) {
-    std::cerr << "fp_poly_t::promote: null data.\n";
+    std::stringstream ss;
+    ss << "fp_poly_t::promote: null data.\n";
     exit(1);
   }
   spffl::intmath::intmod_t *ocoeffs = this->coeffs;

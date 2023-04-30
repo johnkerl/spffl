@@ -132,7 +132,8 @@ public:
   // ----------------------------------------------------------------
   void bounds_check(int which) const {
     if ((which < 0) || (which >= this->num_distinct)) {
-      std::cerr << "tfacinfo:  index " << which
+      std::stringstream ss;
+      ss << "tfacinfo:  index " << which
                 << " out of bounds 0:" << this->num_distinct - 1 << ".\n";
       exit(1);
     }
@@ -262,11 +263,13 @@ public:
 
     if (x == zero) {
       if (e < 0) {
-        std::cerr << "Division by zero.\n";
+        std::stringstream ss;
+        ss << "Division by zero.\n";
         exit(1);
       }
       if (e == 0) {
-        std::cerr << "0 ^ 0 undefined.\n";
+        std::stringstream ss;
+        ss << "0 ^ 0 undefined.\n";
         exit(1);
       }
       return zero;
@@ -280,7 +283,8 @@ public:
 
     if (e < 0) {
       if (e == -e) {
-        std::cerr << "Can't handle MIN_INT.\n";
+        std::stringstream ss;
+        ss << "Can't handle MIN_INT.\n";
         exit(1);
       }
       xp = one / x;
@@ -372,7 +376,8 @@ public:
   int get_num_divisors(void) const {
     if (this->num_distinct <= 0) {
       if (!this->have_unit) {
-        std::cerr << "tfacinfo::get_num_divisors():  "
+        std::stringstream ss;
+        ss << "tfacinfo::get_num_divisors():  "
                      "No factors have been inserted.\n";
         exit(1);
       }
@@ -397,7 +402,8 @@ public:
         // if (k == 0)
         return one;
       } else {
-        std::cerr << "tfacinfo::get_kth_divisor():  "
+        std::stringstream ss;
+        ss << "tfacinfo::get_kth_divisor():  "
                      "No factors have been inserted.\n";
         exit(1);
       }
@@ -420,7 +426,8 @@ public:
   tvector<element_type> get_all_divisors(element_type one) const {
     if (this->num_distinct <= 0) {
       if (!this->have_unit) {
-        std::cerr << "tfacinfo::get_all_divisors():  "
+        std::stringstream ss;
+        ss << "tfacinfo::get_all_divisors():  "
                   << "No factors have been inserted.\n";
         exit(1);
       }
@@ -440,7 +447,8 @@ public:
       tvector<element_type> &rv, element_type one) const {
     if (this->num_distinct <= 0) {
       if (!this->have_unit) {
-        std::cerr << "tfacinfo::get_maximal_proper_divisors():  "
+        std::stringstream ss;
+        ss << "tfacinfo::get_maximal_proper_divisors():  "
                   << "No factors have been inserted.\n";
         exit(1);
       } else {
