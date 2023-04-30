@@ -1,4 +1,4 @@
-================================================================
+===============================================================
 ! ctest passes
   o f2_poly_t: promote x n; demote; bit_at; set_bit; sqroot
 ! installable headers/libspffl.so/bins; internals vs externals
@@ -7,6 +7,7 @@
     - or, just build both
   o install our CMakeList.txt
   o try to get lib sources from globbing
+! pre-cmake content
 
 * char* vs string literals
 * more std::string all around
