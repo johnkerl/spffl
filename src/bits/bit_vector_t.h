@@ -62,7 +62,7 @@ public:
   bit_vector_t(const bit_vector_t &that);
   ~bit_vector_t(void);
 
-  bit_vector_t &operator=(const bit_vector_t that);
+  bit_vector_t &operator=(const bit_vector_t &that);
   bit_vector_t &operator=(const bit_t &scalar);
 
   // I/O format:  all elements on one line, delimited by whitespace.
@@ -133,11 +133,11 @@ public:
   bit_t dot(const bit_vector_t &that);
 
   // Componentwise division.
-  bit_vector_t operator/(bit_vector_t that);
-  bit_vector_t operator+=(bit_vector_t that);
-  bit_vector_t operator-=(bit_vector_t that);
+  bit_vector_t operator/(const bit_vector_t &that);
+  bit_vector_t operator+=(const bit_vector_t &that);
+  bit_vector_t operator-=(const bit_vector_t &that);
   bit_vector_t operator*=(bit_t scalar);
-  bit_vector_t operator*=(bit_vector_t that);
+  bit_vector_t operator*=(const bit_vector_t &that);
 
   bool operator==(const bit_vector_t &that) const;
   bool operator!=(const bit_vector_t &that) const;

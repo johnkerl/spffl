@@ -62,7 +62,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  tfacinfo<element_type> &operator=(tfacinfo<element_type> that) {
+  tfacinfo<element_type> &operator=(const tfacinfo<element_type> &that) {
     if (this->pfactors_and_counts) {
       delete[] this->pfactors_and_counts;
     }
@@ -138,14 +138,14 @@ public:
   }
 
   // ----------------------------------------------------------------
-  void insert_factor(element_type e) { this->insert_factor(e, 1); }
+  void insert_factor(const element_type &e) { this->insert_factor(e, 1); }
 
   // ----------------------------------------------------------------
   // If the element is found, returns its index.  Else, returns the index
   // at which it should be located in order to preserve sorted factors.
 
 private:
-  bool find(element_type &re, int &ridx) {
+  bool find(const element_type &e, int &ridx) {
 #if 0
 	// Need to find the bug.
 
@@ -159,11 +159,11 @@ private:
 		int right = this->num_distinct - 1;
 		int mid  = (right + left) / 2;
 
-		if (re < this->pfactors_and_counts[left].factor) {
+		if (e < this->pfactors_and_counts[left].factor) {
 			ridx = left;
 			return false;
 		}
-		if (re > this->pfactors_and_counts[right].factor) {
+		if (e > this->pfactors_and_counts[right].factor) {
 			ridx = right + 1;
 			return false;
 		}
@@ -172,17 +172,17 @@ private:
 		while (1) {
 			if ((left == mid) || (mid == right)) {
 				ridx = mid;
-				if (re == this->pfactors_and_counts[mid].factor)
+				if (e == this->pfactors_and_counts[mid].factor)
 					return true;
-				if (re > this->pfactors_and_counts[mid].factor)
+				if (e > this->pfactors_and_counts[mid].factor)
 					ridx++;
 				return false;
 			}
-			if (re == this->pfactors_and_counts[mid].factor) {
+			if (e == this->pfactors_and_counts[mid].factor) {
 				ridx = mid;
 				return true;
 			}
-			else if (re < this->pfactors_and_counts[mid].factor) {
+			else if (e < this->pfactors_and_counts[mid].factor) {
 				right = mid;
 			}
 			else {
@@ -191,17 +191,17 @@ private:
 			mid  = (right + left) / 2;
 		}
 		ridx = mid;
-		if (re > this->pfactors_and_counts[mid].factor)
+		if (e > this->pfactors_and_counts[mid].factor)
 			ridx++;
 		return false;
 #else
     // Linear search.
     for (int i = 0; i < this->num_distinct; i++) {
-      if (re == this->pfactors_and_counts[i].factor) {
+      if (e == this->pfactors_and_counts[i].factor) {
         ridx = i;
         return true;
       }
-      if (re < this->pfactors_and_counts[i].factor) {
+      if (e < this->pfactors_and_counts[i].factor) {
         ridx = i;
         return false;
       }
@@ -213,7 +213,7 @@ private:
 
 public:
   // ----------------------------------------------------------------
-  void insert_factor(element_type e, int count) {
+  void insert_factor(const element_type &e, int count) {
     int idx = 0;
 
     // Insert a repeated factor.
@@ -244,7 +244,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  void insert_unit(element_type e) {
+  void insert_unit(const element_type &e) {
     if (this->have_unit) {
       this->unit *= e;
     } else {
@@ -310,7 +310,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  void merge(tfacinfo<element_type> &that) {
+  void merge(const tfacinfo<element_type> &that) {
     for (int i = 0; i < that.num_distinct; i++) {
       this->insert_factor(that.pfactors_and_counts[i].factor,
           that.pfactors_and_counts[i].count);

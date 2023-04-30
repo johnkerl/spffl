@@ -96,7 +96,7 @@ bit_vector_t::~bit_vector_t(void) {
 }
 
 // ----------------------------------------------------------------
-bit_vector_t &bit_vector_t::operator=(const bit_vector_t that) {
+bit_vector_t &bit_vector_t::operator=(const bit_vector_t &that) {
   this->num_bits  = that.num_bits;
   this->num_words = that.num_words;
   if (this->words == 0) {
@@ -302,13 +302,13 @@ bit_t bit_vector_t::dot(const bit_vector_t &that) {
 }
 
 // ----------------------------------------------------------------
-bit_vector_t bit_vector_t::operator+=(bit_vector_t that) {
+bit_vector_t bit_vector_t::operator+=(const bit_vector_t &that) {
   for (int i = 0; i < this->num_words; i++) {
     this->words[i] ^= that.words[i];
   }
   return *this;
 }
-bit_vector_t bit_vector_t::operator-=(bit_vector_t that) {
+bit_vector_t bit_vector_t::operator-=(const bit_vector_t &that) {
   for (int i = 0; i < this->num_words; i++) {
     this->words[i] ^= that.words[i];
   }
@@ -322,7 +322,7 @@ bit_vector_t bit_vector_t::operator*=(bit_t scalar) {
   }
   return *this;
 }
-bit_vector_t bit_vector_t::operator*=(bit_vector_t that) {
+bit_vector_t bit_vector_t::operator*=(const bit_vector_t &that) {
   this->check_equal_lengths(that);
   for (int i = 0; i < this->num_words; i++) {
     this->words[i] &= that.words[i];

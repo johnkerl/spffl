@@ -21,7 +21,6 @@
 * commenting pass
 * get rid of _1 _2 etc in test names
 * more pass-by-reference
-* more constness
 * STL replacements
   o pointer+length to std::vec/std::span
   ? bitvec to STL -- ?

@@ -309,7 +309,7 @@ public:
   // Operators
 
   // ----------------------------------------------------------------
-  tmatrix<element_type> &operator=(const element_type scalar) {
+  tmatrix<element_type> &operator=(const element_type &scalar) {
     if (this->rows) {
       for (int i = 0; i < this->num_rows; i++) {
         for (int j = 0; j < this->num_cols; j++) {
@@ -327,7 +327,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  tmatrix<element_type> &operator=(tmatrix<element_type> that) {
+  tmatrix<element_type> &operator=(const tmatrix<element_type> &that) {
     int i;
 
     if ((this->num_rows == that.num_rows) &&
@@ -379,7 +379,7 @@ public:
   bool operator!=(const element_type &e) const { return !(*this == e); }
 
   // ----------------------------------------------------------------
-  tvector<element_type> &operator[](int row_index) {
+  tvector<element_type> &operator[](int row_index) const {
     if ((row_index < 0) || (row_index >= this->num_rows)) {
       std::cerr << "tmatrix array operator: row index " << row_index
                 << " out of bounds " << 0 << ":" << (this->num_rows - 1)

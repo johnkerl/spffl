@@ -55,7 +55,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  tvector(element_type e, int init_num_elements) {
+  tvector(const element_type &e, int init_num_elements) {
     if (init_num_elements <= 0) {
       std::cerr << "tvector::tvector():  Vector size must be > 0; got "
                 << init_num_elements << ".  Exiting." << std::endl;
@@ -91,7 +91,7 @@ public:
   // Operators
 
   // ----------------------------------------------------------------
-  tvector<element_type> &operator=(tvector<element_type> that) {
+  tvector<element_type> &operator=(const tvector<element_type> &that) {
     this->num_elements = that.num_elements;
     if (this->elements == 0) {
       this->elements = new element_type[that.num_elements];
@@ -199,7 +199,7 @@ public:
   // ----------------------------------------------------------------
   // For this method, the vector may have the default constructor.
   // The "zero" argument is used to set the modulus for parameterized types.
-  bool load_from_file(char *file_name, element_type zero) {
+  bool load_from_file(char *file_name, const element_type &zero) {
     if (this->elements) {
       delete[] this->elements;
     }
@@ -239,7 +239,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  tvector<element_type> operator+(tvector<element_type> that) {
+  tvector<element_type> operator+(const tvector<element_type> &that) const {
     this->check_equal_lengths(that);
     tvector<element_type> rv(this->num_elements);
     for (int i = 0; i < this->num_elements; i++) {
@@ -249,7 +249,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  tvector<element_type> operator-(tvector<element_type> that) {
+  tvector<element_type> operator-(const tvector<element_type> &that) const {
     this->check_equal_lengths(that);
     tvector<element_type> rv(this->num_elements);
     for (int i = 0; i < this->num_elements; i++) {
@@ -259,7 +259,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  tvector<element_type> operator-(void) {
+  tvector<element_type> operator-(void) const {
     tvector<element_type> rv(this->num_elements);
     for (int i = 0; i < this->num_elements; i++) {
       rv.elements[i] = -this->elements[i];
@@ -268,7 +268,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  tvector<element_type> operator*(element_type s) {
+  tvector<element_type> operator*(const element_type &s) const {
     tvector<element_type> rv(this->num_elements);
     for (int i = 0; i < this->num_elements; i++) {
       rv.elements[i] = this->elements[i] * s;
@@ -283,7 +283,7 @@ public:
   // Use dot() (e.g. u.dot(v)) for inner product, or tmatrix's outer() (e.g.
   // tmatrix::outer(u, v)) for outer product.
 
-  tvector<element_type> operator*(tvector<element_type> that) {
+  tvector<element_type> operator*(const tvector<element_type> &that) const {
     this->check_equal_lengths(that);
     tvector<element_type> rv(this->num_elements);
     for (int i = 0; i < this->num_elements; i++) {
@@ -295,7 +295,7 @@ public:
   // ----------------------------------------------------------------
   // (Row) vector times matrix.
 
-  tvector<element_type> operator*(tmatrix<element_type> A) {
+  tvector<element_type> operator*(const tmatrix<element_type> &A) const {
     int i, j;
     int Anr = A.get_num_rows();
     int Anc = A.get_num_cols();
@@ -328,7 +328,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  element_type dot(tvector<element_type> that) {
+  element_type dot(const tvector<element_type> &that) {
     this->check_equal_lengths(that);
     element_type rv = this->elements[0] - this->elements[0];
     for (int i = 0; i < this->num_elements; i++) {
@@ -349,7 +349,7 @@ public:
 
   // ----------------------------------------------------------------
   // Componentwise division.
-  tvector<element_type> operator/(tvector<element_type> that) {
+  tvector<element_type> operator/(const tvector<element_type> &that) const {
     this->check_equal_lengths(that);
     tvector<element_type> rv(this->num_elements);
     for (int i = 0; i < this->num_elements; i++) {
@@ -359,33 +359,33 @@ public:
   }
 
   // ----------------------------------------------------------------
-  tvector<element_type> operator+=(tvector<element_type> that) {
+  tvector<element_type> operator+=(const tvector<element_type> &that) {
     *this = *this + that;
     return *this;
   }
-  tvector<element_type> operator-=(tvector<element_type> that) {
+  tvector<element_type> operator-=(const tvector<element_type> &that) {
     *this = *this - that;
     return *this;
   }
-  tvector<element_type> operator*=(element_type e) {
+  tvector<element_type> operator*=(const element_type &e) {
     for (int i = 0; i < this->num_elements; i++) {
       this->elements[i] *= e;
     }
     return *this;
   }
-  void mult_by(element_type e) {
+  void mult_by(const element_type &e) {
     for (int i = 0; i < this->num_elements; i++) {
       this->elements[i] *= e;
     }
   }
-  tvector<element_type> operator*=(tvector<element_type> that) {
+  tvector<element_type> operator*=(const tvector<element_type> &that) {
     this->check_equal_lengths(that);
     for (int i = 0; i < this->num_elements; i++) {
       this->elements[i] *= that.elements[i];
     }
     return *this;
   }
-  tvector<element_type> operator/=(element_type e) {
+  tvector<element_type> operator/=(const element_type &e) {
     for (int i = 0; i < this->num_elements; i++) {
       this->elements[i] /= e;
     }
@@ -420,7 +420,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  bool operator==(tvector<element_type> &that) {
+  bool operator==(const tvector<element_type> &that) const {
     if (this->num_elements != that.num_elements) {
       return false;
     }
@@ -433,10 +433,10 @@ public:
   }
 
   // ----------------------------------------------------------------
-  bool operator!=(tvector<element_type> &that) { return !(*this == that); }
+  bool operator!=(const tvector<element_type> &that) const { return !(*this == that); }
 
   // ----------------------------------------------------------------
-  bool operator==(element_type e) {
+  bool operator==(const element_type &e) const {
     for (int i = 0; i < this->num_elements; i++) {
       if (this->elements[i] != e) {
         return false;
@@ -446,7 +446,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  bool operator!=(element_type e) { return !(*this == e); }
+  bool operator!=(const element_type &e) const { return !(*this == e); }
 
   // ----------------------------------------------------------------
   // Return value:  True/false.  rpos:  index, if found.
@@ -477,7 +477,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  void check_equal_lengths(tvector<element_type> &that) {
+  void check_equal_lengths(const tvector<element_type> &that) const {
     if (this->num_elements != that.num_elements) {
       std::cerr << "tvector operator+():  Incompatibly sized arguments ("
                 << this->num_elements << ", " << that.num_elements << ")."
