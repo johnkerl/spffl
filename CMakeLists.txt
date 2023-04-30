@@ -12,8 +12,18 @@ set(CMAKE_CXX_STANDARD 20 CACHE STRING "C++ Standard")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_subdirectory(src)
+add_subdirectory(lib)
 add_subdirectory(cli)
 
 enable_testing()
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules/")
 add_subdirectory(test)
+
+# ----------------------------------------------------------------
+install(
+  DIRECTORY "src/" # The trailing slash is important so "src" isn't a part of the install path
+  DESTINATION "spffl/include"
+  FILES_MATCHING PATTERN "*.h"
+)
+install(TARGETS spffl DESTINATION lib)
+install(TARGETS spiff DESTINATION bin)
