@@ -131,7 +131,7 @@ fp_polyrat_t fp_polyrat_t::operator%(fp_polyrat_t that) {
 }
 
 // ----------------------------------------------------------------
-fp_polyrat_t fp_polyrat_t::exp(int e) {
+fp_polyrat_t fp_polyrat_t::exp(int e) const {
   fp_polyrat_t xp = *this;
   fp_polyrat_t zero(this->numer.prime_sfld_elt(0));
   fp_polyrat_t one(this->numer.prime_sfld_elt(1));

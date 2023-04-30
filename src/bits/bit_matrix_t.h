@@ -47,7 +47,7 @@ public:
 
   // Return value is 1 for success, 0 for failure (i.e. non-positive
   // exponent of a singular matrix).
-  int exp(int power, bit_matrix_t &rout);
+  int exp(int power, bit_matrix_t &rout) const;
 
   bit_matrix_t &operator+=(const bit_matrix_t &that);
   bit_matrix_t &operator-=(const bit_matrix_t &that);
@@ -112,7 +112,7 @@ private:
   void check_dims(const bit_matrix_t that, char *msg) const;
 
   // This is a private auxiliary function for the exp() method.
-  bit_matrix_t posexp(int power, bit_matrix_t &I);
+  bit_matrix_t posexp(int power, bit_matrix_t &I) const;
 };
 
 } // namespace spffl::bits

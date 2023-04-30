@@ -380,7 +380,7 @@ bit_vector_t bit_matrix_t::operator*(const bit_vector_t &v) const {
 // ----------------------------------------------------------------
 // This is a private auxiliary function for the exp() method.
 
-bit_matrix_t bit_matrix_t::posexp(int power, bit_matrix_t &I) {
+bit_matrix_t bit_matrix_t::posexp(int power, bit_matrix_t &I) const {
   bit_matrix_t a2(*this);
   bit_matrix_t apower = I;
 
@@ -399,7 +399,7 @@ bit_matrix_t bit_matrix_t::posexp(int power, bit_matrix_t &I) {
 // * power ==  0:
 // * power <= -1:  if singular, ret 0.  else invert & posexp the inverse.
 
-int bit_matrix_t::exp(int power, bit_matrix_t &rout) {
+int bit_matrix_t::exp(int power, bit_matrix_t &rout) const {
   if (!this->is_square()) {
     std::cerr << "bit_matrix_t::exp():  non-square input.\n";
     exit(1);

@@ -35,7 +35,7 @@ public:
   fp_polyrat_t operator*(fp_polyrat_t that);
   fp_polyrat_t operator/(fp_polyrat_t that);
   fp_polyrat_t operator%(fp_polyrat_t that);
-  fp_polyrat_t exp(int e);
+  fp_polyrat_t exp(int e) const;
   friend std::ostream &operator<<(std::ostream &os, const fp_polyrat_t &a);
   friend std::istream &operator>>(std::istream &is, fp_polyrat_t &a);
   friend std::istringstream &operator>>(

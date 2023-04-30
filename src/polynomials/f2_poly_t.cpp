@@ -121,7 +121,7 @@ f2_poly_t f2_poly_t::prime_sfld_elt(int v) const { return f2_poly_t(v & 1); }
 int f2_poly_t::get_characteristic(void) { return 2; }
 
 // ----------------------------------------------------------------
-f2_poly_t &f2_poly_t::operator=(f2_poly_t that) {
+f2_poly_t &f2_poly_t::operator=(const f2_poly_t &that) {
   if (this->parts) {
     delete[] this->parts;
   }
@@ -145,7 +145,7 @@ f2_poly_t &f2_poly_t::operator=(int bit) {
 }
 
 // ----------------------------------------------------------------
-f2_poly_t f2_poly_t::operator+(f2_poly_t that) const {
+f2_poly_t f2_poly_t::operator+(const f2_poly_t &that) const {
   int i;
   f2_poly_t rv;
 
@@ -174,13 +174,13 @@ f2_poly_t f2_poly_t::operator+(f2_poly_t that) const {
 }
 
 // ----------------------------------------------------------------
-f2_poly_t f2_poly_t::operator-(f2_poly_t that) const { return *this + that; }
+f2_poly_t f2_poly_t::operator-(const f2_poly_t &that) const { return *this + that; }
 
 // ----------------------------------------------------------------
 f2_poly_t f2_poly_t::operator-(void) const { return *this; }
 
 // ----------------------------------------------------------------
-f2_poly_t f2_poly_t::operator*(f2_poly_t that) const {
+f2_poly_t f2_poly_t::operator*(const f2_poly_t &that) const {
   f2_poly_t out;
   int adeg = this->find_degree();
   int bdeg = that.find_degree();
@@ -204,7 +204,7 @@ f2_poly_t f2_poly_t::operator*(f2_poly_t that) const {
 }
 
 // ----------------------------------------------------------------
-f2_poly_t f2_poly_t::operator*(int bit) {
+f2_poly_t f2_poly_t::operator*(int bit) const {
   if (bit & 1) {
     return *this;
   } else {
@@ -212,13 +212,13 @@ f2_poly_t f2_poly_t::operator*(int bit) {
   }
 }
 // ----------------------------------------------------------------
-f2_poly_t f2_poly_t::operator/(f2_poly_t that) {
+f2_poly_t f2_poly_t::operator/(const f2_poly_t &that) const {
   f2_poly_t quot, rem;
   this->quot_and_rem(that, quot, rem);
   return quot;
 }
 // ----------------------------------------------------------------
-f2_poly_t f2_poly_t::operator%(f2_poly_t that) {
+f2_poly_t f2_poly_t::operator%(const f2_poly_t &that) const {
   f2_poly_t quot, rem;
   this->quot_and_rem(that, quot, rem);
   return rem;
@@ -267,7 +267,7 @@ f2_poly_t &f2_poly_t::operator%=(const f2_poly_t &that) {
 // dividend = *this
 // divisor  =  that
 void f2_poly_t::quot_and_rem(
-    f2_poly_t &that, f2_poly_t &rquot, f2_poly_t &rrem) {
+    const f2_poly_t &that, f2_poly_t &rquot, f2_poly_t &rrem) const {
   int dividend_l1_pos;
   int divisor_l1_pos;
   int l1_diff;
@@ -309,7 +309,7 @@ void f2_poly_t::quot_and_rem(
   rrem  = rem;
 }
 // ----------------------------------------------------------------
-f2_poly_t f2_poly_t::gcd(f2_poly_t &that) {
+f2_poly_t f2_poly_t::gcd(const f2_poly_t &that) const {
   f2_poly_t c, q, r;
   f2_poly_t d; // Return value.
   if (*this == 0) {
@@ -371,7 +371,7 @@ f2_poly_t f2_poly_t::ext_gcd(
   return d;
 }
 // ----------------------------------------------------------------
-f2_poly_t f2_poly_t::exp(int e) {
+f2_poly_t f2_poly_t::exp(int e) const {
   int deg      = this->find_degree();
   f2_poly_t xp = *this;
   f2_poly_t zero(0);
@@ -408,7 +408,7 @@ f2_poly_t f2_poly_t::exp(int e) {
   }
 }
 // ----------------------------------------------------------------
-f2_poly_t f2_poly_t::deriv(void) {
+f2_poly_t f2_poly_t::deriv(void) const {
   f2_poly_t rv = *this;
   rv._demote_1();
   for (int i = 0; i < rv.num_parts; i++) {
@@ -422,7 +422,7 @@ f2_poly_t f2_poly_t::deriv(void) {
 //
 // in  = a4 x^4 + a2 x^2 + a0
 // out = a4 x^2 + a2 x   + a0
-bool f2_poly_t::square_root(f2_poly_t &rroot) {
+bool f2_poly_t::square_root(f2_poly_t &rroot) const {
   int si, di;
   int deg = this->find_degree();
   f2_poly_t root(0);
@@ -438,11 +438,11 @@ bool f2_poly_t::square_root(f2_poly_t &rroot) {
   return true;
 }
 // ----------------------------------------------------------------
-spffl::bits::bit_t f2_poly_t::eval(spffl::bits::bit_t c) {
+spffl::bits::bit_t f2_poly_t::eval(spffl::bits::bit_t c) const {
   return spffl::bits::bit_t(this->eval(c.get_residue()));
 }
 // ----------------------------------------------------------------
-int f2_poly_t::eval(int c) {
+int f2_poly_t::eval(int c) const {
   if (c & 1) {
     return this->zcount_one_bits();
   } else {
@@ -450,7 +450,7 @@ int f2_poly_t::eval(int c) {
   }
 }
 // ----------------------------------------------------------------
-int f2_poly_t::zcount_one_bits(void) {
+int f2_poly_t::zcount_one_bits(void) const {
   return 1 & spffl::bits::count_one_bits((unsigned char *)this->parts,
                  this->num_parts * sizeof(this->parts[0]));
 }
@@ -474,25 +474,25 @@ bool f2_poly_t::operator==(int v) const {
   return this->parts[0] == (uint64_t)(v & 1);
 }
 bool f2_poly_t::operator!=(int v) const { return !(*this == v); }
-bool f2_poly_t::operator==(f2_poly_t that) const {
+bool f2_poly_t::operator==(const f2_poly_t &that) const {
   return this->cmp(CMP_EQ, that);
 }
-bool f2_poly_t::operator!=(f2_poly_t that) const {
+bool f2_poly_t::operator!=(const f2_poly_t &that) const {
   return this->cmp(CMP_NE, that);
 }
-bool f2_poly_t::operator<(f2_poly_t that) const {
+bool f2_poly_t::operator<(const f2_poly_t &that) const {
   return this->cmp(CMP_LT, that);
 }
-bool f2_poly_t::operator>(f2_poly_t that) const {
+bool f2_poly_t::operator>(const f2_poly_t &that) const {
   return this->cmp(CMP_GT, that);
 }
-bool f2_poly_t::operator<=(f2_poly_t that) const {
+bool f2_poly_t::operator<=(const f2_poly_t &that) const {
   return this->cmp(CMP_LE, that);
 }
-bool f2_poly_t::operator>=(f2_poly_t that) const {
+bool f2_poly_t::operator>=(const f2_poly_t &that) const {
   return this->cmp(CMP_GE, that);
 }
-bool f2_poly_t::cmp(int op, f2_poly_t &that) const {
+bool f2_poly_t::cmp(int op, const f2_poly_t &that) const {
   int direction = 0; // -1 = less, 0 = equal, +1 = greater;
   int i;
   int adeg = this->find_degree();
@@ -849,6 +849,6 @@ void f2_poly_t::check_neg_pos(int pos) const {
 } // namespace spffl::polynomials
 // ----------------------------------------------------------------
 spffl::polynomials::f2_poly_t gcd(
-    spffl::polynomials::f2_poly_t a, spffl::polynomials::f2_poly_t b) {
+    const spffl::polynomials::f2_poly_t &a, const spffl::polynomials::f2_poly_t &b) {
   return a.gcd(b);
 }

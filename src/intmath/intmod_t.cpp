@@ -17,7 +17,7 @@ intmod_t intmod_t::prime_sfld_elt(int v) const {
 }
 
 // ----------------------------------------------------------------
-intmod_t intmod_t::exp(int e) {
+intmod_t intmod_t::exp(int e) const {
   this->check_modulus();
 
   int xp = this->residue;

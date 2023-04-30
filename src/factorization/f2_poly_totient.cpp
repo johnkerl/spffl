@@ -40,7 +40,7 @@
 
 namespace spffl::factorization {
 
-int f2_poly_totient(spffl::polynomials::f2_poly_t f) {
+int f2_poly_totient(const spffl::polynomials::f2_poly_t &f) {
   int rv                                        = 1;
   tfacinfo<spffl::polynomials::f2_poly_t> finfo = f2_poly_factor(f);
   int nf                                        = finfo.get_num_distinct();

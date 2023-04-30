@@ -391,7 +391,7 @@ void qpoly_t::quot_and_rem(qpoly_t &that, qpoly_t &rquot, qpoly_t &rrem) {
 }
 
 // ----------------------------------------------------------------
-qpoly_t qpoly_t::gcd(qpoly_t &that) {
+qpoly_t qpoly_t::gcd(const qpoly_t &that) const {
   qpoly_t c, q, r;
   qpoly_t d; // Return value.
 
@@ -421,7 +421,7 @@ qpoly_t qpoly_t::gcd(qpoly_t &that) {
 // ----------------------------------------------------------------
 // Blankinship's algorithm.
 
-qpoly_t qpoly_t::ext_gcd(qpoly_t &that, qpoly_t &rm, qpoly_t &rn) {
+qpoly_t qpoly_t::ext_gcd(const qpoly_t &that, qpoly_t &rm, qpoly_t &rn) const {
   qpoly_t mprime, nprime, c, q, r, t, qm, qn;
   qpoly_t d; // Return value.
 
@@ -456,7 +456,7 @@ qpoly_t qpoly_t::ext_gcd(qpoly_t &that, qpoly_t &rm, qpoly_t &rn) {
 }
 
 // ----------------------------------------------------------------
-qpoly_t qpoly_t::exp(int e) {
+qpoly_t qpoly_t::exp(int e) const {
   int deg      = this->find_degree();
   qpoly_t xp   = *this;
   qpoly_t zero = qpoly_t(0);
@@ -495,7 +495,7 @@ qpoly_t qpoly_t::exp(int e) {
 }
 
 // ----------------------------------------------------------------
-qpoly_t qpoly_t::deriv(void) {
+qpoly_t qpoly_t::deriv(void) const {
   if (this->degree == 0) {
     return qpoly_t(0);
   }
@@ -510,7 +510,7 @@ qpoly_t qpoly_t::deriv(void) {
 }
 
 // ----------------------------------------------------------------
-intrat_t qpoly_t::eval(intrat_t c) {
+intrat_t qpoly_t::eval(const intrat_t &c) const {
   intrat_t rv = this->coeffs[this->degree];
   for (int i = this->degree - 1; i >= 0; i--) {
     rv *= c;

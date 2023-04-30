@@ -84,6 +84,6 @@ int int_ext_gcd(int a, int b, int &m, int &n) {
 int int_lcm(int a, int b) { return (a * b) / int_gcd(a, b); }
 
 // ----------------------------------------------------------------
-int gcd(int a, int b) { return int_gcd(a, b); }
+int gcd(const int a, const int b) { return int_gcd(a, b); }
 
 } // namespace spffl::intmath

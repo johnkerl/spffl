@@ -56,11 +56,11 @@ public:
   qpoly_t &operator/=(intrat_t a);
 
   void quot_and_rem(qpoly_t &that, qpoly_t &rquot, qpoly_t &rrem);
-  qpoly_t gcd(qpoly_t &that);
-  qpoly_t ext_gcd(qpoly_t &that, qpoly_t &rm, qpoly_t &rn);
-  qpoly_t exp(int power);
-  qpoly_t deriv(void);
-  intrat_t eval(intrat_t c);
+  qpoly_t gcd(const qpoly_t &that) const;
+  qpoly_t ext_gcd(const qpoly_t &that, qpoly_t &rm, qpoly_t &rn) const;
+  qpoly_t exp(int power) const;
+  qpoly_t deriv(void) const;
+  intrat_t eval(const intrat_t &c) const;
 
   int find_degree(void) const; // deg(0) is defined to be 0.
   intrat_t get_coeff(int deg) const;

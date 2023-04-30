@@ -339,7 +339,7 @@ public:
 
   // ----------------------------------------------------------------
   // Elementwise exponentiation.
-  tvector<element_type> exp(int power) {
+  tvector<element_type> exp(int power) const {
     tvector<element_type> rv(this->num_elements);
     for (int i = 0; i < this->num_elements; i++) {
       rv.elements[i] = this->elements[i].exp(power);

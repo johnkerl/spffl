@@ -10,7 +10,7 @@
 
 namespace spffl::factorization {
 
-int fp_poly_totient(spffl::polynomials::fp_poly_t f);
+int fp_poly_totient(const spffl::polynomials::fp_poly_t &f);
 
 } // namespace spffl::factorization
 

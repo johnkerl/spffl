@@ -41,15 +41,16 @@ public:
   f2_poly_t(const f2_poly_t &that);
   ~f2_poly_t(void);
 
-  f2_poly_t &operator=(f2_poly_t that);
+  f2_poly_t &operator=(const f2_poly_t &that);
   f2_poly_t &operator=(int bit); // 0 or 1; other bits ignored.
-  f2_poly_t operator+(f2_poly_t that) const;
-  f2_poly_t operator-(f2_poly_t that) const;
+
+  f2_poly_t operator+(const f2_poly_t &that) const;
+  f2_poly_t operator-(const f2_poly_t &that) const;
   f2_poly_t operator-(void) const;
-  f2_poly_t operator*(f2_poly_t that) const;
-  f2_poly_t operator*(int bit); // 0 or 1; other bits ignored.
-  f2_poly_t operator/(f2_poly_t that);
-  f2_poly_t operator%(f2_poly_t that);
+  f2_poly_t operator*(const f2_poly_t &that) const;
+  f2_poly_t operator*(int bit) const; // 0 or 1; other bits ignored.
+  f2_poly_t operator/(const f2_poly_t &that) const;
+  f2_poly_t operator%(const f2_poly_t &that) const;
 
   f2_poly_t &operator+=(const f2_poly_t &that);
   f2_poly_t &operator-=(const f2_poly_t &that);
@@ -58,28 +59,28 @@ public:
   f2_poly_t &operator/=(const f2_poly_t &that);
   f2_poly_t &operator%=(const f2_poly_t &that);
 
-  void quot_and_rem(f2_poly_t &that, f2_poly_t &rquot, f2_poly_t &rrem);
-  f2_poly_t gcd(f2_poly_t &that);
+  void quot_and_rem(const f2_poly_t &that, f2_poly_t &rquot, f2_poly_t &rrem) const;
+  f2_poly_t gcd(const f2_poly_t &that) const;
   f2_poly_t ext_gcd(const f2_poly_t &that, f2_poly_t &rm, f2_poly_t &rn) const;
-  f2_poly_t exp(int power);
-  f2_poly_t deriv(void);
-  bool square_root(f2_poly_t &rroot);
-  int eval(int c);
-  spffl::bits::bit_t eval(spffl::bits::bit_t c);
-  int zcount_one_bits(void);
+  f2_poly_t exp(int power) const;
+  f2_poly_t deriv(void) const;
+  bool square_root(f2_poly_t &rroot) const;
+  int eval(int c) const;
+  spffl::bits::bit_t eval(spffl::bits::bit_t c) const;
+  int zcount_one_bits(void) const;
 
   int find_degree(void) const; // deg(0) is defined to be 0.
 
   bool operator==(int v) const;
   bool operator!=(int v) const;
-  bool operator==(f2_poly_t that) const;
-  bool operator!=(f2_poly_t that) const;
+  bool operator==(const f2_poly_t &that) const;
+  bool operator!=(const f2_poly_t &that) const;
   // F2[x] is *not* totally ordered.  Nonetheless, these methods are
   // handy for looping and sorting.
-  bool operator<(f2_poly_t that) const;
-  bool operator>(f2_poly_t that) const;
-  bool operator<=(f2_poly_t that) const;
-  bool operator>=(f2_poly_t that) const;
+  bool operator<(const f2_poly_t &that) const;
+  bool operator>(const f2_poly_t &that) const;
+  bool operator<=(const f2_poly_t &that) const;
+  bool operator>=(const f2_poly_t &that) const;
   void increment(void);
 
   friend std::ostream &operator<<(std::ostream &os, const f2_poly_t &poly);
@@ -105,7 +106,7 @@ private:
   uint64_t *parts;
   int num_parts;
 
-  bool cmp(int op, f2_poly_t &that) const;
+  bool cmp(int op, const f2_poly_t &that) const;
   void extend_parts(int new_num_parts);
   void trim_parts(void);
   void check_neg_pos(int pos) const;
@@ -116,7 +117,7 @@ private:
 
 // Same as the gcd method, but overloaded.  This is important for template use.
 spffl::polynomials::f2_poly_t gcd(
-    spffl::polynomials::f2_poly_t a, spffl::polynomials::f2_poly_t b);
+    const spffl::polynomials::f2_poly_t &a, const spffl::polynomials::f2_poly_t &b);
 
 // ================================================================
 #endif // F2POLY_T_H

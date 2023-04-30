@@ -34,8 +34,8 @@ public:
   intmod_t operator*(int a);
   intmod_t operator/(intmod_t that);
   intmod_t operator%(intmod_t that);
-  bool recip(intmod_t &rinv);
-  intmod_t exp(int e);
+  bool recip(intmod_t &rinv) const;
+  intmod_t exp(int e) const;
   friend std::ostream &operator<<(std::ostream &os, const intmod_t &a);
   // Modulus must have already been set:  this sets only the residue.
   friend std::istream &operator>>(std::istream &is, intmod_t &a);
@@ -205,7 +205,7 @@ inline intmod_t intmod_t::operator%(intmod_t that) {
 }
 
 // ----------------------------------------------------------------
-inline bool intmod_t::recip(intmod_t &rinv) {
+inline bool intmod_t::recip(intmod_t &rinv) const {
   this->check_modulus();
 
   if (this->modulus == 2) {

@@ -20,7 +20,7 @@ f2n_poly_t::f2n_poly_t(void) {
 }
 
 // ----------------------------------------------------------------
-f2n_poly_t::f2n_poly_t(f2_polymod_t c0) {
+f2n_poly_t::f2n_poly_t(const f2_polymod_t &c0) {
   this->degree    = 0;
   this->coeffs    = new f2_polymod_t[this->degree + 1];
   this->coeffs[0] = c0;
@@ -28,7 +28,7 @@ f2n_poly_t::f2n_poly_t(f2_polymod_t c0) {
 }
 
 // ----------------------------------------------------------------
-f2n_poly_t::f2n_poly_t(f2_polymod_t c1, f2_polymod_t c0) {
+f2n_poly_t::f2n_poly_t(const f2_polymod_t &c1, const f2_polymod_t &c0) {
   this->degree    = 1;
   this->coeffs    = new f2_polymod_t[this->degree + 1];
   this->coeffs[1] = c1;
@@ -37,7 +37,7 @@ f2n_poly_t::f2n_poly_t(f2_polymod_t c1, f2_polymod_t c0) {
 }
 
 // ----------------------------------------------------------------
-f2n_poly_t::f2n_poly_t(f2_polymod_t c2, f2_polymod_t c1, f2_polymod_t c0) {
+f2n_poly_t::f2n_poly_t(const f2_polymod_t &c2, const f2_polymod_t &c1, const f2_polymod_t &c0) {
   this->degree    = 2;
   this->coeffs    = new f2_polymod_t[this->degree + 1];
   this->coeffs[2] = c2;
@@ -47,92 +47,22 @@ f2n_poly_t::f2n_poly_t(f2_polymod_t c2, f2_polymod_t c1, f2_polymod_t c0) {
 }
 
 // ----------------------------------------------------------------
-f2n_poly_t::f2n_poly_t(
-    f2_polymod_t c3, f2_polymod_t c2, f2_polymod_t c1, f2_polymod_t c0) {
-  this->degree    = 3;
-  this->coeffs    = new f2_polymod_t[this->degree + 1];
-  this->coeffs[3] = c3;
-  this->coeffs[2] = c2;
-  this->coeffs[1] = c1;
-  this->coeffs[0] = c0;
-  this->recompute_degree();
-}
-
-// ----------------------------------------------------------------
-f2n_poly_t::f2n_poly_t(f2_polymod_t c4, f2_polymod_t c3, f2_polymod_t c2,
-    f2_polymod_t c1, f2_polymod_t c0) {
-  this->degree    = 4;
-  this->coeffs    = new f2_polymod_t[this->degree + 1];
-  this->coeffs[4] = c4;
-  this->coeffs[3] = c3;
-  this->coeffs[2] = c2;
-  this->coeffs[1] = c1;
-  this->coeffs[0] = c0;
-  this->recompute_degree();
-}
-
-// ----------------------------------------------------------------
-f2n_poly_t::f2n_poly_t(f2_polymod_t c5, f2_polymod_t c4, f2_polymod_t c3,
-    f2_polymod_t c2, f2_polymod_t c1, f2_polymod_t c0) {
-  this->degree    = 5;
-  this->coeffs    = new f2_polymod_t[this->degree + 1];
-  this->coeffs[5] = c5;
-  this->coeffs[4] = c4;
-  this->coeffs[3] = c3;
-  this->coeffs[2] = c2;
-  this->coeffs[1] = c1;
-  this->coeffs[0] = c0;
-  this->recompute_degree();
-}
-
-// ----------------------------------------------------------------
-f2n_poly_t::f2n_poly_t(int c0, f2_poly_t m) {
+f2n_poly_t::f2n_poly_t(int c0, const f2_poly_t &m) {
   this->degree    = 0;
   this->coeffs    = new f2_polymod_t[this->degree + 1];
   this->coeffs[0] = f2_polymod_t(f2_poly_t(c0), m);
   this->recompute_degree();
 }
-f2n_poly_t::f2n_poly_t(int c1, int c0, f2_poly_t m) {
+f2n_poly_t::f2n_poly_t(int c1, int c0, const f2_poly_t &m) {
   this->degree    = 1;
   this->coeffs    = new f2_polymod_t[this->degree + 1];
   this->coeffs[1] = f2_polymod_t(f2_poly_t(c1), m);
   this->coeffs[0] = f2_polymod_t(f2_poly_t(c0), m);
   this->recompute_degree();
 }
-f2n_poly_t::f2n_poly_t(int c2, int c1, int c0, f2_poly_t m) {
+f2n_poly_t::f2n_poly_t(int c2, int c1, int c0, const f2_poly_t &m) {
   this->degree    = 2;
   this->coeffs    = new f2_polymod_t[this->degree + 1];
-  this->coeffs[2] = f2_polymod_t(f2_poly_t(c2), m);
-  this->coeffs[1] = f2_polymod_t(f2_poly_t(c1), m);
-  this->coeffs[0] = f2_polymod_t(f2_poly_t(c0), m);
-  this->recompute_degree();
-}
-f2n_poly_t::f2n_poly_t(int c3, int c2, int c1, int c0, f2_poly_t m) {
-  this->degree    = 3;
-  this->coeffs    = new f2_polymod_t[this->degree + 1];
-  this->coeffs[3] = f2_polymod_t(f2_poly_t(c3), m);
-  this->coeffs[2] = f2_polymod_t(f2_poly_t(c2), m);
-  this->coeffs[1] = f2_polymod_t(f2_poly_t(c1), m);
-  this->coeffs[0] = f2_polymod_t(f2_poly_t(c0), m);
-  this->recompute_degree();
-}
-f2n_poly_t::f2n_poly_t(int c4, int c3, int c2, int c1, int c0, f2_poly_t m) {
-  this->degree    = 4;
-  this->coeffs    = new f2_polymod_t[this->degree + 1];
-  this->coeffs[4] = f2_polymod_t(f2_poly_t(c4), m);
-  this->coeffs[3] = f2_polymod_t(f2_poly_t(c3), m);
-  this->coeffs[2] = f2_polymod_t(f2_poly_t(c2), m);
-  this->coeffs[1] = f2_polymod_t(f2_poly_t(c1), m);
-  this->coeffs[0] = f2_polymod_t(f2_poly_t(c0), m);
-  this->recompute_degree();
-}
-f2n_poly_t::f2n_poly_t(
-    int c5, int c4, int c3, int c2, int c1, int c0, f2_poly_t m) {
-  this->degree    = 5;
-  this->coeffs    = new f2_polymod_t[this->degree + 1];
-  this->coeffs[5] = f2_polymod_t(f2_poly_t(c5), m);
-  this->coeffs[4] = f2_polymod_t(f2_poly_t(c4), m);
-  this->coeffs[3] = f2_polymod_t(f2_poly_t(c3), m);
   this->coeffs[2] = f2_polymod_t(f2_poly_t(c2), m);
   this->coeffs[1] = f2_polymod_t(f2_poly_t(c1), m);
   this->coeffs[0] = f2_polymod_t(f2_poly_t(c0), m);
@@ -141,7 +71,7 @@ f2n_poly_t::f2n_poly_t(
 
 // ----------------------------------------------------------------
 // This is a static method.
-f2n_poly_t f2n_poly_t::from_base_rep(int b, f2_poly_t m) {
+f2n_poly_t f2n_poly_t::from_base_rep(int b, const f2_poly_t &m) {
   f2n_poly_t rv;
   std::cerr << "unimplemented function!\n";
   exit(1);
@@ -194,15 +124,15 @@ f2n_poly_t f2n_poly_t::prime_sfld_elt(int v) const {
 // ----------------------------------------------------------------
 // This is a static method.
 
-f2n_poly_t f2n_poly_t::prime_sfld_elt(int v, f2_poly_t m) {
+f2n_poly_t f2n_poly_t::prime_sfld_elt(int v, const f2_poly_t &m) {
   return f2n_poly_t(f2_polymod_t(f2_poly_t(v), m));
 }
 
 // ----------------------------------------------------------------
-int f2n_poly_t::get_characteristic(void) { return 2; }
+int f2n_poly_t::get_characteristic(void) const { return 2; }
 
 // ----------------------------------------------------------------
-f2n_poly_t &f2n_poly_t::operator=(f2n_poly_t that) {
+f2n_poly_t &f2n_poly_t::operator=(const f2n_poly_t &that) {
   if (this->coeffs) {
     delete[] this->coeffs;
   }
@@ -215,7 +145,7 @@ f2n_poly_t &f2n_poly_t::operator=(f2n_poly_t that) {
 }
 
 // ----------------------------------------------------------------
-f2n_poly_t f2n_poly_t::operator+(f2n_poly_t that) const {
+f2n_poly_t f2n_poly_t::operator+(const f2n_poly_t &that) const {
   int i;
   f2n_poly_t rv;
 
@@ -243,7 +173,7 @@ f2n_poly_t f2n_poly_t::operator+(f2n_poly_t that) const {
 }
 
 // ----------------------------------------------------------------
-f2n_poly_t f2n_poly_t::operator+(f2_polymod_t a) const {
+f2n_poly_t f2n_poly_t::operator+(const f2_polymod_t &a) const {
   f2n_poly_t rv(*this);
   rv.coeffs[0] += a;
   rv.recompute_degree();
@@ -251,7 +181,7 @@ f2n_poly_t f2n_poly_t::operator+(f2_polymod_t a) const {
 }
 
 // ----------------------------------------------------------------
-f2n_poly_t f2n_poly_t::operator-(f2n_poly_t that) const {
+f2n_poly_t f2n_poly_t::operator-(const f2n_poly_t &that) const {
   int i;
   f2n_poly_t rv;
 
@@ -279,7 +209,7 @@ f2n_poly_t f2n_poly_t::operator-(f2n_poly_t that) const {
 }
 
 // ----------------------------------------------------------------
-f2n_poly_t f2n_poly_t::operator-(f2_polymod_t a) const {
+f2n_poly_t f2n_poly_t::operator-(const f2_polymod_t &a) const {
   f2n_poly_t rv(*this);
   rv.coeffs[0] -= a;
   rv.recompute_degree();
@@ -297,7 +227,7 @@ f2n_poly_t f2n_poly_t::operator-(void) const {
 }
 
 // ----------------------------------------------------------------
-f2n_poly_t f2n_poly_t::operator*(f2n_poly_t that) const {
+f2n_poly_t f2n_poly_t::operator*(const f2n_poly_t &that) const {
   f2n_poly_t rv;
   rv.degree = this->degree + that.degree;
   rv.coeffs = new f2_polymod_t[rv.degree + 1];
@@ -316,7 +246,7 @@ f2n_poly_t f2n_poly_t::operator*(f2n_poly_t that) const {
 }
 
 // ----------------------------------------------------------------
-f2n_poly_t f2n_poly_t::operator*(f2_polymod_t a) {
+f2n_poly_t f2n_poly_t::operator*(const f2_polymod_t &a) const {
   f2n_poly_t rv = *this;
   for (int i = 0; i <= rv.degree; i++) {
     rv.coeffs[i] *= a;
@@ -326,21 +256,21 @@ f2n_poly_t f2n_poly_t::operator*(f2_polymod_t a) {
 }
 
 // ----------------------------------------------------------------
-f2n_poly_t f2n_poly_t::operator/(f2n_poly_t that) {
+f2n_poly_t f2n_poly_t::operator/(const f2n_poly_t &that) const {
   f2n_poly_t quot, rem;
   this->quot_and_rem(that, quot, rem);
   return quot;
 }
 
 // ----------------------------------------------------------------
-f2n_poly_t f2n_poly_t::operator%(f2n_poly_t that) {
+f2n_poly_t f2n_poly_t::operator%(const f2n_poly_t &that) const {
   f2n_poly_t quot, rem;
   this->quot_and_rem(that, quot, rem);
   return rem;
 }
 
 // ----------------------------------------------------------------
-f2n_poly_t f2n_poly_t::operator/(f2_polymod_t a) {
+f2n_poly_t f2n_poly_t::operator/(const f2_polymod_t &a) const {
   f2n_poly_t rv = *this;
   for (int i = 0; i <= rv.degree; i++) {
     rv.coeffs[i] /= a;
@@ -350,39 +280,39 @@ f2n_poly_t f2n_poly_t::operator/(f2_polymod_t a) {
 }
 
 // ----------------------------------------------------------------
-f2n_poly_t &f2n_poly_t::operator+=(f2n_poly_t that) {
+f2n_poly_t &f2n_poly_t::operator+=(const f2n_poly_t &that) {
   *this = *this + that;
   return *this;
 }
-f2n_poly_t &f2n_poly_t::operator+=(f2_polymod_t a) {
+f2n_poly_t &f2n_poly_t::operator+=(const f2_polymod_t &a) {
   *this = *this + a;
   return *this;
 }
-f2n_poly_t &f2n_poly_t::operator-=(f2n_poly_t that) {
+f2n_poly_t &f2n_poly_t::operator-=(const f2n_poly_t &that) {
   *this = *this - that;
   return *this;
 }
-f2n_poly_t &f2n_poly_t::operator-=(f2_polymod_t a) {
+f2n_poly_t &f2n_poly_t::operator-=(const f2_polymod_t &a) {
   *this = *this - a;
   return *this;
 }
-f2n_poly_t &f2n_poly_t::operator*=(f2n_poly_t that) {
+f2n_poly_t &f2n_poly_t::operator*=(const f2n_poly_t &that) {
   *this = *this * that;
   return *this;
 }
-f2n_poly_t &f2n_poly_t::operator*=(f2_polymod_t a) {
+f2n_poly_t &f2n_poly_t::operator*=(const f2_polymod_t &a) {
   *this = *this * a;
   return *this;
 }
-f2n_poly_t &f2n_poly_t::operator/=(f2n_poly_t &that) {
+f2n_poly_t &f2n_poly_t::operator/=(const f2n_poly_t &that) {
   *this = *this / that;
   return *this;
 }
-f2n_poly_t &f2n_poly_t::operator%=(f2n_poly_t &that) {
+f2n_poly_t &f2n_poly_t::operator%=(const f2n_poly_t &that) {
   *this = *this % that;
   return *this;
 }
-f2n_poly_t &f2n_poly_t::operator/=(f2_polymod_t a) {
+f2n_poly_t &f2n_poly_t::operator/=(const f2_polymod_t &a) {
   *this = *this / a;
   return *this;
 }
@@ -405,7 +335,7 @@ f2n_poly_t &f2n_poly_t::operator/=(f2_polymod_t a) {
 
 // ----------------------------------------------------------------
 void f2n_poly_t::quot_and_rem(
-    f2n_poly_t &that, f2n_poly_t &rquot, f2n_poly_t &rrem) {
+    const f2n_poly_t &that, f2n_poly_t &rquot, f2n_poly_t &rrem) const {
   f2_polymod_t zero = this->coeffs[0] - this->coeffs[0];
 
   if (that == zero) {
@@ -483,7 +413,7 @@ void f2n_poly_t::quot_and_rem(
 }
 
 // ----------------------------------------------------------------
-f2n_poly_t f2n_poly_t::gcd(f2n_poly_t &that) {
+f2n_poly_t f2n_poly_t::gcd(const f2n_poly_t &that) const {
   f2n_poly_t c, q, r;
   f2n_poly_t d; // Return value.
 
@@ -549,7 +479,7 @@ f2n_poly_t f2n_poly_t::ext_gcd(
 }
 
 // ----------------------------------------------------------------
-f2n_poly_t f2n_poly_t::exp(int e) {
+f2n_poly_t f2n_poly_t::exp(int e) const {
   int deg         = this->find_degree();
   f2n_poly_t xp   = *this;
   f2n_poly_t zero = this->prime_sfld_elt(0);
@@ -588,7 +518,7 @@ f2n_poly_t f2n_poly_t::exp(int e) {
 }
 
 // ----------------------------------------------------------------
-f2n_poly_t f2n_poly_t::deriv(void) {
+f2n_poly_t f2n_poly_t::deriv(void) const {
   if (this->degree == 0) {
     return this->prime_sfld_elt(0);
   }
@@ -615,7 +545,7 @@ f2n_poly_t f2n_poly_t::deriv(void) {
 // square roots exists for all coefficients.  Let n be the degree over F2.
 // Then a^{2^n} = a for all coefficients, and a^{2^{n-1}} = sqrt(a).
 
-bool f2n_poly_t::square_root(f2n_poly_t &rroot) {
+bool f2n_poly_t::square_root(f2n_poly_t &rroot) const {
   f2_poly_t m = this->coeffs[0].get_modulus();
   f2_polymod_t zero(0, m);
   int si, di;
@@ -643,7 +573,7 @@ bool f2n_poly_t::square_root(f2n_poly_t &rroot) {
 }
 
 // ----------------------------------------------------------------
-f2_polymod_t f2n_poly_t::eval(f2_polymod_t c) {
+f2_polymod_t f2n_poly_t::eval(const f2_polymod_t &c) const {
   f2_polymod_t rv = this->coeffs[this->degree];
   for (int i = this->degree - 1; i >= 0; i--) {
     rv *= c;
@@ -669,7 +599,7 @@ f2_polymod_t f2n_poly_t::get_coeff(int deg) const {
 }
 
 // ----------------------------------------------------------------
-void f2n_poly_t::set_coeff(int pos, f2_polymod_t c) {
+void f2n_poly_t::set_coeff(int pos, const f2_polymod_t &c) {
   if (pos < 0) {
     this->bounds_check(pos);
   }
@@ -700,7 +630,7 @@ void f2n_poly_t::set_coeff(int pos, f2_polymod_t c) {
 }
 
 // ----------------------------------------------------------------
-void f2n_poly_t::change_modulus(f2_poly_t new_modulus) {
+void f2n_poly_t::change_modulus(const f2_poly_t &new_modulus) {
   for (int i = 0; i <= this->degree; i++) {
     this->coeffs[i].change_modulus(new_modulus);
   }
@@ -736,32 +666,32 @@ bool f2n_poly_t::operator==(int v) const {
 bool f2n_poly_t::operator!=(int v) const { return !(*this == v); }
 
 // ----------------------------------------------------------------
-bool f2n_poly_t::operator==(f2n_poly_t that) const {
+bool f2n_poly_t::operator==(const f2n_poly_t &that) const {
   return this->cmp(CMP_EQ, that);
 }
 
 // ----------------------------------------------------------------
-bool f2n_poly_t::operator!=(f2n_poly_t that) const {
+bool f2n_poly_t::operator!=(const f2n_poly_t &that) const {
   return this->cmp(CMP_NE, that);
 }
 
 // ----------------------------------------------------------------
-bool f2n_poly_t::operator<(f2n_poly_t that) const {
+bool f2n_poly_t::operator<(const f2n_poly_t &that) const {
   return this->cmp(CMP_LT, that);
 }
 
 // ----------------------------------------------------------------
-bool f2n_poly_t::operator>(f2n_poly_t that) const {
+bool f2n_poly_t::operator>(const f2n_poly_t &that) const {
   return this->cmp(CMP_GT, that);
 }
 
 // ----------------------------------------------------------------
-bool f2n_poly_t::operator<=(f2n_poly_t that) const {
+bool f2n_poly_t::operator<=(const f2n_poly_t &that) const {
   return this->cmp(CMP_LE, that);
 }
 
 // ----------------------------------------------------------------
-bool f2n_poly_t::operator>=(f2n_poly_t that) const {
+bool f2n_poly_t::operator>=(const f2n_poly_t &that) const {
   return this->cmp(CMP_GE, that);
 }
 
@@ -788,7 +718,7 @@ void f2n_poly_t::increment(void) {
 }
 
 // ----------------------------------------------------------------
-bool f2n_poly_t::cmp(int cmp, f2n_poly_t &that) const {
+bool f2n_poly_t::cmp(int cmp, const f2n_poly_t &that) const {
   int direction = 0; // -1 = less, 0 = equal, +1 = greater;
 
   if (this->degree < that.degree) {
@@ -934,7 +864,7 @@ std::istringstream &operator>>(std::istringstream &iss, f2n_poly_t &poly) {
 }
 
 // ----------------------------------------------------------------
-bool f2n_poly_t::from_string(const char *string, f2_poly_t m) {
+bool f2n_poly_t::from_string(const char *string, const f2_poly_t &m) {
   if (this->coeffs) {
     delete[] this->coeffs;
   }
@@ -996,7 +926,7 @@ void f2n_poly_t::promote(void) {
 }
 
 // ----------------------------------------------------------------
-void f2n_poly_t::promote_and_add(f2_polymod_t c0) {
+void f2n_poly_t::promote_and_add(const f2_polymod_t &c0) {
   this->promote();
   this->coeffs[0] = c0;
 }
@@ -1005,6 +935,6 @@ void f2n_poly_t::promote_and_add(f2_polymod_t c0) {
 
 // ----------------------------------------------------------------
 spffl::polynomials::f2n_poly_t gcd(
-    spffl::polynomials::f2n_poly_t a, spffl::polynomials::f2n_poly_t b) {
+    const spffl::polynomials::f2n_poly_t &a, const spffl::polynomials::f2n_poly_t &b) {
   return a.gcd(b);
 }

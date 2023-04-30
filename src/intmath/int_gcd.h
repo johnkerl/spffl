@@ -9,7 +9,7 @@
 namespace spffl::intmath {
 
 // Same as int_gcd, but overloaded.  This is important for template use.
-int gcd(int a, int b);
+int gcd(const int a, const int b);
 
 int int_gcd(int a, int b);
 
