@@ -48,6 +48,22 @@ TODO:
 -DCMAKE_INSTALL_PREFIX=$prefix
 ```
 
+# Library use (WIP)
+
+```
+$ cmz
+$ cmg -DCMAKE_INSTALL_PREFIX=./dist
+$ cmb
+$ cmt
+$ cmi
+
+$ g++ -std=c++20 -I dist/spffl/include -L dist/lib -lspffl examples/example1.cpp -o example1
+$ install_name_tool -add_rpath $(pwd)/dist/lib example1
+
+$ ./example1 abc def
+736a54
+```
+
 # See also
 
 Please also see [RUFFL](https://github.com/johnkerl/ruffl), my Ruby port of SPFFL.

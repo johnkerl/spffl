@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "int_sqrt.h"
+#include "intmath/int_sqrt.h"
 
 TEST_CASE("spffl::intmath::int_sqrt") {
 

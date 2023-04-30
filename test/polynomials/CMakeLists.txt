@@ -56,10 +56,7 @@ add_executable(test_polynomials
 )
 target_include_directories(${PROJECT_NAME}
   PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../src/base
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../src/intmath
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../src/bits
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../src/polynomials
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../spffl
 )
 target_link_libraries(${PROJECT_NAME} PRIVATE
     base

@@ -1,8 +1,9 @@
 #include "fp_polyrat_handlers.h"
-#include "cmd_line_matrix_ops.h"
-#include "cmd_line_ops.h"
-#include "cmd_line_vector_ops.h"
-#include "fp_polyrat_t.h"
+
+#include "rationals/fp_polyrat_t.h"
+#include "cliparser/cmd_line_matrix_ops.h"
+#include "cliparser/cmd_line_ops.h"
+#include "cliparser/cmd_line_vector_ops.h"
 
 void fp_pr_op_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {...}\n";

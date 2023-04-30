@@ -1,6 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "line_scan.h"
+#include "base/line_scan.h"
+
 #include <string.h>
 
 TEST_CASE("spffl::base::line_scan::chomp") {

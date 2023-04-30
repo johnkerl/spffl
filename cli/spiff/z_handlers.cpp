@@ -8,12 +8,12 @@
 
 #include "z_handlers.h"
 
-#include "cmd_line_matrix_ops.h"
-#include "int_factor.h"
-#include "int_gcd.h"
-#include "int_totient.h"
-#include "is_prime.h"
-#include "tfacinfo.h"
+#include "containers/tfacinfo.h"
+#include "intmath/int_gcd.h"
+#include "intmath/int_totient.h"
+#include "intmath/is_prime.h"
+#include "factorization/int_factor.h"
+#include "cliparser/cmd_line_matrix_ops.h"
 
 int z_op_main(int argc, char **argv, usage_t *pusage) {
   spffl::cliparser::cmd_line_parse<int>(argc - 1, argv + 1, 0, 1);

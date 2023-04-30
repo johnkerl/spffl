@@ -8,9 +8,9 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "spffl_exception.h"
+#include "base/spffl_exception.h"
 
-#include "cmd_interp.h"
+#include "cliparser/cmd_interp.h"
 
 #include "handlers.h"
 

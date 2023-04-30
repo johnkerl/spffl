@@ -47,7 +47,7 @@ add_executable(test_base
 )
 target_include_directories(${PROJECT_NAME}
   PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../src/base
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../spffl
 )
 target_link_libraries(${PROJECT_NAME} PRIVATE
     base Catch2::Catch2WithMain

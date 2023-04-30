@@ -1,11 +1,11 @@
 #include "f2_handlers.h"
-#include "bit_t.h"
-#include "cmd_line_matrix_ops.h"
-#include "cmd_line_vector_ops.h"
-#include "f2_linear_algebra.h"
-#include "f2_poly_t.h"
-#include "int_random.h"
-#include "tmatrix.h"
+#include "bits/bit_t.h"
+#include "containers/tmatrix.h"
+#include "polynomials/f2_poly_t.h"
+#include "random/int_random.h"
+#include "linalg/f2_linear_algebra.h"
+#include "cliparser/cmd_line_matrix_ops.h"
+#include "cliparser/cmd_line_vector_ops.h"
 
 int f2_op_main(int argc, char **argv, usage_t *pusage) {
   spffl::cliparser::cmd_line_parse<spffl::bits::bit_t>(

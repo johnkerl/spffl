@@ -9,7 +9,7 @@ add_executable(
 
 target_include_directories(${PROJECT_NAME}
   PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../src/bitrand
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../spffl
 )
 target_link_libraries(${PROJECT_NAME}
   PRIVATE

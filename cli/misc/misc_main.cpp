@@ -4,9 +4,9 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include <iostream>
+#include "polynomials/f2_poly_t.h"
 
-#include "f2_poly_t.h"
+#include <iostream>
 
 using namespace std;
 using namespace spffl::polynomials;

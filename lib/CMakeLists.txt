@@ -4,7 +4,7 @@ project(spffl)
 
 # TODO: try to get these from globbing
 
-#file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/../src **.cpp)
+#file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/../spffl **.cpp)
 #add_library(
 #  spffl # results in libspffl.so / libspffl.dylib, so, say "spffl" here not "libspffl"
 #  SHARED
@@ -14,81 +14,69 @@ project(spffl)
 add_library(
   spffl # results in libspffl.so / libspffl.dylib, so, say "spffl" here not "libspffl"
   SHARED
-  ../src/base/line_scan.cpp
-  ../src/base/spffl_exception.cpp
-  ../src/base/tokenize.cpp
-  ../src/bitrand/psdes.cpp
-  ../src/bits/bit_matrix_t.cpp
-  ../src/bits/bit_t.cpp
-  ../src/bits/bit_vector_t.cpp
-  ../src/bits/count_bits.cpp
-  ../src/cliparser/cmd_interp.cpp
-  ../src/containers/containers.cpp
-  ../src/factorization/f2_poly_factor.cpp
-  ../src/factorization/f2_poly_totient.cpp
-  ../src/factorization/f2n_poly_factor.cpp
-  ../src/factorization/f2n_poly_totient.cpp
-  ../src/factorization/fp_poly_factor.cpp
-  ../src/factorization/fp_poly_totient.cpp
-  ../src/factorization/int_factor.cpp
-  ../src/intmath/int_gcd.cpp
-  ../src/intmath/int_power.cpp
-  ../src/intmath/int_sqrt.cpp
-  ../src/intmath/int_totient.cpp
-  ../src/intmath/intmod_t.cpp
-  ../src/intmath/is_prime.cpp
-  ../src/intmath/log10.cpp
-  ../src/intmath/log2.cpp
-  ../src/intmath/primes_16.cpp
-  ../src/linalg/f2_linear_algebra.cpp
-  ../src/linalg/f2_polymod_convert.cpp
-  ../src/linalg/f2_polymod_linear_algebra.cpp
-  ../src/linalg/fp_linear_algebra.cpp
-  ../src/linalg/min_char_polys.cpp
-  ../src/list/list_elements.cpp
-  ../src/polynomials/f2_poly_t.cpp
-  ../src/polynomials/f2_polymod_t.cpp
-  ../src/polynomials/f2n_poly_t.cpp
-  ../src/polynomials/f2n_polymod_t.cpp
-  ../src/polynomials/fp_poly_t.cpp
-  ../src/polynomials/fp_polymod_t.cpp
-  ../src/polynomials/fpn_poly_t.cpp
-  ../src/polynomials/fpn_polymod_t.cpp
-  ../src/q_cyclo/cyclo_poly.cpp
-  ../src/q_cyclo/qff.cpp
-  ../src/random/f2_poly_random.cpp
-  ../src/random/f2_polymod_random.cpp
-  ../src/random/f2n_poly_random.cpp
-  ../src/random/f2n_polymod_random.cpp
-  ../src/random/fp_poly_random.cpp
-  ../src/random/fp_polymod_random.cpp
-  ../src/random/int_random.cpp
-  ../src/random/intmod_random.cpp
-  ../src/rationals/f2_polyrat_t.cpp
-  ../src/rationals/f2n_polyrat_t.cpp
-  ../src/rationals/fp_polyrat_t.cpp
-  ../src/rationals/intrat_t.cpp
-  ../src/rationals/qpoly_t.cpp
-  ../src/units/f2_polymod_units.cpp
-  ../src/units/f2n_polymod_units.cpp
-  ../src/units/fp_units.cpp
+  ../spffl/base/line_scan.cpp
+  ../spffl/base/spffl_exception.cpp
+  ../spffl/base/tokenize.cpp
+  ../spffl/bitrand/psdes.cpp
+  ../spffl/bits/bit_matrix_t.cpp
+  ../spffl/bits/bit_t.cpp
+  ../spffl/bits/bit_vector_t.cpp
+  ../spffl/bits/count_bits.cpp
+  ../spffl/cliparser/cmd_interp.cpp
+  ../spffl/containers/containers.cpp
+  ../spffl/factorization/f2_poly_factor.cpp
+  ../spffl/factorization/f2_poly_totient.cpp
+  ../spffl/factorization/f2n_poly_factor.cpp
+  ../spffl/factorization/f2n_poly_totient.cpp
+  ../spffl/factorization/fp_poly_factor.cpp
+  ../spffl/factorization/fp_poly_totient.cpp
+  ../spffl/factorization/int_factor.cpp
+  ../spffl/intmath/int_gcd.cpp
+  ../spffl/intmath/int_power.cpp
+  ../spffl/intmath/int_sqrt.cpp
+  ../spffl/intmath/int_totient.cpp
+  ../spffl/intmath/intmod_t.cpp
+  ../spffl/intmath/is_prime.cpp
+  ../spffl/intmath/log10.cpp
+  ../spffl/intmath/log2.cpp
+  ../spffl/intmath/primes_16.cpp
+  ../spffl/linalg/f2_linear_algebra.cpp
+  ../spffl/linalg/f2_polymod_convert.cpp
+  ../spffl/linalg/f2_polymod_linear_algebra.cpp
+  ../spffl/linalg/fp_linear_algebra.cpp
+  ../spffl/linalg/min_char_polys.cpp
+  ../spffl/list/list_elements.cpp
+  ../spffl/polynomials/f2_poly_t.cpp
+  ../spffl/polynomials/f2_polymod_t.cpp
+  ../spffl/polynomials/f2n_poly_t.cpp
+  ../spffl/polynomials/f2n_polymod_t.cpp
+  ../spffl/polynomials/fp_poly_t.cpp
+  ../spffl/polynomials/fp_polymod_t.cpp
+  ../spffl/polynomials/fpn_poly_t.cpp
+  ../spffl/polynomials/fpn_polymod_t.cpp
+  ../spffl/q_cyclo/cyclo_poly.cpp
+  ../spffl/q_cyclo/qff.cpp
+  ../spffl/random/f2_poly_random.cpp
+  ../spffl/random/f2_polymod_random.cpp
+  ../spffl/random/f2n_poly_random.cpp
+  ../spffl/random/f2n_polymod_random.cpp
+  ../spffl/random/fp_poly_random.cpp
+  ../spffl/random/fp_polymod_random.cpp
+  ../spffl/random/int_random.cpp
+  ../spffl/random/intmod_random.cpp
+  ../spffl/rationals/f2_polyrat_t.cpp
+  ../spffl/rationals/f2n_polyrat_t.cpp
+  ../spffl/rationals/fp_polyrat_t.cpp
+  ../spffl/rationals/intrat_t.cpp
+  ../spffl/rationals/qpoly_t.cpp
+  ../spffl/units/f2_polymod_units.cpp
+  ../spffl/units/f2n_polymod_units.cpp
+  ../spffl/units/fp_units.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
   PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/base
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/intmath
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/bitrand
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/bits
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/polynomials
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/rationals
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/q_cyclo
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/random
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/factorization
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/units
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/list
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/linalg
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/containers
+    ${CMAKE_CURRENT_SOURCE_DIR}/../spffl
 )
 target_link_libraries(${PROJECT_NAME} PUBLIC
     base

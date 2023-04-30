@@ -1,14 +1,16 @@
 #include "fp_handlers.h"
-#include "cmd_line_matrix_ops.h"
-#include "cmd_line_ops.h"
-#include "cmd_line_vector_ops.h"
-#include "fp_linear_algebra.h"
-#include "fp_units.h"
-#include "intmod_random.h"
-#include "intmod_t.h"
-#include "list_elements.h"
 #include "tbl_types.h"
-#include "tmatrix.h"
+
+#include "containers/tmatrix.h"
+#include "intmath/intmod_t.h"
+#include "units/fp_units.h"
+#include "random/intmod_random.h"
+#include "list/list_elements.h"
+#include "linalg/fp_linear_algebra.h"
+#include "cliparser/cmd_line_matrix_ops.h"
+#include "cliparser/cmd_line_ops.h"
+#include "cliparser/cmd_line_vector_ops.h"
+
 #include <string.h>
 
 void fp_list_usage(char *argv0) {

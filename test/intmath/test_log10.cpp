@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "log10.h"
+#include "intmath/log10.h"
 
 TEST_CASE("calc_log10_unsigned") {
   CHECK(spffl::intmath::calc_log10_unsigned_floor(0) == 0);
