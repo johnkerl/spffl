@@ -165,14 +165,6 @@ fp_poly_t fp_poly_t::operator+(const fp_poly_t &that) const {
 }
 
 // ----------------------------------------------------------------
-fp_poly_t fp_poly_t::operator+(spffl::intmath::intmod_t a) const {
-  fp_poly_t rv(*this);
-  rv.coeffs[0] += a;
-  rv.recompute_degree();
-  return rv;
-}
-
-// ----------------------------------------------------------------
 fp_poly_t fp_poly_t::operator-(const fp_poly_t &that) const {
   int i;
   fp_poly_t rv;
@@ -196,14 +188,6 @@ fp_poly_t fp_poly_t::operator-(const fp_poly_t &that) const {
       rv.coeffs[i] = this->coeffs[i];
     }
   }
-  rv.recompute_degree();
-  return rv;
-}
-
-// ----------------------------------------------------------------
-fp_poly_t fp_poly_t::operator-(spffl::intmath::intmod_t a) const {
-  fp_poly_t rv(*this);
-  rv.coeffs[0] -= a;
   rv.recompute_degree();
   return rv;
 }
@@ -238,16 +222,6 @@ fp_poly_t fp_poly_t::operator*(const fp_poly_t &that) const {
 }
 
 // ----------------------------------------------------------------
-fp_poly_t fp_poly_t::operator*(spffl::intmath::intmod_t a) {
-  fp_poly_t rv = *this;
-  for (int i = 0; i <= rv.degree; i++) {
-    rv.coeffs[i] *= a;
-  }
-  rv.recompute_degree();
-  return rv;
-}
-
-// ----------------------------------------------------------------
 fp_poly_t fp_poly_t::operator/(const fp_poly_t &that) const {
   fp_poly_t quot, rem;
   this->quot_and_rem(that, quot, rem);
@@ -259,6 +233,32 @@ fp_poly_t fp_poly_t::operator%(const fp_poly_t &that) const {
   fp_poly_t quot, rem;
   this->quot_and_rem(that, quot, rem);
   return rem;
+}
+
+// ----------------------------------------------------------------
+fp_poly_t fp_poly_t::operator+(const spffl::intmath::intmod_t &a) const {
+  fp_poly_t rv(*this);
+  rv.coeffs[0] += a;
+  rv.recompute_degree();
+  return rv;
+}
+
+// ----------------------------------------------------------------
+fp_poly_t fp_poly_t::operator-(const spffl::intmath::intmod_t &a) const {
+  fp_poly_t rv(*this);
+  rv.coeffs[0] -= a;
+  rv.recompute_degree();
+  return rv;
+}
+
+// ----------------------------------------------------------------
+fp_poly_t fp_poly_t::operator*(const spffl::intmath::intmod_t &a) const {
+  fp_poly_t rv = *this;
+  for (int i = 0; i <= rv.degree; i++) {
+    rv.coeffs[i] *= a;
+  }
+  rv.recompute_degree();
+  return rv;
 }
 
 // ----------------------------------------------------------------
@@ -276,35 +276,35 @@ fp_poly_t &fp_poly_t::operator+=(const fp_poly_t &that) {
   *this = *this + that;
   return *this;
 }
-fp_poly_t &fp_poly_t::operator+=(spffl::intmath::intmod_t a) {
-  *this = *this + a;
-  return *this;
-}
 fp_poly_t &fp_poly_t::operator-=(const fp_poly_t &that) {
   *this = *this - that;
-  return *this;
-}
-fp_poly_t &fp_poly_t::operator-=(spffl::intmath::intmod_t a) {
-  *this = *this - a;
   return *this;
 }
 fp_poly_t &fp_poly_t::operator*=(const fp_poly_t &that) {
   *this = *this * that;
   return *this;
 }
-fp_poly_t &fp_poly_t::operator*=(spffl::intmath::intmod_t a) {
-  *this = *this * a;
-  return *this;
-}
-fp_poly_t &fp_poly_t::operator/=(fp_poly_t &that) {
+fp_poly_t &fp_poly_t::operator/=(const fp_poly_t &that) {
   *this = *this / that;
   return *this;
 }
-fp_poly_t &fp_poly_t::operator%=(fp_poly_t &that) {
+fp_poly_t &fp_poly_t::operator%=(const fp_poly_t &that) {
   *this = *this % that;
   return *this;
 }
-fp_poly_t &fp_poly_t::operator/=(spffl::intmath::intmod_t a) {
+fp_poly_t &fp_poly_t::operator+=(const spffl::intmath::intmod_t &a) {
+  *this = *this + a;
+  return *this;
+}
+fp_poly_t &fp_poly_t::operator-=(const spffl::intmath::intmod_t &a) {
+  *this = *this - a;
+  return *this;
+}
+fp_poly_t &fp_poly_t::operator*=(const spffl::intmath::intmod_t &a) {
+  *this = *this * a;
+  return *this;
+}
+fp_poly_t &fp_poly_t::operator/=(const spffl::intmath::intmod_t &a) {
   *this = *this / a;
   return *this;
 }
@@ -584,7 +584,7 @@ spffl::intmath::intmod_t fp_poly_t::get_coeff(int deg) const {
 }
 
 // ----------------------------------------------------------------
-void fp_poly_t::set_coeff(int pos, spffl::intmath::intmod_t c) {
+void fp_poly_t::set_coeff(int pos, const spffl::intmath::intmod_t &c) {
   if (pos < 0) {
     this->bounds_check(pos);
   }

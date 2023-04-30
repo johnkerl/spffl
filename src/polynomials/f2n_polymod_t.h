@@ -21,8 +21,8 @@ public:
   ~f2n_polymod_t(void);
 
   f2n_polymod_t prime_sfld_elt(int v) const;
-  static f2n_polymod_t prime_sfld_elt(int v, f2n_poly_t om);
-  int get_characteristic(void);
+  static f2n_polymod_t prime_sfld_elt(int v, const f2n_poly_t &om);
+  int get_characteristic(void) const;
 
   f2n_polymod_t &operator=(const f2n_polymod_t &that);
 

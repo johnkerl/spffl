@@ -39,25 +39,25 @@ public:
   fp_poly_t &operator=(const fp_poly_t &that);
 
   fp_poly_t operator+(const fp_poly_t &that) const;
-  fp_poly_t operator+(spffl::intmath::intmod_t a) const;
   fp_poly_t operator-(const fp_poly_t &that) const;
-  fp_poly_t operator-(spffl::intmath::intmod_t a) const;
   fp_poly_t operator-(void) const;
   fp_poly_t operator*(const fp_poly_t &that) const;
-  fp_poly_t operator*(spffl::intmath::intmod_t a);
   fp_poly_t operator/(const fp_poly_t &that) const;
   fp_poly_t operator%(const fp_poly_t &that) const;
+  fp_poly_t operator+(const spffl::intmath::intmod_t &a) const;
+  fp_poly_t operator-(const spffl::intmath::intmod_t &a) const;
+  fp_poly_t operator*(const spffl::intmath::intmod_t &a) const;
   fp_poly_t operator/(const spffl::intmath::intmod_t &a) const;
 
   fp_poly_t &operator+=(const fp_poly_t &that);
-  fp_poly_t &operator+=(spffl::intmath::intmod_t a);
   fp_poly_t &operator-=(const fp_poly_t &that);
-  fp_poly_t &operator-=(spffl::intmath::intmod_t a);
   fp_poly_t &operator*=(const fp_poly_t &that);
-  fp_poly_t &operator*=(spffl::intmath::intmod_t a);
-  fp_poly_t &operator/=(fp_poly_t &that);
-  fp_poly_t &operator%=(fp_poly_t &that);
-  fp_poly_t &operator/=(spffl::intmath::intmod_t a);
+  fp_poly_t &operator/=(const fp_poly_t &that);
+  fp_poly_t &operator%=(const fp_poly_t &that);
+  fp_poly_t &operator+=(const spffl::intmath::intmod_t &a);
+  fp_poly_t &operator-=(const spffl::intmath::intmod_t &a);
+  fp_poly_t &operator*=(const spffl::intmath::intmod_t &a);
+  fp_poly_t &operator/=(const spffl::intmath::intmod_t &a);
 
   void quot_and_rem(
       const fp_poly_t &that, fp_poly_t &rquot, fp_poly_t &rrem) const;
@@ -70,7 +70,7 @@ public:
 
   int find_degree(void) const; // deg(0) is defined to be 0.
   spffl::intmath::intmod_t get_coeff(int deg) const;
-  void set_coeff(int pos, spffl::intmath::intmod_t c);
+  void set_coeff(int pos, const spffl::intmath::intmod_t &c);
 
   bool operator==(int v) const;
   bool operator!=(int v) const;

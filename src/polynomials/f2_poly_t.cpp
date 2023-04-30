@@ -45,24 +45,6 @@ f2_poly_t::f2_poly_t(int c2, int c1, int c0) {
   this->parts     = new uint64_t[1];
   this->parts[0]  = ((c2 & 1) << 2) | ((c1 & 1) << 1) | (c0 & 1);
 }
-f2_poly_t::f2_poly_t(int c3, int c2, int c1, int c0) {
-  this->num_parts = 1;
-  this->parts     = new uint64_t[1];
-  this->parts[0] =
-      ((c3 & 1) << 3) | ((c2 & 1) << 2) | ((c1 & 1) << 1) | (c0 & 1);
-}
-f2_poly_t::f2_poly_t(int c4, int c3, int c2, int c1, int c0) {
-  this->num_parts = 1;
-  this->parts     = new uint64_t[1];
-  this->parts[0]  = ((c4 & 1) << 4) | ((c3 & 1) << 3) | ((c2 & 1) << 2) |
-                   ((c1 & 1) << 1) | (c0 & 1);
-}
-f2_poly_t::f2_poly_t(int c5, int c4, int c3, int c2, int c1, int c0) {
-  this->num_parts = 1;
-  this->parts     = new uint64_t[1];
-  this->parts[0]  = ((c5 & 1) << 5) | ((c4 & 1) << 4) | ((c3 & 1) << 3) |
-                   ((c2 & 1) << 2) | ((c1 & 1) << 1) | (c0 & 1);
-}
 
 f2_poly_t::f2_poly_t(const std::string &s) {
   // TODO: neaten this up to have only a single alloc

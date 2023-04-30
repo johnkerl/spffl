@@ -47,13 +47,13 @@ f2n_polymod_t f2n_polymod_t::prime_sfld_elt(int v) const {
 
 // ----------------------------------------------------------------
 // This is a static method.
-f2n_polymod_t f2n_polymod_t::prime_sfld_elt(int v, f2n_poly_t om) {
+f2n_polymod_t f2n_polymod_t::prime_sfld_elt(int v, const f2n_poly_t &om) {
   f2_poly_t im = om.get_coeff(0).get_modulus();
   return f2n_polymod_t(f2n_poly_t::prime_sfld_elt(v, im), om);
 }
 
 // ----------------------------------------------------------------
-int f2n_polymod_t::get_characteristic(void) { return 2; }
+int f2n_polymod_t::get_characteristic(void) const { return 2; }
 
 // ----------------------------------------------------------------
 f2n_polymod_t &f2n_polymod_t::operator=(const f2n_polymod_t &that) {

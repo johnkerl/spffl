@@ -101,37 +101,37 @@ bool intmod_t::from_string(const char *string, int m) {
 }
 
 // ----------------------------------------------------------------
-intmod_t &intmod_t::operator+=(intmod_t that) {
+intmod_t &intmod_t::operator+=(const intmod_t &that) {
   *this = *this + that;
   return *this;
 }
 
 // ----------------------------------------------------------------
-intmod_t &intmod_t::operator-=(intmod_t that) {
+intmod_t &intmod_t::operator-=(const intmod_t &that) {
   *this = *this - that;
   return *this;
 }
 
 // ----------------------------------------------------------------
-intmod_t &intmod_t::operator*=(intmod_t that) {
+intmod_t &intmod_t::operator*=(const intmod_t &that) {
   *this = *this * that;
   return *this;
 }
 
 // ----------------------------------------------------------------
-intmod_t &intmod_t::operator/=(intmod_t that) {
+intmod_t &intmod_t::operator/=(const intmod_t &that) {
   *this = *this / that;
   return *this;
 }
 
 // ----------------------------------------------------------------
-intmod_t &intmod_t::operator%=(intmod_t that) {
+intmod_t &intmod_t::operator%=(const intmod_t &that) {
   *this = *this % that;
   return *this;
 }
 
 // ----------------------------------------------------------------
-bool intmod_t::operator==(intmod_t that) const {
+bool intmod_t::operator==(const intmod_t &that) const {
   this->check_modulus();
   that.check_modulus();
   if (this->residue != that.residue) {
@@ -144,7 +144,7 @@ bool intmod_t::operator==(intmod_t that) const {
 }
 
 // ----------------------------------------------------------------
-bool intmod_t::operator!=(intmod_t that) const { return !(*this == that); }
+bool intmod_t::operator!=(const intmod_t &that) const { return !(*this == that); }
 
 // ----------------------------------------------------------------
 bool intmod_t::operator==(int that) const {
@@ -159,25 +159,25 @@ bool intmod_t::operator!=(int that) const {
 }
 
 // ----------------------------------------------------------------
-bool intmod_t::operator<(intmod_t that) const {
+bool intmod_t::operator<(const intmod_t &that) const {
   this->check_moduli(that);
   return this->residue < that.residue;
 }
 
 // ----------------------------------------------------------------
-bool intmod_t::operator<=(intmod_t that) const {
+bool intmod_t::operator<=(const intmod_t &that) const {
   this->check_moduli(that);
   return this->residue <= that.residue;
 }
 
 // ----------------------------------------------------------------
-bool intmod_t::operator>(intmod_t that) const {
+bool intmod_t::operator>(const intmod_t &that) const {
   this->check_moduli(that);
   return this->residue > that.residue;
 }
 
 // ----------------------------------------------------------------
-bool intmod_t::operator>=(intmod_t that) const {
+bool intmod_t::operator>=(const intmod_t &that) const {
   this->check_moduli(that);
   return this->residue >= that.residue;
 }

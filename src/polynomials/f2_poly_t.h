@@ -27,9 +27,6 @@ public:
   f2_poly_t(int c0);
   f2_poly_t(int c1, int c0);
   f2_poly_t(int c2, int c1, int c0);
-  f2_poly_t(int c3, int c2, int c1, int c0);
-  f2_poly_t(int c4, int c3, int c2, int c1, int c0);
-  f2_poly_t(int c5, int c4, int c3, int c2, int c1, int c0);
 
   f2_poly_t(const std::string &s);
 

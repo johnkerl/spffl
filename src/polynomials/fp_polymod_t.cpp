@@ -47,7 +47,7 @@ fp_polymod_t fp_polymod_t::prime_sfld_elt(int v) const {
 
 // ----------------------------------------------------------------
 // This is a static method.
-fp_polymod_t fp_polymod_t::prime_sfld_elt(int v, fp_poly_t m) {
+fp_polymod_t fp_polymod_t::prime_sfld_elt(int v, const fp_poly_t &m) {
   return fp_polymod_t(m.prime_sfld_elt(v), m);
 }
 
@@ -269,7 +269,7 @@ fp_polymod_t &fp_polymod_t::operator*=(int a) {
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t &fp_polymod_t::operator*=(spffl::intmath::intmod_t a) {
+fp_polymod_t &fp_polymod_t::operator*=(const spffl::intmath::intmod_t &a) {
   *this = *this * a;
   return *this;
 }

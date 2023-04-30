@@ -24,39 +24,41 @@ public:
 
   intmod_t prime_sfld_elt(int v) const;
 
-  intmod_t &operator=(intmod_t that);
-  intmod_t operator+(intmod_t that);
-  intmod_t operator+(int a);
-  intmod_t operator-(intmod_t that);
-  intmod_t operator-(void);
-  intmod_t operator-(int a);
-  intmod_t operator*(intmod_t that);
-  intmod_t operator*(int a);
-  intmod_t operator/(intmod_t that);
-  intmod_t operator%(intmod_t that);
+  intmod_t &operator=(const intmod_t &that);
+
+  intmod_t operator+(const intmod_t &that) const;
+  intmod_t operator-(const intmod_t &that) const;
+  intmod_t operator-(void) const;
+  intmod_t operator*(const intmod_t &that) const;
+  intmod_t operator/(const intmod_t &that) const;
+  intmod_t operator%(const intmod_t &that) const;
+  intmod_t operator+(int a) const;
+  intmod_t operator-(int a) const;
+  intmod_t operator*(int a) const;
   bool recip(intmod_t &rinv) const;
   intmod_t exp(int e) const;
+
   friend std::ostream &operator<<(std::ostream &os, const intmod_t &a);
   // Modulus must have already been set:  this sets only the residue.
   friend std::istream &operator>>(std::istream &is, intmod_t &a);
   bool from_string(const char *string, int modulus);
 
-  intmod_t &operator+=(intmod_t that);
-  intmod_t &operator-=(intmod_t that);
-  intmod_t &operator*=(intmod_t that);
-  intmod_t &operator/=(intmod_t that);
-  intmod_t &operator%=(intmod_t that);
+  intmod_t &operator+=(const intmod_t &that);
+  intmod_t &operator-=(const intmod_t &that);
+  intmod_t &operator*=(const intmod_t &that);
+  intmod_t &operator/=(const intmod_t &that);
+  intmod_t &operator%=(const intmod_t &that);
 
-  bool operator==(intmod_t that) const;
-  bool operator!=(intmod_t that) const;
+  bool operator==(const intmod_t &that) const;
+  bool operator!=(const intmod_t &that) const;
   bool operator==(int that) const;
   bool operator!=(int that) const;
   // Z/mZ is *not* totally ordered.  Nonetheless, these methods are
   // handy for looping and sorting.
-  bool operator<(intmod_t that) const;
-  bool operator>(intmod_t that) const;
-  bool operator<=(intmod_t that) const;
-  bool operator>=(intmod_t that) const;
+  bool operator<(const intmod_t &that) const;
+  bool operator>(const intmod_t &that) const;
+  bool operator<=(const intmod_t &that) const;
+  bool operator>=(const intmod_t &that) const;
 
   int get_residue(void) const;
   int get_modulus(void) const;
@@ -65,7 +67,7 @@ private:
   int residue;
   int modulus;
 
-  void check_moduli(intmod_t &that) const;
+  void check_moduli(const intmod_t &that) const;
   void check_modulus(void) const;
 };
 
@@ -101,7 +103,7 @@ inline intmod_t::intmod_t(void) {
 inline intmod_t::~intmod_t(void) {}
 
 // ----------------------------------------------------------------
-inline void intmod_t::check_moduli(intmod_t &that) const {
+inline void intmod_t::check_moduli(const intmod_t &that) const {
   this->check_modulus();
   that.check_modulus();
   if (this->modulus != that.modulus) {
@@ -124,60 +126,60 @@ inline void intmod_t::check_modulus(void) const {
 }
 
 // ----------------------------------------------------------------
-inline intmod_t &intmod_t::operator=(intmod_t that) {
+inline intmod_t &intmod_t::operator=(const intmod_t &that) {
   this->residue = that.residue;
   this->modulus = that.modulus;
   return *this;
 }
 
 // ----------------------------------------------------------------
-inline intmod_t intmod_t::operator+(intmod_t that) {
+inline intmod_t intmod_t::operator+(const intmod_t &that) const {
   this->check_moduli(that);
   intmod_t rv(this->residue + that.residue, this->modulus);
   return rv;
 }
 
 // ----------------------------------------------------------------
-inline intmod_t intmod_t::operator+(int a) {
-  intmod_t rv(this->residue + a, this->modulus);
-  return rv;
-}
-
-// ----------------------------------------------------------------
-inline intmod_t intmod_t::operator-(intmod_t that) {
+inline intmod_t intmod_t::operator-(const intmod_t &that) const {
   this->check_moduli(that);
   intmod_t rv(this->modulus + this->residue - that.residue, this->modulus);
   return rv;
 }
 
 // ----------------------------------------------------------------
-inline intmod_t intmod_t::operator-(int a) {
-  intmod_t rv(this->modulus + this->residue - a, this->modulus);
-  return rv;
-}
-
-// ----------------------------------------------------------------
-inline intmod_t intmod_t::operator-(void) {
+inline intmod_t intmod_t::operator-(void) const {
   this->check_modulus();
   intmod_t rv(this->modulus - this->residue, this->modulus);
   return rv;
 }
 
 // ----------------------------------------------------------------
-inline intmod_t intmod_t::operator*(intmod_t that) {
+inline intmod_t intmod_t::operator*(const intmod_t &that) const {
   this->check_moduli(that);
   intmod_t rv(this->residue * that.residue, this->modulus);
   return rv;
 }
 
 // ----------------------------------------------------------------
-inline intmod_t intmod_t::operator*(int a) {
+inline intmod_t intmod_t::operator+(int a) const {
+  intmod_t rv(this->residue + a, this->modulus);
+  return rv;
+}
+
+// ----------------------------------------------------------------
+inline intmod_t intmod_t::operator-(int a) const {
+  intmod_t rv(this->modulus + this->residue - a, this->modulus);
+  return rv;
+}
+
+// ----------------------------------------------------------------
+inline intmod_t intmod_t::operator*(int a) const {
   intmod_t rv(this->residue * a, this->modulus);
   return rv;
 }
 
 // ----------------------------------------------------------------
-inline intmod_t intmod_t::operator/(intmod_t that) {
+inline intmod_t intmod_t::operator/(const intmod_t &that) const {
   this->check_moduli(that);
 
   intmod_t bi;
@@ -191,7 +193,7 @@ inline intmod_t intmod_t::operator/(intmod_t that) {
 }
 
 // ----------------------------------------------------------------
-inline intmod_t intmod_t::operator%(intmod_t that) {
+inline intmod_t intmod_t::operator%(const intmod_t &that) const {
   this->check_moduli(that);
 
   intmod_t bi;
