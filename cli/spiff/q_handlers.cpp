@@ -1,9 +1,9 @@
-#include "q_cyclotomic/cyclo_poly.h"
-#include "intmath/intrat_t.h"
-#include "polynomials/q_poly_t.h"
+#include "q_handlers.h"
 #include "cli_parser/cmd_line_matrix_ops.h"
 #include "cli_parser/cmd_line_vector_ops.h"
-#include "q_handlers.h"
+#include "intmath/intrat_t.h"
+#include "polynomials/q_poly_t.h"
+#include "q_cyclotomic/cyclo_poly.h"
 
 int q_op_main(int argc, char **argv, usage_t *pusage) {
   spffl::cli_parser::cmd_line_parse<spffl::rationals::intrat_t>(argc - 1,

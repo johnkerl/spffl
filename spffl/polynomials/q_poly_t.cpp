@@ -4,10 +4,10 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "base/spffl_exception.h"
-#include "base/cmps.h"
-#include "base/tokenize.h"
 #include "polynomials/q_poly_t.h"
+#include "base/cmps.h"
+#include "base/spffl_exception.h"
+#include "base/tokenize.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -325,10 +325,10 @@ void q_poly_t::quot_and_rem(
   intrat_t divisor_leader = that.coeffs[divisor_degree];
   intrat_t dlinv          = intrat_t(1) / divisor_leader;
   for (int shift = max_shift; shift >= 0; shift--) {
-    intrat_t rem_leader      = rem.coeffs[shift + divisor_degree];
-    intrat_t multiplier      = rem_leader * dlinv;
+    intrat_t rem_leader       = rem.coeffs[shift + divisor_degree];
+    intrat_t multiplier       = rem_leader * dlinv;
     q_poly_t divisor_with_mul = that * multiplier;
-    quot.coeffs[shift]       = multiplier;
+    quot.coeffs[shift]        = multiplier;
 
     int stop = shift + divisor_with_mul.degree;
     for (int i = shift; i <= stop; i++) {
@@ -382,7 +382,8 @@ q_poly_t q_poly_t::gcd(const q_poly_t &that) const {
 // ----------------------------------------------------------------
 // Blankinship's algorithm.
 
-q_poly_t q_poly_t::ext_gcd(const q_poly_t &that, q_poly_t &rm, q_poly_t &rn) const {
+q_poly_t q_poly_t::ext_gcd(
+    const q_poly_t &that, q_poly_t &rm, q_poly_t &rn) const {
   q_poly_t mprime, nprime, c, q, r, t, qm, qn;
   q_poly_t d; // Return value.
 
@@ -418,7 +419,7 @@ q_poly_t q_poly_t::ext_gcd(const q_poly_t &that, q_poly_t &rm, q_poly_t &rn) con
 
 // ----------------------------------------------------------------
 q_poly_t q_poly_t::exp(int e) const {
-  int deg      = this->find_degree();
+  int deg       = this->find_degree();
   q_poly_t xp   = *this;
   q_poly_t zero = q_poly_t(0);
   q_poly_t one  = q_poly_t(1);

@@ -4,9 +4,9 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "base/spffl_exception.h"
-#include "base/cmps.h"
 #include "polynomials/f2_poly_t.h"
+#include "base/cmps.h"
+#include "base/spffl_exception.h"
 #include <ctype.h>
 #include <string.h>
 

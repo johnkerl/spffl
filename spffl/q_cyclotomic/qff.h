@@ -2,12 +2,12 @@
 #define QFF_H
 
 #include "intmath/intmod_t.h"
+#include "intmath/intrat_t.h"
 #include "polynomials/f2_poly_t.h"
 #include "polynomials/f2n_poly_t.h"
 #include "polynomials/fp_poly_t.h"
 #include "polynomials/fpn_poly_t.h"
 #include "polynomials/q_poly_t.h"
-#include "intmath/intrat_t.h"
 
 namespace spffl::q_cyclotomic {
 

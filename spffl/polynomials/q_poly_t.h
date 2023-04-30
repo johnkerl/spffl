@@ -24,7 +24,8 @@ public:
   q_poly_t(const intrat_t &c0);
   q_poly_t(const intrat_t &c1, const intrat_t &c0);
   q_poly_t(const intrat_t &c2, const intrat_t &c1, const intrat_t &c0);
-  static q_poly_t binomial(const intrat_t &ci, int i, const intrat_t &cj, int j);
+  static q_poly_t binomial(
+      const intrat_t &ci, int i, const intrat_t &cj, int j);
 
   q_poly_t(const q_poly_t &that);
   ~q_poly_t(void);
@@ -51,7 +52,8 @@ public:
   q_poly_t &operator%=(const q_poly_t &that);
   q_poly_t &operator/=(const intrat_t &a);
 
-  void quot_and_rem(const q_poly_t &that, q_poly_t &rquot, q_poly_t &rrem) const;
+  void quot_and_rem(
+      const q_poly_t &that, q_poly_t &rquot, q_poly_t &rrem) const;
   q_poly_t gcd(const q_poly_t &that) const;
   q_poly_t ext_gcd(const q_poly_t &that, q_poly_t &rm, q_poly_t &rn) const;
   q_poly_t exp(int power) const;

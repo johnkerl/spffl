@@ -1,15 +1,15 @@
 #include "fp_poly_handlers.h"
 
-#include "polynomials/fp_poly_t.h"
-#include "random/fp_poly_random.h"
-#include "factorization/fp_poly_factor.h"
-#include "factorization/fp_poly_totient.h"
-#include "list/list_elements.h"
-#include "q_cyclotomic/qff.h"
-#include "linalg/fp_linear_algebra.h"
 #include "cli_parser/cmd_line_matrix_ops.h"
 #include "cli_parser/cmd_line_ops.h"
 #include "cli_parser/cmd_line_vector_ops.h"
+#include "factorization/fp_poly_factor.h"
+#include "factorization/fp_poly_totient.h"
+#include "linalg/fp_linear_algebra.h"
+#include "list/list_elements.h"
+#include "polynomials/fp_poly_t.h"
+#include "q_cyclotomic/qff.h"
+#include "random/fp_poly_random.h"
 
 #include <string.h>
 

@@ -6,15 +6,15 @@
 
 #include "f2_poly_handlers.h"
 
-#include "polynomials/f2_poly_t.h"
-#include "random/f2_poly_random.h"
+#include "cli_parser/cmd_line_matrix_ops.h"
 #include "factorization/f2_poly_factor.h"
 #include "factorization/f2_poly_totient.h"
-#include "units/f2_polymod_units.h"
 #include "linalg/f2_linear_algebra.h"
 #include "list/list_elements.h"
+#include "polynomials/f2_poly_t.h"
 #include "q_cyclotomic/qff.h"
-#include "cli_parser/cmd_line_matrix_ops.h"
+#include "random/f2_poly_random.h"
+#include "units/f2_polymod_units.h"
 #include <string.h>
 
 void f2_p_list_usage(char *argv0) {

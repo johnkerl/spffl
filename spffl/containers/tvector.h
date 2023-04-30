@@ -14,8 +14,8 @@
 #include <string.h>
 template <class element_type> class tvector;
 template <class element_type> class tmatrix;
-#include "intmath/int_gcd.h"
 #include "containers/tmatrix.h"
+#include "intmath/int_gcd.h"
 
 template <class element_type>
 static int tvqcmp(const void *pv1, const void *pv2);

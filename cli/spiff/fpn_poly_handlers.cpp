@@ -1,8 +1,8 @@
 #include "fpn_poly_handlers.h"
 
+#include "cli_parser/cmd_line_matrix_ops.h"
 #include "polynomials/fpn_poly_t.h"
 #include "q_cyclotomic/qff.h"
-#include "cli_parser/cmd_line_matrix_ops.h"
 #include <string.h>
 
 // ----------------------------------------------------------------

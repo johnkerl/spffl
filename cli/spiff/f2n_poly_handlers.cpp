@@ -1,17 +1,17 @@
 #include "f2n_poly_handlers.h"
 #include "tbl_types.h"
 
-#include "polynomials/f2n_poly_t.h"
-#include "polynomials/q_poly_t.h"
-#include "factorization/f2n_poly_factor.h"
-#include "factorization/f2n_poly_totient.h"
-#include "random/f2n_poly_random.h"
-#include "list/list_elements.h"
-#include "q_cyclotomic/qff.h"
-#include "linalg/f2_polymod_linear_algebra.h"
 #include "cli_parser/cmd_line_matrix_ops.h"
 #include "cli_parser/cmd_line_ops.h"
 #include "cli_parser/cmd_line_vector_ops.h"
+#include "factorization/f2n_poly_factor.h"
+#include "factorization/f2n_poly_totient.h"
+#include "linalg/f2_polymod_linear_algebra.h"
+#include "list/list_elements.h"
+#include "polynomials/f2n_poly_t.h"
+#include "polynomials/q_poly_t.h"
+#include "q_cyclotomic/qff.h"
+#include "random/f2n_poly_random.h"
 
 #include <string.h>
 

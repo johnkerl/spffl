@@ -4,8 +4,8 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "base/spffl_exception.h"
 #include "random/f2n_poly_random.h"
+#include "base/spffl_exception.h"
 #include "random/f2_polymod_random.h"
 
 namespace spffl::random {

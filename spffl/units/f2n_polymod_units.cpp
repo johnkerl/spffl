@@ -4,10 +4,10 @@
 // Please see LICENSE.txt.
 // ================================================================
 
+#include "units/f2n_polymod_units.h"
 #include "base/spffl_exception.h"
 #include "containers/tfacinfo.h"
 #include "containers/tvector.h"
-#include "units/f2n_polymod_units.h"
 #include "factorization/f2n_poly_totient.h"
 #include "factorization/int_factor.h"
 #include "intmath/int_sqrt.h"

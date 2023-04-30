@@ -4,10 +4,10 @@
 // Please see LICENSE.txt.
 // ================================================================
 
+#include "polynomials/fpn_poly_t.h"
+#include "base/cmps.h"
 #include "base/spffl_exception.h"
 #include "base/tokenize.h"
-#include "base/cmps.h"
-#include "polynomials/fpn_poly_t.h"
 
 #include <string.h>
 

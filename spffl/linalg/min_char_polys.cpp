@@ -4,10 +4,10 @@
 // Please see LICENSE.txt.
 // ================================================================
 
+#include "linalg/min_char_polys.h"
 #include "base/spffl_exception.h"
 #include "bits/bit_matrix_t.h"
 #include "containers/tmatrix.h"
-#include "linalg/min_char_polys.h"
 #include <iostream>
 
 namespace spffl::linalg {

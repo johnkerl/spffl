@@ -1,15 +1,15 @@
 #include "f2_polymod_handlers.h"
 #include "tbl_types.h"
 
-#include "random/f2_polymod_random.h"
-#include "units/f2_polymod_units.h"
-#include "list/list_elements.h"
-#include "linalg/min_char_polys.h"
-#include "linalg/f2_polymod_convert.h"
-#include "linalg/f2_polymod_linear_algebra.h"
 #include "cli_parser/cmd_line_matrix_ops.h"
 #include "cli_parser/cmd_line_ops.h"
 #include "cli_parser/cmd_line_vector_ops.h"
+#include "linalg/f2_polymod_convert.h"
+#include "linalg/f2_polymod_linear_algebra.h"
+#include "linalg/min_char_polys.h"
+#include "list/list_elements.h"
+#include "random/f2_polymod_random.h"
+#include "units/f2_polymod_units.h"
 #include <string.h>
 
 void f2_pm_list_usage(char *argv0) {

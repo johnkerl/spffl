@@ -10,8 +10,8 @@
 #include "base/line_scan.h"
 #include "base/spffl_exception.h"
 #include "base/tokenize.h"
-#include "intmath/int_gcd.h"
 #include "containers/tvector.h"
+#include "intmath/int_gcd.h"
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>

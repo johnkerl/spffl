@@ -4,9 +4,9 @@
 // Please see LICENSE.txt.
 // ================================================================
 
+#include "bits/bit_matrix_t.h"
 #include "base/line_scan.h"
 #include "base/spffl_exception.h"
-#include "bits/bit_matrix_t.h"
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>

@@ -4,14 +4,14 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "base/spffl_exception.h"
-#include "intmath/int_gcd.h"
-#include "polynomials/f2n_poly_t.h"
-#include "factorization/f2n_poly_factor.h"
-#include "factorization/f2_poly_factor.h"
-#include "units/f2_polymod_units.h"
-#include "linalg/f2_polymod_convert.h"
 #include "linalg/f2_polymod_linear_algebra.h"
+#include "base/spffl_exception.h"
+#include "factorization/f2_poly_factor.h"
+#include "factorization/f2n_poly_factor.h"
+#include "intmath/int_gcd.h"
+#include "linalg/f2_polymod_convert.h"
+#include "polynomials/f2n_poly_t.h"
+#include "units/f2_polymod_units.h"
 
 namespace spffl::linalg {
 

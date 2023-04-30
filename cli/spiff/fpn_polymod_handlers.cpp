@@ -1,9 +1,9 @@
 #include "fpn_polymod_handlers.h"
 
-#include "polynomials/fpn_polymod_t.h"
 #include "cli_parser/cmd_line_matrix_ops.h"
 #include "cli_parser/cmd_line_ops.h"
 #include "cli_parser/cmd_line_vector_ops.h"
+#include "polynomials/fpn_polymod_t.h"
 
 // ----------------------------------------------------------------
 void fpn_pm_op_usage(char *argv0) {

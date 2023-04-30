@@ -4,9 +4,9 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "base/spffl_exception.h"
-#include "base/cmps.h"
 #include "rationals/f2_polyrat_t.h"
+#include "base/cmps.h"
+#include "base/spffl_exception.h"
 #include <iomanip>
 #include <iostream>
 

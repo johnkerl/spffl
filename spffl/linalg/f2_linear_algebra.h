@@ -8,9 +8,9 @@
 #define F2LINALG_H
 
 #include "bits/bit_t.h"
+#include "containers/tmatrix.h"
 #include "polynomials/f2_poly_t.h"
 #include "polynomials/f2n_poly_t.h"
-#include "containers/tmatrix.h"
 
 namespace spffl::linalg {
 

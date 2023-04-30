@@ -7,8 +7,8 @@
 #ifndef FPLINALG_H
 #define FPLINALG_H
 
-#include "polynomials/fp_poly_t.h"
 #include "containers/tmatrix.h"
+#include "polynomials/fp_poly_t.h"
 #if 0
 #include "fpn_poly_t.h"
 #endif

@@ -4,14 +4,14 @@
 // Please see LICENSE.txt.
 // ================================================================
 
+#include "units/fp_units.h"
 #include "base/spffl_exception.h"
 #include "containers/tfacinfo.h"
 #include "containers/tvector.h"
+#include "factorization/int_factor.h"
 #include "intmath/int_gcd.h"
 #include "intmath/int_sqrt.h"
 #include "intmath/int_totient.h"
-#include "factorization/int_factor.h"
-#include "units/fp_units.h"
 
 namespace spffl::units {
 
