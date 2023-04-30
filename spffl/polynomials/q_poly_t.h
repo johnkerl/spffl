@@ -15,42 +15,42 @@
 #include <iomanip>
 #include <iostream>
 
-namespace spffl::rationals {
+namespace spffl::polynomials {
 
 class q_poly_t {
 public:
   q_poly_t(void);
 
-  q_poly_t(const intrat_t &c0);
-  q_poly_t(const intrat_t &c1, const intrat_t &c0);
-  q_poly_t(const intrat_t &c2, const intrat_t &c1, const intrat_t &c0);
+  q_poly_t(const spffl::intmath::intrat_t &c0);
+  q_poly_t(const spffl::intmath::intrat_t &c1, const spffl::intmath::intrat_t &c0);
+  q_poly_t(const spffl::intmath::intrat_t &c2, const spffl::intmath::intrat_t &c1, const spffl::intmath::intrat_t &c0);
   static q_poly_t binomial(
-      const intrat_t &ci, int i, const intrat_t &cj, int j);
+      const spffl::intmath::intrat_t &ci, int i, const spffl::intmath::intrat_t &cj, int j);
 
   q_poly_t(const q_poly_t &that);
   ~q_poly_t(void);
 
   q_poly_t &operator=(const q_poly_t &that);
   q_poly_t operator+(const q_poly_t &that) const;
-  q_poly_t operator+(const intrat_t &a) const;
+  q_poly_t operator+(const spffl::intmath::intrat_t &a) const;
   q_poly_t operator-(const q_poly_t &that) const;
-  q_poly_t operator-(const intrat_t &a) const;
+  q_poly_t operator-(const spffl::intmath::intrat_t &a) const;
   q_poly_t operator-(void) const;
   q_poly_t operator*(const q_poly_t &that) const;
-  q_poly_t operator*(const intrat_t &a);
+  q_poly_t operator*(const spffl::intmath::intrat_t &a);
   q_poly_t operator/(const q_poly_t &that);
   q_poly_t operator%(const q_poly_t &that);
-  q_poly_t operator/(const intrat_t &a);
+  q_poly_t operator/(const spffl::intmath::intrat_t &a);
 
   q_poly_t &operator+=(const q_poly_t &that);
-  q_poly_t &operator+=(const intrat_t &a);
+  q_poly_t &operator+=(const spffl::intmath::intrat_t &a);
   q_poly_t &operator-=(const q_poly_t &that);
-  q_poly_t &operator-=(const intrat_t &a);
+  q_poly_t &operator-=(const spffl::intmath::intrat_t &a);
   q_poly_t &operator*=(const q_poly_t &that);
-  q_poly_t &operator*=(const intrat_t &a);
+  q_poly_t &operator*=(const spffl::intmath::intrat_t &a);
   q_poly_t &operator/=(const q_poly_t &that);
   q_poly_t &operator%=(const q_poly_t &that);
-  q_poly_t &operator/=(const intrat_t &a);
+  q_poly_t &operator/=(const spffl::intmath::intrat_t &a);
 
   void quot_and_rem(
       const q_poly_t &that, q_poly_t &rquot, q_poly_t &rrem) const;
@@ -58,11 +58,11 @@ public:
   q_poly_t ext_gcd(const q_poly_t &that, q_poly_t &rm, q_poly_t &rn) const;
   q_poly_t exp(int power) const;
   q_poly_t deriv(void) const;
-  intrat_t eval(const intrat_t &c) const;
+  spffl::intmath::intrat_t eval(const spffl::intmath::intrat_t &c) const;
 
   int find_degree(void) const; // deg(0) is defined to be 0.
-  intrat_t get_coeff(int deg) const;
-  void set_coeff(int pos, intrat_t c);
+  spffl::intmath::intrat_t get_coeff(int deg) const;
+  void set_coeff(int pos, spffl::intmath::intrat_t c);
 
   bool operator==(int v) const;
   bool operator!=(int v) const;
@@ -80,10 +80,10 @@ public:
   bool from_string(const std::string &string);
 
   void promote(void);
-  void promote_and_add(intrat_t c0);
+  void promote_and_add(spffl::intmath::intrat_t c0);
 
 private:
-  intrat_t *coeffs;
+  spffl::intmath::intrat_t *coeffs;
   int degree;
 
   bool cmp(int cmp, const q_poly_t &that) const;
@@ -91,6 +91,6 @@ private:
   void recompute_degree();
 };
 
-} // namespace spffl::rationals
+} // namespace spffl::polynomials
 
 #endif // QPOLY_T_H

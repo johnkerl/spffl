@@ -13,7 +13,7 @@
 #include <iostream>
 #include <stdlib.h>
 
-namespace spffl::rationals {
+namespace spffl::intmath {
 
 // ----------------------------------------------------------------
 intrat_t::intrat_t(int numerator, int denominator) {
@@ -349,4 +349,4 @@ void intrat_t::simplify(void) {
   this->denom /= g;
 }
 
-} // namespace spffl::rationals
+} // namespace spffl::intmath

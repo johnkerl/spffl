@@ -465,7 +465,7 @@ void f2n_p_qp_usage(char *argv0) {
 
 int f2n_p_qp_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t m;
-  spffl::rationals::q_poly_t qp;
+  spffl::polynomials::q_poly_t qp;
   spffl::polynomials::f2n_poly_t f2np;
   if (argc < 3) {
     pusage(argv[0]);

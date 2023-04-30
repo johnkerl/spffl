@@ -20,12 +20,12 @@
 namespace spffl::random {
 
 // ----------------------------------------------------------------
-uint32_t get_random_unsigned(void) { return (uint32_t)get_random_int(); }
+uint32_t get_random_uint32(void) { return (uint32_t)get_random_int(); }
 
 // ----------------------------------------------------------------
-uint64_t get_random_ull(void) {
-  uint32_t lo = get_random_unsigned();
-  uint32_t hi = get_random_unsigned();
+uint64_t get_random_uint64(void) {
+  uint32_t lo = get_random_uint32();
+  uint32_t hi = get_random_uint32();
   return ((uint64_t)hi << 32) | (uint64_t)lo;
 }
 

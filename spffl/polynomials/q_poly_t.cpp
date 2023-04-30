@@ -4,44 +4,45 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "polynomials/q_poly_t.h"
 #include "base/cmps.h"
 #include "base/spffl_exception.h"
 #include "base/tokenize.h"
+#include "intmath/intrat_t.h"
+#include "polynomials/q_poly_t.h"
 #include <stdlib.h>
 #include <string.h>
 
-namespace spffl::rationals {
+namespace spffl::polynomials {
 
 // ----------------------------------------------------------------
 q_poly_t::q_poly_t(void) {
-  intrat_t zero(0);
+  spffl::intmath::intrat_t zero(0);
   this->degree    = 0;
-  this->coeffs    = new intrat_t[this->degree + 1];
+  this->coeffs    = new spffl::intmath::intrat_t[this->degree + 1];
   this->coeffs[0] = zero;
 }
 
 // ----------------------------------------------------------------
-q_poly_t::q_poly_t(const intrat_t &c0) {
+q_poly_t::q_poly_t(const spffl::intmath::intrat_t &c0) {
   this->degree    = 0;
-  this->coeffs    = new intrat_t[this->degree + 1];
+  this->coeffs    = new spffl::intmath::intrat_t[this->degree + 1];
   this->coeffs[0] = c0;
   this->recompute_degree();
 }
 
 // ----------------------------------------------------------------
-q_poly_t::q_poly_t(const intrat_t &c1, const intrat_t &c0) {
+q_poly_t::q_poly_t(const spffl::intmath::intrat_t &c1, const spffl::intmath::intrat_t &c0) {
   this->degree    = 1;
-  this->coeffs    = new intrat_t[this->degree + 1];
+  this->coeffs    = new spffl::intmath::intrat_t[this->degree + 1];
   this->coeffs[1] = c1;
   this->coeffs[0] = c0;
   this->recompute_degree();
 }
 
 // ----------------------------------------------------------------
-q_poly_t::q_poly_t(const intrat_t &c2, const intrat_t &c1, const intrat_t &c0) {
+q_poly_t::q_poly_t(const spffl::intmath::intrat_t &c2, const spffl::intmath::intrat_t &c1, const spffl::intmath::intrat_t &c0) {
   this->degree    = 2;
-  this->coeffs    = new intrat_t[this->degree + 1];
+  this->coeffs    = new spffl::intmath::intrat_t[this->degree + 1];
   this->coeffs[2] = c2;
   this->coeffs[1] = c1;
   this->coeffs[0] = c0;
@@ -51,7 +52,7 @@ q_poly_t::q_poly_t(const intrat_t &c2, const intrat_t &c1, const intrat_t &c0) {
 // ----------------------------------------------------------------
 // This is a static method.
 q_poly_t q_poly_t::binomial(
-    const intrat_t &ci, int i, const intrat_t &cj, int j) {
+    const spffl::intmath::intrat_t &ci, int i, const spffl::intmath::intrat_t &cj, int j) {
   q_poly_t rv(0);
   rv.set_coeff(i, ci);
   rv.set_coeff(j, cj);
@@ -61,7 +62,7 @@ q_poly_t q_poly_t::binomial(
 // ----------------------------------------------------------------
 q_poly_t::q_poly_t(const q_poly_t &that) {
   this->degree = that.degree;
-  this->coeffs = new intrat_t[this->degree + 1];
+  this->coeffs = new spffl::intmath::intrat_t[this->degree + 1];
   for (int i = 0; i <= that.degree; i++) {
     this->coeffs[i] = that.coeffs[i];
   }
@@ -80,7 +81,7 @@ q_poly_t &q_poly_t::operator=(const q_poly_t &that) {
     delete[] this->coeffs;
   }
   this->degree = that.degree;
-  this->coeffs = new intrat_t[this->degree + 1];
+  this->coeffs = new spffl::intmath::intrat_t[this->degree + 1];
   for (int i = 0; i <= that.degree; i++) {
     this->coeffs[i] = that.coeffs[i];
   }
@@ -94,7 +95,7 @@ q_poly_t q_poly_t::operator+(const q_poly_t &that) const {
 
   if (this->degree < that.degree) {
     rv.degree = that.degree;
-    rv.coeffs = new intrat_t[rv.degree + 1];
+    rv.coeffs = new spffl::intmath::intrat_t[rv.degree + 1];
     for (i = 0; i <= this->degree; i++) {
       rv.coeffs[i] = this->coeffs[i] + that.coeffs[i];
     }
@@ -103,7 +104,7 @@ q_poly_t q_poly_t::operator+(const q_poly_t &that) const {
     }
   } else {
     rv.degree = this->degree;
-    rv.coeffs = new intrat_t[rv.degree + 1];
+    rv.coeffs = new spffl::intmath::intrat_t[rv.degree + 1];
     for (i = 0; i <= that.degree; i++) {
       rv.coeffs[i] = this->coeffs[i] + that.coeffs[i];
     }
@@ -116,7 +117,7 @@ q_poly_t q_poly_t::operator+(const q_poly_t &that) const {
 }
 
 // ----------------------------------------------------------------
-q_poly_t q_poly_t::operator+(const intrat_t &a) const {
+q_poly_t q_poly_t::operator+(const spffl::intmath::intrat_t &a) const {
   q_poly_t rv(*this);
   rv.coeffs[0] += a;
   rv.recompute_degree();
@@ -130,7 +131,7 @@ q_poly_t q_poly_t::operator-(const q_poly_t &that) const {
 
   if (this->degree < that.degree) {
     rv.degree = that.degree;
-    rv.coeffs = new intrat_t[rv.degree + 1];
+    rv.coeffs = new spffl::intmath::intrat_t[rv.degree + 1];
     for (i = 0; i <= this->degree; i++) {
       rv.coeffs[i] = this->coeffs[i] - that.coeffs[i];
     }
@@ -139,7 +140,7 @@ q_poly_t q_poly_t::operator-(const q_poly_t &that) const {
     }
   } else {
     rv.degree = this->degree;
-    rv.coeffs = new intrat_t[rv.degree + 1];
+    rv.coeffs = new spffl::intmath::intrat_t[rv.degree + 1];
     for (i = 0; i <= that.degree; i++) {
       rv.coeffs[i] = this->coeffs[i] - that.coeffs[i];
     }
@@ -152,7 +153,7 @@ q_poly_t q_poly_t::operator-(const q_poly_t &that) const {
 }
 
 // ----------------------------------------------------------------
-q_poly_t q_poly_t::operator-(const intrat_t &a) const {
+q_poly_t q_poly_t::operator-(const spffl::intmath::intrat_t &a) const {
   q_poly_t rv(*this);
   rv.coeffs[0] -= a;
   rv.recompute_degree();
@@ -162,7 +163,7 @@ q_poly_t q_poly_t::operator-(const intrat_t &a) const {
 // ----------------------------------------------------------------
 q_poly_t q_poly_t::operator-(void) const {
   q_poly_t rv;
-  rv.coeffs = new intrat_t[rv.degree + 1];
+  rv.coeffs = new spffl::intmath::intrat_t[rv.degree + 1];
   for (int i = 0; i <= this->degree; i++) {
     rv.coeffs[i] = -this->coeffs[i];
   }
@@ -173,9 +174,9 @@ q_poly_t q_poly_t::operator-(void) const {
 q_poly_t q_poly_t::operator*(const q_poly_t &that) const {
   q_poly_t rv;
   rv.degree = this->degree + that.degree;
-  rv.coeffs = new intrat_t[rv.degree + 1];
+  rv.coeffs = new spffl::intmath::intrat_t[rv.degree + 1];
 
-  intrat_t zero = this->coeffs[0] - this->coeffs[0];
+  spffl::intmath::intrat_t zero = this->coeffs[0] - this->coeffs[0];
   for (int k = 0; k <= rv.degree; k++) {
     rv.coeffs[k] = zero;
   }
@@ -189,7 +190,7 @@ q_poly_t q_poly_t::operator*(const q_poly_t &that) const {
 }
 
 // ----------------------------------------------------------------
-q_poly_t q_poly_t::operator*(const intrat_t &a) {
+q_poly_t q_poly_t::operator*(const spffl::intmath::intrat_t &a) {
   q_poly_t rv = *this;
   for (int i = 0; i <= rv.degree; i++) {
     rv.coeffs[i] *= a;
@@ -213,7 +214,7 @@ q_poly_t q_poly_t::operator%(const q_poly_t &that) {
 }
 
 // ----------------------------------------------------------------
-q_poly_t q_poly_t::operator/(const intrat_t &a) {
+q_poly_t q_poly_t::operator/(const spffl::intmath::intrat_t &a) {
   q_poly_t rv = *this;
   for (int i = 0; i <= rv.degree; i++) {
     rv.coeffs[i] /= a;
@@ -227,7 +228,7 @@ q_poly_t &q_poly_t::operator+=(const q_poly_t &that) {
   *this = *this + that;
   return *this;
 }
-q_poly_t &q_poly_t::operator+=(const intrat_t &a) {
+q_poly_t &q_poly_t::operator+=(const spffl::intmath::intrat_t &a) {
   *this = *this + a;
   return *this;
 }
@@ -235,7 +236,7 @@ q_poly_t &q_poly_t::operator-=(const q_poly_t &that) {
   *this = *this - that;
   return *this;
 }
-q_poly_t &q_poly_t::operator-=(const intrat_t &a) {
+q_poly_t &q_poly_t::operator-=(const spffl::intmath::intrat_t &a) {
   *this = *this - a;
   return *this;
 }
@@ -243,7 +244,7 @@ q_poly_t &q_poly_t::operator*=(const q_poly_t &that) {
   *this = *this * that;
   return *this;
 }
-q_poly_t &q_poly_t::operator*=(const intrat_t &a) {
+q_poly_t &q_poly_t::operator*=(const spffl::intmath::intrat_t &a) {
   *this = *this * a;
   return *this;
 }
@@ -255,7 +256,7 @@ q_poly_t &q_poly_t::operator%=(const q_poly_t &that) {
   *this = *this % that;
   return *this;
 }
-q_poly_t &q_poly_t::operator/=(const intrat_t &a) {
+q_poly_t &q_poly_t::operator/=(const spffl::intmath::intrat_t &a) {
   *this = *this / a;
   return *this;
 }
@@ -279,7 +280,7 @@ q_poly_t &q_poly_t::operator/=(const intrat_t &a) {
 // ----------------------------------------------------------------
 void q_poly_t::quot_and_rem(
     const q_poly_t &that, q_poly_t &rquot, q_poly_t &rrem) const {
-  intrat_t zero = this->coeffs[0] - this->coeffs[0];
+  spffl::intmath::intrat_t zero = this->coeffs[0] - this->coeffs[0];
 
   if (that == zero) {
     std::stringstream ss;
@@ -303,7 +304,7 @@ void q_poly_t::quot_and_rem(
 
   q_poly_t quot;
   quot.degree = this->degree - that.degree;
-  quot.coeffs = new intrat_t[quot.degree + 1];
+  quot.coeffs = new spffl::intmath::intrat_t[quot.degree + 1];
 
   q_poly_t rem = *this;
 
@@ -322,11 +323,11 @@ void q_poly_t::quot_and_rem(
   // rem deg  < divisor deg
 
   int max_shift           = dividend_degree - divisor_degree;
-  intrat_t divisor_leader = that.coeffs[divisor_degree];
-  intrat_t dlinv          = intrat_t(1) / divisor_leader;
+  spffl::intmath::intrat_t divisor_leader = that.coeffs[divisor_degree];
+  spffl::intmath::intrat_t dlinv          = spffl::intmath::intrat_t(1) / divisor_leader;
   for (int shift = max_shift; shift >= 0; shift--) {
-    intrat_t rem_leader       = rem.coeffs[shift + divisor_degree];
-    intrat_t multiplier       = rem_leader * dlinv;
+    spffl::intmath::intrat_t rem_leader       = rem.coeffs[shift + divisor_degree];
+    spffl::intmath::intrat_t multiplier       = rem_leader * dlinv;
     q_poly_t divisor_with_mul = that * multiplier;
     quot.coeffs[shift]        = multiplier;
 
@@ -468,15 +469,15 @@ q_poly_t q_poly_t::deriv(void) const {
   q_poly_t rv(*this);
   rv.degree--;
   for (int i = 1; i <= this->degree; i++) {
-    rv.coeffs[i - 1] = this->coeffs[i] * intrat_t(i);
+    rv.coeffs[i - 1] = this->coeffs[i] * spffl::intmath::intrat_t(i);
   }
   rv.recompute_degree();
   return rv;
 }
 
 // ----------------------------------------------------------------
-intrat_t q_poly_t::eval(const intrat_t &c) const {
-  intrat_t rv = this->coeffs[this->degree];
+spffl::intmath::intrat_t q_poly_t::eval(const spffl::intmath::intrat_t &c) const {
+  spffl::intmath::intrat_t rv = this->coeffs[this->degree];
   for (int i = this->degree - 1; i >= 0; i--) {
     rv *= c;
     rv += this->coeffs[i];
@@ -488,7 +489,7 @@ intrat_t q_poly_t::eval(const intrat_t &c) const {
 int q_poly_t::find_degree(void) const { return this->degree; }
 
 // ----------------------------------------------------------------
-intrat_t q_poly_t::get_coeff(int deg) const {
+spffl::intmath::intrat_t q_poly_t::get_coeff(int deg) const {
   if (deg < 0) {
     this->bounds_check(deg);
   }
@@ -501,14 +502,14 @@ intrat_t q_poly_t::get_coeff(int deg) const {
 }
 
 // ----------------------------------------------------------------
-void q_poly_t::set_coeff(int pos, intrat_t c) {
+void q_poly_t::set_coeff(int pos, spffl::intmath::intrat_t c) {
   if (pos < 0) {
     this->bounds_check(pos);
   }
 
-  intrat_t zero(0);
+  spffl::intmath::intrat_t zero(0);
   if (pos > this->degree) {
-    intrat_t *temp = new intrat_t[pos + 1];
+    spffl::intmath::intrat_t *temp = new spffl::intmath::intrat_t[pos + 1];
     for (int i = 0; i <= this->degree; i++) {
       temp[i] = this->coeffs[i];
     }
@@ -534,7 +535,7 @@ void q_poly_t::set_coeff(int pos, intrat_t c) {
 // ----------------------------------------------------------------
 void q_poly_t::recompute_degree(void) {
   bool is_zero  = true;
-  intrat_t zero = this->coeffs[0] - this->coeffs[0];
+  spffl::intmath::intrat_t zero = this->coeffs[0] - this->coeffs[0];
 
   for (int i = this->degree; i >= 0; i--) {
     if (this->coeffs[i] != zero) {
@@ -724,7 +725,7 @@ bool q_poly_t::from_string(const std::string &string) {
     // single-digit.
     int len      = string.length();
     this->degree = len - 1;
-    this->coeffs = new intrat_t[this->degree + 1];
+    this->coeffs = new spffl::intmath::intrat_t[this->degree + 1];
     int si, ci;
     for (si = 0, ci = this->degree; si < len; si++, ci--) {
       char ascii_digit = string[si];
@@ -735,7 +736,7 @@ bool q_poly_t::from_string(const std::string &string) {
         ss << "Didn't like '" << ascii_digit << "'\n";
         return false;
       }
-      this->coeffs[ci] = intrat_t(ascii_digit - '0');
+      this->coeffs[ci] = spffl::intmath::intrat_t(ascii_digit - '0');
     }
   } else {
     char *dup   = strdup(string.c_str());
@@ -748,7 +749,7 @@ bool q_poly_t::from_string(const std::string &string) {
     }
 
     this->degree = argc - 1;
-    this->coeffs = new intrat_t[this->degree + 1];
+    this->coeffs = new spffl::intmath::intrat_t[this->degree + 1];
     int argi, ci;
     for (argi = 0, ci = this->degree; argi < argc; argi++, ci--) {
       // Scan each coefficient.
@@ -762,7 +763,7 @@ bool q_poly_t::from_string(const std::string &string) {
            << "scan failure at \"" << string << "\"\n";
         return false;
       } else {
-        this->coeffs[ci] = intrat_t(r);
+        this->coeffs[ci] = spffl::intmath::intrat_t(r);
       }
     }
     delete[] argv;
@@ -780,8 +781,8 @@ void q_poly_t::promote(void) {
     ss << "q_poly_t::promote: null data.\n";
     throw spffl::exception_t(ss.str());
   }
-  intrat_t *ocoeffs = this->coeffs;
-  this->coeffs      = new intrat_t[this->degree + 2];
+  spffl::intmath::intrat_t *ocoeffs = this->coeffs;
+  this->coeffs      = new spffl::intmath::intrat_t[this->degree + 2];
   for (int i = 0; i <= this->degree; i++) {
     this->coeffs[i + 1] = ocoeffs[i];
   }
@@ -791,9 +792,9 @@ void q_poly_t::promote(void) {
 }
 
 // ----------------------------------------------------------------
-void q_poly_t::promote_and_add(intrat_t c0) {
+void q_poly_t::promote_and_add(spffl::intmath::intrat_t c0) {
   this->promote();
   this->coeffs[0] = c0;
 }
 
-} // namespace spffl::rationals
+} // namespace spffl::polynomials

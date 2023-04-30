@@ -1,5 +1,0 @@
-gcc -Wall -Werror \
-	-I../utils \
-	mod_t.cpp \
-	../utils/phi.cpp ../utils/gcd.cpp tmod.cpp \
-	-lstdc++

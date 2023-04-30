@@ -131,7 +131,7 @@ int f2_mat_random_main(int argc, char **argv, usage_t *pusage) {
   tmatrix<spffl::bits::bit_t> A(nr, nc);
   for (int i = 0; i < nr; i++) {
     for (int j = 0; j < nc; j++) {
-      A[i][j] = spffl::bits::bit_t(spffl::random::get_random_unsigned() & 1);
+      A[i][j] = spffl::bits::bit_t(spffl::random::get_random_uint32() & 1);
     }
   }
   std::cout << A;
