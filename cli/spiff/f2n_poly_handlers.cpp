@@ -1,16 +1,18 @@
 #include "f2n_poly_handlers.h"
-#include "cmd_line_matrix_ops.h"
-#include "cmd_line_ops.h"
-#include "cmd_line_vector_ops.h"
-#include "f2_polymod_linear_algebra.h"
-#include "f2n_poly_factor.h"
-#include "f2n_poly_random.h"
-#include "f2n_poly_t.h"
-#include "f2n_poly_totient.h"
-#include "list_elements.h"
-#include "qff.h"
-#include "qpoly_t.h"
 #include "tbl_types.h"
+
+#include "polynomials/f2n_poly_t.h"
+#include "rationals/qpoly_t.h"
+#include "factorization/f2n_poly_factor.h"
+#include "factorization/f2n_poly_totient.h"
+#include "random/f2n_poly_random.h"
+#include "list/list_elements.h"
+#include "q_cyclo/qff.h"
+#include "linalg/f2_polymod_linear_algebra.h"
+#include "cliparser/cmd_line_matrix_ops.h"
+#include "cliparser/cmd_line_ops.h"
+#include "cliparser/cmd_line_vector_ops.h"
+
 #include <string.h>
 
 void f2n_p_list_usage(char *argv0) {

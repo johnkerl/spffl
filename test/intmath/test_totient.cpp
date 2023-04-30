@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "int_totient.h"
+#include "intmath/int_totient.h"
 
 TEST_CASE("spffl::intmath::int_totient") {
   CHECK(spffl::intmath::int_totient(0) == 0);

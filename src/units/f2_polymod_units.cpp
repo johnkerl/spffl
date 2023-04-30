@@ -4,15 +4,15 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "f2_polymod_units.h"
-#include "f2_poly_factor.h"
-#include "f2_poly_random.h"
-#include "f2_poly_totient.h"
-#include "int_factor.h"
-#include "int_sqrt.h"
-#include "spffl_exception.h"
-#include "tfacinfo.h"
-#include "tvector.h"
+#include "base/spffl_exception.h"
+#include "containers/tfacinfo.h"
+#include "containers/tvector.h"
+#include "intmath/int_sqrt.h"
+#include "units/f2_polymod_units.h"
+#include "factorization/f2_poly_factor.h"
+#include "factorization/f2_poly_totient.h"
+#include "factorization/int_factor.h"
+#include "random/f2_poly_random.h"
 
 namespace spffl::units {
 

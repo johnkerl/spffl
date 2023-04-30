@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "int_power.h"
+#include "intmath/int_power.h"
 
 TEST_CASE("spffl::intmath::int_power") {
   CHECK(spffl::intmath::int_power(1, 0) == 1);

@@ -1,4 +1,4 @@
-#include "log10.h"
+#include "intmath/log10.h"
 
 namespace spffl::intmath {
 

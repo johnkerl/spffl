@@ -4,10 +4,10 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "f2_polymod_convert.h"
-#include "f2_linear_algebra.h"
-#include "f2_polymod_units.h"
-#include "f2n_poly_factor.h"
+#include "linalg/f2_polymod_convert.h"
+#include "linalg/f2_linear_algebra.h"
+#include "units/f2_polymod_units.h"
+#include "factorization/f2n_poly_factor.h"
 
 namespace spffl::linalg {
 

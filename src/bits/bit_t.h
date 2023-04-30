@@ -7,7 +7,7 @@
 #ifndef BIT_T_H
 #define BIT_T_H
 
-#include "spffl_exception.h"
+#include "base/spffl_exception.h"
 #include <cstdint>
 #include <iomanip>
 #include <iostream>

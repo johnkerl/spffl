@@ -1,11 +1,11 @@
 #ifndef CYCLOPOLY_H
 #define CYCLOPOLY_H
 
-#include "f2_poly_t.h"
-#include "f2n_poly_t.h"
-#include "fp_poly_t.h"
-#include "fpn_poly_t.h"
-#include "qpoly_t.h"
+#include "polynomials/f2_poly_t.h"
+#include "polynomials/f2n_poly_t.h"
+#include "polynomials/fp_poly_t.h"
+#include "polynomials/fpn_poly_t.h"
+#include "rationals/qpoly_t.h"
 
 namespace spffl::q_cyclo {
 

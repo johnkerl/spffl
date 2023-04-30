@@ -7,7 +7,7 @@
 #ifndef FPNPOLYMOD_T_H
 #define FPNPOLYMOD_T_H
 
-#include "fpn_poly_t.h"
+#include "polynomials/fpn_poly_t.h"
 #include <iomanip>
 #include <iostream>
 

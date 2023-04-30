@@ -4,9 +4,9 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "f2_linear_algebra.h"
-#include "f2_poly_t.h"
-#include "spffl_exception.h"
+#include "base/spffl_exception.h"
+#include "polynomials/f2_poly_t.h"
+#include "linalg/f2_linear_algebra.h"
 
 namespace spffl::linalg {
 

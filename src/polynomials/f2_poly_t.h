@@ -9,9 +9,9 @@
 #ifndef F2POLY_T_H
 #define F2POLY_T_H
 
-#include "bit_t.h"
-#include "count_bits.h"
-#include "log2.h"
+#include "bits/bit_t.h"
+#include "bits/count_bits.h"
+#include "intmath/log2.h"
 #include <cstdint>
 #include <iomanip>
 #include <iostream>

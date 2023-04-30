@@ -6,7 +6,7 @@
 
 #ifndef INTMOD_RANDOM_H
 #define INTMOD_RANDOM_H
-#include "intmod_t.h"
+#include "intmath/intmod_t.h"
 
 namespace spffl::random {
 

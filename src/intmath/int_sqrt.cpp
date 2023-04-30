@@ -4,8 +4,8 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "int_sqrt.h"
-#include "spffl_exception.h"
+#include "base/spffl_exception.h"
+#include "intmath/int_sqrt.h"
 #include <iostream>
 #include <stdlib.h>
 

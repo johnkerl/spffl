@@ -1,14 +1,16 @@
 #include "fp_poly_handlers.h"
-#include "cmd_line_matrix_ops.h"
-#include "cmd_line_ops.h"
-#include "cmd_line_vector_ops.h"
-#include "fp_linear_algebra.h"
-#include "fp_poly_factor.h"
-#include "fp_poly_random.h"
-#include "fp_poly_t.h"
-#include "fp_poly_totient.h"
-#include "list_elements.h"
-#include "qff.h"
+
+#include "polynomials/fp_poly_t.h"
+#include "random/fp_poly_random.h"
+#include "factorization/fp_poly_factor.h"
+#include "factorization/fp_poly_totient.h"
+#include "list/list_elements.h"
+#include "q_cyclo/qff.h"
+#include "linalg/fp_linear_algebra.h"
+#include "cliparser/cmd_line_matrix_ops.h"
+#include "cliparser/cmd_line_ops.h"
+#include "cliparser/cmd_line_vector_ops.h"
+
 #include <string.h>
 
 void fp_p_list_usage(char *argv0) {

@@ -4,15 +4,14 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "spffl_exception.h"
+#include "base/spffl_exception.h"
+#include "bitrand/psdes.h"
+#include "random/int_random.h"
 #include <fcntl.h>
 #include <iostream>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
-
-#include "int_random.h"
-#include "psdes.h"
 
 #ifdef USE_DEV_URANDOM // Linux only
 #define BUFSZ 10000

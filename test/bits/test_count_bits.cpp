@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "count_bits.h"
+#include "bits/count_bits.h"
 
 TEST_CASE("spffl::bits::line_scan::tokenize_0") {
   unsigned char c[4] = {0x00, 0xff, 0x0a, 0x10};

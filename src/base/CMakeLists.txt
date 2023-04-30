@@ -7,3 +7,7 @@ add_library(${PROJECT_NAME}
   tokenize.cpp
   line_scan.cpp
 )
+
+target_include_directories(${PROJECT_NAME}
+    PUBLIC ${PROJECT_SOURCE_DIR}/../../src
+)

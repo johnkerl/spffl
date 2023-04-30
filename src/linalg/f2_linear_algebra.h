@@ -7,10 +7,10 @@
 #ifndef F2LINALG_H
 #define F2LINALG_H
 
-#include "bit_t.h"
-#include "f2_poly_t.h"
-#include "f2n_poly_t.h"
-#include "tmatrix.h"
+#include "bits/bit_t.h"
+#include "polynomials/f2_poly_t.h"
+#include "polynomials/f2n_poly_t.h"
+#include "containers/tmatrix.h"
 
 namespace spffl::linalg {
 

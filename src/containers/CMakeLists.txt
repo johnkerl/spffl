@@ -10,8 +10,7 @@ add_library(${PROJECT_NAME}
 
 target_include_directories(${PROJECT_NAME}
   PUBLIC ${PROJECT_SOURCE_DIR}/include
-  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../src/base
-  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../src/intmath
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../src
 )
 target_link_libraries(${PROJECT_NAME} PRIVATE
     base

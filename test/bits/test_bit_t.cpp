@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "bit_t.h"
+#include "bits/bit_t.h"
 
 using namespace spffl::bits;
 

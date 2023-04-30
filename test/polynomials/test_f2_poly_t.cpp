@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "f2_poly_t.h"
+#include "polynomials/f2_poly_t.h"
 
 using namespace spffl::polynomials;
 

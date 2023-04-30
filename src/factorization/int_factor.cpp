@@ -4,10 +4,10 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "int_factor.h"
-#include "primes_16.h"
-#include "tfacinfo.h"
-#include "tmatrix.h"
+#include "intmath/primes_16.h"
+#include "containers/tfacinfo.h"
+#include "containers/tmatrix.h"
+#include "factorization/int_factor.h"
 
 namespace spffl::factorization {
 

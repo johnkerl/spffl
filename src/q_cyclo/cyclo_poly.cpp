@@ -8,9 +8,9 @@
 #include <iostream>
 #include <string>
 
-#include "cyclo_poly.h"
-#include "qff.h"
-#include "spffl_exception.h"
+#include "base/spffl_exception.h"
+#include "q_cyclo/cyclo_poly.h"
+#include "q_cyclo/qff.h"
 
 namespace spffl::q_cyclo {
 

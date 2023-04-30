@@ -1,15 +1,16 @@
-#include <string.h>
-
-#include "cmd_line_matrix_ops.h"
-#include "cmd_line_ops.h"
-#include "cmd_line_vector_ops.h"
-#include "f2n_polymod_handlers.h"
-#include "f2n_polymod_random.h"
-#include "f2n_polymod_t.h"
-#include "f2n_polymod_units.h"
-#include "list_elements.h"
-#include "min_char_polys.h"
 #include "tbl_types.h"
+#include "f2n_polymod_handlers.h"
+
+#include "polynomials/f2n_polymod_t.h"
+#include "random/f2n_polymod_random.h"
+#include "units/f2n_polymod_units.h"
+#include "list/list_elements.h"
+#include "linalg/min_char_polys.h"
+#include "cliparser/cmd_line_matrix_ops.h"
+#include "cliparser/cmd_line_ops.h"
+#include "cliparser/cmd_line_vector_ops.h"
+
+#include <string.h>
 
 void f2n_pm_list_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " [-a|-u] {im} {om}\n";

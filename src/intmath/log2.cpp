@@ -4,7 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "log2.h"
+#include "intmath/log2.h"
 namespace spffl::intmath {
 // XXX #include "msb_table.h"
 

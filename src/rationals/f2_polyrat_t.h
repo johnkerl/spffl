@@ -7,7 +7,7 @@
 #ifndef F2POLYRAT_T_H
 #define F2POLYRAT_T_H
 
-#include "f2_poly_t.h"
+#include "polynomials/f2_poly_t.h"
 #include <iomanip>
 #include <iostream>
 #include <sstream>

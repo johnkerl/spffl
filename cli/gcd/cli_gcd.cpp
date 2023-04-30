@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "int_gcd.h"
+#include "intmath/int_gcd.h"
 
 static void usage(char *argv0) {
   fprintf(

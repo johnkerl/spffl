@@ -4,7 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "line_scan.h"
+#include "base/line_scan.h"
 #include <cctype>
 #include <string.h>
 

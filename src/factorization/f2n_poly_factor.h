@@ -6,9 +6,9 @@
 
 #ifndef F2NPOLY_FACTOR_H
 #define F2NPOLY_FACTOR_H
-#include "f2n_poly_t.h"
-#include "tfacinfo.h"
-#include "tvector.h"
+#include "containers/tfacinfo.h"
+#include "containers/tvector.h"
+#include "polynomials/f2n_poly_t.h"
 
 namespace spffl::factorization {
 

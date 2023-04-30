@@ -1,8 +1,9 @@
 #include "f2n_polyrat_handlers.h"
-#include "cmd_line_matrix_ops.h"
-#include "cmd_line_ops.h"
-#include "cmd_line_vector_ops.h"
-#include "f2n_polyrat_t.h"
+
+#include "rationals/f2n_polyrat_t.h"
+#include "cliparser/cmd_line_matrix_ops.h"
+#include "cliparser/cmd_line_ops.h"
+#include "cliparser/cmd_line_vector_ops.h"
 
 void f2n_pr_op_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {m} {...}\n";

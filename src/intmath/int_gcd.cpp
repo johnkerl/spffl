@@ -4,7 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "int_gcd.h"
+#include "intmath/int_gcd.h"
 
 namespace spffl::intmath {
 

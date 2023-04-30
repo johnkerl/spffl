@@ -4,10 +4,10 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "qpoly_t.h"
-#include "cmps.h"
-#include "spffl_exception.h"
-#include "tokenize.h"
+#include "base/spffl_exception.h"
+#include "base/cmps.h"
+#include "base/tokenize.h"
+#include "rationals/qpoly_t.h"
 #include <stdlib.h>
 #include <string.h>
 

@@ -7,8 +7,8 @@
 #ifndef TFACINFO_H
 #define TFACINFO_H
 
-#include "spffl_exception.h"
-#include "tvector.h"
+#include "base/spffl_exception.h"
+#include "containers/tvector.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>

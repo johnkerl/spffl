@@ -1,9 +1,10 @@
 #include "f2_polyrat_handlers.h"
-#include "cmd_line_matrix_ops.h"
-#include "cmd_line_ops.h"
-#include "cmd_line_vector_ops.h"
-#include "f2_poly_random.h"
-#include "f2_polyrat_t.h"
+
+#include "rationals/f2_polyrat_t.h"
+#include "random/f2_poly_random.h"
+#include "cliparser/cmd_line_matrix_ops.h"
+#include "cliparser/cmd_line_ops.h"
+#include "cliparser/cmd_line_vector_ops.h"
 
 int f2_pr_op_main(int argc, char **argv, usage_t *pusage) {
   spffl::cliparser::cmd_line_parse<spffl::rationals::f2_polyrat_t>(argc - 1,

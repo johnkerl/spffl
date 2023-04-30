@@ -4,7 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "count_bits.h"
+#include "bits/count_bits.h"
 
 namespace spffl::bits {
 

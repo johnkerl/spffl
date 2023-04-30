@@ -4,10 +4,10 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "f2n_poly_t.h"
-#include "cmps.h"
-#include "spffl_exception.h"
-#include "tokenize.h"
+#include "base/spffl_exception.h"
+#include "base/cmps.h"
+#include "base/tokenize.h"
+#include "polynomials/f2n_poly_t.h"
 #include <string.h>
 
 namespace spffl::polynomials {

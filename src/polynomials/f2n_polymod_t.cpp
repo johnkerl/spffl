@@ -4,8 +4,8 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "f2n_polymod_t.h"
-#include "spffl_exception.h"
+#include "base/spffl_exception.h"
+#include "polynomials/f2n_polymod_t.h"
 #include <iomanip>
 #include <iostream>
 

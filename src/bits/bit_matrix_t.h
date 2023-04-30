@@ -7,7 +7,7 @@
 #ifndef BIT_MATRIX_T_H
 #define BIT_MATRIX_T_H
 
-#include "bit_vector_t.h"
+#include "bits/bit_vector_t.h"
 #include <cstdint>
 #include <iostream>
 namespace spffl::bits {

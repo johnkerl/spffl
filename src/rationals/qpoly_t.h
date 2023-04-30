@@ -11,7 +11,7 @@
 #ifndef QPOLY_T_H
 #define QPOLY_T_H
 
-#include "intrat_t.h"
+#include "rationals/intrat_t.h"
 #include <iomanip>
 #include <iostream>
 

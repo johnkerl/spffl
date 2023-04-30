@@ -76,19 +76,7 @@ add_library(
 
 target_include_directories(${PROJECT_NAME}
   PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/base
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/intmath
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/bitrand
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/bits
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/polynomials
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/rationals
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/q_cyclo
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/random
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/factorization
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/units
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/list
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/linalg
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/containers
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src
 )
 target_link_libraries(${PROJECT_NAME} PUBLIC
     base

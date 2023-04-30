@@ -1,9 +1,9 @@
+#include "q_cyclo/cyclo_poly.h"
+#include "rationals/intrat_t.h"
+#include "rationals/qpoly_t.h"
+#include "cliparser/cmd_line_matrix_ops.h"
+#include "cliparser/cmd_line_vector_ops.h"
 #include "q_handlers.h"
-#include "cmd_line_matrix_ops.h"
-#include "cmd_line_vector_ops.h"
-#include "cyclo_poly.h"
-#include "intrat_t.h"
-#include "qpoly_t.h"
 
 int q_op_main(int argc, char **argv, usage_t *pusage) {
   spffl::cliparser::cmd_line_parse<spffl::rationals::intrat_t>(argc - 1,

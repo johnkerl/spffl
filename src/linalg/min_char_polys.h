@@ -7,9 +7,9 @@
 #ifndef SPMINCHAR_H
 #define SPMINCHAR_H
 
-#include "f2_polymod_t.h"
-#include "f2n_polymod_t.h"
-#include "fp_polymod_t.h"
+#include "polynomials/f2_polymod_t.h"
+#include "polynomials/f2n_polymod_t.h"
+#include "polynomials/fp_polymod_t.h"
 
 namespace spffl::linalg {
 

@@ -1,7 +1,8 @@
 #include "fpn_poly_handlers.h"
-#include "cmd_line_matrix_ops.h"
-#include "fpn_poly_t.h"
-#include "qff.h"
+
+#include "polynomials/fpn_poly_t.h"
+#include "q_cyclo/qff.h"
+#include "cliparser/cmd_line_matrix_ops.h"
 #include <string.h>
 
 // ----------------------------------------------------------------

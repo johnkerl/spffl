@@ -5,17 +5,17 @@
 // ================================================================
 
 #include "f2_poly_handlers.h"
-#include <string.h>
 
-#include "cmd_line_matrix_ops.h"
-#include "f2_linear_algebra.h"
-#include "f2_poly_factor.h"
-#include "f2_poly_random.h"
-#include "f2_poly_t.h"
-#include "f2_poly_totient.h"
-#include "f2_polymod_units.h"
-#include "list_elements.h"
-#include "qff.h"
+#include "polynomials/f2_poly_t.h"
+#include "random/f2_poly_random.h"
+#include "factorization/f2_poly_factor.h"
+#include "factorization/f2_poly_totient.h"
+#include "units/f2_polymod_units.h"
+#include "linalg/f2_linear_algebra.h"
+#include "list/list_elements.h"
+#include "q_cyclo/qff.h"
+#include "cliparser/cmd_line_matrix_ops.h"
+#include <string.h>
 
 void f2_p_list_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {deglo[-deghi]}\n";

@@ -4,9 +4,9 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "fp_polymod_random.h"
-#include "fp_poly_random.h"
-#include "spffl_exception.h"
+#include "base/spffl_exception.h"
+#include "random/fp_polymod_random.h"
+#include "random/fp_poly_random.h"
 
 namespace spffl::random {
 

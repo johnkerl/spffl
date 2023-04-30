@@ -4,9 +4,9 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "is_prime.h"
-#include "primes_16.h"
-#include "spffl_exception.h"
+#include "base/spffl_exception.h"
+#include "intmath/is_prime.h"
+#include "intmath/primes_16.h"
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>

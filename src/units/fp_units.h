@@ -6,7 +6,7 @@
 
 #ifndef FP_UNITS_H
 #define FP_UNITS_H
-#include "intmod_t.h"
+#include "intmath/intmod_t.h"
 
 namespace spffl::units {
 

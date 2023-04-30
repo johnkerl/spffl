@@ -7,7 +7,7 @@
 #ifndef INTMOD_T_H
 #define INTMOD_T_H
 
-#include "int_totient.h"
+#include "intmath/int_totient.h"
 #include <iomanip>
 #include <iostream>
 #include <sstream>
