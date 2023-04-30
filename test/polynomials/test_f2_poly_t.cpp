@@ -34,10 +34,10 @@ TEST_CASE("spffl::polynomials::f2_poly_t_degrees") {
 
 TEST_CASE("spffl::polynomials::f2_poly_t_prime_sfld_elt") {
   f2_poly_t f;
-  CHECK(f.prime_sfld_elt(0) == f2_poly_t(0));
-  CHECK(f.prime_sfld_elt(1) == f2_poly_t(1));
-  CHECK(f.prime_sfld_elt(2) == f2_poly_t(0));
-  CHECK(f.prime_sfld_elt(3) == f2_poly_t(1));
+  CHECK(f.prime_subfield_element(0) == f2_poly_t(0));
+  CHECK(f.prime_subfield_element(1) == f2_poly_t(1));
+  CHECK(f.prime_subfield_element(2) == f2_poly_t(0));
+  CHECK(f.prime_subfield_element(3) == f2_poly_t(1));
 }
 
 TEST_CASE("spffl::polynomials::f2_poly_t_from_string") {

@@ -89,8 +89,8 @@ int f2aplist_main(int argc, char ** argv)
 		f2aplist_usage(argv[0]);
 
 	f2_poly_t    F2_m    = f2_poly_t::from_base_rep(3);
-	f2_polymod_t F2_zero = f2_polymod_t::prime_sfld_elt(0, F2_m);
-	f2_polymod_t F2_one  = f2_polymod_t::prime_sfld_elt(1, F2_m);
+	f2_polymod_t F2_zero = f2_polymod_t::prime_subfield_element(0, F2_m);
+	f2_polymod_t F2_one  = f2_polymod_t::prime_subfield_element(1, F2_m);
 
 	// Scan the functions.
 	tvector< tmvpoly<f2_polymod_t> > arg_f(num_F);
@@ -161,8 +161,8 @@ int f2aplist_main(int argc, char ** argv)
 		int n = Fq_m.find_degree();
 		int q = 1 << n;
 
-		f2_polymod_t Fq_zero = f2_polymod_t::prime_sfld_elt(0, Fq_m);
-		f2_polymod_t Fq_one  = f2_polymod_t::prime_sfld_elt(1, Fq_m);
+		f2_polymod_t Fq_zero = f2_polymod_t::prime_subfield_element(0, Fq_m);
+		f2_polymod_t Fq_one  = f2_polymod_t::prime_subfield_element(1, Fq_m);
 		tmvpoly<f2_polymod_t> Fq_f[num_F];
 		for (i = 0; i < num_F; i++)
 			Fq_f[i] = F2_Fq_embed(F2_f[i], Fq_zero, Fq_one);
@@ -264,8 +264,8 @@ int f2apolist_main(int argc, char ** argv)
 	argb++;
 
 	f2_poly_t    F2_m    = f2_poly_t::from_base_rep(3);
-	f2_polymod_t F2_zero = f2_polymod_t::prime_sfld_elt(0, F2_m);
-	f2_polymod_t F2_one  = f2_polymod_t::prime_sfld_elt(1, F2_m);
+	f2_polymod_t F2_zero = f2_polymod_t::prime_subfield_element(0, F2_m);
+	f2_polymod_t F2_one  = f2_polymod_t::prime_subfield_element(1, F2_m);
 
 	tmvpoly<f2_polymod_t> F2_f;
 	if (!tmvpoly_f2_polymod_from_string(F2_f, fstring, F2_m)) {
@@ -298,8 +298,8 @@ int f2apolist_main(int argc, char ** argv)
 			Fq_m = f2_poly_find_irreducible(deg);
 		}
 
-		f2_polymod_t Fq_zero = f2_polymod_t::prime_sfld_elt(0, Fq_m);
-		f2_polymod_t Fq_one  = f2_polymod_t::prime_sfld_elt(1, Fq_m);
+		f2_polymod_t Fq_zero = f2_polymod_t::prime_subfield_element(0, Fq_m);
+		f2_polymod_t Fq_one  = f2_polymod_t::prime_subfield_element(1, Fq_m);
 
 		tmvpoly<f2_polymod_t> f = F2_Fq_embed(F2_f, Fq_zero, Fq_one);
 		tmvpoly<f2_polymod_t> F = f.homogenize();
@@ -392,8 +392,8 @@ int f2apsing_main(int argc, char ** argv)
 	argb++;
 
 	f2_poly_t    F2_m    = f2_poly_t::from_base_rep(3);
-	f2_polymod_t F2_zero = f2_polymod_t::prime_sfld_elt(0, F2_m);
-	f2_polymod_t F2_one  = f2_polymod_t::prime_sfld_elt(1, F2_m);
+	f2_polymod_t F2_zero = f2_polymod_t::prime_subfield_element(0, F2_m);
+	f2_polymod_t F2_one  = f2_polymod_t::prime_subfield_element(1, F2_m);
 
 	tmvpoly<f2_polymod_t> F2_f;
 	if (!tmvpoly_f2_polymod_from_string(F2_f, fstring, F2_m)) {
@@ -430,8 +430,8 @@ int f2apsing_main(int argc, char ** argv)
 			Fq_m = f2_poly_find_irreducible(deg);
 		}
 
-		f2_polymod_t Fq_zero = f2_polymod_t::prime_sfld_elt(0, Fq_m);
-		f2_polymod_t Fq_one  = f2_polymod_t::prime_sfld_elt(1, Fq_m);
+		f2_polymod_t Fq_zero = f2_polymod_t::prime_subfield_element(0, Fq_m);
+		f2_polymod_t Fq_one  = f2_polymod_t::prime_subfield_element(1, Fq_m);
 
 		tmvpoly<f2_polymod_t> f = F2_Fq_embed(F2_f, Fq_zero, Fq_one);
 		tmvpoly<f2_polymod_t> F = f.homogenize();
@@ -563,8 +563,8 @@ int f2apjac_main(int argc, char ** argv)
 	argb++;
 
 	f2_poly_t    F2_m    = f2_poly_t::from_base_rep(3);
-	f2_polymod_t F2_zero = f2_polymod_t::prime_sfld_elt(0, F2_m);
-	f2_polymod_t F2_one  = f2_polymod_t::prime_sfld_elt(1, F2_m);
+	f2_polymod_t F2_zero = f2_polymod_t::prime_subfield_element(0, F2_m);
+	f2_polymod_t F2_one  = f2_polymod_t::prime_subfield_element(1, F2_m);
 
 	tmvpoly<f2_polymod_t> F2_f;
 	if (!tmvpoly_f2_polymod_from_string(F2_f, fstring, F2_m)) {
@@ -598,8 +598,8 @@ int f2apjac_main(int argc, char ** argv)
 			Fq_m = f2_poly_find_irreducible(deg);
 		}
 
-		f2_polymod_t Fq_zero = f2_polymod_t::prime_sfld_elt(0, Fq_m);
-		f2_polymod_t Fq_one  = f2_polymod_t::prime_sfld_elt(1, Fq_m);
+		f2_polymod_t Fq_zero = f2_polymod_t::prime_subfield_element(0, Fq_m);
+		f2_polymod_t Fq_one  = f2_polymod_t::prime_subfield_element(1, Fq_m);
 
 		tmvpoly<f2_polymod_t> f = F2_Fq_embed(F2_f, Fq_zero, Fq_one);
 
@@ -771,7 +771,7 @@ int fpaplist_main(int argc, char ** argv)
 			}
 			Fq_m = fp_poly_find_irr(p, deg);
 		}
-		fp_polymod_t Fq_zero = fp_polymod_t::prime_sfld_elt(0, Fq_m);
+		fp_polymod_t Fq_zero = fp_polymod_t::prime_subfield_element(0, Fq_m);
 		tmvpoly<fp_polymod_t> f = Fp_Fq_embed(Fp_f, Fq_m);
 		tmvpoly<fp_polymod_t> F = f.homogenize();
 		int q = p;
@@ -896,8 +896,8 @@ int fpapsing_main(int argc, char ** argv)
 			}
 			Fq_m = fp_poly_find_irr(p, deg);
 		}
-		fp_polymod_t Fq_zero = fp_polymod_t::prime_sfld_elt(0, Fq_m);
-		fp_polymod_t Fq_one  = fp_polymod_t::prime_sfld_elt(1, Fq_m);
+		fp_polymod_t Fq_zero = fp_polymod_t::prime_subfield_element(0, Fq_m);
+		fp_polymod_t Fq_one  = fp_polymod_t::prime_subfield_element(1, Fq_m);
 
 		tmvpoly<fp_polymod_t> f = Fp_Fq_embed(Fp_f, Fq_m);
 		tmvpoly<fp_polymod_t> F = f.homogenize();
@@ -1011,7 +1011,7 @@ int f2nmvpeval_main(int argc, char ** argv)
 		f2nmvpeval_usage(argv[0]);
 	if (!tmvpoly_f2_polymod_from_string(f, argv[2], m))
 		f2nmvpeval_usage(argv[0]);
-	zero = f2_polymod_t::prime_sfld_elt(0, m);
+	zero = f2_polymod_t::prime_subfield_element(0, m);
 
 	for (int argi = 3; argi < argc; argi++) {
 		tvector<f2_polymod_t> c(zero, 1);
@@ -1050,7 +1050,7 @@ int f2nmvreval_main(int argc, char ** argv)
 		f2nmvreval_usage(argv[0]);
 	if (!tmvrat_f2_polymod_from_string(f, argv[2], m))
 		f2nmvreval_usage(argv[0]);
-	zero = f2_polymod_t::prime_sfld_elt(0, m);
+	zero = f2_polymod_t::prime_subfield_element(0, m);
 
 	for (int argi = 3; argi < argc; argi++) {
 		tvector<f2_polymod_t> c(zero, 1);
@@ -1102,7 +1102,7 @@ static tmvpoly<fp_polymod_t> Fp_Fq_embed(
 	for (int i = 0; i < nm; i++) {
 		fp_polymod_t c = g.get_coeff(i);
 		int liftc = c.get_residue().get_coeff(0).get_residue();
-		fp_polymod_t cn = fp_polymod_t::prime_sfld_elt(liftc, m);
+		fp_polymod_t cn = fp_polymod_t::prime_subfield_element(liftc, m);
 		g.set_coeff(i, cn);
 	}
 	return g;

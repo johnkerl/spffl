@@ -12,7 +12,7 @@
 
 namespace spffl::linalg {
 
-spffl::polynomials::f2n_poly_t f2pm_char_poly(
+spffl::polynomials::f2n_poly_t f2_polymod_characteristic_polynomial(
     tmatrix<spffl::polynomials::f2_polymod_t> &A);
 
 tmatrix<spffl::polynomials::f2_polymod_t> f2np_companion_matrix(
@@ -22,7 +22,7 @@ tmatrix<spffl::polynomials::f2_polymod_t> f2np_companion_matrix(
 // the base field is rare enough to be non-interesting, so we do not have a
 // function for that.  If in fact the matrix is diagonalizable over the base
 // field, then the splitter modulus will be set equal to the original modulus.)
-bool f2pm_matrix_is_diagonalizable(tmatrix<spffl::polynomials::f2_polymod_t> &A,
+bool f2_polymod_matrix_is_diagonalizable(tmatrix<spffl::polynomials::f2_polymod_t> &A,
     spffl::polynomials::f2_poly_t &rsplitter_modulus,
     tvector<spffl::polynomials::f2_polymod_t> &reigenvalues);
 

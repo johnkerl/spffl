@@ -11,7 +11,7 @@
 namespace spffl::intmath {
 
 // ----------------------------------------------------------------
-intmod_t intmod_t::prime_sfld_elt(int v) const {
+intmod_t intmod_t::prime_subfield_element(int v) const {
   int p = this->get_modulus();
   return intmod_t(v, p);
 }

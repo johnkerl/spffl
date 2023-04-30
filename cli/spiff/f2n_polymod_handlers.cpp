@@ -61,9 +61,9 @@ int f2n_pm_op_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   }
   spffl::polynomials::f2n_polymod_t zero =
-      spffl::polynomials::f2n_polymod_t::prime_sfld_elt(0, om);
+      spffl::polynomials::f2n_polymod_t::prime_subfield_element(0, om);
   spffl::polynomials::f2n_polymod_t one =
-      spffl::polynomials::f2n_polymod_t::prime_sfld_elt(1, om);
+      spffl::polynomials::f2n_polymod_t::prime_subfield_element(1, om);
   spffl::cliparser::cmd_line_parse<spffl::polynomials::f2n_polymod_t>(
       argc - 3, argv + 3, zero, one);
   return 0;
@@ -407,9 +407,9 @@ int f2n_pm_mat_op_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   }
   spffl::polynomials::f2n_polymod_t zero =
-      spffl::polynomials::f2n_polymod_t::prime_sfld_elt(0, om);
+      spffl::polynomials::f2n_polymod_t::prime_subfield_element(0, om);
   spffl::polynomials::f2n_polymod_t one =
-      spffl::polynomials::f2n_polymod_t::prime_sfld_elt(1, om);
+      spffl::polynomials::f2n_polymod_t::prime_subfield_element(1, om);
   spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::f2n_polymod_t>(
       argc - 3, argv + 3, zero, one);
   return 0;
@@ -433,9 +433,9 @@ int f2n_pm_vec_op_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   }
   spffl::polynomials::f2n_polymod_t zero =
-      spffl::polynomials::f2n_polymod_t::prime_sfld_elt(0, om);
+      spffl::polynomials::f2n_polymod_t::prime_subfield_element(0, om);
   spffl::polynomials::f2n_polymod_t one =
-      spffl::polynomials::f2n_polymod_t::prime_sfld_elt(1, om);
+      spffl::polynomials::f2n_polymod_t::prime_subfield_element(1, om);
   spffl::cliparser::cmd_line_vec_parse<spffl::polynomials::f2n_polymod_t>(
       argc - 3, argv + 3, zero, one);
   return 0;

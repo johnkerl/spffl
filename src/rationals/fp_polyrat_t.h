@@ -23,8 +23,8 @@ public:
   fp_polyrat_t(const fp_polyrat_t &that);
   ~fp_polyrat_t(void);
 
-  fp_polyrat_t prime_sfld_elt(int v) const;
-  static fp_polyrat_t prime_sfld_elt(int v, int p);
+  fp_polyrat_t prime_subfield_element(int v) const;
+  static fp_polyrat_t prime_subfield_element(int v, int p);
   int get_characteristic(void) const;
 
   fp_polyrat_t &operator=(const fp_polyrat_t &that);

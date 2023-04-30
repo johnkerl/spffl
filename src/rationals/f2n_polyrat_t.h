@@ -23,8 +23,8 @@ public:
   f2n_polyrat_t(const f2n_polyrat_t &that);
   ~f2n_polyrat_t(void);
 
-  f2n_polyrat_t prime_sfld_elt(int v) const;
-  static f2n_polyrat_t prime_sfld_elt(int v, const spffl::polynomials::f2_poly_t &m);
+  f2n_polyrat_t prime_subfield_element(int v) const;
+  static f2n_polyrat_t prime_subfield_element(int v, const spffl::polynomials::f2_poly_t &m);
   int get_characteristic(void) const;
 
   f2n_polyrat_t &operator=(const f2n_polyrat_t &that);

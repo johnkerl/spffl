@@ -45,7 +45,7 @@ typedef struct _lookup_t {
 
 lookup_t lookups[] = {
 
-    {"z_op", z_op_main, 0 /*zop_usage*/}, {"z_gcd", z_gcd_main, z_gcd_usage},
+    {"z_op", z_op_main, 0 /*z_op_usage*/}, {"z_gcd", z_gcd_main, z_gcd_usage},
     {"z_lcm", z_lcm_main, z_lcm_usage},
     {"z_totient", z_totient_main, z_totient_usage},
     {"z_test_prime", z_test_prime_main, z_test_prime_usage},
@@ -53,14 +53,14 @@ lookup_t lookups[] = {
     {"z_list", z_list_main, z_list_usage},
     {"z_factor", z_factor_main, z_factor_usage},
     {"z_divisors", z_divisors_main, z_divisors_usage},
-    {"z_mat_op", z_mat_op_main, 0 /*zmatop_usage*/},
+    {"z_mat_op", z_mat_op_main, 0 /*z_mat_op_usage*/},
 
-    {"q_op", q_op_main, 0 /*qop_usage*/},
-    {"q_vec_op", q_vec_op_main, 0 /*qvecop_usage*/},
-    {"q_mat_op", q_mat_op_main, 0 /*qmatop_usage*/},
+    {"q_op", q_op_main, 0 /*q_op_usage*/},
+    {"q_vec_op", q_vec_op_main, 0 /*q_vec_op_usage*/},
+    {"q_mat_op", q_mat_op_main, 0 /*q_mat_op_usage*/},
 
     {"q_cyclo", q_cyclo_main, q_cyclo_usage},
-    {"q_p_op", q_p_op_main, 0 /*q_cyclo_usage*/},
+    {"q_p_op", q_p_op_main, 0 /*q_p_op_usage*/},
 
     {"f2_op", f2_op_main, 0 /*f2op_usage*/},
     {"f2_random", f2_random_main, f2_random_usage},

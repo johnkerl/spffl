@@ -22,7 +22,7 @@ static tmvpoly<fp_polymod_t> Fp_Fq_embed(
 	for (int i = 0; i < nm; i++) {
 		fp_polymod_t c = g.get_coeff(i);
 		int liftc = c.get_residue().get_coeff(0).get_residue();
-		fp_polymod_t cn = fp_polymod_t::prime_sfld_elt(liftc, m);
+		fp_polymod_t cn = fp_polymod_t::prime_subfield_element(liftc, m);
 		g.set_coeff(i, cn);
 	}
 	return g;
@@ -89,7 +89,7 @@ int main(int argc, char ** argv)
 			}
 			Fq_m = fp_poly_find_irr(p, deg);
 		}
-		fp_polymod_t Fq_zero = fp_polymod_t::prime_sfld_elt(0, Fq_m);
+		fp_polymod_t Fq_zero = fp_polymod_t::prime_subfield_element(0, Fq_m);
 		tmvpoly<fp_polymod_t> f = Fp_Fq_embed(Fp_f, Fq_m);
 		tmvpoly<fp_polymod_t> F = f.homogenize();
 		int q = p;

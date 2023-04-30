@@ -32,7 +32,7 @@ public:
   f2_poly_t(const std::string &s);
 
   static f2_poly_t from_base_rep(uint64_t b);
-  f2_poly_t prime_sfld_elt(int v) const;
+  f2_poly_t prime_subfield_element(int v) const;
   bool from_string(const char *string);
   int get_characteristic(void);
 

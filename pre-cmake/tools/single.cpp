@@ -53,8 +53,8 @@ static int f2_pm_mat_solve_main(int argc, char ** argv, usage_t * pusage)
 		pusage(argv[0]);
 	if (!m.from_string(argv[1]))
 		pusage(argv[0]);
-	zero = f2_polymod_t(m.prime_sfld_elt(0), m);
-	one  = f2_polymod_t(m.prime_sfld_elt(1), m);
+	zero = f2_polymod_t(m.prime_subfield_element(0), m);
+	one  = f2_polymod_t(m.prime_subfield_element(1), m);
 	if (!f.from_string(argv[2], m))
 		pusage(argv[0]);
 	A = f2_polymod_t(zero);

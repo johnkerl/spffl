@@ -24,7 +24,7 @@ int f2n_polymod_order(const spffl::polynomials::f2n_polymod_t &a) {
   spffl::polynomials::f2n_poly_t g = r.gcd(m);
   // xxx make-monic method
   g /= g.get_coeff(g.find_degree());
-  spffl::polynomials::f2n_poly_t pol1 = m.prime_sfld_elt(1);
+  spffl::polynomials::f2n_poly_t pol1 = m.prime_subfield_element(1);
 
   if (g != pol1) {
     std::cerr << "f2n_polymod_order:  zero or zero divisor " << r << " mod "
@@ -59,7 +59,7 @@ int f2n_polymod_order(const spffl::polynomials::f2n_polymod_t &a) {
 bool f2n_polymod_find_generator(const spffl::polynomials::f2n_poly_t &m,
     spffl::polynomials::f2n_polymod_t &rg) {
   int mdeg                            = m.find_degree();
-  spffl::polynomials::f2n_poly_t gres = m.prime_sfld_elt(1);
+  spffl::polynomials::f2n_poly_t gres = m.prime_subfield_element(1);
 
   if (mdeg < 1) {
     std::cout << "f2n_polymod_find_generator:  modulus degree "

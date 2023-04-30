@@ -20,8 +20,8 @@ public:
   fp_polymod_t(const fp_polymod_t &that);
   ~fp_polymod_t(void);
 
-  fp_polymod_t prime_sfld_elt(int v) const;
-  static fp_polymod_t prime_sfld_elt(int v, const fp_poly_t &m);
+  fp_polymod_t prime_subfield_element(int v) const;
+  static fp_polymod_t prime_subfield_element(int v, const fp_poly_t &m);
   int get_characteristic(void) const;
 
   fp_polymod_t &operator=(const fp_polymod_t &that);

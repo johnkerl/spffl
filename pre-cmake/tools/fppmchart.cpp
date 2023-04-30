@@ -26,22 +26,22 @@ typedef struct _opts_t {
 } opts_t;
 
 // ----------------------------------------------------------------
-typedef struct _fppm_chart_cell_t {
+typedef struct _fp_pm_chart_cell_t {
 	fp_polymod_t root;
 	int         log;
-} fppm_chart_cell_t;
+} fp_pm_chart_cell_t;
 
-typedef struct _fppm_chart_row_t {
+typedef struct _fp_pm_chart_row_t {
 	fp_poly_t  min_poly;
 	int       num_roots;
 	int       order;
-	fppm_chart_cell_t * cells;
-} fppm_chart_row_t;
+	fp_pm_chart_cell_t * cells;
+} fp_pm_chart_row_t;
 
 typedef struct _fppm_chart_t {
 	int       num_rows;
 	fp_polymod_t g;
-	fppm_chart_row_t * rows;
+	fp_pm_chart_row_t * rows;
 } fppm_chart_t;
 
 // ----------------------------------------------------------------
@@ -235,9 +235,9 @@ static fppm_chart_t * alloc_fppm_chart(
 
 	pchart = new fppm_chart_t;
 	pchart->num_rows = num_rows;
-	pchart->rows = new fppm_chart_row_t[num_rows];
+	pchart->rows = new fp_pm_chart_row_t[num_rows];
 	for (i = 0; i < num_rows; i++)
-		pchart->rows[i].cells = new fppm_chart_cell_t[num_cols];
+		pchart->rows[i].cells = new fp_pm_chart_cell_t[num_cols];
 
 	for (i = 0; i < num_rows; i++) {
 		pchart->rows[i].num_roots = 0;
@@ -267,8 +267,8 @@ static int fppm_chart_row_qcmp(
 	const void * pv1,
 	const void * pv2)
 {
-	const fppm_chart_row_t * prow1 = (const fppm_chart_row_t *)pv1;
-	const fppm_chart_row_t * prow2 = (const fppm_chart_row_t *)pv2;
+	const fp_pm_chart_row_t * prow1 = (const fp_pm_chart_row_t *)pv1;
+	const fp_pm_chart_row_t * prow2 = (const fp_pm_chart_row_t *)pv2;
 	return (prow1->min_poly > prow2->min_poly);
 }
 
@@ -299,7 +299,7 @@ static void fill_fppm_chart(
 	char * marks;
 	fp_polymod_t g, elt;
 	int    rowi = 0;
-	fppm_chart_row_t * prow;
+	fp_pm_chart_row_t * prow;
 
 	if (!fp_polymod_find_generator(m, g)) {
 		std::cerr << "Couldn't find generator for " << m << ".\n";
@@ -314,7 +314,7 @@ static void fill_fppm_chart(
 	pchart->rows[rowi].num_roots = 1;
 	pchart->rows[rowi].order = 0;
 	pchart->rows[rowi].cells[0].log  = 0;
-	pchart->rows[rowi].min_poly = fppm_min_poly(g-g);
+	pchart->rows[rowi].min_poly = fp_polymod_minimal_polynomial(g-g);
 	rowi++;
 
 	for (d = 1; d <= n; d++) {
@@ -332,7 +332,7 @@ static void fill_fppm_chart(
 			orbit_log = elt_log;
 			elt = g.exp(orbit_log);
 
-			prow->min_poly = fppm_min_poly(elt);
+			prow->min_poly = fp_polymod_minimal_polynomial(elt);
 			pchart->rows[rowi].num_roots = d;
 			pchart->rows[rowi].order = fp_polymod_order(elt);
 
@@ -364,7 +364,7 @@ static void print_fppm_chart(
 	opts_t  * popts)
 {
 	int i, j;
-	fppm_chart_cell_t * pc;
+	fp_pm_chart_cell_t * pc;
 	fp_polymod_t z;
 	//int width = calc_log10_unsigned(1<<n, IFLOOR) + 1;
 

@@ -116,15 +116,15 @@ f2n_poly_t::~f2n_poly_t(void) {
 }
 
 // ----------------------------------------------------------------
-f2n_poly_t f2n_poly_t::prime_sfld_elt(int v) const {
-  f2_polymod_t c0 = this->coeffs[0].prime_sfld_elt(v);
+f2n_poly_t f2n_poly_t::prime_subfield_element(int v) const {
+  f2_polymod_t c0 = this->coeffs[0].prime_subfield_element(v);
   return f2n_poly_t(c0);
 }
 
 // ----------------------------------------------------------------
 // This is a static method.
 
-f2n_poly_t f2n_poly_t::prime_sfld_elt(int v, const f2_poly_t &m) {
+f2n_poly_t f2n_poly_t::prime_subfield_element(int v, const f2_poly_t &m) {
   return f2n_poly_t(f2_polymod_t(f2_poly_t(v), m));
 }
 
@@ -343,7 +343,7 @@ void f2n_poly_t::quot_and_rem(
     exit(1);
   }
   if (*this == zero) {
-    rquot = this->prime_sfld_elt(0);
+    rquot = this->prime_subfield_element(0);
     rrem  = *this;
     return;
   }
@@ -352,7 +352,7 @@ void f2n_poly_t::quot_and_rem(
   int divisor_degree  = that.degree;
 
   if (dividend_degree < divisor_degree) {
-    rquot = this->prime_sfld_elt(0);
+    rquot = this->prime_subfield_element(0);
     rrem  = *this;
     return;
   }
@@ -449,10 +449,10 @@ f2n_poly_t f2n_poly_t::ext_gcd(
   f2n_poly_t d; // Return value.
 
   // Initialize
-  mprime = this->prime_sfld_elt(1);
-  rn     = this->prime_sfld_elt(1);
-  rm     = this->prime_sfld_elt(0);
-  nprime = this->prime_sfld_elt(0);
+  mprime = this->prime_subfield_element(1);
+  rn     = this->prime_subfield_element(1);
+  rm     = this->prime_subfield_element(0);
+  nprime = this->prime_subfield_element(0);
   c      = *this;
   d      = that;
 
@@ -482,8 +482,8 @@ f2n_poly_t f2n_poly_t::ext_gcd(
 f2n_poly_t f2n_poly_t::exp(int e) const {
   int deg         = this->find_degree();
   f2n_poly_t xp   = *this;
-  f2n_poly_t zero = this->prime_sfld_elt(0);
-  f2n_poly_t one  = this->prime_sfld_elt(1);
+  f2n_poly_t zero = this->prime_subfield_element(0);
+  f2n_poly_t one  = this->prime_subfield_element(1);
   f2n_poly_t rv   = one;
 
   if (*this == zero) {
@@ -520,7 +520,7 @@ f2n_poly_t f2n_poly_t::exp(int e) const {
 // ----------------------------------------------------------------
 f2n_poly_t f2n_poly_t::deriv(void) const {
   if (this->degree == 0) {
-    return this->prime_sfld_elt(0);
+    return this->prime_subfield_element(0);
   }
 
   f2n_poly_t rv(*this);

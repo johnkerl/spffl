@@ -10,10 +10,6 @@
     - is_prime/nth_prime abend beyond 2^31-1
   o otherwise done -- ?
 
-* renaming pass
-  o needs more
-  o unabbrevs in particular
-
 * ctest passes
   o f2_poly_t: promote x n; demote; bit_at; set_bit; sqroot
 * commenting pass

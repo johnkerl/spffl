@@ -39,17 +39,17 @@ f2n_polymod_t::~f2n_polymod_t(void) {
 }
 
 // ----------------------------------------------------------------
-f2n_polymod_t f2n_polymod_t::prime_sfld_elt(int v) const {
+f2n_polymod_t f2n_polymod_t::prime_subfield_element(int v) const {
   f2n_poly_t m = this->modulus;
-  f2n_poly_t r = this->residue.prime_sfld_elt(v);
+  f2n_poly_t r = this->residue.prime_subfield_element(v);
   return f2n_polymod_t(r, m);
 }
 
 // ----------------------------------------------------------------
 // This is a static method.
-f2n_polymod_t f2n_polymod_t::prime_sfld_elt(int v, const f2n_poly_t &om) {
+f2n_polymod_t f2n_polymod_t::prime_subfield_element(int v, const f2n_poly_t &om) {
   f2_poly_t im = om.get_coeff(0).get_modulus();
-  return f2n_polymod_t(f2n_poly_t::prime_sfld_elt(v, im), om);
+  return f2n_polymod_t(f2n_poly_t::prime_subfield_element(v, im), om);
 }
 
 // ----------------------------------------------------------------
@@ -156,8 +156,8 @@ bool f2n_polymod_t::recip(f2n_polymod_t &rinv) const {
 // ----------------------------------------------------------------
 f2n_polymod_t f2n_polymod_t::exp(int e) const {
   f2n_poly_t xp = this->residue;
-  f2n_polymod_t zero(this->residue.prime_sfld_elt(0), this->modulus);
-  f2n_polymod_t one(this->residue.prime_sfld_elt(1), this->modulus);
+  f2n_polymod_t zero(this->residue.prime_subfield_element(0), this->modulus);
+  f2n_polymod_t one(this->residue.prime_subfield_element(1), this->modulus);
   f2n_polymod_t rv = one;
 
   if (e == 0) {

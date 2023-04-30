@@ -73,8 +73,8 @@ int main(int argc, char ** argv)
 	if (!ft_scan_triple(argv[4], m, x2, y2, z2))
 		usage(argv[0]);
 
-	f2_polymod_t zero = f2_polymod_t::prime_sfld_elt(0, m);
-	f2_polymod_t one  = f2_polymod_t::prime_sfld_elt(1, m);
+	f2_polymod_t zero = f2_polymod_t::prime_subfield_element(0, m);
+	f2_polymod_t one  = f2_polymod_t::prime_subfield_element(1, m);
 	check_point("input", a1, a2, a3, a4, a6, x1, y1, z1);
 	check_point("input", a1, a2, a3, a4, a6, x2, y2, z2);
 

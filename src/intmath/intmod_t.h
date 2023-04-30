@@ -22,7 +22,7 @@ public:
   intmod_t(const intmod_t &that);
   ~intmod_t(void);
 
-  intmod_t prime_sfld_elt(int v) const;
+  intmod_t prime_subfield_element(int v) const;
 
   intmod_t &operator=(const intmod_t &that);
 

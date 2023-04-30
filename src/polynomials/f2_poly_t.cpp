@@ -80,7 +80,7 @@ f2_poly_t::~f2_poly_t(void) {
 }
 
 // ----------------------------------------------------------------
-f2_poly_t f2_poly_t::prime_sfld_elt(int v) const { return f2_poly_t(v & 1); }
+f2_poly_t f2_poly_t::prime_subfield_element(int v) const { return f2_poly_t(v & 1); }
 
 // ----------------------------------------------------------------
 int f2_poly_t::get_characteristic(void) { return 2; }

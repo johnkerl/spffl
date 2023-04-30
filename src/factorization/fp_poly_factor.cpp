@@ -204,7 +204,7 @@ static void fp_poly_berlekamp(const spffl::polynomials::fp_poly_t &f,
     }
 
     for (int c = 0; c < p; c++) {
-      spffl::polynomials::fp_poly_t hc = h - f.prime_sfld_elt(c);
+      spffl::polynomials::fp_poly_t hc = h - f.prime_subfield_element(c);
       f1                               = f.gcd(hc);
 #ifdef FPPOLY_FACTOR_DEBUG
       std::cout << "hc  = " << hc << "  f1 = " << f1 << "\n";
