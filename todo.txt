@@ -2,6 +2,7 @@
 ! ctest passes
   o f2_poly_t: promote x n; demote; bit_at; set_bit; sqroot
 ! installable headers/libspffl.so/bins; internals vs externals
+  o default install path _not_ /usr/local -- ?
 
 * char* vs string literals
 * more std::string all around

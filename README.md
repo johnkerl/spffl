@@ -43,6 +43,11 @@ cmg -D CMAKE_C_COMPILER=gcc -D CMAKE_CXX_COMPILER=g++
 cmb -v
 ```
 
+TODO:
+```
+-DCMAKE_INSTALL_PREFIX=$prefix
+```
+
 # See also
 
 Please also see [RUFFL](https://github.com/johnkerl/ruffl), my Ruby port of SPFFL.
