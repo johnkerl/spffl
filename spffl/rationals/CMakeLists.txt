@@ -6,8 +6,6 @@ add_library(${PROJECT_NAME}
   f2n_polyrat_t.cpp
   f2_polyrat_t.cpp
   fp_polyrat_t.cpp
-  intrat_t.cpp
-  qpoly_t.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

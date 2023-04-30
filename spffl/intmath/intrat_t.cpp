@@ -8,7 +8,7 @@
 #include "base/cmps.h"
 #include "intmath/int_gcd.h"
 #include "intmath/int_totient.h"
-#include "rationals/intrat_t.h"
+#include "intmath/intrat_t.h"
 #include <iomanip>
 #include <iostream>
 #include <stdlib.h>

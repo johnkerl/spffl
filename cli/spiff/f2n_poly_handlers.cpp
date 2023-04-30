@@ -2,7 +2,7 @@
 #include "tbl_types.h"
 
 #include "polynomials/f2n_poly_t.h"
-#include "rationals/qpoly_t.h"
+#include "polynomials/q_poly_t.h"
 #include "factorization/f2n_poly_factor.h"
 #include "factorization/f2n_poly_totient.h"
 #include "random/f2n_poly_random.h"
@@ -465,7 +465,7 @@ void f2n_p_qp_usage(char *argv0) {
 
 int f2n_p_qp_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t m;
-  spffl::rationals::qpoly_t qp;
+  spffl::rationals::q_poly_t qp;
   spffl::polynomials::f2n_poly_t f2np;
   if (argc < 3) {
     pusage(argv[0]);
