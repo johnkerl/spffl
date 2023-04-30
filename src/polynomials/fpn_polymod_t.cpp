@@ -47,13 +47,13 @@ fpn_polymod_t fpn_polymod_t::prime_sfld_elt(int v) const {
 
 // ----------------------------------------------------------------
 // This is a static method.
-fpn_polymod_t fpn_polymod_t::prime_sfld_elt(int v, fpn_poly_t om) {
+fpn_polymod_t fpn_polymod_t::prime_sfld_elt(int v, const fpn_poly_t &om) {
   fp_poly_t im = om.get_coeff(0).get_modulus();
   return fpn_polymod_t(fpn_poly_t::prime_sfld_elt(v, im), om);
 }
 
 // ----------------------------------------------------------------
-int fpn_polymod_t::get_characteristic(void) {
+int fpn_polymod_t::get_characteristic(void) const {
   return this->residue.get_characteristic();
 }
 

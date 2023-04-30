@@ -49,7 +49,7 @@ fpn_poly_t::fpn_poly_t(
 
 // ----------------------------------------------------------------
 // This is a static method.
-fpn_poly_t fpn_poly_t::from_base_rep(int b, fp_poly_t m) {
+fpn_poly_t fpn_poly_t::from_base_rep(int b, const fp_poly_t &m) {
   fpn_poly_t rv;
   std::cerr << "unimplemented function!\n";
   exit(1);
@@ -81,7 +81,7 @@ fpn_poly_t fpn_poly_t::prime_sfld_elt(int v) const {
 // ----------------------------------------------------------------
 // This is a static method.
 
-fpn_poly_t fpn_poly_t::prime_sfld_elt(int v, fp_poly_t m) {
+fpn_poly_t fpn_poly_t::prime_sfld_elt(int v, const fp_poly_t &m) {
   int p = m.get_coeff(0).get_modulus();
   return fpn_poly_t(fp_polymod_t(fp_poly_t(spffl::intmath::intmod_t(v, p)), m));
 }
@@ -133,14 +133,6 @@ fpn_poly_t fpn_poly_t::operator+(const fpn_poly_t &that) const {
 }
 
 // ----------------------------------------------------------------
-fpn_poly_t fpn_poly_t::operator+(fp_polymod_t a) const {
-  fpn_poly_t rv(*this);
-  rv.coeffs[0] += a;
-  rv.recompute_degree();
-  return rv;
-}
-
-// ----------------------------------------------------------------
 fpn_poly_t fpn_poly_t::operator-(const fpn_poly_t &that) const {
   int i;
   fpn_poly_t rv;
@@ -164,14 +156,6 @@ fpn_poly_t fpn_poly_t::operator-(const fpn_poly_t &that) const {
       rv.coeffs[i] = this->coeffs[i];
     }
   }
-  rv.recompute_degree();
-  return rv;
-}
-
-// ----------------------------------------------------------------
-fpn_poly_t fpn_poly_t::operator-(fp_polymod_t a) const {
-  fpn_poly_t rv(*this);
-  rv.coeffs[0] -= a;
   rv.recompute_degree();
   return rv;
 }
@@ -206,17 +190,7 @@ fpn_poly_t fpn_poly_t::operator*(const fpn_poly_t &that) const {
 }
 
 // ----------------------------------------------------------------
-fpn_poly_t fpn_poly_t::operator*(fp_polymod_t a) const {
-  fpn_poly_t rv = *this;
-  for (int i = 0; i <= rv.degree; i++) {
-    rv.coeffs[i] *= a;
-  }
-  rv.recompute_degree();
-  return rv;
-}
-
-// ----------------------------------------------------------------
-fpn_poly_t fpn_poly_t::operator*(spffl::intmath::intmod_t a) const {
+fpn_poly_t fpn_poly_t::operator*(const spffl::intmath::intmod_t &a) const {
   fpn_poly_t rv = *this;
   for (int i = 0; i <= rv.degree; i++) {
     rv.coeffs[i] *= a;
@@ -240,7 +214,33 @@ fpn_poly_t fpn_poly_t::operator%(const fpn_poly_t &that) const {
 }
 
 // ----------------------------------------------------------------
-fpn_poly_t fpn_poly_t::operator/(fp_polymod_t a) const {
+fpn_poly_t fpn_poly_t::operator+(const fp_polymod_t &a) const {
+  fpn_poly_t rv(*this);
+  rv.coeffs[0] += a;
+  rv.recompute_degree();
+  return rv;
+}
+
+// ----------------------------------------------------------------
+fpn_poly_t fpn_poly_t::operator-(const fp_polymod_t &a) const {
+  fpn_poly_t rv(*this);
+  rv.coeffs[0] -= a;
+  rv.recompute_degree();
+  return rv;
+}
+
+// ----------------------------------------------------------------
+fpn_poly_t fpn_poly_t::operator*(const fp_polymod_t &a) const {
+  fpn_poly_t rv = *this;
+  for (int i = 0; i <= rv.degree; i++) {
+    rv.coeffs[i] *= a;
+  }
+  rv.recompute_degree();
+  return rv;
+}
+
+// ----------------------------------------------------------------
+fpn_poly_t fpn_poly_t::operator/(const fp_polymod_t &a) const {
   fpn_poly_t rv = *this;
   for (int i = 0; i <= rv.degree; i++) {
     rv.coeffs[i] /= a;
@@ -254,7 +254,7 @@ fpn_poly_t &fpn_poly_t::operator+=(const fpn_poly_t &that) {
   *this = *this + that;
   return *this;
 }
-fpn_poly_t &fpn_poly_t::operator+=(fp_polymod_t a) {
+fpn_poly_t &fpn_poly_t::operator+=(const fp_polymod_t &a) {
   *this = *this + a;
   return *this;
 }
@@ -262,7 +262,7 @@ fpn_poly_t &fpn_poly_t::operator-=(const fpn_poly_t &that) {
   *this = *this - that;
   return *this;
 }
-fpn_poly_t &fpn_poly_t::operator-=(fp_polymod_t a) {
+fpn_poly_t &fpn_poly_t::operator-=(const fp_polymod_t &a) {
   *this = *this - a;
   return *this;
 }
@@ -270,19 +270,19 @@ fpn_poly_t &fpn_poly_t::operator*=(const fpn_poly_t &that) {
   *this = *this * that;
   return *this;
 }
-fpn_poly_t &fpn_poly_t::operator*=(fp_polymod_t a) {
+fpn_poly_t &fpn_poly_t::operator*=(const fp_polymod_t &a) {
   *this = *this * a;
   return *this;
 }
-fpn_poly_t &fpn_poly_t::operator/=(fpn_poly_t &that) {
+fpn_poly_t &fpn_poly_t::operator/=(const fpn_poly_t &that) {
   *this = *this / that;
   return *this;
 }
-fpn_poly_t &fpn_poly_t::operator%=(fpn_poly_t &that) {
+fpn_poly_t &fpn_poly_t::operator%=(const fpn_poly_t &that) {
   *this = *this % that;
   return *this;
 }
-fpn_poly_t &fpn_poly_t::operator/=(fp_polymod_t a) {
+fpn_poly_t &fpn_poly_t::operator/=(const fp_polymod_t &a) {
   *this = *this / a;
   return *this;
 }

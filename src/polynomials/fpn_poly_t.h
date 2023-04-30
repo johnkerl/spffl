@@ -24,38 +24,38 @@ public:
   fpn_poly_t(
       const fp_polymod_t &c2, const fp_polymod_t &c1, const fp_polymod_t &c0);
 
-  static fpn_poly_t from_base_rep(int b, fp_poly_t m);
+  static fpn_poly_t from_base_rep(int b, const fp_poly_t &m);
 
   fpn_poly_t(const fpn_poly_t &that);
   ~fpn_poly_t(void);
 
   fpn_poly_t prime_sfld_elt(int v) const;
-  static fpn_poly_t prime_sfld_elt(int v, fp_poly_t m);
+  static fpn_poly_t prime_sfld_elt(int v, const fp_poly_t &m);
   int get_characteristic(void) const;
 
   fpn_poly_t &operator=(const fpn_poly_t &that);
 
   fpn_poly_t operator+(const fpn_poly_t &that) const;
-  fpn_poly_t operator+(fp_polymod_t a) const;
+  fpn_poly_t operator+(const fp_polymod_t &a) const;
   fpn_poly_t operator-(const fpn_poly_t &that) const;
-  fpn_poly_t operator-(fp_polymod_t a) const;
+  fpn_poly_t operator-(const fp_polymod_t &a) const;
   fpn_poly_t operator-(void) const;
   fpn_poly_t operator*(const fpn_poly_t &that) const;
-  fpn_poly_t operator*(fp_polymod_t a) const;
-  fpn_poly_t operator*(spffl::intmath::intmod_t a) const;
+  fpn_poly_t operator*(const fp_polymod_t &a) const;
+  fpn_poly_t operator*(const spffl::intmath::intmod_t &a) const;
   fpn_poly_t operator/(const fpn_poly_t &that) const;
   fpn_poly_t operator%(const fpn_poly_t &that) const;
-  fpn_poly_t operator/(fp_polymod_t a) const;
+  fpn_poly_t operator/(const fp_polymod_t &a) const;
 
   fpn_poly_t &operator+=(const fpn_poly_t &that);
-  fpn_poly_t &operator+=(fp_polymod_t a);
   fpn_poly_t &operator-=(const fpn_poly_t &that);
-  fpn_poly_t &operator-=(fp_polymod_t a);
   fpn_poly_t &operator*=(const fpn_poly_t &that);
-  fpn_poly_t &operator*=(fp_polymod_t a);
-  fpn_poly_t &operator/=(fpn_poly_t &that);
-  fpn_poly_t &operator%=(fpn_poly_t &that);
-  fpn_poly_t &operator/=(fp_polymod_t a);
+  fpn_poly_t &operator/=(const fpn_poly_t &that);
+  fpn_poly_t &operator%=(const fpn_poly_t &that);
+  fpn_poly_t &operator+=(const fp_polymod_t &a);
+  fpn_poly_t &operator-=(const fp_polymod_t &a);
+  fpn_poly_t &operator*=(const fp_polymod_t &a);
+  fpn_poly_t &operator/=(const fp_polymod_t &a);
 
   void quot_and_rem(
       const fpn_poly_t &that, fpn_poly_t &rquot, fpn_poly_t &rrem) const;
