@@ -16,7 +16,7 @@ spffl::polynomials::f2_poly_t f2_poly_random(int deg) {
     std::stringstream ss;
     ss << "f2_poly_random:  degree " << deg
               << " should be non-negative.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   spffl::polynomials::f2_poly_t rv(0);

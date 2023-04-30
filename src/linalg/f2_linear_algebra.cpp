@@ -38,7 +38,7 @@ spffl::polynomials::f2_poly_t f2_char_poly(tmatrix<spffl::bits::bit_t> &A) {
   if (!A.is_square()) {
     std::stringstream ss;
     ss << "f2_char_poly():  non-square input.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   int i, j;

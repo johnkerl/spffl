@@ -29,7 +29,7 @@ int fp_order(spffl::intmath::intmod_t a) {
     std::stringstream ss;
     ss << "fp_order:  zero or zero divisor " << r << " mod " << p
               << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   int phi                   = spffl::intmath::int_totient(p);
@@ -50,8 +50,9 @@ int fp_order(spffl::intmath::intmod_t a) {
   // By Lagrange's theorem, g^m = 1 for all units g, with m the order
   // of the unit group.  If we've not found the order of a unit,
   // something is wrong.
-  std::cout << "fp_order:  Coding error.\n";
-  exit(1);
+  std::stringstream ss;
+  ss << "fp_order:  Coding error.\n";
+  throw spffl::exception_t(ss.str());
 }
 
 // ----------------------------------------------------------------
@@ -119,7 +120,7 @@ int fp_log( // Log base g of a.
     std::stringstream ss;
     ss << "fp_log:  g="
               << " is a zero divisor.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
   spffl::intmath::intmod_t gk = g.exp(k);
   unsigned i, j;
@@ -157,7 +158,7 @@ int fp_log( // Log base g of a.
     // xxx
     std::stringstream ss;
     ss << "fp_log:  error message goes here.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   delete[] agni;

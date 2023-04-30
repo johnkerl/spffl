@@ -18,7 +18,7 @@ spffl::polynomials::fp_polymod_t fp_polymod_random(
     std::stringstream ss;
     ss << "fp_polymod_random:  degree (" << deg << ") of " << m
               << " should be >= 1.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
   int p = m.get_characteristic();
   return spffl::polynomials::fp_polymod_t(fp_poly_random(p, deg), m);

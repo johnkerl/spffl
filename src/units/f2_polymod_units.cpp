@@ -31,7 +31,7 @@ int f2_polymod_order(spffl::polynomials::f2_polymod_t a) {
     std::stringstream ss;
     ss << "f2_polymod_order:  zero or zero divisor " << r << " mod " << m
               << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   int phi                   = spffl::factorization::f2_poly_totient(m);
@@ -52,8 +52,9 @@ int f2_polymod_order(spffl::polynomials::f2_polymod_t a) {
   // By Lagrange's theorem, g^m = 1 for all units g, with m the order
   // of the unit group.  If we've not found the order of a unit,
   // something is wrong.
-  std::cout << "f2_polymod_order:  Coding error.\n";
-  exit(1);
+  std::stringstream ss;
+  ss << "f2_polymod_order:  Coding error.\n";
+  throw spffl::exception_t(ss.str());
 }
 
 // ----------------------------------------------------------------
@@ -63,9 +64,10 @@ bool f2_polymod_find_generator(
   spffl::polynomials::f2_poly_t gres(1);
 
   if (mdeg < 1) {
-    std::cout << "f2_polymod_find_generator:  modulus degree "
+    std::stringstream ss;
+    ss << "f2_polymod_find_generator:  modulus degree "
               << "must be positive; got " << mdeg << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
   int phi = spffl::factorization::f2_poly_totient(m);
 
@@ -147,9 +149,10 @@ spffl::polynomials::f2_poly_t f2_poly_find_prim(int degree, int need_irr) {
   rv.set_bit(0);
 
   if (degree < 1) {
-    std::cout << "f2_poly_find_prim:  degree must be positive; got " << degree
+    std::stringstream ss;
+    ss << "f2_poly_find_prim:  degree must be positive; got " << degree
               << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   while (rv.find_degree() == degree) {
@@ -163,8 +166,9 @@ spffl::polynomials::f2_poly_t f2_poly_find_prim(int degree, int need_irr) {
 
   // There are irreducibles, and primitive irreducibles, of all positive
   // degrees.  It is an error if we failed to find one.
-  std::cout << "f2_poly_find_prim:  coding error.\n";
-  exit(1);
+  std::stringstream ss;
+  ss << "f2_poly_find_prim:  coding error.\n";
+  throw spffl::exception_t(ss.str());
 
   return rv;
 }
@@ -174,9 +178,10 @@ spffl::polynomials::f2_poly_t f2_poly_random_prim(int degree, int need_irr) {
   spffl::polynomials::f2_poly_t rv;
 
   if (degree < 1) {
-    std::cout << "f2_poly_random_prim:  degree must be positive; "
+    std::stringstream ss;
+    ss << "f2_poly_random_prim:  degree must be positive; "
               << "got " << degree << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   for (;;) {
@@ -233,7 +238,7 @@ int f2_polymod_log( // Log base g of a.
     std::stringstream ss;
     ss << "f2_polymod_log:  g="
               << " is a zero divisor.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
   spffl::polynomials::f2_polymod_t gk = g.exp(k);
   unsigned i, j;
@@ -271,7 +276,7 @@ int f2_polymod_log( // Log base g of a.
     // xxx
     std::stringstream ss;
     ss << "f2_polymod_log:  error message goes here.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   delete[] agni;

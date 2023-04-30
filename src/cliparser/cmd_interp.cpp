@@ -73,7 +73,7 @@ static char *flatten(char *exename, int argc, char **argv) {
   if (rv == 0) {
     std::stringstream ss;
     ss << "malloc(" << len << ") failed.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
   strcpy(rv, exename);
   for (int argi = 0; argi < argc; argi++) {
@@ -92,7 +92,7 @@ static void replace(
   if (pipe == 0) {
     std::stringstream ss;
     ss << "Failed popen \"" << flat_cmd << "\".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   char line[4096];
@@ -124,7 +124,7 @@ static void replace(
   if (check != argcout) {
     std::stringstream ss;
     ss << "Coding error in replace.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
   // buf is not freed since argvout points into it.
 }
@@ -139,12 +139,14 @@ static void cmd_interpolate_once(
     if (find_first_bracket(argc, argv, (char *)RBRK, dummy)) {
       std::stringstream ss;
       ss << "Bracket imbalance.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     return;
   }
   if (!check_balance(argc, argv)) {
-    exit(1);
+    std::stringstream ss;
+    ss << "Bracket imbalance.\n";
+    throw spffl::exception_t(ss.str());
   }
 
   find_matching_right_bracket(argc, argv, lefti, righti);

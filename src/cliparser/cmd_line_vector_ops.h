@@ -199,7 +199,7 @@ static void veclexan(vec_lex_ctx_t<element_type> &rlex_ctx) {
           std::stringstream ss;
           ss << "Couldn't scan \"" << rlex_ctx.argv[rlex_ctx.argi]
                     << "\"\n";
-          exit(1);
+          throw spffl::exception_t(ss.str());
         }
       } else {
 #if 0
@@ -210,19 +210,19 @@ static void veclexan(vec_lex_ctx_t<element_type> &rlex_ctx) {
           ss << "Couldn't read \""
 						<< rlex_ctx.argv[rlex_ctx.argi]
 						<< "\"\n";
-					exit(1);
+					throw spffl::exception_t(ss.str());
 				}
 #else
         std::stringstream ss;
         ss << "cmd_line_vector_ops: file I/O not yet implemented.\n";
-        exit(1);
+        throw spffl::exception_t(ss.str());
 #endif
       }
     }
     if (iss.fail()) {
       std::stringstream ss;
       ss << "Scan failure at \"" << s << "\".\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
   }
   rlex_ctx.argi++;
@@ -278,7 +278,7 @@ static void emit(vec_lex_ctx_t<element_type> &rlex_ctx,
     std::stringstream ss;
     ss << "Unhandled operator "
               << vec_token_desc<element_type>(rlex_ctx.token) << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
     break;
   }
 
@@ -296,7 +296,7 @@ static void emit(vec_lex_ctx_t<element_type> &rlex_ctx,
       std::stringstream ss;
       ss << "Operator " << vec_token_desc<element_type>(rlex_ctx.token)
                 << " requires vector argument.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     break;
   case V_VV_OP:
@@ -305,7 +305,7 @@ static void emit(vec_lex_ctx_t<element_type> &rlex_ctx,
       std::stringstream ss;
       ss << "Operator " << vec_token_desc<element_type>(rlex_ctx.token)
                 << " requires two vector arguments.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     break;
   case I_V_OP:
@@ -313,7 +313,7 @@ static void emit(vec_lex_ctx_t<element_type> &rlex_ctx,
       std::stringstream ss;
       ss << "Operator " << vec_token_desc<element_type>(rlex_ctx.token)
                 << " requires one vector argument.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     break;
   case V_VI_OP:
@@ -322,7 +322,7 @@ static void emit(vec_lex_ctx_t<element_type> &rlex_ctx,
       ss << "Operator " << vec_token_desc<element_type>(rlex_ctx.token)
                 << " requires one vector argument "
                 << " and one integer argument.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     break;
   }
@@ -356,7 +356,7 @@ static void emit(vec_lex_ctx_t<element_type> &rlex_ctx,
     std::stringstream ss;
     ss << "Unhandled operator "
               << vec_token_desc<element_type>(rlex_ctx.token) << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
     break;
   }
 
@@ -391,7 +391,7 @@ static void match(vec_lex_ctx_t<element_type> &rlex_ctx, int expected_token) {
     ss << "Expected " << vec_token_desc<element_type>(expected_token)
               << "; got " << vec_token_desc<element_type>(rlex_ctx.token)
               << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 }
 
@@ -413,7 +413,7 @@ static void P(vec_lex_ctx_t<element_type> &rlex_ctx,
     std::stringstream ss;
     ss << "syntax error at token "
               << vec_token_desc<element_type>(rlex_ctx.token) << "\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 }
 
@@ -557,7 +557,7 @@ void cmd_line_vec_parse(
     if (!stack.pop(result)) {
       std::stringstream ss;
       ss << "Stack underflow.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
 
     switch (result.atom_type) {
@@ -574,7 +574,7 @@ void cmd_line_vec_parse(
       std::stringstream ss;
       ss << "Coding error file " << __FILE__ << " line " << __LINE__
                 << "\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
       break;
     }
 

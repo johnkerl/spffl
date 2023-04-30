@@ -262,7 +262,7 @@ static void matlexan(mat_lex_ctx_t<element_type> &rlex_ctx) {
           std::stringstream ss;
           ss << "Couldn't scan \"" << rlex_ctx.argv[rlex_ctx.argi]
                     << "\"\n";
-          exit(1);
+          throw spffl::exception_t(ss.str());
         }
       } else {
         if (!rlex_ctx.atom.mat_val.load_from_file(
@@ -270,14 +270,14 @@ static void matlexan(mat_lex_ctx_t<element_type> &rlex_ctx) {
           std::stringstream ss;
           ss << "Couldn't read \"" << rlex_ctx.argv[rlex_ctx.argi]
                     << "\"\n";
-          exit(1);
+          throw spffl::exception_t(ss.str());
         }
       }
     }
     if (iss.fail()) {
       std::stringstream ss;
       ss << "Scan failure at \"" << s << "\".\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
   }
   rlex_ctx.argi++;
@@ -340,7 +340,7 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
     std::stringstream ss;
     ss << "Unhandled operator "
               << mat_token_desc<element_type>(rlex_ctx.token) << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
     break;
   }
 
@@ -358,7 +358,7 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
       std::stringstream ss;
       ss << "Operator " << mat_token_desc<element_type>(rlex_ctx.token)
                 << " requires matrix argument.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     break;
   case M_MM_OP:
@@ -367,7 +367,7 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
       std::stringstream ss;
       ss << "Operator " << mat_token_desc<element_type>(rlex_ctx.token)
                 << " requires two matrix arguments.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     break;
   case I_M_OP:
@@ -375,7 +375,7 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
       std::stringstream ss;
       ss << "Operator " << mat_token_desc<element_type>(rlex_ctx.token)
                 << " requires one matrix argument.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     break;
   case M_MI_OP:
@@ -384,7 +384,7 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
       ss << "Operator " << mat_token_desc<element_type>(rlex_ctx.token)
                 << " requires one matrix argument "
                 << " and one integer argument.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     break;
   }
@@ -417,7 +417,7 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
     if (!A.mat_val.exp(B.int_val, C.mat_val)) {
       std::stringstream ss;
       ss << "Non-invertible.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     break;
 
@@ -425,7 +425,7 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
     if (!A.mat_val.inverse(C.mat_val)) {
       std::stringstream ss;
       ss << "Non-invertible.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     A.mat_val.check_inverse(C.mat_val);
     break;
@@ -438,7 +438,7 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
     if (!A.mat_val.get_kernel_basis(C.mat_val, rlex_ctx.zero, rlex_ctx.one)) {
       std::stringstream ss;
       ss << "{empty)\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     A.mat_val.check_kernel_basis(C.mat_val);
     break;
@@ -463,7 +463,7 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
     if (!A.mat_val.get_rr_non_zero_rows(C.mat_val)) {
       std::stringstream ss;
       ss << "{empty)\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     break;
 
@@ -471,7 +471,7 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
     if (!A.mat_val.get_rech_non_zero_rows(C.mat_val)) {
       std::stringstream ss;
       ss << "{empty)\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     break;
 
@@ -483,7 +483,7 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
     std::stringstream ss;
     ss << "Unhandled operator "
               << mat_token_desc<element_type>(rlex_ctx.token) << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
     break;
   }
 
@@ -517,7 +517,7 @@ static void match(mat_lex_ctx_t<element_type> &rlex_ctx, int expected_token) {
     ss << "Syntax error: expected " << mat_token_desc<element_type>(expected_token)
               << "; got " << mat_token_desc<element_type>(rlex_ctx.token)
               << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 }
 
@@ -539,7 +539,7 @@ static void P(mat_lex_ctx_t<element_type> &rlex_ctx,
     std::stringstream ss;
     ss << "syntax error at token "
               << mat_token_desc<element_type>(rlex_ctx.token) << "\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 }
 
@@ -699,7 +699,7 @@ void cmd_line_mat_parse(
     if (!stack.pop(result)) {
       std::stringstream ss;
       ss << "Stack underflow.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
 
     switch (result.atom_type) {
@@ -716,7 +716,7 @@ void cmd_line_mat_parse(
       std::stringstream ss;
       ss << "Coding error file " << __FILE__ << " line " << __LINE__
                 << "\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
       break;
     }
 

@@ -32,7 +32,7 @@ int f2n_polymod_order(const spffl::polynomials::f2n_polymod_t &a) {
     ss << "f2n_polymod_order:  zero or zero divisor " << r << " mod "
               << m << ".\n";
     ss << "gcd(" << r << ", " << m << ") = " << g << "\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   int phi                   = spffl::factorization::f2n_poly_totient(m);
@@ -53,8 +53,9 @@ int f2n_polymod_order(const spffl::polynomials::f2n_polymod_t &a) {
   // By Lagrange's theorem, g^m = 1 for all units g, with m the order
   // of the unit group.  If we've not found the order of a unit,
   // something is wrong.
-  std::cout << "f2n_polymod_order:  Coding error.\n";
-  exit(1);
+  std::stringstream ss;
+  ss << "f2n_polymod_order:  Coding error.\n";
+  throw spffl::exception_t(ss.str());
 }
 
 // ----------------------------------------------------------------
@@ -64,9 +65,10 @@ bool f2n_polymod_find_generator(const spffl::polynomials::f2n_poly_t &m,
   spffl::polynomials::f2n_poly_t gres = m.prime_subfield_element(1);
 
   if (mdeg < 1) {
-    std::cout << "f2n_polymod_find_generator:  modulus degree "
+    std::stringstream ss;
+    ss << "f2n_polymod_find_generator:  modulus degree "
               << "must be positive; got " << mdeg << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
   int phi = spffl::factorization::f2n_poly_totient(m);
 
@@ -138,7 +140,7 @@ int f2n_polymod_log( // Log base g of a.
     std::stringstream ss;
     ss << "f2n_polymod_log:  g="
               << " is a zero divisor.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
   std::cout << "gi = " << ginv << "\n";
   spffl::polynomials::f2n_polymod_t gk = g.exp(k);
@@ -189,7 +191,7 @@ int f2n_polymod_log( // Log base g of a.
     std::stringstream ss;
     ss << "f2n_polymod_log:  couldn't find log base " << g << " of " << a
               << " mod " << m << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   delete[] agni;

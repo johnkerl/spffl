@@ -235,7 +235,7 @@ static void lexan(lex_ctx_t<element_type> &rlex_ctx) {
     if (iss.fail()) {
       std::stringstream ss;
       ss << "Scan failure at \"" << s << "\".\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
   }
   rlex_ctx.argi++;
@@ -251,12 +251,12 @@ element_type clo_exp(
     if (e < 0) {
       std::stringstream ss;
       ss << "Division by zero.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     if (e == 0) {
       std::stringstream ss;
       ss << "0 ^ 0 undefined.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     return zero;
   }
@@ -270,7 +270,7 @@ element_type clo_exp(
     if (e == -e) {
       std::stringstream ss;
       ss << "Can't handle MIN_INT.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     xp = one / x;
     e  = -e;
@@ -334,7 +334,7 @@ static void emit(
     std::stringstream ss;
     ss << "Unhandled operator "
               << token_desc<element_type>(rlex_ctx.token) << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
     break;
   }
 
@@ -351,7 +351,7 @@ static void emit(
       std::stringstream ss;
       ss << "Operator " << token_desc<element_type>(rlex_ctx.token)
                 << " requires type-specific argument.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     break;
   case T_TT_OP:
@@ -360,7 +360,7 @@ static void emit(
       std::stringstream ss;
       ss << "Operator " << token_desc<element_type>(rlex_ctx.token)
                 << " requires two type-specific arguments.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     break;
   case T_TI_OP:
@@ -369,7 +369,7 @@ static void emit(
       ss << "Operator " << token_desc<element_type>(rlex_ctx.token)
                 << " requires one type-specific argument "
                 << " and one integer argument.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     break;
   }
@@ -421,7 +421,7 @@ static void emit(
     std::stringstream ss;
     ss << "Unhandled operator "
               << token_desc<element_type>(rlex_ctx.token) << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
     break;
   }
 
@@ -448,7 +448,7 @@ static void match(lex_ctx_t<element_type> &rlex_ctx, int expected_token) {
     ss << "Syntax error.\n";
     ss << "Expected " << token_desc<element_type>(expected_token)
               << "; got " << token_desc<element_type>(rlex_ctx.token) << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 }
 
@@ -470,7 +470,7 @@ static void P(
     std::stringstream ss;
     ss << "syntax error at token "
               << token_desc<element_type>(rlex_ctx.token) << "\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 }
 
@@ -653,7 +653,7 @@ void cmd_line_parse(
     if (!stack.pop(result)) {
       std::stringstream ss;
       ss << "Stack underflow.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     if (result.is_int) {
       std::cout << result.int_val << "\n";

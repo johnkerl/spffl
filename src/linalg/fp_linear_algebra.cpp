@@ -29,7 +29,7 @@ spffl::polynomials::fp_poly_t fp_char_poly(
   if (!A.is_square()) {
     std::stringstream ss;
     ss << "fp_char_poly():  non-square input.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   int i, j;

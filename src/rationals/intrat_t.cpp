@@ -116,7 +116,7 @@ intrat_t intrat_t::operator%(const intrat_t &that) {
   if (that == zero) {
     std::stringstream ss;
     ss << "intrat_t: Divide by zero.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
   return zero;
 }
@@ -132,20 +132,20 @@ intrat_t intrat_t::exp(int e) {
     if (*this == zero) {
       std::stringstream ss;
       ss << "intrat_t::exp:  0 ^ 0 undefined.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     return one;
   } else if (e < 0) {
     if (*this == zero) {
       std::stringstream ss;
       ss << "intrat_t::exp:  division by zero.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     if (e == -e) {
       std::stringstream ss;
       ss << "intrat_t::exp:  can't handle "
                    "MIN_INT.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     xp = one / xp;
     e  = -e;
@@ -338,7 +338,7 @@ void intrat_t::simplify(void) {
   if (this->denom == 0) {
     std::stringstream ss;
     ss << "rat: Divide by zero.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
   if (this->denom < 0) {
     this->numer = -this->numer;

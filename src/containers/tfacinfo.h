@@ -135,7 +135,7 @@ public:
       std::stringstream ss;
       ss << "tfacinfo:  index " << which
                 << " out of bounds 0:" << this->num_distinct - 1 << ".\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
   }
 
@@ -265,12 +265,12 @@ public:
       if (e < 0) {
         std::stringstream ss;
         ss << "Division by zero.\n";
-        exit(1);
+        throw spffl::exception_t(ss.str());
       }
       if (e == 0) {
         std::stringstream ss;
         ss << "0 ^ 0 undefined.\n";
-        exit(1);
+        throw spffl::exception_t(ss.str());
       }
       return zero;
     }
@@ -285,7 +285,7 @@ public:
       if (e == -e) {
         std::stringstream ss;
         ss << "Can't handle MIN_INT.\n";
-        exit(1);
+        throw spffl::exception_t(ss.str());
       }
       xp = one / x;
       e  = -e;
@@ -379,7 +379,7 @@ public:
         std::stringstream ss;
         ss << "tfacinfo::get_num_divisors():  "
                      "No factors have been inserted.\n";
-        exit(1);
+        throw spffl::exception_t(ss.str());
       }
     }
     int rv = 1;
@@ -405,7 +405,7 @@ public:
         std::stringstream ss;
         ss << "tfacinfo::get_kth_divisor():  "
                      "No factors have been inserted.\n";
-        exit(1);
+        throw spffl::exception_t(ss.str());
       }
     }
 
@@ -429,7 +429,7 @@ public:
         std::stringstream ss;
         ss << "tfacinfo::get_all_divisors():  "
                   << "No factors have been inserted.\n";
-        exit(1);
+        throw spffl::exception_t(ss.str());
       }
     }
     int nd = this->get_num_divisors();
@@ -450,7 +450,7 @@ public:
         std::stringstream ss;
         ss << "tfacinfo::get_maximal_proper_divisors():  "
                   << "No factors have been inserted.\n";
-        exit(1);
+        throw spffl::exception_t(ss.str());
       } else {
         return false;
       }

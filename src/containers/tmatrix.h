@@ -38,7 +38,7 @@ public:
       ss << "tmatrix::tmatrix():  Matrix dimensions must be >= 0; got "
                 << init_num_rows << " x " << init_num_cols << ".  Exiting."
                 << std::endl;
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
 
     this->num_rows = init_num_rows;
@@ -56,7 +56,7 @@ public:
       ss << "tmatrix::tmatrix():  Matrix dimensions "
                 << "must be > 0; got " << init_num_rows << " x "
                 << init_num_cols << ".  Exiting." << std::endl;
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     this->num_rows = init_num_rows;
     this->num_cols = init_num_cols;
@@ -314,7 +314,7 @@ public:
     if (!this->store_to_file(file_name)) {
       std::stringstream ss;
       ss << "tmatrix:  couldn't write to \"" << file_name << "\".\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
   }
 
@@ -398,7 +398,7 @@ public:
       ss << "tmatrix array operator: row index " << row_index
                 << " out of bounds " << 0 << ":" << (this->num_rows - 1)
                 << std::endl;
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     return this->rows[row_index];
   }
@@ -411,7 +411,7 @@ public:
       ss << "tmatrix get_column: col index " << col_index
                 << " out of bounds " << 0 << ":" << (this->num_cols - 1)
                 << std::endl;
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     tvector<element_type> rv(this->num_rows);
     for (int i = 0; i < this->num_rows; i++) {
@@ -427,14 +427,14 @@ public:
       ss << "tmatrix put_column: col index " << col_index
                 << " out of bounds " << 0 << ":" << (this->num_cols - 1)
                 << std::endl;
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     if (v.get_num_elements() != this->num_rows) {
       std::stringstream ss;
       ss << "tmatrix::put_column:  matrix is " << this->num_rows << " x "
                 << this->num_cols << ", but the vector has height "
                 << v.get_num_elements() << ".\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     for (int i = 0; i < this->num_rows; i++) {
       this->rows[i][col_index] = v[i];
@@ -462,7 +462,7 @@ public:
                 << "arguments (" << this->num_rows << "x" << this->num_cols
                 << ", " << that.num_rows << "x" << that.num_cols << ")."
                 << std::endl;
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
 
     tmatrix<element_type> rv(this->num_rows, this->num_cols);
@@ -490,7 +490,7 @@ public:
     if (!this->is_square()) {
       std::stringstream ss;
       ss << "tmatrix plus scalar:  non-square input.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     tmatrix<element_type> rv(*this);
     for (int i = 0; i < this->num_rows; i++) {
@@ -504,7 +504,7 @@ public:
     if (!this->is_square()) {
       std::stringstream ss;
       ss << "tmatrix minus scalar:  non-square input.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     tmatrix<element_type> rv(*this);
     for (int i = 0; i < this->num_rows; i++) {
@@ -525,7 +525,7 @@ public:
       ss << "tmatrix operator*(): Incompatibly dimensioned "
                 << "operands (" << this->num_rows << "x" << this->num_cols
                 << "," << v_num_elements << ")." << std::endl;
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
 
     tvector<element_type> rv(this->num_rows);
@@ -573,7 +573,7 @@ public:
     if (!this->is_square()) {
       std::stringstream ss;
       ss << "tmatrix::exp():  non-square input.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
 
     element_type zero = this->rows[0][0] - this->rows[0][0];
@@ -585,7 +585,7 @@ public:
         std::stringstream ss;
         ss << "tmatrix::exp:  non-postive power of "
                   << "zero matrix is undefined.\n";
-        exit(1);
+        throw spffl::exception_t(ss.str());
       } else {
         rout = *this;
         return 1;
@@ -607,7 +607,7 @@ public:
       } else if (power == -power) {
         std::stringstream ss;
         ss << "tmatrix::exp:  can't handle MIN_INT.\n";
-        exit(1);
+        throw spffl::exception_t(ss.str());
       } else {
         rout = ai.posexp(-power, I);
         return 1;
@@ -625,7 +625,7 @@ public:
                 << "operands (" << this->num_rows << "x" << this->num_cols
                 << "," << that.num_rows << "x" << that.num_cols << ")."
                 << std::endl;
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
 
     tmatrix<element_type> rv(this->num_rows, that.num_cols);
@@ -803,7 +803,7 @@ public:
     if (!this->is_square()) {
       std::stringstream ss;
       ss << "tmatrix::make_I():  non-square input.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
 
     tmatrix<element_type> rv(*this);
@@ -1197,7 +1197,7 @@ public:
         ss << "Product =\n";
         ss << Av << "\n";
         ss << "Zero scalar = " << zero << "\n";
-        exit(1);
+        throw spffl::exception_t(ss.str());
       }
     }
   }
@@ -1313,7 +1313,7 @@ public:
       std::stringstream ss;
       ss << "tmatrix::paste:  differing number of rows ("
                 << this->num_rows << " vs. " << that.num_rows << ")\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
 
     tmatrix<element_type> rv(this->num_rows, this->num_cols + that.num_cols);
@@ -1340,7 +1340,7 @@ public:
       std::stringstream ss;
       ss << "tmatrix::paste_vector:  differing number of rows ("
                 << this->num_rows << " vs. " << vne << ")\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
 
     tmatrix<element_type> rv(this->num_rows, this->num_cols + 1);
@@ -1364,7 +1364,7 @@ public:
       std::stringstream ss;
       ss << "tmatrix::split:  split column " << split_column
                 << " out of bounds 0:" << this->num_rows - 1 << ".\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
 
     rleft = tmatrix<element_type>(this->num_rows, split_column);
@@ -1394,7 +1394,7 @@ public:
     if (!this->is_square()) {
       std::stringstream ss;
       ss << "tmatrix::inverse():  non-square input.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
 
     if (!this->find_one(one)) {
@@ -1416,7 +1416,7 @@ public:
     if (!AB.is_I() || !BA.is_I()) {
       std::stringstream ss;
       ss << "coding error:  not really inverses.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
   }
 
@@ -1425,7 +1425,7 @@ public:
     if (!this->is_square()) {
       std::stringstream ss;
       ss << "tmatrix::det():  non-square input.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     tmatrix<element_type> rr(*this);
     element_type d;
@@ -1531,7 +1531,7 @@ public:
     if (!this->is_square()) {
       std::stringstream ss;
       ss << "tmatrix::ed_det():  non-square input.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     tmatrix<element_type> rr(*this);
     element_type dn, dd;
@@ -1548,7 +1548,7 @@ public:
       std::stringstream ss;
       ss << "tmatrix::ed_det:  coding error:  dd must divide dn.\n";
       ss << "Got " << dn << "% " << dd << " = " << rem << "\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     return quot;
   }
@@ -1598,7 +1598,7 @@ public:
     if (!this->is_square()) {
       std::stringstream ss;
       ss << "tmatrix::ed_inverse():  non-square input.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
 
     if (!this->find_one(one)) {
@@ -1619,7 +1619,7 @@ public:
       std::stringstream ss;
       ss << "tmatrix trim_num_rows: new count " << new_num_rows
                 << " out of bounds " << 1 << ":" << this->num_rows << std::endl;
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     this->num_rows = new_num_rows;
   }
@@ -1670,7 +1670,7 @@ private:
       ss << "tmatrix " << msg << ":  Incompatibly sized arguments ("
                 << this->num_rows << "x" << this->num_cols << ", "
                 << that.num_rows << "x" << that.num_cols << ")." << std::endl;
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
   }
 

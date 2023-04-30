@@ -52,7 +52,7 @@ f2_poly_t::f2_poly_t(const std::string &s) {
   if (iss.fail()) {
     std::stringstream ss;
     ss << "f2_poly_t:  could not construct from \"" << s << "\"\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 }
 
@@ -231,7 +231,7 @@ void f2_poly_t::quot_and_rem(
     // Divisor is zero.
     std::stringstream ss;
     ss << "f2_poly_quot_and_rem:  Divide by zero.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
   dividend_l1_pos = this->find_degree();
   if ((dividend_l1_pos == 0) && (this->parts[0] == 0)) {
@@ -335,11 +335,11 @@ f2_poly_t f2_poly_t::exp(int e) const {
     if (e == 0) {
       std::stringstream ss;
       ss << "f2_poly_t::exp:  0 ^ 0 undefined.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     } else if (e < 0) {
       std::stringstream ss;
       ss << "f2_poly_t::exp:  division by zero.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     } else {
       return zero;
     }
@@ -351,7 +351,7 @@ f2_poly_t f2_poly_t::exp(int e) const {
     if (e < 0) {
       std::stringstream ss;
       ss << "f2_poly_t::exp:  division by non-unit.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     } else {
       while (e != 0) {
         if (e & 1) {
@@ -497,7 +497,7 @@ bool f2_poly_t::cmp(int op, const f2_poly_t &that) const {
   default:
     std::stringstream ss;
     ss << "Ack!\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
     return false;
     break;
   }
@@ -520,7 +520,7 @@ std::ostream &operator<<(std::ostream &os, const f2_poly_t &poly) {
   if (poly.parts.size() <= 0) {
     std::stringstream ss;
     ss << "f2_poly_t ostream <<:  empty polynomial.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
   std::ios_base::fmtflags svflags = os.flags();
   os.flags(std::ios_base::hex);
@@ -798,7 +798,7 @@ void f2_poly_t::check_neg_pos(int pos) const {
   if (pos < 0) {
     std::stringstream ss;
     ss << "f2_poly: negative bit position " << pos << " disallowed.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 }
 } // namespace spffl::polynomials

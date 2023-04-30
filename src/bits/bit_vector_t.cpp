@@ -26,7 +26,7 @@ bit_vector_t::bit_vector_t(int init_num_elements) {
     ss << "bit_vector_t::bit_vector_t():  Vector size must be"
               << " > 0; got " << init_num_elements << ".  Exiting."
               << std::endl;
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   this->num_bits  = init_num_elements;
@@ -42,7 +42,7 @@ bit_vector_t::bit_vector_t(const bit_t &scalar, int init_num_elements) {
     ss << "bit_vector_t::bit_vector_t():  Vector size must be"
               << " > 0; got " << init_num_elements << ".  Exiting."
               << std::endl;
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   this->num_bits  = init_num_elements;
@@ -65,7 +65,7 @@ bit_vector_t::bit_vector_t(int scalar, int init_num_elements) {
     ss << "bit_vector_t::bit_vector_t():  Vector size must be"
               << " > 0; got " << init_num_elements << ".  Exiting."
               << std::endl;
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   this->num_bits  = init_num_elements;
@@ -402,7 +402,7 @@ void bit_vector_t::check_equal_lengths(const bit_vector_t &that) const {
     ss << "bit_vector_t operator+():  Incompatibly sized "
               << "arguments (" << this->num_bits << ", " << that.num_bits
               << ")." << std::endl;
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 }
 
@@ -427,7 +427,7 @@ void bit_vector_t::bounds_check(int index) const {
     ss << "bit_vector_t array operator: index " << index
               << " out of bounds " << 0 << ":" << (this->num_bits - 1)
               << std::endl;
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 }
 

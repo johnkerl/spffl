@@ -68,7 +68,7 @@ public:
     if (that.residue == 0) {
       std::stringstream ss;
       ss << "bit_t::operator/:  division by zero.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     return *this;
   }
@@ -77,7 +77,7 @@ public:
     if (that.residue == 0) {
       std::stringstream ss;
       ss << "bit_t::operator%:  division by zero.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     return bit_t(0);
   }
@@ -101,7 +101,7 @@ public:
     if (that.residue == 0) {
       std::stringstream ss;
       ss << "bit_t::operator/:  division by zero.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     return *this;
   }
@@ -110,7 +110,7 @@ public:
     if (that.residue == 0) {
       std::stringstream ss;
       ss << "bit_t::operator/:  division by zero.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     this->residue = 0;
     return *this;

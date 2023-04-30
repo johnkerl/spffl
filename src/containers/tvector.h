@@ -49,7 +49,7 @@ public:
       std::stringstream ss;
       ss << "tvector::tvector():  Vector size must be > 0; got "
                 << init_num_elements << ".  Exiting." << std::endl;
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
 
     this->num_elements = init_num_elements;
@@ -62,7 +62,7 @@ public:
       std::stringstream ss;
       ss << "tvector::tvector():  Vector size must be > 0; got "
                 << init_num_elements << ".  Exiting." << std::endl;
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
 
     this->num_elements = init_num_elements;
@@ -239,7 +239,7 @@ public:
       ss << "tvector array operator: index " << index
                 << " out of bounds " << 0 << ":" << (this->num_elements - 1)
                 << std::endl;
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     return this->elements[index];
   }
@@ -311,7 +311,7 @@ public:
       ss << "tvector operator*(): Incompatibly dimensioned "
                 << "operands (" << this->num_elements << "," << Anr << "x"
                 << Anc << ")." << std::endl;
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
 
     tvector<element_type> rv(Anc);
@@ -492,7 +492,7 @@ public:
       ss << "tvector operator+():  Incompatibly sized arguments ("
                 << this->num_elements << ", " << that.num_elements << ")."
                 << std::endl;
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
   }
 
@@ -503,7 +503,7 @@ public:
       ss << "tvector trim_num_elements: new count " << new_num_elements
                 << " out of bounds " << 1 << ":" << this->num_elements
                 << std::endl;
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     this->num_elements = new_num_elements;
   }

@@ -284,7 +284,7 @@ void qpoly_t::quot_and_rem(
   if (that == zero) {
     std::stringstream ss;
     ss << "qpoly_t::quot_and_rem:  division by zero.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
   if (*this == zero) {
     rquot = qpoly_t(0);
@@ -341,7 +341,7 @@ void qpoly_t::quot_and_rem(
   if (quot.coeffs[quot.degree] == zero) {
     std::stringstream ss;
     ss << "qpoly_t division: coding error.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   // The remainder degree is less than the divisor's degree.
@@ -428,11 +428,11 @@ qpoly_t qpoly_t::exp(int e) const {
     if (e == 0) {
       std::stringstream ss;
       ss << "qpoly_t::exp:  0 ^ 0 undefined.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     } else if (e < 0) {
       std::stringstream ss;
       ss << "qpoly_t::exp:  division by zero.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     } else {
       return zero;
     }
@@ -444,7 +444,7 @@ qpoly_t qpoly_t::exp(int e) const {
     if (e < 0) {
       std::stringstream ss;
       ss << "qpoly_t::exp:  division by non-unit.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     } else {
       while (e != 0) {
         if (e & 1) {
@@ -631,7 +631,7 @@ bool qpoly_t::cmp(int cmp, const qpoly_t &that) const {
   default:
     std::stringstream ss;
     ss << "Ack!\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
     return false;
     break;
   }
@@ -643,7 +643,7 @@ void qpoly_t::bounds_check(int deg) const {
     std::stringstream ss;
     ss << "qpoly_t: degree " << deg
               << " out of bounds 0:" << this->degree << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 }
 
@@ -777,7 +777,7 @@ void qpoly_t::promote(void) {
   if (!this->coeffs) {
     std::stringstream ss;
     ss << "qpoly_t::promote: null data.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
   intrat_t *ocoeffs = this->coeffs;
   this->coeffs      = new intrat_t[this->degree + 2];

@@ -37,13 +37,13 @@ intmod_t intmod_t::exp(int e) const {
     if (*this == zero) {
       std::stringstream ss;
       ss << "intmod_t::exp:  division by zero.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     if (e == -e) {
       std::stringstream ss;
       ss << "intmod_t::exp:  can't handle "
                    "MIN_INT.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     intmod_t inv = one / *this;
     xp           = inv.residue;
@@ -201,7 +201,7 @@ intmod_t::intmod_t(int arg_residue, int arg_modulus) {
     ss << "intmod_t: non-positive modulus " << arg_modulus
               << " disallowed.";
     ss << std::endl;
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
   this->residue = arg_residue;
   this->modulus = arg_modulus;
@@ -235,7 +235,7 @@ void intmod_t::check_moduli(const intmod_t &that) const {
     ss << "intmod_t: mixed moduli " << this->modulus << ", "
               << that.modulus << ".";
     ss << std::endl;
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 }
 
@@ -247,7 +247,7 @@ void intmod_t::check_modulus(void) const {
   if (this->modulus == 0) {
     std::stringstream ss;
     ss << "intmod_t: unspecified modulus.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 }
 
@@ -328,7 +328,7 @@ intmod_t intmod_t::operator%(const intmod_t &that) const {
     std::stringstream ss;
     ss << "intmod_t::operator%:  zero or zero divisor: " << that.residue
               << " mod " << that.modulus << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   return *this - *this;

@@ -83,11 +83,11 @@ int nth_prime(int n) {
   if (n > numprimes16) {
     std::stringstream ss;
     ss << "nth_prime:  n=" << n << " past end of table.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   } else if (n < 1) {
     std::stringstream ss;
     ss << "nth_prime:  n=" << n << " should have been positive.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
   return (int)primes_16[n - 1];
 }

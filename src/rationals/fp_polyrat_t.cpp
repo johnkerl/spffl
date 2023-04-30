@@ -127,7 +127,7 @@ fp_polyrat_t fp_polyrat_t::operator%(const fp_polyrat_t &that) {
   if (that == zero) {
     std::stringstream ss;
     ss << "fp_polyrat_t: Divide by zero.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
   return zero;
 }
@@ -143,20 +143,20 @@ fp_polyrat_t fp_polyrat_t::exp(int e) const {
     if (*this == zero) {
       std::stringstream ss;
       ss << "fp_polyrat_t::exp:  0 ^ 0 undefined.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     return one;
   } else if (e < 0) {
     if (*this == zero) {
       std::stringstream ss;
       ss << "fp_polyrat_t::exp:  division by zero.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     if (e == -e) {
       std::stringstream ss;
       ss << "fp_polyrat_t::exp:  can't handle "
                    "MIN_FPPOLY.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     xp = one / xp;
     e  = -e;
@@ -356,7 +356,7 @@ void fp_polyrat_t::simplify(void) {
   if (this->denom == 0) {
     std::stringstream ss;
     ss << "rat: Divide by zero.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
   g = this->numer.gcd(this->denom);
   this->numer /= g;

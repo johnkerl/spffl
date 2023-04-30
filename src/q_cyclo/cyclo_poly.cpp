@@ -30,7 +30,7 @@ spffl::rationals::qpoly_t get_cyclo_qpoly(int n) {
     std::stringstream ss;
     ss << "get_cyclo_qpoly: argument must be positive; got " << n
               << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   if ((n <= CYCLO_MEMO_MAX) && (memo_flags[n])) {
@@ -65,7 +65,7 @@ spffl::rationals::qpoly_t get_cyclo_qpoly(int n) {
     if (rem != zero) {
       std::stringstream ss;
       ss << "get_cyclo_qpoly: internal error.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
   }
 

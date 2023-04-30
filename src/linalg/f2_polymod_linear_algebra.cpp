@@ -21,7 +21,7 @@ spffl::polynomials::f2n_poly_t f2_polymod_characteristic_polynomial(
   if (!A.is_square()) {
     std::stringstream ss;
     ss << "f2_polymod_characteristic_polynomial():  non-square input.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   int i, j;
@@ -166,12 +166,12 @@ bool f2_polymod_matrix_is_diagonalizable(
     if (!spffl::units::f2_polymod_find_generator(base_modulus, base_g)) {
       std::stringstream ss;
       ss << "Can't find generator mod " << base_modulus << ".\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     if (!f2_polymod_convert_prep(base_g, rext_modulus, ext_g)) {
       std::stringstream ss;
       ss << "Can't find generator mod " << rext_modulus << ".\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
 
     ext_chpol = f2_polymod_convert_poly(base_g, ext_g, chpol);
@@ -247,7 +247,7 @@ bool f2_polymod_matrix_is_diagonalizable(
   //	if (PD != AP) {
   //		std::stringstream ss;
   //    ss << "f2_polymod_matrix_is_diagonalizable: coding
-  //error.\n"; 		exit(1);
+  //error.\n"; 		throw spffl::exception_t(ss.str());
   //	}
   // }
 

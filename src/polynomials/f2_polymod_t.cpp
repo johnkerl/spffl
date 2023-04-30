@@ -96,7 +96,7 @@ f2_polymod_t f2_polymod_t::operator/(const f2_polymod_t &that) const {
     std::stringstream ss;
     ss << "f2_polymod_t::operator/:  zero or zero divisor: "
               << that.residue << " mod " << that.modulus << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   return *this * bi;
@@ -111,7 +111,7 @@ f2_polymod_t f2_polymod_t::operator%(const f2_polymod_t &that) const {
     std::stringstream ss;
     ss << "f2_polymod_t::operator%:  zero or zero divisor: "
               << that.residue << " mod " << that.modulus << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   return *this - *this;
@@ -142,20 +142,20 @@ f2_polymod_t f2_polymod_t::exp(int e) const {
     if (*this == zero) {
       std::stringstream ss;
       ss << "f2_polymod_t::exp:  0 ^ 0 undefined.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     return one;
   } else if (e < 0) {
     if (*this == zero) {
       std::stringstream ss;
       ss << "f2_polymod_t::exp:  division by zero.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     if (e == -e) {
       std::stringstream ss;
       ss << "f2_polymod_t::exp:  can't handle "
                    "MIN_INT.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
     f2_polymod_t inv = one / *this;
     xp               = inv.residue;
@@ -307,7 +307,7 @@ void f2_polymod_t::check_moduli(const f2_polymod_t &that) const {
     ss << "f2_polymod_t: mixed moduli " << this->modulus << ", "
               << that.modulus << ".";
     ss << std::endl;
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 }
 

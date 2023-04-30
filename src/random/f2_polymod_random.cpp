@@ -19,7 +19,7 @@ spffl::polynomials::f2_polymod_t f2_polymod_random(
     std::stringstream ss;
     ss << "f2_polymod_random:  degree (" << deg << ") of " << m
               << " should be >= 1.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   return spffl::polynomials::f2_polymod_t(f2_poly_random(deg), m);

@@ -20,7 +20,7 @@ static int int_sqrt(int nsigned, bool want_ceil) {
   if (nsigned < 0) {
     std::stringstream ss;
     ss << "int_sqrt:  Can't handle negative input " << nsigned << "\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   if (nsigned == 0) {

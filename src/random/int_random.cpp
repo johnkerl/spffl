@@ -42,7 +42,7 @@ int get_random_int(void) {
     if (fd < 0) {
       std::stringstream ss;
       ss << "Couldn't open /dev/urandom.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
   }
 
@@ -50,7 +50,7 @@ int get_random_int(void) {
     if (read(fd, buf, BUFSZ * sizeof(int)) < 0) {
       std::stringstream ss;
       ss << "Couldn't read /dev/urandom.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     }
   }
   rv = buf[bufpos];

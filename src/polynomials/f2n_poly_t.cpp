@@ -77,7 +77,7 @@ f2n_poly_t f2n_poly_t::from_base_rep(int b, const f2_poly_t &m) {
   f2n_poly_t rv;
   std::stringstream ss;
   ss << "unimplemented function!\n";
-  exit(1);
+  throw spffl::exception_t(ss.str());
 // xxx fix me
 #if 0
 	// Find degree.
@@ -344,7 +344,7 @@ void f2n_poly_t::quot_and_rem(
   if (that == zero) {
     std::stringstream ss;
     ss << "f2n_poly_t::quot_and_rem:  division by zero.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
   if (*this == zero) {
     rquot = this->prime_subfield_element(0);
@@ -389,7 +389,7 @@ void f2n_poly_t::quot_and_rem(
     ss << "f2n_poly_t::quot_and_rem:  zero or zero divisor "
               << "in leading coefficient " << divisor_leader << "\n"
               << "  of divisor " << that << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
   for (int shift = max_shift; shift >= 0; shift--) {
     f2_polymod_t rem_leader     = rem.coeffs[shift + divisor_degree];
@@ -408,7 +408,7 @@ void f2n_poly_t::quot_and_rem(
   if (quot.coeffs[quot.degree] == zero) {
     std::stringstream ss;
     ss << "f2n_poly_t division: coding error.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   // The remainder degree is less than the divisor's degree.
@@ -496,11 +496,11 @@ f2n_poly_t f2n_poly_t::exp(int e) const {
     if (e == 0) {
       std::stringstream ss;
       ss << "f2n_poly_t::exp:  0 ^ 0 undefined.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     } else if (e < 0) {
       std::stringstream ss;
       ss << "f2n_poly_t::exp:  division by zero.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     } else {
       return zero;
     }
@@ -512,7 +512,7 @@ f2n_poly_t f2n_poly_t::exp(int e) const {
     if (e < 0) {
       std::stringstream ss;
       ss << "f2n_poly_t::exp:  division by non-unit.\n";
-      exit(1);
+      throw spffl::exception_t(ss.str());
     } else {
       while (e != 0) {
         if (e & 1) {
@@ -768,7 +768,7 @@ bool f2n_poly_t::cmp(int cmp, const f2n_poly_t &that) const {
   default:
     std::stringstream ss;
     ss << "Ack!\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
     return false;
     break;
   }
@@ -780,7 +780,7 @@ void f2n_poly_t::bounds_check(int deg) const {
     std::stringstream ss;
     ss << "f2n_poly_t: degree " << deg
               << " out of bounds 0:" << this->degree << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 }
 
@@ -933,7 +933,7 @@ void f2n_poly_t::promote(void) {
   if (!this->coeffs) {
     std::stringstream ss;
     ss << "f2n_poly_t::promote: null data.\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
   f2_polymod_t *ocoeffs = this->coeffs;
   this->coeffs          = new f2_polymod_t[this->degree + 2];
