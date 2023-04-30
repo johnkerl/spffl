@@ -32,8 +32,8 @@ public:
   f2n_poly_t(const f2n_poly_t &that);
   ~f2n_poly_t(void);
 
-  f2n_poly_t prime_sfld_elt(int v) const;
-  static f2n_poly_t prime_sfld_elt(int v, const f2_poly_t &m);
+  f2n_poly_t prime_subfield_element(int v) const;
+  static f2n_poly_t prime_subfield_element(int v, const f2_poly_t &m);
   int get_characteristic(void) const;
 
   f2n_poly_t &operator=(const f2n_poly_t &that);

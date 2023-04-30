@@ -52,7 +52,7 @@ f2_polyrat_t::~f2_polyrat_t(void) {
 }
 
 // ----------------------------------------------------------------
-f2_polyrat_t f2_polyrat_t::prime_sfld_elt(int v) const {
+f2_polyrat_t f2_polyrat_t::prime_subfield_element(int v) const {
   return f2_polyrat_t(v & 1);
 }
 

@@ -15,10 +15,10 @@
 namespace spffl::linalg {
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2n_poly_t f2pm_char_poly(
+spffl::polynomials::f2n_poly_t f2_polymod_characteristic_polynomial(
     tmatrix<spffl::polynomials::f2_polymod_t> &A) {
   if (!A.is_square()) {
-    std::cerr << "f2pm_char_poly():  non-square input.\n";
+    std::cerr << "f2_polymod_characteristic_polynomial():  non-square input.\n";
     exit(1);
   }
 
@@ -77,7 +77,7 @@ tmatrix<spffl::polynomials::f2_polymod_t> f2np_companion_matrix(
 // ----------------------------------------------------------------
 // Diagonalizability test
 
-bool f2pm_matrix_is_diagonalizable(tmatrix<spffl::polynomials::f2_polymod_t> &A,
+bool f2_polymod_matrix_is_diagonalizable(tmatrix<spffl::polynomials::f2_polymod_t> &A,
 
     // int allow_field_extension,
     spffl::polynomials::f2_poly_t &rext_modulus,
@@ -100,11 +100,11 @@ bool f2pm_matrix_is_diagonalizable(tmatrix<spffl::polynomials::f2_polymod_t> &A,
 
   if (verbose) {
     std::cout << "\n";
-    std::cout << "f2pm diagonalizable input =\n" << A << "\n";
+    std::cout << "f2_polymod diagonalizable input =\n" << A << "\n";
   }
 
   // Compute the matrix's characteristic polynomial.
-  spffl::polynomials::f2n_poly_t chpol = f2pm_char_poly(A);
+  spffl::polynomials::f2n_poly_t chpol = f2_polymod_characteristic_polynomial(A);
 
   if (verbose) {
     std::cout << "chpoly = " << chpol << "\n";
@@ -239,7 +239,7 @@ bool f2pm_matrix_is_diagonalizable(tmatrix<spffl::polynomials::f2_polymod_t> &A,
   //	tmatrix<spffl::polynomials::f2_polymod_t> PD = P * D;
   //	tmatrix<spffl::polynomials::f2_polymod_t> AP = splitA * P;
   //	if (PD != AP) {
-  //		std::cerr << "f2pm_matrix_is_diagonalizable: coding error.\n";
+  //		std::cerr << "f2_polymod_matrix_is_diagonalizable: coding error.\n";
   //		exit(1);
   //	}
   // }

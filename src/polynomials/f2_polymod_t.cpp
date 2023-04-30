@@ -25,7 +25,7 @@ f2_polymod_t::f2_polymod_t(const f2_polymod_t &that) {
 }
 
 // ----------------------------------------------------------------
-f2_polymod_t f2_polymod_t::prime_sfld_elt(int v) const {
+f2_polymod_t f2_polymod_t::prime_subfield_element(int v) const {
   f2_poly_t m = this->modulus;
   f2_poly_t r(v & 1);
   return f2_polymod_t(r, m);
@@ -33,7 +33,7 @@ f2_polymod_t f2_polymod_t::prime_sfld_elt(int v) const {
 
 // ----------------------------------------------------------------
 // This is a static method.
-f2_polymod_t f2_polymod_t::prime_sfld_elt(int v, const f2_poly_t &m) {
+f2_polymod_t f2_polymod_t::prime_subfield_element(int v, const f2_poly_t &m) {
   f2_poly_t r(v & 1);
   return f2_polymod_t(r, m);
 }

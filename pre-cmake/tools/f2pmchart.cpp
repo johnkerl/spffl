@@ -23,23 +23,23 @@ typedef struct _opts_t {
 } opts_t;
 
 // ----------------------------------------------------------------
-typedef struct _f2pm_chart_cell_t {
+typedef struct _f2_pm_chart_cell_t {
 	f2_polymod_t root;
 	int         log;
-} f2pm_chart_cell_t;
+} f2_pm_chart_cell_t;
 
-typedef struct _f2pm_chart_row_t {
+typedef struct _f2_pm_chart_row_t {
 	f2_poly_t  min_poly;
 	int       num_roots;
 	int       order;
-	f2pm_chart_cell_t * cells;
-} f2pm_chart_row_t;
+	f2_pm_chart_cell_t * cells;
+} f2_pm_chart_row_t;
 
 typedef struct _f2pm_chart_t {
 	int       num_rows;
 	f2_polymod_t g;
-	f2pm_chart_row_t * rows;
-} f2pm_chart_t;
+	f2_pm_chart_row_t * rows;
+} f2_pm_chart_t;
 
 
 // ----------------------------------------------------------------
@@ -54,12 +54,12 @@ static void find_irreds(
 	f2_poly_t * pirreds,
 	int       num_irreds);
 
-static f2pm_chart_t * alloc_f2pm_chart(
+static f2_pm_chart_t * alloc_f2pm_chart(
 	int       num_rows,
 	int       num_cols);
 
 static void free_f2pm_chart(
-	f2pm_chart_t ** ppchart);
+	f2_pm_chart_t ** ppchart);
 
 static int f2pm_chart_row_qcmp(
 	const void * pv1,
@@ -71,12 +71,12 @@ static void do_f2pm_chart(
 	opts_t  * popts);
 
 static void fill_f2pm_chart(
-	f2pm_chart_t * pchart,
+	f2_pm_chart_t * pchart,
 	f2_poly_t m,
 	int       n);
 
 static void print_f2pm_chart(
-	f2pm_chart_t * pchart,
+	f2_pm_chart_t * pchart,
 	f2_poly_t  m,
 	int       n,
 	opts_t  * popts);
@@ -211,18 +211,18 @@ static void find_irreds(
 }
 
 // ----------------------------------------------------------------
-static f2pm_chart_t * alloc_f2pm_chart(
+static f2_pm_chart_t * alloc_f2pm_chart(
 	int       num_rows,
 	int       num_cols)
 {
-	f2pm_chart_t * pchart;
+	f2_pm_chart_t * pchart;
 	int i, j;
 
-	pchart = new f2pm_chart_t;
+	pchart = new f2_pm_chart_t;
 	pchart->num_rows = num_rows;
-	pchart->rows = new f2pm_chart_row_t[num_rows];
+	pchart->rows = new f2_pm_chart_row_t[num_rows];
 	for (i = 0; i < num_rows; i++)
-		pchart->rows[i].cells = new f2pm_chart_cell_t[num_cols];
+		pchart->rows[i].cells = new f2_pm_chart_cell_t[num_cols];
 
 	for (i = 0; i < num_rows; i++) {
 		pchart->rows[i].num_roots = 0;
@@ -236,9 +236,9 @@ static f2pm_chart_t * alloc_f2pm_chart(
 
 // ----------------------------------------------------------------
 static void free_f2pm_chart(
-	f2pm_chart_t ** ppchart)
+	f2_pm_chart_t ** ppchart)
 {
-	f2pm_chart_t * pchart = *ppchart;
+	f2_pm_chart_t * pchart = *ppchart;
 	int i;
 	for (i = 0; i < pchart->num_rows; i++)
 		delete [] pchart->rows[i].cells;
@@ -252,8 +252,8 @@ static int f2pm_chart_row_qcmp(
 	const void * pv1,
 	const void * pv2)
 {
-	const f2pm_chart_row_t * prow1 = (const f2pm_chart_row_t *)pv1;
-	const f2pm_chart_row_t * prow2 = (const f2pm_chart_row_t *)pv2;
+	const f2_pm_chart_row_t * prow1 = (const f2_pm_chart_row_t *)pv1;
+	const f2_pm_chart_row_t * prow2 = (const f2_pm_chart_row_t *)pv2;
 	return (prow1->min_poly > prow2->min_poly);
 }
 
@@ -265,7 +265,7 @@ static void do_f2pm_chart(
 {
 	int num_rows = num_irreds_deg_divides(n);
 	num_rows = num_rows;
-	f2pm_chart_t  * pchart = alloc_f2pm_chart(num_rows, n);
+	f2_pm_chart_t  * pchart = alloc_f2pm_chart(num_rows, n);
 
 	fill_f2pm_chart(pchart, m, n);
 	print_f2pm_chart(pchart, m, n, popts);
@@ -275,7 +275,7 @@ static void do_f2pm_chart(
 
 // ----------------------------------------------------------------
 static void fill_f2pm_chart(
-	f2pm_chart_t * pchart,
+	f2_pm_chart_t * pchart,
 	f2_poly_t m,
 	int       n)
 {
@@ -284,7 +284,7 @@ static void fill_f2pm_chart(
 	char * marks;
 	f2_polymod_t g, elt;
 	int    rowi = 0;
-	f2pm_chart_row_t * prow;
+	f2_pm_chart_row_t * prow;
 
 	if (!f2_polymod_find_generator(m, g)) {
 		std::cerr << "Couldn't find generator for " << m << ".\n";
@@ -299,7 +299,7 @@ static void fill_f2pm_chart(
 	pchart->rows[rowi].num_roots = 1;
 	pchart->rows[rowi].order = 0;
 	pchart->rows[rowi].cells[0].log  = 0;
-	pchart->rows[rowi].min_poly = f2pm_min_poly(g-g);
+	pchart->rows[rowi].min_poly = f2_polymod_minimal_polynomial(g-g);
 	rowi++;
 
 	for (d = 1; d <= n; d++) {
@@ -317,7 +317,7 @@ static void fill_f2pm_chart(
 			orbit_log = elt_log;
 			elt = g.exp(orbit_log);
 
-			prow->min_poly = f2pm_min_poly(elt);
+			prow->min_poly = f2_polymod_minimal_polynomial(elt);
 			pchart->rows[rowi].num_roots = d;
 			pchart->rows[rowi].order = f2_polymod_order(elt);
 
@@ -343,13 +343,13 @@ static void fill_f2pm_chart(
 
 // ----------------------------------------------------------------
 static void print_f2pm_chart(
-	f2pm_chart_t * pchart,
+	f2_pm_chart_t * pchart,
 	f2_poly_t  m,
 	int       n,
 	opts_t  * popts)
 {
 	int i, j;
-	f2pm_chart_cell_t * pc;
+	f2_pm_chart_cell_t * pc;
 	f2_polymod_t z;
 	//int width = calc_log10_unsigned(1<<n, IFLOOR) + 1;
 
@@ -370,7 +370,7 @@ static void print_f2pm_chart(
 		}
 
 //		if (popts->show_normal_rank) {
-//			// xxx make get-rank function
+//			// xxx make getf2pm_chart_tank function
 //			int nroots = pchart->rows[i].num_roots;
 //			int rank;
 //			f2_poly_t * M = malloc_check(

@@ -61,8 +61,8 @@ int fp_pm_op_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   }
   spffl::cliparser::cmd_line_parse<spffl::polynomials::fp_polymod_t>(argc - 3,
-      argv + 3, spffl::polynomials::fp_polymod_t::prime_sfld_elt(0, m),
-      spffl::polynomials::fp_polymod_t::prime_sfld_elt(1, m));
+      argv + 3, spffl::polynomials::fp_polymod_t::prime_subfield_element(0, m),
+      spffl::polynomials::fp_polymod_t::prime_subfield_element(1, m));
   return 0;
 }
 
@@ -215,8 +215,8 @@ int fp_pm_mat_op_main(int argc, char **argv, usage_t *pusage) {
   }
   spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::fp_polymod_t>(
       argc - 3, argv + 3,
-      spffl::polynomials::fp_polymod_t::prime_sfld_elt(0, m),
-      spffl::polynomials::fp_polymod_t::prime_sfld_elt(1, m));
+      spffl::polynomials::fp_polymod_t::prime_subfield_element(0, m),
+      spffl::polynomials::fp_polymod_t::prime_subfield_element(1, m));
   return 0;
 }
 
@@ -235,8 +235,8 @@ int fp_pm_vecop_main(int argc, char **argv, usage_t *pusage) {
   }
   spffl::cliparser::cmd_line_vec_parse<spffl::polynomials::fp_polymod_t>(
       argc - 3, argv + 3,
-      spffl::polynomials::fp_polymod_t::prime_sfld_elt(0, m),
-      spffl::polynomials::fp_polymod_t::prime_sfld_elt(1, m));
+      spffl::polynomials::fp_polymod_t::prime_subfield_element(0, m),
+      spffl::polynomials::fp_polymod_t::prime_subfield_element(1, m));
   return 0;
 }
 
@@ -261,9 +261,9 @@ int fp_pm_mat_ord_main(int argc, char **argv, usage_t *pusage) {
   }
 
   spffl::polynomials::fp_polymod_t zero =
-      spffl::polynomials::fp_polymod_t::prime_sfld_elt(0, m);
+      spffl::polynomials::fp_polymod_t::prime_subfield_element(0, m);
   spffl::polynomials::fp_polymod_t one =
-      spffl::polynomials::fp_polymod_t::prime_sfld_elt(1, m);
+      spffl::polynomials::fp_polymod_t::prime_subfield_element(1, m);
 
   tmatrix<spffl::polynomials::fp_polymod_t> A;
   A = zero;
@@ -398,7 +398,7 @@ int fp_pm_ch_pol_main(int argc, char **argv, usage_t *pusage) {
     if (!a.from_string(argv[argi], m)) {
       pusage(argv[0]);
     }
-    spffl::polynomials::fp_poly_t cp = spffl::linalg::fppm_char_poly(a);
+    spffl::polynomials::fp_poly_t cp = spffl::linalg::fp_polymod_characteristic_polynomial(a);
     if (argc > 4) {
       std::cout << a << ": ";
     }
@@ -431,7 +431,7 @@ int fp_pm_min_pol_main(int argc, char **argv, usage_t *pusage) {
     if (!a.from_string(argv[argi], m)) {
       pusage(argv[0]);
     }
-    spffl::polynomials::fp_poly_t cp = spffl::linalg::fppm_min_poly(a);
+    spffl::polynomials::fp_poly_t cp = spffl::linalg::fp_polymod_minimal_polynomial(a);
     if (argc > 4) {
       std::cout << a << ": ";
     }

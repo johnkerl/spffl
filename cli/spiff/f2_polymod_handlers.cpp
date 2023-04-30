@@ -301,7 +301,7 @@ int f2_pm_ch_pol_main(int argc, char **argv, usage_t *pusage) {
     if (!a.from_string(argv[argi], m)) {
       pusage(argv[0]);
     }
-    spffl::polynomials::f2_poly_t cp = spffl::linalg::f2pm_char_poly(a);
+    spffl::polynomials::f2_poly_t cp = spffl::linalg::f2_polymod_characteristic_polynomial(a);
     if (argc > 3) {
       std::cout << a << ": ";
     }
@@ -330,7 +330,7 @@ int f2_pm_min_pol_main(int argc, char **argv, usage_t *pusage) {
     if (!a.from_string(argv[argi], m)) {
       pusage(argv[0]);
     }
-    spffl::polynomials::f2_poly_t mp = spffl::linalg::f2pm_min_poly(a);
+    spffl::polynomials::f2_poly_t mp = spffl::linalg::f2_polymod_minimal_polynomial(a);
     if (argc > 3) {
       std::cout << a << ": ";
     }
@@ -423,8 +423,8 @@ int f2_pm_mat_op_main(int argc, char **argv, usage_t *pusage) {
   if (!m.from_string(argv[1])) {
     pusage(argv[0]);
   }
-  zero = spffl::polynomials::f2_polymod_t(m.prime_sfld_elt(0), m);
-  one  = spffl::polynomials::f2_polymod_t(m.prime_sfld_elt(1), m);
+  zero = spffl::polynomials::f2_polymod_t(m.prime_subfield_element(0), m);
+  one  = spffl::polynomials::f2_polymod_t(m.prime_subfield_element(1), m);
   spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::f2_polymod_t>(
       argc - 2, argv + 2, zero, one);
   return 0;
@@ -445,8 +445,8 @@ int f2_pm_vec_op_main(int argc, char **argv, usage_t *pusage) {
   if (!m.from_string(argv[1])) {
     pusage(argv[0]);
   }
-  zero = spffl::polynomials::f2_polymod_t(m.prime_sfld_elt(0), m);
-  one  = spffl::polynomials::f2_polymod_t(m.prime_sfld_elt(1), m);
+  zero = spffl::polynomials::f2_polymod_t(m.prime_subfield_element(0), m);
+  one  = spffl::polynomials::f2_polymod_t(m.prime_subfield_element(1), m);
   spffl::cliparser::cmd_line_vec_parse<spffl::polynomials::f2_polymod_t>(
       argc - 2, argv + 2, zero, one);
   return 0;
@@ -469,8 +469,8 @@ int f2_pm_mat_solve_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   }
 
-  zero = spffl::polynomials::f2_polymod_t(m.prime_sfld_elt(0), m);
-  one  = spffl::polynomials::f2_polymod_t(m.prime_sfld_elt(1), m);
+  zero = spffl::polynomials::f2_polymod_t(m.prime_subfield_element(0), m);
+  one  = spffl::polynomials::f2_polymod_t(m.prime_subfield_element(1), m);
 
   tmatrix<spffl::polynomials::f2_polymod_t> A;
   tvector<spffl::polynomials::f2_polymod_t> x;
@@ -513,7 +513,7 @@ int f2_pm_mat_ch_pol_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   }
 
-  spffl::polynomials::f2n_poly_t chpol = spffl::linalg::f2pm_char_poly(A);
+  spffl::polynomials::f2n_poly_t chpol = spffl::linalg::f2_polymod_characteristic_polynomial(A);
   std::cout << chpol << std::endl;
 
   return 0;
@@ -541,7 +541,7 @@ int f2_pm_mat_diagonalizable_main(int argc, char **argv, usage_t *pusage) {
 
   spffl::polynomials::f2_poly_t splitter_modulus;
   tvector<spffl::polynomials::f2_polymod_t> eigenvalues;
-  if (spffl::linalg::f2pm_matrix_is_diagonalizable(
+  if (spffl::linalg::f2_polymod_matrix_is_diagonalizable(
           A, splitter_modulus, eigenvalues)) {
     std::cout << "Diagonalizable.\n";
   } else {

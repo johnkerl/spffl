@@ -73,15 +73,15 @@ fpn_poly_t::~fpn_poly_t(void) {
 }
 
 // ----------------------------------------------------------------
-fpn_poly_t fpn_poly_t::prime_sfld_elt(int v) const {
-  fp_polymod_t c0 = this->coeffs[0].prime_sfld_elt(v);
+fpn_poly_t fpn_poly_t::prime_subfield_element(int v) const {
+  fp_polymod_t c0 = this->coeffs[0].prime_subfield_element(v);
   return fpn_poly_t(c0);
 }
 
 // ----------------------------------------------------------------
 // This is a static method.
 
-fpn_poly_t fpn_poly_t::prime_sfld_elt(int v, const fp_poly_t &m) {
+fpn_poly_t fpn_poly_t::prime_subfield_element(int v, const fp_poly_t &m) {
   int p = m.get_coeff(0).get_modulus();
   return fpn_poly_t(fp_polymod_t(fp_poly_t(spffl::intmath::intmod_t(v, p)), m));
 }
@@ -313,7 +313,7 @@ void fpn_poly_t::quot_and_rem(
     exit(1);
   }
   if (*this == zero) {
-    rquot = this->prime_sfld_elt(0);
+    rquot = this->prime_subfield_element(0);
     rrem  = *this;
     return;
   }
@@ -322,7 +322,7 @@ void fpn_poly_t::quot_and_rem(
   int divisor_degree  = that.degree;
 
   if (dividend_degree < divisor_degree) {
-    rquot = this->prime_sfld_elt(0);
+    rquot = this->prime_subfield_element(0);
     rrem  = *this;
     return;
   }
@@ -419,10 +419,10 @@ fpn_poly_t fpn_poly_t::ext_gcd(
   fpn_poly_t d; // Return value.
 
   // Initialize
-  mprime = this->prime_sfld_elt(1);
-  rn     = this->prime_sfld_elt(1);
-  rm     = this->prime_sfld_elt(0);
-  nprime = this->prime_sfld_elt(0);
+  mprime = this->prime_subfield_element(1);
+  rn     = this->prime_subfield_element(1);
+  rm     = this->prime_subfield_element(0);
+  nprime = this->prime_subfield_element(0);
   c      = *this;
   d      = that;
 
@@ -452,8 +452,8 @@ fpn_poly_t fpn_poly_t::ext_gcd(
 fpn_poly_t fpn_poly_t::exp(int e) const {
   int deg         = this->find_degree();
   fpn_poly_t xp   = *this;
-  fpn_poly_t zero = this->prime_sfld_elt(0);
-  fpn_poly_t one  = this->prime_sfld_elt(1);
+  fpn_poly_t zero = this->prime_subfield_element(0);
+  fpn_poly_t one  = this->prime_subfield_element(1);
   fpn_poly_t rv   = one;
 
   if (*this == zero) {
@@ -490,7 +490,7 @@ fpn_poly_t fpn_poly_t::exp(int e) const {
 // ----------------------------------------------------------------
 fpn_poly_t fpn_poly_t::deriv(void) const {
   if (this->degree == 0) {
-    return this->prime_sfld_elt(0);
+    return this->prime_subfield_element(0);
   }
 
   fpn_poly_t rv(*this);
@@ -508,7 +508,7 @@ fpn_poly_t fpn_poly_t::deriv(void) const {
 
 bool fpn_poly_t::pth_root(fpn_poly_t &rroot) const {
   fp_poly_t m       = this->coeffs[0].get_modulus();
-  fp_polymod_t zero = this->coeffs[0].prime_sfld_elt(0);
+  fp_polymod_t zero = this->coeffs[0].prime_subfield_element(0);
   int si, di, j;
   fpn_poly_t out;
   int p = this->get_characteristic();
@@ -567,7 +567,7 @@ void fpn_poly_t::set_coeff(int pos, const fp_polymod_t &c) {
     this->bounds_check(pos);
   }
 
-  fp_polymod_t zero = this->coeffs[0].prime_sfld_elt(0);
+  fp_polymod_t zero = this->coeffs[0].prime_subfield_element(0);
   if (pos > this->degree) {
     fp_polymod_t *temp = new fp_polymod_t[pos + 1];
     for (int i = 0; i <= this->degree; i++) {
@@ -755,7 +755,7 @@ std::ostream &operator<<(std::ostream &os, const fpn_poly_t &poly) {
 std::istream &operator>>(std::istream &is, fpn_poly_t &poly) {
   fp_poly_t r;
   fp_poly_t m        = poly.coeffs[0].get_modulus();
-  fp_polymod_t zeroc = poly.coeffs[0].prime_sfld_elt(0);
+  fp_polymod_t zeroc = poly.coeffs[0].prime_subfield_element(0);
   poly               = fpn_poly_t(zeroc);
 
   r = m; // set modulus

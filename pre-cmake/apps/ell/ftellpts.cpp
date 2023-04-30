@@ -47,8 +47,8 @@ int main(int argc, char ** argv)
 	// x=1 y=0 z=0
 	// x=* y=* z=1
 
-	f2_polymod_t zero = f2_polymod_t::prime_sfld_elt(0, m);
-	f2_polymod_t one  = f2_polymod_t::prime_sfld_elt(1, m);
+	f2_polymod_t zero = f2_polymod_t::prime_subfield_element(0, m);
+	f2_polymod_t one  = f2_polymod_t::prime_subfield_element(1, m);
 
 	y = one;
 	z = zero;

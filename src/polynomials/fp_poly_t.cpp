@@ -113,8 +113,8 @@ fp_poly_t::~fp_poly_t(void) {
 }
 
 // ----------------------------------------------------------------
-fp_poly_t fp_poly_t::prime_sfld_elt(int v) const {
-  spffl::intmath::intmod_t c0 = this->coeffs[0].prime_sfld_elt(v);
+fp_poly_t fp_poly_t::prime_subfield_element(int v) const {
+  spffl::intmath::intmod_t c0 = this->coeffs[0].prime_subfield_element(v);
   return fp_poly_t(c0);
 }
 
@@ -335,7 +335,7 @@ void fp_poly_t::quot_and_rem(
     exit(1);
   }
   if (*this == zero) {
-    rquot = this->prime_sfld_elt(0);
+    rquot = this->prime_subfield_element(0);
     rrem  = *this;
     return;
   }
@@ -344,7 +344,7 @@ void fp_poly_t::quot_and_rem(
   int divisor_degree  = that.degree;
 
   if (dividend_degree < divisor_degree) {
-    rquot = this->prime_sfld_elt(0);
+    rquot = this->prime_subfield_element(0);
     rrem  = *this;
     return;
   }
@@ -441,10 +441,10 @@ fp_poly_t fp_poly_t::ext_gcd(
   fp_poly_t d; // Return value.
 
   // Initialize
-  mprime = this->prime_sfld_elt(1);
-  rn     = this->prime_sfld_elt(1);
-  rm     = this->prime_sfld_elt(0);
-  nprime = this->prime_sfld_elt(0);
+  mprime = this->prime_subfield_element(1);
+  rn     = this->prime_subfield_element(1);
+  rm     = this->prime_subfield_element(0);
+  nprime = this->prime_subfield_element(0);
   c      = *this;
   d      = that;
 
@@ -474,8 +474,8 @@ fp_poly_t fp_poly_t::ext_gcd(
 fp_poly_t fp_poly_t::exp(int e) const {
   int deg        = this->find_degree();
   fp_poly_t xp   = *this;
-  fp_poly_t zero = this->prime_sfld_elt(0);
-  fp_poly_t one  = this->prime_sfld_elt(1);
+  fp_poly_t zero = this->prime_subfield_element(0);
+  fp_poly_t one  = this->prime_subfield_element(1);
   fp_poly_t rv   = one;
 
   if (*this == zero) {
@@ -512,7 +512,7 @@ fp_poly_t fp_poly_t::exp(int e) const {
 // ----------------------------------------------------------------
 fp_poly_t fp_poly_t::deriv(void) const {
   if (this->degree == 0) {
-    return this->prime_sfld_elt(0);
+    return this->prime_subfield_element(0);
   }
 
   fp_poly_t rv(*this);

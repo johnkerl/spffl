@@ -46,8 +46,8 @@ int main(int argc, char ** argv)
 		}
 
 		f2_poly_t m = f2_poly_t::from_base_rep(im);
-		f2_polymod_t zero = f2_polymod_t::prime_sfld_elt(0, m);
-		f2_polymod_t one  = f2_polymod_t::prime_sfld_elt(1, m);
+		f2_polymod_t zero = f2_polymod_t::prime_subfield_element(0, m);
+		f2_polymod_t one  = f2_polymod_t::prime_subfield_element(1, m);
 		std::cout <<
 		"----------------------------------------------------------------\n";
 		std::cout << "m = " << m << "\n";

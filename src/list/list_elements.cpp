@@ -183,8 +183,8 @@ tvector<spffl::polynomials::f2n_polymod_t> f2n_polymod_list(
   tvector<spffl::polynomials::f2n_polymod_t> rv(nel);
 
   int i;
-  spffl::polynomials::f2_polymod_t zero = c0.prime_sfld_elt(0);
-  spffl::polynomials::f2_polymod_t one  = c0.prime_sfld_elt(1);
+  spffl::polynomials::f2_polymod_t zero = c0.prime_subfield_element(0);
+  spffl::polynomials::f2_polymod_t one  = c0.prime_subfield_element(1);
   spffl::polynomials::f2n_poly_t min(zero);
   spffl::polynomials::f2n_poly_t max(zero);
   spffl::polynomials::f2n_poly_t r;
@@ -363,9 +363,9 @@ tmatrix<spffl::polynomials::f2_polymod_t> f2_polymod_Pn_list(
   tvector<spffl::polynomials::f2_polymod_t> Fq =
       f2_polymod_list(m, SP_LIST_ALL);
   spffl::polynomials::f2_polymod_t zero =
-      spffl::polynomials::f2_polymod_t::prime_sfld_elt(0, m);
+      spffl::polynomials::f2_polymod_t::prime_subfield_element(0, m);
   spffl::polynomials::f2_polymod_t one =
-      spffl::polynomials::f2_polymod_t::prime_sfld_elt(1, m);
+      spffl::polynomials::f2_polymod_t::prime_subfield_element(1, m);
 
   int oP = 0;
   for (k = 0; k <= n; k++) {
@@ -438,9 +438,9 @@ tmatrix<spffl::polynomials::fp_polymod_t> fp_polymod_Pn_list(
   tvector<spffl::polynomials::fp_polymod_t> Fq =
       fp_polymod_list(m, SP_LIST_ALL);
   spffl::polynomials::fp_polymod_t zero =
-      spffl::polynomials::fp_polymod_t::prime_sfld_elt(0, m);
+      spffl::polynomials::fp_polymod_t::prime_subfield_element(0, m);
   spffl::polynomials::fp_polymod_t one =
-      spffl::polynomials::fp_polymod_t::prime_sfld_elt(1, m);
+      spffl::polynomials::fp_polymod_t::prime_subfield_element(1, m);
 
   int oP = 0;
   for (k = 0; k <= n; k++) {

@@ -29,8 +29,8 @@ public:
   fpn_poly_t(const fpn_poly_t &that);
   ~fpn_poly_t(void);
 
-  fpn_poly_t prime_sfld_elt(int v) const;
-  static fpn_poly_t prime_sfld_elt(int v, const fp_poly_t &m);
+  fpn_poly_t prime_subfield_element(int v) const;
+  static fpn_poly_t prime_subfield_element(int v, const fp_poly_t &m);
   int get_characteristic(void) const;
 
   fpn_poly_t &operator=(const fpn_poly_t &that);

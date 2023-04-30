@@ -24,7 +24,7 @@ public:
   f2_polyrat_t(const f2_polyrat_t &that);
   ~f2_polyrat_t(void);
 
-  f2_polyrat_t prime_sfld_elt(int v) const;
+  f2_polyrat_t prime_subfield_element(int v) const;
   int get_characteristic(void) const;
 
   f2_polyrat_t &operator=(const f2_polyrat_t &that);

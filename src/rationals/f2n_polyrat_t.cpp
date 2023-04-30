@@ -22,7 +22,7 @@ f2n_polyrat_t::f2n_polyrat_t(const spffl::polynomials::f2n_poly_t &numerator,
 // ----------------------------------------------------------------
 f2n_polyrat_t::f2n_polyrat_t(const spffl::polynomials::f2n_poly_t &numerator) {
   this->numer = numerator;
-  this->denom = numerator.prime_sfld_elt(1);
+  this->denom = numerator.prime_subfield_element(1);
   this->simplify();
 }
 
@@ -39,16 +39,16 @@ f2n_polyrat_t::f2n_polyrat_t(void) {}
 f2n_polyrat_t::~f2n_polyrat_t(void) {}
 
 // ----------------------------------------------------------------
-f2n_polyrat_t f2n_polyrat_t::prime_sfld_elt(int v) const {
-  spffl::polynomials::f2n_poly_t a = this->numer.prime_sfld_elt(v);
+f2n_polyrat_t f2n_polyrat_t::prime_subfield_element(int v) const {
+  spffl::polynomials::f2n_poly_t a = this->numer.prime_subfield_element(v);
   return f2n_polyrat_t(a);
 }
 
 // ----------------------------------------------------------------
 // This is a static method.
-f2n_polyrat_t f2n_polyrat_t::prime_sfld_elt(
+f2n_polyrat_t f2n_polyrat_t::prime_subfield_element(
     int v, const spffl::polynomials::f2_poly_t &m) {
-  return f2n_polyrat_t(spffl::polynomials::f2n_poly_t::prime_sfld_elt(v, m));
+  return f2n_polyrat_t(spffl::polynomials::f2n_poly_t::prime_subfield_element(v, m));
 }
 
 // ----------------------------------------------------------------
@@ -65,7 +65,7 @@ f2n_polyrat_t &f2n_polyrat_t::operator=(const f2n_polyrat_t &that) {
 f2n_polyrat_t &f2n_polyrat_t::operator=(
     const spffl::polynomials::f2n_poly_t &numerator) {
   this->numer = numerator;
-  this->denom = numerator.prime_sfld_elt(1);
+  this->denom = numerator.prime_subfield_element(1);
   this->simplify();
   return *this;
 }
@@ -132,8 +132,8 @@ f2n_polyrat_t f2n_polyrat_t::operator%(const f2n_polyrat_t &that) {
 // ----------------------------------------------------------------
 f2n_polyrat_t f2n_polyrat_t::exp(int e) const {
   f2n_polyrat_t xp = *this;
-  f2n_polyrat_t zero(this->numer.prime_sfld_elt(0));
-  f2n_polyrat_t one(this->numer.prime_sfld_elt(1));
+  f2n_polyrat_t zero(this->numer.prime_subfield_element(0));
+  f2n_polyrat_t one(this->numer.prime_subfield_element(1));
   f2n_polyrat_t rv = one;
 
   if (e == 0) {
@@ -195,7 +195,7 @@ std::istream &operator>>(std::istream &is, f2n_polyrat_t &a) {
 
   is >> a.numer;
   if (is.eof()) {
-    a.denom = a.numer.prime_sfld_elt(1);
+    a.denom = a.numer.prime_subfield_element(1);
   }
   if (is.peek() == '/') {
     (void)is.get();
@@ -203,7 +203,7 @@ std::istream &operator>>(std::istream &is, f2n_polyrat_t &a) {
   } else {
     // Clear failure code from not having found the '/'.
     is.clear();
-    a.denom = a.numer.prime_sfld_elt(1);
+    a.denom = a.numer.prime_subfield_element(1);
   }
   a.simplify();
   return is;
@@ -228,14 +228,14 @@ std::istringstream &operator>>(std::istringstream &iss, f2n_polyrat_t &a) {
 
   iss >> a.numer;
   if (iss.eof()) {
-    a.denom = a.numer.prime_sfld_elt(1);
+    a.denom = a.numer.prime_subfield_element(1);
   } else if (iss.peek() == '/') {
     (void)iss.get();
     iss >> a.denom;
   } else {
     // Clear failure code from not having found the '/'.
     iss.clear();
-    a.denom = a.numer.prime_sfld_elt(1);
+    a.denom = a.numer.prime_subfield_element(1);
   }
   a.simplify();
   return iss;
@@ -303,7 +303,7 @@ bool f2n_polyrat_t::operator!=(const f2n_polyrat_t &that) const {
 
 // ----------------------------------------------------------------
 bool f2n_polyrat_t::operator==(spffl::polynomials::f2n_poly_t that) const {
-  if (this->denom != this->numer.prime_sfld_elt(1)) {
+  if (this->denom != this->numer.prime_subfield_element(1)) {
     return false;
   }
   return this->numer == that;

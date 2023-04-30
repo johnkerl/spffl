@@ -93,8 +93,8 @@ tmvpoly<f2_polymod_t> get_f(
 int main(int argc, char ** argv)
 {
 	f2_poly_t    F2_m    = f2_poly_t::from_base_rep(3);
-	f2_polymod_t F2_zero = f2_polymod_t::prime_sfld_elt(0, F2_m);
-	f2_polymod_t F2_one  = f2_polymod_t::prime_sfld_elt(1, F2_m);
+	f2_polymod_t F2_zero = f2_polymod_t::prime_subfield_element(0, F2_m);
+	f2_polymod_t F2_one  = f2_polymod_t::prime_subfield_element(1, F2_m);
 
 	tmvpoly<f2_polymod_t> F2_f = get_f(F2_zero, F2_one);
 	tmvpoly<f2_polymod_t> F2_F = F2_f.homogenize();
@@ -109,8 +109,8 @@ int main(int argc, char ** argv)
 			exit(1);
 		}
 		f2_poly_t Fq_m       = f2_poly_t::from_base_rep(im);
-		f2_polymod_t Fq_zero = f2_polymod_t::prime_sfld_elt(0, Fq_m);
-		f2_polymod_t Fq_one  = f2_polymod_t::prime_sfld_elt(1, Fq_m);
+		f2_polymod_t Fq_zero = f2_polymod_t::prime_subfield_element(0, Fq_m);
+		f2_polymod_t Fq_one  = f2_polymod_t::prime_subfield_element(1, Fq_m);
 
 		tmvpoly<f2_polymod_t> f = F2_Fq_embed(F2_f, Fq_zero, Fq_one);
 		tmvpoly<f2_polymod_t> F = f.homogenize();

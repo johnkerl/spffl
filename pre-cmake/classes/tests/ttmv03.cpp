@@ -10,8 +10,8 @@ int main(int argc, char ** argv)
 		(void)sscanf(argv[1], "%x", &im);
 
 	f2_poly_t m = f2_poly_t::from_base_rep(im);
-	f2_polymod_t zero = f2_polymod_t::prime_sfld_elt(0, m);
-	f2_polymod_t one  = f2_polymod_t::prime_sfld_elt(1, m);
+	f2_polymod_t zero = f2_polymod_t::prime_subfield_element(0, m);
+	f2_polymod_t one  = f2_polymod_t::prime_subfield_element(1, m);
 
 #if 0
 	tmvpoly<f2_polymod_t> f =

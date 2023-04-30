@@ -39,16 +39,16 @@ fp_polymod_t::~fp_polymod_t(void) {
 }
 
 // ----------------------------------------------------------------
-fp_polymod_t fp_polymod_t::prime_sfld_elt(int v) const {
+fp_polymod_t fp_polymod_t::prime_subfield_element(int v) const {
   fp_poly_t m = this->modulus;
-  fp_poly_t r = this->residue.prime_sfld_elt(v);
+  fp_poly_t r = this->residue.prime_subfield_element(v);
   return fp_polymod_t(r, m);
 }
 
 // ----------------------------------------------------------------
 // This is a static method.
-fp_polymod_t fp_polymod_t::prime_sfld_elt(int v, const fp_poly_t &m) {
-  return fp_polymod_t(m.prime_sfld_elt(v), m);
+fp_polymod_t fp_polymod_t::prime_subfield_element(int v, const fp_poly_t &m) {
+  return fp_polymod_t(m.prime_subfield_element(v), m);
 }
 
 // ----------------------------------------------------------------
@@ -167,8 +167,8 @@ bool fp_polymod_t::recip(fp_polymod_t &rinv) const {
 // ----------------------------------------------------------------
 fp_polymod_t fp_polymod_t::exp(int e) const {
   fp_poly_t xp = this->residue;
-  fp_polymod_t zero(this->residue.prime_sfld_elt(0), this->modulus);
-  fp_polymod_t one(this->residue.prime_sfld_elt(1), this->modulus);
+  fp_polymod_t zero(this->residue.prime_subfield_element(0), this->modulus);
+  fp_polymod_t one(this->residue.prime_subfield_element(1), this->modulus);
   fp_polymod_t rv = one;
 
   if (e == 0) {

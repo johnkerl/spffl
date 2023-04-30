@@ -30,8 +30,8 @@ tfacinfo<spffl::polynomials::f2n_poly_t> f2n_poly_factor(
   int d                                 = f.find_degree();
   spffl::polynomials::f2_polymod_t c0   = f.get_coeff(0);
   spffl::polynomials::f2_poly_t m       = c0.get_modulus();
-  spffl::polynomials::f2_polymod_t zero = c0.prime_sfld_elt(0);
-  spffl::polynomials::f2_polymod_t one  = c0.prime_sfld_elt(1);
+  spffl::polynomials::f2_polymod_t zero = c0.prime_subfield_element(0);
+  spffl::polynomials::f2_polymod_t one  = c0.prime_subfield_element(1);
 
   if (d == 0) {
     finfo.insert_unit(f);
@@ -116,8 +116,8 @@ static void f2n_poly_berlekamp(const spffl::polynomials::f2n_poly_t &f,
   spffl::polynomials::f2_polymod_t c0   = f.get_coeff(0);
   spffl::polynomials::f2_poly_t m       = c0.get_modulus();
   int q                                 = 1 << m.find_degree();
-  spffl::polynomials::f2_polymod_t zero = c0.prime_sfld_elt(0);
-  spffl::polynomials::f2_polymod_t one  = c0.prime_sfld_elt(1);
+  spffl::polynomials::f2_polymod_t zero = c0.prime_subfield_element(0);
+  spffl::polynomials::f2_polymod_t one  = c0.prime_subfield_element(1);
   spffl::polynomials::f2n_poly_t x(one, zero);
   spffl::polynomials::f2n_poly_t xq;
   spffl::polynomials::f2n_poly_t xqi = one;

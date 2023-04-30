@@ -30,7 +30,7 @@ public:
   fp_poly_t(int c2, int c1, int c0, int m);
 
   static fp_poly_t from_base_rep(int b, int modulus);
-  fp_poly_t prime_sfld_elt(int v) const;
+  fp_poly_t prime_subfield_element(int v) const;
   int get_characteristic(void) const;
 
   fp_poly_t(const fp_poly_t &that);
