@@ -89,7 +89,7 @@ public:
   friend std::istream &operator>>(std::istream &is, fp_poly_t &poly);
   // friend std::istringstream & operator>>(std::istringstream & iss,
   // fp_poly_t & poly);
-  bool from_string(const char *string, int p);
+  bool from_string(const std::string &string, int p);
 
   void promote(void);
   void promote_and_add(spffl::intmath::intmod_t c0);
@@ -106,8 +106,7 @@ private:
 } // namespace spffl::polynomials
 
 // Same as the gcd method, but overloaded.  This is important for template use.
-spffl::polynomials::fp_poly_t gcd(
-  const spffl::polynomials::fp_poly_t &a,
-  const spffl::polynomials::fp_poly_t &b);
+spffl::polynomials::fp_poly_t gcd(const spffl::polynomials::fp_poly_t &a,
+    const spffl::polynomials::fp_poly_t &b);
 
 #endif // FPPOLY_T_H

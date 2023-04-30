@@ -109,7 +109,7 @@ private:
 
   void mfree(void);
   void nullify(void);
-  void check_dims(const bit_matrix_t that, char *msg) const;
+  void check_dims(const bit_matrix_t that, const std::string &msg) const;
 
   // This is a private auxiliary function for the exp() method.
   bit_matrix_t posexp(int power, bit_matrix_t &I) const;

@@ -24,7 +24,8 @@ public:
   ~f2n_polyrat_t(void);
 
   f2n_polyrat_t prime_subfield_element(int v) const;
-  static f2n_polyrat_t prime_subfield_element(int v, const spffl::polynomials::f2_poly_t &m);
+  static f2n_polyrat_t prime_subfield_element(
+      int v, const spffl::polynomials::f2_poly_t &m);
   int get_characteristic(void) const;
 
   f2n_polyrat_t &operator=(const f2n_polyrat_t &that);
@@ -40,7 +41,7 @@ public:
   friend std::istream &operator>>(std::istream &is, f2n_polyrat_t &a);
   friend std::istringstream &operator>>(
       std::istringstream &iss, f2n_polyrat_t &a);
-  bool from_string(const char *string, spffl::polynomials::f2_poly_t m);
+  bool from_string(const std::string &string, spffl::polynomials::f2_poly_t m);
 
   f2n_polyrat_t &operator+=(const f2n_polyrat_t &that);
   f2n_polyrat_t &operator-=(const f2n_polyrat_t &that);

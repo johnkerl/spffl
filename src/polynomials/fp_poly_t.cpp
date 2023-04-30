@@ -804,20 +804,20 @@ std::istream &operator>>(std::istream &is, fp_poly_t &poly) {
     return is;
   }
 
-  if (!poly.from_string(s.c_str(), p)) {
+  if (!poly.from_string(s, p)) {
     is.setstate(std::ios::failbit);
   }
   return is;
 }
 
 // ----------------------------------------------------------------
-bool fp_poly_t::from_string(const char *string, int p) {
+bool fp_poly_t::from_string(const std::string &string, int p) {
   if (this->coeffs) {
     delete[] this->coeffs;
   }
 
   int num_commas = 0;
-  for (const char *q = string; *q; q++) {
+  for (const char *q = string.c_str(); *q; q++) {
     if (*q == ',') {
       num_commas++;
     }
@@ -826,7 +826,7 @@ bool fp_poly_t::from_string(const char *string, int p) {
   if ((num_commas == 0) && (p < 10)) {
     // Allow comma-free input as long as all residues are
     // single-digit.
-    int len      = strlen(string);
+    int len      = string.length();
     this->degree = len - 1;
     this->coeffs = new spffl::intmath::intmod_t[this->degree + 1];
     int si, ci;
@@ -841,7 +841,7 @@ bool fp_poly_t::from_string(const char *string, int p) {
       this->coeffs[ci] = spffl::intmath::intmod_t(ascii_digit - '0', p);
     }
   } else {
-    char *dup   = strdup(string);
+    char *dup   = strdup(string.c_str());
     char **argv = new char *[num_commas + 1];
     int argc    = spffl::base::tokenize(dup, ",", argv, num_commas + 1);
     if (argc < 1) {

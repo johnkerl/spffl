@@ -232,7 +232,7 @@ std::istringstream &operator>>(std::istringstream &iss, intrat_t &a) {
 }
 
 // ----------------------------------------------------------------
-bool intrat_t::from_string(const char *string) {
+bool intrat_t::from_string(const std::string &string) {
   std::istringstream iss(string, std::ios_base::in);
   iss >> *this;
   return iss.fail() ? false : true;
@@ -282,7 +282,9 @@ bool intrat_t::operator==(const intrat_t &that) const {
 }
 
 // ----------------------------------------------------------------
-bool intrat_t::operator!=(const intrat_t &that) const { return !(*this == that); }
+bool intrat_t::operator!=(const intrat_t &that) const {
+  return !(*this == that);
+}
 
 // ----------------------------------------------------------------
 bool intrat_t::operator==(int that) const {

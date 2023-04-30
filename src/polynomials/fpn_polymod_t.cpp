@@ -47,7 +47,8 @@ fpn_polymod_t fpn_polymod_t::prime_subfield_element(int v) const {
 
 // ----------------------------------------------------------------
 // This is a static method.
-fpn_polymod_t fpn_polymod_t::prime_subfield_element(int v, const fpn_poly_t &om) {
+fpn_polymod_t fpn_polymod_t::prime_subfield_element(
+    int v, const fpn_poly_t &om) {
   fp_poly_t im = om.get_coeff(0).get_modulus();
   return fpn_polymod_t(fpn_poly_t::prime_subfield_element(v, im), om);
 }
@@ -221,7 +222,7 @@ std::istringstream &operator>>(std::istringstream &iss, fpn_polymod_t &a) {
 }
 
 // ----------------------------------------------------------------
-bool fpn_polymod_t::from_string(const char *string, fpn_poly_t &m) {
+bool fpn_polymod_t::from_string(const std::string &string, fpn_poly_t &m) {
   fpn_poly_t r;
   fp_poly_t mm = m.get_coeff(0).get_modulus();
   if (!r.from_string(string, mm)) {

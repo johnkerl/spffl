@@ -49,7 +49,8 @@ qpoly_t::qpoly_t(const intrat_t &c2, const intrat_t &c1, const intrat_t &c0) {
 
 // ----------------------------------------------------------------
 // This is a static method.
-qpoly_t qpoly_t::binomial(const intrat_t &ci, int i, const intrat_t &cj, int j) {
+qpoly_t qpoly_t::binomial(
+    const intrat_t &ci, int i, const intrat_t &cj, int j) {
   qpoly_t rv(0);
   rv.set_coeff(i, ci);
   rv.set_coeff(j, cj);
@@ -275,7 +276,8 @@ qpoly_t &qpoly_t::operator/=(const intrat_t &a) {
 //        |  4 3
 
 // ----------------------------------------------------------------
-void qpoly_t::quot_and_rem(const qpoly_t &that, qpoly_t &rquot, qpoly_t &rrem) const {
+void qpoly_t::quot_and_rem(
+    const qpoly_t &that, qpoly_t &rquot, qpoly_t &rrem) const {
   intrat_t zero = this->coeffs[0] - this->coeffs[0];
 
   if (that == zero) {
@@ -558,22 +560,34 @@ bool qpoly_t::operator==(int v) const {
 bool qpoly_t::operator!=(int v) const { return !(*this == v); }
 
 // ----------------------------------------------------------------
-bool qpoly_t::operator==(const qpoly_t &that) const { return this->cmp(CMP_EQ, that); }
+bool qpoly_t::operator==(const qpoly_t &that) const {
+  return this->cmp(CMP_EQ, that);
+}
 
 // ----------------------------------------------------------------
-bool qpoly_t::operator!=(const qpoly_t &that) const { return this->cmp(CMP_NE, that); }
+bool qpoly_t::operator!=(const qpoly_t &that) const {
+  return this->cmp(CMP_NE, that);
+}
 
 // ----------------------------------------------------------------
-bool qpoly_t::operator<(const qpoly_t &that) const { return this->cmp(CMP_LT, that); }
+bool qpoly_t::operator<(const qpoly_t &that) const {
+  return this->cmp(CMP_LT, that);
+}
 
 // ----------------------------------------------------------------
-bool qpoly_t::operator>(const qpoly_t &that) const { return this->cmp(CMP_GT, that); }
+bool qpoly_t::operator>(const qpoly_t &that) const {
+  return this->cmp(CMP_GT, that);
+}
 
 // ----------------------------------------------------------------
-bool qpoly_t::operator<=(const qpoly_t &that) const { return this->cmp(CMP_LE, that); }
+bool qpoly_t::operator<=(const qpoly_t &that) const {
+  return this->cmp(CMP_LE, that);
+}
 
 // ----------------------------------------------------------------
-bool qpoly_t::operator>=(const qpoly_t &that) const { return this->cmp(CMP_GE, that); }
+bool qpoly_t::operator>=(const qpoly_t &that) const {
+  return this->cmp(CMP_GE, that);
+}
 
 // ----------------------------------------------------------------
 bool qpoly_t::cmp(int cmp, const qpoly_t &that) const {
@@ -683,20 +697,20 @@ std::istream &operator>>(std::istream &is, qpoly_t &poly) {
     return is;
   }
 
-  if (!poly.from_string(s.c_str())) {
+  if (!poly.from_string(s)) {
     is.setstate(std::ios::failbit);
   }
   return is;
 }
 
 // ----------------------------------------------------------------
-bool qpoly_t::from_string(const char *string) {
+bool qpoly_t::from_string(const std::string &string) {
   if (this->coeffs) {
     delete[] this->coeffs;
   }
 
   int num_commas = 0;
-  for (const char *q = string; *q; q++) {
+  for (const char *q = string.c_str(); *q; q++) {
     if (*q == ',') {
       num_commas++;
     }
@@ -705,7 +719,7 @@ bool qpoly_t::from_string(const char *string) {
   if (num_commas == 0) {
     // Allow comma-free input as long as all residues are
     // single-digit.
-    int len      = strlen(string);
+    int len      = string.length();
     this->degree = len - 1;
     this->coeffs = new intrat_t[this->degree + 1];
     int si, ci;
@@ -720,7 +734,7 @@ bool qpoly_t::from_string(const char *string) {
       this->coeffs[ci] = intrat_t(ascii_digit - '0');
     }
   } else {
-    char *dup   = strdup(string);
+    char *dup   = strdup(string.c_str());
     char **argv = new char *[num_commas + 1];
     int argc    = spffl::base::tokenize(dup, ",", argv, num_commas + 1);
     if (argc < 1) {

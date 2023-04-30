@@ -398,7 +398,8 @@ int fp_pm_ch_pol_main(int argc, char **argv, usage_t *pusage) {
     if (!a.from_string(argv[argi], m)) {
       pusage(argv[0]);
     }
-    spffl::polynomials::fp_poly_t cp = spffl::linalg::fp_polymod_characteristic_polynomial(a);
+    spffl::polynomials::fp_poly_t cp =
+        spffl::linalg::fp_polymod_characteristic_polynomial(a);
     if (argc > 4) {
       std::cout << a << ": ";
     }
@@ -431,7 +432,8 @@ int fp_pm_min_pol_main(int argc, char **argv, usage_t *pusage) {
     if (!a.from_string(argv[argi], m)) {
       pusage(argv[0]);
     }
-    spffl::polynomials::fp_poly_t cp = spffl::linalg::fp_polymod_minimal_polynomial(a);
+    spffl::polynomials::fp_poly_t cp =
+        spffl::linalg::fp_polymod_minimal_polynomial(a);
     if (argc > 4) {
       std::cout << a << ": ";
     }

@@ -17,10 +17,12 @@ int f2_polymod_frobenius_length(spffl::polynomials::f2_polymod_t a);
 int f2npm_froblen(spffl::polynomials::f2n_polymod_t a);
 int fp_polymod_frobenius_length(spffl::polynomials::fp_polymod_t a);
 
-spffl::polynomials::f2_poly_t f2_polymod_minimal_polynomial(spffl::polynomials::f2_polymod_t a);
+spffl::polynomials::f2_poly_t f2_polymod_minimal_polynomial(
+    spffl::polynomials::f2_polymod_t a);
 spffl::polynomials::f2n_poly_t f2npm_min_poly(
     spffl::polynomials::f2n_polymod_t a);
-spffl::polynomials::fp_poly_t fp_polymod_minimal_polynomial(spffl::polynomials::fp_polymod_t a);
+spffl::polynomials::fp_poly_t fp_polymod_minimal_polynomial(
+    spffl::polynomials::fp_polymod_t a);
 
 spffl::polynomials::f2_poly_t f2_polymod_characteristic_polynomial(
     spffl::polynomials::f2_polymod_t a);

@@ -67,7 +67,8 @@ f2_polyrat_t &f2_polyrat_t::operator=(const f2_polyrat_t &that) {
 }
 
 // ----------------------------------------------------------------
-f2_polyrat_t &f2_polyrat_t::operator=(const spffl::polynomials::f2_poly_t &numerator) {
+f2_polyrat_t &f2_polyrat_t::operator=(
+    const spffl::polynomials::f2_poly_t &numerator) {
   this->numer = numerator;
   this->denom = 1;
   this->simplify();
@@ -246,7 +247,7 @@ std::istringstream &operator>>(std::istringstream &iss, f2_polyrat_t &a) {
 }
 
 // ----------------------------------------------------------------
-bool f2_polyrat_t::from_string(const char *string) {
+bool f2_polyrat_t::from_string(const std::string &string) {
   std::istringstream iss(string, std::ios_base::in);
   iss >> *this;
   return iss.fail() ? false : true;

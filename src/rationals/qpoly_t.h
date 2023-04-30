@@ -75,7 +75,7 @@ public:
 
   friend std::ostream &operator<<(std::ostream &os, const qpoly_t &poly);
   friend std::istream &operator>>(std::istream &is, qpoly_t &poly);
-  bool from_string(const char *string);
+  bool from_string(const std::string &string);
 
   void promote(void);
   void promote_and_add(intrat_t c0);

@@ -301,7 +301,8 @@ int f2_pm_ch_pol_main(int argc, char **argv, usage_t *pusage) {
     if (!a.from_string(argv[argi], m)) {
       pusage(argv[0]);
     }
-    spffl::polynomials::f2_poly_t cp = spffl::linalg::f2_polymod_characteristic_polynomial(a);
+    spffl::polynomials::f2_poly_t cp =
+        spffl::linalg::f2_polymod_characteristic_polynomial(a);
     if (argc > 3) {
       std::cout << a << ": ";
     }
@@ -330,7 +331,8 @@ int f2_pm_min_pol_main(int argc, char **argv, usage_t *pusage) {
     if (!a.from_string(argv[argi], m)) {
       pusage(argv[0]);
     }
-    spffl::polynomials::f2_poly_t mp = spffl::linalg::f2_polymod_minimal_polynomial(a);
+    spffl::polynomials::f2_poly_t mp =
+        spffl::linalg::f2_polymod_minimal_polynomial(a);
     if (argc > 3) {
       std::cout << a << ": ";
     }
@@ -513,7 +515,8 @@ int f2_pm_mat_ch_pol_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   }
 
-  spffl::polynomials::f2n_poly_t chpol = spffl::linalg::f2_polymod_characteristic_polynomial(A);
+  spffl::polynomials::f2n_poly_t chpol =
+      spffl::linalg::f2_polymod_characteristic_polynomial(A);
   std::cout << chpol << std::endl;
 
   return 0;

@@ -13,10 +13,10 @@
 #include "count_bits.h"
 #include "log2.h"
 #include <cstdint>
-#include <vector>
 #include <iomanip>
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 namespace spffl::polynomials {
 
@@ -33,7 +33,7 @@ public:
 
   static f2_poly_t from_base_rep(uint64_t b);
   f2_poly_t prime_subfield_element(int v) const;
-  bool from_string(const char *string);
+  bool from_string(const std::string &string);
   int get_characteristic(void);
 
   f2_poly_t(const f2_poly_t &that);
@@ -57,7 +57,8 @@ public:
   f2_poly_t &operator/=(const f2_poly_t &that);
   f2_poly_t &operator%=(const f2_poly_t &that);
 
-  void quot_and_rem(const f2_poly_t &that, f2_poly_t &rquot, f2_poly_t &rrem) const;
+  void quot_and_rem(
+      const f2_poly_t &that, f2_poly_t &rquot, f2_poly_t &rrem) const;
   f2_poly_t gcd(const f2_poly_t &that) const;
   f2_poly_t ext_gcd(const f2_poly_t &that, f2_poly_t &rm, f2_poly_t &rn) const;
   f2_poly_t exp(int power) const;
@@ -113,8 +114,8 @@ private:
 } // namespace spffl::polynomials
 
 // Same as the gcd method, but overloaded.  This is important for template use.
-spffl::polynomials::f2_poly_t gcd(
-    const spffl::polynomials::f2_poly_t &a, const spffl::polynomials::f2_poly_t &b);
+spffl::polynomials::f2_poly_t gcd(const spffl::polynomials::f2_poly_t &a,
+    const spffl::polynomials::f2_poly_t &b);
 
 // ================================================================
 #endif // F2POLY_T_H

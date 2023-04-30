@@ -37,7 +37,8 @@ f2n_poly_t::f2n_poly_t(const f2_polymod_t &c1, const f2_polymod_t &c0) {
 }
 
 // ----------------------------------------------------------------
-f2n_poly_t::f2n_poly_t(const f2_polymod_t &c2, const f2_polymod_t &c1, const f2_polymod_t &c0) {
+f2n_poly_t::f2n_poly_t(
+    const f2_polymod_t &c2, const f2_polymod_t &c1, const f2_polymod_t &c0) {
   this->degree    = 2;
   this->coeffs    = new f2_polymod_t[this->degree + 1];
   this->coeffs[2] = c2;
@@ -864,19 +865,20 @@ std::istringstream &operator>>(std::istringstream &iss, f2n_poly_t &poly) {
 }
 
 // ----------------------------------------------------------------
-bool f2n_poly_t::from_string(const char *string, const f2_poly_t &m) {
+bool f2n_poly_t::from_string(const std::string &string, const f2_poly_t &m) {
   if (this->coeffs) {
     delete[] this->coeffs;
   }
 
   int num_colons = 0;
-  for (const char *q = string; *q; q++) {
+  for (const char *q = string.c_str(); *q; q++) {
     if (*q == ':') {
       num_colons++;
     }
   }
 
-  char *dup   = strdup(string);
+  // TODO: more use of std::string methods
+  char *dup   = strdup(string.c_str());
   char **argv = new char *[num_colons + 1];
   int argc    = spffl::base::tokenize(dup, ":", argv, num_colons + 1);
   if (argc < 1) {
@@ -934,7 +936,7 @@ void f2n_poly_t::promote_and_add(const f2_polymod_t &c0) {
 } // namespace spffl::polynomials
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2n_poly_t gcd(
-    const spffl::polynomials::f2n_poly_t &a, const spffl::polynomials::f2n_poly_t &b) {
+spffl::polynomials::f2n_poly_t gcd(const spffl::polynomials::f2n_poly_t &a,
+    const spffl::polynomials::f2n_poly_t &b) {
   return a.gcd(b);
 }

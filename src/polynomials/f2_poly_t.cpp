@@ -25,26 +25,26 @@ static const uint64_t F2_POLY_01_MASK          = 0x5555555555555555LL;
 // ----------------------------------------------------------------
 f2_poly_t::f2_poly_t(void) {
   uint64_t bits = 0;
-  this->parts = std::vector<uint64_t>(1, bits);
+  this->parts   = std::vector<uint64_t>(1, bits);
 }
 
 // ----------------------------------------------------------------
 f2_poly_t::f2_poly_t(int c0) {
   uint64_t bits = c0 & 1;
-  this->parts = std::vector<uint64_t>(1, bits);
+  this->parts   = std::vector<uint64_t>(1, bits);
 }
 f2_poly_t::f2_poly_t(int c1, int c0) {
   uint64_t bits = ((c1 & 1) << 1) | (c0 & 1);
-  this->parts = std::vector<uint64_t>(1, bits);
+  this->parts   = std::vector<uint64_t>(1, bits);
 }
 f2_poly_t::f2_poly_t(int c2, int c1, int c0) {
   uint64_t bits = ((c2 & 1) << 2) | ((c1 & 1) << 1) | (c0 & 1);
-  this->parts = std::vector<uint64_t>(1, bits);
+  this->parts   = std::vector<uint64_t>(1, bits);
 }
 
 f2_poly_t::f2_poly_t(const std::string &s) {
   uint64_t bits = 0;
-  this->parts = std::vector<uint64_t>(1, bits);
+  this->parts   = std::vector<uint64_t>(1, bits);
 
   std::istringstream iss(s, std::ios_base::in);
   iss >> *this;
@@ -63,7 +63,7 @@ f2_poly_t f2_poly_t::from_base_rep(uint64_t b) {
 }
 
 // ----------------------------------------------------------------
-bool f2_poly_t::from_string(const char *string) {
+bool f2_poly_t::from_string(const std::string &string) {
   std::istringstream iss(string, std::ios_base::in);
   iss >> *this;
   // return iss.fail() ? 0 : iss.eof() ? 0 : 1;
@@ -71,23 +71,22 @@ bool f2_poly_t::from_string(const char *string) {
 }
 
 // ----------------------------------------------------------------
-f2_poly_t::f2_poly_t(const f2_poly_t &that) {
-  this->parts = that.parts;
-}
+f2_poly_t::f2_poly_t(const f2_poly_t &that) { this->parts = that.parts; }
 
 // ----------------------------------------------------------------
-f2_poly_t::~f2_poly_t(void) {
-}
+f2_poly_t::~f2_poly_t(void) {}
 
 // ----------------------------------------------------------------
-f2_poly_t f2_poly_t::prime_subfield_element(int v) const { return f2_poly_t(v & 1); }
+f2_poly_t f2_poly_t::prime_subfield_element(int v) const {
+  return f2_poly_t(v & 1);
+}
 
 // ----------------------------------------------------------------
 int f2_poly_t::get_characteristic(void) { return 2; }
 
 // ----------------------------------------------------------------
 f2_poly_t &f2_poly_t::operator=(const f2_poly_t &that) {
-  this->parts     = that.parts;
+  this->parts = that.parts;
   return *this;
 }
 
@@ -125,7 +124,9 @@ f2_poly_t f2_poly_t::operator+(const f2_poly_t &that) const {
 }
 
 // ----------------------------------------------------------------
-f2_poly_t f2_poly_t::operator-(const f2_poly_t &that) const { return *this + that; }
+f2_poly_t f2_poly_t::operator-(const f2_poly_t &that) const {
+  return *this + that;
+}
 
 // ----------------------------------------------------------------
 f2_poly_t f2_poly_t::operator-(void) const { return *this; }
@@ -405,7 +406,8 @@ int f2_poly_t::zcount_one_bits(void) const {
   // TODO: use an iterator
   for (int i = 0; i < this->parts.size(); i++) {
     uint64_t part = this->parts[i];
-    num_one_bits += spffl::bits::count_one_bits((unsigned char*)&part, sizeof(part));
+    num_one_bits +=
+        spffl::bits::count_one_bits((unsigned char *)&part, sizeof(part));
   }
   return 1 & num_one_bits;
 }
@@ -778,7 +780,7 @@ void f2_poly_t::extend_parts(int new_num_parts) {
   this->parts.resize(new_num_parts);
 }
 void f2_poly_t::trim_parts(void) {
-  int d           = this->find_degree();
+  int d             = this->find_degree();
   int new_num_parts = (d >> F2_POLY_PART_LOG) + 1;
   if (new_num_parts < this->parts.size()) {
     this->parts.resize(new_num_parts);
@@ -792,7 +794,7 @@ void f2_poly_t::check_neg_pos(int pos) const {
 }
 } // namespace spffl::polynomials
 // ----------------------------------------------------------------
-spffl::polynomials::f2_poly_t gcd(
-    const spffl::polynomials::f2_poly_t &a, const spffl::polynomials::f2_poly_t &b) {
+spffl::polynomials::f2_poly_t gcd(const spffl::polynomials::f2_poly_t &a,
+    const spffl::polynomials::f2_poly_t &b) {
   return a.gcd(b);
 }
