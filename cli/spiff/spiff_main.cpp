@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "spffl_exception.h"
+
 #include "cmd_interp.h"
 
 #include "handlers.h"
@@ -237,7 +239,7 @@ void main_usage(char *argv0) {
   exit(1);
 }
 
-int main(int argc, char **argv) {
+static int try_main(int argc, char **argv) {
   char *exename = argv[0];
   argc--, argv++;
 
@@ -266,4 +268,12 @@ int main(int argc, char **argv) {
   }
   std::cerr << exename << ": subcommand \"" << argv[0] << "\" not found.\n";
   return 1;
+}
+
+int main(int argc, char **argv) {
+  try {
+    try_main(argc, argv);
+  } catch (spffl::exception_t e) {
+    std::cerr << e.what() << "\n";
+  }
 }

@@ -5,6 +5,7 @@
 // ================================================================
 
 #include "fp_polymod_t.h"
+#include "spffl_exception.h"
 #include <iomanip>
 #include <iostream>
 
@@ -118,9 +119,10 @@ fp_polymod_t fp_polymod_t::operator/(const fp_polymod_t &that) const {
 
   fp_polymod_t bi;
   if (!that.recip(bi)) {
-    std::cerr << "fp_polymod_t::operator/:  zero or zero divisor: "
+    std::stringstream ss;
+    ss << "fp_polymod_t::operator/:  zero or zero divisor: "
               << that.residue << " mod " << that.modulus << ".\n";
-    exit(1);
+    throw spffl::exception_t(ss.str());
   }
 
   return *this * bi;
