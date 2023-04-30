@@ -18,12 +18,12 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     intmath
     polynomials
     rationals
-    q_cyclo
+    q_cyclotomic
     random
     factorization
     units
     list
     linalg
     containers
-    cliparser
+    cli_parser
 )

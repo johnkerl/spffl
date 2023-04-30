@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.24)
 
-project(cliparser)
+project(cli_parser)
 
 add_library(${PROJECT_NAME}
   cmd_interp.cpp

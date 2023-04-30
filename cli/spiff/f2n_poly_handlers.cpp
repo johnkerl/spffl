@@ -2,16 +2,16 @@
 #include "tbl_types.h"
 
 #include "polynomials/f2n_poly_t.h"
-#include "rationals/qpoly_t.h"
+#include "polynomials/q_poly_t.h"
 #include "factorization/f2n_poly_factor.h"
 #include "factorization/f2n_poly_totient.h"
 #include "random/f2n_poly_random.h"
 #include "list/list_elements.h"
-#include "q_cyclo/qff.h"
+#include "q_cyclotomic/qff.h"
 #include "linalg/f2_polymod_linear_algebra.h"
-#include "cliparser/cmd_line_matrix_ops.h"
-#include "cliparser/cmd_line_ops.h"
-#include "cliparser/cmd_line_vector_ops.h"
+#include "cli_parser/cmd_line_matrix_ops.h"
+#include "cli_parser/cmd_line_ops.h"
+#include "cli_parser/cmd_line_vector_ops.h"
 
 #include <string.h>
 
@@ -62,7 +62,7 @@ int f2n_p_op_main(int argc, char **argv, usage_t *pusage) {
       spffl::polynomials::f2n_poly_t::prime_subfield_element(0, m);
   spffl::polynomials::f2n_poly_t one =
       spffl::polynomials::f2n_poly_t::prime_subfield_element(1, m);
-  spffl::cliparser::cmd_line_parse<spffl::polynomials::f2n_poly_t>(
+  spffl::cli_parser::cmd_line_parse<spffl::polynomials::f2n_poly_t>(
       argc - 2, argv + 2, zero, one);
   return 0;
 }
@@ -465,7 +465,7 @@ void f2n_p_qp_usage(char *argv0) {
 
 int f2n_p_qp_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t m;
-  spffl::rationals::qpoly_t qp;
+  spffl::rationals::q_poly_t qp;
   spffl::polynomials::f2n_poly_t f2np;
   if (argc < 3) {
     pusage(argv[0]);
@@ -477,7 +477,7 @@ int f2n_p_qp_main(int argc, char **argv, usage_t *pusage) {
     if (!qp.from_string(argv[argi])) {
       pusage(argv[0]);
     }
-    f2np = spffl::q_cyclo::f2n_poly_from_qpoly(qp, m);
+    f2np = spffl::q_cyclotomic::f2n_poly_from_qpoly(qp, m);
     std::cout << f2np << std::endl;
   }
   return 0;
@@ -500,7 +500,7 @@ int f2n_p_mat_op_main(int argc, char **argv, usage_t *pusage) {
       spffl::polynomials::f2n_poly_t::prime_subfield_element(0, m);
   spffl::polynomials::f2n_poly_t one =
       spffl::polynomials::f2n_poly_t::prime_subfield_element(1, m);
-  spffl::cliparser::cmd_line_mat_parse<spffl::polynomials::f2n_poly_t>(
+  spffl::cli_parser::cmd_line_mat_parse<spffl::polynomials::f2n_poly_t>(
       argc - 2, argv + 2, zero, one);
   return 0;
 }

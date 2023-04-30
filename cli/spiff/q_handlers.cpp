@@ -1,24 +1,24 @@
-#include "q_cyclo/cyclo_poly.h"
-#include "rationals/intrat_t.h"
-#include "rationals/qpoly_t.h"
-#include "cliparser/cmd_line_matrix_ops.h"
-#include "cliparser/cmd_line_vector_ops.h"
+#include "q_cyclotomic/cyclo_poly.h"
+#include "intmath/intrat_t.h"
+#include "polynomials/q_poly_t.h"
+#include "cli_parser/cmd_line_matrix_ops.h"
+#include "cli_parser/cmd_line_vector_ops.h"
 #include "q_handlers.h"
 
 int q_op_main(int argc, char **argv, usage_t *pusage) {
-  spffl::cliparser::cmd_line_parse<spffl::rationals::intrat_t>(argc - 1,
+  spffl::cli_parser::cmd_line_parse<spffl::rationals::intrat_t>(argc - 1,
       argv + 1, spffl::rationals::intrat_t(0), spffl::rationals::intrat_t(1));
   return 0;
 }
 
 int q_mat_op_main(int argc, char **argv, usage_t *pusage) {
-  spffl::cliparser::cmd_line_mat_parse<spffl::rationals::intrat_t>(argc - 1,
+  spffl::cli_parser::cmd_line_mat_parse<spffl::rationals::intrat_t>(argc - 1,
       argv + 1, spffl::rationals::intrat_t(0), spffl::rationals::intrat_t(1));
   return 0;
 }
 
 int q_vec_op_main(int argc, char **argv, usage_t *pusage) {
-  spffl::cliparser::cmd_line_vec_parse<spffl::rationals::intrat_t>(argc - 1,
+  spffl::cli_parser::cmd_line_vec_parse<spffl::rationals::intrat_t>(argc - 1,
       argv + 1, spffl::rationals::intrat_t(0), spffl::rationals::intrat_t(1));
   return 0;
 }
@@ -29,9 +29,9 @@ void q_cyclo_usage(char *argv0) {
 }
 
 int q_p_op_main(int argc, char **argv, usage_t *pusage) {
-  spffl::cliparser::cmd_line_parse<spffl::rationals::qpoly_t>(argc - 1,
-      argv + 1, spffl::rationals::qpoly_t(spffl::rationals::intrat_t(0)),
-      spffl::rationals::qpoly_t(spffl::rationals::intrat_t(1)));
+  spffl::cli_parser::cmd_line_parse<spffl::rationals::q_poly_t>(argc - 1,
+      argv + 1, spffl::rationals::q_poly_t(spffl::rationals::intrat_t(0)),
+      spffl::rationals::q_poly_t(spffl::rationals::intrat_t(1)));
   return 0;
 }
 
@@ -44,7 +44,7 @@ int q_cyclo_main(int argc, char **argv, usage_t *pusage) {
     if (sscanf(argv[argi], "%d", &n) != 1) {
       pusage(argv[0]);
     }
-    std::cout << spffl::q_cyclo::get_cyclo_qpoly(n) << std::endl;
+    std::cout << spffl::q_cyclotomic::get_cyclo_qpoly(n) << std::endl;
   }
   return 0;
 }

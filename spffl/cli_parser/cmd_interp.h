@@ -1,7 +1,7 @@
 #ifndef CMDINTERP_H
 #define CMDINTERP_H
 
-namespace spffl::cliparser {
+namespace spffl::cli_parser {
 
 void cmd_interpolate(char *exename, int &argc, char **&argv);
 
@@ -29,6 +29,6 @@ void cmd_interpolate(char *exename, int &argc, char **&argv);
 //     return 0;
 // }
 
-} // namespace spffl::cliparser
+} // namespace spffl::cli_parser
 
 #endif // CMDINTERP_H

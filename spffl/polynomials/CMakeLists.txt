@@ -14,6 +14,8 @@ add_library(${PROJECT_NAME}
 
   f2n_polymod_t.cpp
   fpn_polymod_t.cpp
+
+  q_poly_t.cpp 
 )
 
 target_include_directories(${PROJECT_NAME}
