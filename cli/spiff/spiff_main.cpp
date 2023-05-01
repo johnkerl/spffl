@@ -255,18 +255,18 @@ typedef struct _lookup_group_t {
 // clang-format off
 std::vector<lookup_group_t> lookup_groups {
   {"Integers",                               z_lookups},
-  {"Rational field of integers",             q_lookups},
+  {"Quotient field of integers",             q_lookups},
   {"F2 (bits)",                              f2_lookups},
   {"Polynomials over F2",                    f2_p_lookups},
   {"Residue field of F2 polynomials (F2^n)", f2_pm_lookups},
-  {"Rationals of F2 polynomials",            f2_pr_lookups},
+  {"Quotient field of F2 polynomials",       f2_pr_lookups},
   {"Polynomials of F2^n",                    f2n_p_lookups},
   {"Residue field of F2^n polynomials",      f2n_pm_lookups},
-  {"Rationals of F2^n polynomials",          f2n_pr_lookups},
+  {"Quotient field of F2^n polynomials",     f2n_pr_lookups},
   {"Fp (modular arithmetic)",                fp_lookups},
   {"Polynomials over Fp",                    fp_p_lookups},
   {"Residue field of Fp polynomials",        fp_pm_lookups},
-  {"Rational field of Fp polynomials",       fp_pr_lookups},
+  {"Quotient field of Fp polynomials",       fp_pr_lookups},
   {"Polynomials over Fp^n",                  fpn_p_lookups},
   {"Residue field of Fp^n polynomials",      fpn_pm_lookups},
 };

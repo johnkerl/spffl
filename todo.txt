@@ -7,6 +7,7 @@
     - or, just build both
   o install our CMakeList.txt
   o try to get lib sources from globbing
+  o segv: spiff typo1 { typo2 4 }
 ! pre-cmake content
 
 * nested handler-structs in spiff
