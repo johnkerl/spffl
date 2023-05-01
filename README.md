@@ -5,8 +5,7 @@ SPFFL (pronounced _spiffle_) is a small-prime finite-field library, where small 
 See also my expository paper [_Computation in Finite Fields_](doc/ffcomp.pdf) for background
 and narrative on the data structures and algorithms implemented by SPFFL.
 
-See also my master's thesis, [_Curves and Codes_](https://johnkerl.org/doc/kerl-ma-thesis
-.pdf).
+See also my master's thesis, [_Curves and Codes_](https://johnkerl.org/doc/kerl-ma-thesis.pdf).
 
 Please also see [RUFFL](https://github.com/johnkerl/ruffl), my Ruby port of SPFFL.
 
