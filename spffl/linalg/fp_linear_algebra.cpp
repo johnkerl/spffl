@@ -6,6 +6,7 @@
 
 #include "spffl/base/spffl_exception.h"
 #include "spffl/polynomials/fp_poly_t.h"
+
 #include "spffl/linalg/fp_linear_algebra.h"
 
 namespace spffl::linalg {

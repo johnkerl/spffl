@@ -22,10 +22,12 @@ public:
   q_poly_t(void);
 
   q_poly_t(const spffl::intmath::intrat_t &c0);
-  q_poly_t(const spffl::intmath::intrat_t &c1, const spffl::intmath::intrat_t &c0);
-  q_poly_t(const spffl::intmath::intrat_t &c2, const spffl::intmath::intrat_t &c1, const spffl::intmath::intrat_t &c0);
-  static q_poly_t binomial(
-      const spffl::intmath::intrat_t &ci, int i, const spffl::intmath::intrat_t &cj, int j);
+  q_poly_t(
+      const spffl::intmath::intrat_t &c1, const spffl::intmath::intrat_t &c0);
+  q_poly_t(const spffl::intmath::intrat_t &c2,
+      const spffl::intmath::intrat_t &c1, const spffl::intmath::intrat_t &c0);
+  static q_poly_t binomial(const spffl::intmath::intrat_t &ci, int i,
+      const spffl::intmath::intrat_t &cj, int j);
 
   q_poly_t(const q_poly_t &that);
   ~q_poly_t(void);

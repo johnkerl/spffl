@@ -4,9 +4,6 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "handlers.h"
-#include "q_handlers.h"
-#include "z_handlers.h"
 #include "f2_handlers.h"
 #include "f2_poly_handlers.h"
 #include "f2_polymod_handlers.h"
@@ -20,6 +17,9 @@
 #include "fp_polyrat_handlers.h"
 #include "fpn_poly_handlers.h"
 #include "fpn_polymod_handlers.h"
+#include "handlers.h"
+#include "q_handlers.h"
+#include "z_handlers.h"
 
 #include "spffl/base/spffl_exception.h"
 #include "spffl/cli_parser/cmd_interp.h"
@@ -266,7 +266,8 @@ std::vector<lookup_group_t> lookup_groups {
 
 // ----------------------------------------------------------------
 void main_usage(char *argv0) {
-  std::cerr << "Usage: " << argv0 << " {command} {command-specific arguments ...}\n";
+  std::cerr << "Usage: " << argv0
+            << " {command} {command-specific arguments ...}\n";
   std::cerr << "Use " << argv0 << " -l to list available commands.\n";
   exit(1);
 }
