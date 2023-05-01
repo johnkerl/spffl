@@ -21,7 +21,7 @@ spffl::polynomials::f2_poly_t f2_poly_random(int deg) {
   spffl::polynomials::f2_poly_t rv(0);
   rv.set_bit(deg);
   for (int i = deg - 1; i >= 0; i--) {
-    int bit = (get_random_unsigned() >> 17) & 1;
+    int bit = (get_random_uint32() >> 17) & 1;
     if (bit) {
       rv.set_bit(i);
     }

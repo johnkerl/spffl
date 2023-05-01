@@ -11,7 +11,7 @@
 #include <iostream>
 #include <sstream>
 
-namespace spffl::rationals {
+namespace spffl::intmath {
 
 class intrat_t {
 public:
@@ -61,6 +61,6 @@ private:
   void simplify();
 };
 
-} // namespace spffl::rationals
+} // namespace spffl::intmath
 
 #endif // INTRAT_T_H

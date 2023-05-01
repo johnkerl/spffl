@@ -9,7 +9,7 @@
 
 namespace spffl::q_cyclotomic {
 
-spffl::rationals::q_poly_t get_cyclo_qpoly(int n);
+spffl::polynomials::q_poly_t get_cyclo_qpoly(int n);
 spffl::polynomials::f2_poly_t get_cyclo_f2_poly(int n);
 spffl::polynomials::fp_poly_t get_cyclo_fp_poly(int n, int p);
 spffl::polynomials::f2n_poly_t get_cyclo_f2n_poly(

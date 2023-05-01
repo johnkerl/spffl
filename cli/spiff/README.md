@@ -5,7 +5,7 @@ Data type      Prefix  Description
 int            z       Z                        Ring
 bit_t          f2      Z/<2> = F_2              Residue field, p=2
 intmod_t       fp      Z/<p> = F_p              Residue field
-spffl::rationals::intrat_t       q       Q                        Quotient field
+spffl::intmath::intrat_t       q       Q                        Quotient field
 //
 spffl::polynomials::f2_poly_t       f2p     F2[x]                    Ring
 spffl::polynomials::f2_polymod_t    f2pm    F2[x]/<f(x)> = F_{2^n}   Residue field
