@@ -1,19 +1,20 @@
 ===============================================================
 ! fix clang-format & tmatrix/gcd issue
 
+* cmg, cmb, et al. -> cmake-generate, cmake-build, etc scripts -- w/ --release=foo and --prefix=foo etc
+* multi-threading opportunities ...
+
 ! ctest passes
   o f2_poly_t: promote x n; demote; bit_at; set_bit; sqroot
 
 ! installable headers/libspffl.so/bins; internals vs externals
-  o default install path _not_ /usr/local but rather ./dist -- ?
-  o top-level cmake variable for shared or static libspffl
-    - or, just build both
-  o install our CMakeList.txt
+  ? install our CMakeList.txt
   o try to get lib sources from globbing
   o segv: spiff typo1 { typo2 4 }
-! pre-cmake content
 
-* nested handler-structs in spiff
+! pre-cmake content
+  o charts esp
+  o tmvpoly ...
 
 * char* vs string literals
 * more std::string all around

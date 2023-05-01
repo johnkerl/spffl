@@ -260,7 +260,7 @@ alias cmgd='cmake -B build -DCMAKE_BUILD_TYPE=Debug'
 
 alias  cmb='cmake --build build'
 alias  cmt='cmake --build build --target test'
-alias  cmi='cmake --build build --target install' # <-- WIP as of 2023-03-13
+alias  cmi='cmake --build build --target install'
 
 export PATH=$(pwd)/build/cli/spiff:$PATH
 cd regression
