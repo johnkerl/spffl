@@ -7,10 +7,10 @@
 #ifndef FPLINALG_H
 #define FPLINALG_H
 
-#include "containers/tmatrix.h"
-#include "polynomials/fp_poly_t.h"
+#include "spffl/containers/tmatrix.h"
+#include "spffl/polynomials/fp_poly_t.h"
 #if 0
-#include "fpn_poly_t.h"
+#include "spffl/fpn_poly_t.h"
 #endif
 
 namespace spffl::linalg {

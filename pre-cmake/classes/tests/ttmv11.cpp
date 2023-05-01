@@ -1,9 +1,9 @@
-#include "tmvpoly.h"
-#include "tmvpolyscan.h"
-#include "fp_polymod_t.h"
-#include "list_elements.h"
-#include "fp_poly_factor.h"
-#include "int_power.h"
+#include "spffl/tmvpoly.h"
+#include "spffl/tmvpolyscan.h"
+#include "spffl/fp_polymod_t.h"
+#include "spffl/list_elements.h"
+#include "spffl/fp_poly_factor.h"
+#include "spffl/int_power.h"
 
 // ----------------------------------------------------------------
 static void usage(char * argv0)

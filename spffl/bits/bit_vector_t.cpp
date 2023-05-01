@@ -4,10 +4,10 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "bits/bit_vector_t.h"
-#include "base/spffl_exception.h"
-#include "bits/count_bits.h"
-#include "intmath/log2.h"
+#include "spffl/bits/bit_vector_t.h"
+#include "spffl/base/spffl_exception.h"
+#include "spffl/bits/count_bits.h"
+#include "spffl/intmath/log2.h"
 #include <string.h>
 
 namespace spffl::bits {

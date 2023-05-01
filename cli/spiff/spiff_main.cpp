@@ -4,37 +4,29 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include <iostream>
-#include <string>
-#include <vector>
-
-#include "base/spffl_exception.h"
-
-#include "cli_parser/cmd_interp.h"
-
 #include "handlers.h"
-
 #include "q_handlers.h"
 #include "z_handlers.h"
-
 #include "f2_handlers.h"
-
 #include "f2_poly_handlers.h"
 #include "f2_polymod_handlers.h"
 #include "f2_polyrat_handlers.h"
-
 #include "f2n_poly_handlers.h"
 #include "f2n_polymod_handlers.h"
 #include "f2n_polyrat_handlers.h"
-
 #include "fp_handlers.h"
-
 #include "fp_poly_handlers.h"
 #include "fp_polymod_handlers.h"
 #include "fp_polyrat_handlers.h"
-
 #include "fpn_poly_handlers.h"
 #include "fpn_polymod_handlers.h"
+
+#include "spffl/base/spffl_exception.h"
+#include "spffl/cli_parser/cmd_interp.h"
+
+#include <iostream>
+#include <string>
+#include <vector>
 
 // ----------------------------------------------------------------
 typedef struct _lookup_t {

@@ -35,9 +35,9 @@
 
 // which recovers the special case for finite fields.
 
-#include "factorization/f2n_poly_totient.h"
-#include "factorization/f2n_poly_factor.h"
-#include "intmath/int_power.h"
+#include "spffl/factorization/f2n_poly_totient.h"
+#include "spffl/factorization/f2n_poly_factor.h"
+#include "spffl/intmath/int_power.h"
 
 namespace spffl::factorization {
 

@@ -7,9 +7,9 @@
 #include <iostream>
 #include <stdio.h>
 
-#include "tmatrix.h"
-#include "bit_t.h"
-#include "f2_linear_algebra.h"
+#include "spffl/tmatrix.h"
+#include "spffl/bit_t.h"
+#include "spffl/f2_linear_algebra.h"
 
 // ----------------------------------------------------------------
 int main(int argc, char ** argv)

@@ -1,4 +1,4 @@
-#include "tmvpolyscan.h"
+#include "spffl/tmvpolyscan.h"
 
 // ----------------------------------------------------------------
 // Expected format matches that from tmvpoly's ostream operator.

@@ -12,7 +12,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-#include "tmatrix.h"
+#include "spffl/tmatrix.h"
 
 #define TEIGINFO_INIT_LENGTH 8
 #define TEIGINFO_INCR_LENGTH 8

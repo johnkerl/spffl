@@ -9,7 +9,7 @@
 #ifndef TMVRAT_H
 #define TMVRAT_H
 
-#include "tmvpoly.h"
+#include "spffl/tmvpoly.h"
 
 template <class ktype> class tmvrat;
 template <class ktype>

@@ -1,7 +1,7 @@
-#include "tmvpoly.h"
-#include "tmvpolyscan.h"
-#include "tmvrat.h"
-#include "tmvratscan.h"
+#include "spffl/tmvpoly.h"
+#include "spffl/tmvpolyscan.h"
+#include "spffl/tmvrat.h"
+#include "spffl/tmvratscan.h"
 
 // ----------------------------------------------------------------
 static void usage(char * argv0)

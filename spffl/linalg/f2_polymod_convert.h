@@ -6,9 +6,9 @@
 
 #ifndef F2POLYMOD_CONVERT_H
 #define F2POLYMOD_CONVERT_H
-#include "containers/tmatrix.h"
-#include "polynomials/f2_polymod_t.h"
-#include "polynomials/f2n_poly_t.h"
+#include "spffl/containers/tmatrix.h"
+#include "spffl/polynomials/f2_polymod_t.h"
+#include "spffl/polynomials/f2n_poly_t.h"
 
 namespace spffl::linalg {
 

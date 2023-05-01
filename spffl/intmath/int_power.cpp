@@ -5,7 +5,7 @@
 // ================================================================
 
 namespace spffl::intmath {
-#include "intmath/int_power.h"
+#include "spffl/intmath/int_power.h"
 
 // ----------------------------------------------------------------
 int int_power(int b, int e) {

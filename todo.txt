@@ -1,6 +1,6 @@
 ===============================================================
 ! rework header-install:
-  o libs should #include "spffl/polynomials/f2_poly_t.h"
+  o libs should #include "spffl/spffl/polynomials/f2_poly_t.h"
   o lib-users should also
   o current, and future:
     g++ -std=c++20 -I /usr/local/include -L /usr/local/lib -lspffl examples/example1.cpp -o example1

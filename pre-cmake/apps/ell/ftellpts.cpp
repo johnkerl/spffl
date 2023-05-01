@@ -1,4 +1,4 @@
-#include "libspffl.h"
+#include "spffl/libspffl.h"
 
 // ----------------------------------------------------------------
 static void usage(char * argv0)

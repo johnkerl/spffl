@@ -4,11 +4,11 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "intmath/intrat_t.h"
-#include "base/cmps.h"
-#include "base/spffl_exception.h"
-#include "intmath/int_gcd.h"
-#include "intmath/int_totient.h"
+#include "spffl/intmath/intrat_t.h"
+#include "spffl/base/cmps.h"
+#include "spffl/base/spffl_exception.h"
+#include "spffl/intmath/int_gcd.h"
+#include "spffl/intmath/int_totient.h"
 #include <iomanip>
 #include <iostream>
 #include <stdlib.h>

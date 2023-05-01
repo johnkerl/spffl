@@ -7,7 +7,7 @@
 #ifndef F2NPOLYMOD_T_H
 #define F2NPOLYMOD_T_H
 
-#include "polynomials/f2n_poly_t.h"
+#include "spffl/polynomials/f2n_poly_t.h"
 #include <iomanip>
 #include <iostream>
 

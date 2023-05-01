@@ -7,11 +7,11 @@
 #ifndef TMATRIX_H
 #define TMATRIX_H
 
-#include "base/line_scan.h"
-#include "base/spffl_exception.h"
-#include "base/tokenize.h"
-#include "containers/tvector.h"
-#include "intmath/int_gcd.h"
+#include "spffl/base/line_scan.h"
+#include "spffl/base/spffl_exception.h"
+#include "spffl/base/tokenize.h"
+#include "spffl/containers/tvector.h"
+#include "spffl/intmath/int_gcd.h"
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>

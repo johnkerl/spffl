@@ -7,8 +7,8 @@
 #include <iostream>
 #include <stdio.h>
 
-#include "libspffl.h"
-#include "cmd_line_ops.h"
+#include "spffl/libspffl.h"
+#include "spffl/cmd_line_ops.h"
 
 typedef void usage_t(char * argv0);
 typedef int main_t (int argc, char ** argv, usage_t * pusage);

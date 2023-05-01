@@ -7,15 +7,15 @@
 #ifndef TVECTOR_H
 #define TVECTOR_H
 
-#include "base/spffl_exception.h"
+#include "spffl/base/spffl_exception.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string.h>
 template <class element_type> class tvector;
 template <class element_type> class tmatrix;
-#include "containers/tmatrix.h"
-#include "intmath/int_gcd.h"
+#include "spffl/containers/tmatrix.h"
+#include "spffl/intmath/int_gcd.h"
 
 template <class element_type>
 static int tvqcmp(const void *pv1, const void *pv2);

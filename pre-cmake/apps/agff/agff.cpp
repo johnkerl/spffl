@@ -1,16 +1,16 @@
 
-#include "tmvpoly.h"
-#include "tmvpolyscan.h"
-#include "tmvrat.h"
-#include "tmvratscan.h"
+#include "spffl/tmvpoly.h"
+#include "spffl/tmvpolyscan.h"
+#include "spffl/tmvrat.h"
+#include "spffl/tmvratscan.h"
 
-#include "f2_polymod_t.h"
-#include "f2_poly_factor.h"
-#include "fp_polymod_t.h"
-#include "fp_poly_factor.h"
+#include "spffl/f2_polymod_t.h"
+#include "spffl/f2_poly_factor.h"
+#include "spffl/fp_polymod_t.h"
+#include "spffl/fp_poly_factor.h"
 
-#include "int_power.h"
-#include "list_elements.h"
+#include "spffl/int_power.h"
+#include "spffl/list_elements.h"
 
 // xxx move to f2_polymod_convert.cpp
 static tmvpoly<f2_polymod_t> F2_Fq_embed(

@@ -17,9 +17,9 @@
 //   U := P ^ P | P
 //   P := ( E ) | NUM
 
-#include "base/spffl_exception.h"
-#include "containers/tmatrix.h"
-#include "containers/tstack.h"
+#include "spffl/base/spffl_exception.h"
+#include "spffl/containers/tmatrix.h"
+#include "spffl/containers/tstack.h"
 #include <iostream>
 #include <sstream>
 #include <string.h>

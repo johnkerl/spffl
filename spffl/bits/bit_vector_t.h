@@ -7,7 +7,7 @@
 #ifndef BIT_VECTOR_T_H
 #define BIT_VECTOR_T_H
 
-#include "bits/bit_t.h"
+#include "spffl/bits/bit_t.h"
 #include <cstdint>
 #include <fstream>
 #include <iostream>

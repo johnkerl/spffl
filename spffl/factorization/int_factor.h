@@ -6,7 +6,7 @@
 
 #ifndef INT_FACTOR_H
 #define INT_FACTOR_H
-#include "containers/tfacinfo.h"
+#include "spffl/containers/tfacinfo.h"
 
 namespace spffl::factorization {
 

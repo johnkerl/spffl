@@ -1,5 +1,5 @@
-#include "tmvpoly.h"
-#include "bit_t.h"
+#include "spffl/tmvpoly.h"
+#include "spffl/bit_t.h"
 
 #define pol  tmvpoly<bit_t>
 #define zero bit_t(0)

@@ -5,12 +5,12 @@
 // ================================================================
 
 #include <iostream>
-#include "f2_polymod_t.h"
-#include "f2_poly_factor.h"
-#include "f2_polymod_units.h"
-#include "min_char_polys.h"
-#include "moebius.h"
-#include "log10.h"
+#include "spffl/f2_polymod_t.h"
+#include "spffl/f2_poly_factor.h"
+#include "spffl/f2_polymod_units.h"
+#include "spffl/min_char_polys.h"
+#include "spffl/moebius.h"
+#include "spffl/log10.h"
 
 // ----------------------------------------------------------------
 typedef struct _opts_t {

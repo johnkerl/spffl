@@ -6,7 +6,7 @@
 
 #ifndef FPPOLY_TOTIENT_H
 #define FPPOLY_TOTIENT_H
-#include "polynomials/fp_poly_t.h"
+#include "spffl/polynomials/fp_poly_t.h"
 
 namespace spffl::factorization {
 

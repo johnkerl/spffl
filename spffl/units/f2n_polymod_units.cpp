@@ -4,13 +4,13 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "units/f2n_polymod_units.h"
-#include "base/spffl_exception.h"
-#include "containers/tfacinfo.h"
-#include "containers/tvector.h"
-#include "factorization/f2n_poly_totient.h"
-#include "factorization/int_factor.h"
-#include "intmath/int_sqrt.h"
+#include "spffl/units/f2n_polymod_units.h"
+#include "spffl/base/spffl_exception.h"
+#include "spffl/containers/tfacinfo.h"
+#include "spffl/containers/tvector.h"
+#include "spffl/factorization/f2n_poly_totient.h"
+#include "spffl/factorization/int_factor.h"
+#include "spffl/intmath/int_sqrt.h"
 
 namespace spffl::units {
 

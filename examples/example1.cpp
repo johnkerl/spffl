@@ -1,4 +1,4 @@
-#include <polynomials/f2_poly_t.h>
+#include <spffl/polynomials/f2_poly_t.h>
 #include <iostream>
 
 int main(int argc, char** argv) {

@@ -6,7 +6,7 @@
 
 #ifndef F2POLYMOD_UNITS_H
 #define F2POLYMOD_UNITS_H
-#include "polynomials/f2_polymod_t.h"
+#include "spffl/polynomials/f2_polymod_t.h"
 
 namespace spffl::units {
 

@@ -8,9 +8,9 @@
 #include <iostream>
 #include <string>
 
-#include "base/spffl_exception.h"
-#include "q_cyclotomic/cyclo_poly.h"
-#include "q_cyclotomic/qff.h"
+#include "spffl/base/spffl_exception.h"
+#include "spffl/q_cyclotomic/cyclo_poly.h"
+#include "spffl/q_cyclotomic/qff.h"
 
 namespace spffl::q_cyclotomic {
 

@@ -1,6 +1,6 @@
 #include <iostream>
-#include "tmvratscan.h"
-#include "tmvpolyscan.h"
+#include "spffl/tmvratscan.h"
+#include "spffl/tmvpolyscan.h"
 
 // ----------------------------------------------------------------
 // Expected format matches that from tmvrat's ostream operator.

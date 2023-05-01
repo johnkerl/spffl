@@ -4,9 +4,9 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "random/int_random.h"
-#include "base/spffl_exception.h"
-#include "bitrand/psdes.h"
+#include "spffl/random/int_random.h"
+#include "spffl/base/spffl_exception.h"
+#include "spffl/bitrand/psdes.h"
 #include <fcntl.h>
 #include <iostream>
 #include <sys/stat.h>

@@ -4,11 +4,11 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "base/cmps.h"
-#include "base/spffl_exception.h"
-#include "base/tokenize.h"
-#include "intmath/intrat_t.h"
-#include "polynomials/q_poly_t.h"
+#include "spffl/base/cmps.h"
+#include "spffl/base/spffl_exception.h"
+#include "spffl/base/tokenize.h"
+#include "spffl/intmath/intrat_t.h"
+#include "spffl/polynomials/q_poly_t.h"
 #include <stdlib.h>
 #include <string.h>
 

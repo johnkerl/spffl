@@ -11,7 +11,7 @@
 #ifndef QPOLY_T_H
 #define QPOLY_T_H
 
-#include "intmath/intrat_t.h"
+#include "spffl/intmath/intrat_t.h"
 #include <iomanip>
 #include <iostream>
 

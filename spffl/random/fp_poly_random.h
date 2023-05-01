@@ -6,7 +6,7 @@
 
 #ifndef FPPOLY_RANDOM_H
 #define FPPOLY_RANDOM_H
-#include "polynomials/fp_poly_t.h"
+#include "spffl/polynomials/fp_poly_t.h"
 namespace spffl::random {
 spffl::polynomials::fp_poly_t fp_poly_random(int p, int deg);
 } // namespace spffl::random

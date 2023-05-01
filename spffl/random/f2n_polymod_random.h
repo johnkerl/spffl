@@ -6,7 +6,7 @@
 
 #ifndef F2NPOLYMOD_RANDOM_H
 #define F2NPOLYMOD_RANDOM_H
-#include "polynomials/f2n_polymod_t.h"
+#include "spffl/polynomials/f2n_polymod_t.h"
 namespace spffl::random {
 spffl::polynomials::f2n_polymod_t f2n_polymod_random(
     const spffl::polynomials::f2_poly_t &im,

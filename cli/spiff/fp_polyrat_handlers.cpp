@@ -1,9 +1,9 @@
 #include "fp_polyrat_handlers.h"
 
-#include "cli_parser/cmd_line_matrix_ops.h"
-#include "cli_parser/cmd_line_ops.h"
-#include "cli_parser/cmd_line_vector_ops.h"
-#include "rationals/fp_polyrat_t.h"
+#include "spffl/cli_parser/cmd_line_matrix_ops.h"
+#include "spffl/cli_parser/cmd_line_ops.h"
+#include "spffl/cli_parser/cmd_line_vector_ops.h"
+#include "spffl/rationals/fp_polyrat_t.h"
 
 void fp_pr_op_usage(char *argv0) {
   std::cerr << "Usage: " << argv0 << " {p} {...}\n";

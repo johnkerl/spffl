@@ -13,14 +13,14 @@
 #define TMVPOLY_ALLOC_SIZE 10
 
 #include <iostream>
-#include "tvector.h"
-#include "tokenize.h"
+#include "spffl/tvector.h"
+#include "spffl/tokenize.h"
 
-#include "bit_t.h"
-#include "intmod_t.h"
-#include "f2_polymod_t.h"
-#include "f2n_polymod_t.h"
-#include "fp_polymod_t.h"
+#include "spffl/bit_t.h"
+#include "spffl/intmod_t.h"
+#include "spffl/f2_polymod_t.h"
+#include "spffl/f2n_polymod_t.h"
+#include "spffl/fp_polymod_t.h"
 
 template <typename ktype> class tmvpoly;
 template <typename ktype> class tmvmonom;
