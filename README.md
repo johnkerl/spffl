@@ -233,6 +233,9 @@ done
 0  5  3  1  6  4  2
 0  6  5  4  3  2  1
 ```
+# Build status
+
+[![CMake](https://github.com/johnkerl/spffl/actions/workflows/cmake.yml/badge.svg)](https://github.com/johnkerl/spffl/actions/workflows/cmake.yml)
 
 # Setup
 
