@@ -1,6 +1,6 @@
-#include "tmvpoly.h"
-#include "f2_polymod_t.h"
-#include "list_elements.h"
+#include "spffl/tmvpoly.h"
+#include "spffl/f2_polymod_t.h"
+#include "spffl/list_elements.h"
 
 // ----------------------------------------------------------------
 static void usage(char * argv0)

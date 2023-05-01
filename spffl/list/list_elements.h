@@ -7,11 +7,11 @@
 #ifndef SP_LIST_ELTS_H
 #define SP_LIST_ELTS_H
 
-#include "containers/tvector.h"
-#include "intmath/intmod_t.h"
-#include "polynomials/f2_polymod_t.h"
-#include "polynomials/f2n_polymod_t.h"
-#include "polynomials/fp_polymod_t.h"
+#include "spffl/containers/tvector.h"
+#include "spffl/intmath/intmod_t.h"
+#include "spffl/polynomials/f2_polymod_t.h"
+#include "spffl/polynomials/f2n_polymod_t.h"
+#include "spffl/polynomials/fp_polymod_t.h"
 
 namespace spffl::list {
 

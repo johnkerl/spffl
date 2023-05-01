@@ -4,8 +4,8 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "log2.h"
-#include "msb_table.h"
+#include "spffl/log2.h"
+#include "spffl/msb_table.h"
 
 static int u4_table[] = {
 	0, /* 0x0 */ 0, /* 0x1 */ 1, /* 0x2 */ 1, /* 0x3 */

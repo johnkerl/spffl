@@ -1,12 +1,12 @@
 #ifndef TMVRATSCAN_H
 #define TMVRATSCAN_H
 
-#include "bit_t.h"
-#include "intmod_t.h"
-#include "f2_polymod_t.h"
-#include "f2n_polymod_t.h"
-#include "fp_polymod_t.h"
-#include "tmvrat.h"
+#include "spffl/bit_t.h"
+#include "spffl/intmod_t.h"
+#include "spffl/f2_polymod_t.h"
+#include "spffl/f2n_polymod_t.h"
+#include "spffl/fp_polymod_t.h"
+#include "spffl/tmvrat.h"
 
 int tmvrat_f2_polymod_from_string(
 	tmvrat<f2_polymod_t> & f,

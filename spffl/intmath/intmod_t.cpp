@@ -4,8 +4,8 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "intmath/intmod_t.h"
-#include "base/spffl_exception.h"
+#include "spffl/intmath/intmod_t.h"
+#include "spffl/base/spffl_exception.h"
 #include <iomanip>
 #include <iostream>
 

@@ -4,8 +4,8 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "intmath/int_totient.h"
-#include "intmath/int_gcd.h"
+#include "spffl/intmath/int_totient.h"
+#include "spffl/intmath/int_gcd.h"
 namespace spffl::intmath {
 
 int int_totient(int n) {

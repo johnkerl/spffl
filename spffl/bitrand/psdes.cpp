@@ -4,7 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "bitrand/psdes.h"
+#include "spffl/bitrand/psdes.h"
 #include <cstdint>
 #include <sys/time.h>
 #include <unistd.h>

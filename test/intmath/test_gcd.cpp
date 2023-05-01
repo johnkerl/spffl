@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "intmath/int_gcd.h"
+#include "spffl/intmath/int_gcd.h"
 
 TEST_CASE("spffl::intmath::int_gcd") {
   CHECK(spffl::intmath::int_gcd(1, 1) == 1);

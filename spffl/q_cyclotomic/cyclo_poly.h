@@ -1,11 +1,11 @@
 #ifndef CYCLOPOLY_H
 #define CYCLOPOLY_H
 
-#include "polynomials/f2_poly_t.h"
-#include "polynomials/f2n_poly_t.h"
-#include "polynomials/fp_poly_t.h"
-#include "polynomials/fpn_poly_t.h"
-#include "polynomials/q_poly_t.h"
+#include "spffl/polynomials/f2_poly_t.h"
+#include "spffl/polynomials/f2n_poly_t.h"
+#include "spffl/polynomials/fp_poly_t.h"
+#include "spffl/polynomials/fpn_poly_t.h"
+#include "spffl/polynomials/q_poly_t.h"
 
 namespace spffl::q_cyclotomic {
 

@@ -9,7 +9,7 @@
 #ifndef FPNPOLY_T_H
 #define FPNPOLY_T_H
 
-#include "polynomials/fp_polymod_t.h"
+#include "spffl/polynomials/fp_polymod_t.h"
 #include <iomanip>
 #include <iostream>
 

@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "ft_scan_tuples.h"
+#include "spffl/ft_scan_tuples.h"
 
 // ----------------------------------------------------------------
 int ft_scan_triple(

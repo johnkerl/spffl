@@ -1,11 +1,12 @@
 #include "f2_handlers.h"
-#include "bits/bit_t.h"
-#include "cli_parser/cmd_line_matrix_ops.h"
-#include "cli_parser/cmd_line_vector_ops.h"
-#include "containers/tmatrix.h"
-#include "linalg/f2_linear_algebra.h"
-#include "polynomials/f2_poly_t.h"
-#include "random/int_random.h"
+
+#include "spffl/bits/bit_t.h"
+#include "spffl/cli_parser/cmd_line_matrix_ops.h"
+#include "spffl/cli_parser/cmd_line_vector_ops.h"
+#include "spffl/containers/tmatrix.h"
+#include "spffl/linalg/f2_linear_algebra.h"
+#include "spffl/polynomials/f2_poly_t.h"
+#include "spffl/random/int_random.h"
 
 int f2_op_main(int argc, char **argv, usage_t *pusage) {
   spffl::cli_parser::cmd_line_parse<spffl::bits::bit_t>(

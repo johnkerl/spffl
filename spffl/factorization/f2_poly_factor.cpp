@@ -4,11 +4,11 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "factorization/f2_poly_factor.h"
-#include "base/spffl_exception.h"
-#include "bits/bit_matrix_t.h"
-#include "containers/tfacinfo.h"
-#include "random/f2_poly_random.h"
+#include "spffl/factorization/f2_poly_factor.h"
+#include "spffl/base/spffl_exception.h"
+#include "spffl/bits/bit_matrix_t.h"
+#include "spffl/containers/tfacinfo.h"
+#include "spffl/random/f2_poly_random.h"
 
 // #define F2POLY_FACTOR_DEBUG
 

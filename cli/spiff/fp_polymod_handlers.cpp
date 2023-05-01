@@ -1,13 +1,13 @@
 #include "fp_polymod_handlers.h"
 #include "tbl_types.h"
 
-#include "cli_parser/cmd_line_matrix_ops.h"
-#include "cli_parser/cmd_line_ops.h"
-#include "cli_parser/cmd_line_vector_ops.h"
-#include "linalg/min_char_polys.h"
-#include "list/list_elements.h"
-#include "polynomials/fp_polymod_t.h"
-#include "random/fp_polymod_random.h"
+#include "spffl/cli_parser/cmd_line_matrix_ops.h"
+#include "spffl/cli_parser/cmd_line_ops.h"
+#include "spffl/cli_parser/cmd_line_vector_ops.h"
+#include "spffl/linalg/min_char_polys.h"
+#include "spffl/list/list_elements.h"
+#include "spffl/polynomials/fp_polymod_t.h"
+#include "spffl/random/fp_polymod_random.h"
 
 #include <string.h>
 

@@ -9,7 +9,7 @@
 #ifndef FPPOLY_T_H
 #define FPPOLY_T_H
 
-#include "intmath/intmod_t.h"
+#include "spffl/intmath/intmod_t.h"
 #include <iomanip>
 #include <iostream>
 

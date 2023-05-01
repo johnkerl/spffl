@@ -4,8 +4,8 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "moebius.h"
-#include "int_factor.h"
+#include "spffl/moebius.h"
+#include "spffl/int_factor.h"
 
 // ----------------------------------------------------------------
 int calc_moebius(

@@ -7,13 +7,13 @@
 #error under construction
 
 #include <iostream>
-#include "fp_polymod_t.h"
-#include "fp_poly_factor.h"
-#include "fp_polymod_units.h"
-#include "min_char_polys.h"
-#include "moebius.h"
-#include "log10.h"
-#include "calc_power.h"
+#include "spffl/fp_polymod_t.h"
+#include "spffl/fp_poly_factor.h"
+#include "spffl/fp_polymod_units.h"
+#include "spffl/min_char_polys.h"
+#include "spffl/moebius.h"
+#include "spffl/log10.h"
+#include "spffl/calc_power.h"
 
 // ----------------------------------------------------------------
 typedef struct _opts_t {

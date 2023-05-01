@@ -1,15 +1,15 @@
 #include "fp_handlers.h"
 #include "tbl_types.h"
 
-#include "cli_parser/cmd_line_matrix_ops.h"
-#include "cli_parser/cmd_line_ops.h"
-#include "cli_parser/cmd_line_vector_ops.h"
-#include "containers/tmatrix.h"
-#include "intmath/intmod_t.h"
-#include "linalg/fp_linear_algebra.h"
-#include "list/list_elements.h"
-#include "random/intmod_random.h"
-#include "units/fp_units.h"
+#include "spffl/cli_parser/cmd_line_matrix_ops.h"
+#include "spffl/cli_parser/cmd_line_ops.h"
+#include "spffl/cli_parser/cmd_line_vector_ops.h"
+#include "spffl/containers/tmatrix.h"
+#include "spffl/intmath/intmod_t.h"
+#include "spffl/linalg/fp_linear_algebra.h"
+#include "spffl/list/list_elements.h"
+#include "spffl/random/intmod_random.h"
+#include "spffl/units/fp_units.h"
 
 #include <string.h>
 

@@ -1,5 +1,5 @@
-#include "tmvpoly.h"
-#include "intrat_t.h"
+#include "spffl/tmvpoly.h"
+#include "spffl/intrat_t.h"
 
 int main(void)
 {

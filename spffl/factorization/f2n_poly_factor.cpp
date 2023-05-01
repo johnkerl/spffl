@@ -4,12 +4,12 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "factorization/f2n_poly_factor.h"
-#include "base/spffl_exception.h"
-#include "containers/tfacinfo.h"
-#include "containers/tmatrix.h"
-#include "polynomials/f2_polymod_t.h"
-#include "random/f2n_poly_random.h"
+#include "spffl/factorization/f2n_poly_factor.h"
+#include "spffl/base/spffl_exception.h"
+#include "spffl/containers/tfacinfo.h"
+#include "spffl/containers/tmatrix.h"
+#include "spffl/polynomials/f2_polymod_t.h"
+#include "spffl/random/f2n_poly_random.h"
 
 namespace spffl::factorization {
 

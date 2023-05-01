@@ -4,14 +4,14 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "list/list_elements.h"
-#include "base/spffl_exception.h"
-#include "factorization/f2_poly_totient.h"
-#include "factorization/f2n_poly_totient.h"
-#include "factorization/fp_poly_totient.h"
-#include "intmath/int_gcd.h"
-#include "intmath/int_power.h"
-#include "intmath/int_totient.h"
+#include "spffl/list/list_elements.h"
+#include "spffl/base/spffl_exception.h"
+#include "spffl/factorization/f2_poly_totient.h"
+#include "spffl/factorization/f2n_poly_totient.h"
+#include "spffl/factorization/fp_poly_totient.h"
+#include "spffl/intmath/int_gcd.h"
+#include "spffl/intmath/int_power.h"
+#include "spffl/intmath/int_totient.h"
 
 namespace spffl::list {
 

@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "intmath/log2.h"
+#include "spffl/intmath/log2.h"
 
 TEST_CASE("spffl::intmath::find_msb_16") {
   CHECK(spffl::intmath::find_msb_16(0) == 0); // TODO: weird

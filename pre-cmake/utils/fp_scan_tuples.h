@@ -1,7 +1,7 @@
 #ifndef FP_SCAN_TUPLES_H
 #define FP_SCAN_TUPLES_H
 
-#include "intmod_t.h"
+#include "spffl/intmod_t.h"
 
 int fp_scan_triple(
 	char     * input,

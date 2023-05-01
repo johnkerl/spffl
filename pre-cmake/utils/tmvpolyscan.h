@@ -1,12 +1,12 @@
 #ifndef TMVPOLYSCAN_H
 #define TMVPOLYSCAN_H
 
-#include "bit_t.h"
-#include "intmod_t.h"
-#include "f2_polymod_t.h"
-#include "f2n_polymod_t.h"
-#include "fp_polymod_t.h"
-#include "tmvpoly.h"
+#include "spffl/bit_t.h"
+#include "spffl/intmod_t.h"
+#include "spffl/f2_polymod_t.h"
+#include "spffl/f2n_polymod_t.h"
+#include "spffl/fp_polymod_t.h"
+#include "spffl/tmvpoly.h"
 
 int tmvpoly_f2_polymod_from_string(
 	tmvpoly<f2_polymod_t> & f,

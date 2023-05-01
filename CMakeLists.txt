@@ -22,7 +22,7 @@ add_subdirectory(test)
 # ----------------------------------------------------------------
 install(
   DIRECTORY "spffl/" # The trailing slash is important so "spffl" isn't a part of the install path
-  DESTINATION "spffl/include"
+  DESTINATION "include/spffl"
   FILES_MATCHING PATTERN "*.h"
 )
 install(TARGETS spffl DESTINATION lib)

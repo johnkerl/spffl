@@ -7,42 +7,42 @@
 #include <iostream>
 #include <stdio.h>
 
-#include "tmatrix.h"
-#include "bit_matrix_t.h"
+#include "spffl/tmatrix.h"
+#include "spffl/bit_matrix_t.h"
 
-#include "int_gcd.h"
-#include "int_random.h"
-#include "int_factor.h"
+#include "spffl/int_gcd.h"
+#include "spffl/int_random.h"
+#include "spffl/int_factor.h"
 
-#include "bit_t.h"
-#include "intmod_t.h"
-#include "intrat_t.h"
-#include "intmod_random.h"
+#include "spffl/bit_t.h"
+#include "spffl/intmod_t.h"
+#include "spffl/intrat_t.h"
+#include "spffl/intmod_random.h"
 
-#include "f2_poly_t.h"
-#include "f2_polymod_t.h"
-#include "f2_polyrat_t.h"
-#include "f2_poly_factor.h"
-#include "f2_poly_random.h"
-#include "f2_polymod_random.h"
-#include "f2_polymod_units.h"
-#include "f2_polymod_convert.h"
-#include "f2_polymod_linear_algebra.h"
+#include "spffl/f2_poly_t.h"
+#include "spffl/f2_polymod_t.h"
+#include "spffl/f2_polyrat_t.h"
+#include "spffl/f2_poly_factor.h"
+#include "spffl/f2_poly_random.h"
+#include "spffl/f2_polymod_random.h"
+#include "spffl/f2_polymod_units.h"
+#include "spffl/f2_polymod_convert.h"
+#include "spffl/f2_polymod_linear_algebra.h"
 
-#include "f2n_poly_t.h"
-#include "f2n_polymod_t.h"
+#include "spffl/f2n_poly_t.h"
+#include "spffl/f2n_polymod_t.h"
 
-#include "fp_poly_t.h"
-#include "fp_polymod_t.h"
-#include "fp_polyrat_t.h"
-#include "fp_poly_factor.h"
-#include "fp_poly_random.h"
-#include "fp_polymod_random.h"
+#include "spffl/fp_poly_t.h"
+#include "spffl/fp_polymod_t.h"
+#include "spffl/fp_polyrat_t.h"
+#include "spffl/fp_poly_factor.h"
+#include "spffl/fp_poly_random.h"
+#include "spffl/fp_polymod_random.h"
 
-#include "fpn_poly_t.h"
-#include "fpn_polymod_t.h"
+#include "spffl/fpn_poly_t.h"
+#include "spffl/fpn_polymod_t.h"
 
-#include "cmd_line_ops.h"
+#include "spffl/cmd_line_ops.h"
 
 typedef void usage_t(char * argv0);
 typedef int main_t (int argc, char ** argv, usage_t * pusage);

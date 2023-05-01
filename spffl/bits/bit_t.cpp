@@ -4,7 +4,7 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "bits/bit_t.h"
+#include "spffl/bits/bit_t.h"
 #include <iomanip>
 #include <iostream>
 namespace spffl::bits {

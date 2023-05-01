@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "intmath/is_prime.h"
+#include "spffl/intmath/is_prime.h"
 
 TEST_CASE("spffl::intmath::is_prime") {
 

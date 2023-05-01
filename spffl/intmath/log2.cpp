@@ -4,9 +4,9 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "intmath/log2.h"
+#include "spffl/intmath/log2.h"
 namespace spffl::intmath {
-// XXX #include "msb_table.h"
+// XXX #include "spffl/msb_table.h"
 
 static int u4_table[] = {
     0, /* 0x0 */ 0, /* 0x1 */ 1, /* 0x2 */ 1, /* 0x3 */

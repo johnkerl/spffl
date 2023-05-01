@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "base/line_scan.h"
+#include "spffl/base/line_scan.h"
 
 #include <string.h>
 

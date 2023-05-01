@@ -4,8 +4,8 @@
 // Please see LICENSE.txt.
 // ================================================================
 
-#include "polynomials/fp_polymod_t.h"
-#include "base/spffl_exception.h"
+#include "spffl/polynomials/fp_polymod_t.h"
+#include "spffl/base/spffl_exception.h"
 #include <iomanip>
 #include <iostream>
 

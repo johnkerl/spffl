@@ -1,4 +1,4 @@
-#include "libspffl.h"
+#include "spffl/libspffl.h"
 
 // y^2 + xy = x^3 + ax + b
 

@@ -6,8 +6,8 @@
 
 #ifndef FPPOLY_FACTOR_H
 #define FPPOLY_FACTOR_H
-#include "containers/tfacinfo.h"
-#include "polynomials/fp_poly_t.h"
+#include "spffl/containers/tfacinfo.h"
+#include "spffl/polynomials/fp_poly_t.h"
 
 namespace spffl::factorization {
 

@@ -8,9 +8,9 @@
 #include <iostream>
 #include <string>
 
-#include "base/spffl_exception.h"
-#include "q_cyclotomic/cyclo_poly.h"
-#include "q_cyclotomic/qff.h"
+#include "spffl/base/spffl_exception.h"
+#include "spffl/q_cyclotomic/cyclo_poly.h"
+#include "spffl/q_cyclotomic/qff.h"
 
 namespace spffl::q_cyclotomic {
 
@@ -78,14 +78,14 @@ spffl::polynomials::q_poly_t get_cyclo_qpoly(int n) {
 
 // ----------------------------------------------------------------
 spffl::polynomials::f2_poly_t get_cyclo_f2_poly(int n) {
-  spffl::polynomials::q_poly_t q     = get_cyclo_qpoly(n);
+  spffl::polynomials::q_poly_t q   = get_cyclo_qpoly(n);
   spffl::polynomials::f2_poly_t rv = f2_poly_from_q_poly(q);
   return rv;
 }
 
 // ----------------------------------------------------------------
 spffl::polynomials::fp_poly_t get_cyclo_fp_poly(int n, int p) {
-  spffl::polynomials::q_poly_t q     = get_cyclo_qpoly(n);
+  spffl::polynomials::q_poly_t q   = get_cyclo_qpoly(n);
   spffl::polynomials::fp_poly_t rv = fp_poly_from_qpoly(q, p);
   return rv;
 }
@@ -93,7 +93,7 @@ spffl::polynomials::fp_poly_t get_cyclo_fp_poly(int n, int p) {
 // ----------------------------------------------------------------
 spffl::polynomials::f2n_poly_t get_cyclo_f2n_poly(
     int n, const spffl::polynomials::f2_poly_t &im) {
-  spffl::polynomials::q_poly_t q      = get_cyclo_qpoly(n);
+  spffl::polynomials::q_poly_t q    = get_cyclo_qpoly(n);
   spffl::polynomials::f2n_poly_t rv = f2n_poly_from_qpoly(q, im);
   return rv;
 }
@@ -101,7 +101,7 @@ spffl::polynomials::f2n_poly_t get_cyclo_f2n_poly(
 // ----------------------------------------------------------------
 spffl::polynomials::fpn_poly_t get_cyclo_fpn_poly(
     int n, const spffl::polynomials::fp_poly_t &im) {
-  spffl::polynomials::q_poly_t q      = get_cyclo_qpoly(n);
+  spffl::polynomials::q_poly_t q    = get_cyclo_qpoly(n);
   spffl::polynomials::fpn_poly_t rv = fpn_poly_from_qpoly(q, im);
   return rv;
 }
