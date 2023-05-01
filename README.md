@@ -282,18 +282,40 @@ TODO:
 -DCMAKE_INSTALL_PREFIX=$prefix
 ```
 
-## Library use (WIP)
+## Installation (WIP)
 
 ```
 $ cmz
-$ cmg -DCMAKE_INSTALL_PREFIX=./dist
+$ cmg
 $ cmb
 $ cmt
 $ cmi
+```
 
+This creates:
+
+* `/usr/local/include/spffl/`
+* `/usr/local/lib/libspffl.dylib` (or `.so`)
+* `/usr/local/bin/spff`
+
+Then you can run `spiff`. You can also built using the library like this:
+
+```
+$ g++ -std=c++20 -I /usr/local/include -L /usr/local/lib -lspffl examples/example1.cpp -o example1
+$ install_name_tool -add_rpath $(pwd)/dist/lib example1
+```
+
+If you use an install location other than `/usr/local`:
+
+* Replace `cmg` above with `cmg -DCMAKE_INSTALL_PREFIX=./dist`
+* On MacOS, use `install_name_tool` tell the executable where to find the library
+
+```
 $ g++ -std=c++20 -I dist/spffl/include -L dist/lib -lspffl examples/example1.cpp -o example1
 $ install_name_tool -add_rpath $(pwd)/dist/lib example1
+```
 
+```
 $ ./example1 abc def
 736a54
 ```
