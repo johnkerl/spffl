@@ -1,4 +1,8 @@
-For documentation please see https://github.com/johnkerl/spffl/wiki
+# SPFFL
+
+SPFFL (pronounced _spiffle_) is a small-prime finite-field library, where small means 32 bits or less. Polynomials may have arbitrary degree, as limited by machine resources. Residue field and quotient fields are supported. In addition to the C++ library, there is a command-line tool, named `spiff`, for convenient interactive use.
+
+For more information please see the **[SPFFL wiki page](https://github.com/johnkerl/spffl/wiki/SPFFL-documentation)**.
 
 # Setup disclaimer
 
