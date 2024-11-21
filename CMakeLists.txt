@@ -12,12 +12,14 @@ set(CMAKE_CXX_STANDARD 20 CACHE STRING "C++ Standard")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_subdirectory(spffl)
+add_subdirectory(spffl20)
 add_subdirectory(lib)
 add_subdirectory(cli)
 
 enable_testing()
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules/")
 add_subdirectory(test)
+add_subdirectory(test20)
 
 # ----------------------------------------------------------------
 install(

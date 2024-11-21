@@ -117,6 +117,10 @@ static void replace(
   }
   pclose(pipe);
 
+  if (buf == 0) {
+      buf = strdup("");
+  }
+
   argcout = spffl::base::count_tokens(buf, " \t");
   argvout = (char **)malloc(argcout * sizeof(char *));
 

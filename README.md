@@ -259,7 +259,7 @@ alias  cmg='cmake -B build'
 alias cmgd='cmake -B build -DCMAKE_BUILD_TYPE=Debug'
 
 alias  cmb='cmake --build build'
-alias  cmt='cmake --build build --target test'
+alias  cmt='cmake --build build --target test*'
 alias  cmi='cmake --build build --target install'
 
 export PATH=$(pwd)/build/cli/spiff:$PATH
