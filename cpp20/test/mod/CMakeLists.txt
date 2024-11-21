@@ -1,4 +1,4 @@
-project(test_base)
+project(test_mod)
 
 # ----------------------------------------------------------------
 # catch2 has a set-but-unused-variable warning as of MacOS 13.3.
