@@ -2,6 +2,7 @@ cmake_minimum_required (VERSION 3.24)
 
 project(spffl20_src)
 
+add_subdirectory(mod)
 #add_subdirectory(base)
 #add_subdirectory(intmath)
 #add_subdirectory(bitrand)
