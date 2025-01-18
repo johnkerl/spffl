@@ -2,7 +2,7 @@
 
 SPFFL (pronounced _spiffle_) is a small-prime finite-field library, where small means 32 bits or less. Polynomials may have arbitrary degree, as limited by machine resources. Residue field and quotient fields are supported. In addition to the C++ library, there is a command-line tool, named `spiff`, for convenient interactive use.
 
-See also my expository paper [_Computation in Finite Fields_](doc/ffcomp.pdf) for background
+See also my expository paper [_Computation in Finite Fields_](./ffcomp.pdf) for background
 and narrative on the data structures and algorithms implemented by SPFFL.
 
 See also my master's thesis, [_Curves and Codes_](https://johnkerl.org/doc/kerl-ma-thesis.pdf).
