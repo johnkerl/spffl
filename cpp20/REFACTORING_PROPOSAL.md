@@ -218,3 +218,25 @@ So: “matrix/vector concepts + STL” for general T, and “specialized bit_mat
 | Bit matrix/vector | bit_vector_t, bit_matrix_t             | Keep specialized bit-packing; do not use matrix-of-byte                  |
 
 This structure removes duplication (especially in polynomial and residue code) while keeping the ad-hoc f2_poly_t and bit matrix/vector as intentional, performance-preserving special cases.
+
+---
+
+## 10. Time estimate (full plan)
+
+Rough estimate for a **single developer** who knows the codebase. Assumes C++20 is already enabled (e.g. cpp20 tree), tests exist or are added as you go, and no major scope creep. Calendar time depends on how much time per week you can dedicate.
+
+| Phase | Work | Low | High | Notes |
+|-------|------|-----|------|--------|
+| **1. Concepts** | Finalize `concepts.hpp`, make existing types satisfy them (small adapter fixes if any) | 1 d | 3 d | Sketch done; aligning intmod_t, bit_t, polymods, f2_poly_t to concepts may need minor API tweaks. |
+| **2. polynomial_of\<Coeff\>** | Implement template, type aliases, migrate fp/f2n/fpn (and optionally q) poly, update all call sites, tests | 1.5 wk | 3 wk | Largest payoff but touches polynomials, factorization, rationals, random, units, linalg, CLI. |
+| **3. Euclidean domain** | Ensure int + all polynomial types model concept; free-function/trait for gcd; document f2_poly_t as special case | 2 d | 5 d | Mostly wiring; some overload/trait design. |
+| **4. Residue/quotient** | Concept + optional `residue_of<E>`; refactor polymods to satisfy Residue_ring; single ext_gcd inversion path | 1 wk | 2 wk | intmod_t, f2_polymod_t, fp_polymod_t, fpn_polymod_t; many call sites. |
+| **5. Matrix/vector** | STL-based types (or refactor tvector/tmatrix to use std::vector), satisfy Vector_over/Matrix_over, migrate call sites | 1.5 wk | 3 wk | tmatrix is large and used everywhere (linalg, CLI, tools); high regression risk. |
+| **6. Bit matrix/vector** | Keep as-is; add Bit_vector_like / Bit_matrix_like concept and short doc | 0.5 d | 1 d | No behavioral change. |
+
+**Total (range):** about **6–12 person-weeks** (roughly **1.5–3 months** at half-time, or **1–2 months** full-time).
+
+- **Low end:** you’re very familiar with the repo, accept minimal new abstractions, and do the minimum needed to get polynomial_of + concepts in and leave tvector/tmatrix mostly as-is (e.g. only add concept constraints and internal std::vector where easy).
+- **High end:** full STL-based matrix/vector refactor, optional residue_of template, q_poly_t folded into polynomial_of, and time for regression testing and cleanup.
+
+**Risk buffers:** Add ~20–30% if you want regression suites and gradual migration (e.g. keep old poly types as thin wrappers during transition). Reducing scope (e.g. defer matrix/vector refactor, or only do polynomial_of + concepts first) can cut the total by roughly a third to a half.
