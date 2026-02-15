@@ -40,6 +40,7 @@ endif()
 
 # ----------------------------------------------------------------
 add_subdirectory(mod)
+add_subdirectory(concepts)
 #add_subdirectory(base)
 #add_subdirectory(intmath)
 #add_subdirectory(bits)
