@@ -88,6 +88,7 @@ You can also run individual tests directly, e.g.:
   - `euclidean.hpp` – unified `quot_and_rem` / `gcd` for int and any `Euclidean_domain<E>`
   - `containers/vector_over.hpp`, `containers/matrix_over.hpp` – STL-based vector/matrix over a ring
   - `residue_of.hpp` – generic **`residue_of<E>`** (E = int or Euclidean_domain_with_ext_gcd, e.g. fp_poly_t); models `Residue_ring` and `Residue_ring_with_recip`
+  - `algorithms/optional_inverse.hpp` – generic `optional_inverse<R>`, `optional_solve_ax_eq_b<R>` for `Residue_ring_with_recip<R>`
   - `mod/` – example module (`foo.h` / `foo.cpp`) used by tests
 - `test/`
   - Top‑level `CMakeLists.txt` – fetches Catch2 and adds test subdirectories
@@ -97,6 +98,15 @@ You can also run individual tests directly, e.g.:
   - `intmath/` – tests for `intmod_t`, `euclidean_int`
   - `containers/` – tests for `vector_over<T>`, `matrix_over<T>`
   - `residue/` – tests for `residue_of<int>`, `residue_of<fp_poly_t>`
+  - `algorithms/` – tests for `optional_inverse`, `optional_solve_ax_eq_b` (residue_of<int>, fp_polymod_t)
+
+---
+
+### Next steps (suggested)
+
+- **F2[x] residue:** Add `residue_of<f2_poly_t>` (or a dedicated `f2_polymod_t`) for F2[x]/(m); requires F2 coefficient type with `recip` or a small specialization in `residue_of` for F2.
+- **Generic algorithms:** Further examples using `euclidean::`, `Vector_over`, `Matrix_over` (e.g. linear algebra over a residue ring). A minimal start exists in `spffl/algorithms/optional_inverse.hpp` (`optional_inverse`, `optional_solve_ax_eq_b`).
+- **Migration:** Use `polynomial_of<>`, `residue_of<>`, and cpp20 types in the main spffl tree (incremental, with tests).
 
 ---
 
