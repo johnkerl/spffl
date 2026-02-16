@@ -1,6 +1,10 @@
 .sw?
 .*.sw?
+
+/tags
+
 /build
+
 /cpp20/build
 /cpp20/_deps
-/tags
+/cpp20/CMakeFiles
