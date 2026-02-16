@@ -41,7 +41,7 @@ endif()
 # ----------------------------------------------------------------
 add_subdirectory(mod)
 add_subdirectory(concepts)
+add_subdirectory(polynomials)
 #add_subdirectory(base)
 #add_subdirectory(intmath)
 #add_subdirectory(bits)
-#add_subdirectory(polynomials)

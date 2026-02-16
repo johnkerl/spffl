@@ -1,4 +1,5 @@
 .sw?
 .*.sw?
 /build
+/cpp20/build
 /tags
