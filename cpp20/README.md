@@ -9,7 +9,7 @@ This directory contains an in‑progress C++20 port of `spffl`, focused on:
 - **`fp_polymod_t`** (Fp[x]/(m)) in `spffl/polynomials/fp_polymod_t.hpp` for the residue ring, with `recip` and `exp`
 - **STL-based `vector_over<T>`** and **`matrix_over<T>`** in `spffl/containers/` (satisfy `Vector_over`, `Matrix_over`, `Matrix_vector_product`)
 - **Euclidean ops**: `spffl/intmath/euclidean_int.hpp` (int only); **unified** `spffl/euclidean.hpp` with `quot_and_rem` and `gcd` overloads for both `int` and any `Euclidean_domain<E>` (e.g. `fp_poly_t`) so one generic algorithm works for both
-- **fp_poly_t I/O**: `fp_poly_from_string(s, p)` and `operator>>` in `spffl/polynomials/fp_poly_io.hpp` (comma-separated coefficients, leading first)
+- **fp_poly_t / fp_polymod_t I/O**: `fp_poly_from_string(s, p)`, `fp_polymod_from_string(s, modulus)`, and `operator>>` for both in `spffl/polynomials/fp_poly_io.hpp` (comma-separated coefficients, leading first)
 - A small Catch2‑based test suite under `test/`
 
 The code is experimental and currently lives alongside the existing C++03 code in the parent tree.

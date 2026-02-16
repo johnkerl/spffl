@@ -276,3 +276,41 @@ TEST_CASE("fp_poly_t operator>>: modulus then coefficients") {
   CHECK(p.get_coeff(2).get_residue() == 1);
 }
 
+// ---------------------------------------------------------------------------
+// fp_polymod_t from_string and operator>>
+// ---------------------------------------------------------------------------
+
+TEST_CASE("fp_polymod_from_string: residue with given modulus") {
+  using spffl::polynomials::fp_poly_from_string;
+  using spffl::polynomials::fp_polymod_from_string;
+  using spffl::polynomials::fp_poly_t;
+  using spffl::polynomials::fp_polymod_t;
+
+  auto mod_opt = fp_poly_from_string("1,0,1", 7);  // x^2 + 1
+  REQUIRE(mod_opt.has_value());
+  fp_poly_t m = *mod_opt;
+
+  auto res_opt = fp_polymod_from_string("1,0", m);  // residue x (leading 1, constant 0)
+  REQUIRE(res_opt.has_value());
+  fp_polymod_t a = *res_opt;
+  CHECK(a.get_residue().find_degree() == 1);
+  CHECK(a.get_residue().get_coeff(1).get_residue() == 1);
+
+  res_opt = fp_polymod_from_string("1", m);  // residue 1
+  REQUIRE(res_opt.has_value());
+  a = *res_opt;
+  CHECK(a.get_residue().find_degree() == 0);
+  CHECK(a.get_residue().get_coeff(0).get_residue() == 1);
+}
+
+TEST_CASE("fp_polymod_t operator>>: p, modulus coeffs, residue coeffs on one line") {
+  using spffl::polynomials::fp_polymod_t;
+
+  std::istringstream iss("7 1,0,1 1,0");  // F7[x]/(x^2+1), element x (residue coeffs leading first)
+  fp_polymod_t a;
+  iss >> a;
+  REQUIRE(iss);
+  CHECK(a.get_residue().find_degree() == 1);
+  CHECK(a.get_modulus().find_degree() == 2);
+}
+
