@@ -104,3 +104,39 @@ TEST_CASE("polynomial_of<mod7_t>: quot_and_rem and gcd") {
   CHECK(g.eval(mod7_t(1)).v != 0);
 }
 
+// ---------------------------------------------------------------------------
+// fp_poly_t = polynomial_of<intmod_t> (Fp[x] via cpp20 aliases).
+// ---------------------------------------------------------------------------
+
+#include "spffl/polynomials/aliases.hpp"
+
+TEST_CASE("fp_poly_t (polynomial_of<intmod_t>): F7[x] arithmetic and division") {
+  using spffl::polynomials::fp_poly_t;
+  using spffl::intmath::intmod_t;
+
+  const int p = 7;
+  intmod_t zero(0, p), one(1, p);
+
+  // a(x) = x^2 + 1,  b(x) = x + 1  in F_7[x]
+  fp_poly_t a(one, zero, one);   // coeffs x^0, x^1, x^2
+  fp_poly_t b(one, one);
+
+  fp_poly_t sum = a + b;         // x^2 + x + 2
+  CHECK(sum.find_degree() == 2);
+  CHECK(sum.eval(intmod_t(0, p)).get_residue() == 2);
+  CHECK(sum.eval(intmod_t(1, p)).get_residue() == 4);
+
+  fp_poly_t quot, rem;
+  a.quot_and_rem(b, quot, rem);
+  // a = quot * b + rem
+  fp_poly_t recomposed = (quot * b) + rem;
+  for (int x = 0; x < p; ++x) {
+    intmod_t xx(x, p);
+    CHECK(a.eval(xx).get_residue() == recomposed.eval(xx).get_residue());
+  }
+
+  fp_poly_t g = a.gcd(b);
+  CHECK(g.find_degree() == 0);
+  CHECK(!g.is_zero());
+}
+

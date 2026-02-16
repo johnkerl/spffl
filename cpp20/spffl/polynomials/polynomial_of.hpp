@@ -57,10 +57,9 @@ public:
 
   int find_degree() const { return static_cast<int>(coeffs_.size()) - 1; }
 
-  const Coeff &get_coeff(int deg) const {
+  Coeff get_coeff(int deg) const {
     if (deg < 0 || deg >= static_cast<int>(coeffs_.size())) {
-      static const Coeff zero = Coeff{} - Coeff{};
-      return zero;
+      return zero_coeff();
     }
     return coeffs_[static_cast<std::size_t>(deg)];
   }
@@ -71,7 +70,7 @@ public:
     }
     auto udeg = static_cast<std::size_t>(deg);
     if (udeg >= coeffs_.size()) {
-      coeffs_.resize(udeg + 1, Coeff{} - Coeff{});
+      coeffs_.resize(udeg + 1, zero_coeff());
     }
     coeffs_[udeg] = c;
     trim_degree();
@@ -82,22 +81,24 @@ public:
   // ------------------------------------------------------------
 
   polynomial_of operator+(const polynomial_of &that) const {
+    Coeff z = zero_coeff();
     std::size_t max_deg = std::max(coeffs_.size(), that.coeffs_.size());
-    std::vector<Coeff> out(max_deg, Coeff{} - Coeff{});
+    std::vector<Coeff> out(max_deg, z);
     for (std::size_t i = 0; i < max_deg; ++i) {
-      Coeff a = (i < coeffs_.size()) ? coeffs_[i] : Coeff{} - Coeff{};
-      Coeff b = (i < that.coeffs_.size()) ? that.coeffs_[i] : Coeff{} - Coeff{};
+      Coeff a = (i < coeffs_.size()) ? coeffs_[i] : z;
+      Coeff b = (i < that.coeffs_.size()) ? that.coeffs_[i] : z;
       out[i]  = a + b;
     }
     return polynomial_of(std::move(out));
   }
 
   polynomial_of operator-(const polynomial_of &that) const {
+    Coeff z = zero_coeff();
     std::size_t max_deg = std::max(coeffs_.size(), that.coeffs_.size());
-    std::vector<Coeff> out(max_deg, Coeff{} - Coeff{});
+    std::vector<Coeff> out(max_deg, z);
     for (std::size_t i = 0; i < max_deg; ++i) {
-      Coeff a = (i < coeffs_.size()) ? coeffs_[i] : Coeff{} - Coeff{};
-      Coeff b = (i < that.coeffs_.size()) ? that.coeffs_[i] : Coeff{} - Coeff{};
+      Coeff a = (i < coeffs_.size()) ? coeffs_[i] : z;
+      Coeff b = (i < that.coeffs_.size()) ? that.coeffs_[i] : z;
       out[i]  = a - b;
     }
     return polynomial_of(std::move(out));
@@ -124,14 +125,14 @@ public:
   polynomial_of operator*(const polynomial_of &that) const {
     int deg_a = find_degree();
     int deg_b = that.find_degree();
-    Coeff zero = Coeff{} - Coeff{};
-    if (((deg_a == 0) && (coeffs_[0] == zero)) ||
-        ((deg_b == 0) && (that.coeffs_[0] == zero))) {
-      return polynomial_of{}; // zero
+    Coeff z = zero_coeff();
+    if (((deg_a == 0) && (coeffs_[0] == z)) ||
+        ((deg_b == 0) && (that.coeffs_[0] == z))) {
+      return polynomial_of(std::vector<Coeff>{z});
     }
 
     std::size_t out_deg = static_cast<std::size_t>(deg_a + deg_b);
-    std::vector<Coeff> out(out_deg + 1, Coeff{} - Coeff{});
+    std::vector<Coeff> out(out_deg + 1, z);
 
     for (int i = 0; i <= deg_a; ++i) {
       for (int j = 0; j <= deg_b; ++j) {
@@ -233,14 +234,14 @@ public:
   // ------------------------------------------------------------
 
   bool is_zero() const {
-    Coeff zero = Coeff{} - Coeff{};
-    return find_degree() == 0 && coeffs_[0] == zero;
+    Coeff z = zero_coeff();
+    return find_degree() == 0 && coeffs_[0] == z;
   }
 
   void quot_and_rem(
       const polynomial_of &that, polynomial_of &rquot, polynomial_of &rrem) const
       requires spffl::concepts::Field_element<Coeff> {
-    Coeff zero = Coeff{} - Coeff{};
+    Coeff zero = zero_coeff();
 
     if (that.is_zero()) {
       throw std::runtime_error("polynomial_of::quot_and_rem: division by zero");
@@ -298,8 +299,7 @@ public:
 
   polynomial_of gcd(const polynomial_of &that) const
       requires spffl::concepts::Field_element<Coeff> {
-    Coeff zero = Coeff{} - Coeff{};
-    polynomial_of z(zero);
+    polynomial_of z(zero_coeff());
 
     if (this->is_zero()) {
       return that;
@@ -335,10 +335,11 @@ public:
 
   friend std::ostream &operator<<(std::ostream &os, const polynomial_of &p) {
     int d = p.find_degree();
+    Coeff z = p.zero_coeff();
     bool first = true;
     for (int i = d; i >= 0; --i) {
       const auto &c = p.coeffs_[static_cast<std::size_t>(i)];
-      if (c == (Coeff{} - Coeff{})) {
+      if (c == z) {
         continue;
       }
       if (!first) {
@@ -354,8 +355,7 @@ public:
       }
     }
     if (first) {
-      // All coefficients were zero.
-      os << (Coeff{} - Coeff{});
+      os << z;
     }
     return os;
   }
@@ -363,10 +363,12 @@ public:
 private:
   std::vector<Coeff> coeffs_; // coeffs_[i] is coefficient of x^i
 
+  Coeff zero_coeff() const { return coeffs_[0] - coeffs_[0]; }
+
   void trim_degree() {
-    Coeff zero = Coeff{} - Coeff{};
+    Coeff z = zero_coeff();
     while (coeffs_.size() > 1 &&
-           coeffs_.back() == zero) {
+           coeffs_.back() == z) {
       coeffs_.pop_back();
     }
   }
