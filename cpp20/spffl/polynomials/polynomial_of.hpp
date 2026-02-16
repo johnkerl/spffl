@@ -323,6 +323,73 @@ public:
     return d;
   }
 
+  // Extended GCD: returns g = gcd(*this, that), and rm, rn with this*rm + that*rn = g.
+  polynomial_of ext_gcd(const polynomial_of &that, polynomial_of &rm,
+                        polynomial_of &rn) const
+      requires spffl::concepts::Field_element<Coeff> {
+    polynomial_of mprime = polynomial_of(one_coeff());
+    rn                   = polynomial_of(one_coeff());
+    rm                   = polynomial_of(zero_coeff());
+    polynomial_of nprime = polynomial_of(zero_coeff());
+    polynomial_of c(*this), d(that), q, r, t, qm, qn;
+
+    while (true) {
+      c.quot_and_rem(d, q, r);
+      if (r.is_zero()) {
+        break;
+      }
+      c = d;
+      d = r;
+
+      t      = mprime;
+      mprime = rm;
+      qm     = q * rm;
+      rm     = t - qm;
+
+      t      = nprime;
+      nprime = rn;
+      qn     = q * rn;
+      rn     = t - qn;
+    }
+    return d;
+  }
+
+  // Scalar exponentiation: (*this)^e (e >= 0).
+  polynomial_of exp(int e) const
+      requires spffl::concepts::Field_element<Coeff> {
+    Coeff z   = zero_coeff();
+    Coeff one = one_coeff();
+    polynomial_of zero_poly(z);
+    polynomial_of one_poly(one);
+
+    if (*this == zero_poly) {
+      if (e == 0) {
+        throw std::runtime_error("polynomial_of::exp: 0^0 undefined");
+      }
+      if (e < 0) {
+        throw std::runtime_error("polynomial_of::exp: negative exponent of zero");
+      }
+      return zero_poly;
+    }
+    if (e == 0) {
+      return one_poly;
+    }
+    if (e < 0) {
+      throw std::runtime_error("polynomial_of::exp: negative exponent not implemented");
+    }
+
+    polynomial_of base(*this);
+    polynomial_of result(one_poly);
+    while (e != 0) {
+      if (e & 1) {
+        result = result * base;
+      }
+      e = (unsigned)e >> 1;
+      base = base * base;
+    }
+    return result;
+  }
+
   // Free-function-style helper for templates (ADL-friendly).
   friend polynomial_of gcd(const polynomial_of &a, const polynomial_of &b)
       requires spffl::concepts::Field_element<Coeff> {
@@ -364,6 +431,30 @@ private:
   std::vector<Coeff> coeffs_; // coeffs_[i] is coefficient of x^i
 
   Coeff zero_coeff() const { return coeffs_[0] - coeffs_[0]; }
+
+  /// Multiplicative identity in the coefficient ring (requires Field_element).
+  Coeff one_coeff() const
+      requires spffl::concepts::Field_element<Coeff> {
+    Coeff z = zero_coeff();
+    for (const auto &c : coeffs_) {
+      if (c != z) {
+        Coeff inv;
+        if (c.recip(inv)) {
+          return c * inv;
+        }
+      }
+    }
+    return z;  // zero polynomial: no multiplicative identity
+  }
+
+public:
+  /// Constant polynomial 1 (convenience for residue rings etc.).
+  static polynomial_of one(const polynomial_of &p)
+      requires spffl::concepts::Field_element<Coeff> {
+    return polynomial_of(p.one_coeff());
+  }
+
+private:
 
   void trim_degree() {
     Coeff z = zero_coeff();

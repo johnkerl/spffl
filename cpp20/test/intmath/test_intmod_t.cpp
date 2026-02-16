@@ -26,3 +26,8 @@ TEST_CASE("intmod_t: inverse and division") {
   CHECK((one_over_a * a).get_residue() == 1);
 }
 
+TEST_CASE("intmod_t: negative residue normalizes to [0, modulus)") {
+  intmod_t a(-1, 7);
+  CHECK(a.get_residue() == 6);  // -1 ≡ 6 (mod 7)
+}
+

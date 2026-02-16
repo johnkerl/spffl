@@ -138,5 +138,68 @@ TEST_CASE("fp_poly_t (polynomial_of<intmod_t>): F7[x] arithmetic and division") 
   fp_poly_t g = a.gcd(b);
   CHECK(g.find_degree() == 0);
   CHECK(!g.is_zero());
+
+  // ext_gcd: a*rm + b*rn = g (here g is constant unit)
+  fp_poly_t rm, rn;
+  fp_poly_t g2 = a.ext_gcd(b, rm, rn);
+  fp_poly_t lhs = (a * rm) + (b * rn);
+  CHECK(g2.find_degree() == g.find_degree());
+  for (int x = 0; x < p; ++x) {
+    intmod_t xx(x, p);
+    CHECK(lhs.eval(xx).get_residue() == g2.eval(xx).get_residue());
+  }
+
+  // exp: (1+x)^2 = 1 + 2x + x^2 in F_7
+  fp_poly_t b_sq = b.exp(2);
+  CHECK(b_sq.find_degree() == 2);
+  CHECK(b_sq.get_coeff(0).get_residue() == 1);
+  CHECK(b_sq.get_coeff(1).get_residue() == 2);
+  CHECK(b_sq.get_coeff(2).get_residue() == 1);
+
+  // Direct quot_and_rem: x^2 / (x^2+1) => quot=1, rem=-1 (constant 6 mod 7)
+  // (c2,c1,c0) -> coeffs_[0]=c0, coeffs_[2]=c2; x^2 has coeffs [0,0,1] so (one, zero, zero)
+  fp_poly_t x_sq_poly(one, zero, zero);
+  fp_poly_t m_poly(one, zero, one);  // x^2+1
+  fp_poly_t qq, rr;
+  x_sq_poly.quot_and_rem(m_poly, qq, rr);
+  CHECK(rr.find_degree() == 0);
+  CHECK(rr.get_coeff(0).get_residue() == 6);  // -1 mod 7
+}
+
+// ---------------------------------------------------------------------------
+// fp_polymod_t: Fp[x]/(m) residue ring.
+// ---------------------------------------------------------------------------
+
+#include "spffl/polynomials/fp_polymod_t.hpp"
+
+TEST_CASE("fp_polymod_t: F7[x]/(x^2+1) ring and inverse") {
+  using spffl::polynomials::fp_poly_t;
+  using spffl::polynomials::fp_polymod_t;
+  using spffl::intmath::intmod_t;
+
+  const int p = 7;
+  intmod_t zero(0, p), one(1, p);
+
+  // m(x) = x^2 + 1 (irreducible in F_7)
+  fp_poly_t m(one, zero, one);
+  // x: coeffs [0,1] so (c1,c0)=(one, zero)
+  fp_poly_t x_poly(one, zero);
+  fp_polymod_t x_mod(x_poly, m);
+
+  fp_polymod_t one_mod(fp_poly_t::one(x_poly), m);
+  fp_polymod_t zero_mod(fp_poly_t(zero), m);
+  fp_polymod_t x_sq = x_mod * x_mod;  // x^2 ≡ -1 (mod x^2+1)
+  CHECK(x_sq.get_residue().find_degree() == 0);
+  // x^2 = -1 so x_sq + 1 = 0 in the ring
+  CHECK((x_sq + one_mod).get_residue().get_coeff(0).get_residue() == 0);
+  // (-1)^2 = 1
+  fp_polymod_t x_4 = x_sq * x_sq;
+  CHECK(x_4 == one_mod);
+
+  // x should be a unit; 1/x exists
+  fp_polymod_t x_inv;
+  REQUIRE(x_mod.recip(x_inv));
+  fp_polymod_t prod = x_mod * x_inv;
+  CHECK(prod == one_mod);
 }
 

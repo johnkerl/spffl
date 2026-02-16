@@ -4,6 +4,9 @@ This directory contains an in‑progress C++20 port of `spffl`, focused on:
 
 - **C++20 concepts** (see `spffl/concepts.hpp`)
 - A generic **`polynomial_of<Coeff>`** template (see `spffl/polynomials/polynomial_of.hpp`)
+- **Type aliases** such as `fp_poly_t = polynomial_of<intmod_t>` (see `spffl/polynomials/aliases.hpp`)
+- A minimal **`intmod_t`** (Z/nZ) in `spffl/intmath/intmod_t.hpp` for Fp[x] coefficients
+- **`fp_polymod_t`** (Fp[x]/(m)) in `spffl/polynomials/fp_polymod_t.hpp` for the residue ring, with `recip` and `exp`
 - A small Catch2‑based test suite under `test/`
 
 The code is experimental and currently lives alongside the existing C++03 code in the parent tree.
@@ -36,7 +39,7 @@ This will:
 
 - Build the `spffl20_src` library pieces under `spffl/` (currently only a small subset),
 - Fetch and build Catch2 (as an external dependency),
-- Build all test executables under `test/` (e.g. `test_mod`, `test_concepts`, `test_polynomial_of`).
+- Build all test executables under `test/` (e.g. `test_mod`, `test_concepts`, `test_polynomial_of`, `test_intmod_t`).
 
 ---
 
@@ -55,6 +58,7 @@ You can also run individual tests directly, e.g.:
 ./test/mod/test_mod
 ./test/concepts/test_concepts
 ./test/polynomials/test_polynomial_of
+./test/intmath/test_intmod_t
 ```
 
 ---
@@ -66,12 +70,16 @@ You can also run individual tests directly, e.g.:
   - `CMakeLists.txt` – adds subdirectories for modules (currently only `mod/`)
   - `concepts.hpp` – C++20 concepts used to drive refactoring
   - `polynomials/polynomial_of.hpp` – generic polynomial template
+  - `polynomials/aliases.hpp` – `fp_poly_t` etc. as `polynomial_of<…>`
+  - `polynomials/fp_polymod_t.hpp` – Fp[x]/(m) residue ring
+  - `intmath/intmod_t.hpp` – header‑only Z/nZ for Fp[x]
   - `mod/` – example module (`foo.h` / `foo.cpp`) used by tests
 - `test/`
   - Top‑level `CMakeLists.txt` – fetches Catch2 and adds test subdirectories
   - `mod/` – tests for `spffl::mod::foo`
   - `concepts/` – tests that `spffl/concepts.hpp` compiles and behaves as expected
-  - `polynomials/` – tests for `polynomial_of<>`
+  - `polynomials/` – tests for `polynomial_of<>` and `fp_poly_t`
+  - `intmath/` – tests for `intmod_t`
 
 ---
 
