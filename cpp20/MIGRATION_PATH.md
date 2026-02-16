@@ -134,11 +134,13 @@ Goal: No remaining references to old polynomial/intmod implementations or to tve
 - [x] Phase 1.1: intmod_t + euclidean_int in main spffl
 - [x] Phase 1.2: concepts.hpp, euclidean.hpp in main spffl
 - [x] Phase 1.3: polynomial_of, aliases, fp_poly_t replacement, fp_polymod_t replacement (f2_poly_t still legacy; replace in follow-up if desired)
-- [x] Phase 1.4 (partial): fpn_f2n_aliases.hpp (fpn_poly_t, fpn_polymod_t, f2n_poly_t, f2n_polymod_t as polynomial_of/residue_of); polynomial_of get_characteristic/prime_subfield_element for has_get_characteristic; residue_of get_characteristic(); free gcd in alias header. Old fpn/f2n .cpp still in build; full replacement needs operator>> and static prime_subfield_element(v, modulus) at call sites (Phase 2). q_poly_t deferred.
+- [x] Phase 1.4 (Option B complete): f2n/fpn as polynomial_of/residue_of; fpn_f2n_aliases.hpp + fpn_f2n_io.hpp (prime_subfield_element, from_string, read_element); old f2n/fpn .cpp removed from build (polynomials + lib); rationals, factorization, units, linalg, cli (f2n/fpn handlers) migrated. q_poly_t deferred.
 - [x] Phase 1.5: residue_of.hpp, optional_inverse.hpp in main spffl (optional_solve_2x2 with Phase 1.6)
 - [x] Phase 1.6: vector_over, matrix_over, optional_solve_2x2 in main spffl (tvector/tmatrix still present)
-- [ ] Phase 2: Migrate linalg, factorization, random, units, rationals, list, q_cyclotomic, cli_parser, cli to new types and containers
-- [ ] Phase 2: Remove old .cpp and obsolete headers
+- [x] Phase 2 (f2n/fpn): linalg, factorization, random, units, rationals, list, cli_parser, cli use new f2n/fpn types and API (no operator>>; read_element + explicit modulus).
+- [ ] Phase 2: Migrate remaining modules to vector_over/matrix_over; remove other old .cpp as applicable
+- [x] Phase 2: Remove legacy f2n/fpn .cpp (f2n_poly_t, f2n_polymod_t, fpn_poly_t, fpn_polymod_t deleted from spffl/polynomials/)
+- [ ] Phase 2: Remove other obsolete headers and dead .cpp as applicable
 - [x] Phase 3 (partial): algorithms and containers tests added to main test/ (test/algorithms, test/containers); residue_of supports legacy f2_poly_t (is_zero_poly)
 - [x] Phase 3 (partial): concepts and residue tests merged into main test/ (test/concepts, test/residue)
 - [ ] Phase 3: Merge remaining cpp20 tests (intmath, polynomials, mod) into test/, remove cpp20/
