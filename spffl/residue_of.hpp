@@ -145,11 +145,21 @@ private:
     }
   }
 
+  static bool is_zero_poly(const E& e) {
+    if constexpr (std::is_same_v<E, int>) {
+      return e == 0;
+    } else if constexpr (std::is_same_v<E, spffl::polynomials::f2_poly_t>) {
+      return e == 0;
+    } else {
+      return e.is_zero();
+    }
+  }
+
   bool is_zero_modulus() const {
     if constexpr (std::is_same_v<E, int>) {
       return modulus_ == 0;
     } else {
-      return modulus_.is_zero();
+      return is_zero_poly(modulus_);
     }
   }
 
@@ -190,10 +200,10 @@ private:
   }
 
   bool recip_f2(residue_of& rinv) const {
-    if (modulus_.is_zero()) return false;
+    if (is_zero_poly(modulus_)) return false;
     E m, n;
     E g = spffl::euclidean::ext_gcd(residue_, modulus_, m, n);
-    if (g.find_degree() != 0 || g.is_zero()) return false;
+    if (g.find_degree() != 0 || is_zero_poly(g)) return false;
     E q, r;
     spffl::euclidean::quot_and_rem(m, modulus_, q, r);
     rinv = residue_of(r, modulus_);
