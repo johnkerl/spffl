@@ -6,6 +6,7 @@
 #include "spffl/polynomials/polynomial_of.hpp"
 #include "spffl/polynomials/aliases.hpp"
 #include "spffl/polynomials/fp_polymod_t.hpp"
+#include "spffl/polynomials/fp_poly_io.hpp"
 
 using spffl::polynomials::polynomial_of;
 
@@ -234,5 +235,44 @@ TEST_CASE("fp_polymod_t: F7[x]/(x^2+1) ring and inverse") {
   REQUIRE(x_mod.recip(x_inv));
   fp_polymod_t prod = x_mod * x_inv;
   CHECK(prod == one_mod);
+}
+
+// ---------------------------------------------------------------------------
+// fp_poly_t from_string and operator>>
+// ---------------------------------------------------------------------------
+
+TEST_CASE("fp_poly_from_string: comma-separated coefficients, leading first") {
+  using spffl::polynomials::fp_poly_from_string;
+  using spffl::polynomials::fp_poly_t;
+
+  auto opt = fp_poly_from_string("1,0,1", 7);
+  REQUIRE(opt.has_value());
+  fp_poly_t p = *opt;
+  CHECK(p.find_degree() == 2);
+  CHECK(p.get_coeff(0).get_residue() == 1);
+  CHECK(p.get_coeff(1).get_residue() == 0);
+  CHECK(p.get_coeff(2).get_residue() == 1);
+
+  opt = fp_poly_from_string("1,2", 7);  // 2 + x
+  REQUIRE(opt.has_value());
+  p = *opt;
+  CHECK(p.find_degree() == 1);
+  CHECK(p.get_coeff(0).get_residue() == 2);
+  CHECK(p.get_coeff(1).get_residue() == 1);
+
+  CHECK(!fp_poly_from_string("", 7).has_value());
+  CHECK(!fp_poly_from_string("1,foo,2", 7).has_value());
+}
+
+TEST_CASE("fp_poly_t operator>>: modulus then coefficients") {
+  using spffl::polynomials::fp_poly_t;
+
+  std::istringstream iss("7 1,0,1");
+  fp_poly_t p;
+  iss >> p;
+  REQUIRE(iss);
+  CHECK(p.find_degree() == 2);
+  CHECK(p.get_coeff(0).get_residue() == 1);
+  CHECK(p.get_coeff(2).get_residue() == 1);
 }
 
