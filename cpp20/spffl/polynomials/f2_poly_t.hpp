@@ -9,8 +9,12 @@
 
 #include "spffl/concepts.hpp"
 #include <cstdint>
+#include <optional>
 #include <ostream>
+#include <sstream>
 #include <stdexcept>
+#include <string>
+#include <cctype>
 #include <vector>
 
 namespace spffl::polynomials {
@@ -216,6 +220,41 @@ public:
       }
     }
     return os;
+  }
+
+  /// Parse comma-separated 0/1 (leading coefficient first). Returns nullopt on error.
+  static std::optional<f2_poly_t> from_string(const std::string& s) {
+    std::istringstream iss(s);
+    std::string token;
+    std::vector<int> coeffs;
+    while (std::getline(iss, token, ',')) {
+      while (!token.empty() && std::isspace(static_cast<unsigned char>(token.front())))
+        token.erase(0, 1);
+      while (!token.empty() && std::isspace(static_cast<unsigned char>(token.back())))
+        token.pop_back();
+      if (token.empty()) return std::nullopt;
+      if (token.size() != 1 || (token[0] != '0' && token[0] != '1'))
+        return std::nullopt;
+      coeffs.push_back(token[0] - '0');
+    }
+    if (coeffs.empty()) return std::nullopt;
+    int degree = static_cast<int>(coeffs.size()) - 1;
+    f2_poly_t p;
+    for (int i = 0; i <= degree; ++i)
+      p.set_coeff(degree - i, coeffs[static_cast<std::size_t>(i)]);
+    return p;
+  }
+
+  friend std::istream& operator>>(std::istream& is, f2_poly_t& p) {
+    std::string line;
+    if (!std::getline(is, line)) return is;
+    auto opt = f2_poly_t::from_string(line);
+    if (!opt) {
+      is.setstate(std::ios::failbit);
+      return is;
+    }
+    p = std::move(*opt);
+    return is;
   }
 
 private:

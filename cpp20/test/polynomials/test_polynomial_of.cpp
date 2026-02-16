@@ -357,3 +357,45 @@ TEST_CASE("f2_poly_t: ext_gcd and deriv") {
   CHECK(d.find_degree() <= 1);
 }
 
+// ---------------------------------------------------------------------------
+// f2_poly_t I/O: from_string (comma-separated 0/1, leading first), operator>>
+// ---------------------------------------------------------------------------
+
+TEST_CASE("f2_poly_from_string: comma-separated 0/1, leading first") {
+  using spffl::polynomials::f2_poly_t;
+
+  auto p = f2_poly_t::from_string("1");
+  REQUIRE(p.has_value());
+  CHECK((*p).find_degree() == 0);
+  CHECK((*p).get_coeff(0) == 1);
+
+  p = f2_poly_t::from_string("1,0");
+  REQUIRE(p.has_value());
+  CHECK((*p).find_degree() == 1);
+  CHECK((*p).get_coeff(1) == 1);
+  CHECK((*p).get_coeff(0) == 0);
+
+  p = f2_poly_t::from_string("1,0,1");
+  REQUIRE(p.has_value());
+  CHECK((*p).find_degree() == 2);
+  CHECK((*p).get_coeff(2) == 1);
+  CHECK((*p).get_coeff(1) == 0);
+  CHECK((*p).get_coeff(0) == 1);
+
+  CHECK(!f2_poly_t::from_string("").has_value());
+  CHECK(!f2_poly_t::from_string("2").has_value());
+  CHECK(!f2_poly_t::from_string("1,2").has_value());
+}
+
+TEST_CASE("f2_poly_t operator>>: one line of comma-separated 0/1") {
+  using spffl::polynomials::f2_poly_t;
+
+  std::istringstream iss("1,0,1");
+  f2_poly_t p;
+  iss >> p;
+  REQUIRE(iss);
+  CHECK(p.find_degree() == 2);
+  CHECK(p.get_coeff(2) == 1);
+  CHECK(p.get_coeff(0) == 1);
+}
+

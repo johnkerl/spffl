@@ -5,10 +5,12 @@ This directory contains an in‑progress C++20 port of `spffl`, focused on:
 - **C++20 concepts** (see `spffl/concepts.hpp`)
 - A generic **`polynomial_of<Coeff>`** template (see `spffl/polynomials/polynomial_of.hpp`)
 - **Type aliases** such as `fp_poly_t = polynomial_of<intmod_t>` (see `spffl/polynomials/aliases.hpp`)
-- **`f2_poly_t`** (F2[x]) in `spffl/polynomials/f2_poly_t.hpp`: bit-packed, models `Polynomial_with_ext_gcd`
+- **`f2_poly_t`** (F2[x]) in `spffl/polynomials/f2_poly_t.hpp`: bit-packed, models `Polynomial_with_ext_gcd`; `from_string("1,0,1")` (comma-separated 0/1, leading first) and `operator>>`
 - A minimal **`intmod_t`** (Z/nZ) in `spffl/intmath/intmod_t.hpp` for Fp[x] coefficients
 - **`fp_polymod_t`** (Fp[x]/(m)) in `spffl/polynomials/fp_polymod_t.hpp` for the residue ring, with `recip` and `exp`
+- **Generic `residue_of<E>`** in `spffl/residue_of.hpp`: residue ring over any `E` (e.g. `int` → Z/nZ, `fp_poly_t` → Fp[x]/(m)); models `Residue_ring` and `Residue_ring_with_recip`; inversion via unified `euclidean::ext_gcd`
 - **STL-based `vector_over<T>`** and **`matrix_over<T>`** in `spffl/containers/` (satisfy `Vector_over`, `Matrix_over`, `Matrix_vector_product`)
+- **Bit vector/matrix concepts**: `Bit_vector_like<V>` and `Bit_matrix_like<M>` in `concepts.hpp` describe bit-packed F2 vectors/matrices (e.g. `get(i)`, `set(i,b)`, row access, ring ops). Legacy `bit_vector_t` / `bit_matrix_t` can satisfy these; no new implementation in cpp20 yet.
 - **Euclidean ops**: `spffl/intmath/euclidean_int.hpp` (int: quot_and_rem, gcd, ext_gcd); **unified** `spffl/euclidean.hpp` with `quot_and_rem`, `gcd`, and `ext_gcd` for both `int` and any `Euclidean_domain_with_ext_gcd<E>` so generic residue-ring code can use one interface
 - **fp_poly_t / fp_polymod_t I/O**: `fp_poly_from_string(s, p)`, `fp_polymod_from_string(s, modulus)`, and `operator>>` for both in `spffl/polynomials/fp_poly_io.hpp` (comma-separated coefficients, leading first)
 - A small Catch2‑based test suite under `test/`
@@ -78,13 +80,14 @@ You can also run individual tests directly, e.g.:
   - `concepts.hpp` – C++20 concepts used to drive refactoring
   - `polynomials/polynomial_of.hpp` – generic polynomial template
   - `polynomials/aliases.hpp` – `fp_poly_t` etc. as `polynomial_of<…>`
-  - `polynomials/f2_poly_t.hpp` – F2[x] (bit-packed), models `Polynomial_with_ext_gcd`
+  - `polynomials/f2_poly_t.hpp` – F2[x] (bit-packed), models `Polynomial_with_ext_gcd`; `from_string`, `operator>>` (comma-separated 0/1)
   - `polynomials/fp_polymod_t.hpp` – Fp[x]/(m) residue ring
   - `polynomials/fp_poly_io.hpp` – `fp_poly_from_string`, `operator>>` for fp_poly_t
   - `intmath/intmod_t.hpp` – header‑only Z/nZ for Fp[x]
   - `intmath/euclidean_int.hpp` – `quot_and_rem`, `gcd` for int
   - `euclidean.hpp` – unified `quot_and_rem` / `gcd` for int and any `Euclidean_domain<E>`
   - `containers/vector_over.hpp`, `containers/matrix_over.hpp` – STL-based vector/matrix over a ring
+  - `residue_of.hpp` – generic **`residue_of<E>`** (E = int or Euclidean_domain_with_ext_gcd, e.g. fp_poly_t); models `Residue_ring` and `Residue_ring_with_recip`
   - `mod/` – example module (`foo.h` / `foo.cpp`) used by tests
 - `test/`
   - Top‑level `CMakeLists.txt` – fetches Catch2 and adds test subdirectories
@@ -93,6 +96,7 @@ You can also run individual tests directly, e.g.:
   - `polynomials/` – tests for `polynomial_of<>` and `fp_poly_t`
   - `intmath/` – tests for `intmod_t`, `euclidean_int`
   - `containers/` – tests for `vector_over<T>`, `matrix_over<T>`
+  - `residue/` – tests for `residue_of<int>`, `residue_of<fp_poly_t>`
 
 ---
 
