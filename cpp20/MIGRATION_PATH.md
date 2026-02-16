@@ -100,9 +100,9 @@ Goal: No remaining references to old polynomial/intmod implementations or to tve
 
 ### Phase 3: Single test tree and remove cpp20/
 
-12. **Consolidate tests**
-    - Move cpp20/test/* into test/: merge test/concepts, test/polynomials, test/intmath, test/containers, test/residue, test/algorithms (and mod) into the existing test structure. Use Catch2 from the main tree (add FetchContent for Catch2 in the root test/CMakeLists.txt if not already present).
-    - Update test includes and types to the single spffl. Remove or replace legacy tests that targeted the old implementations.
+12. **Consolidate tests** ✓ (done)
+    - cpp20 tests merged into main: `test_polynomial_of.cpp` → `test/polynomials/`, `test_intmod_t.cpp` and `test_euclidean_int.cpp` → `test/intmath/`, `test_mod.cpp` → `test/mod/` (with `spffl/mod/` added). Catch2 is already used in the root test tree. f2_poly_t I/O tests use main-tree hex format (low-bit-first).
+    - Remaining: test/concepts, test/containers, test/residue, test/algorithms were already present in main; no further merge needed from cpp20 for those.
 
 13. **Remove cpp20/**
     - Delete the entire `cpp20/` directory (or leave only this MIGRATION_PATH.md and REFACTORING_PROPOSAL.md at the root if you want to keep the docs). Root CMakeLists.txt no longer references cpp20.

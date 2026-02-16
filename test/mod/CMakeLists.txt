@@ -1,14 +1,8 @@
-cmake_minimum_required (VERSION 3.24)
+cmake_minimum_required(VERSION 3.24)
 
-project(test_polynomials)
+project(test_mod)
 
 # ----------------------------------------------------------------
-# catch2 has a set-but-unused-variable warning as of MacOS 13.3.
-# So we need to not use -Werror, as that's third-party code out of our control.
-#
-# See also:
-# https://discourse.cmake.org/t/how-to-turn-off-warning-flags-for-project-added-by-fetchcontent-declare/2461
-
 Include(FetchContent)
 
 FetchContent_Declare(
@@ -43,33 +37,16 @@ if(APPLE AND OS_RELEASE VERSION_GREATER_EQUAL "13.0.0")
 endif()
 
 # ----------------------------------------------------------------
-add_executable(test_polynomials
-  test_f2_poly_t.cpp
-  test_polynomial_of.cpp
-  # TODO:
-  # test_f2_polymod_t.cpp
-  # test_f2n_poly_t.cpp
-  # test_f2n_polymod_t.cpp
-  # test_fp_poly_t.cpp
-  # test_fp_polymod_t.cpp
-  # test_fpn_poly_t.cpp
-  # test_fpn_polymod_t.cpp
-)
+add_executable(test_mod test_mod.cpp)
 target_include_directories(${PROJECT_NAME}
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/../..
 )
 target_link_libraries(${PROJECT_NAME} PRIVATE
-    base
-    intmath
-    bits
-    polynomials
-    Catch2::Catch2WithMain
+  mod
+  Catch2::Catch2WithMain
 )
 
-# ----------------------------------------------------------------
-# This makes the following work:
-# cmake --build build --target test
 list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
 include(Catch)
-catch_discover_tests(test_polynomials)
+catch_discover_tests(test_mod)

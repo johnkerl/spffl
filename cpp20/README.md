@@ -107,7 +107,7 @@ You can also run individual tests directly, e.g.:
 
 ### Next steps (suggested)
 
-- **Merge cpp20 tests into main:** Copy `test/polynomials/test_polynomial_of.cpp`, `test/intmath/test_intmod_t.cpp`, `test/intmath/test_euclidean_int.cpp`, `test/mod/test_mod.cpp` into the repo-root `test/`, fix includes and CMake, then remove `cpp20/`.
+- **Merge cpp20 tests into main:** ✓ Done. `test_polynomial_of.cpp`, `test_intmod_t.cpp`, `test_euclidean_int.cpp`, and `test_mod.cpp` (with `spffl/mod/`) are in the repo-root `test/` tree; all 103 tests pass. You can remove `cpp20/` when no longer needed.
 - **vector_over / matrix_over:** Migrate modules (linalg, factorization, cli, etc.) from `tvector`/`tmatrix` to `vector_over`/`matrix_over` in the main tree.
 
 ---
