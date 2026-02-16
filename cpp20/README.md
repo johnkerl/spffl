@@ -108,7 +108,7 @@ You can also run individual tests directly, e.g.:
 ### Next steps (suggested)
 
 - **Merge cpp20 tests into main:** ✓ Done. `test_polynomial_of.cpp`, `test_intmod_t.cpp`, `test_euclidean_int.cpp`, and `test_mod.cpp` (with `spffl/mod/`) are in the repo-root `test/` tree; all 103 tests pass. You can remove `cpp20/` when no longer needed.
-- **vector_over / matrix_over:** Migrate modules (linalg, factorization, cli, etc.) from `tvector`/`tmatrix` to `vector_over`/`matrix_over` in the main tree.
+- **vector_over / matrix_over:** Partially done. **Migrated:** list (list_elements), units (divisor lists), factorization (f2n_poly_factor, fp_poly_factor, roots), min_char_polys, and CLI list output. **Still on tvector/tmatrix:** CLI parser (cmd_line_vector_ops, cmd_line_matrix_ops) and fp/f2/f2_polymod linalg (they use `ed_det`, scalar assign, `load_from_file`, etc.). **Next:** Either add I/O and scalar-assign (and matrix helpers like `det`, `check_inverse`) to `vector_over`/`matrix_over` and migrate the parser and linalg, or leave the current split and document it (see `cpp20/MIGRATION_PATH.md`).
 
 ---
 

@@ -139,6 +139,9 @@ Goal: No remaining references to old polynomial/intmod implementations or to tve
 - [x] Phase 1.6: vector_over, matrix_over, optional_solve_2x2 in main spffl (tvector/tmatrix still present)
 - [x] Phase 2 (f2n/fpn): linalg, factorization, random, units, rationals, list, cli_parser, cli use new f2n/fpn types and API (no operator>>; read_element + explicit modulus).
 - [ ] Phase 2: Migrate remaining modules to vector_over/matrix_over; remove other old .cpp as applicable
+  - **Done:** list (list_elements), units (divisor lists from tfacinfo), factorization (f2n_poly_factor, fp_poly_factor, roots), min_char_polys; CLI list output uses vector_over.
+  - **Still on tvector/tmatrix:** cli_parser (cmd_line_vector_ops, cmd_line_matrix_ops), f2/fp/f2_polymod linalg (ed_det, scalar assign, load_from_file); CLI matrix/vector vars that use parser or those linalg APIs.
+  - **Next:** Either add I/O and scalar-assign to vector_over/matrix_over and migrate parser, or leave parser on tvector/tmatrix and treat migration as complete for the intended scope.
 - [x] Phase 2: Remove legacy f2n/fpn .cpp (f2n_poly_t, f2n_polymod_t, fpn_poly_t, fpn_polymod_t deleted from spffl/polynomials/)
 - [ ] Phase 2: Remove other obsolete headers and dead .cpp as applicable
 - [x] Phase 3 (partial): algorithms and containers tests added to main test/ (test/algorithms, test/containers); residue_of supports legacy f2_poly_t (is_zero_poly)
@@ -148,4 +151,4 @@ Goal: No remaining references to old polynomial/intmod implementations or to tve
 
 Done: one C++20 codebase, nothing left behind.
 
-**Suggested next step:** Merge cpp20 tests into repo-root `test/` (test_polynomial_of, test_intmod_t, test_euclidean_int, test_mod) and wire in root `test/CMakeLists.txt`, then remove `cpp20/`. Alternatively, start Phase 2 vector_over/matrix_over migration in one module.
+**Suggested next step:** (1) Remove `cpp20/` if all tests are in repo-root and cpp20 is unused. (2) For vector_over/matrix_over: either extend them with `bracket_in`, `load_from_file`, scalar `operator=`, and (for matrix_over) `det`, `check_inverse`, `check_kernel_basis`, `flip_horiz`, `get_rr_non_zero_rows`, etc., then migrate the parser and linalg; or leave the current split (list/factorization/units/min_char_polys on vector_over/matrix_over, parser and fp/f2_polymod linalg on tvector/tmatrix) and document it.
