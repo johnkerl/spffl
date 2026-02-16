@@ -40,6 +40,14 @@ TEST_CASE("Ring_element_with_io: int has stream ops") {
   static_assert(Ring_element_with_io<int>);
 }
 
+TEST_CASE("intmod_t models Residue_ring and Residue_ring_with_recip") {
+  static_assert(Residue_ring<spffl::intmath::intmod_t>);
+  static_assert(Residue_ring_with_recip<spffl::intmath::intmod_t>);
+  spffl::intmath::intmod_t a(2, 7);
+  spffl::intmath::intmod_t a3 = a.exp(3);
+  CHECK(a3.get_residue() == 1);  // 2^3 = 8 ≡ 1 mod 7
+}
+
 TEST_CASE("has_get_characteristic_v helper") {
   struct WithChar { int get_characteristic() const { return 2; } };
   struct WithoutChar {};

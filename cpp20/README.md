@@ -6,7 +6,7 @@ This directory contains an in‑progress C++20 port of `spffl`, focused on:
 - A generic **`polynomial_of<Coeff>`** template (see `spffl/polynomials/polynomial_of.hpp`)
 - **Type aliases** such as `fp_poly_t = polynomial_of<intmod_t>` (see `spffl/polynomials/aliases.hpp`)
 - **`f2_poly_t`** (F2[x]) in `spffl/polynomials/f2_poly_t.hpp`: bit-packed, models `Polynomial_with_ext_gcd`; `from_string("1,0,1")` (comma-separated 0/1, leading first) and `operator>>`
-- A minimal **`intmod_t`** (Z/nZ) in `spffl/intmath/intmod_t.hpp` for Fp[x] coefficients
+- A minimal **`intmod_t`** (Z/nZ) in `spffl/intmath/intmod_t.hpp` for Fp[x] coefficients; models `Residue_ring_with_recip` (has `recip` and `exp(int)`) so it works with `optional_inverse`, `optional_solve_2x2`, etc.
 - **`fp_polymod_t`** (Fp[x]/(m)) in `spffl/polynomials/fp_polymod_t.hpp` for the residue ring, with `recip` and `exp`
 - **Generic `residue_of<E>`** in `spffl/residue_of.hpp`: residue ring over any `E` (e.g. `int` → Z/nZ, `fp_poly_t` → Fp[x]/(m), `f2_poly_t` → F2[x]/(m)); models `Residue_ring` and `Residue_ring_with_recip`; inversion via unified `euclidean::ext_gcd`
 - **STL-based `vector_over<T>`** and **`matrix_over<T>`** in `spffl/containers/` (satisfy `Vector_over`, `Matrix_over`, `Matrix_vector_product`)
@@ -83,7 +83,7 @@ You can also run individual tests directly, e.g.:
   - `polynomials/f2_poly_t.hpp` – F2[x] (bit-packed), models `Polynomial_with_ext_gcd`; `from_string`, `operator>>` (comma-separated 0/1)
   - `polynomials/fp_polymod_t.hpp` – Fp[x]/(m) residue ring
   - `polynomials/fp_poly_io.hpp` – `fp_poly_from_string`, `operator>>` for fp_poly_t
-  - `intmath/intmod_t.hpp` – header‑only Z/nZ for Fp[x]
+  - `intmath/intmod_t.hpp` – header‑only Z/nZ for Fp[x]; `recip`, `exp(int)`; models `Residue_ring_with_recip`
   - `intmath/euclidean_int.hpp` – `quot_and_rem`, `gcd` for int
   - `euclidean.hpp` – unified `quot_and_rem` / `gcd` for int and any `Euclidean_domain<E>`
   - `containers/vector_over.hpp`, `containers/matrix_over.hpp` – STL-based vector/matrix over a ring
@@ -99,7 +99,7 @@ You can also run individual tests directly, e.g.:
   - `intmath/` – tests for `intmod_t`, `euclidean_int`
   - `containers/` – tests for `vector_over<T>`, `matrix_over<T>`
   - `residue/` – tests for `residue_of<int>`, `residue_of<fp_poly_t>`, `residue_of<f2_poly_t>`
-  - `algorithms/` – tests for `optional_inverse`, `optional_solve_ax_eq_b`, `optional_solve_2x2` (residue_of<int>, fp_polymod_t, residue_of<f2_poly_t>, matrix_over<residue_of<int>>)
+  - `algorithms/` – tests for `optional_inverse`, `optional_solve_ax_eq_b`, `optional_solve_2x2` (intmod_t, residue_of<int>, fp_polymod_t, residue_of<f2_poly_t>, matrix_over<intmod_t>, matrix_over<residue_of<int>>)
 
 ---
 

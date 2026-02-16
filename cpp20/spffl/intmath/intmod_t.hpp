@@ -88,6 +88,31 @@ public:
     return *this;
   }
 
+  /// Exponentiation: a^e (e >= 0). For e < 0, returns inverse^|e| when invertible.
+  intmod_t exp(int e) const {
+    check_modulus();
+    if (e == 0) {
+      return intmod_t(1, modulus_);
+    }
+    if (e < 0) {
+      intmod_t inv;
+      if (!recip(inv)) {
+        throw std::runtime_error("intmod_t::exp: negative exponent of non-unit");
+      }
+      return inv.exp(-e);
+    }
+    intmod_t base(*this);
+    intmod_t result(1, modulus_);
+    while (e != 0) {
+      if (e & 1) {
+        result = result * base;
+      }
+      e = static_cast<unsigned>(e) >> 1;
+      base = base * base;
+    }
+    return result;
+  }
+
   // comparisons
   bool operator==(const intmod_t &that) const {
     check_moduli(that);
