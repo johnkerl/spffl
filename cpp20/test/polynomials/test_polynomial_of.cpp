@@ -7,6 +7,7 @@
 #include "spffl/polynomials/aliases.hpp"
 #include "spffl/polynomials/fp_polymod_t.hpp"
 #include "spffl/polynomials/fp_poly_io.hpp"
+#include "spffl/polynomials/f2_poly_t.hpp"
 
 using spffl::polynomials::polynomial_of;
 
@@ -312,5 +313,47 @@ TEST_CASE("fp_polymod_t operator>>: p, modulus coeffs, residue coeffs on one lin
   REQUIRE(iss);
   CHECK(a.get_residue().find_degree() == 1);
   CHECK(a.get_modulus().find_degree() == 2);
+}
+
+// ---------------------------------------------------------------------------
+// f2_poly_t (F2[x], bit-packed): concept and basic ops
+// ---------------------------------------------------------------------------
+
+TEST_CASE("f2_poly_t models Polynomial_with_ext_gcd") {
+  using spffl::polynomials::f2_poly_t;
+  static_assert(spffl::concepts::Ring_element<f2_poly_t>);
+  static_assert(spffl::concepts::Euclidean_domain<f2_poly_t>);
+  static_assert(spffl::concepts::Polynomial_ring_element<f2_poly_t>);
+  static_assert(spffl::concepts::Polynomial_with_ext_gcd<f2_poly_t>);
+}
+
+TEST_CASE("f2_poly_t: arithmetic and quot_rem") {
+  using spffl::polynomials::f2_poly_t;
+  f2_poly_t x(1, 0);   // x
+  f2_poly_t one(1);
+  f2_poly_t x2 = x * x;
+  f2_poly_t a = x2 + one;  // x^2 + 1
+  f2_poly_t b = x + one;   // x + 1
+
+  f2_poly_t q, r;
+  a.quot_and_rem(b, q, r);
+  CHECK((q * b + r) == a);
+
+  f2_poly_t g = a.gcd(b);
+  CHECK(g.find_degree() >= 0);
+}
+
+TEST_CASE("f2_poly_t: ext_gcd and deriv") {
+  using spffl::polynomials::f2_poly_t;
+  f2_poly_t x(1, 0);
+  f2_poly_t one(1);
+  f2_poly_t a = x * x + one;
+  f2_poly_t b = x + one;
+  f2_poly_t m, n;
+  f2_poly_t g = a.ext_gcd(b, m, n);
+  CHECK((a * m + b * n) == g);
+
+  f2_poly_t d = a.deriv();
+  CHECK(d.find_degree() <= 1);
 }
 

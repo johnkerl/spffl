@@ -59,6 +59,12 @@ E compute_gcd_then_remainder(E const& a, E const& b, E& q, E& r) {
   return g;
 }
 
+template <typename E>
+  requires spffl::concepts::Euclidean_domain_with_ext_gcd<E>
+E compute_gcd_via_ext_gcd(E const& a, E const& b, E& m, E& n) {
+  return spffl::euclidean::ext_gcd(a, b, m, n);
+}
+
 TEST_CASE("unified euclidean: int") {
   int q, r;
   int g = compute_gcd_then_remainder(12, 18, q, r);
@@ -83,4 +89,25 @@ TEST_CASE("unified euclidean: fp_poly_t") {
   CHECK(a.find_degree() == 2);
   fp_poly_t recompose = q * b + r;
   CHECK(recompose == a);
+}
+
+TEST_CASE("unified euclidean::ext_gcd: int") {
+  int m, n;
+  int g = spffl::euclidean::ext_gcd(12, 18, m, n);
+  CHECK(g == 6);
+  CHECK(12 * m + 18 * n == 6);
+}
+
+TEST_CASE("unified euclidean::ext_gcd: fp_poly_t") {
+  using spffl::polynomials::fp_poly_t;
+  const int p = 7;
+  fp_poly_t one(spffl::intmath::intmod_t(1, p));
+  fp_poly_t x(spffl::intmath::intmod_t(1, p), spffl::intmath::intmod_t(0, p));
+  fp_poly_t a = x * x + one;
+  fp_poly_t b = x + one;
+  fp_poly_t m, n;
+  fp_poly_t g = compute_gcd_via_ext_gcd(a, b, m, n);
+  CHECK(g.find_degree() >= 0);
+  fp_poly_t bezout = a * m + b * n;
+  CHECK(bezout == g);
 }

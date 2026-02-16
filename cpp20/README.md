@@ -5,10 +5,11 @@ This directory contains an in‑progress C++20 port of `spffl`, focused on:
 - **C++20 concepts** (see `spffl/concepts.hpp`)
 - A generic **`polynomial_of<Coeff>`** template (see `spffl/polynomials/polynomial_of.hpp`)
 - **Type aliases** such as `fp_poly_t = polynomial_of<intmod_t>` (see `spffl/polynomials/aliases.hpp`)
+- **`f2_poly_t`** (F2[x]) in `spffl/polynomials/f2_poly_t.hpp`: bit-packed, models `Polynomial_with_ext_gcd`
 - A minimal **`intmod_t`** (Z/nZ) in `spffl/intmath/intmod_t.hpp` for Fp[x] coefficients
 - **`fp_polymod_t`** (Fp[x]/(m)) in `spffl/polynomials/fp_polymod_t.hpp` for the residue ring, with `recip` and `exp`
 - **STL-based `vector_over<T>`** and **`matrix_over<T>`** in `spffl/containers/` (satisfy `Vector_over`, `Matrix_over`, `Matrix_vector_product`)
-- **Euclidean ops**: `spffl/intmath/euclidean_int.hpp` (int only); **unified** `spffl/euclidean.hpp` with `quot_and_rem` and `gcd` overloads for both `int` and any `Euclidean_domain<E>` (e.g. `fp_poly_t`) so one generic algorithm works for both
+- **Euclidean ops**: `spffl/intmath/euclidean_int.hpp` (int: quot_and_rem, gcd, ext_gcd); **unified** `spffl/euclidean.hpp` with `quot_and_rem`, `gcd`, and `ext_gcd` for both `int` and any `Euclidean_domain_with_ext_gcd<E>` so generic residue-ring code can use one interface
 - **fp_poly_t / fp_polymod_t I/O**: `fp_poly_from_string(s, p)`, `fp_polymod_from_string(s, modulus)`, and `operator>>` for both in `spffl/polynomials/fp_poly_io.hpp` (comma-separated coefficients, leading first)
 - A small Catch2‑based test suite under `test/`
 
@@ -77,6 +78,7 @@ You can also run individual tests directly, e.g.:
   - `concepts.hpp` – C++20 concepts used to drive refactoring
   - `polynomials/polynomial_of.hpp` – generic polynomial template
   - `polynomials/aliases.hpp` – `fp_poly_t` etc. as `polynomial_of<…>`
+  - `polynomials/f2_poly_t.hpp` – F2[x] (bit-packed), models `Polynomial_with_ext_gcd`
   - `polynomials/fp_polymod_t.hpp` – Fp[x]/(m) residue ring
   - `polynomials/fp_poly_io.hpp` – `fp_poly_from_string`, `operator>>` for fp_poly_t
   - `intmath/intmod_t.hpp` – header‑only Z/nZ for Fp[x]

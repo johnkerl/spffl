@@ -30,6 +30,37 @@ inline int gcd(int a, int b) {
                                    static_cast<unsigned>(b)));
 }
 
+// Extended GCD: returns g = gcd(a,b) and sets m, n such that a*m + b*n = g.
+inline int ext_gcd(int a, int b, int& m, int& n) {
+  if (b == 0) {
+    m = (a < 0) ? -1 : 1;
+    n = 0;
+    return (a < 0) ? -a : a;
+  }
+  int m1 = 0, n1 = 1;
+  m = 1;
+  n = 0;
+  int c = a, d = b;
+  while (d != 0) {
+    int q = c / d;
+    int r = c - q * d;
+    c = d;
+    d = r;
+    int t = m1;
+    m1 = m - q * m1;
+    m = t;
+    t = n1;
+    n1 = n - q * n1;
+    n = t;
+  }
+  if (c < 0) {
+    c = -c;
+    m = -m;
+    n = -n;
+  }
+  return c;
+}
+
 }  // namespace spffl::intmath
 
 #endif  // SPFFL_INTMATH_EUCLIDEAN_INT_HPP
