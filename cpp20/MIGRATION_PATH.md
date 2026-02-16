@@ -141,7 +141,7 @@ Goal: No remaining references to old polynomial/intmod implementations or to tve
 - [ ] Phase 2: Migrate remaining modules to vector_over/matrix_over; remove other old .cpp as applicable
   - **Done:** list (list_elements), units (divisor lists from tfacinfo), factorization (f2n_poly_factor, fp_poly_factor, roots), min_char_polys; CLI list output uses vector_over.
   - **Still on tvector/tmatrix:** cli_parser (cmd_line_vector_ops, cmd_line_matrix_ops), f2/fp/f2_polymod linalg (ed_det, scalar assign, load_from_file); CLI matrix/vector vars that use parser or those linalg APIs.
-  - **Next:** Either add I/O and scalar-assign to vector_over/matrix_over and migrate parser, or leave parser on tvector/tmatrix and treat migration as complete for the intended scope.
+  - **Done (Option A):** vector_over and matrix_over were extended with: scalar `operator=`, `exp(int)` (vector), `bracket_in`, `load_from_file`, `operator>>`; matrix_over also has `det`, `check_inverse`, `check_kernel_basis`, `flip_horiz`, `flip_horiz_vert`, `get_rr_non_zero_rows`, `get_rech_non_zero_rows`, and conversion from tmatrix. Parser remains on tvector/tmatrix because it is instantiated for intrat_t and f2_polyrat_t, which do not satisfy Ring_element.
 - [x] Phase 2: Remove legacy f2n/fpn .cpp (f2n_poly_t, f2n_polymod_t, fpn_poly_t, fpn_polymod_t deleted from spffl/polynomials/)
 - [ ] Phase 2: Remove other obsolete headers and dead .cpp as applicable
 - [x] Phase 3 (partial): algorithms and containers tests added to main test/ (test/algorithms, test/containers); residue_of supports legacy f2_poly_t (is_zero_poly)

@@ -7,10 +7,15 @@
 #define SPFFL_CONTAINERS_VECTOR_OVER_HPP
 
 #include "spffl/concepts.hpp"
+#include "spffl/base/read_element.h"
 #include <vector>
 #include <stdexcept>
 #include <ostream>
+#include <sstream>
+#include <fstream>
 #include <algorithm>
+#include <cstring>
+#include <string>
 
 namespace spffl::containers {
 
@@ -118,6 +123,85 @@ public:
     return !(*this == that);
   }
 
+  /// Fill with scalar (e.g. set modulus). Sets size to 1.
+  vector_over& operator=(const T& scalar) {
+    data_.assign(1, scalar);
+    return *this;
+  }
+
+  /// Elementwise exponentiation. Requires T to have exp(int).
+  vector_over exp(int power) const {
+    vector_over out(get_num_elements());
+    for (int i = 0; i < get_num_elements(); ++i) {
+      out[i] = (*this)[i].exp(power);
+    }
+    return out;
+  }
+
+  /// Parse "[e1 e2 ...]" (whitespace-delimited). *this must already have one element (for modulus/context).
+  bool bracket_in(char* string) {
+    if (data_.empty()) return false;
+    char* copy = strdup(string);
+    char* pleft = strchr(copy, '[');
+    if (!pleft) { free(copy); return false; }
+    ++pleft;
+    char* pright = strrchr(pleft, ']');
+    if (!pright) { free(copy); return false; }
+    *pright = '\0';
+    T zero = data_[0] - data_[0];
+    data_.clear();
+    std::istringstream iss(pleft, std::ios_base::in);
+    T elt;
+    while (true) {
+      read_element(iss, zero, elt);
+      if (iss.fail()) break;
+      data_.push_back(elt);
+    }
+    free(copy);
+    return !data_.empty();
+  }
+
+  /// Read from file or stdin ("-" / "@"). *this must already have one element for parameterized types.
+  bool load_from_file(char* file_name) {
+    if (strcmp(file_name, "-") == 0 || strcmp(file_name, "@") == 0) {
+      if (data_.empty()) return false;
+      T zero = data_[0] - data_[0];
+      data_.clear();
+      std::istringstream line;
+      std::string s;
+      if (!std::getline(std::cin, s)) return false;
+      line.str(s);
+      T elt;
+      while (true) {
+        read_element(line, zero, elt);
+        if (line.fail()) break;
+        data_.push_back(elt);
+      }
+      return !data_.empty();
+    }
+    std::ifstream ifs(file_name);
+    if (!ifs) return false;
+    if (data_.empty()) return false;
+    T zero = data_[0] - data_[0];
+    data_.clear();
+    std::string s;
+    if (!std::getline(ifs, s)) { ifs.close(); return false; }
+    std::istringstream line(s);
+    T elt;
+    while (true) {
+      read_element(line, zero, elt);
+      if (line.fail()) break;
+      data_.push_back(elt);
+    }
+    ifs.close();
+    return !data_.empty();
+  }
+
+  bool load_from_file(char* file_name, const T& zero) {
+    data_.assign(1, zero);
+    return load_from_file(file_name);
+  }
+
   /// In-place: *this *= scalar.
   void mult_by(const T& e) {
     for (int i = 0; i < get_num_elements(); ++i) {
@@ -161,6 +245,28 @@ public:
       os << v[i];
     }
     return os;
+  }
+
+  friend std::istringstream& operator>>(std::istringstream& iss, vector_over& v) {
+    if (v.data_.empty()) { iss.setstate(std::ios::failbit); return iss; }
+    T zero = v.data_[0] - v.data_[0];
+    v.data_.clear();
+    T elt;
+    while (true) {
+      read_element(iss, zero, elt);
+      if (iss.fail()) break;
+      v.data_.push_back(elt);
+    }
+    return iss;
+  }
+
+  friend std::istream& operator>>(std::istream& is, vector_over& v) {
+    std::string line;
+    if (!std::getline(is, line)) return is;
+    std::istringstream iss(line, std::ios_base::in);
+    iss >> v;
+    if (iss.fail()) is.setstate(std::ios::failbit);
+    return is;
   }
 
 private:

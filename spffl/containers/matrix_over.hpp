@@ -8,11 +8,20 @@
 
 #include "spffl/concepts.hpp"
 #include "spffl/containers/vector_over.hpp"
+#include "spffl/containers/tmatrix.h"
+#include "spffl/base/read_element.h"
+#include "spffl/base/tokenize.h"
 #include <vector>
 #include <stdexcept>
 #include <ostream>
+#include <istream>
+#include <sstream>
+#include <fstream>
 #include <algorithm>
 #include <cstddef>
+#include <cstdio>
+#include <cstring>
+#include <string>
 
 namespace spffl::containers {
 
@@ -444,6 +453,236 @@ public:
     return rv;
   }
 
+  /// Construct from tmatrix (e.g. companion matrix from linalg).
+  matrix_over(const tmatrix<T>& other) : cols_(other.get_num_cols()) {
+    int nr = other.get_num_rows();
+    rows_.reserve(static_cast<std::size_t>(nr));
+    for (int i = 0; i < nr; ++i) {
+      row_type row(other.get_num_cols());
+      for (int j = 0; j < other.get_num_cols(); ++j) {
+        row[j] = other[i][j];
+      }
+      rows_.push_back(std::move(row));
+    }
+  }
+
+  /// Assign from tmatrix.
+  matrix_over& operator=(const tmatrix<T>& other) {
+    cols_ = other.get_num_cols();
+    rows_.clear();
+    int nr = other.get_num_rows();
+    rows_.reserve(static_cast<std::size_t>(nr));
+    for (int i = 0; i < nr; ++i) {
+      row_type row(other.get_num_cols());
+      for (int j = 0; j < other.get_num_cols(); ++j) {
+        row[j] = other[i][j];
+      }
+      rows_.push_back(std::move(row));
+    }
+    return *this;
+  }
+
+  /// Fill with scalar (e.g. set modulus). Sets to 1x1 matrix.
+  matrix_over& operator=(const T& scalar) {
+    rows_.clear();
+    rows_.emplace_back(1, scalar);
+    cols_ = 1;
+    return *this;
+  }
+
+  /// Determinant (field elements). Row-reduces and tracks product of pivots and sign.
+  T det() const {
+    if (!is_square()) {
+      throw std::invalid_argument("matrix_over::det: non-square matrix");
+    }
+    T zero = (*this)[0][0] - (*this)[0][0];
+    T one;
+    if (!find_one(one)) return zero;
+    matrix_over rr(*this);
+    T d = one;
+    const int nr = rr.get_num_rows();
+    const int nc = rr.get_num_cols();
+    int top_row = 0, left_col = 0;
+    while (top_row < nr && left_col < nc) {
+      int pivot_row = top_row;
+      while (pivot_row < nr && rr[static_cast<std::size_t>(pivot_row)][left_col] == zero) ++pivot_row;
+      if (pivot_row >= nr) { ++left_col; continue; }
+      if (pivot_row != top_row) {
+        rr.swap_rows(top_row, pivot_row);
+        d = zero - d;
+      }
+      T pivot = rr[static_cast<std::size_t>(top_row)][left_col];
+      if (pivot != zero) {
+        d = d * pivot;
+        T inv = one / pivot;
+        rr[static_cast<std::size_t>(top_row)].mult_by(inv);
+        for (int r = top_row + 1; r < nr; ++r) {
+          T cur = rr[static_cast<std::size_t>(r)][left_col];
+          if (cur != zero) {
+            rr[static_cast<std::size_t>(r)].accum_row_mul(pivot, cur, rr[static_cast<std::size_t>(top_row)]);
+          }
+        }
+      }
+      ++left_col;
+      ++top_row;
+    }
+    return d;
+  }
+
+  /// Parse "[[r1] [r2] ...]" or "[c1 c2 ...]". *this must already have one element.
+  bool bracket_in(char* string) {
+    if (rows_.empty() || cols_ < 1) return false;
+    T zero = rows_[0][0] - rows_[0][0];
+    char* copy = strdup(string);
+    char* pouterleft = strchr(copy, '[');
+    if (!pouterleft) { free(copy); return false; }
+    char* pinner = pouterleft + 1;
+    while (*pinner == ' ' || *pinner == '\t') ++pinner;
+    char* pouterright = strrchr(pouterleft, ']');
+    if (!pouterright) { free(copy); return false; }
+    *pouterright = '\0';
+
+    if (strchr(pinner, '[')) {
+      int num_rows = spffl::base::count_tokens(pinner, "[");
+      if (num_rows <= 0) { free(copy); return false; }
+      std::vector<char*> row_strs(static_cast<std::size_t>(num_rows), nullptr);
+      if (spffl::base::tokenize(pinner, "[", row_strs.data(), num_rows) != num_rows) { free(copy); return false; }
+      rows_.clear();
+      cols_ = 0;
+      for (int i = 0; i < num_rows; ++i) {
+        char rowcopy[2048];
+        std::snprintf(rowcopy, sizeof(rowcopy), "[%s]", row_strs[static_cast<std::size_t>(i)]);
+        row_type row(1, zero);
+        if (!row.bracket_in(rowcopy)) { free(copy); return false; }
+        if (i == 0) cols_ = row.get_num_elements();
+        else if (row.get_num_elements() != cols_) { free(copy); return false; }
+        rows_.push_back(std::move(row));
+      }
+    } else {
+      row_type col(1, zero);
+      std::istringstream iss(pinner, std::ios_base::in);
+      iss >> col;
+      if (iss.fail() || col.get_num_elements() == 0) { free(copy); return false; }
+      rows_.clear();
+      cols_ = 1;
+      for (int i = 0; i < col.get_num_elements(); ++i) {
+        rows_.emplace_back(1);
+        rows_.back()[0] = col[i];
+      }
+    }
+    free(copy);
+    return true;
+  }
+
+  bool load_from_file(char* file_name) {
+    if (strcmp(file_name, "-") == 0 || strcmp(file_name, "@") == 0) {
+      if (rows_.empty()) return false;
+      std::cin >> *this;
+      return !std::cin.fail();
+    }
+    std::ifstream ifs(file_name);
+    if (!ifs) return false;
+    if (rows_.empty()) return false;
+    T zero = rows_[0][0] - rows_[0][0];
+    rows_.clear();
+    cols_ = 0;
+    std::string line;
+    while (std::getline(ifs, line)) {
+      char* phash = strchr(const_cast<char*>(line.c_str()), '#');
+      if (phash) *phash = '\0';
+      while (!line.empty() && (line.back() == ' ' || line.back() == '\t')) line.pop_back();
+      size_t start = line.find_first_not_of(" \t");
+      if (start == std::string::npos) {
+        if (rows_.empty()) continue;
+        break;
+      }
+      line = line.substr(start);
+      if (line.empty() && !rows_.empty()) break;
+      row_type row(1, zero);
+      std::istringstream iss(line, std::ios_base::in);
+      iss >> row;
+      if (iss.fail()) { ifs.close(); return false; }
+      if (cols_ == 0) cols_ = row.get_num_elements();
+      else if (row.get_num_elements() != cols_) { ifs.close(); return false; }
+      rows_.push_back(std::move(row));
+    }
+    ifs.close();
+    return !rows_.empty();
+  }
+
+  bool load_from_file(char* file_name, const T& zero) {
+    rows_.clear();
+    rows_.emplace_back(1, zero);
+    cols_ = 1;
+    return load_from_file(file_name);
+  }
+
+  void check_inverse(matrix_over& rinv) const {
+    matrix_over AB = *this * rinv;
+    matrix_over BA = rinv * *this;
+    if (!AB.is_I() || !BA.is_I()) {
+      throw std::runtime_error("matrix_over::check_inverse: not really inverses");
+    }
+  }
+
+  void check_kernel_basis(const matrix_over& kerbas) const {
+    T zero = (*this)[0][0] - (*this)[0][0];
+    row_type zerov(get_num_rows(), zero);
+    for (int i = 0; i < kerbas.get_num_rows(); ++i) {
+      row_type Av = (*this) * kerbas[static_cast<std::size_t>(i)];
+      if (Av != zerov) {
+        throw std::runtime_error("matrix_over::check_kernel_basis: coding error in kernel basis");
+      }
+    }
+  }
+
+  matrix_over flip_horiz() const {
+    matrix_over rv(get_num_rows(), get_num_cols());
+    int nc = get_num_cols();
+    for (int i = 0; i < get_num_rows(); ++i) {
+      for (int j = 0; j < nc; ++j) {
+        rv.rows_[static_cast<std::size_t>(i)][j] = (*this)[static_cast<std::size_t>(i)][nc - 1 - j];
+      }
+    }
+    return rv;
+  }
+
+  matrix_over flip_horiz_vert() const {
+    matrix_over rv(get_num_rows(), get_num_cols());
+    int nr = get_num_rows();
+    int nc = get_num_cols();
+    for (int i = 0; i < nr; ++i) {
+      for (int j = 0; j < nc; ++j) {
+        rv.rows_[static_cast<std::size_t>(i)][j] = (*this)[static_cast<std::size_t>(nr - 1 - i)][nc - 1 - j];
+      }
+    }
+    return rv;
+  }
+
+  bool get_rr_non_zero_rows(matrix_over& rrnz) const {
+    matrix_over rr(*this);
+    rr.row_reduce_below();
+    int rank = rr.get_rank_rr();
+    if (rank == 0) return false;
+    rrnz = matrix_over(rank, get_num_cols());
+    for (int i = 0; i < rank; ++i) {
+      rrnz.rows_[static_cast<std::size_t>(i)] = rr.rows_[static_cast<std::size_t>(i)];
+    }
+    return true;
+  }
+
+  bool get_rech_non_zero_rows(matrix_over& rechnz) const {
+    matrix_over rech(*this);
+    rech.row_echelon_form();
+    int rank = rech.get_rank_rr();
+    if (rank == 0) return false;
+    rechnz = matrix_over(rank, get_num_cols());
+    for (int i = 0; i < rank; ++i) {
+      rechnz.rows_[static_cast<std::size_t>(i)] = rech.rows_[static_cast<std::size_t>(i)];
+    }
+    return true;
+  }
+
   friend std::ostream& operator<<(std::ostream& os, const matrix_over& A) {
     for (int i = 0; i < A.get_num_rows(); ++i) {
       for (int j = 0; j < A.get_num_cols(); ++j) {
@@ -453,6 +692,34 @@ public:
       if (i + 1 < A.get_num_rows()) os << "\n";
     }
     return os;
+  }
+
+  friend std::istream& operator>>(std::istream& is, matrix_over& A) {
+    if (A.rows_.empty() || A.cols_ < 1) { is.setstate(std::ios::failbit); return is; }
+    T zero = A.rows_[0][0] - A.rows_[0][0];
+    A.rows_.clear();
+    A.cols_ = 0;
+    std::string line;
+    while (std::getline(is, line)) {
+      char* phash = strchr(const_cast<char*>(line.c_str()), '#');
+      if (phash) *phash = '\0';
+      while (!line.empty() && (line.back() == ' ' || line.back() == '\t')) line.pop_back();
+      size_t start = line.find_first_not_of(" \t");
+      if (start == std::string::npos) {
+        if (A.rows_.empty()) continue;
+        break;
+      }
+      line = line.substr(start);
+      if (line.empty() && !A.rows_.empty()) break;
+      row_type row(1, zero);
+      std::istringstream iss(line, std::ios_base::in);
+      iss >> row;
+      if (iss.fail()) { is.setstate(std::ios::failbit); return is; }
+      if (A.cols_ == 0) A.cols_ = row.get_num_elements();
+      else if (row.get_num_elements() != A.cols_) { is.setstate(std::ios::failbit); return is; }
+      A.rows_.push_back(std::move(row));
+    }
+    return is;
   }
 
 private:
