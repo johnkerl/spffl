@@ -8,7 +8,7 @@ This directory contains an in‑progress C++20 port of `spffl`, focused on:
 - A minimal **`intmod_t`** (Z/nZ) in `spffl/intmath/intmod_t.hpp` for Fp[x] coefficients
 - **`fp_polymod_t`** (Fp[x]/(m)) in `spffl/polynomials/fp_polymod_t.hpp` for the residue ring, with `recip` and `exp`
 - **STL-based `vector_over<T>`** and **`matrix_over<T>`** in `spffl/containers/` (satisfy `Vector_over`, `Matrix_over`, `Matrix_vector_product`)
-- **Euclidean ops for int**: `quot_and_rem`, `gcd` in `spffl/intmath/euclidean_int.hpp` for generic algorithms
+- **Euclidean ops**: `spffl/intmath/euclidean_int.hpp` (int only); **unified** `spffl/euclidean.hpp` with `quot_and_rem` and `gcd` overloads for both `int` and any `Euclidean_domain<E>` (e.g. `fp_poly_t`) so one generic algorithm works for both
 - **fp_poly_t I/O**: `fp_poly_from_string(s, p)` and `operator>>` in `spffl/polynomials/fp_poly_io.hpp` (comma-separated coefficients, leading first)
 - A small Catch2‑based test suite under `test/`
 
@@ -81,6 +81,7 @@ You can also run individual tests directly, e.g.:
   - `polynomials/fp_poly_io.hpp` – `fp_poly_from_string`, `operator>>` for fp_poly_t
   - `intmath/intmod_t.hpp` – header‑only Z/nZ for Fp[x]
   - `intmath/euclidean_int.hpp` – `quot_and_rem`, `gcd` for int
+  - `euclidean.hpp` – unified `quot_and_rem` / `gcd` for int and any `Euclidean_domain<E>`
   - `containers/vector_over.hpp`, `containers/matrix_over.hpp` – STL-based vector/matrix over a ring
   - `mod/` – example module (`foo.h` / `foo.cpp`) used by tests
 - `test/`
