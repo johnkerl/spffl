@@ -1,6 +1,8 @@
 ## spffl C++20 port (`cpp20/`)
 
-This directory contains an in‑progress C++20 port of `spffl`, focused on:
+**Status:** Much of the C++20 design now lives in the **main tree** at the repo root: `spffl/` (concepts, euclidean, residue_of, polynomial_of, vector_over, matrix_over), and f2n/fpn are fully migrated there as `polynomial_of`/`residue_of` (see `spffl/polynomials/fpn_f2n_aliases.hpp` and `fpn_f2n_io.hpp`). Legacy f2n/fpn `.cpp` have been removed. See **`cpp20/MIGRATION_PATH.md`** for the full checklist.
+
+This directory contains a **standalone C++20 test/experiment** slice, focused on:
 
 - **C++20 concepts** (see `spffl/concepts.hpp`)
 - A generic **`polynomial_of<Coeff>`** template (see `spffl/polynomials/polynomial_of.hpp`)
@@ -15,7 +17,7 @@ This directory contains an in‑progress C++20 port of `spffl`, focused on:
 - **fp_poly_t / fp_polymod_t I/O**: `fp_poly_from_string(s, p)`, `fp_polymod_from_string(s, modulus)`, and `operator>>` for both in `spffl/polynomials/fp_poly_io.hpp` (comma-separated coefficients, leading first)
 - A small Catch2‑based test suite under `test/`
 
-The code is experimental and currently lives alongside the existing C++03 code in the parent tree.
+The code here is a subset used for Catch2 tests (e.g. `test_polynomial_of`, `test_intmod_t`, `test_mod`). The main build and tests are at the repo root (`cmake -S . -B build` then `ctest` in `build/`).
 
 ---
 
@@ -105,9 +107,8 @@ You can also run individual tests directly, e.g.:
 
 ### Next steps (suggested)
 
-- **F2[x] residue:** Done: `residue_of<f2_poly_t>` for F2[x]/(m) with `recip` and `exp` (via `f2_poly_t::one()` and a dedicated recip path in `residue_of`).
-- **Generic algorithms:** `spffl/algorithms/optional_inverse.hpp` (`optional_inverse`, `optional_solve_ax_eq_b`); `spffl/algorithms/optional_solve_2x2.hpp` for solving 2×2 linear systems A*x = b over any `Residue_ring_with_recip` using `matrix_over<R>` and `vector_over<R>`.
-- **Migration:** Use `polynomial_of<>`, `residue_of<>`, and cpp20 types in the main spffl tree (incremental, with tests).
+- **Merge cpp20 tests into main:** Copy `test/polynomials/test_polynomial_of.cpp`, `test/intmath/test_intmod_t.cpp`, `test/intmath/test_euclidean_int.cpp`, `test/mod/test_mod.cpp` into the repo-root `test/`, fix includes and CMake, then remove `cpp20/`.
+- **vector_over / matrix_over:** Migrate modules (linalg, factorization, cli, etc.) from `tvector`/`tmatrix` to `vector_over`/`matrix_over` in the main tree.
 
 ---
 

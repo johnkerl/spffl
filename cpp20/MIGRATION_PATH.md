@@ -144,6 +144,8 @@ Goal: No remaining references to old polynomial/intmod implementations or to tve
 - [x] Phase 3 (partial): algorithms and containers tests added to main test/ (test/algorithms, test/containers); residue_of supports legacy f2_poly_t (is_zero_poly)
 - [x] Phase 3 (partial): concepts and residue tests merged into main test/ (test/concepts, test/residue)
 - [ ] Phase 3: Merge remaining cpp20 tests (intmath, polynomials, mod) into test/, remove cpp20/
-- [ ] Phase 3: Update README and build docs
+- [x] Phase 3: Update README and build docs (cpp20/README.md updated with migration status and next steps)
 
 Done: one C++20 codebase, nothing left behind.
+
+**Suggested next step:** Merge cpp20 tests into repo-root `test/` (test_polynomial_of, test_intmod_t, test_euclidean_int, test_mod) and wire in root `test/CMakeLists.txt`, then remove `cpp20/`. Alternatively, start Phase 2 vector_over/matrix_over migration in one module.
