@@ -9,6 +9,7 @@
 
 #include "spffl/concepts.hpp"
 #include "spffl/euclidean.hpp"
+#include "spffl/polynomials/f2_poly_t.hpp"
 #include <ostream>
 #include <stdexcept>
 #include <type_traits>
@@ -67,6 +68,8 @@ public:
   bool recip(residue_of& rinv) const {
     if constexpr (std::is_same_v<E, int>) {
       return recip_int(rinv);
+    } else if constexpr (std::is_same_v<E, spffl::polynomials::f2_poly_t>) {
+      return recip_f2(rinv);
     } else {
       return recip_polynomial(rinv);
     }
@@ -181,6 +184,18 @@ private:
     int mod_abs = (m < 0) ? -m : m;
     r = r % mod_abs;
     if (r < 0) r += mod_abs;
+    rinv = residue_of(r, modulus_);
+    return true;
+  }
+
+  bool recip_f2(residue_of& rinv) const {
+    if (modulus_.is_zero()) return false;
+    E m, n;
+    E g = spffl::euclidean::ext_gcd(residue_, modulus_, m, n);
+    // In F2[x] the only unit is 1 (constant)
+    if (g.find_degree() != 0 || g.is_zero()) return false;
+    E q, r;
+    spffl::euclidean::quot_and_rem(m, modulus_, q, r);
     rinv = residue_of(r, modulus_);
     return true;
   }

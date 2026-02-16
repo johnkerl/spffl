@@ -8,7 +8,7 @@ This directory contains an in‑progress C++20 port of `spffl`, focused on:
 - **`f2_poly_t`** (F2[x]) in `spffl/polynomials/f2_poly_t.hpp`: bit-packed, models `Polynomial_with_ext_gcd`; `from_string("1,0,1")` (comma-separated 0/1, leading first) and `operator>>`
 - A minimal **`intmod_t`** (Z/nZ) in `spffl/intmath/intmod_t.hpp` for Fp[x] coefficients
 - **`fp_polymod_t`** (Fp[x]/(m)) in `spffl/polynomials/fp_polymod_t.hpp` for the residue ring, with `recip` and `exp`
-- **Generic `residue_of<E>`** in `spffl/residue_of.hpp`: residue ring over any `E` (e.g. `int` → Z/nZ, `fp_poly_t` → Fp[x]/(m)); models `Residue_ring` and `Residue_ring_with_recip`; inversion via unified `euclidean::ext_gcd`
+- **Generic `residue_of<E>`** in `spffl/residue_of.hpp`: residue ring over any `E` (e.g. `int` → Z/nZ, `fp_poly_t` → Fp[x]/(m), `f2_poly_t` → F2[x]/(m)); models `Residue_ring` and `Residue_ring_with_recip`; inversion via unified `euclidean::ext_gcd`
 - **STL-based `vector_over<T>`** and **`matrix_over<T>`** in `spffl/containers/` (satisfy `Vector_over`, `Matrix_over`, `Matrix_vector_product`)
 - **Bit vector/matrix concepts**: `Bit_vector_like<V>` and `Bit_matrix_like<M>` in `concepts.hpp` describe bit-packed F2 vectors/matrices (e.g. `get(i)`, `set(i,b)`, row access, ring ops). Legacy `bit_vector_t` / `bit_matrix_t` can satisfy these; no new implementation in cpp20 yet.
 - **Euclidean ops**: `spffl/intmath/euclidean_int.hpp` (int: quot_and_rem, gcd, ext_gcd); **unified** `spffl/euclidean.hpp` with `quot_and_rem`, `gcd`, and `ext_gcd` for both `int` and any `Euclidean_domain_with_ext_gcd<E>` so generic residue-ring code can use one interface
@@ -87,7 +87,7 @@ You can also run individual tests directly, e.g.:
   - `intmath/euclidean_int.hpp` – `quot_and_rem`, `gcd` for int
   - `euclidean.hpp` – unified `quot_and_rem` / `gcd` for int and any `Euclidean_domain<E>`
   - `containers/vector_over.hpp`, `containers/matrix_over.hpp` – STL-based vector/matrix over a ring
-  - `residue_of.hpp` – generic **`residue_of<E>`** (E = int or Euclidean_domain_with_ext_gcd, e.g. fp_poly_t); models `Residue_ring` and `Residue_ring_with_recip`
+  - `residue_of.hpp` – generic **`residue_of<E>`** (E = int, fp_poly_t, or f2_poly_t); models `Residue_ring` and `Residue_ring_with_recip`
   - `algorithms/optional_inverse.hpp` – generic `optional_inverse<R>`, `optional_solve_ax_eq_b<R>` for `Residue_ring_with_recip<R>`
   - `mod/` – example module (`foo.h` / `foo.cpp`) used by tests
 - `test/`
@@ -97,14 +97,14 @@ You can also run individual tests directly, e.g.:
   - `polynomials/` – tests for `polynomial_of<>` and `fp_poly_t`
   - `intmath/` – tests for `intmod_t`, `euclidean_int`
   - `containers/` – tests for `vector_over<T>`, `matrix_over<T>`
-  - `residue/` – tests for `residue_of<int>`, `residue_of<fp_poly_t>`
-  - `algorithms/` – tests for `optional_inverse`, `optional_solve_ax_eq_b` (residue_of<int>, fp_polymod_t)
+  - `residue/` – tests for `residue_of<int>`, `residue_of<fp_poly_t>`, `residue_of<f2_poly_t>`
+  - `algorithms/` – tests for `optional_inverse`, `optional_solve_ax_eq_b` (residue_of<int>, fp_polymod_t, residue_of<f2_poly_t>)
 
 ---
 
 ### Next steps (suggested)
 
-- **F2[x] residue:** Add `residue_of<f2_poly_t>` (or a dedicated `f2_polymod_t`) for F2[x]/(m); requires F2 coefficient type with `recip` or a small specialization in `residue_of` for F2.
+- **F2[x] residue:** Done: `residue_of<f2_poly_t>` for F2[x]/(m) with `recip` and `exp` (via `f2_poly_t::one()` and a dedicated recip path in `residue_of`).
 - **Generic algorithms:** Further examples using `euclidean::`, `Vector_over`, `Matrix_over` (e.g. linear algebra over a residue ring). A minimal start exists in `spffl/algorithms/optional_inverse.hpp` (`optional_inverse`, `optional_solve_ax_eq_b`).
 - **Migration:** Use `polynomial_of<>`, `residue_of<>`, and cpp20 types in the main spffl tree (incremental, with tests).
 

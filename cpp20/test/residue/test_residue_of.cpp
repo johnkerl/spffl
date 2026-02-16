@@ -6,9 +6,11 @@
 #include "spffl/residue_of.hpp"
 #include "spffl/polynomials/aliases.hpp"
 #include "spffl/polynomials/fp_polymod_t.hpp"
+#include "spffl/polynomials/f2_poly_t.hpp"
 
 using spffl::residue_of;
 using spffl::polynomials::fp_poly_t;
+using spffl::polynomials::f2_poly_t;
 using spffl::intmath::intmod_t;
 
 // ---------------------------------------------------------------------------
@@ -23,6 +25,11 @@ TEST_CASE("residue_of<int> models Residue_ring and Residue_ring_with_recip") {
 TEST_CASE("residue_of<fp_poly_t> models Residue_ring and Residue_ring_with_recip") {
   static_assert(spffl::concepts::Residue_ring<residue_of<fp_poly_t>>);
   static_assert(spffl::concepts::Residue_ring_with_recip<residue_of<fp_poly_t>>);
+}
+
+TEST_CASE("residue_of<f2_poly_t> models Residue_ring and Residue_ring_with_recip") {
+  static_assert(spffl::concepts::Residue_ring<residue_of<f2_poly_t>>);
+  static_assert(spffl::concepts::Residue_ring_with_recip<residue_of<f2_poly_t>>);
 }
 
 // ---------------------------------------------------------------------------
@@ -77,4 +84,25 @@ TEST_CASE("residue_of<fp_poly_t>: F7[x]/(x^2+1) ring and inverse") {
   REQUIRE(x_mod.recip(x_inv));
   CHECK((x_mod * x_inv).get_residue().find_degree() == 0);
   CHECK((x_mod * x_inv).get_residue().get_coeff(0).get_residue() == 1);
+}
+
+// ---------------------------------------------------------------------------
+// residue_of<f2_poly_t>: F2[x]/(m)
+// ---------------------------------------------------------------------------
+
+TEST_CASE("residue_of<f2_poly_t>: F2[x]/(x^2+x+1) ring and inverse") {
+  f2_poly_t modulus(1, 1, 1);   // x^2 + x + 1
+  f2_poly_t x_poly(1, 0);       // x
+  f2_poly_t one_poly(1);
+
+  residue_of<f2_poly_t> x_mod(x_poly, modulus);
+  residue_of<f2_poly_t> one_mod(one_poly, modulus);
+
+  auto x_sq = x_mod * x_mod;
+  CHECK(x_sq.get_residue().find_degree() <= 1);  // reduced mod x^2+x+1
+
+  residue_of<f2_poly_t> x_inv;
+  REQUIRE(x_mod.recip(x_inv));
+  CHECK((x_mod * x_inv).get_residue().find_degree() == 0);
+  CHECK((x_mod * x_inv).get_residue().get_coeff(0) == 1);
 }

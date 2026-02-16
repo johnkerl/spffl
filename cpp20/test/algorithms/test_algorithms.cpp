@@ -7,6 +7,7 @@
 #include "spffl/residue_of.hpp"
 #include "spffl/polynomials/aliases.hpp"
 #include "spffl/polynomials/fp_polymod_t.hpp"
+#include "spffl/polynomials/f2_poly_t.hpp"
 #include "spffl/intmath/intmod_t.hpp"
 
 using spffl::algorithms::optional_inverse;
@@ -14,6 +15,7 @@ using spffl::algorithms::optional_solve_ax_eq_b;
 using spffl::residue_of;
 using spffl::polynomials::fp_poly_t;
 using spffl::polynomials::fp_polymod_t;
+using spffl::polynomials::f2_poly_t;
 using spffl::intmath::intmod_t;
 
 TEST_CASE("optional_inverse: residue_of<int>") {
@@ -43,4 +45,14 @@ TEST_CASE("optional_inverse: fp_polymod_t") {
   REQUIRE(inv.has_value());
   CHECK((x_mod * *inv).get_residue().find_degree() == 0);
   CHECK((x_mod * *inv).get_residue().get_coeff(0).get_residue() == 1);
+}
+
+TEST_CASE("optional_inverse: residue_of<f2_poly_t>") {
+  f2_poly_t mod(1, 1, 1);   // x^2+x+1
+  f2_poly_t x_poly(1, 0);    // x
+  residue_of<f2_poly_t> x_mod(x_poly, mod);
+  auto inv = optional_inverse(x_mod);
+  REQUIRE(inv.has_value());
+  CHECK((x_mod * *inv).get_residue().find_degree() == 0);
+  CHECK((x_mod * *inv).get_residue().get_coeff(0) == 1);
 }

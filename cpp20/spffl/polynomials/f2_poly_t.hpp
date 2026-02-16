@@ -83,6 +83,9 @@ public:
     return parts_.empty();
   }
 
+  /// Multiplicative identity (for residue_of<f2_poly_t>::exp, etc.).
+  static f2_poly_t one(const f2_poly_t&) { return f2_poly_t(1); }
+
   f2_poly_t operator+(const f2_poly_t& that) const {
     f2_poly_t r;
     std::size_t n = std::max(parts_.size(), that.parts_.size());
