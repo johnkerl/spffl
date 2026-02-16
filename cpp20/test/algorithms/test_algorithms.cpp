@@ -4,6 +4,9 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include "spffl/algorithms/optional_inverse.hpp"
+#include "spffl/algorithms/optional_solve_2x2.hpp"
+#include "spffl/containers/matrix_over.hpp"
+#include "spffl/containers/vector_over.hpp"
 #include "spffl/residue_of.hpp"
 #include "spffl/polynomials/aliases.hpp"
 #include "spffl/polynomials/fp_polymod_t.hpp"
@@ -12,6 +15,9 @@
 
 using spffl::algorithms::optional_inverse;
 using spffl::algorithms::optional_solve_ax_eq_b;
+using spffl::algorithms::optional_solve_2x2;
+using spffl::containers::matrix_over;
+using spffl::containers::vector_over;
 using spffl::residue_of;
 using spffl::polynomials::fp_poly_t;
 using spffl::polynomials::fp_polymod_t;
@@ -55,4 +61,23 @@ TEST_CASE("optional_inverse: residue_of<f2_poly_t>") {
   REQUIRE(inv.has_value());
   CHECK((x_mod * *inv).get_residue().find_degree() == 0);
   CHECK((x_mod * *inv).get_residue().get_coeff(0) == 1);
+}
+
+TEST_CASE("optional_solve_2x2: matrix_over<residue_of<int>> A*x = b") {
+  using R = residue_of<int>;
+  int m = 7;
+  matrix_over<R> A(2, 2);
+  A[0][0] = R(1, m);
+  A[0][1] = R(2, m);
+  A[1][0] = R(1, m);
+  A[1][1] = R(3, m);
+  vector_over<R> b(2);
+  b[0] = R(1, m);
+  b[1] = R(0, m);
+
+  auto x_opt = optional_solve_2x2(A, b);
+  REQUIRE(x_opt.has_value());
+  vector_over<R> Ax = A * *x_opt;
+  CHECK(Ax[0].get_residue() == b[0].get_residue());
+  CHECK(Ax[1].get_residue() == b[1].get_residue());
 }
