@@ -134,7 +134,7 @@ Goal: No remaining references to old polynomial/intmod implementations or to tve
 - [x] Phase 1.1: intmod_t + euclidean_int in main spffl
 - [x] Phase 1.2: concepts.hpp, euclidean.hpp in main spffl
 - [x] Phase 1.3: polynomial_of, aliases, fp_poly_t replacement, fp_polymod_t replacement (f2_poly_t still legacy; replace in follow-up if desired)
-- [ ] Phase 1.4: f2n/fpn polymods (residue_of or dedicated), q_poly if kept
+- [x] Phase 1.4 (partial): fpn_f2n_aliases.hpp (fpn_poly_t, fpn_polymod_t, f2n_poly_t, f2n_polymod_t as polynomial_of/residue_of); polynomial_of get_characteristic/prime_subfield_element for has_get_characteristic; residue_of get_characteristic(); free gcd in alias header. Old fpn/f2n .cpp still in build; full replacement needs operator>> and static prime_subfield_element(v, modulus) at call sites (Phase 2). q_poly_t deferred.
 - [x] Phase 1.5: residue_of.hpp, optional_inverse.hpp in main spffl (optional_solve_2x2 with Phase 1.6)
 - [x] Phase 1.6: vector_over, matrix_over, optional_solve_2x2 in main spffl (tvector/tmatrix still present)
 - [ ] Phase 2: Migrate linalg, factorization, random, units, rationals, list, q_cyclotomic, cli_parser, cli to new types and containers

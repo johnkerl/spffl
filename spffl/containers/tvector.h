@@ -7,6 +7,7 @@
 #ifndef TVECTOR_H
 #define TVECTOR_H
 
+#include "spffl/base/read_element.h"
 #include "spffl/base/spffl_exception.h"
 #include <fstream>
 #include <iostream>
@@ -589,8 +590,8 @@ static std::istringstream &operator>>(
       delete[] v.elements;
       v.elements = ptemp;
     }
-    v.elements[v.num_elements] = zero; // E.g. set modulus.
-    iss >> v.elements[v.num_elements];
+    v.elements[v.num_elements] = zero;  // E.g. set modulus.
+    read_element(iss, zero, v.elements[v.num_elements]);
     if (iss.fail()) {
       std::stringstream ss;
       ss << "tvector istringstream >>: scan failure"

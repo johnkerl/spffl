@@ -8,7 +8,7 @@
 #include "spffl/base/spffl_exception.h"
 #include "spffl/containers/tfacinfo.h"
 #include "spffl/containers/tmatrix.h"
-#include "spffl/polynomials/f2_polymod_t.h"
+#include "spffl/polynomials/fpn_f2n_aliases.hpp"
 #include "spffl/random/f2n_poly_random.h"
 
 namespace spffl::factorization {
@@ -43,7 +43,7 @@ tfacinfo<spffl::polynomials::f2n_poly_t> f2n_poly_factor(
 
   spffl::polynomials::f2_polymod_t leader = fcopy.get_coeff(d);
   if ((leader != zero) && (leader != one)) {
-    finfo.insert_unit(leader);
+    finfo.insert_unit(spffl::polynomials::f2n_poly_t(leader));
     fcopy /= leader;
   }
 
@@ -78,8 +78,7 @@ static void f2n_poly_pre_berlekamp(const spffl::polynomials::f2n_poly_t &f,
     // Input is a perfect square
     spffl::polynomials::f2n_poly_t s;
     tfacinfo<spffl::polynomials::f2n_poly_t> sfinfo;
-    spffl::polynomials::f2_poly_t m = f.get_coeff(0).get_modulus();
-    if (!f.square_root(s)) {
+    if (!spffl::polynomials::square_root(f, s)) {
       std::stringstream ss;
       ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
       throw spffl::exception_t(ss.str());
@@ -121,7 +120,7 @@ static void f2n_poly_berlekamp(const spffl::polynomials::f2n_poly_t &f,
   spffl::polynomials::f2_polymod_t one  = c0.prime_subfield_element(1);
   spffl::polynomials::f2n_poly_t x(one, zero);
   spffl::polynomials::f2n_poly_t xq;
-  spffl::polynomials::f2n_poly_t xqi = one;
+  spffl::polynomials::f2n_poly_t xqi = spffl::polynomials::prime_subfield_element(1, m);
   spffl::polynomials::f2n_poly_t f1, f2;
   int i, j, row, rank, dimker;
 
@@ -205,7 +204,7 @@ static void f2n_poly_berlekamp(const spffl::polynomials::f2n_poly_t &f,
 #ifdef F2NPOLY_FACTOR_DEBUG
     std::cout << "h  = " << h << "\n";
 #endif // F2NPOLY_FACTOR_DEBUG
-    if (h == 1) {
+    if (h == spffl::polynomials::prime_subfield_element(1, m)) {
       continue;
     }
 
@@ -348,9 +347,12 @@ bool f2n_poly_is_irreducible(const spffl::polynomials::f2n_poly_t &f) {
 // Lexically lowest
 spffl::polynomials::f2n_poly_t f2n_poly_find_irr(
     const spffl::polynomials::f2_poly_t &m, int degree) {
-  spffl::polynomials::f2_poly_t c0(0), c1(1);
-  spffl::polynomials::f2_polymod_t zero(c0, m), one(c1, m);
-  spffl::polynomials::f2n_poly_t rv = zero;
+  spffl::polynomials::f2_polymod_t zero =
+      spffl::polynomials::f2_polymod_t::prime_subfield_element(0, m);
+  spffl::polynomials::f2_polymod_t one =
+      spffl::polynomials::f2_polymod_t::prime_subfield_element(1, m);
+  spffl::polynomials::f2n_poly_t rv =
+      spffl::polynomials::prime_subfield_element(0, m);
   rv.set_coeff(degree, one);
 
   if (degree < 1) {

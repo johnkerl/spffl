@@ -5,10 +5,12 @@
 // ================================================================
 
 #include "spffl/rationals/f2n_polyrat_t.h"
+#include "spffl/polynomials/fpn_f2n_io.hpp"
 #include "spffl/base/cmps.h"
 #include "spffl/base/spffl_exception.h"
 #include <iomanip>
 #include <iostream>
+#include <optional>
 
 namespace spffl::rationals {
 
@@ -23,7 +25,8 @@ f2n_polyrat_t::f2n_polyrat_t(const spffl::polynomials::f2n_poly_t &numerator,
 // ----------------------------------------------------------------
 f2n_polyrat_t::f2n_polyrat_t(const spffl::polynomials::f2n_poly_t &numerator) {
   this->numer = numerator;
-  this->denom = numerator.prime_subfield_element(1);
+  this->denom = spffl::polynomials::prime_subfield_element(
+      1, numerator.get_coeff(0).get_modulus());
   this->simplify();
 }
 
@@ -41,7 +44,8 @@ f2n_polyrat_t::~f2n_polyrat_t(void) {}
 
 // ----------------------------------------------------------------
 f2n_polyrat_t f2n_polyrat_t::prime_subfield_element(int v) const {
-  spffl::polynomials::f2n_poly_t a = this->numer.prime_subfield_element(v);
+  spffl::polynomials::f2n_poly_t a = spffl::polynomials::prime_subfield_element(
+      v, this->numer.get_coeff(0).get_modulus());
   return f2n_polyrat_t(a);
 }
 
@@ -49,8 +53,7 @@ f2n_polyrat_t f2n_polyrat_t::prime_subfield_element(int v) const {
 // This is a static method.
 f2n_polyrat_t f2n_polyrat_t::prime_subfield_element(
     int v, const spffl::polynomials::f2_poly_t &m) {
-  return f2n_polyrat_t(
-      spffl::polynomials::f2n_poly_t::prime_subfield_element(v, m));
+  return f2n_polyrat_t(spffl::polynomials::prime_subfield_element(v, m));
 }
 
 // ----------------------------------------------------------------
@@ -134,9 +137,12 @@ f2n_polyrat_t f2n_polyrat_t::operator%(const f2n_polyrat_t &that) {
 
 // ----------------------------------------------------------------
 f2n_polyrat_t f2n_polyrat_t::exp(int e) const {
+  auto m = get_denominator().get_coeff(0).get_modulus();
   f2n_polyrat_t xp = *this;
-  f2n_polyrat_t zero(this->numer.prime_subfield_element(0));
-  f2n_polyrat_t one(this->numer.prime_subfield_element(1));
+  f2n_polyrat_t zero(
+      spffl::polynomials::prime_subfield_element(0, m));
+  f2n_polyrat_t one(
+      spffl::polynomials::prime_subfield_element(1, m));
   f2n_polyrat_t rv = one;
 
   if (e == 0) {
@@ -183,80 +189,65 @@ std::ostream &operator<<(std::ostream &os, const f2n_polyrat_t &a) {
 }
 
 // ----------------------------------------------------------------
-std::istream &operator>>(std::istream &is, f2n_polyrat_t &a) {
-  // Attempt to skip over whitespace.
-  // The istringstream class appears to permit no way to ignore a set of
-  // characters.  E.g. if the input is 0, space, tab, space, 1, then the
-  // following won't suffice.
+// Read rational from stream; modulus m is required (explicit API).
+bool read_f2n_polyrat(std::istream& is, const spffl::polynomials::f2_poly_t& m,
+                      f2n_polyrat_t& a) {
+  while (is.peek() == ' ' || is.peek() == '\t' || is.peek() == '\n') {
+    is.ignore(1);
+  }
+  std::string line;
+  if (!std::getline(is, line)) return false;
+  auto opt = f2n_polyrat_from_string(line, m);
+  if (!opt) return false;
+  a = std::move(*opt);
+  return true;
+}
 
-  while (is.peek() == ' ') {
-    is.ignore(1, ' ');
+bool read_f2n_polyrat(std::istringstream& iss,
+                      const spffl::polynomials::f2_poly_t& m, f2n_polyrat_t& a) {
+  while (iss.peek() == ' ' || iss.peek() == '\t' || iss.peek() == '\n') {
+    iss.ignore(1);
   }
-  while (is.peek() == '\t') {
-    is.ignore(1, '\t');
-  }
-  while (is.peek() == '\n') {
-    is.ignore(1, '\n');
-  }
-
-  is >> a.numer;
-  if (is.eof()) {
-    a.denom = a.numer.prime_subfield_element(1);
-  }
-  if (is.peek() == '/') {
-    (void)is.get();
-    is >> a.denom;
-  } else {
-    // Clear failure code from not having found the '/'.
-    is.clear();
-    a.denom = a.numer.prime_subfield_element(1);
-  }
-  a.simplify();
-  return is;
+  std::string line;
+  if (!std::getline(iss, line)) return false;
+  auto opt = f2n_polyrat_from_string(line, m);
+  if (!opt) return false;
+  a = std::move(*opt);
+  return true;
 }
 
 // ----------------------------------------------------------------
-std::istringstream &operator>>(std::istringstream &iss, f2n_polyrat_t &a) {
-  // Attempt to skip over whitespace.
-  // The istringstream class appears to permit no way to ignore a set of
-  // characters.  E.g. if the input is 0, space, tab, space, 1, then the
-  // following won't suffice.
-
-  while (iss.peek() == ' ') {
-    iss.ignore(1, ' ');
-  }
-  while (iss.peek() == '\t') {
-    iss.ignore(1, '\t');
-  }
-  while (iss.peek() == '\n') {
-    iss.ignore(1, '\n');
-  }
-
-  iss >> a.numer;
-  if (iss.eof()) {
-    a.denom = a.numer.prime_subfield_element(1);
-  } else if (iss.peek() == '/') {
-    (void)iss.get();
-    iss >> a.denom;
+std::optional<f2n_polyrat_t> f2n_polyrat_from_string(
+    const std::string& s, const spffl::polynomials::f2_poly_t& m) {
+  std::string num_str, denom_str;
+  std::size_t slash = s.find('/');
+  if (slash != std::string::npos) {
+    num_str = s.substr(0, slash);
+    denom_str = s.substr(slash + 1);
   } else {
-    // Clear failure code from not having found the '/'.
-    iss.clear();
-    a.denom = a.numer.prime_subfield_element(1);
+    num_str = s;
+    denom_str.clear();
   }
-  a.simplify();
-  return iss;
+  auto num_opt = spffl::polynomials::f2n_poly_from_string(num_str, m);
+  if (!num_opt) return std::nullopt;
+  spffl::polynomials::f2n_poly_t denom;
+  if (denom_str.empty()) {
+    denom = spffl::polynomials::prime_subfield_element(1, m);
+  } else {
+    auto denom_opt = spffl::polynomials::f2n_poly_from_string(denom_str, m);
+    if (!denom_opt) return std::nullopt;
+    denom = *denom_opt;
+  }
+  return f2n_polyrat_t(*num_opt, denom);
 }
 
 // ----------------------------------------------------------------
 bool f2n_polyrat_t::from_string(
     const std::string &string, spffl::polynomials::f2_poly_t m) {
-  this->numer = spffl::polynomials::f2n_poly_t(
-      spffl::polynomials::f2_polymod_t(spffl::polynomials::f2_poly_t(0), m));
-  this->denom = spffl::polynomials::f2n_poly_t(
-      spffl::polynomials::f2_polymod_t(spffl::polynomials::f2_poly_t(1), m));
-  std::istringstream iss(string, std::ios_base::in);
-  iss >> *this;
-  return iss.fail() ? false : true;
+  auto opt = f2n_polyrat_from_string(string, m);
+  if (!opt) return false;
+  *this = std::move(*opt);
+  return true;
 }
 
 // ----------------------------------------------------------------
@@ -309,7 +300,8 @@ bool f2n_polyrat_t::operator!=(const f2n_polyrat_t &that) const {
 
 // ----------------------------------------------------------------
 bool f2n_polyrat_t::operator==(spffl::polynomials::f2n_poly_t that) const {
-  if (this->denom != this->numer.prime_subfield_element(1)) {
+  if (this->denom != spffl::polynomials::prime_subfield_element(
+                         1, this->numer.get_coeff(0).get_modulus())) {
     return false;
   }
   return this->numer == that;
@@ -351,12 +343,17 @@ spffl::polynomials::f2n_poly_t f2n_polyrat_t::get_denominator(void) const {
 }
 
 // ----------------------------------------------------------------
+spffl::polynomials::f2_poly_t f2n_polyrat_t::get_modulus(void) const {
+  return this->denom.get_coeff(0).get_modulus();
+}
+
+// ----------------------------------------------------------------
 // * Check denominator != 0
 // * Divide numerator and denominator by their GCD
 
 void f2n_polyrat_t::simplify(void) {
   spffl::polynomials::f2n_poly_t g;
-  if (this->denom == 0) {
+  if (this->denom.is_zero()) {
     std::stringstream ss;
     ss << "rat: Divide by zero.\n";
     throw spffl::exception_t(ss.str());
@@ -366,4 +363,12 @@ void f2n_polyrat_t::simplify(void) {
   this->denom /= g;
 }
 
-} // namespace spffl::rationals
+// ----------------------------------------------------------------
+void read_element(std::istringstream& iss, const f2n_polyrat_t& zero,
+                  f2n_polyrat_t& out) {
+  if (!read_f2n_polyrat(iss, zero.get_modulus(), out)) {
+    iss.setstate(std::ios::failbit);
+  }
+}
+
+}  // namespace spffl::rationals

@@ -20,6 +20,12 @@ f2_polymod_t::f2_polymod_t(
 }
 
 // ----------------------------------------------------------------
+f2_polymod_t::f2_polymod_t(int v, const f2_poly_t &arg_modulus) {
+  this->modulus = arg_modulus;
+  this->residue = f2_poly_t(v & 1);
+}
+
+// ----------------------------------------------------------------
 f2_polymod_t::f2_polymod_t(const f2_polymod_t &that) {
   this->residue = that.residue;
   this->modulus = that.modulus;

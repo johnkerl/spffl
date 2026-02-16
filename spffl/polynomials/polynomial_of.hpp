@@ -15,6 +15,7 @@
 #include <algorithm>
 
 #include "spffl/concepts.hpp"
+#include "spffl/intmath/intmod_t.h"
 
 namespace spffl::polynomials {
 
@@ -76,10 +77,18 @@ public:
     trim_degree();
   }
 
-  // Legacy compat: characteristic of coefficient ring (when Coeff has get_modulus).
+  // Legacy compat: characteristic of coefficient ring.
+  // When Coeff has get_modulus() returning int (e.g. intmod_t).
   int get_characteristic() const
-      requires spffl::concepts::has_get_modulus_v<Coeff> {
+      requires spffl::concepts::has_get_modulus_v<Coeff> &&
+               std::convertible_to<decltype(std::declval<Coeff const&>().get_modulus()), int> {
     return coeffs_[0].get_modulus();
+  }
+
+  // When Coeff has get_characteristic() (e.g. fp_polymod_t, residue_of<f2_poly_t>).
+  int get_characteristic() const
+      requires spffl::concepts::has_get_characteristic_v<Coeff> {
+    return coeffs_[0].get_characteristic();
   }
 
   // Legacy compat: constant polynomial with single coefficient v in prime subfield.
@@ -87,6 +96,16 @@ public:
       requires spffl::concepts::Field_element<Coeff> &&
                spffl::concepts::has_get_modulus_v<Coeff> {
     return polynomial_of(Coeff(v, get_characteristic()));
+  }
+
+  // When Coeff is e.g. fp_polymod_t: construct from (intmod_t(v,p), modulus).
+  polynomial_of prime_subfield_element(int v) const
+      requires spffl::concepts::Field_element<Coeff> &&
+               spffl::concepts::has_get_characteristic_v<Coeff> &&
+               spffl::concepts::has_get_modulus_v<Coeff> &&
+               std::constructible_from<Coeff, spffl::intmath::intmod_t,
+                   decltype(std::declval<Coeff const&>().get_modulus())> {
+    return polynomial_of(Coeff(spffl::intmath::intmod_t(v, get_characteristic()), coeffs_[0].get_modulus()));
   }
 
   // ------------------------------------------------------------
@@ -430,7 +449,7 @@ public:
   }
 
   // Formal derivative: d/dx (sum c_i x^i) = sum i*c_i x^{i-1}.
-  // Requires Coeff to have get_modulus() so we can form i as Coeff(i, modulus).
+  // Requires Coeff to have get_modulus() and Coeff(i, modulus) for scalar i.
   polynomial_of deriv() const
       requires spffl::concepts::Field_element<Coeff> &&
                spffl::concepts::has_get_modulus_v<Coeff> {
@@ -439,7 +458,7 @@ public:
     if (d <= 0) {
       return polynomial_of(z);
     }
-    int m = coeffs_[0].get_modulus();
+    auto m = coeffs_[0].get_modulus();
     std::vector<Coeff> out(static_cast<std::size_t>(d), z);
     for (int i = 1; i <= d; ++i) {
       out[static_cast<std::size_t>(i - 1)] =

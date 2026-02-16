@@ -33,6 +33,17 @@ public:
   E get_residue() const { return residue_; }
   E get_modulus() const { return modulus_; }
 
+  /// Legacy compat: characteristic of the residue ring (2 for F2, p for Z/pZ, etc.).
+  int get_characteristic() const {
+    if constexpr (std::is_same_v<E, int>) {
+      return (modulus_ < 0) ? -modulus_ : modulus_;
+    } else if constexpr (std::is_same_v<E, spffl::polynomials::f2_poly_t>) {
+      return 2;
+    } else {
+      return modulus_.get_characteristic();
+    }
+  }
+
   residue_of operator+(const residue_of& that) const {
     check_moduli(that);
     return residue_of(add(residue_, that.residue_), modulus_);
@@ -88,6 +99,17 @@ public:
     return *this;
   }
 
+  /// Remainder in ring (for CLI compat); in a field, returns zero when divisor is nonzero.
+  residue_of operator%(const residue_of& that) const {
+    check_moduli(that);
+    if (that.residue_ == E{}) return *this;  // divisor zero: undefined, return this
+    return residue_of(E{}, modulus_);          // in field: remainder is zero
+  }
+  residue_of& operator%=(const residue_of& that) {
+    *this = *this % that;
+    return *this;
+  }
+
   residue_of exp(int e) const {
     if (e == 0) {
       return residue_of(one_(), modulus_);
@@ -120,6 +142,12 @@ public:
     check_moduli(that);
     return residue_ < that.residue_;
   }
+  bool operator>(const residue_of& that) const {
+    check_moduli(that);
+    return residue_ > that.residue_;
+  }
+  bool operator<=(const residue_of& that) const { return !(*this > that); }
+  bool operator>=(const residue_of& that) const { return !(*this < that); }
 
   friend std::ostream& operator<<(std::ostream& os, const residue_of& a) {
     os << a.residue_;

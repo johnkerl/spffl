@@ -16,6 +16,8 @@ namespace spffl::polynomials {
 class f2_polymod_t {
 public:
   f2_polymod_t(const f2_poly_t &residue, const f2_poly_t &modulus);
+  /// Scalar in prime subfield (v mod 2); for use in polynomial_of::deriv etc.
+  f2_polymod_t(int v, const f2_poly_t &modulus);
   f2_polymod_t(void);
   f2_polymod_t(const f2_polymod_t &that);
   ~f2_polymod_t(void);

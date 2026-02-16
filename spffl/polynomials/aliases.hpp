@@ -1,6 +1,6 @@
 // ================================================================
 // Type aliases: polynomial_of<Coeff> for concrete coefficient types.
-// Include this when you need fp_poly_t, etc., in the cpp20 port.
+// Include this when you need fp_poly_t, etc.
 // ================================================================
 
 #ifndef SPFFL_POLYNOMIALS_ALIASES_HPP

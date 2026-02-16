@@ -128,7 +128,9 @@ spffl::polynomials::f2_poly_t f2_polymod_minimal_polynomial(
 spffl::polynomials::f2n_poly_t f2npm_min_poly(
     spffl::polynomials::f2n_polymod_t a) {
   spffl::polynomials::f2n_poly_t m     = a.get_modulus();
-  spffl::polynomials::f2n_polymod_t ap = a.prime_subfield_element(1);
+  spffl::polynomials::f2_poly_t coeff_m = a.get_residue().get_coeff(0).get_modulus();
+  spffl::polynomials::f2n_polymod_t ap(
+      spffl::polynomials::prime_subfield_element(1, coeff_m), m);
   spffl::polynomials::f2_polymod_t zero =
       a.get_residue().get_coeff(0).prime_subfield_element(0);
   spffl::polynomials::f2_polymod_t one =
