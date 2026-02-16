@@ -12,6 +12,7 @@
 #include <istream>
 #include <sstream>
 #include <stdexcept>
+#include <algorithm>
 
 #include "spffl/concepts.hpp"
 
@@ -123,8 +124,9 @@ public:
   polynomial_of operator*(const polynomial_of &that) const {
     int deg_a = find_degree();
     int deg_b = that.find_degree();
-    if ((deg_a == 0) && (coeffs_[0] == Coeff{} - Coeff{}) ||
-        (deg_b == 0) && (that.coeffs_[0] == Coeff{} - Coeff{})) {
+    Coeff zero = Coeff{} - Coeff{};
+    if (((deg_a == 0) && (coeffs_[0] == zero)) ||
+        ((deg_b == 0) && (that.coeffs_[0] == zero))) {
       return polynomial_of{}; // zero
     }
 
@@ -223,6 +225,108 @@ public:
                static_cast<X>(coeffs_[static_cast<std::size_t>(i)]);
     }
     return result;
+  }
+
+  // ------------------------------------------------------------
+  // Euclidean-division-style operations
+  // (only for coefficient types modeling Field_element)
+  // ------------------------------------------------------------
+
+  bool is_zero() const {
+    Coeff zero = Coeff{} - Coeff{};
+    return find_degree() == 0 && coeffs_[0] == zero;
+  }
+
+  void quot_and_rem(
+      const polynomial_of &that, polynomial_of &rquot, polynomial_of &rrem) const
+      requires spffl::concepts::Field_element<Coeff> {
+    Coeff zero = Coeff{} - Coeff{};
+
+    if (that.is_zero()) {
+      throw std::runtime_error("polynomial_of::quot_and_rem: division by zero");
+    }
+    if (this->is_zero()) {
+      rquot = polynomial_of(zero);
+      rrem  = *this;
+      return;
+    }
+
+    int dividend_degree = this->find_degree();
+    int divisor_degree  = that.find_degree();
+
+    if (dividend_degree < divisor_degree) {
+      rquot = polynomial_of(zero);
+      rrem  = *this;
+      return;
+    }
+
+    polynomial_of quot;
+    quot.coeffs_.assign(
+        static_cast<std::size_t>(dividend_degree - divisor_degree + 1), zero);
+
+    polynomial_of rem(*this);
+
+    int max_shift         = dividend_degree - divisor_degree;
+    Coeff divisor_leader  = that.coeffs_[static_cast<std::size_t>(divisor_degree)];
+    Coeff dlinv;
+    if (!divisor_leader.recip(dlinv)) {
+      std::ostringstream oss;
+      oss << "polynomial_of::quot_and_rem: non-invertible leading coefficient";
+      throw std::runtime_error(oss.str());
+    }
+
+    for (int shift = max_shift; shift >= 0; --shift) {
+      Coeff rem_leader =
+          rem.coeffs_[static_cast<std::size_t>(shift + divisor_degree)];
+      Coeff multiplier = rem_leader * dlinv;
+
+      quot.coeffs_[static_cast<std::size_t>(shift)] = multiplier;
+
+      for (int i = 0; i <= divisor_degree; ++i) {
+        rem.coeffs_[static_cast<std::size_t>(i + shift)] -=
+            that.coeffs_[static_cast<std::size_t>(i)] * multiplier;
+      }
+      rem.trim_degree();
+    }
+
+    quot.trim_degree();
+    rem.trim_degree();
+
+    rquot = quot;
+    rrem  = rem;
+  }
+
+  polynomial_of gcd(const polynomial_of &that) const
+      requires spffl::concepts::Field_element<Coeff> {
+    Coeff zero = Coeff{} - Coeff{};
+    polynomial_of z(zero);
+
+    if (this->is_zero()) {
+      return that;
+    }
+    if (that.is_zero()) {
+      return *this;
+    }
+
+    polynomial_of c(*this);
+    polynomial_of d(that);
+    polynomial_of q, r;
+
+    while (true) {
+      c.quot_and_rem(d, q, r);
+      if (r.is_zero()) {
+        break;
+      }
+      c = d;
+      d = r;
+    }
+    return d;
+  }
+
+  // Free-function-style helper for templates (ADL-friendly).
+  friend polynomial_of gcd(const polynomial_of &a, const polynomial_of &b)
+      requires spffl::concepts::Field_element<Coeff> {
+    return a.gcd(b);
   }
 
   // ------------------------------------------------------------
