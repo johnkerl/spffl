@@ -41,7 +41,6 @@ add_library(
   ../spffl/intmath/int_power.cpp
   ../spffl/intmath/int_sqrt.cpp
   ../spffl/intmath/int_totient.cpp
-  ../spffl/intmath/intmod_t.cpp
   ../spffl/intmath/intrat_t.cpp
   ../spffl/intmath/is_prime.cpp
   ../spffl/intmath/log10.cpp
