@@ -140,7 +140,8 @@ Goal: No remaining references to old polynomial/intmod implementations or to tve
 - [ ] Phase 2: Migrate linalg, factorization, random, units, rationals, list, q_cyclotomic, cli_parser, cli to new types and containers
 - [ ] Phase 2: Remove old .cpp and obsolete headers
 - [x] Phase 3 (partial): algorithms and containers tests added to main test/ (test/algorithms, test/containers); residue_of supports legacy f2_poly_t (is_zero_poly)
-- [ ] Phase 3: Merge remaining cpp20 tests into test/, remove cpp20/
+- [x] Phase 3 (partial): concepts and residue tests merged into main test/ (test/concepts, test/residue)
+- [ ] Phase 3: Merge remaining cpp20 tests (intmath, polynomials, mod) into test/, remove cpp20/
 - [ ] Phase 3: Update README and build docs
 
 Done: one C++20 codebase, nothing left behind.
