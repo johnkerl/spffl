@@ -390,6 +390,51 @@ public:
     return result;
   }
 
+  // Formal derivative: d/dx (sum c_i x^i) = sum i*c_i x^{i-1}.
+  // Requires Coeff to have get_modulus() so we can form i as Coeff(i, modulus).
+  polynomial_of deriv() const
+      requires spffl::concepts::Field_element<Coeff> &&
+               spffl::concepts::has_get_modulus_v<Coeff> {
+    int d = find_degree();
+    Coeff z = zero_coeff();
+    if (d <= 0) {
+      return polynomial_of(z);
+    }
+    int m = coeffs_[0].get_modulus();
+    std::vector<Coeff> out(static_cast<std::size_t>(d), z);
+    for (int i = 1; i <= d; ++i) {
+      out[static_cast<std::size_t>(i - 1)] =
+          coeffs_[static_cast<std::size_t>(i)] * Coeff(i, m);
+    }
+    return polynomial_of(std::move(out));
+  }
+
+  polynomial_of operator/(const polynomial_of &that) const
+      requires spffl::concepts::Field_element<Coeff> {
+    polynomial_of q, r;
+    this->quot_and_rem(that, q, r);
+    return q;
+  }
+
+  polynomial_of operator%(const polynomial_of &that) const
+      requires spffl::concepts::Field_element<Coeff> {
+    polynomial_of q, r;
+    this->quot_and_rem(that, q, r);
+    return r;
+  }
+
+  polynomial_of &operator/=(const polynomial_of &that)
+      requires spffl::concepts::Field_element<Coeff> {
+    *this = *this / that;
+    return *this;
+  }
+
+  polynomial_of &operator%=(const polynomial_of &that)
+      requires spffl::concepts::Field_element<Coeff> {
+    *this = *this % that;
+    return *this;
+  }
+
   // Free-function-style helper for templates (ADL-friendly).
   friend polynomial_of gcd(const polynomial_of &a, const polynomial_of &b)
       requires spffl::concepts::Field_element<Coeff> {

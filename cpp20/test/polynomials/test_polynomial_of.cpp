@@ -2,9 +2,28 @@
 
 #include <catch2/catch_test_macros.hpp>
 
+#include "spffl/concepts.hpp"
 #include "spffl/polynomials/polynomial_of.hpp"
+#include "spffl/polynomials/aliases.hpp"
+#include "spffl/polynomials/fp_polymod_t.hpp"
 
 using spffl::polynomials::polynomial_of;
+
+// Concept satisfaction: polynomial_of and fp_polymod_t model the proposal concepts.
+TEST_CASE("polynomial_of<intmod_t> models polynomial concepts") {
+  using spffl::polynomials::fp_poly_t;
+  static_assert(spffl::concepts::Ring_element<spffl::intmath::intmod_t>);
+  static_assert(spffl::concepts::Field_element<spffl::intmath::intmod_t>);
+  static_assert(spffl::concepts::Euclidean_domain<fp_poly_t>);
+  static_assert(spffl::concepts::Polynomial_ring_element<fp_poly_t>);
+  static_assert(spffl::concepts::Polynomial_with_ext_gcd<fp_poly_t>);
+}
+
+TEST_CASE("fp_polymod_t models Residue_ring") {
+  using spffl::polynomials::fp_polymod_t;
+  static_assert(spffl::concepts::Residue_ring<fp_polymod_t>);
+  static_assert(spffl::concepts::Residue_ring_with_recip<fp_polymod_t>);
+}
 
 TEST_CASE("polynomial_of<int>: basic arithmetic") {
   polynomial_of<int> p1(1, 2);     // 2x + 1
@@ -164,6 +183,20 @@ TEST_CASE("fp_poly_t (polynomial_of<intmod_t>): F7[x] arithmetic and division") 
   x_sq_poly.quot_and_rem(m_poly, qq, rr);
   CHECK(rr.find_degree() == 0);
   CHECK(rr.get_coeff(0).get_residue() == 6);  // -1 mod 7
+
+  // operator/ and operator%
+  fp_poly_t q_div = x_sq_poly / m_poly;
+  fp_poly_t r_mod = x_sq_poly % m_poly;
+  CHECK(q_div.find_degree() == 0);
+  CHECK(q_div.get_coeff(0).get_residue() == 1);
+  CHECK(r_mod.find_degree() == 0);
+  CHECK(r_mod.get_coeff(0).get_residue() == 6);
+
+  // deriv: d/dx(1 + 2x + x^2) = 2 + 2x in F_7
+  fp_poly_t b_deriv = b_sq.deriv();
+  CHECK(b_deriv.find_degree() == 1);
+  CHECK(b_deriv.get_coeff(0).get_residue() == 2);
+  CHECK(b_deriv.get_coeff(1).get_residue() == 2);
 }
 
 // ---------------------------------------------------------------------------

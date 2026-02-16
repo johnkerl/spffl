@@ -185,6 +185,16 @@ struct has_get_characteristic<T, std::void_t<decltype(std::declval<T const&>().g
 template <typename T>
 inline constexpr bool has_get_characteristic_v = has_get_characteristic<T>::value;
 
+template <typename T, typename = void>
+struct has_get_modulus : std::false_type {};
+
+template <typename T>
+struct has_get_modulus<T, std::void_t<decltype(std::declval<T const&>().get_modulus())>>
+    : std::true_type {};
+
+template <typename T>
+inline constexpr bool has_get_modulus_v = has_get_modulus<T>::value;
+
 }  // namespace spffl::concepts
 
 #endif  // SPFFL_CONCEPTS_HPP
