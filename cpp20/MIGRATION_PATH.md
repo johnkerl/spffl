@@ -135,7 +135,7 @@ Goal: No remaining references to old polynomial/intmod implementations or to tve
 - [x] Phase 1.2: concepts.hpp, euclidean.hpp in main spffl
 - [x] Phase 1.3: polynomial_of, aliases, fp_poly_t replacement, fp_polymod_t replacement (f2_poly_t still legacy; replace in follow-up if desired)
 - [ ] Phase 1.4: f2n/fpn polymods (residue_of or dedicated), q_poly if kept
-- [ ] Phase 1.5: residue_of.hpp, algorithms in main spffl
+- [x] Phase 1.5: residue_of.hpp, optional_inverse.hpp in main spffl (optional_solve_2x2 with Phase 1.6)
 - [ ] Phase 1.6: vector_over, matrix_over in main spffl (tvector/tmatrix still present)
 - [ ] Phase 2: Migrate linalg, factorization, random, units, rationals, list, q_cyclotomic, cli_parser, cli to new types and containers
 - [ ] Phase 2: Remove old .cpp and obsolete headers
