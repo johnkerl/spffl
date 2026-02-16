@@ -5,6 +5,7 @@
 // ================================================================
 
 #include "spffl/polynomials/fpn_polymod_t.h"
+#include "spffl/polynomials/fp_poly_io.hpp"
 #include "spffl/base/spffl_exception.h"
 #include <iomanip>
 #include <iostream>
@@ -229,12 +230,17 @@ std::istringstream &operator>>(std::istringstream &iss, fpn_polymod_t &a) {
 
 // ----------------------------------------------------------------
 bool fpn_polymod_t::from_string(const std::string &string, fpn_poly_t &m) {
-  fpn_poly_t r;
+  fp_poly_t r;
   fp_poly_t mm = m.get_coeff(0).get_modulus();
-  if (!r.from_string(string, mm)) {
+  if (!spffl::polynomials::fp_poly_from_string_into(string, mm.get_characteristic(), r)) {
     return false;
   }
-  *this = fpn_polymod_t(r, m);
+  // Convert r (Fp[x]) to fpn_poly_t (coefficients in Fp[x]/(mm))
+  fpn_poly_t r_fpn;
+  for (int i = 0; i <= r.find_degree(); i++) {
+    r_fpn.set_coeff(i, fp_polymod_t(fp_poly_t(r.get_coeff(i)), mm));
+  }
+  *this = fpn_polymod_t(r_fpn, m);
   return true;
 }
 

@@ -59,8 +59,6 @@ add_library(
   ../spffl/polynomials/f2_polymod_t.cpp
   ../spffl/polynomials/f2n_poly_t.cpp
   ../spffl/polynomials/f2n_polymod_t.cpp
-  ../spffl/polynomials/fp_poly_t.cpp
-  ../spffl/polynomials/fp_polymod_t.cpp
   ../spffl/polynomials/fpn_poly_t.cpp
   ../spffl/polynomials/fpn_polymod_t.cpp
   ../spffl/polynomials/q_poly_t.cpp

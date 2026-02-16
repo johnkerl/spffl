@@ -21,7 +21,7 @@ int fpn_p_op_main(int argc, char **argv, usage_t *pusage) {
   if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
   }
-  if (!im.from_string(argv[2], p)) {
+  if (!spffl::polynomials::fp_poly_from_string_into(argv[2], p, im)) {
     pusage(argv[0]);
   }
   spffl::polynomials::fpn_poly_t zero =
@@ -48,7 +48,7 @@ int fpn_p_mat_op_main(int argc, char **argv, usage_t *pusage) {
   if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
   }
-  if (!im.from_string(argv[2], p)) {
+  if (!spffl::polynomials::fp_poly_from_string_into(argv[2], p, im)) {
     pusage(argv[0]);
   }
   spffl::polynomials::fpn_poly_t zero =
@@ -74,7 +74,7 @@ int fpn_p_gcd_main(int argc, char **argv, usage_t *pusage) {
     if (sscanf(argv[1], "%d", &p) != 1) {
       pusage(argv[0]);
     }
-    if (!im.from_string(argv[2], p)) {
+    if (!spffl::polynomials::fp_poly_from_string_into(argv[2], p, im)) {
       pusage(argv[0]);
     }
     if (!a.from_string(argv[3], im)) {
@@ -92,7 +92,7 @@ int fpn_p_gcd_main(int argc, char **argv, usage_t *pusage) {
     if (sscanf(argv[2], "%d", &p) != 1) {
       pusage(argv[0]);
     }
-    if (!im.from_string(argv[3], p)) {
+    if (!spffl::polynomials::fp_poly_from_string_into(argv[3], p, im)) {
       pusage(argv[0]);
     }
     if (!a.from_string(argv[4], im)) {
@@ -127,7 +127,7 @@ int fpn_p_qp_main(int argc, char **argv, usage_t *pusage) {
   if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
   }
-  if (!m.from_string(argv[2], p)) {
+  if (!spffl::polynomials::fp_poly_from_string_into(argv[2], p, m)) {
     pusage(argv[0]);
   }
   for (int argi = 3; argi < argc; argi++) {

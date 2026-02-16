@@ -4,10 +4,8 @@ project(polynomials)
 
 add_library(${PROJECT_NAME}
   f2_poly_t.cpp
-  fp_poly_t.cpp
 
   f2_polymod_t.cpp
-  fp_polymod_t.cpp
 
   f2n_poly_t.cpp
   fpn_poly_t.cpp

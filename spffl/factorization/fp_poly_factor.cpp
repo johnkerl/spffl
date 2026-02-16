@@ -43,7 +43,7 @@ tfacinfo<spffl::polynomials::fp_poly_t> fp_poly_factor(
 
   spffl::intmath::intmod_t leader = fcopy.get_coeff(d);
   if ((leader != zero) && (leader != one)) {
-    finfo.insert_unit(leader);
+    finfo.insert_unit(spffl::polynomials::fp_poly_t(leader));
     fcopy /= leader;
   }
 
@@ -63,8 +63,8 @@ static void fp_poly_pre_berlekamp(const spffl::polynomials::fp_poly_t &f,
             << "  (f,f') = " << g << "\n";
 #endif
 
-  if (g == 0) {
-    if (f != 0) {
+  if (g.is_zero()) {
+    if (!f.is_zero()) {
       std::stringstream ss;
       ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
       throw spffl::exception_t(ss.str());
@@ -116,7 +116,7 @@ static void fp_poly_berlekamp(const spffl::polynomials::fp_poly_t &f,
   spffl::intmath::intmod_t one(1, p);
   spffl::polynomials::fp_poly_t x(one, zero);
   spffl::polynomials::fp_poly_t xp;
-  spffl::polynomials::fp_poly_t xpi = one;
+  spffl::polynomials::fp_poly_t xpi(one);
   spffl::polynomials::fp_poly_t f1, f2;
   int i, j, row, rank, dimker;
 
@@ -297,7 +297,7 @@ bool fp_poly_is_irreducible(const spffl::polynomials::fp_poly_t &f) {
 // Lexically lowest
 spffl::polynomials::fp_poly_t fp_poly_find_irr(int p, int degree) {
   spffl::intmath::intmod_t zero(0, p), one(1, p);
-  spffl::polynomials::fp_poly_t rv = zero;
+  spffl::polynomials::fp_poly_t rv(zero);
   rv.set_coeff(degree, one);
 
   if (degree < 1) {
@@ -343,7 +343,7 @@ spffl::polynomials::fp_poly_t fp_poly_random_irr(int p, int degree) {
       continue;
     }
     if (fp_poly_is_irreducible(rv)) {
-      rv /= rv.get_coeff(degree); // make monic
+      rv /= rv.get_coeff(degree);  // make monic
       return rv;
     }
   }
