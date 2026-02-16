@@ -11,6 +11,8 @@
 #include <vector>
 #include <stdexcept>
 #include <ostream>
+#include <algorithm>
+#include <cstddef>
 
 namespace spffl::containers {
 
@@ -135,6 +137,312 @@ public:
   }
 
   bool operator!=(const matrix_over& B) const { return !(*this == B); }
+
+  bool is_square() const {
+    return get_num_rows() == get_num_cols();
+  }
+
+  bool find_one(T& rone) const {
+    const int nr = get_num_rows();
+    const int nc = get_num_cols();
+    if (nr == 0 || nc == 0) return false;
+    T zero = (*this)[0][0] - (*this)[0][0];
+    for (int i = 0; i < nr; ++i) {
+      for (int j = 0; j < nc; ++j) {
+        if ((*this)[static_cast<std::size_t>(i)][j] != zero) {
+          T a = (*this)[static_cast<std::size_t>(i)][j];
+          rone = a / a;
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  matrix_over make_I(const T& zero, const T& one) const {
+    if (!is_square()) {
+      throw std::invalid_argument("matrix_over::make_I: non-square matrix");
+    }
+    const int n = get_num_rows();
+    matrix_over rv(n, n);
+    for (int i = 0; i < n; ++i) {
+      for (int j = 0; j < n; ++j) {
+        rv.rows_[static_cast<std::size_t>(i)][j] = (i == j) ? one : zero;
+      }
+    }
+    return rv;
+  }
+
+  bool is_I() const {
+    if (!is_square()) return false;
+    T zero, one;
+    zero = (*this)[0][0] - (*this)[0][0];
+    if (!find_one(one)) return false;
+    const int n = get_num_rows();
+    for (int i = 0; i < n; ++i) {
+      if ((*this)[static_cast<std::size_t>(i)][i] != one) return false;
+    }
+    for (int i = 0; i < n; ++i) {
+      for (int j = 0; j < n; ++j) {
+        if (i != j && (*this)[static_cast<std::size_t>(i)][j] != zero) return false;
+      }
+    }
+    return true;
+  }
+
+  void swap_rows(int arow, int brow) {
+    if (arow < 0 || arow >= get_num_rows() || brow < 0 || brow >= get_num_rows()) {
+      throw std::out_of_range("matrix_over::swap_rows: index out of range");
+    }
+    std::swap(rows_[static_cast<std::size_t>(arow)], rows_[static_cast<std::size_t>(brow)]);
+  }
+
+  void row_reduce_below() {
+    T zero = (*this)[0][0] - (*this)[0][0];
+    T one;
+    if (!find_one(one)) return;
+    const int nr = get_num_rows();
+    const int nc = get_num_cols();
+    int top_row = 0, left_column = 0;
+    while (top_row < nr && left_column < nc) {
+      int pivot_row = top_row;
+      while (pivot_row < nr && (*this)[static_cast<std::size_t>(pivot_row)][left_column] == zero) {
+        ++pivot_row;
+      }
+      if (pivot_row >= nr) {
+        ++left_column;
+        continue;
+      }
+      if (pivot_row != top_row) {
+        swap_rows(top_row, pivot_row);
+      }
+      T top_row_lead = (*this)[static_cast<std::size_t>(top_row)][left_column];
+      if (top_row_lead != zero) {
+        T inv = one / top_row_lead;
+        (*this)[static_cast<std::size_t>(top_row)].mult_by(inv);
+        for (int cur_row = top_row + 1; cur_row < nr; ++cur_row) {
+          T cur_lead = (*this)[static_cast<std::size_t>(cur_row)][left_column];
+          if (cur_lead != zero) {
+            (*this)[static_cast<std::size_t>(cur_row)].accum_row_mul(top_row_lead, cur_lead, (*this)[static_cast<std::size_t>(top_row)]);
+          }
+        }
+      }
+      ++left_column;
+      ++top_row;
+    }
+  }
+
+  void row_echelon_form() {
+    row_reduce_below();
+    T zero = (*this)[0][0] - (*this)[0][0];
+    T one;
+    if (!find_one(one)) return;
+    const int nr = get_num_rows();
+    for (int row = 0; row < nr; ++row) {
+      for (int row2 = row + 1; row2 < nr; ++row2) {
+        int row2_leader_pos;
+        if (!(*this)[static_cast<std::size_t>(row2)].find_leader_pos(zero, row2_leader_pos)) break;
+        T row2_leader_val = (*this)[static_cast<std::size_t>(row2)][row2_leader_pos];
+        T row_clear_val = (*this)[static_cast<std::size_t>(row)][row2_leader_pos];
+        if (row_clear_val == zero) continue;
+        T mul = row_clear_val / row2_leader_val;
+        (*this)[static_cast<std::size_t>(row)].accum_row_mul(one, mul, (*this)[static_cast<std::size_t>(row2)]);
+      }
+    }
+  }
+
+  int get_rank_rr() const {
+    T zero = (*this)[0][0] - (*this)[0][0];
+    int rank = 0;
+    for (int i = 0; i < get_num_rows(); ++i) {
+      bool row_is_zero = true;
+      for (int j = 0; j < get_num_cols(); ++j) {
+        if ((*this)[static_cast<std::size_t>(i)][j] != zero) {
+          row_is_zero = false;
+          break;
+        }
+      }
+      if (!row_is_zero) ++rank;
+    }
+    return rank;
+  }
+
+  int get_rank() const {
+    matrix_over copy(*this);
+    copy.row_reduce_below();
+    return copy.get_rank_rr();
+  }
+
+  bool get_kernel_basis(matrix_over& rbas, const T& zero, const T& one) const {
+    matrix_over rr(*this);
+    rr.row_echelon_form();
+    int rank = rr.get_rank_rr();
+    int dimker = get_num_cols() - rank;
+    if (dimker == 0) return false;
+    rbas = matrix_over(dimker, get_num_cols());
+    std::vector<int> free_indices;
+    std::vector<bool> free_flags(static_cast<std::size_t>(get_num_cols()), true);
+    for (int i = 0; i < rank; ++i) {
+      int dep_pos;
+      if (rr[static_cast<std::size_t>(i)].find_leader_pos(zero, dep_pos)) {
+        free_flags[static_cast<std::size_t>(dep_pos)] = false;
+      }
+    }
+    for (int i = 0; i < get_num_cols(); ++i) {
+      if (free_flags[static_cast<std::size_t>(i)]) free_indices.push_back(i);
+    }
+    for (int i = 0; i < dimker; ++i) {
+      rbas[static_cast<std::size_t>(i)][free_indices[static_cast<std::size_t>(i)]] = one;
+      for (int j = 0; j < rank; ++j) {
+        if (rr[static_cast<std::size_t>(j)][free_indices[static_cast<std::size_t>(i)]] == zero) continue;
+        int dep_pos;
+        (void)rr[static_cast<std::size_t>(j)].find_leader_pos(zero, dep_pos);
+        T val = rr[static_cast<std::size_t>(j)][free_indices[static_cast<std::size_t>(i)]];
+        rbas[static_cast<std::size_t>(i)][dep_pos] = zero - val;
+      }
+    }
+    return true;
+  }
+
+  matrix_over paste(const matrix_over& B) const {
+    if (get_num_rows() != B.get_num_rows()) {
+      throw std::invalid_argument("matrix_over::paste: row count mismatch");
+    }
+    matrix_over rv(get_num_rows(), get_num_cols() + B.get_num_cols());
+    for (int i = 0; i < get_num_rows(); ++i) {
+      for (int j = 0; j < get_num_cols(); ++j) {
+        rv.rows_[static_cast<std::size_t>(i)][j] = (*this)[static_cast<std::size_t>(i)][j];
+      }
+      for (int j = 0; j < B.get_num_cols(); ++j) {
+        rv.rows_[static_cast<std::size_t>(i)][get_num_cols() + j] = B[static_cast<std::size_t>(i)][j];
+      }
+    }
+    return rv;
+  }
+
+  matrix_over paste_vector(const row_type& v) const {
+    if (get_num_rows() != v.get_num_elements()) {
+      throw std::invalid_argument("matrix_over::paste_vector: row count mismatch");
+    }
+    matrix_over rv(get_num_rows(), get_num_cols() + 1);
+    for (int i = 0; i < get_num_rows(); ++i) {
+      for (int j = 0; j < get_num_cols(); ++j) {
+        rv.rows_[static_cast<std::size_t>(i)][j] = (*this)[static_cast<std::size_t>(i)][j];
+      }
+      rv.rows_[static_cast<std::size_t>(i)][get_num_cols()] = v[i];
+    }
+    return rv;
+  }
+
+  void split(matrix_over& rleft, matrix_over& rright, int split_column) const {
+    if (split_column < 0 || split_column >= get_num_cols()) {
+      throw std::out_of_range("matrix_over::split: split column out of range");
+    }
+    rleft = matrix_over(get_num_rows(), split_column);
+    rright = matrix_over(get_num_rows(), get_num_cols() - split_column);
+    for (int i = 0; i < get_num_rows(); ++i) {
+      for (int j = 0; j < split_column; ++j) {
+        rleft.rows_[static_cast<std::size_t>(i)][j] = (*this)[static_cast<std::size_t>(i)][j];
+      }
+      for (int j = split_column; j < get_num_cols(); ++j) {
+        rright.rows_[static_cast<std::size_t>(i)][j - split_column] = (*this)[static_cast<std::size_t>(i)][j];
+      }
+    }
+  }
+
+  bool inverse(matrix_over& rinv) const {
+    if (!is_square()) {
+      throw std::invalid_argument("matrix_over::inverse: non-square matrix");
+    }
+    T zero = (*this)[0][0] - (*this)[0][0];
+    T one;
+    if (!find_one(one)) return false;
+    matrix_over I = make_I(zero, one);
+    matrix_over pair = paste(I);
+    pair.row_echelon_form();
+    matrix_over I_out, rinv_out;
+    pair.split(I_out, rinv_out, get_num_cols());
+    rinv = rinv_out;
+    return I_out.is_I();
+  }
+
+  int exp(int power, matrix_over& rout) const {
+    if (!is_square()) {
+      throw std::invalid_argument("matrix_over::exp: non-square matrix");
+    }
+    T zero = (*this)[0][0] - (*this)[0][0];
+    T one;
+    if (!find_one(one)) {
+      if (power <= 0) {
+        throw std::invalid_argument("matrix_over::exp: non-positive power of zero matrix");
+      }
+      rout = *this;
+      return 1;
+    }
+    matrix_over I = make_I(zero, one);
+    if (power >= 1) {
+      matrix_over apower = I;
+      matrix_over a2 = *this;
+      while (power != 0) {
+        if (power & 1) apower = apower * a2;
+        power = (unsigned)power >> 1;
+        a2 = a2 * a2;
+      }
+      rout = apower;
+      return 1;
+    }
+    matrix_over ai;
+    if (!inverse(ai)) return 0;
+    if (power == 0) {
+      rout = I;
+      return 1;
+    }
+    if (power == -power) throw std::invalid_argument("matrix_over::exp: can't handle INT_MIN");
+    matrix_over apower = I;
+    matrix_over a2 = ai;
+    int p = -power;
+    while (p != 0) {
+      if (p & 1) apower = apower * a2;
+      p = (unsigned)p >> 1;
+      a2 = a2 * a2;
+    }
+    rout = apower;
+    return 1;
+  }
+
+  bool solve_unique_full_rank(row_type& x, const row_type& b, const T& zero, const T& one) const {
+    int indim = get_num_cols();
+    if (get_num_rows() != b.get_num_elements()) {
+      return false;
+    }
+    matrix_over Ab = paste_vector(b);
+    Ab.row_echelon_form();
+    int Ab_rank = Ab.get_rank_rr();
+    if (Ab_rank != indim) return false;
+    x = row_type(indim);
+    for (int i = 0; i < indim; ++i) {
+      x[i] = Ab[static_cast<std::size_t>(i)][indim];
+    }
+    return true;
+  }
+
+  bool solve_unique(row_type& x, const row_type& b, const T& zero, const T& one) const {
+    int indim = get_num_cols();
+    int outdim = get_num_rows();
+    if (indim > outdim) return false;
+    if (get_rank() != indim) return false;
+    return solve_unique_full_rank(x, b, zero, one);
+  }
+
+  matrix_over transpose() const {
+    matrix_over rv(get_num_cols(), get_num_rows());
+    for (int i = 0; i < get_num_rows(); ++i) {
+      for (int j = 0; j < get_num_cols(); ++j) {
+        rv.rows_[static_cast<std::size_t>(j)][i] = (*this)[static_cast<std::size_t>(i)][j];
+      }
+    }
+    return rv;
+  }
 
   friend std::ostream& operator<<(std::ostream& os, const matrix_over& A) {
     for (int i = 0; i < A.get_num_rows(); ++i) {

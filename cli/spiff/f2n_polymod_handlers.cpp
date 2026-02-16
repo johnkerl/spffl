@@ -42,7 +42,7 @@ int f2n_pm_list_main(int argc, char **argv, usage_t *pusage) {
     if (!opt) pusage(argv[0]);
     om = std::move(*opt);
   }
-  tvector<spffl::polynomials::f2n_polymod_t> elts = f2n_polymod_list(om, type);
+  spffl::containers::vector_over<spffl::polynomials::f2n_polymod_t> elts = f2n_polymod_list(om, type);
   elts.crout(std::cout);
   return 0;
 }
@@ -140,7 +140,7 @@ int f2n_pm_tbl_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   }
 
-  tvector<spffl::polynomials::f2n_polymod_t> elts;
+  spffl::containers::vector_over<spffl::polynomials::f2n_polymod_t> elts;
   if ((tbl_type == TBL_TYPE_UNIT_MUL) || (tbl_type == TBL_TYPE_UNIT_DIV) ||
       (tbl_type == TBL_TYPE_LOG) || (tbl_type == TBL_TYPE_ALOG)) {
     elts = f2n_polymod_list(om, spffl::list::SP_LIST_UNITS);
@@ -495,7 +495,7 @@ int f2n_pm_mat_random_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   }
 
-  tmatrix<spffl::polynomials::f2n_polymod_t> A(nr, nc);
+  spffl::containers::matrix_over<spffl::polynomials::f2n_polymod_t> A(nr, nc);
   for (int i = 0; i < nr; i++) {
     for (int j = 0; j < nc; j++) {
       A[i][j] = spffl::random::f2n_polymod_random(im, om);

@@ -8,6 +8,7 @@
 #define FPLINALG_H
 
 #include "spffl/containers/tmatrix.h"
+#include "spffl/containers/tvector.h"
 #include "spffl/polynomials/fp_poly_t.h"
 #if 0
 #include "spffl/fpn_poly_t.h"

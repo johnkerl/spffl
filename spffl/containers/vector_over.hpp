@@ -10,6 +10,7 @@
 #include <vector>
 #include <stdexcept>
 #include <ostream>
+#include <algorithm>
 
 namespace spffl::containers {
 
@@ -48,6 +49,11 @@ public:
 
   int get_num_elements() const {
     return static_cast<int>(data_.size());
+  }
+
+  void resize(int n) {
+    if (n < 0) throw std::invalid_argument("vector_over::resize: negative size");
+    data_.resize(static_cast<std::size_t>(n));
   }
 
   vector_over operator+(const vector_over& that) const {
@@ -110,6 +116,43 @@ public:
 
   bool operator!=(const vector_over& that) const {
     return !(*this == that);
+  }
+
+  /// In-place: *this *= scalar.
+  void mult_by(const T& e) {
+    for (int i = 0; i < get_num_elements(); ++i) {
+      (*this)[i] = (*this)[i] * e;
+    }
+  }
+
+  /// Index of first non-zero entry; return false if row is zero.
+  bool find_leader_pos(const T& zero, int& rpos) const {
+    for (int j = 0; j < get_num_elements(); ++j) {
+      if ((*this)[j] != zero) {
+        rpos = j;
+        return true;
+      }
+    }
+    return false;
+  }
+
+  void sort() {
+    std::sort(data_.begin(), data_.end());
+  }
+
+  /// Print each element on its own line (for CLI list output).
+  void crout(std::ostream& os) const {
+    for (int i = 0; i < get_num_elements(); ++i) {
+      os << (*this)[i] << "\n";
+    }
+  }
+
+  /// In-place: this[i] = this[i]*a - that[i]*b (for row reduction).
+  void accum_row_mul(const T& a, const T& b, const vector_over& that) {
+    check_equal_lengths(that);
+    for (int i = 0; i < get_num_elements(); ++i) {
+      (*this)[i] = (*this)[i] * a - that[i] * b;
+    }
   }
 
   friend std::ostream& operator<<(std::ostream& os, const vector_over& v) {

@@ -34,7 +34,7 @@ int fp_p_list_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   }
   for (int deg = deglo; deg <= deghi; deg++) {
-    tvector<spffl::polynomials::fp_poly_t> elts =
+    spffl::containers::vector_over<spffl::polynomials::fp_poly_t> elts =
         spffl::list::fp_poly_list(p, deg);
     elts.crout(std::cout);
   }
@@ -379,7 +379,7 @@ int fp_p_divisors_main(int argc, char **argv, usage_t *pusage) {
     }
     tfacinfo<spffl::polynomials::fp_poly_t> finfo =
         spffl::factorization::fp_poly_factor(a);
-    tvector<spffl::polynomials::fp_poly_t> divisors;
+    spffl::containers::vector_over<spffl::polynomials::fp_poly_t> divisors;
     if (maximal_proper_only) {
       if (!finfo.get_maximal_proper_divisors(divisors, one)) {
         std::cout << "(none)\n";

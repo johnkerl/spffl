@@ -7,7 +7,8 @@
 #include "spffl/factorization/f2n_poly_factor.h"
 #include "spffl/base/spffl_exception.h"
 #include "spffl/containers/tfacinfo.h"
-#include "spffl/containers/tmatrix.h"
+#include "spffl/containers/matrix_over.hpp"
+#include "spffl/containers/vector_over.hpp"
 #include "spffl/polynomials/fpn_f2n_aliases.hpp"
 #include "spffl/random/f2n_poly_random.h"
 
@@ -22,7 +23,7 @@ static void f2n_poly_berlekamp(const spffl::polynomials::f2n_poly_t &f,
     tfacinfo<spffl::polynomials::f2n_poly_t> &rfinfo, bool recurse);
 
 spffl::polynomials::f2n_poly_t f2n_poly_from_vector(
-    const tvector<spffl::polynomials::f2_polymod_t> &v, int n);
+    const spffl::containers::vector_over<spffl::polynomials::f2_polymod_t> &v, int n);
 
 // ----------------------------------------------------------------
 tfacinfo<spffl::polynomials::f2n_poly_t> f2n_poly_factor(
@@ -135,7 +136,7 @@ static void f2n_poly_berlekamp(const spffl::polynomials::f2n_poly_t &f,
   std::cout << "x"
             << " = " << x << "\n";
 #endif
-  tmatrix<spffl::polynomials::f2_polymod_t> BI(n, n);
+  spffl::containers::matrix_over<spffl::polynomials::f2_polymod_t> BI(n, n);
 
   if (n < 2) {
     rfinfo.insert_factor(f);
@@ -181,7 +182,7 @@ static void f2n_poly_berlekamp(const spffl::polynomials::f2n_poly_t &f,
   }
 
   // Find a basis for the nullspace of B - I.
-  tmatrix<spffl::polynomials::f2_polymod_t> nullspace_basis;
+  spffl::containers::matrix_over<spffl::polynomials::f2_polymod_t> nullspace_basis;
   if (!BI.get_kernel_basis(nullspace_basis, zero, one)) {
     std::stringstream ss;
     ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
@@ -264,7 +265,7 @@ static void f2n_poly_berlekamp(const spffl::polynomials::f2n_poly_t &f,
 
 // ----------------------------------------------------------------
 spffl::polynomials::f2n_poly_t f2n_poly_from_vector(
-    const tvector<spffl::polynomials::f2_polymod_t> &v, int n) {
+    const spffl::containers::vector_over<spffl::polynomials::f2_polymod_t> &v, int n) {
   spffl::polynomials::f2n_poly_t f;
   f.set_coeff(0, v[0] - v[0]);
   for (int i = 0; i < n; i++) {
@@ -275,7 +276,7 @@ spffl::polynomials::f2n_poly_t f2n_poly_from_vector(
 
 // ----------------------------------------------------------------
 bool f2n_poly_roots(const spffl::polynomials::f2n_poly_t &f,
-    tvector<spffl::polynomials::f2_polymod_t> &rroots) {
+    spffl::containers::vector_over<spffl::polynomials::f2_polymod_t> &rroots) {
   tfacinfo<spffl::polynomials::f2n_poly_t> finfo = f2n_poly_factor(f);
   int nf                                         = finfo.get_num_distinct();
   int nr                                         = 0;
@@ -296,7 +297,7 @@ bool f2n_poly_roots(const spffl::polynomials::f2n_poly_t &f,
     return false;
   }
 
-  tvector<spffl::polynomials::f2_polymod_t> rv(nr);
+  spffl::containers::vector_over<spffl::polynomials::f2_polymod_t> rv(nr);
 
   for (i = 0, j = 0; i < nf; i++) {
     spffl::polynomials::f2n_poly_t factor = finfo.get_ith_factor(i);

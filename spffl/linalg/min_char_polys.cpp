@@ -7,7 +7,7 @@
 #include "spffl/linalg/min_char_polys.h"
 #include "spffl/base/spffl_exception.h"
 #include "spffl/bits/bit_matrix_t.h"
-#include "spffl/containers/tmatrix.h"
+#include "spffl/containers/matrix_over.hpp"
 #include <iostream>
 
 namespace spffl::linalg {
@@ -137,7 +137,7 @@ spffl::polynomials::f2n_poly_t f2npm_min_poly(
       a.get_residue().get_coeff(0).prime_subfield_element(1);
   int n = m.find_degree();
   int l = f2npm_froblen(a);
-  tmatrix<spffl::polynomials::f2_polymod_t> A(zero, n, l + 1);
+  spffl::containers::matrix_over<spffl::polynomials::f2_polymod_t> A(n, l + 1, zero);
   for (int j = 0; j <= l; j++) {
     for (int i = 0; i < n; i++) {
       spffl::polynomials::f2n_poly_t apr = ap.get_residue();
@@ -145,7 +145,7 @@ spffl::polynomials::f2n_poly_t f2npm_min_poly(
     }
     ap *= a;
   }
-  tmatrix<spffl::polynomials::f2_polymod_t> B;
+  spffl::containers::matrix_over<spffl::polynomials::f2_polymod_t> B;
   if (!A.get_kernel_basis(B, zero, one)) {
     std::stringstream ss;
     ss << "poo!\n";
@@ -174,7 +174,7 @@ spffl::polynomials::fp_poly_t fp_polymod_minimal_polynomial(
   spffl::intmath::intmod_t one(1, p);
   int n = m.find_degree();
   int l = fp_polymod_frobenius_length(a);
-  tmatrix<spffl::intmath::intmod_t> A(zero, n, l + 1);
+  spffl::containers::matrix_over<spffl::intmath::intmod_t> A(n, l + 1, zero);
   for (int j = 0; j <= l; j++) {
     for (int i = 0; i < n; i++) {
       spffl::polynomials::fp_poly_t apr = ap.get_residue();
@@ -182,7 +182,7 @@ spffl::polynomials::fp_poly_t fp_polymod_minimal_polynomial(
     }
     ap *= a;
   }
-  tmatrix<spffl::intmath::intmod_t> B;
+  spffl::containers::matrix_over<spffl::intmath::intmod_t> B;
   if (!A.get_kernel_basis(B, zero, one)) {
     std::stringstream ss;
     ss << "poo!\n";

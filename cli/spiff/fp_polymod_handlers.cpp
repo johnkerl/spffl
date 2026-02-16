@@ -38,7 +38,7 @@ int fp_pm_list_main(int argc, char **argv, usage_t *pusage) {
   if (!spffl::polynomials::fp_poly_from_string_into(argv[3], p, m)) {
     pusage(argv[0]);
   }
-  tvector<spffl::polynomials::fp_polymod_t> elts = fp_polymod_list(m, type);
+  spffl::containers::vector_over<spffl::polynomials::fp_polymod_t> elts = fp_polymod_list(m, type);
   elts.crout(std::cout);
   return 0;
 }
@@ -136,7 +136,7 @@ int fp_pm_tbl_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   }
 
-  tvector<spffl::polynomials::fp_polymod_t> elts;
+  spffl::containers::vector_over<spffl::polynomials::fp_polymod_t> elts;
   if ((tbl_type == TBL_TYPE_UNIT_MUL) || (tbl_type == TBL_TYPE_UNIT_DIV) ||
       (tbl_type == TBL_TYPE_LOG) || (tbl_type == TBL_TYPE_ALOG)) {
     elts = fp_polymod_list(m, spffl::list::SP_LIST_UNITS);

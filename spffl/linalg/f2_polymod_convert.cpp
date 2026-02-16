@@ -21,7 +21,7 @@ bool f2_polymod_convert_prep(spffl::polynomials::f2_polymod_t g1,
     c.change_modulus(m2);
     g2_min_poly.set_coeff(i, c);
   }
-  tvector<spffl::polynomials::f2_polymod_t> roots;
+  spffl::containers::vector_over<spffl::polynomials::f2_polymod_t> roots;
   if (!spffl::factorization::f2n_poly_roots(g2_min_poly, roots)) {
     return false;
   }

@@ -7,7 +7,8 @@
 #include "spffl/factorization/fp_poly_factor.h"
 #include "spffl/base/spffl_exception.h"
 #include "spffl/containers/tfacinfo.h"
-#include "spffl/containers/tmatrix.h"
+#include "spffl/containers/matrix_over.hpp"
+#include "spffl/containers/vector_over.hpp"
 #include "spffl/intmath/intmod_t.h"
 #include "spffl/random/fp_poly_random.h"
 
@@ -22,7 +23,7 @@ static void fp_poly_berlekamp(const spffl::polynomials::fp_poly_t &f,
     tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo, bool recurse);
 
 spffl::polynomials::fp_poly_t fp_poly_from_vector(
-    const tvector<spffl::intmath::intmod_t> &v, int n);
+    const spffl::containers::vector_over<spffl::intmath::intmod_t> &v, int n);
 
 // ----------------------------------------------------------------
 tfacinfo<spffl::polynomials::fp_poly_t> fp_poly_factor(
@@ -131,7 +132,7 @@ static void fp_poly_berlekamp(const spffl::polynomials::fp_poly_t &f,
   std::cout << "x"
             << " = " << x << "\n";
 #endif
-  tmatrix<spffl::intmath::intmod_t> BI(n, n);
+  spffl::containers::matrix_over<spffl::intmath::intmod_t> BI(n, n);
 
   if (n < 2) {
     rfinfo.insert_factor(f);
@@ -177,7 +178,7 @@ static void fp_poly_berlekamp(const spffl::polynomials::fp_poly_t &f,
   }
 
   // Find a basis for the nullspace of B - I.
-  tmatrix<spffl::intmath::intmod_t> nullspace_basis;
+  spffl::containers::matrix_over<spffl::intmath::intmod_t> nullspace_basis;
   if (!BI.get_kernel_basis(nullspace_basis, zero, one)) {
     std::stringstream ss;
     ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
@@ -255,7 +256,7 @@ static void fp_poly_berlekamp(const spffl::polynomials::fp_poly_t &f,
 
 // ----------------------------------------------------------------
 spffl::polynomials::fp_poly_t fp_poly_from_vector(
-    const tvector<spffl::intmath::intmod_t> &v, int n) {
+    const spffl::containers::vector_over<spffl::intmath::intmod_t> &v, int n) {
   spffl::polynomials::fp_poly_t f;
   f.set_coeff(0, v[0] - v[0]);
   for (int i = 0; i < n; i++) {

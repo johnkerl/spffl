@@ -8,6 +8,7 @@
 #define F2PMLINALG_H
 
 #include "spffl/containers/tmatrix.h"
+#include "spffl/containers/tvector.h"
 #include "spffl/polynomials/f2n_poly_t.h"
 
 namespace spffl::linalg {
