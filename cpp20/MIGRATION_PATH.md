@@ -132,7 +132,7 @@ Goal: No remaining references to old polynomial/intmod implementations or to tve
 ## Summary checklist
 
 - [x] Phase 1.1: intmod_t + euclidean_int in main spffl
-- [ ] Phase 1.2: concepts.hpp, euclidean.hpp in main spffl
+- [x] Phase 1.2: concepts.hpp, euclidean.hpp in main spffl
 - [ ] Phase 1.3: polynomial_of, aliases, fp_poly_t replacement, f2_poly_t replacement, fp_polymod_t replacement
 - [ ] Phase 1.4: f2n/fpn polymods (residue_of or dedicated), q_poly if kept
 - [ ] Phase 1.5: residue_of.hpp, algorithms in main spffl
