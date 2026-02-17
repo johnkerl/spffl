@@ -29,6 +29,12 @@ TEST_CASE("Ring_element: polynomial rationals satisfy ring ops") {
   static_assert(Ring_element<spffl::rationals::fp_polyrat_t>);
 }
 
+TEST_CASE("Ring_element_with_io: polynomial rationals have stream ops") {
+  static_assert(Ring_element_with_io<spffl::rationals::f2_polyrat_t>);
+  static_assert(Ring_element_with_io<spffl::rationals::f2n_polyrat_t>);
+  static_assert(Ring_element_with_io<spffl::rationals::fp_polyrat_t>);
+}
+
 TEST_CASE("Euclidean_domain: int has quot_rem and gcd in spirit (member form not required for int)") {
   // int doesn't have a.quot_and_rem(b, q, r) member; it uses / and %.
   // So int does NOT model Euclidean_domain as written.

@@ -39,6 +39,8 @@ public:
   f2n_polyrat_t operator%(const f2n_polyrat_t &that);
   f2n_polyrat_t exp(int e) const;
   friend std::ostream &operator<<(std::ostream &os, const f2n_polyrat_t &a);
+  friend std::istream &operator>>(std::istream &is, f2n_polyrat_t &a);
+  friend std::istringstream &operator>>(std::istringstream &iss, f2n_polyrat_t &a);
   bool from_string(const std::string &string, spffl::polynomials::f2_poly_t m);
 
   f2n_polyrat_t &operator+=(const f2n_polyrat_t &that);

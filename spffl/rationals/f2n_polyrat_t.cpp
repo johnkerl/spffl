@@ -189,6 +189,24 @@ std::ostream &operator<<(std::ostream &os, const f2n_polyrat_t &a) {
 }
 
 // ----------------------------------------------------------------
+std::istream &operator>>(std::istream &is, f2n_polyrat_t &a) {
+  auto m = a.get_modulus();
+  if (!read_f2n_polyrat(is, m, a)) {
+    is.setstate(std::ios::failbit);
+  }
+  return is;
+}
+
+// ----------------------------------------------------------------
+std::istringstream &operator>>(std::istringstream &iss, f2n_polyrat_t &a) {
+  auto m = a.get_modulus();
+  if (!read_f2n_polyrat(iss, m, a)) {
+    iss.setstate(std::ios::failbit);
+  }
+  return iss;
+}
+
+// ----------------------------------------------------------------
 // Read rational from stream; modulus m is required (explicit API).
 bool read_f2n_polyrat(std::istream& is, const spffl::polynomials::f2_poly_t& m,
                       f2n_polyrat_t& a) {
