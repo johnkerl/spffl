@@ -7,7 +7,8 @@
 #include "spffl/factorization/fp_poly_factor.h"
 #include "spffl/base/spffl_exception.h"
 #include "spffl/containers/tfacinfo.h"
-#include "spffl/containers/tmatrix.h"
+#include "spffl/containers/matrix_over.hpp"
+#include "spffl/containers/vector_over.hpp"
 #include "spffl/intmath/intmod_t.h"
 #include "spffl/random/fp_poly_random.h"
 
@@ -22,7 +23,7 @@ static void fp_poly_berlekamp(const spffl::polynomials::fp_poly_t &f,
     tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo, bool recurse);
 
 spffl::polynomials::fp_poly_t fp_poly_from_vector(
-    const tvector<spffl::intmath::intmod_t> &v, int n);
+    const spffl::containers::vector_over<spffl::intmath::intmod_t> &v, int n);
 
 // ----------------------------------------------------------------
 tfacinfo<spffl::polynomials::fp_poly_t> fp_poly_factor(
@@ -43,7 +44,7 @@ tfacinfo<spffl::polynomials::fp_poly_t> fp_poly_factor(
 
   spffl::intmath::intmod_t leader = fcopy.get_coeff(d);
   if ((leader != zero) && (leader != one)) {
-    finfo.insert_unit(leader);
+    finfo.insert_unit(spffl::polynomials::fp_poly_t(leader));
     fcopy /= leader;
   }
 
@@ -63,8 +64,8 @@ static void fp_poly_pre_berlekamp(const spffl::polynomials::fp_poly_t &f,
             << "  (f,f') = " << g << "\n";
 #endif
 
-  if (g == 0) {
-    if (f != 0) {
+  if (g.is_zero()) {
+    if (!f.is_zero()) {
       std::stringstream ss;
       ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
       throw spffl::exception_t(ss.str());
@@ -116,7 +117,7 @@ static void fp_poly_berlekamp(const spffl::polynomials::fp_poly_t &f,
   spffl::intmath::intmod_t one(1, p);
   spffl::polynomials::fp_poly_t x(one, zero);
   spffl::polynomials::fp_poly_t xp;
-  spffl::polynomials::fp_poly_t xpi = one;
+  spffl::polynomials::fp_poly_t xpi(one);
   spffl::polynomials::fp_poly_t f1, f2;
   int i, j, row, rank, dimker;
 
@@ -131,7 +132,7 @@ static void fp_poly_berlekamp(const spffl::polynomials::fp_poly_t &f,
   std::cout << "x"
             << " = " << x << "\n";
 #endif
-  tmatrix<spffl::intmath::intmod_t> BI(n, n);
+  spffl::containers::matrix_over<spffl::intmath::intmod_t> BI(n, n);
 
   if (n < 2) {
     rfinfo.insert_factor(f);
@@ -177,7 +178,7 @@ static void fp_poly_berlekamp(const spffl::polynomials::fp_poly_t &f,
   }
 
   // Find a basis for the nullspace of B - I.
-  tmatrix<spffl::intmath::intmod_t> nullspace_basis;
+  spffl::containers::matrix_over<spffl::intmath::intmod_t> nullspace_basis;
   if (!BI.get_kernel_basis(nullspace_basis, zero, one)) {
     std::stringstream ss;
     ss << "Coding error: file " << __FILE__ << " line " << __LINE__ << "\n";
@@ -255,7 +256,7 @@ static void fp_poly_berlekamp(const spffl::polynomials::fp_poly_t &f,
 
 // ----------------------------------------------------------------
 spffl::polynomials::fp_poly_t fp_poly_from_vector(
-    const tvector<spffl::intmath::intmod_t> &v, int n) {
+    const spffl::containers::vector_over<spffl::intmath::intmod_t> &v, int n) {
   spffl::polynomials::fp_poly_t f;
   f.set_coeff(0, v[0] - v[0]);
   for (int i = 0; i < n; i++) {
@@ -297,7 +298,7 @@ bool fp_poly_is_irreducible(const spffl::polynomials::fp_poly_t &f) {
 // Lexically lowest
 spffl::polynomials::fp_poly_t fp_poly_find_irr(int p, int degree) {
   spffl::intmath::intmod_t zero(0, p), one(1, p);
-  spffl::polynomials::fp_poly_t rv = zero;
+  spffl::polynomials::fp_poly_t rv(zero);
   rv.set_coeff(degree, one);
 
   if (degree < 1) {
@@ -343,7 +344,7 @@ spffl::polynomials::fp_poly_t fp_poly_random_irr(int p, int degree) {
       continue;
     }
     if (fp_poly_is_irreducible(rv)) {
-      rv /= rv.get_coeff(degree); // make monic
+      rv /= rv.get_coeff(degree);  // make monic
       return rv;
     }
   }

@@ -5,8 +5,8 @@
 // ================================================================
 
 #include "spffl/base/spffl_exception.h"
+#include "spffl/containers/matrix_over.hpp"
 #include "spffl/polynomials/fp_poly_t.h"
-
 #include "spffl/linalg/fp_linear_algebra.h"
 
 namespace spffl::linalg {
@@ -35,7 +35,7 @@ spffl::polynomials::fp_poly_t fp_char_poly(
 
   int i, j;
   int n = A.get_num_rows();
-  tmatrix<spffl::polynomials::fp_poly_t> tI_A(n, n);
+  spffl::containers::matrix_over<spffl::polynomials::fp_poly_t> tI_A(n, n);
   int p = A[0][0].get_modulus();
   spffl::intmath::intmod_t c1(1, p);
   spffl::intmath::intmod_t c0(0, p);
@@ -44,9 +44,9 @@ spffl::polynomials::fp_poly_t fp_char_poly(
 
   for (i = 0; i < n; i++) {
     for (j = 0; j < n; j++) {
-      tI_A[i][j] = -spffl::polynomials::fp_poly_t(A[i][j]);
+      tI_A[static_cast<std::size_t>(i)][j] = -spffl::polynomials::fp_poly_t(A[i][j]);
       if (i == j) {
-        tI_A[i][j] += t;
+        tI_A[static_cast<std::size_t>(i)][j] = tI_A[static_cast<std::size_t>(i)][j] + t;
       }
     }
   }

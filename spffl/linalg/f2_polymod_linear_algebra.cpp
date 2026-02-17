@@ -5,6 +5,7 @@
 // ================================================================
 
 #include "spffl/base/spffl_exception.h"
+#include "spffl/containers/matrix_over.hpp"
 #include "spffl/polynomials/f2_poly_t.h"
 #include "spffl/polynomials/f2n_poly_t.h"
 #include "spffl/linalg/f2_polymod_linear_algebra.h"
@@ -27,7 +28,7 @@ spffl::polynomials::f2n_poly_t f2_polymod_characteristic_polynomial(
 
   int i, j;
   int n = A.get_num_rows();
-  tmatrix<spffl::polynomials::f2n_poly_t> tI_A(n, n);
+  spffl::containers::matrix_over<spffl::polynomials::f2n_poly_t> tI_A(n, n);
   spffl::polynomials::f2_poly_t m = A[0][0].get_modulus();
   spffl::polynomials::f2_polymod_t c1(spffl::polynomials::f2_poly_t(1), m);
   spffl::polynomials::f2_polymod_t c0(spffl::polynomials::f2_poly_t(0), m);
@@ -37,9 +38,9 @@ spffl::polynomials::f2n_poly_t f2_polymod_characteristic_polynomial(
 
   for (i = 0; i < n; i++) {
     for (j = 0; j < n; j++) {
-      tI_A[i][j] = -spffl::polynomials::f2n_poly_t(A[i][j]);
+      tI_A[static_cast<std::size_t>(i)][j] = -spffl::polynomials::f2n_poly_t(A[i][j]);
       if (i == j) {
-        tI_A[i][j] += t;
+        tI_A[static_cast<std::size_t>(i)][j] = tI_A[static_cast<std::size_t>(i)][j] + t;
       }
     }
   }

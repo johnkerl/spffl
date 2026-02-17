@@ -1,6 +1,7 @@
 #include "f2_polyrat_handlers.h"
 
 #include "spffl/cli_parser/cmd_line_matrix_ops.h"
+#include "spffl/containers/tmatrix.h"
 #include "spffl/cli_parser/cmd_line_ops.h"
 #include "spffl/cli_parser/cmd_line_vector_ops.h"
 #include "spffl/random/f2_poly_random.h"

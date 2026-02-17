@@ -8,7 +8,7 @@
 #define TFACINFO_H
 
 #include "spffl/base/spffl_exception.h"
-#include "spffl/containers/tvector.h"
+#include "spffl/containers/vector_over.hpp"
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -423,7 +423,7 @@ public:
 
   // ----------------------------------------------------------------
   // The output will be sorted from smallest to largest.
-  tvector<element_type> get_all_divisors(element_type one) const {
+  spffl::containers::vector_over<element_type> get_all_divisors(element_type one) const {
     if (this->num_distinct <= 0) {
       if (!this->have_unit) {
         std::stringstream ss;
@@ -433,7 +433,7 @@ public:
       }
     }
     int nd = this->get_num_divisors();
-    tvector<element_type> rv(nd);
+    spffl::containers::vector_over<element_type> rv(nd);
     for (int k = 0; k < nd; k++) {
       rv[k] = this->get_kth_divisor(k, one);
     }
@@ -444,7 +444,7 @@ public:
   // ----------------------------------------------------------------
   // The output will be sorted from smallest to largest.
   bool get_maximal_proper_divisors(
-      tvector<element_type> &rv, element_type one) const {
+      spffl::containers::vector_over<element_type> &rv, element_type one) const {
     if (this->num_distinct <= 0) {
       if (!this->have_unit) {
         std::stringstream ss;
@@ -456,7 +456,7 @@ public:
       }
     }
     int nmpd = this->num_distinct;
-    rv       = tvector<element_type>(nmpd);
+    rv       = spffl::containers::vector_over<element_type>(nmpd);
     for (int k = 0; k < nmpd; k++) {
       tfacinfo<element_type> other(*this);
       other.pfactors_and_counts[k].count--;

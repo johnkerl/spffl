@@ -7,7 +7,7 @@
 #include "spffl/units/fp_units.h"
 #include "spffl/base/spffl_exception.h"
 #include "spffl/containers/tfacinfo.h"
-#include "spffl/containers/tvector.h"
+#include "spffl/containers/vector_over.hpp"
 #include "spffl/factorization/int_factor.h"
 #include "spffl/intmath/int_gcd.h"
 #include "spffl/intmath/int_sqrt.h"
@@ -33,7 +33,7 @@ int fp_order(spffl::intmath::intmod_t a) {
 
   int phi                   = spffl::intmath::int_totient(p);
   tfacinfo<int> finfo       = spffl::factorization::int_factor(phi);
-  tvector<int> phi_divisors = finfo.get_all_divisors(1);
+  spffl::containers::vector_over<int> phi_divisors = finfo.get_all_divisors(1);
   int nd                    = phi_divisors.get_num_elements();
   spffl::intmath::intmod_t one(1, p);
 

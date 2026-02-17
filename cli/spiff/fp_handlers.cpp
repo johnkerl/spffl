@@ -5,6 +5,7 @@
 #include "spffl/cli_parser/cmd_line_ops.h"
 #include "spffl/cli_parser/cmd_line_vector_ops.h"
 #include "spffl/containers/tmatrix.h"
+#include "spffl/containers/vector_over.hpp"
 #include "spffl/intmath/intmod_t.h"
 #include "spffl/linalg/fp_linear_algebra.h"
 #include "spffl/list/list_elements.h"
@@ -36,7 +37,7 @@ int fp_list_main(int argc, char **argv, usage_t *pusage) {
     if (sscanf(argv[2], "%d", &m) != 1) {
       pusage(argv[0]);
     }
-    tvector<spffl::intmath::intmod_t> elts = intmod_list(m, type);
+    spffl::containers::vector_over<spffl::intmath::intmod_t> elts = intmod_list(m, type);
     elts.crout(std::cout);
   } else if (argc == 4) {
     spffl::intmath::intmod_t g;
@@ -53,7 +54,7 @@ int fp_list_main(int argc, char **argv, usage_t *pusage) {
     if (!g.from_string(argv[2], m)) {
       pusage(argv[0]);
     }
-    tvector<spffl::intmath::intmod_t> elts = intmod_glist(g, type);
+    spffl::containers::vector_over<spffl::intmath::intmod_t> elts = intmod_glist(g, type);
     elts.crout(std::cout);
   } else {
     pusage(argv[0]);
@@ -137,7 +138,7 @@ int fp_tbl_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   }
 
-  tvector<spffl::intmath::intmod_t> elts;
+  spffl::containers::vector_over<spffl::intmath::intmod_t> elts;
   if ((tbl_type == TBL_TYPE_UNIT_MUL) || (tbl_type == TBL_TYPE_UNIT_DIV) ||
       (tbl_type == TBL_TYPE_LOG) || (tbl_type == TBL_TYPE_ALOG)) {
     elts = intmod_list(p, spffl::list::SP_LIST_UNITS);
@@ -239,7 +240,7 @@ int fp_max_ord_main(int argc, char **argv, usage_t *pusage) {
   if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
   }
-  tvector<spffl::intmath::intmod_t> elts =
+  spffl::containers::vector_over<spffl::intmath::intmod_t> elts =
       intmod_list(p, spffl::list::SP_LIST_UNITS);
   int n   = elts.get_num_elements();
   int max = 0;

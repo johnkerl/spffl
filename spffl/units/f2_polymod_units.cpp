@@ -7,7 +7,7 @@
 #include "spffl/units/f2_polymod_units.h"
 #include "spffl/base/spffl_exception.h"
 #include "spffl/containers/tfacinfo.h"
-#include "spffl/containers/tvector.h"
+#include "spffl/containers/vector_over.hpp"
 #include "spffl/factorization/f2_poly_factor.h"
 #include "spffl/factorization/f2_poly_totient.h"
 #include "spffl/factorization/int_factor.h"
@@ -36,7 +36,7 @@ int f2_polymod_order(spffl::polynomials::f2_polymod_t a) {
 
   int phi                   = spffl::factorization::f2_poly_totient(m);
   tfacinfo<int> finfo       = spffl::factorization::int_factor(phi);
-  tvector<int> phi_divisors = finfo.get_all_divisors(1);
+  spffl::containers::vector_over<int> phi_divisors = finfo.get_all_divisors(1);
   int nd                    = phi_divisors.get_num_elements();
   spffl::polynomials::f2_polymod_t one(pol1, m);
 
@@ -108,7 +108,7 @@ bool f2_poly_is_primitive(spffl::polynomials::f2_poly_t m) {
 
   int phi             = spffl::factorization::f2_poly_totient(m);
   tfacinfo<int> finfo = spffl::factorization::int_factor(phi);
-  tvector<int> mpds;
+  spffl::containers::vector_over<int> mpds;
   if (!finfo.get_maximal_proper_divisors(mpds, 1)) {
     // x or x+1 in F2[x].  The former case was already ruled out; the
     // latter is primitive.

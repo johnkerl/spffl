@@ -1,10 +1,8 @@
-# ----------------------------------------------------------------
-# catch2 has a set-but-unused-variable warning as of MacOS 13.3.
-# So we need to not use -Werror, as that's third-party code out of our control.
-#
-# See also:
-# https://discourse.cmake.org/t/how-to-turn-off-warning-flags-for-project-added-by-fetchcontent-declare/2461
+cmake_minimum_required(VERSION 3.24)
 
+project(test_mod)
+
+# ----------------------------------------------------------------
 Include(FetchContent)
 
 FetchContent_Declare(
@@ -39,8 +37,16 @@ if(APPLE AND OS_RELEASE VERSION_GREATER_EQUAL "13.0.0")
 endif()
 
 # ----------------------------------------------------------------
-add_subdirectory(mod)
-#add_subdirectory(base)
-#add_subdirectory(intmath)
-#add_subdirectory(bits)
-#add_subdirectory(polynomials)
+add_executable(test_mod test_mod.cpp)
+target_include_directories(${PROJECT_NAME}
+  PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/../..
+)
+target_link_libraries(${PROJECT_NAME} PRIVATE
+  mod
+  Catch2::Catch2WithMain
+)
+
+list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
+include(Catch)
+catch_discover_tests(test_mod)

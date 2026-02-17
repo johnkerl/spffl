@@ -10,6 +10,7 @@
 #include "spffl/polynomials/f2n_poly_t.h"
 #include <iomanip>
 #include <iostream>
+#include <optional>
 #include <sstream>
 
 namespace spffl::rationals {
@@ -33,14 +34,13 @@ public:
   f2n_polyrat_t operator+(const f2n_polyrat_t &that) const;
   f2n_polyrat_t operator-(const f2n_polyrat_t &that) const;
   f2n_polyrat_t operator-(void) const;
-  f2n_polyrat_t operator*(const f2n_polyrat_t &that);
+  f2n_polyrat_t operator*(const f2n_polyrat_t &that) const;
   f2n_polyrat_t operator/(const f2n_polyrat_t &that);
   f2n_polyrat_t operator%(const f2n_polyrat_t &that);
   f2n_polyrat_t exp(int e) const;
   friend std::ostream &operator<<(std::ostream &os, const f2n_polyrat_t &a);
   friend std::istream &operator>>(std::istream &is, f2n_polyrat_t &a);
-  friend std::istringstream &operator>>(
-      std::istringstream &iss, f2n_polyrat_t &a);
+  friend std::istringstream &operator>>(std::istringstream &iss, f2n_polyrat_t &a);
   bool from_string(const std::string &string, spffl::polynomials::f2_poly_t m);
 
   f2n_polyrat_t &operator+=(const f2n_polyrat_t &that);
@@ -61,6 +61,7 @@ public:
 
   spffl::polynomials::f2n_poly_t get_numerator(void) const;
   spffl::polynomials::f2n_poly_t get_denominator(void) const;
+  spffl::polynomials::f2_poly_t get_modulus(void) const;
 
 private:
   spffl::polynomials::f2n_poly_t numer;
@@ -69,6 +70,19 @@ private:
   void simplify();
 };
 
-} // namespace spffl::rationals
+// Read from stream; modulus m required (explicit API).
+bool read_f2n_polyrat(std::istream& is,
+                      const spffl::polynomials::f2_poly_t& m, f2n_polyrat_t& a);
+bool read_f2n_polyrat(std::istringstream& iss,
+                      const spffl::polynomials::f2_poly_t& m, f2n_polyrat_t& a);
 
-#endif // F2NPOLYRAT_T_H
+std::optional<f2n_polyrat_t> f2n_polyrat_from_string(
+    const std::string& s, const spffl::polynomials::f2_poly_t& m);
+
+/// CLI/stream read using context (zero) for modulus. Used by cmd_line_parse.
+void read_element(std::istringstream& iss, const f2n_polyrat_t& zero,
+                  f2n_polyrat_t& out);
+
+}  // namespace spffl::rationals
+
+#endif  // F2NPOLYRAT_T_H

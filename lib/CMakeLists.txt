@@ -41,7 +41,6 @@ add_library(
   ../spffl/intmath/int_power.cpp
   ../spffl/intmath/int_sqrt.cpp
   ../spffl/intmath/int_totient.cpp
-  ../spffl/intmath/intmod_t.cpp
   ../spffl/intmath/intrat_t.cpp
   ../spffl/intmath/is_prime.cpp
   ../spffl/intmath/log10.cpp
@@ -58,12 +57,6 @@ add_library(
 
   ../spffl/polynomials/f2_poly_t.cpp
   ../spffl/polynomials/f2_polymod_t.cpp
-  ../spffl/polynomials/f2n_poly_t.cpp
-  ../spffl/polynomials/f2n_polymod_t.cpp
-  ../spffl/polynomials/fp_poly_t.cpp
-  ../spffl/polynomials/fp_polymod_t.cpp
-  ../spffl/polynomials/fpn_poly_t.cpp
-  ../spffl/polynomials/fpn_polymod_t.cpp
   ../spffl/polynomials/q_poly_t.cpp
 
   ../spffl/q_cyclotomic/cyclo_poly.cpp

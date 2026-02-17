@@ -4,6 +4,8 @@
 #include "spffl/cli_parser/cmd_line_matrix_ops.h"
 #include "spffl/cli_parser/cmd_line_ops.h"
 #include "spffl/cli_parser/cmd_line_vector_ops.h"
+#include "spffl/containers/tmatrix.h"
+#include "spffl/containers/tvector.h"
 #include "spffl/linalg/f2_polymod_convert.h"
 #include "spffl/linalg/f2_polymod_linear_algebra.h"
 #include "spffl/linalg/min_char_polys.h"
@@ -34,7 +36,7 @@ int f2_pm_list_main(int argc, char **argv, usage_t *pusage) {
     if (!m.from_string(argv[2])) {
       pusage(argv[0]);
     }
-    tvector<spffl::polynomials::f2_polymod_t> elts = f2_polymod_list(m, type);
+    spffl::containers::vector_over<spffl::polynomials::f2_polymod_t> elts = f2_polymod_list(m, type);
     elts.crout(std::cout);
   } else if (argc == 4) {
     spffl::polynomials::f2_polymod_t g;
@@ -51,7 +53,7 @@ int f2_pm_list_main(int argc, char **argv, usage_t *pusage) {
     if (!g.from_string(argv[2], m)) {
       pusage(argv[0]);
     }
-    tvector<spffl::polynomials::f2_polymod_t> elts = f2_polymod_glist(g, type);
+    spffl::containers::vector_over<spffl::polynomials::f2_polymod_t> elts = f2_polymod_glist(g, type);
     elts.crout(std::cout);
   } else {
     pusage(argv[0]);
@@ -137,7 +139,7 @@ int f2_pm_tbl_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   }
 
-  tvector<spffl::polynomials::f2_polymod_t> elts;
+  spffl::containers::vector_over<spffl::polynomials::f2_polymod_t> elts;
   if ((tbl_type == TBL_TYPE_UNIT_MUL) || (tbl_type == TBL_TYPE_UNIT_DIV) ||
       (tbl_type == TBL_TYPE_LOG) || (tbl_type == TBL_TYPE_ALOG)) {
     elts = f2_polymod_list(m, spffl::list::SP_LIST_UNITS);
@@ -482,7 +484,7 @@ int f2_pm_mat_solve_main(int argc, char **argv, usage_t *pusage) {
 
   A = spffl::polynomials::f2_polymod_t(zero);
   b = spffl::polynomials::f2_polymod_t(zero);
-  if (!A.load_from_file(argv[2])) {
+  if (!A.load_from_file(argv[2], zero)) {
     pusage(argv[0]);
   }
   if (!b.load_from_file(argv[3])) {
@@ -513,7 +515,7 @@ int f2_pm_mat_ch_pol_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   }
   A = spffl::polynomials::f2_polymod_t(spffl::polynomials::f2_poly_t(0), m);
-  if (!A.load_from_file(argv[2])) {
+  if (!A.load_from_file(argv[2], spffl::polynomials::f2_polymod_t(spffl::polynomials::f2_poly_t(0), m))) {
     pusage(argv[0]);
   }
 
@@ -540,7 +542,7 @@ int f2_pm_mat_diagonalizable_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   }
   A = spffl::polynomials::f2_polymod_t(spffl::polynomials::f2_poly_t(0), m);
-  if (!A.load_from_file(argv[2])) {
+  if (!A.load_from_file(argv[2], spffl::polynomials::f2_polymod_t(spffl::polynomials::f2_poly_t(0), m))) {
     pusage(argv[0]);
   }
 

@@ -2,20 +2,11 @@ cmake_minimum_required (VERSION 3.24)
 
 project(polynomials)
 
+# f2n/fpn: types from fpn_f2n_aliases.hpp (polynomial_of / residue_of), no .cpp
 add_library(${PROJECT_NAME}
   f2_poly_t.cpp
-  fp_poly_t.cpp
-
   f2_polymod_t.cpp
-  fp_polymod_t.cpp
-
-  f2n_poly_t.cpp
-  fpn_poly_t.cpp
-
-  f2n_polymod_t.cpp
-  fpn_polymod_t.cpp
-
-  q_poly_t.cpp 
+  q_poly_t.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

@@ -7,7 +7,7 @@
 #ifndef F2NPOLY_FACTOR_H
 #define F2NPOLY_FACTOR_H
 #include "spffl/containers/tfacinfo.h"
-#include "spffl/containers/tvector.h"
+#include "spffl/containers/vector_over.hpp"
 #include "spffl/polynomials/f2n_poly_t.h"
 
 namespace spffl::factorization {
@@ -17,7 +17,7 @@ tfacinfo<spffl::polynomials::f2n_poly_t> f2n_poly_factor(
 
 // Without multiplicity.
 bool f2n_poly_roots(const spffl::polynomials::f2n_poly_t &f,
-    tvector<spffl::polynomials::f2_polymod_t> &rroots);
+    spffl::containers::vector_over<spffl::polynomials::f2_polymod_t> &rroots);
 
 bool f2n_poly_is_irreducible(const spffl::polynomials::f2n_poly_t &f);
 

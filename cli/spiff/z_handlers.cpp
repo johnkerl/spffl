@@ -253,7 +253,7 @@ int z_divisors_main(int argc, char **argv, usage_t *pusage) {
       std::cout << a << ": ";
     }
     tfacinfo<int> finfo = spffl::factorization::int_factor(a);
-    tvector<int> divisors;
+    spffl::containers::vector_over<int> divisors;
     if (maximal_proper_only) {
       if (!finfo.get_maximal_proper_divisors(divisors, 1)) {
         std::cout << "(none)\n";

@@ -15,9 +15,13 @@ namespace spffl::linalg {
 bool f2_polymod_convert_prep(spffl::polynomials::f2_polymod_t g1,
     spffl::polynomials::f2_poly_t m2, spffl::polynomials::f2_polymod_t &rg2) {
   spffl::polynomials::f2n_poly_t g1_min_poly = f2_polymod_min_poly(g1);
-  spffl::polynomials::f2n_poly_t g2_min_poly = g1_min_poly;
-  g2_min_poly.change_modulus(m2);
-  tvector<spffl::polynomials::f2_polymod_t> roots;
+  spffl::polynomials::f2n_poly_t g2_min_poly;
+  for (int i = 0; i <= g1_min_poly.find_degree(); i++) {
+    spffl::polynomials::f2_polymod_t c = g1_min_poly.get_coeff(i);
+    c.change_modulus(m2);
+    g2_min_poly.set_coeff(i, c);
+  }
+  spffl::containers::vector_over<spffl::polynomials::f2_polymod_t> roots;
   if (!spffl::factorization::f2n_poly_roots(g2_min_poly, roots)) {
     return false;
   }

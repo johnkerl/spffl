@@ -107,7 +107,7 @@ f2_polyrat_t f2_polyrat_t::operator-(void) const {
 }
 
 // ----------------------------------------------------------------
-f2_polyrat_t f2_polyrat_t::operator*(const f2_polyrat_t &that) {
+f2_polyrat_t f2_polyrat_t::operator*(const f2_polyrat_t &that) const {
   f2_polyrat_t rv;
   rv.numer = this->numer * that.numer;
   rv.denom = this->denom * that.denom;

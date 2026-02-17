@@ -18,6 +18,7 @@
 //   U := P ^ P | P
 //   P := ( E ) | NUM
 
+#include "spffl/base/read_element.h"
 #include "spffl/base/spffl_exception.h"
 #include "spffl/containers/tstack.h"
 #include <iostream>
@@ -228,9 +229,9 @@ static void lexan(lex_ctx_t<element_type> &rlex_ctx) {
       rlex_ctx.atom.is_int = true;
       iss >> rlex_ctx.atom.int_val;
     } else {
-      rlex_ctx.atom.type_val = rlex_ctx.zero; // Set modulus
+      rlex_ctx.atom.type_val = rlex_ctx.zero;  // Set modulus for mod types
       rlex_ctx.atom.is_int   = false;
-      iss >> rlex_ctx.atom.type_val;
+      read_element(iss, rlex_ctx.zero, rlex_ctx.atom.type_val);
     }
     if (iss.fail()) {
       std::stringstream ss;

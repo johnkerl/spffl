@@ -32,7 +32,7 @@ public:
   fp_polyrat_t operator+(const fp_polyrat_t &that) const;
   fp_polyrat_t operator-(const fp_polyrat_t &that) const;
   fp_polyrat_t operator-(void) const;
-  fp_polyrat_t operator*(const fp_polyrat_t &that);
+  fp_polyrat_t operator*(const fp_polyrat_t &that) const;
   fp_polyrat_t operator/(const fp_polyrat_t &that);
   fp_polyrat_t operator%(const fp_polyrat_t &that);
   fp_polyrat_t exp(int e) const;
