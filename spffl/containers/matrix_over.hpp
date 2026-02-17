@@ -529,6 +529,148 @@ public:
     return d;
   }
 
+  /// Scalar operations: add/subtract scalar to diagonal (square matrices only).
+  matrix_over operator+(const T& e) const {
+    if (!is_square()) {
+      throw std::invalid_argument("matrix_over plus scalar: non-square matrix");
+    }
+    matrix_over rv(*this);
+    for (int i = 0; i < get_num_rows(); ++i) {
+      rv.rows_[static_cast<std::size_t>(i)][i] = rv.rows_[static_cast<std::size_t>(i)][i] + e;
+    }
+    return rv;
+  }
+
+  matrix_over operator-(const T& e) const {
+    if (!is_square()) {
+      throw std::invalid_argument("matrix_over minus scalar: non-square matrix");
+    }
+    matrix_over rv(*this);
+    for (int i = 0; i < get_num_rows(); ++i) {
+      rv.rows_[static_cast<std::size_t>(i)][i] = rv.rows_[static_cast<std::size_t>(i)][i] - e;
+    }
+    return rv;
+  }
+
+  /// Scalar multiplication: multiply all elements by scalar.
+  matrix_over operator*(const T& e) const {
+    matrix_over rv(get_num_rows(), get_num_cols());
+    for (int i = 0; i < get_num_rows(); ++i) {
+      for (int j = 0; j < get_num_cols(); ++j) {
+        rv.rows_[static_cast<std::size_t>(i)][j] = (*this)[static_cast<std::size_t>(i)][j] * e;
+      }
+    }
+    return rv;
+  }
+
+  matrix_over& operator+=(const T& e) {
+    *this = *this + e;
+    return *this;
+  }
+
+  matrix_over& operator-=(const T& e) {
+    *this = *this - e;
+    return *this;
+  }
+
+  matrix_over& operator*=(const T& e) {
+    *this = *this * e;
+    return *this;
+  }
+
+  /// Euclidean-domain row reduction below diagonal; updates scalar numerator/denominator.
+  /// For use with element types satisfying Euclidean_domain (e.g. polynomial rings).
+  void ed_row_reduce_below_with_scalar(T& snumer, T& sdenom) {
+    T zero = (*this)[0][0] - (*this)[0][0];
+    T one;
+    if (!find_one(one)) {
+      snumer = zero;
+      return;
+    }
+    snumer = one;
+    sdenom = one;
+    const int nr = get_num_rows();
+    const int nc = get_num_cols();
+    int top_row = 0, left_column = 0;
+    while (top_row < nr && left_column < nc) {
+      int pivot_row = top_row;
+      int pivot_successful = 0;
+      while (!pivot_successful && pivot_row < nr) {
+        if ((*this)[static_cast<std::size_t>(pivot_row)][left_column] != zero) {
+          if (top_row != pivot_row) {
+            swap_rows(top_row, pivot_row);
+            snumer = zero - snumer;
+          }
+          pivot_successful = 1;
+        } else {
+          ++pivot_row;
+        }
+      }
+      if (!pivot_successful) {
+        ++left_column;
+        continue;
+      }
+      row_type& top_row_vec = rows_[static_cast<std::size_t>(top_row)];
+      T g = top_row_vec.vgcd();
+      if (g != zero) {
+        top_row_vec.div_by(g);
+        snumer = snumer * g;
+      }
+      T top_row_lead = top_row_vec[left_column];
+      if (top_row_lead != zero) {
+        for (int cur_row = top_row + 1; cur_row < nr; ++cur_row) {
+          row_type& cur_row_vec = rows_[static_cast<std::size_t>(cur_row)];
+          g = cur_row_vec.vgcd();
+          if (g != zero) {
+            cur_row_vec.div_by(g);
+            snumer = snumer * g;
+          }
+          T current_row_lead = cur_row_vec[left_column];
+          T lead_gcd = gcd(top_row_lead, current_row_lead);
+          T top_mul = current_row_lead / lead_gcd;
+          T cur_mul = top_row_lead / lead_gcd;
+          cur_row_vec.accum_row_mul(cur_mul, top_mul, top_row_vec);
+          sdenom = sdenom * cur_mul;
+          g = cur_row_vec.vgcd();
+          if (g != zero) {
+            cur_row_vec.div_by(g);
+            snumer = snumer * g;
+          }
+          g = gcd(snumer, sdenom);
+          if (g != zero) {
+            snumer = snumer / g;
+            sdenom = sdenom / g;
+          }
+        }
+      }
+      ++left_column;
+      ++top_row;
+    }
+  }
+
+  /// Determinant for Euclidean-domain element types (e.g. polynomial matrices).
+  /// Uses fraction-free row reduction; requires T to support gcd, /, %.
+  T ed_det() const {
+    if (!is_square()) {
+      throw std::invalid_argument("matrix_over::ed_det: non-square matrix");
+    }
+    matrix_over rr(*this);
+    T dn, dd;
+    rr.ed_row_reduce_below_with_scalar(dn, dd);
+    for (int i = 0; i < get_num_rows(); ++i) {
+      dn = dn * rr[static_cast<std::size_t>(i)][i];
+    }
+    T zero = dn - dn;
+    T rem = dn % dd;
+    T quot = dn / dd;
+    if (rem != zero) {
+      std::stringstream ss;
+      ss << "matrix_over::ed_det: coding error: dd must divide dn. Got " << dn << " % " << dd << " = " << rem;
+      throw std::runtime_error(ss.str());
+    }
+    return quot;
+  }
+
   /// Parse "[[r1] [r2] ...]" or "[c1 c2 ...]". *this must already have one element.
   bool bracket_in(char* string) {
     if (rows_.empty() || cols_ < 1) return false;

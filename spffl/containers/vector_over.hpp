@@ -209,6 +209,13 @@ public:
     }
   }
 
+  /// In-place: *this /= scalar (exact division for Euclidean domains).
+  void div_by(const T& e) {
+    for (int i = 0; i < get_num_elements(); ++i) {
+      (*this)[i] = (*this)[i] / e;
+    }
+  }
+
   /// Index of first non-zero entry; return false if row is zero.
   bool find_leader_pos(const T& zero, int& rpos) const {
     for (int j = 0; j < get_num_elements(); ++j) {
@@ -237,6 +244,18 @@ public:
     for (int i = 0; i < get_num_elements(); ++i) {
       (*this)[i] = (*this)[i] * a - that[i] * b;
     }
+  }
+
+  /// GCD of all elements (for Euclidean domains). Uses ADL to find gcd().
+  T vgcd() const {
+    if (get_num_elements() == 0) {
+      throw std::runtime_error("vector_over::vgcd: empty vector");
+    }
+    T rv = (*this)[0];
+    for (int i = 1; i < get_num_elements(); ++i) {
+      rv = gcd(rv, (*this)[i]);
+    }
+    return rv;
   }
 
   friend std::ostream& operator<<(std::ostream& os, const vector_over& v) {

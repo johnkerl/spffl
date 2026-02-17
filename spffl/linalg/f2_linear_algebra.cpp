@@ -6,6 +6,7 @@
 
 #include "spffl/linalg/f2_linear_algebra.h"
 #include "spffl/base/spffl_exception.h"
+#include "spffl/containers/matrix_over.hpp"
 #include "spffl/polynomials/f2_poly_t.h"
 
 namespace spffl::linalg {
@@ -43,15 +44,15 @@ spffl::polynomials::f2_poly_t f2_char_poly(tmatrix<spffl::bits::bit_t> &A) {
 
   int i, j;
   int n = A.get_num_rows();
-  tmatrix<spffl::polynomials::f2_poly_t> A_lI(n, n);
+  spffl::containers::matrix_over<spffl::polynomials::f2_poly_t> A_lI(n, n);
   spffl::polynomials::f2_poly_t lambda(spffl::polynomials::f2_poly_t(1, 0));
   spffl::polynomials::f2_poly_t det;
 
   for (i = 0; i < n; i++) {
     for (j = 0; j < n; j++) {
-      A_lI[i][j] = spffl::polynomials::f2_poly_t(A[i][j].get_residue());
+      A_lI[static_cast<std::size_t>(i)][j] = spffl::polynomials::f2_poly_t(A[i][j].get_residue());
       if (i == j) {
-        A_lI[i][j] -= lambda;
+        A_lI[static_cast<std::size_t>(i)][j] = A_lI[static_cast<std::size_t>(i)][j] - lambda;
       }
     }
   }
