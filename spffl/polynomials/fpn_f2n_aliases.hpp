@@ -29,11 +29,10 @@ using f2n_poly_t = polynomial_of<f2_polymod_t>;
 using f2n_polymod_t = spffl::residue_of<f2n_poly_t>;
 
 /// Free-function gcd for template/ADL use (same as the gcd method).
+/// Note: for f2n_poly_t we rely on the generic polynomial_of<> gcd
+/// (friend + ADL) to avoid overload ambiguity between the alias-level
+/// f2n_poly_t and the underlying polynomial_of<f2_polymod_t>.
 inline fpn_poly_t gcd(const fpn_poly_t& a, const fpn_poly_t& b) {
-  return spffl::euclidean::gcd(a, b);
-}
-
-inline f2n_poly_t gcd(const f2n_poly_t& a, const f2n_poly_t& b) {
   return spffl::euclidean::gcd(a, b);
 }
 
