@@ -146,7 +146,7 @@ Goal: No remaining references to old polynomial/intmod implementations or to tve
 - [x] Phase 2: Remove other obsolete headers and dead .cpp as applicable (removed spffl/polynomials/fp_poly_t.cpp, fp_polymod_t.cpp — legacy implementations not in build; types now from aliases.hpp / fp_polymod_t.hpp)
 - [x] Phase 3 (partial): algorithms and containers tests added to main test/ (test/algorithms, test/containers); residue_of supports legacy f2_poly_t (is_zero_poly)
 - [x] Phase 3 (partial): concepts and residue tests merged into main test/ (test/concepts, test/residue)
-- [ ] Phase 3: Merge remaining cpp20 tests (intmath, polynomials, mod) into test/, remove cpp20/
+- [x] Phase 3: Merge remaining cpp20 tests (intmath, polynomials, mod) into test/, remove cpp20/ (all cpp20 tests have equivalents under `test/`; `cpp20/` directory has been removed from the tree and is no longer referenced by any CMakeLists.txt)
 - [x] Phase 3: Update README and build docs (cpp20/README.md updated with migration status and next steps)
 
 Done: one C++20 codebase, nothing left behind.
