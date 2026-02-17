@@ -6,6 +6,7 @@
 #include "spffl/euclidean.hpp"
 #include "spffl/polynomials/aliases.hpp"
 #include "spffl/intmath/intmod_t.h"
+#include "spffl/intmath/intrat_t.h"
 #include "spffl/rationals/f2_polyrat_t.h"
 #include "spffl/rationals/f2n_polyrat_t.h"
 #include "spffl/rationals/fp_polyrat_t.h"
@@ -21,6 +22,10 @@ TEST_CASE("Ring_element: int satisfies ring ops") {
 
 TEST_CASE("Ring_element: double satisfies (numeric ring)") {
   static_assert(Ring_element<double>);
+}
+
+TEST_CASE("Ring_element: intrat_t (rationals) satisfies ring ops") {
+  static_assert(Ring_element<spffl::intmath::intrat_t>);
 }
 
 TEST_CASE("Ring_element: polynomial rationals satisfy ring ops") {

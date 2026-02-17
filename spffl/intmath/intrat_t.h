@@ -26,7 +26,7 @@ public:
   intrat_t operator+(const intrat_t &that) const;
   intrat_t operator-(const intrat_t &that) const;
   intrat_t operator-(void) const;
-  intrat_t operator*(const intrat_t &that);
+  intrat_t operator*(const intrat_t &that) const;
   intrat_t operator/(const intrat_t &that);
   intrat_t operator%(const intrat_t &that);
   intrat_t exp(int e);
