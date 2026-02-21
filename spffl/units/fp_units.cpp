@@ -7,7 +7,7 @@
 #include "spffl/units/fp_units.h"
 #include "spffl/base/spffl_exception.h"
 #include "spffl/containers/tfacinfo.h"
-#include "spffl/containers/vector_over.hpp"
+#include "spffl/containers/vector_over.h"
 #include "spffl/factorization/int_factor.h"
 #include "spffl/intmath/int_gcd.h"
 #include "spffl/intmath/int_sqrt.h"

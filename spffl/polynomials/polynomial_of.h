@@ -4,8 +4,8 @@
 // API is modeled after the existing fp_poly_t / f2n_poly_t / fpn_poly_t.
 // ================================================================
 
-#ifndef SPFFL_POLYNOMIALS_POLYNOMIAL_OF_HPP
-#define SPFFL_POLYNOMIALS_POLYNOMIAL_OF_HPP
+#ifndef SPFFL_POLYNOMIALS_POLYNOMIAL_OF_H
+#define SPFFL_POLYNOMIALS_POLYNOMIAL_OF_H
 
 #include <vector>
 #include <ostream>
@@ -14,7 +14,7 @@
 #include <stdexcept>
 #include <algorithm>
 
-#include "spffl/concepts.hpp"
+#include "spffl/concepts.h"
 #include "spffl/intmath/intmod_t.h"
 
 namespace spffl::polynomials {
@@ -610,4 +610,4 @@ private:
 
 } // namespace spffl::polynomials
 
-#endif // SPFFL_POLYNOMIALS_POLYNOMIAL_OF_HPP
+#endif // SPFFL_POLYNOMIALS_POLYNOMIAL_OF_H

@@ -3,10 +3,10 @@
 // Include this when you need fp_poly_t, etc.
 // ================================================================
 
-#ifndef SPFFL_POLYNOMIALS_ALIASES_HPP
-#define SPFFL_POLYNOMIALS_ALIASES_HPP
+#ifndef SPFFL_POLYNOMIALS_ALIASES_H
+#define SPFFL_POLYNOMIALS_ALIASES_H
 
-#include "spffl/polynomials/polynomial_of.hpp"
+#include "spffl/polynomials/polynomial_of.h"
 #include "spffl/intmath/intmod_t.h"
 
 namespace spffl::polynomials {
@@ -16,4 +16,4 @@ using fp_poly_t = polynomial_of<spffl::intmath::intmod_t>;
 
 }  // namespace spffl::polynomials
 
-#endif  // SPFFL_POLYNOMIALS_ALIASES_HPP
+#endif  // SPFFL_POLYNOMIALS_ALIASES_H

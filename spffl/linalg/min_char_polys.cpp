@@ -7,7 +7,7 @@
 #include "spffl/linalg/min_char_polys.h"
 #include "spffl/base/spffl_exception.h"
 #include "spffl/bits/bit_matrix_t.h"
-#include "spffl/containers/matrix_over.hpp"
+#include "spffl/containers/matrix_over.h"
 #include <iostream>
 
 namespace spffl::linalg {

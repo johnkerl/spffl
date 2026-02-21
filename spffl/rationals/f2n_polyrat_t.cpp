@@ -5,7 +5,7 @@
 // ================================================================
 
 #include "spffl/rationals/f2n_polyrat_t.h"
-#include "spffl/polynomials/fpn_f2n_io.hpp"
+#include "spffl/polynomials/fpn_f2n_io.h"
 #include "spffl/base/cmps.h"
 #include "spffl/base/spffl_exception.h"
 #include <iomanip>

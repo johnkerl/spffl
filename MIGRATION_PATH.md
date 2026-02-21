@@ -15,12 +15,12 @@ The root `CMakeLists.txt` already sets `CMAKE_CXX_STANDARD` to 20, so the build 
 **Layout at repo root:**
 
 - **`spffl/`** – Single library:
-  - **`concepts.hpp`** – Ring_element, Euclidean_domain, Residue_ring, Vector_over, Matrix_over, Bit_vector_like, Bit_matrix_like, etc.
-  - **`euclidean.hpp`** – Unified quot_and_rem, gcd, ext_gcd (int + any Euclidean_domain_with_ext_gcd).
-  - **`residue_of.hpp`** – Generic residue ring (int, fp_poly_t, f2_poly_t).
+  - **`concepts.h`** – Ring_element, Euclidean_domain, Residue_ring, Vector_over, Matrix_over, Bit_vector_like, Bit_matrix_like, etc.
+  - **`euclidean.h`** – Unified quot_and_rem, gcd, ext_gcd (int + any Euclidean_domain_with_ext_gcd).
+  - **`residue_of.h`** – Generic residue ring (int, fp_poly_t, f2_poly_t).
   - **`intmath/`** – intmod_t (with exp), euclidean_int; other intmath (gcd, sqrt, primes, etc.) as needed.
-  - **`polynomials/`** – polynomial_of.hpp, aliases (fp_poly_t, etc.), f2_poly_t.hpp (bit-packed), fp_polymod_t.hpp, f2_polymod_t (or residue_of<f2_poly_t>), f2n/fpn via polynomial_of<…> and corresponding polymods.
-  - **`containers/`** – vector_over.hpp, matrix_over.hpp (replace tvector/tmatrix usage everywhere).
+  - **`polynomials/`** – polynomial_of.h, aliases (fp_poly_t, etc.), f2_poly_t (bit-packed), fp_polymod_t.h, f2_polymod_t (or residue_of<f2_poly_t>), f2n/fpn via polynomial_of<…> and corresponding polymods.
+  - **`containers/`** – vector_over.h, matrix_over.h (replace tvector/tmatrix usage everywhere).
   - **`bits/`** – bit_t, bit_vector_t, bit_matrix_t (keep bit-packed; make them satisfy Bit_vector_like / Bit_matrix_like where useful).
   - **`algorithms/`** – optional_inverse, optional_solve_2x2, etc.
   - **`base/`**, **`random/`**, **`factorization/`**, **`linalg/`**, **`rationals/`**, **`units/`**, **`list/`**, **`cli_parser/`**, **`bitrand/`**, **`q_cyclotomic/`** – All updated to use the above types and headers; no `.cpp` that implement old poly/intmod/tvector/tmatrix.
@@ -29,7 +29,7 @@ The root `CMakeLists.txt` already sets `CMAKE_CXX_STANDARD` to 20, so the build 
 
 - **`cpp20/`** – **Removed.** Its contents have been merged into `spffl/` and `test/`; its tests live under `test/`.
 
-**Header convention:** Migrated code can use `.hpp` (as in cpp20) for new/converted headers; existing `.h` can be converted to `.hpp` when touched, or left as `.h` until the file is replaced. Adjust `install(FILES_MATCHING PATTERN "*.h")` to include `*.hpp` if needed.
+**Header convention:** Standard extension for spffl headers is `.h`. The install uses `FILES_MATCHING PATTERN "*.h"`.
 
 ---
 
@@ -41,30 +41,30 @@ Goal: The new implementations live in the main tree and build, even if some old 
 
 1. **intmath**
    - Replace `spffl/intmath/intmod_t.{h,cpp}` with the cpp20 version (header-only, with `exp(int)`). Remove `intmod_t.cpp`.
-   - Add `spffl/intmath/euclidean_int.hpp` (from cpp20).
+   - Add `spffl/intmath/euclidean_int.h` (from cpp20).
    - Keep other intmath (int_gcd, int_sqrt, primes, etc.) as-is for now; they don’t conflict.
 
 2. **Concepts and euclidean**
-   - Add `spffl/concepts.hpp` (from cpp20).
-   - Add `spffl/euclidean.hpp` (from cpp20).
+   - Add `spffl/concepts.h` (from cpp20).
+   - Add `spffl/euclidean.h` (from cpp20).
 
 3. **Polynomials**
-   - Add `spffl/polynomials/polynomial_of.hpp` (from cpp20).
-   - Add `spffl/polynomials/aliases.hpp` with `fp_poly_t = polynomial_of<intmod_t>` (and any others that already exist in cpp20).
-   - **Replace** `fp_poly_t.{h,cpp}`: delete the old implementation; make `fp_poly_t` the alias from aliases.hpp. All fp_poly_t call sites now use polynomial_of<intmod_t>. Fix any API differences (e.g. constructor or method names) in call sites.
-   - **Replace** `f2_poly_t.{h,cpp}` with the cpp20 bit-packed `f2_poly_t.hpp` (header-only). Update call sites if the API differs (e.g. get_coeff, from_string).
-   - Add `spffl/polynomials/fp_poly_io.hpp` (from cpp20) and use it where fp_poly I/O is needed.
-   - **Replace** `fp_polymod_t.{h,cpp}` with the cpp20 `fp_polymod_t.hpp` (Fp[x]/(m), uses fp_poly_t and ext_gcd). Update call sites.
+   - Add `spffl/polynomials/polynomial_of.h` (from cpp20).
+   - Add `spffl/polynomials/aliases.h` with `fp_poly_t = polynomial_of<intmod_t>` (and any others that already exist in cpp20).
+   - **Replace** `fp_poly_t.{h,cpp}`: delete the old implementation; make `fp_poly_t` the alias from aliases.h. All fp_poly_t call sites now use polynomial_of<intmod_t>. Fix any API differences (e.g. constructor or method names) in call sites.
+   - **Replace** `f2_poly_t.{h,cpp}` with the cpp20 bit-packed `f2_poly_t` (header-only). Update call sites if the API differs (e.g. get_coeff, from_string).
+   - Add `spffl/polynomials/fp_poly_io.h` (from cpp20) and use it where fp_poly I/O is needed.
+   - **Replace** `fp_polymod_t.{h,cpp}` with the cpp20 `fp_polymod_t.h` (Fp[x]/(m), uses fp_poly_t and ext_gcd). Update call sites.
    - **f2n_poly_t / f2n_polymod_t:** Implement as `polynomial_of<residue_of<f2_poly_t>>` (or a dedicated f2_polymod_t type) and `residue_of<f2_poly_t>` (or alias). Remove old f2n_poly_t.cpp, f2n_polymod_t.cpp once migrated.
    - **fpn_poly_t / fpn_polymod_t:** Similarly, polynomial_of<fp_polymod_t> and a suitable residue type; remove old fpn .cpp.
    - **q_poly_t:** Either `polynomial_of<intrat_t>` with existing intrat_t, or defer; remove or replace q_poly_t.cpp when done.
 
 4. **Residue and algorithms**
-   - Add `spffl/residue_of.hpp` (from cpp20).
-   - Add `spffl/algorithms/optional_inverse.hpp`, `optional_solve_2x2.hpp` (from cpp20).
+   - Add `spffl/residue_of.h` (from cpp20).
+   - Add `spffl/algorithms/optional_inverse.h`, `optional_solve_2x2.h` (from cpp20).
 
 5. **Containers**
-   - Add `spffl/containers/vector_over.hpp` and `matrix_over.hpp` (from cpp20).
+   - Add `spffl/containers/vector_over.h` and `matrix_over.h` (from cpp20).
    - **Do not delete** `tvector`/`tmatrix` yet; keep them in parallel. Migrate call sites in a later phase, then remove.
 
 After Phase 1, the library should build with both old and new types present where you’ve already switched (e.g. fp_poly_t, f2_poly_t, fp_polymod_t are the new implementations). Run existing tests and fix any regressions.
@@ -115,7 +115,7 @@ Goal: No remaining references to old polynomial/intmod implementations or to tve
 ## Optional simplifications (since you’re the only user)
 
 - **tvector / tmatrix:** Remove them entirely and use only vector_over / matrix_over everywhere. Then delete tvector.h, tmatrix.h and any .cpp that only existed for them.
-- **Header extension:** Standardize on `.hpp` for all spffl headers when you touch them; update install and includes.
+- **Header extension:** Standardize on `.h` for all spffl headers; install already uses `*.h`.
 - **f2n / fpn:** If you rarely use F2^n or Fp^n polynomials, implement them as thin wrappers (e.g. type aliases) over polynomial_of<residue_of<f2_poly_t>> and polynomial_of<fp_polymod_t>, and delete the old multi-file implementations.
 - **q_poly_t / intrat_t:** If rational polynomials are optional, keep intrat_t and polynomial_of<intrat_t> as the only q_poly implementation and remove the old q_poly_t.cpp.
 
@@ -132,10 +132,10 @@ Goal: No remaining references to old polynomial/intmod implementations or to tve
 ## Summary checklist
 
 - [x] Phase 1.1: intmod_t + euclidean_int in main spffl
-- [x] Phase 1.2: concepts.hpp, euclidean.hpp in main spffl
+- [x] Phase 1.2: concepts.h, euclidean.h in main spffl
 - [x] Phase 1.3: polynomial_of, aliases, fp_poly_t replacement, fp_polymod_t replacement (f2_poly_t still legacy; replace in follow-up if desired)
-- [x] Phase 1.4 (Option B complete): f2n/fpn as polynomial_of/residue_of; fpn_f2n_aliases.hpp + fpn_f2n_io.hpp (prime_subfield_element, from_string, read_element); old f2n/fpn .cpp removed from build (polynomials + lib); rationals, factorization, units, linalg, cli (f2n/fpn handlers) migrated. q_poly_t deferred.
-- [x] Phase 1.5: residue_of.hpp, optional_inverse.hpp in main spffl (optional_solve_2x2 with Phase 1.6)
+- [x] Phase 1.4 (Option B complete): f2n/fpn as polynomial_of/residue_of; fpn_f2n_aliases.h + fpn_f2n_io.h (prime_subfield_element, from_string, read_element); old f2n/fpn .cpp removed from build (polynomials + lib); rationals, factorization, units, linalg, cli (f2n/fpn handlers) migrated. q_poly_t deferred.
+- [x] Phase 1.5: residue_of.h, optional_inverse.h in main spffl (optional_solve_2x2 with Phase 1.6)
 - [x] Phase 1.6: vector_over, matrix_over, optional_solve_2x2 in main spffl (tvector/tmatrix still present)
 - [x] Phase 2 (f2n/fpn): linalg, factorization, random, units, rationals, list, cli_parser, cli use new f2n/fpn types and API (no operator>>; read_element + explicit modulus).
 - [ ] Phase 2: Migrate remaining modules to vector_over/matrix_over; remove other old .cpp as applicable
@@ -143,7 +143,7 @@ Goal: No remaining references to old polynomial/intmod implementations or to tve
   - **Still on tvector/tmatrix:** cli_parser (cmd_line_vector_ops, cmd_line_matrix_ops), f2/fp/f2_polymod linalg (ed_det, scalar assign, load_from_file); CLI matrix/vector vars that use parser or those linalg APIs.
   - **Done (Option A):** vector_over and matrix_over were extended with: scalar `operator=`, `exp(int)` (vector), `bracket_in`, `load_from_file`, `operator>>`; matrix_over also has `det`, `check_inverse`, `check_kernel_basis`, `flip_horiz`, `flip_horiz_vert`, `get_rr_non_zero_rows`, `get_rech_non_zero_rows`, and conversion from tmatrix. Parser remains on tvector/tmatrix because it is instantiated for intrat_t and f2_polyrat_t, which do not satisfy Ring_element.
 - [x] Phase 2: Remove legacy f2n/fpn .cpp (f2n_poly_t, f2n_polymod_t, fpn_poly_t, fpn_polymod_t deleted from spffl/polynomials/)
-- [x] Phase 2: Remove other obsolete headers and dead .cpp as applicable (removed spffl/polynomials/fp_poly_t.cpp, fp_polymod_t.cpp — legacy implementations not in build; types now from aliases.hpp / fp_polymod_t.hpp)
+- [x] Phase 2: Remove other obsolete headers and dead .cpp as applicable (removed spffl/polynomials/fp_poly_t.cpp, fp_polymod_t.cpp — legacy implementations not in build; types now from aliases.h / fp_polymod_t.h)
 - [x] Phase 3 (partial): algorithms and containers tests added to main test/ (test/algorithms, test/containers); residue_of supports legacy f2_poly_t (is_zero_poly)
 - [x] Phase 3 (partial): concepts and residue tests merged into main test/ (test/concepts, test/residue)
 - [x] Phase 3: Merge remaining cpp20 tests (intmath, polynomials, mod) into test/, remove cpp20/ (all cpp20 tests have equivalents under `test/`; `cpp20/` directory has been removed from the tree and is no longer referenced by any CMakeLists.txt)

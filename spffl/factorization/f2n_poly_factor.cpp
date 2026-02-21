@@ -7,9 +7,9 @@
 #include "spffl/factorization/f2n_poly_factor.h"
 #include "spffl/base/spffl_exception.h"
 #include "spffl/containers/tfacinfo.h"
-#include "spffl/containers/matrix_over.hpp"
-#include "spffl/containers/vector_over.hpp"
-#include "spffl/polynomials/fpn_f2n_aliases.hpp"
+#include "spffl/containers/matrix_over.h"
+#include "spffl/containers/vector_over.h"
+#include "spffl/polynomials/fpn_f2n_aliases.h"
 #include "spffl/random/f2n_poly_random.h"
 
 namespace spffl::factorization {

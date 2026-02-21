@@ -3,11 +3,11 @@
 // Rows are vector_over<T>; A[i] is row i.
 // ================================================================
 
-#ifndef SPFFL_CONTAINERS_MATRIX_OVER_HPP
-#define SPFFL_CONTAINERS_MATRIX_OVER_HPP
+#ifndef SPFFL_CONTAINERS_MATRIX_OVER_H
+#define SPFFL_CONTAINERS_MATRIX_OVER_H
 
-#include "spffl/concepts.hpp"
-#include "spffl/containers/vector_over.hpp"
+#include "spffl/concepts.h"
+#include "spffl/containers/vector_over.h"
 #include "spffl/containers/tmatrix.h"
 #include "spffl/base/read_element.h"
 #include "spffl/base/tokenize.h"
@@ -877,4 +877,4 @@ private:
 
 }  // namespace spffl::containers
 
-#endif  // SPFFL_CONTAINERS_MATRIX_OVER_HPP
+#endif  // SPFFL_CONTAINERS_MATRIX_OVER_H

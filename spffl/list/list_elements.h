@@ -7,8 +7,8 @@
 #ifndef SP_LIST_ELTS_H
 #define SP_LIST_ELTS_H
 
-#include "spffl/containers/vector_over.hpp"
-#include "spffl/containers/matrix_over.hpp"
+#include "spffl/containers/vector_over.h"
+#include "spffl/containers/matrix_over.h"
 #include "spffl/intmath/intmod_t.h"
 #include "spffl/polynomials/f2_polymod_t.h"
 #include "spffl/polynomials/f2n_polymod_t.h"

@@ -6,7 +6,7 @@
 
 #include "spffl/linalg/f2_linear_algebra.h"
 #include "spffl/base/spffl_exception.h"
-#include "spffl/containers/matrix_over.hpp"
+#include "spffl/containers/matrix_over.h"
 #include "spffl/polynomials/f2_poly_t.h"
 
 namespace spffl::linalg {

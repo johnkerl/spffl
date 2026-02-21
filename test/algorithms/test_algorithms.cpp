@@ -3,13 +3,13 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include "spffl/algorithms/optional_inverse.hpp"
-#include "spffl/algorithms/optional_solve_2x2.hpp"
-#include "spffl/containers/matrix_over.hpp"
-#include "spffl/containers/vector_over.hpp"
-#include "spffl/residue_of.hpp"
-#include "spffl/polynomials/aliases.hpp"
-#include "spffl/polynomials/fp_polymod_t.hpp"
+#include "spffl/algorithms/optional_inverse.h"
+#include "spffl/algorithms/optional_solve_2x2.h"
+#include "spffl/containers/matrix_over.h"
+#include "spffl/containers/vector_over.h"
+#include "spffl/residue_of.h"
+#include "spffl/polynomials/aliases.h"
+#include "spffl/polynomials/fp_polymod_t.h"
 #include "spffl/polynomials/f2_poly_t.h"
 #include "spffl/intmath/intmod_t.h"
 

@@ -3,11 +3,11 @@
 // Use from_string(s, m) or read_f2n_poly(is, m) instead of operator>>.
 // ================================================================
 
-#ifndef SPFFL_POLYNOMIALS_FPN_F2N_IO_HPP
-#define SPFFL_POLYNOMIALS_FPN_F2N_IO_HPP
+#ifndef SPFFL_POLYNOMIALS_FPN_F2N_IO_H
+#define SPFFL_POLYNOMIALS_FPN_F2N_IO_H
 
-#include "spffl/polynomials/fpn_f2n_aliases.hpp"
-#include "spffl/polynomials/fp_poly_io.hpp"
+#include "spffl/polynomials/fpn_f2n_aliases.h"
+#include "spffl/polynomials/fp_poly_io.h"
 #include "spffl/base/tokenize.h"
 #include <optional>
 #include <sstream>
@@ -186,4 +186,4 @@ inline void read_element(std::istringstream& iss, const fpn_polymod_t& zero, fpn
 
 }  // namespace spffl::polynomials
 
-#endif  // SPFFL_POLYNOMIALS_FPN_F2N_IO_HPP
+#endif  // SPFFL_POLYNOMIALS_FPN_F2N_IO_H

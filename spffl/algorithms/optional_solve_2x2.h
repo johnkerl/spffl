@@ -3,12 +3,12 @@
 // Uses Matrix_over and Vector_over; demonstrates generic linear algebra.
 // ================================================================
 
-#ifndef SPFFL_ALGORITHMS_OPTIONAL_SOLVE_2X2_HPP
-#define SPFFL_ALGORITHMS_OPTIONAL_SOLVE_2X2_HPP
+#ifndef SPFFL_ALGORITHMS_OPTIONAL_SOLVE_2X2_H
+#define SPFFL_ALGORITHMS_OPTIONAL_SOLVE_2X2_H
 
-#include "spffl/concepts.hpp"
-#include "spffl/containers/matrix_over.hpp"
-#include "spffl/containers/vector_over.hpp"
+#include "spffl/concepts.h"
+#include "spffl/containers/matrix_over.h"
+#include "spffl/containers/vector_over.h"
 #include <optional>
 
 namespace spffl::algorithms {
@@ -40,4 +40,4 @@ std::optional<spffl::containers::vector_over<R>> optional_solve_2x2(
 
 }  // namespace spffl::algorithms
 
-#endif  // SPFFL_ALGORITHMS_OPTIONAL_SOLVE_2X2_HPP
+#endif  // SPFFL_ALGORITHMS_OPTIONAL_SOLVE_2X2_H

@@ -1,16 +1,16 @@
 // ================================================================
 // Phase 1.4: fpn and f2n as polynomial_of<...> and residue_of<...>.
-// Include after aliases.hpp and fp_polymod_t.hpp. Do not include from aliases.hpp.
+// Include after aliases.h and fp_polymod_t.h. Do not include from aliases.h.
 // ================================================================
 
-#ifndef SPFFL_POLYNOMIALS_FPN_F2N_ALIASES_HPP
-#define SPFFL_POLYNOMIALS_FPN_F2N_ALIASES_HPP
+#ifndef SPFFL_POLYNOMIALS_FPN_F2N_ALIASES_H
+#define SPFFL_POLYNOMIALS_FPN_F2N_ALIASES_H
 
-#include "spffl/polynomials/aliases.hpp"
-#include "spffl/polynomials/fp_polymod_t.hpp"
-#include "spffl/residue_of.hpp"
+#include "spffl/polynomials/aliases.h"
+#include "spffl/polynomials/fp_polymod_t.h"
+#include "spffl/residue_of.h"
 #include "spffl/polynomials/f2_polymod_t.h"
-#include "spffl/euclidean.hpp"
+#include "spffl/euclidean.h"
 #include "spffl/intmath/intmod_t.h"
 #include <vector>
 
@@ -75,4 +75,4 @@ inline bool square_root(const f2n_poly_t& f, f2n_poly_t& rroot) {
 
 }  // namespace spffl::polynomials
 
-#endif  // SPFFL_POLYNOMIALS_FPN_F2N_ALIASES_HPP
+#endif  // SPFFL_POLYNOMIALS_FPN_F2N_ALIASES_H

@@ -5,7 +5,7 @@
 #include "spffl/cli_parser/cmd_line_ops.h"
 #include "spffl/cli_parser/cmd_line_vector_ops.h"
 #include "spffl/containers/tmatrix.h"
-#include "spffl/containers/vector_over.hpp"
+#include "spffl/containers/vector_over.h"
 #include "spffl/intmath/intmod_t.h"
 #include "spffl/linalg/fp_linear_algebra.h"
 #include "spffl/list/list_elements.h"

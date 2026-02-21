@@ -7,7 +7,7 @@
 #include "spffl/units/f2n_polymod_units.h"
 #include "spffl/base/spffl_exception.h"
 #include "spffl/containers/tfacinfo.h"
-#include "spffl/containers/vector_over.hpp"
+#include "spffl/containers/vector_over.h"
 #include "spffl/factorization/f2n_poly_totient.h"
 #include "spffl/factorization/int_factor.h"
 #include "spffl/intmath/int_sqrt.h"

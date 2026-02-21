@@ -8,7 +8,7 @@
 #define TFACINFO_H
 
 #include "spffl/base/spffl_exception.h"
-#include "spffl/containers/vector_over.hpp"
+#include "spffl/containers/vector_over.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>

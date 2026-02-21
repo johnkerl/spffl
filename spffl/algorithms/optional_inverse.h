@@ -3,10 +3,10 @@
 // Example: optional inverse and solve a*x = b over any Residue_ring_with_recip.
 // ================================================================
 
-#ifndef SPFFL_ALGORITHMS_OPTIONAL_INVERSE_HPP
-#define SPFFL_ALGORITHMS_OPTIONAL_INVERSE_HPP
+#ifndef SPFFL_ALGORITHMS_OPTIONAL_INVERSE_H
+#define SPFFL_ALGORITHMS_OPTIONAL_INVERSE_H
 
-#include "spffl/concepts.hpp"
+#include "spffl/concepts.h"
 #include <optional>
 
 namespace spffl::algorithms {
@@ -31,4 +31,4 @@ std::optional<R> optional_solve_ax_eq_b(R const& a, R const& b) {
 
 }  // namespace spffl::algorithms
 
-#endif  // SPFFL_ALGORITHMS_OPTIONAL_INVERSE_HPP
+#endif  // SPFFL_ALGORITHMS_OPTIONAL_INVERSE_H

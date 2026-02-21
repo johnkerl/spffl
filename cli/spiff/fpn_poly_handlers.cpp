@@ -1,7 +1,7 @@
 #include "fpn_poly_handlers.h"
 
 #include "spffl/cli_parser/cmd_line_matrix_ops.h"
-#include "spffl/polynomials/fpn_f2n_io.hpp"
+#include "spffl/polynomials/fpn_f2n_io.h"
 #include "spffl/polynomials/fpn_poly_t.h"
 #include "spffl/q_cyclotomic/qff.h"
 

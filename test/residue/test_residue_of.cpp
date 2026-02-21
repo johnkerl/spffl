@@ -2,10 +2,10 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include "spffl/concepts.hpp"
-#include "spffl/residue_of.hpp"
-#include "spffl/polynomials/aliases.hpp"
-#include "spffl/polynomials/fp_polymod_t.hpp"
+#include "spffl/concepts.h"
+#include "spffl/residue_of.h"
+#include "spffl/polynomials/aliases.h"
+#include "spffl/polynomials/fp_polymod_t.h"
 #include "spffl/polynomials/f2_poly_t.h"
 
 using spffl::residue_of;

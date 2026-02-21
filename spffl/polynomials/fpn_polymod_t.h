@@ -5,6 +5,6 @@
 #ifndef FPNPOLYMOD_T_H
 #define FPNPOLYMOD_T_H
 
-#include "spffl/polynomials/fpn_f2n_aliases.hpp"
+#include "spffl/polynomials/fpn_f2n_aliases.h"
 
 #endif  // FPNPOLYMOD_T_H

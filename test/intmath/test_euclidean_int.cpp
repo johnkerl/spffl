@@ -2,7 +2,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include "spffl/intmath/euclidean_int.hpp"
+#include "spffl/intmath/euclidean_int.h"
 
 using spffl::intmath::ext_gcd;
 using spffl::intmath::gcd;

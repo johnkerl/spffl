@@ -9,7 +9,7 @@
 #include "spffl/linalg/f2_polymod_linear_algebra.h"
 #include "spffl/list/list_elements.h"
 #include "spffl/polynomials/f2n_poly_t.h"
-#include "spffl/polynomials/fpn_f2n_io.hpp"
+#include "spffl/polynomials/fpn_f2n_io.h"
 #include "spffl/polynomials/q_poly_t.h"
 #include "spffl/q_cyclotomic/qff.h"
 #include "spffl/random/f2n_poly_random.h"

@@ -4,8 +4,8 @@
 // uniformly via overloads: use quot_and_rem(a, b, q, r) and gcd(a, b).
 // ================================================================
 
-#ifndef SPFFL_INTMATH_EUCLIDEAN_INT_HPP
-#define SPFFL_INTMATH_EUCLIDEAN_INT_HPP
+#ifndef SPFFL_INTMATH_EUCLIDEAN_INT_H
+#define SPFFL_INTMATH_EUCLIDEAN_INT_H
 
 #include <numeric>
 #include <stdexcept>
@@ -63,4 +63,4 @@ inline int ext_gcd(int a, int b, int& m, int& n) {
 
 }  // namespace spffl::intmath
 
-#endif  // SPFFL_INTMATH_EUCLIDEAN_INT_HPP
+#endif  // SPFFL_INTMATH_EUCLIDEAN_INT_H

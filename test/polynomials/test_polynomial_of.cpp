@@ -2,11 +2,11 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include "spffl/concepts.hpp"
-#include "spffl/polynomials/polynomial_of.hpp"
-#include "spffl/polynomials/aliases.hpp"
-#include "spffl/polynomials/fp_polymod_t.hpp"
-#include "spffl/polynomials/fp_poly_io.hpp"
+#include "spffl/concepts.h"
+#include "spffl/polynomials/polynomial_of.h"
+#include "spffl/polynomials/aliases.h"
+#include "spffl/polynomials/fp_polymod_t.h"
+#include "spffl/polynomials/fp_poly_io.h"
 #include "spffl/polynomials/f2_poly_t.h"
 
 using spffl::polynomials::polynomial_of;
@@ -129,7 +129,7 @@ TEST_CASE("polynomial_of<mod7_t>: quot_and_rem and gcd") {
 // fp_poly_t = polynomial_of<intmod_t> (Fp[x] via cpp20 aliases).
 // ---------------------------------------------------------------------------
 
-#include "spffl/polynomials/aliases.hpp"
+#include "spffl/polynomials/aliases.h"
 
 TEST_CASE("fp_poly_t (polynomial_of<intmod_t>): F7[x] arithmetic and division") {
   using spffl::polynomials::fp_poly_t;
@@ -205,7 +205,7 @@ TEST_CASE("fp_poly_t (polynomial_of<intmod_t>): F7[x] arithmetic and division") 
 // fp_polymod_t: Fp[x]/(m) residue ring.
 // ---------------------------------------------------------------------------
 
-#include "spffl/polynomials/fp_polymod_t.hpp"
+#include "spffl/polynomials/fp_polymod_t.h"
 
 TEST_CASE("fp_polymod_t: F7[x]/(x^2+1) ring and inverse") {
   using spffl::polynomials::fp_poly_t;

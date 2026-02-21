@@ -3,8 +3,8 @@
 // See REFACTORING_PROPOSAL.md. No dependency on spffl types.
 // ================================================================
 
-#ifndef SPFFL_CONCEPTS_HPP
-#define SPFFL_CONCEPTS_HPP
+#ifndef SPFFL_CONCEPTS_H
+#define SPFFL_CONCEPTS_H
 
 #include <concepts>
 #include <iostream>
@@ -197,4 +197,4 @@ inline constexpr bool has_get_modulus_v = has_get_modulus<T>::value;
 
 }  // namespace spffl::concepts
 
-#endif  // SPFFL_CONCEPTS_HPP
+#endif  // SPFFL_CONCEPTS_H

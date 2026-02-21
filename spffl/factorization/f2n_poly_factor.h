@@ -7,7 +7,7 @@
 #ifndef F2NPOLY_FACTOR_H
 #define F2NPOLY_FACTOR_H
 #include "spffl/containers/tfacinfo.h"
-#include "spffl/containers/vector_over.hpp"
+#include "spffl/containers/vector_over.h"
 #include "spffl/polynomials/f2n_poly_t.h"
 
 namespace spffl::factorization {

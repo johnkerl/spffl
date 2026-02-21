@@ -3,8 +3,8 @@
 #include "spffl/cli_parser/cmd_line_matrix_ops.h"
 #include "spffl/cli_parser/cmd_line_ops.h"
 #include "spffl/cli_parser/cmd_line_vector_ops.h"
-#include "spffl/polynomials/fp_poly_io.hpp"
-#include "spffl/polynomials/fpn_f2n_io.hpp"
+#include "spffl/polynomials/fp_poly_io.h"
+#include "spffl/polynomials/fpn_f2n_io.h"
 #include "spffl/polynomials/fpn_polymod_t.h"
 
 // ----------------------------------------------------------------

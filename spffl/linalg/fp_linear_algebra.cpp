@@ -5,7 +5,7 @@
 // ================================================================
 
 #include "spffl/base/spffl_exception.h"
-#include "spffl/containers/matrix_over.hpp"
+#include "spffl/containers/matrix_over.h"
 #include "spffl/polynomials/fp_poly_t.h"
 #include "spffl/linalg/fp_linear_algebra.h"
 

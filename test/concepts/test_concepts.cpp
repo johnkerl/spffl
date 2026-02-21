@@ -1,10 +1,10 @@
-// Compile and sanity-check spffl/concepts.hpp and unified euclidean interface
+// Compile and sanity-check spffl/concepts.h and unified euclidean interface
 
 #include <catch2/catch_test_macros.hpp>
 
-#include "spffl/concepts.hpp"
-#include "spffl/euclidean.hpp"
-#include "spffl/polynomials/aliases.hpp"
+#include "spffl/concepts.h"
+#include "spffl/euclidean.h"
+#include "spffl/polynomials/aliases.h"
 #include "spffl/intmath/intmod_t.h"
 #include "spffl/intmath/intrat_t.h"
 #include "spffl/rationals/f2_polyrat_t.h"

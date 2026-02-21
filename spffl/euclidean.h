@@ -4,11 +4,11 @@
 // (e.g. fp_poly_t) uniformly for GCD and residue-ring inversion.
 // ================================================================
 
-#ifndef SPFFL_EUCLIDEAN_HPP
-#define SPFFL_EUCLIDEAN_HPP
+#ifndef SPFFL_EUCLIDEAN_H
+#define SPFFL_EUCLIDEAN_H
 
-#include "spffl/concepts.hpp"
-#include "spffl/intmath/euclidean_int.hpp"
+#include "spffl/concepts.h"
+#include "spffl/intmath/euclidean_int.h"
 #include <stdexcept>
 
 namespace spffl::euclidean {
@@ -48,4 +48,4 @@ E ext_gcd(E const& a, E const& b, E& m, E& n) {
 
 }  // namespace spffl::euclidean
 
-#endif  // SPFFL_EUCLIDEAN_HPP
+#endif  // SPFFL_EUCLIDEAN_H

@@ -2,8 +2,8 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include "spffl/concepts.hpp"
-#include "spffl/containers/vector_over.hpp"
+#include "spffl/concepts.h"
+#include "spffl/containers/vector_over.h"
 #include "spffl/intmath/intmod_t.h"
 
 using spffl::containers::vector_over;

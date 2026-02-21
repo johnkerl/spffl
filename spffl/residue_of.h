@@ -4,11 +4,11 @@
 // Models Residue_ring and Residue_ring_with_recip; inversion via euclidean::ext_gcd.
 // ================================================================
 
-#ifndef SPFFL_RESIDUE_OF_HPP
-#define SPFFL_RESIDUE_OF_HPP
+#ifndef SPFFL_RESIDUE_OF_H
+#define SPFFL_RESIDUE_OF_H
 
-#include "spffl/concepts.hpp"
-#include "spffl/euclidean.hpp"
+#include "spffl/concepts.h"
+#include "spffl/euclidean.h"
 #include "spffl/polynomials/f2_poly_t.h"
 #include <ostream>
 #include <stdexcept>
@@ -256,4 +256,4 @@ private:
 
 }  // namespace spffl
 
-#endif  // SPFFL_RESIDUE_OF_HPP
+#endif  // SPFFL_RESIDUE_OF_H

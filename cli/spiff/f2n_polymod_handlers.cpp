@@ -7,7 +7,7 @@
 #include "spffl/linalg/min_char_polys.h"
 #include "spffl/list/list_elements.h"
 #include "spffl/polynomials/f2n_polymod_t.h"
-#include "spffl/polynomials/fpn_f2n_io.hpp"
+#include "spffl/polynomials/fpn_f2n_io.h"
 #include "spffl/random/f2n_polymod_random.h"
 #include "spffl/units/f2n_polymod_units.h"
 

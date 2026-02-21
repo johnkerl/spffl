@@ -4,11 +4,11 @@
 // e.g. "1,0,1" = x^2 + 1.
 // ================================================================
 
-#ifndef SPFFL_POLYNOMIALS_FP_POLY_IO_HPP
-#define SPFFL_POLYNOMIALS_FP_POLY_IO_HPP
+#ifndef SPFFL_POLYNOMIALS_FP_POLY_IO_H
+#define SPFFL_POLYNOMIALS_FP_POLY_IO_H
 
-#include "spffl/polynomials/aliases.hpp"
-#include "spffl/polynomials/fp_polymod_t.hpp"
+#include "spffl/polynomials/aliases.h"
+#include "spffl/polynomials/fp_polymod_t.h"
 #include "spffl/intmath/intmod_t.h"
 #include <string>
 #include <sstream>
@@ -164,4 +164,4 @@ inline bool fp_polymod_from_string_into(
 
 }  // namespace spffl::polynomials
 
-#endif  // SPFFL_POLYNOMIALS_FP_POLY_IO_HPP
+#endif  // SPFFL_POLYNOMIALS_FP_POLY_IO_H
