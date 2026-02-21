@@ -16,17 +16,16 @@
 namespace spffl::rationals {
 
 class f2n_polyrat_t {
-public:
+  public:
   f2n_polyrat_t(const spffl::polynomials::f2n_poly_t &numerator,
-      const spffl::polynomials::f2n_poly_t &denominator);
+    const spffl::polynomials::f2n_poly_t &denominator);
   f2n_polyrat_t(const spffl::polynomials::f2n_poly_t &numerator);
   f2n_polyrat_t(void);
   f2n_polyrat_t(const f2n_polyrat_t &that);
   ~f2n_polyrat_t(void);
 
   f2n_polyrat_t prime_subfield_element(int v) const;
-  static f2n_polyrat_t prime_subfield_element(
-      int v, const spffl::polynomials::f2_poly_t &m);
+  static f2n_polyrat_t prime_subfield_element(int v, const spffl::polynomials::f2_poly_t &m);
   int get_characteristic(void) const;
 
   f2n_polyrat_t &operator=(const f2n_polyrat_t &that);
@@ -63,7 +62,7 @@ public:
   spffl::polynomials::f2n_poly_t get_denominator(void) const;
   spffl::polynomials::f2_poly_t get_modulus(void) const;
 
-private:
+  private:
   spffl::polynomials::f2n_poly_t numer;
   spffl::polynomials::f2n_poly_t denom;
 
@@ -71,18 +70,16 @@ private:
 };
 
 // Read from stream; modulus m required (explicit API).
-bool read_f2n_polyrat(std::istream& is,
-                      const spffl::polynomials::f2_poly_t& m, f2n_polyrat_t& a);
-bool read_f2n_polyrat(std::istringstream& iss,
-                      const spffl::polynomials::f2_poly_t& m, f2n_polyrat_t& a);
+bool read_f2n_polyrat(std::istream &is, const spffl::polynomials::f2_poly_t &m, f2n_polyrat_t &a);
+bool read_f2n_polyrat(
+  std::istringstream &iss, const spffl::polynomials::f2_poly_t &m, f2n_polyrat_t &a);
 
 std::optional<f2n_polyrat_t> f2n_polyrat_from_string(
-    const std::string& s, const spffl::polynomials::f2_poly_t& m);
+  const std::string &s, const spffl::polynomials::f2_poly_t &m);
 
 /// CLI/stream read using context (zero) for modulus. Used by cmd_line_parse.
-void read_element(std::istringstream& iss, const f2n_polyrat_t& zero,
-                  f2n_polyrat_t& out);
+void read_element(std::istringstream &iss, const f2n_polyrat_t &zero, f2n_polyrat_t &out);
 
-}  // namespace spffl::rationals
+} // namespace spffl::rationals
 
-#endif  // F2NPOLYRAT_T_H
+#endif // F2NPOLYRAT_T_H

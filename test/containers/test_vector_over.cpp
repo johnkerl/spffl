@@ -29,7 +29,7 @@ TEST_CASE("vector_over<int> satisfies Vector_over and basic arithmetic") {
   CHECK(sum[2] == 9);
 
   int d = u.dot(v);
-  CHECK(d == 1*4 + 2*5 + 3*6);  // 32
+  CHECK(d == 1 * 4 + 2 * 5 + 3 * 6); // 32
 }
 
 TEST_CASE("vector_over<intmod_t>: ring ops and dot") {
@@ -48,8 +48,8 @@ TEST_CASE("vector_over<intmod_t>: ring ops and dot") {
 
   V sum = a + b;
   CHECK(sum[0].get_residue() == 4);
-  CHECK(sum[1].get_residue() == 0);  // 7 mod 7
+  CHECK(sum[1].get_residue() == 0); // 7 mod 7
 
   intmod_t dot_ab = a.dot(b);
-  CHECK(dot_ab.get_residue() == (3*1 + 5*2) % p);  // 13 ≡ 6 mod 7
+  CHECK(dot_ab.get_residue() == (3 * 1 + 5 * 2) % p); // 13 ≡ 6 mod 7
 }

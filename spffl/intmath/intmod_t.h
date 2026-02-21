@@ -15,12 +15,9 @@
 namespace spffl::intmath {
 
 class intmod_t {
-public:
+  public:
   intmod_t() : residue_(0), modulus_(0) {}
-  intmod_t(int residue, int modulus)
-      : residue_(0), modulus_(modulus) {
-    normalize(residue);
-  }
+  intmod_t(int residue, int modulus) : residue_(0), modulus_(modulus) { normalize(residue); }
 
   intmod_t prime_subfield_element(int v) const {
     check_modulus();
@@ -28,16 +25,16 @@ public:
   }
 
   // basic ring ops
-  intmod_t operator+(const intmod_t& that) const {
+  intmod_t operator+(const intmod_t &that) const {
     check_moduli(that);
     return intmod_t(residue_ + that.residue_, modulus_);
   }
-  intmod_t operator-(const intmod_t& that) const {
+  intmod_t operator-(const intmod_t &that) const {
     check_moduli(that);
     return intmod_t(residue_ - that.residue_, modulus_);
   }
   intmod_t operator-() const { return intmod_t(-residue_, modulus_); }
-  intmod_t operator*(const intmod_t& that) const {
+  intmod_t operator*(const intmod_t &that) const {
     check_moduli(that);
     return intmod_t(residue_ * that.residue_, modulus_);
   }
@@ -55,21 +52,21 @@ public:
     return intmod_t(residue_ * a, modulus_);
   }
 
-  intmod_t& operator+=(const intmod_t& that) {
+  intmod_t &operator+=(const intmod_t &that) {
     *this = *this + that;
     return *this;
   }
-  intmod_t& operator-=(const intmod_t& that) {
+  intmod_t &operator-=(const intmod_t &that) {
     *this = *this - that;
     return *this;
   }
-  intmod_t& operator*=(const intmod_t& that) {
+  intmod_t &operator*=(const intmod_t &that) {
     *this = *this * that;
     return *this;
   }
 
   // multiplicative inverse and division
-  bool recip(intmod_t& rinv) const {
+  bool recip(intmod_t &rinv) const {
     check_modulus();
     if (residue_ == 0) {
       return false;
@@ -89,14 +86,14 @@ public:
       t1 = t2;
     }
     if (r0 != 1) {
-      return false;  // not a unit
+      return false; // not a unit
     }
     intinv_normalize(t0, m);
     rinv = intmod_t(t0, m);
     return true;
   }
 
-  intmod_t operator/(const intmod_t& that) const {
+  intmod_t operator/(const intmod_t &that) const {
     intmod_t inv;
     if (!that.recip(inv)) {
       throw std::runtime_error("intmod_t: division by non-invertible element");
@@ -104,13 +101,13 @@ public:
     return *this * inv;
   }
 
-  intmod_t& operator/=(const intmod_t& that) {
+  intmod_t &operator/=(const intmod_t &that) {
     *this = *this / that;
     return *this;
   }
 
   // Legacy: operator% (zero in a field). Kept for API compatibility.
-  intmod_t operator%(const intmod_t& that) const {
+  intmod_t operator%(const intmod_t &that) const {
     check_moduli(that);
     intmod_t inv;
     if (!that.recip(inv)) {
@@ -119,7 +116,7 @@ public:
     return intmod_t(0, modulus_);
   }
 
-  intmod_t& operator%=(const intmod_t& that) {
+  intmod_t &operator%=(const intmod_t &that) {
     *this = *this % that;
     return *this;
   }
@@ -150,31 +147,32 @@ public:
   }
 
   // comparisons
-  bool operator==(const intmod_t& that) const {
+  bool operator==(const intmod_t &that) const {
     check_moduli(that);
     return residue_ == that.residue_;
   }
-  bool operator!=(const intmod_t& that) const { return !(*this == that); }
+  bool operator!=(const intmod_t &that) const { return !(*this == that); }
   bool operator==(int that) const {
     check_modulus();
     int r = that % modulus_;
-    if (r < 0) r += modulus_;
+    if (r < 0)
+      r += modulus_;
     return residue_ == r;
   }
   bool operator!=(int that) const { return !(*this == that); }
-  bool operator<(const intmod_t& that) const {
+  bool operator<(const intmod_t &that) const {
     check_moduli(that);
     return residue_ < that.residue_;
   }
-  bool operator>(const intmod_t& that) const {
+  bool operator>(const intmod_t &that) const {
     check_moduli(that);
     return residue_ > that.residue_;
   }
-  bool operator<=(const intmod_t& that) const {
+  bool operator<=(const intmod_t &that) const {
     check_moduli(that);
     return residue_ <= that.residue_;
   }
-  bool operator>=(const intmod_t& that) const {
+  bool operator>=(const intmod_t &that) const {
     check_moduli(that);
     return residue_ >= that.residue_;
   }
@@ -182,7 +180,7 @@ public:
   int get_residue() const { return residue_; }
   int get_modulus() const { return modulus_; }
 
-  bool from_string(const std::string& s, int m) {
+  bool from_string(const std::string &s, int m) {
     int r;
     std::istringstream iss(s);
     iss >> r;
@@ -193,13 +191,13 @@ public:
     return true;
   }
 
-  friend std::ostream& operator<<(std::ostream& os, const intmod_t& a) {
+  friend std::ostream &operator<<(std::ostream &os, const intmod_t &a) {
     a.check_modulus();
     os << a.residue_;
     return os;
   }
 
-  friend std::istream& operator>>(std::istream& is, intmod_t& a) {
+  friend std::istream &operator>>(std::istream &is, intmod_t &a) {
     int c = is.peek();
     if (c == EOF) {
       is.setstate(std::ios::failbit);
@@ -222,7 +220,7 @@ public:
     return is;
   }
 
-private:
+  private:
   int residue_;
   int modulus_;
 
@@ -238,7 +236,7 @@ private:
     residue_ = r;
   }
 
-  static void intinv_normalize(int& x, int m) {
+  static void intinv_normalize(int &x, int m) {
     x %= m;
     if (x < 0) {
       x += m;
@@ -251,13 +249,13 @@ private:
     }
   }
 
-  void check_moduli(const intmod_t& that) const {
+  void check_moduli(const intmod_t &that) const {
     if (modulus_ != that.modulus_) {
       throw std::runtime_error("intmod_t: mismatched moduli");
     }
   }
 };
 
-}  // namespace spffl::intmath
+} // namespace spffl::intmath
 
-#endif  // INTMOD_T_H
+#endif // INTMOD_T_H

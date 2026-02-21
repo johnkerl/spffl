@@ -8,4 +8,4 @@
 
 #include "spffl/polynomials/fpn_f2n_aliases.h"
 
-#endif  // FPNPOLY_T_H
+#endif // FPNPOLY_T_H

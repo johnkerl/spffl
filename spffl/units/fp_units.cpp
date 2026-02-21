@@ -31,10 +31,10 @@ int fp_order(spffl::intmath::intmod_t a) {
     throw spffl::exception_t(ss.str());
   }
 
-  int phi                   = spffl::intmath::int_totient(p);
-  tfacinfo<int> finfo       = spffl::factorization::int_factor(phi);
+  int phi = spffl::intmath::int_totient(p);
+  tfacinfo<int> finfo = spffl::factorization::int_factor(phi);
   spffl::containers::vector_over<int> phi_divisors = finfo.get_all_divisors(1);
-  int nd                    = phi_divisors.get_num_elements();
+  int nd = phi_divisors.get_num_elements();
   spffl::intmath::intmod_t one(1, p);
 
   // The output from get_all_divisors is guaranteed to be sorted up.
@@ -103,16 +103,16 @@ static int poly_and_index_qcmp(const void *pv1, const void *pv2) {
 }
 
 int fp_log( // Log base g of a.
-    spffl::intmath::intmod_t g, spffl::intmath::intmod_t a) {
-  int rv     = -1;
-  int p      = g.get_modulus();
+  spffl::intmath::intmod_t g, spffl::intmath::intmod_t a) {
+  int rv = -1;
+  int p = g.get_modulus();
   unsigned k = (unsigned)spffl::intmath::int_sqrt_ceil(p);
 
   // xxx check gcd(g, p)
   // xxx check gcd(g, a)
 
   poly_and_index_t *agni = new poly_and_index_t[k];
-  poly_and_index_t *gkj  = new poly_and_index_t[k];
+  poly_and_index_t *gkj = new poly_and_index_t[k];
 
   spffl::intmath::intmod_t ginv;
   if (!g.recip(ginv)) {
@@ -126,8 +126,8 @@ int fp_log( // Log base g of a.
 
   agni[0].elt = a;
   agni[0].idx = 0;
-  gkj[0].elt  = g / g;
-  gkj[0].idx  = 0;
+  gkj[0].elt = g / g;
+  gkj[0].idx = 0;
 
   for (i = 1; i < k; i++) {
     agni[i].elt = agni[i - 1].elt * ginv;

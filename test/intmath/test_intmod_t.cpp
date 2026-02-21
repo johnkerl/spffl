@@ -10,9 +10,9 @@ TEST_CASE("intmod_t: basic ring operations") {
   intmod_t a(3, 7);
   intmod_t b(5, 7);
 
-  CHECK((a + b).get_residue() == 1);  // 3+5=8 ≡ 1 mod 7
-  CHECK((a - b).get_residue() == 5);  // 3-5=-2 ≡ 5 mod 7
-  CHECK((a * b).get_residue() == 1);  // 3*5=15 ≡ 1 mod 7
+  CHECK((a + b).get_residue() == 1); // 3+5=8 ≡ 1 mod 7
+  CHECK((a - b).get_residue() == 5); // 3-5=-2 ≡ 5 mod 7
+  CHECK((a * b).get_residue() == 1); // 3*5=15 ≡ 1 mod 7
 }
 
 TEST_CASE("intmod_t: inverse and division") {
@@ -28,5 +28,5 @@ TEST_CASE("intmod_t: inverse and division") {
 
 TEST_CASE("intmod_t: negative residue normalizes to 0..modulus-1") {
   intmod_t a(-1, 7);
-  CHECK(a.get_residue() == 6);  // -1 ≡ 6 (mod 7)
+  CHECK(a.get_residue() == 6); // -1 ≡ 6 (mod 7)
 }

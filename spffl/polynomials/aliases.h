@@ -14,6 +14,6 @@ namespace spffl::polynomials {
 /// Polynomials over Z/pZ (Fp[x]). Coefficient type: intmod_t.
 using fp_poly_t = polynomial_of<spffl::intmath::intmod_t>;
 
-}  // namespace spffl::polynomials
+} // namespace spffl::polynomials
 
-#endif  // SPFFL_POLYNOMIALS_ALIASES_H
+#endif // SPFFL_POLYNOMIALS_ALIASES_H

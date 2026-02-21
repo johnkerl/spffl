@@ -15,17 +15,15 @@
 namespace spffl::factorization {
 
 static void f2_poly_pre_berlekamp(const spffl::polynomials::f2_poly_t &f,
-    tfacinfo<spffl::polynomials::f2_poly_t> &rfinfo, bool recurse);
+  tfacinfo<spffl::polynomials::f2_poly_t> &rfinfo, bool recurse);
 
 static void f2_poly_berlekamp(const spffl::polynomials::f2_poly_t &f,
-    tfacinfo<spffl::polynomials::f2_poly_t> &rfinfo, bool recurse);
+  tfacinfo<spffl::polynomials::f2_poly_t> &rfinfo, bool recurse);
 
-spffl::polynomials::f2_poly_t f2_poly_from_vector(
-    const spffl::bits::bit_vector_t &v, int n);
+spffl::polynomials::f2_poly_t f2_poly_from_vector(const spffl::bits::bit_vector_t &v, int n);
 
 // ----------------------------------------------------------------
-tfacinfo<spffl::polynomials::f2_poly_t> f2_poly_factor(
-    const spffl::polynomials::f2_poly_t &f) {
+tfacinfo<spffl::polynomials::f2_poly_t> f2_poly_factor(const spffl::polynomials::f2_poly_t &f) {
   tfacinfo<spffl::polynomials::f2_poly_t> finfo;
   if (f.find_degree() == 0) {
     finfo.insert_unit(f);
@@ -37,14 +35,14 @@ tfacinfo<spffl::polynomials::f2_poly_t> f2_poly_factor(
 
 // ----------------------------------------------------------------
 static void f2_poly_pre_berlekamp(const spffl::polynomials::f2_poly_t &f,
-    tfacinfo<spffl::polynomials::f2_poly_t> &rfinfo, bool recurse) {
+  tfacinfo<spffl::polynomials::f2_poly_t> &rfinfo, bool recurse) {
   spffl::polynomials::f2_poly_t d = f.deriv();
   spffl::polynomials::f2_poly_t g = f.gcd(d);
 
 #ifdef F2POLY_FACTOR_DEBUG
   std::cout << "\n";
-  std::cout << "f2_poly_pre_berlekamp input = " << f << "  f' = " << d
-            << "  (f,f') = " << g << "\n";
+  std::cout << "f2_poly_pre_berlekamp input = " << f << "  f' = " << d << "  (f,f') = " << g
+            << "\n";
 #endif
 
   if (g == 0) {
@@ -139,7 +137,7 @@ static void f2_poly_pre_berlekamp(const spffl::polynomials::f2_poly_t &f,
 // gcd(f, h1+1) = b to obtain non-trivial factors of f.
 
 static void f2_poly_berlekamp(const spffl::polynomials::f2_poly_t &f,
-    tfacinfo<spffl::polynomials::f2_poly_t> &rfinfo, bool recurse) {
+  tfacinfo<spffl::polynomials::f2_poly_t> &rfinfo, bool recurse) {
   int n = f.find_degree();
   spffl::polynomials::f2_poly_t x(1, 0);
   spffl::polynomials::f2_poly_t x2 = (x * x) % f;
@@ -189,7 +187,7 @@ static void f2_poly_berlekamp(const spffl::polynomials::f2_poly_t &f,
   std::cout << "B-I, rr =\n" << BI << "\n";
 #endif
 
-  rank   = BI.get_rank_rr();
+  rank = BI.get_rank_rr();
   dimker = n - rank;
 
   if (dimker == 1) {
@@ -250,7 +248,7 @@ static void f2_poly_berlekamp(const spffl::polynomials::f2_poly_t &f,
 
   for (row = 0; row < dimker; row++) {
     spffl::polynomials::f2_poly_t h, hc;
-    h  = f2_poly_from_vector(nullspace_basis[row], n);
+    h = f2_poly_from_vector(nullspace_basis[row], n);
     hc = h + spffl::polynomials::f2_poly_t(1);
 
     spffl::polynomials::f2_poly_t check1 = (h * h) % f;
@@ -303,8 +301,7 @@ static void f2_poly_berlekamp(const spffl::polynomials::f2_poly_t &f,
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2_poly_t f2_poly_from_vector(
-    const spffl::bits::bit_vector_t &v, int n) {
+spffl::polynomials::f2_poly_t f2_poly_from_vector(const spffl::bits::bit_vector_t &v, int n) {
   spffl::polynomials::f2_poly_t f(0);
   for (int i = 0; i < n; i++) {
     if (v.get(n - 1 - i) == 1) {
@@ -443,8 +440,7 @@ spffl::polynomials::f2_poly_t f2_poly_find_irreducible(int degree) {
 
   if (degree < 1) {
     std::stringstream ss;
-    ss << "f2_poly_find_irreducible:  degree must be positive; got " << degree
-       << ".\n";
+    ss << "f2_poly_find_irreducible:  degree must be positive; got " << degree << ".\n";
     throw spffl::exception_t(ss.str());
   }
 
@@ -471,8 +467,7 @@ spffl::polynomials::f2_poly_t f2_poly_random_irreducible(int degree) {
 
   if (degree < 1) {
     std::stringstream ss;
-    std::cerr << "f2_poly_random_irreducible:  degree must be positive; got "
-              << degree << ".\n";
+    std::cerr << "f2_poly_random_irreducible:  degree must be positive; got " << degree << ".\n";
     throw spffl::exception_t(ss.str());
   }
 

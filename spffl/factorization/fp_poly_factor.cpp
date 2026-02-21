@@ -17,17 +17,16 @@ namespace spffl::factorization {
 // #define FPPOLY_FACTOR_DEBUG
 
 static void fp_poly_pre_berlekamp(const spffl::polynomials::fp_poly_t &f,
-    tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo, bool recurse);
+  tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo, bool recurse);
 
 static void fp_poly_berlekamp(const spffl::polynomials::fp_poly_t &f,
-    tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo, bool recurse);
+  tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo, bool recurse);
 
 spffl::polynomials::fp_poly_t fp_poly_from_vector(
-    const spffl::containers::vector_over<spffl::intmath::intmod_t> &v, int n);
+  const spffl::containers::vector_over<spffl::intmath::intmod_t> &v, int n);
 
 // ----------------------------------------------------------------
-tfacinfo<spffl::polynomials::fp_poly_t> fp_poly_factor(
-    const spffl::polynomials::fp_poly_t &f) {
+tfacinfo<spffl::polynomials::fp_poly_t> fp_poly_factor(const spffl::polynomials::fp_poly_t &f) {
 
   spffl::polynomials::fp_poly_t fcopy(f);
 
@@ -54,14 +53,14 @@ tfacinfo<spffl::polynomials::fp_poly_t> fp_poly_factor(
 
 // ----------------------------------------------------------------
 static void fp_poly_pre_berlekamp(const spffl::polynomials::fp_poly_t &f,
-    tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo, bool recurse) {
+  tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo, bool recurse) {
   spffl::polynomials::fp_poly_t d = f.deriv();
   spffl::polynomials::fp_poly_t g = f.gcd(d);
 
 #ifdef FPPOLY_FACTOR_DEBUG
   std::cout << "\n";
-  std::cout << "fp_poly_pre_berlekamp input = " << f << "  f' = " << d
-            << "  (f,f') = " << g << "\n";
+  std::cout << "fp_poly_pre_berlekamp input = " << f << "  f' = " << d << "  (f,f') = " << g
+            << "\n";
 #endif
 
   if (g.is_zero()) {
@@ -110,7 +109,7 @@ static void fp_poly_pre_berlekamp(const spffl::polynomials::fp_poly_t &f,
 // of this algorithm.  See f2_poly_factor.cpp for some sample data.
 
 static void fp_poly_berlekamp(const spffl::polynomials::fp_poly_t &f,
-    tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo, bool recurse) {
+  tfacinfo<spffl::polynomials::fp_poly_t> &rfinfo, bool recurse) {
   int n = f.find_degree();
   int p = f.get_characteristic();
   spffl::intmath::intmod_t zero(0, p);
@@ -169,7 +168,7 @@ static void fp_poly_berlekamp(const spffl::polynomials::fp_poly_t &f,
   std::cout << "B-I, rr =\n" << BI << "\n";
 #endif
 
-  rank   = BI.get_rank_rr();
+  rank = BI.get_rank_rr();
   dimker = n - rank;
 
   if (dimker == 1) {
@@ -196,8 +195,7 @@ static void fp_poly_berlekamp(const spffl::polynomials::fp_poly_t &f,
 
   int got_it = 0;
   for (row = 0; row < dimker && !got_it; row++) {
-    spffl::polynomials::fp_poly_t h =
-        fp_poly_from_vector(nullspace_basis[row], n);
+    spffl::polynomials::fp_poly_t h = fp_poly_from_vector(nullspace_basis[row], n);
 #ifdef FPPOLY_FACTOR_DEBUG
     std::cout << "h  = " << h << "\n";
 #endif // FPPOLY_FACTOR_DEBUG
@@ -207,12 +205,12 @@ static void fp_poly_berlekamp(const spffl::polynomials::fp_poly_t &f,
 
     for (int c = 0; c < p; c++) {
       spffl::polynomials::fp_poly_t hc = h - f.prime_subfield_element(c);
-      f1                               = f.gcd(hc);
+      f1 = f.gcd(hc);
 #ifdef FPPOLY_FACTOR_DEBUG
       std::cout << "hc  = " << hc << "  f1 = " << f1 << "\n";
 #endif // FPPOLY_FACTOR_DEBUG
       int f1d = f1.find_degree();
-      int fd  = f.find_degree();
+      int fd = f.find_degree();
       if ((0 < f1d) && (f1d < fd)) {
         got_it = 1;
         break;
@@ -256,7 +254,7 @@ static void fp_poly_berlekamp(const spffl::polynomials::fp_poly_t &f,
 
 // ----------------------------------------------------------------
 spffl::polynomials::fp_poly_t fp_poly_from_vector(
-    const spffl::containers::vector_over<spffl::intmath::intmod_t> &v, int n) {
+  const spffl::containers::vector_over<spffl::intmath::intmod_t> &v, int n) {
   spffl::polynomials::fp_poly_t f;
   f.set_coeff(0, v[0] - v[0]);
   for (int i = 0; i < n; i++) {
@@ -333,8 +331,7 @@ spffl::polynomials::fp_poly_t fp_poly_random_irr(int p, int degree) {
 
   if (degree < 1) {
     std::stringstream ss;
-    ss << "fp_poly_random_irr:  degree must be positive; got " << degree
-       << ".\n";
+    ss << "fp_poly_random_irr:  degree must be positive; got " << degree << ".\n";
     throw spffl::exception_t(ss.str());
   }
 
@@ -344,7 +341,7 @@ spffl::polynomials::fp_poly_t fp_poly_random_irr(int p, int degree) {
       continue;
     }
     if (fp_poly_is_irreducible(rv)) {
-      rv /= rv.get_coeff(degree);  // make monic
+      rv /= rv.get_coeff(degree); // make monic
       return rv;
     }
   }

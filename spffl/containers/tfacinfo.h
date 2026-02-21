@@ -20,12 +20,11 @@
 template <class element_type> class tfacinfo;
 
 template <class element_type>
-static std::ostream &operator<<(
-    std::ostream &os, const tfacinfo<element_type> &v);
+static std::ostream &operator<<(std::ostream &os, const tfacinfo<element_type> &v);
 
 // ================================================================
 template <class element_type> class tfacinfo {
-private:
+  private:
   // ================================================================
   struct factor_and_count_t {
     element_type factor;
@@ -37,29 +36,29 @@ private:
   int have_unit;
   element_type unit;
 
-public:
+  public:
   // ================================================================
   // Constructors
 
   // ----------------------------------------------------------------
   tfacinfo(void) {
-    this->num_distinct        = 0;
-    this->num_allocated       = TFACINFO_INIT_LENGTH;
+    this->num_distinct = 0;
+    this->num_allocated = TFACINFO_INIT_LENGTH;
     this->pfactors_and_counts = new factor_and_count_t[this->num_allocated];
-    this->have_unit           = 0;
+    this->have_unit = 0;
     // Let this->unit take its default constructor.
   }
 
   // ----------------------------------------------------------------
   tfacinfo(const tfacinfo<element_type> &that) {
-    this->num_distinct        = that.num_distinct;
-    this->num_allocated       = that.num_distinct;
+    this->num_distinct = that.num_distinct;
+    this->num_allocated = that.num_distinct;
     this->pfactors_and_counts = new factor_and_count_t[that.num_distinct];
     for (int i = 0; i < that.num_distinct; i++) {
       this->pfactors_and_counts[i] = that.pfactors_and_counts[i];
     }
     this->have_unit = that.have_unit;
-    this->unit      = that.unit;
+    this->unit = that.unit;
   }
 
   // ----------------------------------------------------------------
@@ -68,14 +67,14 @@ public:
       delete[] this->pfactors_and_counts;
     }
 
-    this->num_distinct        = that.num_distinct;
-    this->num_allocated       = that.num_distinct;
+    this->num_distinct = that.num_distinct;
+    this->num_allocated = that.num_distinct;
     this->pfactors_and_counts = new factor_and_count_t[that.num_distinct];
     for (int i = 0; i < that.num_distinct; i++) {
       this->pfactors_and_counts[i] = that.pfactors_and_counts[i];
     }
     this->have_unit = that.have_unit;
-    this->unit      = that.unit;
+    this->unit = that.unit;
   }
 
   // ----------------------------------------------------------------
@@ -83,16 +82,15 @@ public:
     if (this->pfactors_and_counts) {
       delete[] this->pfactors_and_counts;
     }
-    this->num_distinct        = 0;
-    this->num_allocated       = 0;
+    this->num_distinct = 0;
+    this->num_allocated = 0;
     this->pfactors_and_counts = 0;
-    this->have_unit           = 0;
+    this->have_unit = 0;
   }
 
   // ----------------------------------------------------------------
   // I/O format:  all elements on one line, delimited by whitespace.
-  friend std::ostream &operator<< <>(
-      std::ostream &os, const tfacinfo<element_type> &v);
+  friend std::ostream &operator<< <>(std::ostream &os, const tfacinfo<element_type> &v);
 
   // ----------------------------------------------------------------
   int get_num_distinct(void) const { return this->num_distinct; }
@@ -133,8 +131,7 @@ public:
   void bounds_check(int which) const {
     if ((which < 0) || (which >= this->num_distinct)) {
       std::stringstream ss;
-      ss << "tfacinfo:  index " << which
-         << " out of bounds 0:" << this->num_distinct - 1 << ".\n";
+      ss << "tfacinfo:  index " << which << " out of bounds 0:" << this->num_distinct - 1 << ".\n";
       throw spffl::exception_t(ss.str());
     }
   }
@@ -146,7 +143,7 @@ public:
   // If the element is found, returns its index.  Else, returns the index
   // at which it should be located in order to preserve sorted factors.
 
-private:
+  private:
   bool find(const element_type &e, int &ridx) {
 #if 0
 	// Need to find the bug.
@@ -213,7 +210,7 @@ private:
 #endif
   }
 
-public:
+  public:
   // ----------------------------------------------------------------
   void insert_factor(const element_type &e, int count) {
     int idx = 0;
@@ -241,7 +238,7 @@ public:
     }
 
     this->pfactors_and_counts[idx].factor = e;
-    this->pfactors_and_counts[idx].count  = count;
+    this->pfactors_and_counts[idx].count = count;
     this->num_distinct++;
   }
 
@@ -250,7 +247,7 @@ public:
     if (this->have_unit) {
       this->unit *= e;
     } else {
-      this->unit      = e;
+      this->unit = e;
       this->have_unit = 1;
     }
   }
@@ -259,7 +256,7 @@ public:
   // The class being instantiated may or may not have an exp() method.
   element_type tf_exp(element_type x, int e) const {
     element_type zero = x - x;
-    element_type xp   = x;
+    element_type xp = x;
 
     if (x == zero) {
       if (e < 0) {
@@ -275,7 +272,7 @@ public:
       return zero;
     }
     element_type one = x / x;
-    element_type rv  = one;
+    element_type rv = one;
 
     if (e == 0) {
       return rv;
@@ -288,7 +285,7 @@ public:
         throw spffl::exception_t(ss.str());
       }
       xp = one / x;
-      e  = -e;
+      e = -e;
     }
 
     while (e != 0) {
@@ -317,8 +314,7 @@ public:
   // ----------------------------------------------------------------
   void merge(const tfacinfo<element_type> &that) {
     for (int i = 0; i < that.num_distinct; i++) {
-      this->insert_factor(that.pfactors_and_counts[i].factor,
-          that.pfactors_and_counts[i].count);
+      this->insert_factor(that.pfactors_and_counts[i].factor, that.pfactors_and_counts[i].count);
     }
     if (that.have_unit) {
       if (this->have_unit) {
@@ -341,9 +337,9 @@ public:
       rv *= this->unit;
     }
     for (int i = 0; i < this->num_distinct; i++) {
-      element_type f      = this->pfactors_and_counts[i].factor;
+      element_type f = this->pfactors_and_counts[i].factor;
       element_type fpower = one;
-      int power           = this->pfactors_and_counts[i].count;
+      int power = this->pfactors_and_counts[i].count;
       for (int j = 1; j <= power; j++) {
         fpower *= f;
       }
@@ -413,9 +409,9 @@ public:
     int base, power;
 
     for (int i = 0; i < this->num_distinct; i++) {
-      base  = this->pfactors_and_counts[i].count + 1;
+      base = this->pfactors_and_counts[i].count + 1;
       power = k % base;
-      k     = k / base;
+      k = k / base;
       rv *= this->tf_exp(this->pfactors_and_counts[i].factor, power);
     }
     return rv;
@@ -444,7 +440,7 @@ public:
   // ----------------------------------------------------------------
   // The output will be sorted from smallest to largest.
   bool get_maximal_proper_divisors(
-      spffl::containers::vector_over<element_type> &rv, element_type one) const {
+    spffl::containers::vector_over<element_type> &rv, element_type one) const {
     if (this->num_distinct <= 0) {
       if (!this->have_unit) {
         std::stringstream ss;
@@ -456,7 +452,7 @@ public:
       }
     }
     int nmpd = this->num_distinct;
-    rv       = spffl::containers::vector_over<element_type>(nmpd);
+    rv = spffl::containers::vector_over<element_type>(nmpd);
     for (int k = 0; k < nmpd; k++) {
       tfacinfo<element_type> other(*this);
       other.pfactors_and_counts[k].count--;
@@ -469,8 +465,7 @@ public:
 
 // ================================================================
 template <class element_type>
-static std::ostream &operator<<(
-    std::ostream &os, const tfacinfo<element_type> &finfo) {
+static std::ostream &operator<<(std::ostream &os, const tfacinfo<element_type> &finfo) {
   if (finfo.have_unit) {
     os << finfo.unit;
   }

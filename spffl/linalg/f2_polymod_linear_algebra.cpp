@@ -19,7 +19,7 @@ namespace spffl::linalg {
 
 // ----------------------------------------------------------------
 spffl::polynomials::f2n_poly_t f2_polymod_characteristic_polynomial(
-    tmatrix<spffl::polynomials::f2_polymod_t> &A) {
+  tmatrix<spffl::polynomials::f2_polymod_t> &A) {
   if (!A.is_square()) {
     std::stringstream ss;
     ss << "f2_polymod_characteristic_polynomial():  non-square input.\n";
@@ -51,8 +51,8 @@ spffl::polynomials::f2n_poly_t f2_polymod_characteristic_polynomial(
 
 // ----------------------------------------------------------------
 tmatrix<spffl::polynomials::f2_polymod_t> f2np_companion_matrix(
-    spffl::polynomials::f2n_poly_t chpol) {
-  int n                           = chpol.find_degree();
+  spffl::polynomials::f2n_poly_t chpol) {
+  int n = chpol.find_degree();
   spffl::polynomials::f2_poly_t m = chpol.get_coeff(0).get_modulus();
   spffl::polynomials::f2_poly_t zero(0);
   spffl::polynomials::f2_poly_t one(1);
@@ -81,13 +81,12 @@ tmatrix<spffl::polynomials::f2_polymod_t> f2np_companion_matrix(
 // ----------------------------------------------------------------
 // Diagonalizability test
 
-bool f2_polymod_matrix_is_diagonalizable(
-    tmatrix<spffl::polynomials::f2_polymod_t> &A,
+bool f2_polymod_matrix_is_diagonalizable(tmatrix<spffl::polynomials::f2_polymod_t> &A,
 
-    // int allow_field_extension,
-    spffl::polynomials::f2_poly_t &rext_modulus,
+  // int allow_field_extension,
+  spffl::polynomials::f2_poly_t &rext_modulus,
 
-    tvector<spffl::polynomials::f2_polymod_t> &reigenvalues)
+  tvector<spffl::polynomials::f2_polymod_t> &reigenvalues)
 // xxx matrix of (row) eigenvectors
 // xxx or, teigen_info template class
 //	num eigenvalues
@@ -99,8 +98,8 @@ bool f2_polymod_matrix_is_diagonalizable(
 
 // int verbose
 {
-  bool rv                   = true;
-  int verbose               = 1; // xxx make arg
+  bool rv = true;
+  int verbose = 1;               // xxx make arg
   int allow_field_extension = 1; // xxx make arg
 
   if (verbose) {
@@ -109,8 +108,7 @@ bool f2_polymod_matrix_is_diagonalizable(
   }
 
   // Compute the matrix's characteristic polynomial.
-  spffl::polynomials::f2n_poly_t chpol =
-      f2_polymod_characteristic_polynomial(A);
+  spffl::polynomials::f2n_poly_t chpol = f2_polymod_characteristic_polynomial(A);
 
   if (verbose) {
     std::cout << "chpoly = " << chpol << "\n";
@@ -118,7 +116,7 @@ bool f2_polymod_matrix_is_diagonalizable(
 
   // Factor the char poly into irreducibles over the base field.
   tfacinfo<spffl::polynomials::f2n_poly_t> base_finfo =
-      spffl::factorization::f2n_poly_factor(chpol);
+    spffl::factorization::f2n_poly_factor(chpol);
 
   if (verbose) {
     std::cout << "factors = " << base_finfo << "\n";
@@ -128,7 +126,7 @@ bool f2_polymod_matrix_is_diagonalizable(
   int deglcm = 1;
   for (int i = 0; i < base_finfo.get_num_distinct(); i++) {
     spffl::polynomials::f2n_poly_t factor = base_finfo.get_ith_factor(i);
-    int deg                               = factor.find_degree();
+    int deg = factor.find_degree();
     std::cout << "  factor = " << factor << ", deg = " << deg << "\n";
     deglcm = spffl::intmath::int_lcm(deglcm, deg);
   }
@@ -140,14 +138,13 @@ bool f2_polymod_matrix_is_diagonalizable(
   // Find a modulus for the splitting field of the char poly.
   // The absolute degree is the degree over F2, not over the base field.
   spffl::polynomials::f2_poly_t base_modulus = A[0][0].get_modulus();
-  int base_degree                            = base_modulus.find_degree();
-  int absolute_ext_degree                    = deglcm * base_degree;
+  int base_degree = base_modulus.find_degree();
+  int absolute_ext_degree = deglcm * base_degree;
   if ((deglcm == 1) || !allow_field_extension) {
     // Use specified modulus if degrees are equal.
     rext_modulus = base_modulus;
   } else {
-    rext_modulus =
-        spffl::factorization::f2_poly_find_irreducible(absolute_ext_degree);
+    rext_modulus = spffl::factorization::f2_poly_find_irreducible(absolute_ext_degree);
   }
 
   if (verbose) {
@@ -161,7 +158,7 @@ bool f2_polymod_matrix_is_diagonalizable(
   tmatrix<spffl::polynomials::f2_polymod_t> ext_A;
   if ((deglcm == 1) || !allow_field_extension) {
     ext_chpol = chpol;
-    ext_A     = A;
+    ext_A = A;
   } else {
     spffl::polynomials::f2_polymod_t base_g, ext_g;
 
@@ -177,16 +174,16 @@ bool f2_polymod_matrix_is_diagonalizable(
     }
 
     ext_chpol = f2_polymod_convert_poly(base_g, ext_g, chpol);
-    ext_A     = f2_polymod_convert_matrix(base_g, ext_g, A);
+    ext_A = f2_polymod_convert_matrix(base_g, ext_g, A);
   }
 
   tfacinfo<spffl::polynomials::f2n_poly_t> ext_finfo =
-      spffl::factorization::f2n_poly_factor(ext_chpol);
+    spffl::factorization::f2n_poly_factor(ext_chpol);
 
   int nev = 0;
   for (int i = 0; i < ext_finfo.get_num_distinct(); i++) {
     spffl::polynomials::f2n_poly_t factor = ext_finfo.get_ith_factor(i);
-    int d                                 = factor.find_degree();
+    int d = factor.find_degree();
     if (d == 1) {
       nev++;
     }
@@ -195,7 +192,7 @@ bool f2_polymod_matrix_is_diagonalizable(
   reigenvalues = tvector<spffl::polynomials::f2_polymod_t>(nev);
   for (int i = 0; i < nev; i++) {
     spffl::polynomials::f2n_poly_t factor = ext_finfo.get_ith_factor(i);
-    int d                                 = factor.find_degree();
+    int d = factor.find_degree();
     if (d != 1) {
       rv = false;
       // Use only linear factors, for rational-form case.
@@ -209,16 +206,16 @@ bool f2_polymod_matrix_is_diagonalizable(
   for (int i = 0; i < nev; i++) {
     tmatrix<spffl::polynomials::f2_polymod_t> A_tI(ext_A);
     A_tI -= reigenvalues[i];
-    int rank         = A_tI.get_rank();
-    int nullity      = n - rank;
+    int rank = A_tI.get_rank();
+    int nullity = n - rank;
     int multiplicity = ext_finfo.get_ith_count(i);
     if (nullity != multiplicity) {
       rv = false;
     }
 
     if (verbose) {
-      std::cout << "Eigenvalue " << reigenvalues[i] << " multiplicity "
-                << multiplicity << " nullity " << nullity << "\n";
+      std::cout << "Eigenvalue " << reigenvalues[i] << " multiplicity " << multiplicity
+                << " nullity " << nullity << "\n";
       std::cout << "A - " << reigenvalues[i] << " * I =\n" << A_tI << "\n";
     }
 
@@ -258,14 +255,13 @@ bool f2_polymod_matrix_is_diagonalizable(
 
 // ----------------------------------------------------------------
 tvector<spffl::polynomials::f2_polymod_t> ft_vector_from_base_rep(
-    int base_rep, spffl::polynomials::f2_poly_t m, int len) {
+  int base_rep, spffl::polynomials::f2_poly_t m, int len) {
   tvector<spffl::polynomials::f2_polymod_t> v(len);
   int i;
   int t = 1 << m.find_degree();
 
   for (i = len - 1; i >= 0; i--) {
-    spffl::polynomials::f2_poly_t r =
-        spffl::polynomials::f2_poly_t::from_base_rep(base_rep % t);
+    spffl::polynomials::f2_poly_t r = spffl::polynomials::f2_poly_t::from_base_rep(base_rep % t);
     v[i] = spffl::polynomials::f2_polymod_t(r, m);
     base_rep /= t;
   }

@@ -12,8 +12,8 @@
 namespace spffl::linalg {
 
 // ----------------------------------------------------------------
-bool f2_polymod_convert_prep(spffl::polynomials::f2_polymod_t g1,
-    spffl::polynomials::f2_poly_t m2, spffl::polynomials::f2_polymod_t &rg2) {
+bool f2_polymod_convert_prep(spffl::polynomials::f2_polymod_t g1, spffl::polynomials::f2_poly_t m2,
+  spffl::polynomials::f2_polymod_t &rg2) {
   spffl::polynomials::f2n_poly_t g1_min_poly = f2_polymod_min_poly(g1);
   spffl::polynomials::f2n_poly_t g2_min_poly;
   for (int i = 0; i <= g1_min_poly.find_degree(); i++) {
@@ -34,9 +34,8 @@ bool f2_polymod_convert_prep(spffl::polynomials::f2_polymod_t g1,
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2_polymod_t f2_polymod_convert_scalar(
-    spffl::polynomials::f2_polymod_t g1, spffl::polynomials::f2_polymod_t g2,
-    spffl::polynomials::f2_polymod_t a1) {
+spffl::polynomials::f2_polymod_t f2_polymod_convert_scalar(spffl::polynomials::f2_polymod_t g1,
+  spffl::polynomials::f2_polymod_t g2, spffl::polynomials::f2_polymod_t a1) {
   spffl::polynomials::f2_polymod_t zero1 = g1 - g1;
   spffl::polynomials::f2_polymod_t zero2 = g2 - g2;
   if (a1 == zero1) {
@@ -47,9 +46,8 @@ spffl::polynomials::f2_polymod_t f2_polymod_convert_scalar(
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::f2n_poly_t f2_polymod_convert_poly(
-    spffl::polynomials::f2_polymod_t g1, spffl::polynomials::f2_polymod_t g2,
-    spffl::polynomials::f2n_poly_t f1) {
+spffl::polynomials::f2n_poly_t f2_polymod_convert_poly(spffl::polynomials::f2_polymod_t g1,
+  spffl::polynomials::f2_polymod_t g2, spffl::polynomials::f2n_poly_t f1) {
   int deg = f1.find_degree();
   spffl::polynomials::f2n_poly_t f2(f1);
   for (int i = 0; i <= deg; i++) {
@@ -60,8 +58,8 @@ spffl::polynomials::f2n_poly_t f2_polymod_convert_poly(
 
 // ----------------------------------------------------------------
 tmatrix<spffl::polynomials::f2_polymod_t> f2_polymod_convert_matrix(
-    spffl::polynomials::f2_polymod_t g1, spffl::polynomials::f2_polymod_t g2,
-    tmatrix<spffl::polynomials::f2_polymod_t> A1) {
+  spffl::polynomials::f2_polymod_t g1, spffl::polynomials::f2_polymod_t g2,
+  tmatrix<spffl::polynomials::f2_polymod_t> A1) {
   int nr = A1.get_num_rows();
   int nc = A1.get_num_cols();
   tmatrix<spffl::polynomials::f2_polymod_t> A2(nr, nc);

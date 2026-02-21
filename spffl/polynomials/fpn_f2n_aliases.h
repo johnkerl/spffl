@@ -32,7 +32,7 @@ using f2n_polymod_t = spffl::residue_of<f2n_poly_t>;
 /// Note: for f2n_poly_t we rely on the generic polynomial_of<> gcd
 /// (friend + ADL) to avoid overload ambiguity between the alias-level
 /// f2n_poly_t and the underlying polynomial_of<f2_polymod_t>.
-inline fpn_poly_t gcd(const fpn_poly_t& a, const fpn_poly_t& b) {
+inline fpn_poly_t gcd(const fpn_poly_t &a, const fpn_poly_t &b) {
   return spffl::euclidean::gcd(a, b);
 }
 
@@ -40,11 +40,11 @@ inline fpn_poly_t gcd(const fpn_poly_t& a, const fpn_poly_t& b) {
 // Prime subfield elements (explicit modulus; no static method on type alias).
 // ---------------------------------------------------------------------------
 
-inline f2n_poly_t prime_subfield_element(int v, const f2_poly_t& m) {
+inline f2n_poly_t prime_subfield_element(int v, const f2_poly_t &m) {
   return f2n_poly_t(f2_polymod_t::prime_subfield_element(v, m));
 }
 
-inline fpn_poly_t prime_subfield_element(int v, const fp_poly_t& m) {
+inline fpn_poly_t prime_subfield_element(int v, const fp_poly_t &m) {
   int p = m.get_coeff(0).get_modulus();
   return fpn_poly_t(fp_polymod_t(fp_poly_t(spffl::intmath::intmod_t(v, p)), m));
 }
@@ -52,7 +52,7 @@ inline fpn_poly_t prime_subfield_element(int v, const fp_poly_t& m) {
 // ---------------------------------------------------------------------------
 // F2^n polynomial square root (char 2: sqrt exists iff odd-degree coeffs are 0).
 // ---------------------------------------------------------------------------
-inline bool square_root(const f2n_poly_t& f, f2n_poly_t& rroot) {
+inline bool square_root(const f2n_poly_t &f, f2n_poly_t &rroot) {
   int d = f.find_degree();
   if (d < 0) {
     rroot = f;
@@ -73,6 +73,6 @@ inline bool square_root(const f2n_poly_t& f, f2n_poly_t& rroot) {
   return true;
 }
 
-}  // namespace spffl::polynomials
+} // namespace spffl::polynomials
 
-#endif  // SPFFL_POLYNOMIALS_FPN_F2N_ALIASES_H
+#endif // SPFFL_POLYNOMIALS_FPN_F2N_ALIASES_H

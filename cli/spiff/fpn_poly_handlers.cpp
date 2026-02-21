@@ -25,12 +25,9 @@ int fpn_p_op_main(int argc, char **argv, usage_t *pusage) {
   if (!spffl::polynomials::fp_poly_from_string_into(argv[2], p, im)) {
     pusage(argv[0]);
   }
-  spffl::polynomials::fpn_poly_t zero =
-      spffl::polynomials::prime_subfield_element(0, im);
-  spffl::polynomials::fpn_poly_t one =
-      spffl::polynomials::prime_subfield_element(1, im);
-  spffl::cli_parser::cmd_line_parse<spffl::polynomials::fpn_poly_t>(
-      argc - 3, argv + 3, zero, one);
+  spffl::polynomials::fpn_poly_t zero = spffl::polynomials::prime_subfield_element(0, im);
+  spffl::polynomials::fpn_poly_t one = spffl::polynomials::prime_subfield_element(1, im);
+  spffl::cli_parser::cmd_line_parse<spffl::polynomials::fpn_poly_t>(argc - 3, argv + 3, zero, one);
   return 0;
 }
 
@@ -52,12 +49,10 @@ int fpn_p_mat_op_main(int argc, char **argv, usage_t *pusage) {
   if (!spffl::polynomials::fp_poly_from_string_into(argv[2], p, im)) {
     pusage(argv[0]);
   }
-  spffl::polynomials::fpn_poly_t zero =
-      spffl::polynomials::prime_subfield_element(0, im);
-  spffl::polynomials::fpn_poly_t one =
-      spffl::polynomials::prime_subfield_element(1, im);
+  spffl::polynomials::fpn_poly_t zero = spffl::polynomials::prime_subfield_element(0, im);
+  spffl::polynomials::fpn_poly_t one = spffl::polynomials::prime_subfield_element(1, im);
   spffl::cli_parser::cmd_line_mat_parse<spffl::polynomials::fpn_poly_t>(
-      argc - 3, argv + 3, zero, one);
+    argc - 3, argv + 3, zero, one);
   return 0;
 }
 
@@ -80,7 +75,8 @@ int fpn_p_gcd_main(int argc, char **argv, usage_t *pusage) {
     }
     auto opt_a = spffl::polynomials::fpn_poly_from_string(argv[3], im);
     auto opt_b = spffl::polynomials::fpn_poly_from_string(argv[4], im);
-    if (!opt_a || !opt_b) pusage(argv[0]);
+    if (!opt_a || !opt_b)
+      pusage(argv[0]);
     a = std::move(*opt_a);
     b = std::move(*opt_b);
     g = a.gcd(b);
@@ -97,12 +93,12 @@ int fpn_p_gcd_main(int argc, char **argv, usage_t *pusage) {
     }
     auto opt_a = spffl::polynomials::fpn_poly_from_string(argv[4], im);
     auto opt_b = spffl::polynomials::fpn_poly_from_string(argv[5], im);
-    if (!opt_a || !opt_b) pusage(argv[0]);
+    if (!opt_a || !opt_b)
+      pusage(argv[0]);
     a = std::move(*opt_a);
     b = std::move(*opt_b);
     g = a.ext_gcd(b, r, s);
-    std::cout << g << " = " << r << " * " << a << " + " << s << " * " << b
-              << std::endl;
+    std::cout << g << " = " << r << " * " << a << " + " << s << " * " << b << std::endl;
   } else {
     pusage(argv[0]);
   }

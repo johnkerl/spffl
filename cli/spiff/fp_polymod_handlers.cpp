@@ -62,9 +62,9 @@ int fp_pm_op_main(int argc, char **argv, usage_t *pusage) {
   if (!spffl::polynomials::fp_poly_from_string_into(argv[2], p, m)) {
     pusage(argv[0]);
   }
-  spffl::cli_parser::cmd_line_parse<spffl::polynomials::fp_polymod_t>(argc - 3,
-      argv + 3, spffl::polynomials::fp_polymod_t::prime_subfield_element(0, m),
-      spffl::polynomials::fp_polymod_t::prime_subfield_element(1, m));
+  spffl::cli_parser::cmd_line_parse<spffl::polynomials::fp_polymod_t>(argc - 3, argv + 3,
+    spffl::polynomials::fp_polymod_t::prime_subfield_element(0, m),
+    spffl::polynomials::fp_polymod_t::prime_subfield_element(1, m));
   return 0;
 }
 
@@ -215,10 +215,9 @@ int fp_pm_mat_op_main(int argc, char **argv, usage_t *pusage) {
   if (!spffl::polynomials::fp_poly_from_string_into(argv[2], p, m)) {
     pusage(argv[0]);
   }
-  spffl::cli_parser::cmd_line_mat_parse<spffl::polynomials::fp_polymod_t>(
-      argc - 3, argv + 3,
-      spffl::polynomials::fp_polymod_t::prime_subfield_element(0, m),
-      spffl::polynomials::fp_polymod_t::prime_subfield_element(1, m));
+  spffl::cli_parser::cmd_line_mat_parse<spffl::polynomials::fp_polymod_t>(argc - 3, argv + 3,
+    spffl::polynomials::fp_polymod_t::prime_subfield_element(0, m),
+    spffl::polynomials::fp_polymod_t::prime_subfield_element(1, m));
   return 0;
 }
 
@@ -235,10 +234,9 @@ int fp_pm_vecop_main(int argc, char **argv, usage_t *pusage) {
   if (!spffl::polynomials::fp_poly_from_string_into(argv[2], p, m)) {
     pusage(argv[0]);
   }
-  spffl::cli_parser::cmd_line_vec_parse<spffl::polynomials::fp_polymod_t>(
-      argc - 3, argv + 3,
-      spffl::polynomials::fp_polymod_t::prime_subfield_element(0, m),
-      spffl::polynomials::fp_polymod_t::prime_subfield_element(1, m));
+  spffl::cli_parser::cmd_line_vec_parse<spffl::polynomials::fp_polymod_t>(argc - 3, argv + 3,
+    spffl::polynomials::fp_polymod_t::prime_subfield_element(0, m),
+    spffl::polynomials::fp_polymod_t::prime_subfield_element(1, m));
   return 0;
 }
 
@@ -263,9 +261,9 @@ int fp_pm_mat_ord_main(int argc, char **argv, usage_t *pusage) {
   }
 
   spffl::polynomials::fp_polymod_t zero =
-      spffl::polynomials::fp_polymod_t::prime_subfield_element(0, m);
+    spffl::polynomials::fp_polymod_t::prime_subfield_element(0, m);
   spffl::polynomials::fp_polymod_t one =
-      spffl::polynomials::fp_polymod_t::prime_subfield_element(1, m);
+    spffl::polynomials::fp_polymod_t::prime_subfield_element(1, m);
 
   tmatrix<spffl::polynomials::fp_polymod_t> A;
   A = zero;
@@ -400,8 +398,7 @@ int fp_pm_ch_pol_main(int argc, char **argv, usage_t *pusage) {
     if (!spffl::polynomials::fp_polymod_from_string_into(argv[argi], m, a)) {
       pusage(argv[0]);
     }
-    spffl::polynomials::fp_poly_t cp =
-        spffl::linalg::fp_polymod_characteristic_polynomial(a);
+    spffl::polynomials::fp_poly_t cp = spffl::linalg::fp_polymod_characteristic_polynomial(a);
     if (argc > 4) {
       std::cout << a << ": ";
     }
@@ -434,8 +431,7 @@ int fp_pm_min_pol_main(int argc, char **argv, usage_t *pusage) {
     if (!spffl::polynomials::fp_polymod_from_string_into(argv[argi], m, a)) {
       pusage(argv[0]);
     }
-    spffl::polynomials::fp_poly_t cp =
-        spffl::linalg::fp_polymod_minimal_polynomial(a);
+    spffl::polynomials::fp_poly_t cp = spffl::linalg::fp_polymod_minimal_polynomial(a);
     if (argc > 4) {
       std::cout << a << ": ";
     }

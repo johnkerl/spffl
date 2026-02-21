@@ -85,8 +85,7 @@ template <class element_type> struct mat_lex_ctx_t {
 #define INT_ATOM 19
 
 template <class element_type>
-static void E(mat_lex_ctx_t<element_type> &rlex_ctx,
-    tstack<matatom_t<element_type>> &rstack);
+static void E(mat_lex_ctx_t<element_type> &rlex_ctx, tstack<matatom_t<element_type>> &rstack);
 
 // ----------------------------------------------------------------
 template <class element_type> static const char *mat_token_desc(int t) {
@@ -173,20 +172,19 @@ template <class element_type> static const char *mat_token_desc(int t) {
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void matlexinit(mat_lex_ctx_t<element_type> &rlex_ctx, int argc,
-    char **argv, element_type zero, element_type one) {
-  rlex_ctx.argi       = 0;
-  rlex_ctx.argc       = argc;
-  rlex_ctx.argv       = argv;
-  rlex_ctx.token      = L_UNDEF;
+static void matlexinit(mat_lex_ctx_t<element_type> &rlex_ctx, int argc, char **argv,
+  element_type zero, element_type one) {
+  rlex_ctx.argi = 0;
+  rlex_ctx.argc = argc;
+  rlex_ctx.argv = argv;
+  rlex_ctx.token = L_UNDEF;
   rlex_ctx.in_pow_rhs = 0;
-  rlex_ctx.zero       = zero;
-  rlex_ctx.one        = one;
+  rlex_ctx.zero = zero;
+  rlex_ctx.one = one;
 }
 
 // ----------------------------------------------------------------
-template <class element_type>
-static void matlexan(mat_lex_ctx_t<element_type> &rlex_ctx) {
+template <class element_type> static void matlexan(mat_lex_ctx_t<element_type> &rlex_ctx) {
   if (rlex_ctx.argi >= rlex_ctx.argc) {
     rlex_ctx.token = L_EOL;
     return;
@@ -254,7 +252,7 @@ static void matlexan(mat_lex_ctx_t<element_type> &rlex_ctx) {
       rlex_ctx.atom.atom_type = INT_ATOM;
       iss >> rlex_ctx.atom.int_val;
     } else {
-      rlex_ctx.atom.mat_val   = rlex_ctx.zero; // Set modulus
+      rlex_ctx.atom.mat_val = rlex_ctx.zero; // Set modulus
       rlex_ctx.atom.atom_type = MAT_ATOM;
 
       if (strchr(rlex_ctx.argv[rlex_ctx.argi], '[')) {
@@ -264,8 +262,7 @@ static void matlexan(mat_lex_ctx_t<element_type> &rlex_ctx) {
           throw spffl::exception_t(ss.str());
         }
       } else {
-        if (!rlex_ctx.atom.mat_val.load_from_file(
-                rlex_ctx.argv[rlex_ctx.argi])) {
+        if (!rlex_ctx.atom.mat_val.load_from_file(rlex_ctx.argv[rlex_ctx.argi])) {
           std::stringstream ss;
           ss << "Couldn't read \"" << rlex_ctx.argv[rlex_ctx.argi] << "\"\n";
           throw spffl::exception_t(ss.str());
@@ -283,8 +280,7 @@ static void matlexan(mat_lex_ctx_t<element_type> &rlex_ctx) {
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
-    tstack<matatom_t<element_type>> &rstack) {
+static void emit(mat_lex_ctx_t<element_type> &rlex_ctx, tstack<matatom_t<element_type>> &rstack) {
   matatom_t<element_type> A, B, C;
   int msiform;
 
@@ -336,8 +332,7 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
 
   default:
     std::stringstream ss;
-    ss << "Unhandled operator " << mat_token_desc<element_type>(rlex_ctx.token)
-       << ".\n";
+    ss << "Unhandled operator " << mat_token_desc<element_type>(rlex_ctx.token) << ".\n";
     throw spffl::exception_t(ss.str());
     break;
   }
@@ -479,8 +474,7 @@ static void emit(mat_lex_ctx_t<element_type> &rlex_ctx,
 
   default:
     std::stringstream ss;
-    ss << "Unhandled operator " << mat_token_desc<element_type>(rlex_ctx.token)
-       << ".\n";
+    ss << "Unhandled operator " << mat_token_desc<element_type>(rlex_ctx.token) << ".\n";
     throw spffl::exception_t(ss.str());
     break;
   }
@@ -512,8 +506,7 @@ static void match(mat_lex_ctx_t<element_type> &rlex_ctx, int expected_token) {
     matlexan<element_type>(rlex_ctx);
   } else {
     std::stringstream ss;
-    ss << "Syntax error: expected "
-       << mat_token_desc<element_type>(expected_token) << "; got "
+    ss << "Syntax error: expected " << mat_token_desc<element_type>(expected_token) << "; got "
        << mat_token_desc<element_type>(rlex_ctx.token) << ".\n";
     throw spffl::exception_t(ss.str());
   }
@@ -521,8 +514,7 @@ static void match(mat_lex_ctx_t<element_type> &rlex_ctx, int expected_token) {
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void P(mat_lex_ctx_t<element_type> &rlex_ctx,
-    tstack<matatom_t<element_type>> &rstack) {
+static void P(mat_lex_ctx_t<element_type> &rlex_ctx, tstack<matatom_t<element_type>> &rstack) {
   switch (rlex_ctx.token) {
   case L_LPAREN:
     match<element_type>(rlex_ctx, L_LPAREN);
@@ -535,16 +527,14 @@ static void P(mat_lex_ctx_t<element_type> &rlex_ctx,
     break;
   default:
     std::stringstream ss;
-    ss << "syntax error at token "
-       << mat_token_desc<element_type>(rlex_ctx.token) << "\n";
+    ss << "syntax error at token " << mat_token_desc<element_type>(rlex_ctx.token) << "\n";
     throw spffl::exception_t(ss.str());
   }
 }
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void U(mat_lex_ctx_t<element_type> &rlex_ctx,
-    tstack<matatom_t<element_type>> &rstack) {
+static void U(mat_lex_ctx_t<element_type> &rlex_ctx, tstack<matatom_t<element_type>> &rstack) {
   mat_lex_ctx_t<element_type> save;
   P<element_type>(rlex_ctx, rstack);
   while (1) {
@@ -570,8 +560,7 @@ static void U(mat_lex_ctx_t<element_type> &rlex_ctx,
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void F(mat_lex_ctx_t<element_type> &rlex_ctx,
-    tstack<matatom_t<element_type>> &rstack) {
+static void F(mat_lex_ctx_t<element_type> &rlex_ctx, tstack<matatom_t<element_type>> &rstack) {
   mat_lex_ctx_t<element_type> save;
   switch (rlex_ctx.token) {
   case L_PLUS:
@@ -614,8 +603,7 @@ static void F(mat_lex_ctx_t<element_type> &rlex_ctx,
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void T(mat_lex_ctx_t<element_type> &rlex_ctx,
-    tstack<matatom_t<element_type>> &rstack) {
+static void T(mat_lex_ctx_t<element_type> &rlex_ctx, tstack<matatom_t<element_type>> &rstack) {
   mat_lex_ctx_t<element_type> save;
   F<element_type>(rlex_ctx, rstack);
   while (1) {
@@ -636,8 +624,7 @@ static void T(mat_lex_ctx_t<element_type> &rlex_ctx,
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void E(mat_lex_ctx_t<element_type> &rlex_ctx,
-    tstack<matatom_t<element_type>> &rstack) {
+static void E(mat_lex_ctx_t<element_type> &rlex_ctx, tstack<matatom_t<element_type>> &rstack) {
   mat_lex_ctx_t<element_type> save;
   T<element_type>(rlex_ctx, rstack);
   while (1) {
@@ -659,8 +646,7 @@ static void E(mat_lex_ctx_t<element_type> &rlex_ctx,
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void Q(mat_lex_ctx_t<element_type> &rlex_ctx,
-    tstack<matatom_t<element_type>> &rstack) {
+static void Q(mat_lex_ctx_t<element_type> &rlex_ctx, tstack<matatom_t<element_type>> &rstack) {
   mat_lex_ctx_t<element_type> save;
   E<element_type>(rlex_ctx, rstack);
   while (1) {
@@ -683,8 +669,7 @@ static void Q(mat_lex_ctx_t<element_type> &rlex_ctx,
 // ----------------------------------------------------------------
 // The "zero" argument is needed to set the modulus for parameterized types.
 template <class element_type>
-void cmd_line_mat_parse(
-    int argc, char **argv, element_type zero, element_type one) {
+void cmd_line_mat_parse(int argc, char **argv, element_type zero, element_type one) {
   mat_lex_ctx_t<element_type> lex_ctx;
   tstack<matatom_t<element_type>> stack;
   matatom_t<element_type> result;

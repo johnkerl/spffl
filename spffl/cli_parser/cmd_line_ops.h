@@ -75,8 +75,7 @@ template <class element_type> struct lex_ctx_t {
 #define I_TT_OP 6 // int  = type op type, e.g. equality and ordering.
 
 template <class element_type>
-static void E(
-    lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack);
+static void E(lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack);
 
 // ----------------------------------------------------------------
 template <class element_type> static const char *token_desc(int t) {
@@ -153,15 +152,15 @@ template <class element_type> static const char *token_desc(int t) {
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void lexinit(lex_ctx_t<element_type> &rlex_ctx, int argc, char **argv,
-    element_type zero, element_type one) {
-  rlex_ctx.argi       = 0;
-  rlex_ctx.argc       = argc;
-  rlex_ctx.argv       = argv;
-  rlex_ctx.token      = L_UNDEF;
+static void lexinit(
+  lex_ctx_t<element_type> &rlex_ctx, int argc, char **argv, element_type zero, element_type one) {
+  rlex_ctx.argi = 0;
+  rlex_ctx.argc = argc;
+  rlex_ctx.argv = argv;
+  rlex_ctx.token = L_UNDEF;
   rlex_ctx.in_pow_rhs = 0;
-  rlex_ctx.zero       = zero;
-  rlex_ctx.one        = one;
+  rlex_ctx.zero = zero;
+  rlex_ctx.one = one;
 
 #if 0
 	std::cout << "zero = " << zero << "\n";
@@ -170,8 +169,7 @@ static void lexinit(lex_ctx_t<element_type> &rlex_ctx, int argc, char **argv,
 }
 
 // ----------------------------------------------------------------
-template <class element_type>
-static void lexan(lex_ctx_t<element_type> &rlex_ctx) {
+template <class element_type> static void lexan(lex_ctx_t<element_type> &rlex_ctx) {
   if (rlex_ctx.argi >= rlex_ctx.argc) {
     rlex_ctx.token = L_EOL;
     return;
@@ -229,8 +227,8 @@ static void lexan(lex_ctx_t<element_type> &rlex_ctx) {
       rlex_ctx.atom.is_int = true;
       iss >> rlex_ctx.atom.int_val;
     } else {
-      rlex_ctx.atom.type_val = rlex_ctx.zero;  // Set modulus for mod types
-      rlex_ctx.atom.is_int   = false;
+      rlex_ctx.atom.type_val = rlex_ctx.zero; // Set modulus for mod types
+      rlex_ctx.atom.is_int = false;
       read_element(iss, rlex_ctx.zero, rlex_ctx.atom.type_val);
     }
     if (iss.fail()) {
@@ -244,8 +242,7 @@ static void lexan(lex_ctx_t<element_type> &rlex_ctx) {
 
 // ----------------------------------------------------------------
 template <class element_type>
-element_type clo_exp(
-    element_type x, int e, element_type zero, element_type one) {
+element_type clo_exp(element_type x, int e, element_type zero, element_type one) {
   element_type xp = x;
 
   if (x == zero) {
@@ -274,7 +271,7 @@ element_type clo_exp(
       throw spffl::exception_t(ss.str());
     }
     xp = one / x;
-    e  = -e;
+    e = -e;
   }
 
   while (e != 0) {
@@ -290,8 +287,7 @@ element_type clo_exp(
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void emit(
-    lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
+static void emit(lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
   atom_t<element_type> a, b, c;
   int tiform;
 
@@ -333,8 +329,7 @@ static void emit(
 
   default:
     std::stringstream ss;
-    ss << "Unhandled operator " << token_desc<element_type>(rlex_ctx.token)
-       << ".\n";
+    ss << "Unhandled operator " << token_desc<element_type>(rlex_ctx.token) << ".\n";
     throw spffl::exception_t(ss.str());
     break;
   }
@@ -420,8 +415,7 @@ static void emit(
 
   default:
     std::stringstream ss;
-    ss << "Unhandled operator " << token_desc<element_type>(rlex_ctx.token)
-       << ".\n";
+    ss << "Unhandled operator " << token_desc<element_type>(rlex_ctx.token) << ".\n";
     throw spffl::exception_t(ss.str());
     break;
   }
@@ -455,8 +449,7 @@ static void match(lex_ctx_t<element_type> &rlex_ctx, int expected_token) {
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void P(
-    lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
+static void P(lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
   switch (rlex_ctx.token) {
   case L_LPAREN:
     match<element_type>(rlex_ctx, L_LPAREN);
@@ -469,16 +462,14 @@ static void P(
     break;
   default:
     std::stringstream ss;
-    ss << "syntax error at token " << token_desc<element_type>(rlex_ctx.token)
-       << "\n";
+    ss << "syntax error at token " << token_desc<element_type>(rlex_ctx.token) << "\n";
     throw spffl::exception_t(ss.str());
   }
 }
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void U(
-    lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
+static void U(lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
   lex_ctx_t<element_type> save;
   P<element_type>(rlex_ctx, rstack);
   while (1) {
@@ -507,8 +498,7 @@ static void U(
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void F(
-    lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
+static void F(lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
   lex_ctx_t<element_type> save;
   switch (rlex_ctx.token) {
   case L_PLUS:
@@ -544,8 +534,7 @@ static void F(
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void T(
-    lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
+static void T(lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
   lex_ctx_t<element_type> save;
   F<element_type>(rlex_ctx, rstack);
   while (1) {
@@ -568,8 +557,7 @@ static void T(
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void E(
-    lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
+static void E(lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
   lex_ctx_t<element_type> save;
   T<element_type>(rlex_ctx, rstack);
   while (1) {
@@ -591,8 +579,7 @@ static void E(
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void C(
-    lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
+static void C(lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
   lex_ctx_t<element_type> save;
   E<element_type>(rlex_ctx, rstack);
   while (1) {
@@ -616,8 +603,7 @@ static void C(
 
 // ----------------------------------------------------------------
 template <class element_type>
-static void Q(
-    lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
+static void Q(lex_ctx_t<element_type> &rlex_ctx, tstack<atom_t<element_type>> &rstack) {
   lex_ctx_t<element_type> save;
   C<element_type>(rlex_ctx, rstack);
   while (1) {
@@ -640,8 +626,7 @@ static void Q(
 // ----------------------------------------------------------------
 // The "zero" argument is needed to set the modulus for parameterized types.
 template <class element_type>
-void cmd_line_parse(
-    int argc, char **argv, element_type zero, element_type one) {
+void cmd_line_parse(int argc, char **argv, element_type zero, element_type one) {
   lex_ctx_t<element_type> lex_ctx;
   tstack<atom_t<element_type>> stack;
   atom_t<element_type> result;

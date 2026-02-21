@@ -15,7 +15,7 @@ namespace spffl::polynomials {
 
 /// Element of Fp[x]/(m): residue class represented by a reduced polynomial.
 class fp_polymod_t {
-public:
+  public:
   fp_polymod_t() = default;
 
   /// Constant residue (single intmod_t coefficient).
@@ -40,9 +40,7 @@ public:
     return fp_polymod_t(residue_ - that.residue_, modulus_);
   }
 
-  fp_polymod_t operator-() const {
-    return fp_polymod_t(-residue_, modulus_);
-  }
+  fp_polymod_t operator-() const { return fp_polymod_t(-residue_, modulus_); }
 
   fp_polymod_t operator*(const fp_polymod_t &that) const {
     check_moduli(that);
@@ -106,18 +104,18 @@ public:
     fp_poly_t m, n;
     fp_poly_t g = residue_.ext_gcd(modulus_, m, n);
     if (g.find_degree() != 0 || g.is_zero()) {
-      return false;  // not a unit
+      return false; // not a unit
     }
     // residue_ * m + modulus_ * n = g (g constant). So residue_ * m ≡ g (mod modulus_).
     // Inverse of residue_ is m / g (coefficient-wise), then reduced.
-    fp_poly_t g_inv = g;  // need 1/g in coeff ring: g is constant, so g.get_coeff(0).recip
+    fp_poly_t g_inv = g; // need 1/g in coeff ring: g is constant, so g.get_coeff(0).recip
     using Coeff = spffl::intmath::intmod_t;
     Coeff g0 = g.get_coeff(0);
     Coeff g0_inv;
     if (!g0.recip(g0_inv)) {
       return false;
     }
-    fp_poly_t minv = m * g0_inv;  // scalar multiply polynomial by 1/g
+    fp_poly_t minv = m * g0_inv; // scalar multiply polynomial by 1/g
     fp_poly_t q, r;
     minv.quot_and_rem(modulus_, q, r);
     rinv = fp_polymod_t(r, modulus_);
@@ -188,7 +186,7 @@ public:
     return os;
   }
 
-private:
+  private:
   fp_poly_t residue_;
   fp_poly_t modulus_;
 
@@ -208,6 +206,6 @@ private:
   }
 };
 
-}  // namespace spffl::polynomials
+} // namespace spffl::polynomials
 
-#endif  // SPFFL_POLYNOMIALS_FP_POLYMOD_T_H
+#endif // SPFFL_POLYNOMIALS_FP_POLYMOD_T_H

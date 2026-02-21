@@ -39,16 +39,15 @@ int f2_p_list_main(int argc, char **argv, usage_t *pusage) {
 
   for (int deg = deglo; deg <= deghi; deg++) {
     spffl::containers::vector_over<spffl::polynomials::f2_poly_t> elts =
-        spffl::list::f2_poly_list(deg);
+      spffl::list::f2_poly_list(deg);
     elts.crout(std::cout);
   }
   return 0;
 }
 
 int f2_p_op_main(int argc, char **argv, usage_t *pusage) {
-  spffl::cli_parser::cmd_line_parse<spffl::polynomials::f2_poly_t>(argc - 1,
-      argv + 1, spffl::polynomials::f2_poly_t(0),
-      spffl::polynomials::f2_poly_t(1));
+  spffl::cli_parser::cmd_line_parse<spffl::polynomials::f2_poly_t>(
+    argc - 1, argv + 1, spffl::polynomials::f2_poly_t(0), spffl::polynomials::f2_poly_t(1));
   return 0;
 }
 
@@ -90,8 +89,7 @@ int f2_p_gcd_main(int argc, char **argv, usage_t *pusage) {
     }
 
     g = a.ext_gcd(b, r, s);
-    std::cout << g << " = " << r << " * " << a << " + " << s << " * " << b
-              << std::endl;
+    std::cout << g << " = " << r << " * " << a << " + " << s << " * " << b << std::endl;
 
     spffl::polynomials::f2_poly_t check = a * r + b * s;
     if (g != check) {
@@ -180,13 +178,13 @@ int f2_p_test_main(int argc, char **argv, usage_t *pusage) {
   }
 
   if (strcmp(argv[1], "-i") == 0) {
-    do_irr  = true;
+    do_irr = true;
     do_prim = false;
   } else if (strcmp(argv[1], "-p") == 0) {
-    do_irr  = false;
+    do_irr = false;
     do_prim = true;
   } else if (strcmp(argv[1], "-ip") == 0) {
-    do_irr  = true;
+    do_irr = true;
     do_prim = true;
   } else {
     pusage(argv[0]);
@@ -246,13 +244,13 @@ int f2_p_find_main(int argc, char **argv, usage_t *pusage) {
   }
 
   if (strcmp(argv[2], "-i") == 0) {
-    do_irr  = true;
+    do_irr = true;
     do_prim = false;
   } else if (strcmp(argv[2], "-p") == 0) {
-    do_irr  = false;
+    do_irr = false;
     do_prim = true;
   } else if (strcmp(argv[2], "-ip") == 0) {
-    do_irr  = true;
+    do_irr = true;
     do_prim = true;
   } else {
     pusage(argv[0]);
@@ -313,12 +311,10 @@ int f2_p_factor_main(int argc, char **argv, usage_t *pusage) {
     if (argc > 2) {
       std::cout << a << " = ";
     }
-    tfacinfo<spffl::polynomials::f2_poly_t> finfo =
-        spffl::factorization::f2_poly_factor(a);
+    tfacinfo<spffl::polynomials::f2_poly_t> finfo = spffl::factorization::f2_poly_factor(a);
     std::cout << finfo << std::endl;
 
-    spffl::polynomials::f2_poly_t check =
-        finfo.unfactor(spffl::polynomials::f2_poly_t(1));
+    spffl::polynomials::f2_poly_t check = finfo.unfactor(spffl::polynomials::f2_poly_t(1));
     if (check != a) {
       std::cerr << "Coding error in spffl::factorization::f2_poly_factor.\n";
       std::cerr << "  Input: " << a << std::endl;
@@ -337,7 +333,7 @@ void f2_p_divisors_usage(char *argv0) {
 
 int f2_p_divisors_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t a;
-  int argb                = 1;
+  int argb = 1;
   int maximal_proper_only = 0;
   if ((argc >= 2) && (strcmp(argv[1], "-mp") == 0)) {
     maximal_proper_only = 1;
@@ -350,12 +346,10 @@ int f2_p_divisors_main(int argc, char **argv, usage_t *pusage) {
     if ((argc - argb) > 1) {
       std::cout << a << ": ";
     }
-    tfacinfo<spffl::polynomials::f2_poly_t> finfo =
-        spffl::factorization::f2_poly_factor(a);
+    tfacinfo<spffl::polynomials::f2_poly_t> finfo = spffl::factorization::f2_poly_factor(a);
     spffl::containers::vector_over<spffl::polynomials::f2_poly_t> divisors;
     if (maximal_proper_only) {
-      if (!finfo.get_maximal_proper_divisors(
-              divisors, spffl::polynomials::f2_poly_t(1))) {
+      if (!finfo.get_maximal_proper_divisors(divisors, spffl::polynomials::f2_poly_t(1))) {
         std::cout << "(none)\n";
         continue;
       }
@@ -449,9 +443,8 @@ int f2_p_comp_mx_main(int argc, char **argv, usage_t *pusage) {
 }
 
 int f2_p_mat_op_main(int argc, char **argv, usage_t *pusage) {
-  spffl::cli_parser::cmd_line_mat_parse<spffl::polynomials::f2_poly_t>(argc - 1,
-      argv + 1, spffl::polynomials::f2_poly_t(0),
-      spffl::polynomials::f2_poly_t(1));
+  spffl::cli_parser::cmd_line_mat_parse<spffl::polynomials::f2_poly_t>(
+    argc - 1, argv + 1, spffl::polynomials::f2_poly_t(0), spffl::polynomials::f2_poly_t(1));
   return 0;
 }
 

@@ -11,13 +11,11 @@
 namespace spffl::random {
 
 // ----------------------------------------------------------------
-spffl::polynomials::fp_polymod_t fp_polymod_random(
-    const spffl::polynomials::fp_poly_t &m) {
+spffl::polynomials::fp_polymod_t fp_polymod_random(const spffl::polynomials::fp_poly_t &m) {
   int deg = m.find_degree();
   if (deg < 1) {
     std::stringstream ss;
-    ss << "fp_polymod_random:  degree (" << deg << ") of " << m
-       << " should be >= 1.\n";
+    ss << "fp_polymod_random:  degree (" << deg << ") of " << m << " should be >= 1.\n";
     throw spffl::exception_t(ss.str());
   }
   int p = m.get_characteristic();

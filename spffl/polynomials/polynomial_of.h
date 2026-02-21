@@ -19,12 +19,10 @@
 
 namespace spffl::polynomials {
 
-template <typename Coeff>
-class polynomial_of {
-  static_assert(spffl::concepts::Ring_element<Coeff>,
-      "Coeff must satisfy Ring_element concept.");
+template <typename Coeff> class polynomial_of {
+  static_assert(spffl::concepts::Ring_element<Coeff>, "Coeff must satisfy Ring_element concept.");
 
-public:
+  public:
   using coeff_type = Coeff;
 
   // ------------------------------------------------------------
@@ -35,12 +33,9 @@ public:
 
   explicit polynomial_of(const Coeff &c0) : coeffs_{c0} { trim_degree(); }
 
-  polynomial_of(const Coeff &c1, const Coeff &c0) : coeffs_{c0, c1} {
-    trim_degree();
-  }
+  polynomial_of(const Coeff &c1, const Coeff &c0) : coeffs_{c0, c1} { trim_degree(); }
 
-  polynomial_of(const Coeff &c2, const Coeff &c1, const Coeff &c0)
-      : coeffs_{c0, c1, c2} {
+  polynomial_of(const Coeff &c2, const Coeff &c1, const Coeff &c0) : coeffs_{c0, c1, c2} {
     trim_degree();
   }
 
@@ -80,32 +75,36 @@ public:
   // Legacy compat: characteristic of coefficient ring.
   // When Coeff has get_modulus() returning int (e.g. intmod_t).
   int get_characteristic() const
-      requires spffl::concepts::has_get_modulus_v<Coeff> &&
-               std::convertible_to<decltype(std::declval<Coeff const&>().get_modulus()), int> {
+    requires spffl::concepts::has_get_modulus_v<Coeff> &&
+             std::convertible_to<decltype(std::declval<Coeff const &>().get_modulus()), int>
+  {
     return coeffs_[0].get_modulus();
   }
 
   // When Coeff has get_characteristic() (e.g. fp_polymod_t, residue_of<f2_poly_t>).
   int get_characteristic() const
-      requires spffl::concepts::has_get_characteristic_v<Coeff> {
+    requires spffl::concepts::has_get_characteristic_v<Coeff>
+  {
     return coeffs_[0].get_characteristic();
   }
 
   // Legacy compat: constant polynomial with single coefficient v in prime subfield.
   polynomial_of prime_subfield_element(int v) const
-      requires spffl::concepts::Field_element<Coeff> &&
-               spffl::concepts::has_get_modulus_v<Coeff> {
+    requires spffl::concepts::Field_element<Coeff> && spffl::concepts::has_get_modulus_v<Coeff>
+  {
     return polynomial_of(Coeff(v, get_characteristic()));
   }
 
   // When Coeff is e.g. fp_polymod_t: construct from (intmod_t(v,p), modulus).
   polynomial_of prime_subfield_element(int v) const
-      requires spffl::concepts::Field_element<Coeff> &&
-               spffl::concepts::has_get_characteristic_v<Coeff> &&
-               spffl::concepts::has_get_modulus_v<Coeff> &&
-               std::constructible_from<Coeff, spffl::intmath::intmod_t,
-                   decltype(std::declval<Coeff const&>().get_modulus())> {
-    return polynomial_of(Coeff(spffl::intmath::intmod_t(v, get_characteristic()), coeffs_[0].get_modulus()));
+    requires spffl::concepts::Field_element<Coeff> &&
+             spffl::concepts::has_get_characteristic_v<Coeff> &&
+             spffl::concepts::has_get_modulus_v<Coeff> &&
+             std::constructible_from<Coeff, spffl::intmath::intmod_t,
+               decltype(std::declval<Coeff const &>().get_modulus())>
+  {
+    return polynomial_of(
+      Coeff(spffl::intmath::intmod_t(v, get_characteristic()), coeffs_[0].get_modulus()));
   }
 
   // ------------------------------------------------------------
@@ -119,7 +118,7 @@ public:
     for (std::size_t i = 0; i < max_deg; ++i) {
       Coeff a = (i < coeffs_.size()) ? coeffs_[i] : z;
       Coeff b = (i < that.coeffs_.size()) ? that.coeffs_[i] : z;
-      out[i]  = a + b;
+      out[i] = a + b;
     }
     return polynomial_of(std::move(out));
   }
@@ -131,7 +130,7 @@ public:
     for (std::size_t i = 0; i < max_deg; ++i) {
       Coeff a = (i < coeffs_.size()) ? coeffs_[i] : z;
       Coeff b = (i < that.coeffs_.size()) ? that.coeffs_[i] : z;
-      out[i]  = a - b;
+      out[i] = a - b;
     }
     return polynomial_of(std::move(out));
   }
@@ -158,8 +157,7 @@ public:
     int deg_a = find_degree();
     int deg_b = that.find_degree();
     Coeff z = zero_coeff();
-    if (((deg_a == 0) && (coeffs_[0] == z)) ||
-        ((deg_b == 0) && (that.coeffs_[0] == z))) {
+    if (((deg_a == 0) && (coeffs_[0] == z)) || ((deg_b == 0) && (that.coeffs_[0] == z))) {
       return polynomial_of(std::vector<Coeff>{z});
     }
 
@@ -169,8 +167,7 @@ public:
     for (int i = 0; i <= deg_a; ++i) {
       for (int j = 0; j <= deg_b; ++j) {
         out[static_cast<std::size_t>(i + j)] +=
-            coeffs_[static_cast<std::size_t>(i)] *
-            that.coeffs_[static_cast<std::size_t>(j)];
+          coeffs_[static_cast<std::size_t>(i)] * that.coeffs_[static_cast<std::size_t>(j)];
       }
     }
     return polynomial_of(std::move(out));
@@ -200,7 +197,8 @@ public:
 
   /// Scalar division (multiply by inverse of s). Legacy compat.
   polynomial_of &operator/=(const Coeff &s)
-      requires spffl::concepts::Field_element<Coeff> {
+    requires spffl::concepts::Field_element<Coeff>
+  {
     Coeff inv;
     if (!s.recip(inv)) {
       throw std::runtime_error("polynomial_of::operator/=: non-invertible scalar");
@@ -218,8 +216,7 @@ public:
     }
     int d = find_degree();
     for (int i = 0; i <= d; ++i) {
-      if (coeffs_[static_cast<std::size_t>(i)] !=
-          that.coeffs_[static_cast<std::size_t>(i)]) {
+      if (coeffs_[static_cast<std::size_t>(i)] != that.coeffs_[static_cast<std::size_t>(i)]) {
         return false;
       }
     }
@@ -230,18 +227,18 @@ public:
 
   /// Legacy compat: compare to constant polynomial (int as residue mod get_characteristic()).
   bool operator==(int v) const
-      requires spffl::concepts::has_get_modulus_v<Coeff> {
+    requires spffl::concepts::has_get_modulus_v<Coeff>
+  {
     return find_degree() == 0 && get_coeff(0) == Coeff(v, get_characteristic());
   }
   bool operator!=(int v) const
-      requires spffl::concepts::has_get_modulus_v<Coeff> {
+    requires spffl::concepts::has_get_modulus_v<Coeff>
+  {
     return !(*this == v);
   }
 
   /// Compare to constant polynomial (single coefficient).
-  bool operator==(const Coeff &c) const {
-    return find_degree() == 0 && get_coeff(0) == c;
-  }
+  bool operator==(const Coeff &c) const { return find_degree() == 0 && get_coeff(0) == c; }
   bool operator!=(const Coeff &c) const { return !(*this == c); }
 
   // Simple lex order on coefficient vector (useful for maps/sorting).
@@ -271,8 +268,7 @@ public:
   // evaluation
   // ------------------------------------------------------------
 
-  template <typename X>
-  X eval(const X &x) const {
+  template <typename X> X eval(const X &x) const {
     // Horner's method.
     int d = find_degree();
     if (d < 0) {
@@ -280,8 +276,7 @@ public:
     }
     X result = static_cast<X>(coeffs_[static_cast<std::size_t>(d)]);
     for (int i = d - 1; i >= 0; --i) {
-      result = result * x +
-               static_cast<X>(coeffs_[static_cast<std::size_t>(i)]);
+      result = result * x + static_cast<X>(coeffs_[static_cast<std::size_t>(i)]);
     }
     return result;
   }
@@ -296,9 +291,9 @@ public:
     return find_degree() == 0 && coeffs_[0] == z;
   }
 
-  void quot_and_rem(
-      const polynomial_of &that, polynomial_of &rquot, polynomial_of &rrem) const
-      requires spffl::concepts::Field_element<Coeff> {
+  void quot_and_rem(const polynomial_of &that, polynomial_of &rquot, polynomial_of &rrem) const
+    requires spffl::concepts::Field_element<Coeff>
+  {
     Coeff zero = zero_coeff();
 
     if (that.is_zero()) {
@@ -306,27 +301,26 @@ public:
     }
     if (this->is_zero()) {
       rquot = polynomial_of(zero);
-      rrem  = *this;
+      rrem = *this;
       return;
     }
 
     int dividend_degree = this->find_degree();
-    int divisor_degree  = that.find_degree();
+    int divisor_degree = that.find_degree();
 
     if (dividend_degree < divisor_degree) {
       rquot = polynomial_of(zero);
-      rrem  = *this;
+      rrem = *this;
       return;
     }
 
     polynomial_of quot;
-    quot.coeffs_.assign(
-        static_cast<std::size_t>(dividend_degree - divisor_degree + 1), zero);
+    quot.coeffs_.assign(static_cast<std::size_t>(dividend_degree - divisor_degree + 1), zero);
 
     polynomial_of rem(*this);
 
-    int max_shift         = dividend_degree - divisor_degree;
-    Coeff divisor_leader  = that.coeffs_[static_cast<std::size_t>(divisor_degree)];
+    int max_shift = dividend_degree - divisor_degree;
+    Coeff divisor_leader = that.coeffs_[static_cast<std::size_t>(divisor_degree)];
     Coeff dlinv;
     if (!divisor_leader.recip(dlinv)) {
       std::ostringstream oss;
@@ -335,15 +329,14 @@ public:
     }
 
     for (int shift = max_shift; shift >= 0; --shift) {
-      Coeff rem_leader =
-          rem.coeffs_[static_cast<std::size_t>(shift + divisor_degree)];
+      Coeff rem_leader = rem.coeffs_[static_cast<std::size_t>(shift + divisor_degree)];
       Coeff multiplier = rem_leader * dlinv;
 
       quot.coeffs_[static_cast<std::size_t>(shift)] = multiplier;
 
       for (int i = 0; i <= divisor_degree; ++i) {
         rem.coeffs_[static_cast<std::size_t>(i + shift)] -=
-            that.coeffs_[static_cast<std::size_t>(i)] * multiplier;
+          that.coeffs_[static_cast<std::size_t>(i)] * multiplier;
       }
       rem.trim_degree();
     }
@@ -352,11 +345,12 @@ public:
     rem.trim_degree();
 
     rquot = quot;
-    rrem  = rem;
+    rrem = rem;
   }
 
   polynomial_of gcd(const polynomial_of &that) const
-      requires spffl::concepts::Field_element<Coeff> {
+    requires spffl::concepts::Field_element<Coeff>
+  {
     polynomial_of z(zero_coeff());
 
     if (this->is_zero()) {
@@ -382,12 +376,12 @@ public:
   }
 
   // Extended GCD: returns g = gcd(*this, that), and rm, rn with this*rm + that*rn = g.
-  polynomial_of ext_gcd(const polynomial_of &that, polynomial_of &rm,
-                        polynomial_of &rn) const
-      requires spffl::concepts::Field_element<Coeff> {
+  polynomial_of ext_gcd(const polynomial_of &that, polynomial_of &rm, polynomial_of &rn) const
+    requires spffl::concepts::Field_element<Coeff>
+  {
     polynomial_of mprime = polynomial_of(one_coeff());
-    rn                   = polynomial_of(one_coeff());
-    rm                   = polynomial_of(zero_coeff());
+    rn = polynomial_of(one_coeff());
+    rm = polynomial_of(zero_coeff());
     polynomial_of nprime = polynomial_of(zero_coeff());
     polynomial_of c(*this), d(that), q, r, t, qm, qn;
 
@@ -399,23 +393,24 @@ public:
       c = d;
       d = r;
 
-      t      = mprime;
+      t = mprime;
       mprime = rm;
-      qm     = q * rm;
-      rm     = t - qm;
+      qm = q * rm;
+      rm = t - qm;
 
-      t      = nprime;
+      t = nprime;
       nprime = rn;
-      qn     = q * rn;
-      rn     = t - qn;
+      qn = q * rn;
+      rn = t - qn;
     }
     return d;
   }
 
   // Scalar exponentiation: (*this)^e (e >= 0).
   polynomial_of exp(int e) const
-      requires spffl::concepts::Field_element<Coeff> {
-    Coeff z   = zero_coeff();
+    requires spffl::concepts::Field_element<Coeff>
+  {
+    Coeff z = zero_coeff();
     Coeff one = one_coeff();
     polynomial_of zero_poly(z);
     polynomial_of one_poly(one);
@@ -451,8 +446,8 @@ public:
   // Formal derivative: d/dx (sum c_i x^i) = sum i*c_i x^{i-1}.
   // Requires Coeff to have get_modulus() and Coeff(i, modulus) for scalar i.
   polynomial_of deriv() const
-      requires spffl::concepts::Field_element<Coeff> &&
-               spffl::concepts::has_get_modulus_v<Coeff> {
+    requires spffl::concepts::Field_element<Coeff> && spffl::concepts::has_get_modulus_v<Coeff>
+  {
     int d = find_degree();
     Coeff z = zero_coeff();
     if (d <= 0) {
@@ -461,42 +456,46 @@ public:
     auto m = coeffs_[0].get_modulus();
     std::vector<Coeff> out(static_cast<std::size_t>(d), z);
     for (int i = 1; i <= d; ++i) {
-      out[static_cast<std::size_t>(i - 1)] =
-          coeffs_[static_cast<std::size_t>(i)] * Coeff(i, m);
+      out[static_cast<std::size_t>(i - 1)] = coeffs_[static_cast<std::size_t>(i)] * Coeff(i, m);
     }
     return polynomial_of(std::move(out));
   }
 
   polynomial_of operator/(const polynomial_of &that) const
-      requires spffl::concepts::Field_element<Coeff> {
+    requires spffl::concepts::Field_element<Coeff>
+  {
     polynomial_of q, r;
     this->quot_and_rem(that, q, r);
     return q;
   }
 
   polynomial_of operator%(const polynomial_of &that) const
-      requires spffl::concepts::Field_element<Coeff> {
+    requires spffl::concepts::Field_element<Coeff>
+  {
     polynomial_of q, r;
     this->quot_and_rem(that, q, r);
     return r;
   }
 
   polynomial_of &operator/=(const polynomial_of &that)
-      requires spffl::concepts::Field_element<Coeff> {
+    requires spffl::concepts::Field_element<Coeff>
+  {
     *this = *this / that;
     return *this;
   }
 
   polynomial_of &operator%=(const polynomial_of &that)
-      requires spffl::concepts::Field_element<Coeff> {
+    requires spffl::concepts::Field_element<Coeff>
+  {
     *this = *this % that;
     return *this;
   }
 
-  /// p-th root in characteristic p: keep only coefficients at indices 0, p, 2p, ... Return false if not a p-th power.
+  /// p-th root in characteristic p: keep only coefficients at indices 0, p, 2p, ... Return false if
+  /// not a p-th power.
   bool pth_root(polynomial_of &rroot) const
-      requires spffl::concepts::Field_element<Coeff> &&
-               spffl::concepts::has_get_modulus_v<Coeff> {
+    requires spffl::concepts::Field_element<Coeff> && spffl::concepts::has_get_modulus_v<Coeff>
+  {
     int p = get_characteristic();
     Coeff z = zero_coeff();
     int d = find_degree();
@@ -509,21 +508,23 @@ public:
         }
       }
     }
-    if (out.empty()) out.push_back(z);
+    if (out.empty())
+      out.push_back(z);
     rroot = polynomial_of(std::move(out));
     return true;
   }
 
   // Free-function-style helper for templates (ADL-friendly).
   friend polynomial_of gcd(const polynomial_of &a, const polynomial_of &b)
-      requires spffl::concepts::Field_element<Coeff> {
+    requires spffl::concepts::Field_element<Coeff>
+  {
     return a.gcd(b);
   }
 
   /// Legacy compat: add 1 to constant term with carry (increment in lex order).
   void increment()
-      requires spffl::concepts::Field_element<Coeff> &&
-               spffl::concepts::has_get_modulus_v<Coeff> {
+    requires spffl::concepts::Field_element<Coeff> && spffl::concepts::has_get_modulus_v<Coeff>
+  {
     int p = get_characteristic();
     Coeff z = zero_coeff();
     Coeff one = Coeff(1, p);
@@ -570,14 +571,15 @@ public:
     return os;
   }
 
-private:
+  private:
   std::vector<Coeff> coeffs_; // coeffs_[i] is coefficient of x^i
 
   Coeff zero_coeff() const { return coeffs_[0] - coeffs_[0]; }
 
   /// Multiplicative identity in the coefficient ring (requires Field_element).
   Coeff one_coeff() const
-      requires spffl::concepts::Field_element<Coeff> {
+    requires spffl::concepts::Field_element<Coeff>
+  {
     Coeff z = zero_coeff();
     for (const auto &c : coeffs_) {
       if (c != z) {
@@ -587,22 +589,21 @@ private:
         }
       }
     }
-    return z;  // zero polynomial: no multiplicative identity
+    return z; // zero polynomial: no multiplicative identity
   }
 
-public:
+  public:
   /// Constant polynomial 1 (convenience for residue rings etc.).
   static polynomial_of one(const polynomial_of &p)
-      requires spffl::concepts::Field_element<Coeff> {
+    requires spffl::concepts::Field_element<Coeff>
+  {
     return polynomial_of(p.one_coeff());
   }
 
-private:
-
+  private:
   void trim_degree() {
     Coeff z = zero_coeff();
-    while (coeffs_.size() > 1 &&
-           coeffs_.back() == z) {
+    while (coeffs_.size() > 1 && coeffs_.back() == z) {
       coeffs_.pop_back();
     }
   }

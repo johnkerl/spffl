@@ -14,7 +14,7 @@ namespace spffl::rationals {
 
 // ----------------------------------------------------------------
 fp_polyrat_t::fp_polyrat_t(const spffl::polynomials::fp_poly_t &numerator,
-    const spffl::polynomials::fp_poly_t &denominator) {
+  const spffl::polynomials::fp_poly_t &denominator) {
   this->numer = numerator;
   this->denom = denominator;
   this->simplify();
@@ -48,14 +48,11 @@ fp_polyrat_t fp_polyrat_t::prime_subfield_element(int v) const {
 // ----------------------------------------------------------------
 // This is a static method.
 fp_polyrat_t fp_polyrat_t::prime_subfield_element(int v, int p) {
-  return fp_polyrat_t(
-      spffl::polynomials::fp_poly_t(spffl::intmath::intmod_t(v, p)));
+  return fp_polyrat_t(spffl::polynomials::fp_poly_t(spffl::intmath::intmod_t(v, p)));
 }
 
 // ----------------------------------------------------------------
-int fp_polyrat_t::get_characteristic(void) const {
-  return this->numer.get_characteristic();
-}
+int fp_polyrat_t::get_characteristic(void) const { return this->numer.get_characteristic(); }
 
 // ----------------------------------------------------------------
 fp_polyrat_t &fp_polyrat_t::operator=(const fp_polyrat_t &that) {
@@ -159,7 +156,7 @@ fp_polyrat_t fp_polyrat_t::exp(int e) const {
       throw spffl::exception_t(ss.str());
     }
     xp = one / xp;
-    e  = -e;
+    e = -e;
   }
 
   while (e != 0) {
@@ -300,9 +297,7 @@ bool fp_polyrat_t::operator==(const fp_polyrat_t &that) const {
 }
 
 // ----------------------------------------------------------------
-bool fp_polyrat_t::operator!=(const fp_polyrat_t &that) const {
-  return !(*this == that);
-}
+bool fp_polyrat_t::operator!=(const fp_polyrat_t &that) const { return !(*this == that); }
 
 // ----------------------------------------------------------------
 bool fp_polyrat_t::operator==(spffl::polynomials::fp_poly_t that) const {
@@ -313,9 +308,7 @@ bool fp_polyrat_t::operator==(spffl::polynomials::fp_poly_t that) const {
 }
 
 // ----------------------------------------------------------------
-bool fp_polyrat_t::operator!=(spffl::polynomials::fp_poly_t that) const {
-  return !(*this == that);
-}
+bool fp_polyrat_t::operator!=(spffl::polynomials::fp_poly_t that) const { return !(*this == that); }
 
 // ----------------------------------------------------------------
 bool fp_polyrat_t::operator<(const fp_polyrat_t &that) const {
@@ -338,14 +331,10 @@ bool fp_polyrat_t::operator>=(const fp_polyrat_t &that) const {
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::fp_poly_t fp_polyrat_t::get_numerator(void) const {
-  return this->numer;
-}
+spffl::polynomials::fp_poly_t fp_polyrat_t::get_numerator(void) const { return this->numer; }
 
 // ----------------------------------------------------------------
-spffl::polynomials::fp_poly_t fp_polyrat_t::get_denominator(void) const {
-  return this->denom;
-}
+spffl::polynomials::fp_poly_t fp_polyrat_t::get_denominator(void) const { return this->denom; }
 
 // ----------------------------------------------------------------
 // * Check denominator != 0

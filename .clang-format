@@ -1,6 +1,31 @@
-# https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+# Match spffl project style (2-space indent, K&R braces, C++20).
+BasedOnStyle: LLVM
+Language: Cpp
+Standard: c++20
 
-InsertBraces: true
-AlignConsecutiveAssignments: Consecutive
+IndentWidth: 2
+TabWidth: 2
+UseTab: Never
+
+ColumnLimit: 100
+
+BreakBeforeBraces: Attach
+AllowShortBlocksOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+
+# References and pointers: attach to name (Type &x, Type *p).
+PointerAlignment: Right
+
+# Keep include order as in source (minimize diff).
+SortIncludes: false
+
+# Access modifiers at same indent as class body.
+AccessModifierOffset: 0
+
+# No extra indent for namespace contents (2 spaces from file margin).
+NamespaceIndentation: None
+
+# Use fixed indent for continuations (no alignment under first argument).
 AlignAfterOpenBracket: DontAlign
-
+ContinuationIndentWidth: 2

@@ -9,9 +9,9 @@
 #include "spffl/polynomials/f2_poly_t.h"
 
 using spffl::residue_of;
-using spffl::polynomials::fp_poly_t;
-using spffl::polynomials::f2_poly_t;
 using spffl::intmath::intmod_t;
+using spffl::polynomials::f2_poly_t;
+using spffl::polynomials::fp_poly_t;
 
 // ---------------------------------------------------------------------------
 // Concepts
@@ -40,10 +40,10 @@ TEST_CASE("residue_of<int>: basic ring ops (Z/7)") {
   residue_of<int> a(3, 7);
   residue_of<int> b(5, 7);
 
-  CHECK((a + b).get_residue() == 1);   // 3+5=8 ≡ 1
-  CHECK((a - b).get_residue() == 5);   // 3-5=-2 ≡ 5
-  CHECK((a * b).get_residue() == 1);   // 15 ≡ 1
-  CHECK((-a).get_residue() == 4);      // -3 ≡ 4
+  CHECK((a + b).get_residue() == 1); // 3+5=8 ≡ 1
+  CHECK((a - b).get_residue() == 5); // 3-5=-2 ≡ 5
+  CHECK((a * b).get_residue() == 1); // 15 ≡ 1
+  CHECK((-a).get_residue() == 4);    // -3 ≡ 4
 }
 
 TEST_CASE("residue_of<int>: inverse and division") {
@@ -61,7 +61,7 @@ TEST_CASE("residue_of<int>: inverse and division") {
 TEST_CASE("residue_of<int>: exp") {
   residue_of<int> a(2, 7);
   auto a3 = a.exp(3);
-  CHECK(a3.get_residue() == 1);  // 2^3 = 8 ≡ 1
+  CHECK(a3.get_residue() == 1); // 2^3 = 8 ≡ 1
 }
 
 // ---------------------------------------------------------------------------
@@ -70,15 +70,15 @@ TEST_CASE("residue_of<int>: exp") {
 
 TEST_CASE("residue_of<fp_poly_t>: F7[x]/(x^2+1) ring and inverse") {
   int p = 7;
-  fp_poly_t modulus(intmod_t(1, p), intmod_t(0, p), intmod_t(1, p));  // x^2+1
-  fp_poly_t x_poly(intmod_t(0, p), intmod_t(1, p));                   // x
+  fp_poly_t modulus(intmod_t(1, p), intmod_t(0, p), intmod_t(1, p)); // x^2+1
+  fp_poly_t x_poly(intmod_t(0, p), intmod_t(1, p));                  // x
   fp_poly_t one_poly(intmod_t(1, p));
 
   residue_of<fp_poly_t> x_mod(x_poly, modulus);
   residue_of<fp_poly_t> one_mod(one_poly, modulus);
 
   auto x_sq = x_mod * x_mod;
-  CHECK(x_sq.get_residue().find_degree() == 0);  // x^2 ≡ constant (e.g. -1 or 6 in F7)
+  CHECK(x_sq.get_residue().find_degree() == 0); // x^2 ≡ constant (e.g. -1 or 6 in F7)
 
   residue_of<fp_poly_t> x_inv;
   REQUIRE(x_mod.recip(x_inv));
@@ -91,15 +91,15 @@ TEST_CASE("residue_of<fp_poly_t>: F7[x]/(x^2+1) ring and inverse") {
 // ---------------------------------------------------------------------------
 
 TEST_CASE("residue_of<f2_poly_t>: F2[x]/(x^2+x+1) ring and inverse") {
-  f2_poly_t modulus(1, 1, 1);   // x^2 + x + 1
-  f2_poly_t x_poly(1, 0);       // x
+  f2_poly_t modulus(1, 1, 1); // x^2 + x + 1
+  f2_poly_t x_poly(1, 0);     // x
   f2_poly_t one_poly(1);
 
   residue_of<f2_poly_t> x_mod(x_poly, modulus);
   residue_of<f2_poly_t> one_mod(one_poly, modulus);
 
   auto x_sq = x_mod * x_mod;
-  CHECK(x_sq.get_residue().find_degree() <= 1);  // reduced mod x^2+x+1
+  CHECK(x_sq.get_residue().find_degree() <= 1); // reduced mod x^2+x+1
 
   residue_of<f2_poly_t> x_inv;
   REQUIRE(x_mod.recip(x_inv));

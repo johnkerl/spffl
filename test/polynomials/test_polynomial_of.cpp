@@ -28,14 +28,14 @@ TEST_CASE("fp_polymod_t models Residue_ring") {
 }
 
 TEST_CASE("polynomial_of<int>: basic arithmetic") {
-  polynomial_of<int> p1(1, 2);     // 2x + 1
-  polynomial_of<int> p2(3, -1);    // -1 + 3x
+  polynomial_of<int> p1(1, 2);  // 2x + 1
+  polynomial_of<int> p2(3, -1); // -1 + 3x
 
-  auto sum = p1 + p2;              // (2x+1)+(-1+3x) = 5x
+  auto sum = p1 + p2; // (2x+1)+(-1+3x) = 5x
   CHECK(sum.find_degree() == 1);
   CHECK(sum.eval(1) == 5);
 
-  auto prod = p1 * p2;             // (2x+1)*(-1+3x) = -1 + x + 6x^2
+  auto prod = p1 * p2; // (2x+1)*(-1+3x) = -1 + x + 6x^2
   CHECK(prod.find_degree() == 2);
   CHECK(prod.eval(1) == (-1 + 1 + 6)); // = 6
 }
@@ -63,9 +63,18 @@ struct mod7_t {
   mod7_t operator-() const { return mod7_t(-v); }
   mod7_t operator*(mod7_t that) const { return mod7_t(v * that.v); }
 
-  mod7_t &operator+=(mod7_t that) { v = norm(v + that.v); return *this; }
-  mod7_t &operator-=(mod7_t that) { v = norm(v - that.v); return *this; }
-  mod7_t &operator*=(mod7_t that) { v = norm(v * that.v); return *this; }
+  mod7_t &operator+=(mod7_t that) {
+    v = norm(v + that.v);
+    return *this;
+  }
+  mod7_t &operator-=(mod7_t that) {
+    v = norm(v - that.v);
+    return *this;
+  }
+  mod7_t &operator*=(mod7_t that) {
+    v = norm(v * that.v);
+    return *this;
+  }
 
   bool operator==(mod7_t that) const { return v == that.v; }
   bool operator!=(mod7_t that) const { return v != that.v; }
@@ -100,9 +109,9 @@ TEST_CASE("polynomial_of<mod7_t>: quot_and_rem and gcd") {
   mod7_t z(0), o(1), two(2);
 
   // p(x) = x^2 + 1 over F_7
-  P p(o, z, o);       // coeffs: 1 (x^0), 0 (x^1), 1 (x^2)
+  P p(o, z, o); // coeffs: 1 (x^0), 0 (x^1), 1 (x^2)
   // q(x) = x + 1
-  P q(o, o);          // coeffs: 1 (x^0), 1 (x^1)
+  P q(o, o); // coeffs: 1 (x^0), 1 (x^1)
 
   // Expect p = (x - 1)*q + 2 over F_7.
   P quot, rem;
@@ -132,17 +141,17 @@ TEST_CASE("polynomial_of<mod7_t>: quot_and_rem and gcd") {
 #include "spffl/polynomials/aliases.h"
 
 TEST_CASE("fp_poly_t (polynomial_of<intmod_t>): F7[x] arithmetic and division") {
-  using spffl::polynomials::fp_poly_t;
   using spffl::intmath::intmod_t;
+  using spffl::polynomials::fp_poly_t;
 
   const int p = 7;
   intmod_t zero(0, p), one(1, p);
 
   // a(x) = x^2 + 1,  b(x) = x + 1  in F_7[x]
-  fp_poly_t a(one, zero, one);   // coeffs x^0, x^1, x^2
+  fp_poly_t a(one, zero, one); // coeffs x^0, x^1, x^2
   fp_poly_t b(one, one);
 
-  fp_poly_t sum = a + b;         // x^2 + x + 2
+  fp_poly_t sum = a + b; // x^2 + x + 2
   CHECK(sum.find_degree() == 2);
   CHECK(sum.eval(intmod_t(0, p)).get_residue() == 2);
   CHECK(sum.eval(intmod_t(1, p)).get_residue() == 4);
@@ -180,11 +189,11 @@ TEST_CASE("fp_poly_t (polynomial_of<intmod_t>): F7[x] arithmetic and division") 
   // Direct quot_and_rem: x^2 / (x^2+1) => quot=1, rem=-1 (constant 6 mod 7)
   // (c2,c1,c0) -> coeffs_[0]=c0, coeffs_[2]=c2; x^2 has coeffs [0,0,1] so (one, zero, zero)
   fp_poly_t x_sq_poly(one, zero, zero);
-  fp_poly_t m_poly(one, zero, one);  // x^2+1
+  fp_poly_t m_poly(one, zero, one); // x^2+1
   fp_poly_t qq, rr;
   x_sq_poly.quot_and_rem(m_poly, qq, rr);
   CHECK(rr.find_degree() == 0);
-  CHECK(rr.get_coeff(0).get_residue() == 6);  // -1 mod 7
+  CHECK(rr.get_coeff(0).get_residue() == 6); // -1 mod 7
 
   // operator/ and operator%
   fp_poly_t q_div = x_sq_poly / m_poly;
@@ -208,9 +217,9 @@ TEST_CASE("fp_poly_t (polynomial_of<intmod_t>): F7[x] arithmetic and division") 
 #include "spffl/polynomials/fp_polymod_t.h"
 
 TEST_CASE("fp_polymod_t: F7[x]/(x^2+1) ring and inverse") {
+  using spffl::intmath::intmod_t;
   using spffl::polynomials::fp_poly_t;
   using spffl::polynomials::fp_polymod_t;
-  using spffl::intmath::intmod_t;
 
   const int p = 7;
   intmod_t zero(0, p), one(1, p);
@@ -223,7 +232,7 @@ TEST_CASE("fp_polymod_t: F7[x]/(x^2+1) ring and inverse") {
 
   fp_polymod_t one_mod(fp_poly_t::one(x_poly), m);
   fp_polymod_t zero_mod(fp_poly_t(zero), m);
-  fp_polymod_t x_sq = x_mod * x_mod;  // x^2 ≡ -1 (mod x^2+1)
+  fp_polymod_t x_sq = x_mod * x_mod; // x^2 ≡ -1 (mod x^2+1)
   CHECK(x_sq.get_residue().find_degree() == 0);
   // x^2 = -1 so x_sq + 1 = 0 in the ring
   CHECK((x_sq + one_mod).get_residue().get_coeff(0).get_residue() == 0);
@@ -254,7 +263,7 @@ TEST_CASE("fp_poly_from_string: comma-separated coefficients, leading first") {
   CHECK(p.get_coeff(1).get_residue() == 0);
   CHECK(p.get_coeff(2).get_residue() == 1);
 
-  opt = fp_poly_from_string("1,2", 7);  // 2 + x
+  opt = fp_poly_from_string("1,2", 7); // 2 + x
   REQUIRE(opt.has_value());
   p = *opt;
   CHECK(p.find_degree() == 1);
@@ -283,21 +292,21 @@ TEST_CASE("fp_poly_t operator>>: modulus then coefficients") {
 
 TEST_CASE("fp_polymod_from_string: residue with given modulus") {
   using spffl::polynomials::fp_poly_from_string;
-  using spffl::polynomials::fp_polymod_from_string;
   using spffl::polynomials::fp_poly_t;
+  using spffl::polynomials::fp_polymod_from_string;
   using spffl::polynomials::fp_polymod_t;
 
-  auto mod_opt = fp_poly_from_string("1,0,1", 7);  // x^2 + 1
+  auto mod_opt = fp_poly_from_string("1,0,1", 7); // x^2 + 1
   REQUIRE(mod_opt.has_value());
   fp_poly_t m = *mod_opt;
 
-  auto res_opt = fp_polymod_from_string("1,0", m);  // residue x (leading 1, constant 0)
+  auto res_opt = fp_polymod_from_string("1,0", m); // residue x (leading 1, constant 0)
   REQUIRE(res_opt.has_value());
   fp_polymod_t a = *res_opt;
   CHECK(a.get_residue().find_degree() == 1);
   CHECK(a.get_residue().get_coeff(1).get_residue() == 1);
 
-  res_opt = fp_polymod_from_string("1", m);  // residue 1
+  res_opt = fp_polymod_from_string("1", m); // residue 1
   REQUIRE(res_opt.has_value());
   a = *res_opt;
   CHECK(a.get_residue().find_degree() == 0);
@@ -307,7 +316,7 @@ TEST_CASE("fp_polymod_from_string: residue with given modulus") {
 TEST_CASE("fp_polymod_t operator>>: p, modulus coeffs, residue coeffs on one line") {
   using spffl::polynomials::fp_polymod_t;
 
-  std::istringstream iss("7 1,0,1 1,0");  // F7[x]/(x^2+1), element x (residue coeffs leading first)
+  std::istringstream iss("7 1,0,1 1,0"); // F7[x]/(x^2+1), element x (residue coeffs leading first)
   fp_polymod_t a;
   iss >> a;
   REQUIRE(iss);
@@ -329,11 +338,11 @@ TEST_CASE("f2_poly_t models Polynomial_with_ext_gcd") {
 
 TEST_CASE("f2_poly_t: arithmetic and quot_rem") {
   using spffl::polynomials::f2_poly_t;
-  f2_poly_t x(1, 0);   // x
+  f2_poly_t x(1, 0); // x
   f2_poly_t one(1);
   f2_poly_t x2 = x * x;
-  f2_poly_t a = x2 + one;  // x^2 + 1
-  f2_poly_t b = x + one;   // x + 1
+  f2_poly_t a = x2 + one; // x^2 + 1
+  f2_poly_t b = x + one;  // x + 1
 
   f2_poly_t q, r;
   a.quot_and_rem(b, q, r);
@@ -369,19 +378,19 @@ TEST_CASE("f2_poly_from_string: hex low-bit-first") {
   CHECK(p.find_degree() == 0);
   CHECK(p.bit_at(0) == 1);
 
-  REQUIRE(p.from_string("2"));  // 2 = x in F2[x]
+  REQUIRE(p.from_string("2")); // 2 = x in F2[x]
   CHECK(p.find_degree() == 1);
   CHECK(p.bit_at(1) == 1);
   CHECK(p.bit_at(0) == 0);
 
-  REQUIRE(p.from_string("5"));  // 5 = 1 + x^2
+  REQUIRE(p.from_string("5")); // 5 = 1 + x^2
   CHECK(p.find_degree() == 2);
   CHECK(p.bit_at(2) == 1);
   CHECK(p.bit_at(1) == 0);
   CHECK(p.bit_at(0) == 1);
 
   CHECK(!p.from_string(""));
-  CHECK(!p.from_string("g"));   // non-hex
+  CHECK(!p.from_string("g")); // non-hex
 }
 
 TEST_CASE("f2_poly_t operator>>: hex low-bit-first") {

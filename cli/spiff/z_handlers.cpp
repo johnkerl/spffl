@@ -39,8 +39,7 @@ int z_gcd_main(int argc, char **argv, usage_t *pusage) {
     }
 
     g = spffl::intmath::int_ext_gcd(a, b, r, s);
-    std::cout << g << " = " << r << " * " << a << " + " << s << " * " << b
-              << std::endl;
+    std::cout << g << " = " << r << " * " << a << " + " << s << " * " << b << std::endl;
 
     int check = a * r + b * s;
     if (g != check) {
@@ -169,7 +168,7 @@ void z_list_usage(char *argv0) {
 
 int z_list_main(int argc, char **argv, usage_t *pusage) {
   int walker = 1;
-  int reps   = 1;
+  int reps = 1;
   int stride = 1;
 
   if (argc < 2 || argc > 4) {
@@ -236,7 +235,7 @@ void z_divisors_usage(char *argv0) {
 
 int z_divisors_main(int argc, char **argv, usage_t *pusage) {
   int a;
-  int argb                = 1;
+  int argb = 1;
   int maximal_proper_only = 0;
   if ((argc >= 2) && (strcmp(argv[1], "-mp") == 0)) {
     argb++;

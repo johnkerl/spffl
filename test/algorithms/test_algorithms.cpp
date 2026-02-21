@@ -1,5 +1,6 @@
 // Tests for generic algorithms (optional_inverse, optional_solve_ax_eq_b, optional_solve_2x2).
-// Types that model Residue_ring_with_recip: intmod_t, residue_of<int>, fp_polymod_t, residue_of<f2_poly_t>.
+// Types that model Residue_ring_with_recip: intmod_t, residue_of<int>, fp_polymod_t,
+// residue_of<f2_poly_t>.
 
 #include <catch2/catch_test_macros.hpp>
 
@@ -13,16 +14,16 @@
 #include "spffl/polynomials/f2_poly_t.h"
 #include "spffl/intmath/intmod_t.h"
 
+using spffl::residue_of;
 using spffl::algorithms::optional_inverse;
-using spffl::algorithms::optional_solve_ax_eq_b;
 using spffl::algorithms::optional_solve_2x2;
+using spffl::algorithms::optional_solve_ax_eq_b;
 using spffl::containers::matrix_over;
 using spffl::containers::vector_over;
-using spffl::residue_of;
+using spffl::intmath::intmod_t;
+using spffl::polynomials::f2_poly_t;
 using spffl::polynomials::fp_poly_t;
 using spffl::polynomials::fp_polymod_t;
-using spffl::polynomials::f2_poly_t;
-using spffl::intmath::intmod_t;
 
 TEST_CASE("optional_inverse: intmod_t") {
   intmod_t a(3, 7);
@@ -72,8 +73,8 @@ TEST_CASE("optional_inverse: fp_polymod_t") {
 }
 
 TEST_CASE("optional_inverse: residue_of<f2_poly_t>") {
-  f2_poly_t mod(1, 1, 1);   // x^2+x+1
-  f2_poly_t x_poly(1, 0);    // x
+  f2_poly_t mod(1, 1, 1); // x^2+x+1
+  f2_poly_t x_poly(1, 0); // x
   residue_of<f2_poly_t> x_mod(x_poly, mod);
   auto inv = optional_inverse(x_mod);
   REQUIRE(inv.has_value());

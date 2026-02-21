@@ -18,56 +18,53 @@ template <class element_type> class tmatrix;
 #include "spffl/containers/tmatrix.h"
 #include "spffl/intmath/int_gcd.h"
 
-template <class element_type>
-static int tvqcmp(const void *pv1, const void *pv2);
+template <class element_type> static int tvqcmp(const void *pv1, const void *pv2);
 
 template <class element_type>
-static std::ostream &operator<<(
-    std::ostream &os, const tvector<element_type> &v);
+static std::ostream &operator<<(std::ostream &os, const tvector<element_type> &v);
 
 template <class element_type>
 static std::istream &operator>>(std::istream &is, tvector<element_type> &v);
 
 template <class element_type>
-static std::istringstream &operator>>(
-    std::istringstream &iss, tvector<element_type> &v);
+static std::istringstream &operator>>(std::istringstream &iss, tvector<element_type> &v);
 
 // ================================================================
 template <class element_type> class tvector {
-public:
+  public:
   // ================================================================
   // Constructors
 
   // ----------------------------------------------------------------
   tvector(void) {
     this->num_elements = 0;
-    this->elements     = 0;
+    this->elements = 0;
   }
 
   // ----------------------------------------------------------------
   tvector(int init_num_elements) {
     if (init_num_elements <= 0) {
       std::stringstream ss;
-      ss << "tvector::tvector():  Vector size must be > 0; got "
-         << init_num_elements << ".  Exiting." << std::endl;
+      ss << "tvector::tvector():  Vector size must be > 0; got " << init_num_elements
+         << ".  Exiting." << std::endl;
       throw spffl::exception_t(ss.str());
     }
 
     this->num_elements = init_num_elements;
-    this->elements     = new element_type[init_num_elements];
+    this->elements = new element_type[init_num_elements];
   }
 
   // ----------------------------------------------------------------
   tvector(const element_type &e, int init_num_elements) {
     if (init_num_elements <= 0) {
       std::stringstream ss;
-      ss << "tvector::tvector():  Vector size must be > 0; got "
-         << init_num_elements << ".  Exiting." << std::endl;
+      ss << "tvector::tvector():  Vector size must be > 0; got " << init_num_elements
+         << ".  Exiting." << std::endl;
       throw spffl::exception_t(ss.str());
     }
 
     this->num_elements = init_num_elements;
-    this->elements     = new element_type[init_num_elements];
+    this->elements = new element_type[init_num_elements];
     for (int i = 0; i < this->num_elements; i++) {
       this->elements[i] = e;
     }
@@ -76,7 +73,7 @@ public:
   // ----------------------------------------------------------------
   tvector(const tvector<element_type> &that) {
     this->num_elements = that.num_elements;
-    this->elements     = new element_type[that.num_elements];
+    this->elements = new element_type[that.num_elements];
     for (int i = 0; i < that.num_elements; i++) {
       this->elements[i] = that.elements[i];
     }
@@ -117,21 +114,19 @@ public:
       }
     } else {
       this->num_elements = 1;
-      this->elements     = new element_type[1];
-      this->elements[0]  = scalar;
+      this->elements = new element_type[1];
+      this->elements[0] = scalar;
     }
     return *this;
   }
 
   // ----------------------------------------------------------------
   // I/O format:  all elements on one line, delimited by whitespace.
-  friend std::ostream &operator<< <>(
-      std::ostream &os, const tvector<element_type> &v);
+  friend std::ostream &operator<< <>(std::ostream &os, const tvector<element_type> &v);
 
-  friend std::istream &operator>><>(std::istream &is, tvector<element_type> &v);
+  friend std::istream &operator>> <>(std::istream &is, tvector<element_type> &v);
 
-  friend std::istringstream &operator>>
-      <>(std::istringstream &iss, tvector<element_type> &v);
+  friend std::istringstream &operator>> <>(std::istringstream &iss, tvector<element_type> &v);
 
   // ----------------------------------------------------------------
   // See comment for istringstream >>:  the vector must already have one
@@ -192,8 +187,7 @@ public:
 
     if (ifs.fail()) {
       std::stringstream ss;
-      ss << "tvector::load_from_file:  scan failure reading \"" << file_name
-         << "\"\n";
+      ss << "tvector::load_from_file:  scan failure reading \"" << file_name << "\"\n";
       ifs.close();
       return false;
     }
@@ -209,8 +203,8 @@ public:
       delete[] this->elements;
     }
     this->num_elements = 1;
-    this->elements     = new element_type[1];
-    this->elements[0]  = zero;
+    this->elements = new element_type[1];
+    this->elements[0] = zero;
     return this->load_from_file(file_name);
   }
 
@@ -236,8 +230,8 @@ public:
   element_type &operator[](int index) const {
     if ((index < 0) || (index >= this->num_elements)) {
       std::stringstream ss;
-      ss << "tvector array operator: index " << index << " out of bounds " << 0
-         << ":" << (this->num_elements - 1) << std::endl;
+      ss << "tvector array operator: index " << index << " out of bounds " << 0 << ":"
+         << (this->num_elements - 1) << std::endl;
       throw spffl::exception_t(ss.str());
     }
     return this->elements[index];
@@ -308,13 +302,12 @@ public:
     if (this->num_elements != Anr) {
       std::stringstream ss;
       ss << "tvector operator*(): Incompatibly dimensioned "
-         << "operands (" << this->num_elements << "," << Anr << "x" << Anc
-         << ")." << std::endl;
+         << "operands (" << this->num_elements << "," << Anr << "x" << Anc << ")." << std::endl;
       throw spffl::exception_t(ss.str());
     }
 
     tvector<element_type> rv(Anc);
-    element_type t0   = this->elements[0];
+    element_type t0 = this->elements[0];
     element_type zero = t0 - t0;
     for (j = 0; j < Anc; j++) {
       rv.elements[j] = zero;
@@ -415,8 +408,7 @@ public:
   //   *this = *this * a - that * b;
   // which results in allocating, copying, freeing, etc.
 
-  void accum_row_mul(
-      element_type a, element_type b, tvector<element_type> &that) {
+  void accum_row_mul(element_type a, element_type b, tvector<element_type> &that) {
     if (this->num_elements != that.num_elements) {
       (void)check_equal_lengths(that);
     }
@@ -439,9 +431,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  bool operator!=(const tvector<element_type> &that) const {
-    return !(*this == that);
-  }
+  bool operator!=(const tvector<element_type> &that) const { return !(*this == that); }
 
   // ----------------------------------------------------------------
   bool operator==(const element_type &e) const {
@@ -470,8 +460,7 @@ public:
 
   // ----------------------------------------------------------------
   void sort(void) {
-    qsort(this->elements, this->num_elements, sizeof(element_type),
-        tvqcmp<element_type>);
+    qsort(this->elements, this->num_elements, sizeof(element_type), tvqcmp<element_type>);
   }
 
   // ----------------------------------------------------------------
@@ -480,17 +469,16 @@ public:
       (void)check_equal_lengths(that);
     }
     element_type *temp = this->elements;
-    this->elements     = that.elements;
-    that.elements      = temp;
+    this->elements = that.elements;
+    that.elements = temp;
   }
 
   // ----------------------------------------------------------------
   void check_equal_lengths(const tvector<element_type> &that) const {
     if (this->num_elements != that.num_elements) {
       std::stringstream ss;
-      ss << "tvector operator+():  Incompatibly sized arguments ("
-         << this->num_elements << ", " << that.num_elements << ")."
-         << std::endl;
+      ss << "tvector operator+():  Incompatibly sized arguments (" << this->num_elements << ", "
+         << that.num_elements << ")." << std::endl;
       throw spffl::exception_t(ss.str());
     }
   }
@@ -499,8 +487,8 @@ public:
   void trim_num_elements(int new_num_elements) {
     if ((new_num_elements < 1) || (new_num_elements > this->num_elements)) {
       std::stringstream ss;
-      ss << "tvector trim_num_elements: new count " << new_num_elements
-         << " out of bounds " << 1 << ":" << this->num_elements << std::endl;
+      ss << "tvector trim_num_elements: new count " << new_num_elements << " out of bounds " << 1
+         << ":" << this->num_elements << std::endl;
       throw spffl::exception_t(ss.str());
     }
     this->num_elements = new_num_elements;
@@ -512,7 +500,7 @@ public:
   // ----------------------------------------------------------------
   int get_num_elements(void) const { return this->num_elements; }
 
-private:
+  private:
   // ================================================================
   element_type *elements;
   int num_elements;
@@ -520,8 +508,7 @@ private:
 
 // ================================================================
 template <class element_type>
-static std::ostream &operator<<(
-    std::ostream &os, const tvector<element_type> &v) {
+static std::ostream &operator<<(std::ostream &os, const tvector<element_type> &v) {
   for (int i = 0; i < v.num_elements; i++) {
     os << v.elements[i];
     if (i < (v.num_elements - 1)) {
@@ -554,11 +541,10 @@ static std::istream &operator>>(std::istream &is, tvector<element_type> &v) {
 // element (yuk).
 
 template <class element_type>
-static std::istringstream &operator>>(
-    std::istringstream &iss, tvector<element_type> &v) {
+static std::istringstream &operator>>(std::istringstream &iss, tvector<element_type> &v) {
   const int init_size = 10;
   const int more_size = 10;
-  int alloc_size      = init_size;
+  int alloc_size = init_size;
 
   if (!v.elements || (v.num_elements < 1)) {
     iss.setstate(std::ios::badbit);
@@ -571,7 +557,7 @@ static std::istringstream &operator>>(
   if (v.elements) {
     delete[] v.elements;
   }
-  v.elements     = 0;
+  v.elements = 0;
   v.num_elements = 0;
 
   v.elements = new element_type[alloc_size];
@@ -590,7 +576,7 @@ static std::istringstream &operator>>(
       delete[] v.elements;
       v.elements = ptemp;
     }
-    v.elements[v.num_elements] = zero;  // E.g. set modulus.
+    v.elements[v.num_elements] = zero; // E.g. set modulus.
     read_element(iss, zero, v.elements[v.num_elements]);
     if (iss.fail()) {
       std::stringstream ss;
@@ -607,8 +593,7 @@ static std::istringstream &operator>>(
 }
 
 // ----------------------------------------------------------------
-template <class element_type>
-static int tvqcmp(const void *pv1, const void *pv2) {
+template <class element_type> static int tvqcmp(const void *pv1, const void *pv2) {
   const element_type *p1 = (const element_type *)pv1;
   const element_type *p2 = (const element_type *)pv2;
   if (*p1 < *p2) {

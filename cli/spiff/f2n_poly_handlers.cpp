@@ -40,7 +40,7 @@ int f2n_p_list_main(int argc, char **argv, usage_t *pusage) {
   }
   for (int deg = deglo; deg <= deghi; deg++) {
     spffl::containers::vector_over<spffl::polynomials::f2n_poly_t> elts =
-        spffl::list::f2n_poly_list(m, deg);
+      spffl::list::f2n_poly_list(m, deg);
     elts.crout(std::cout);
   }
   return 0;
@@ -59,12 +59,9 @@ int f2n_p_op_main(int argc, char **argv, usage_t *pusage) {
   if (!m.from_string(argv[1])) {
     pusage(argv[0]);
   }
-  spffl::polynomials::f2n_poly_t zero =
-      spffl::polynomials::prime_subfield_element(0, m);
-  spffl::polynomials::f2n_poly_t one =
-      spffl::polynomials::prime_subfield_element(1, m);
-  spffl::cli_parser::cmd_line_parse<spffl::polynomials::f2n_poly_t>(
-      argc - 2, argv + 2, zero, one);
+  spffl::polynomials::f2n_poly_t zero = spffl::polynomials::prime_subfield_element(0, m);
+  spffl::polynomials::f2n_poly_t one = spffl::polynomials::prime_subfield_element(1, m);
+  spffl::cli_parser::cmd_line_parse<spffl::polynomials::f2n_poly_t>(argc - 2, argv + 2, zero, one);
   return 0;
 }
 
@@ -86,7 +83,8 @@ int f2n_p_deg_main(int argc, char **argv, usage_t *pusage) {
     spffl::polynomials::f2n_poly_t a;
     {
       auto opt = spffl::polynomials::f2n_poly_from_string(argv[argi], m);
-      if (!opt) pusage(argv[0]);
+      if (!opt)
+        pusage(argv[0]);
       a = std::move(*opt);
     }
     if (argc > 3) {
@@ -113,7 +111,8 @@ int f2n_p_gcd_main(int argc, char **argv, usage_t *pusage) {
     {
       auto opt_a = spffl::polynomials::f2n_poly_from_string(argv[2], m);
       auto opt_b = spffl::polynomials::f2n_poly_from_string(argv[3], m);
-      if (!opt_a || !opt_b) pusage(argv[0]);
+      if (!opt_a || !opt_b)
+        pusage(argv[0]);
       a = std::move(*opt_a);
       b = std::move(*opt_b);
     }
@@ -130,14 +129,14 @@ int f2n_p_gcd_main(int argc, char **argv, usage_t *pusage) {
     {
       auto opt_a = spffl::polynomials::f2n_poly_from_string(argv[3], m);
       auto opt_b = spffl::polynomials::f2n_poly_from_string(argv[4], m);
-      if (!opt_a || !opt_b) pusage(argv[0]);
+      if (!opt_a || !opt_b)
+        pusage(argv[0]);
       a = std::move(*opt_a);
       b = std::move(*opt_b);
     }
 
     g = a.ext_gcd(b, r, s);
-    std::cout << g << " = " << r << " * " << a << " + " << s << " * " << b
-              << std::endl;
+    std::cout << g << " = " << r << " * " << a << " + " << s << " * " << b << std::endl;
 
     spffl::polynomials::f2n_poly_t check = a * r + b * s;
     if (g != check) {
@@ -168,14 +167,16 @@ int f2n_p_lcm_main(int argc, char **argv, usage_t *pusage) {
   }
   {
     auto opt = spffl::polynomials::f2n_poly_from_string(argv[2], m);
-    if (!opt) pusage(argv[0]);
+    if (!opt)
+      pusage(argv[0]);
     a = std::move(*opt);
   }
   l = a;
   for (int argi = 3; argi < argc; argi++) {
     {
       auto opt = spffl::polynomials::f2n_poly_from_string(argv[argi], m);
-      if (!opt) pusage(argv[0]);
+      if (!opt)
+        pusage(argv[0]);
       a = std::move(*opt);
     }
     l = (l * a) / l.gcd(a);
@@ -202,7 +203,8 @@ int f2n_p_totient_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = 2; argi < argc; argi++) {
     {
       auto opt = spffl::polynomials::f2n_poly_from_string(argv[argi], m);
-      if (!opt) pusage(argv[0]);
+      if (!opt)
+        pusage(argv[0]);
       a = std::move(*opt);
     }
     phi = spffl::factorization::f2n_poly_totient(a);
@@ -232,7 +234,8 @@ int f2n_p_test_main(int argc, char **argv, usage_t *pusage) {
     spffl::polynomials::f2n_poly_t a;
     {
       auto opt = spffl::polynomials::f2n_poly_from_string(argv[argi], m);
-      if (!opt) pusage(argv[0]);
+      if (!opt)
+        pusage(argv[0]);
       a = std::move(*opt);
     }
     if (argc > 3) {
@@ -309,14 +312,14 @@ int f2n_p_factor_main(int argc, char **argv, usage_t *pusage) {
     spffl::polynomials::f2n_poly_t a;
     {
       auto opt = spffl::polynomials::f2n_poly_from_string(argv[argi], m);
-      if (!opt) pusage(argv[0]);
+      if (!opt)
+        pusage(argv[0]);
       a = std::move(*opt);
     }
     if (argc > 3) {
       std::cout << a << " = ";
     }
-    tfacinfo<spffl::polynomials::f2n_poly_t> finfo =
-        spffl::factorization::f2n_poly_factor(a);
+    tfacinfo<spffl::polynomials::f2n_poly_t> finfo = spffl::factorization::f2n_poly_factor(a);
     std::cout << finfo << std::endl;
 
     spffl::polynomials::f2_poly_t z(1);
@@ -341,7 +344,7 @@ void f2n_p_divisors_usage(char *argv0) {
 int f2n_p_divisors_main(int argc, char **argv, usage_t *pusage) {
   spffl::polynomials::f2_poly_t m;
   spffl::polynomials::f2n_poly_t a;
-  int argb                = 1;
+  int argb = 1;
   int maximal_proper_only = 0;
   if ((argc >= 2) && (strcmp(argv[1], "-mp") == 0)) {
     maximal_proper_only = 1;
@@ -359,14 +362,14 @@ int f2n_p_divisors_main(int argc, char **argv, usage_t *pusage) {
   for (int argi = argb; argi < argc; argi++) {
     {
       auto opt = spffl::polynomials::f2n_poly_from_string(argv[argi], m);
-      if (!opt) pusage(argv[0]);
+      if (!opt)
+        pusage(argv[0]);
       a = std::move(*opt);
     }
     if ((argc - argb) > 1) {
       std::cout << a << ": ";
     }
-    tfacinfo<spffl::polynomials::f2n_poly_t> finfo =
-        spffl::factorization::f2n_poly_factor(a);
+    tfacinfo<spffl::polynomials::f2n_poly_t> finfo = spffl::factorization::f2n_poly_factor(a);
     spffl::containers::vector_over<spffl::polynomials::f2n_poly_t> divisors;
     if (maximal_proper_only) {
       if (!finfo.get_maximal_proper_divisors(divisors, one)) {
@@ -406,7 +409,8 @@ int f2n_p_eval_main(int argc, char **argv, usage_t *pusage) {
   }
   {
     auto opt = spffl::polynomials::f2n_poly_from_string(argv[2], m);
-    if (!opt) pusage(argv[0]);
+    if (!opt)
+      pusage(argv[0]);
     f = std::move(*opt);
   }
   for (int argi = 3; argi < argc; argi++) {
@@ -468,12 +472,12 @@ int f2n_p_comp_mx_main(int argc, char **argv, usage_t *pusage) {
   }
   {
     auto opt = spffl::polynomials::f2n_poly_from_string(argv[2], m);
-    if (!opt) pusage(argv[0]);
+    if (!opt)
+      pusage(argv[0]);
     chpol = std::move(*opt);
   }
 
-  tmatrix<spffl::polynomials::f2_polymod_t> A =
-      spffl::linalg::f2np_companion_matrix(chpol);
+  tmatrix<spffl::polynomials::f2_polymod_t> A = spffl::linalg::f2np_companion_matrix(chpol);
   std::cout << A << std::endl;
 
   return 0;
@@ -517,11 +521,9 @@ int f2n_p_mat_op_main(int argc, char **argv, usage_t *pusage) {
   if (!m.from_string(argv[1])) {
     pusage(argv[0]);
   }
-  spffl::polynomials::f2n_poly_t zero =
-      spffl::polynomials::prime_subfield_element(0, m);
-  spffl::polynomials::f2n_poly_t one =
-      spffl::polynomials::prime_subfield_element(1, m);
+  spffl::polynomials::f2n_poly_t zero = spffl::polynomials::prime_subfield_element(0, m);
+  spffl::polynomials::f2n_poly_t one = spffl::polynomials::prime_subfield_element(1, m);
   spffl::cli_parser::cmd_line_mat_parse<spffl::polynomials::f2n_poly_t>(
-      argc - 2, argv + 2, zero, one);
+    argc - 2, argv + 2, zero, one);
   return 0;
 }

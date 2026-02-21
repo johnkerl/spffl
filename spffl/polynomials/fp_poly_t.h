@@ -12,4 +12,4 @@
 #include "spffl/polynomials/aliases.h"
 #include "spffl/polynomials/fp_poly_io.h"
 
-#endif  // FPPOLY_T_H
+#endif // FPPOLY_T_H

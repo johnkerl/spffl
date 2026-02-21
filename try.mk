@@ -10,4 +10,10 @@ test:
 clean:
 	rm -rf build _deps CMakeCache.txt CMakeFiles Makefile cmake_install.cmake CTestTestfile.cmake Testing generated-includes
 
-.PHONY: build test clean
+# Format all C/C++ source and headers with clang-format (excludes build and deps).
+fmt:
+	find . -type f \( -name '*.c' -o -name '*.h' -o -name '*.cpp' -o -name '*.hpp' -o -name '*.cc' -o -name '*.cxx' \) \
+	  ! -path './build/*' ! -path './_deps/*' ! -path './.git/*' -print0 | \
+	  xargs -0 clang-format -i
+
+.PHONY: build test clean fmt

@@ -28,15 +28,14 @@ int fpn_pm_op_main(int argc, char **argv, usage_t *pusage) {
   }
   {
     auto opt = spffl::polynomials::fpn_poly_from_string(argv[3], im);
-    if (!opt) pusage(argv[0]);
+    if (!opt)
+      pusage(argv[0]);
     om = std::move(*opt);
   }
-  spffl::polynomials::fpn_polymod_t zero(
-      spffl::polynomials::prime_subfield_element(0, im), om);
-  spffl::polynomials::fpn_polymod_t one(
-      spffl::polynomials::prime_subfield_element(1, im), om);
+  spffl::polynomials::fpn_polymod_t zero(spffl::polynomials::prime_subfield_element(0, im), om);
+  spffl::polynomials::fpn_polymod_t one(spffl::polynomials::prime_subfield_element(1, im), om);
   spffl::cli_parser::cmd_line_parse<spffl::polynomials::fpn_polymod_t>(
-      argc - 4, argv + 4, zero, one);
+    argc - 4, argv + 4, zero, one);
   return 0;
 }
 
@@ -61,14 +60,13 @@ int fpn_pm_mat_op_main(int argc, char **argv, usage_t *pusage) {
   }
   {
     auto opt = spffl::polynomials::fpn_poly_from_string(argv[3], im);
-    if (!opt) pusage(argv[0]);
+    if (!opt)
+      pusage(argv[0]);
     om = std::move(*opt);
   }
-  spffl::polynomials::fpn_polymod_t zero(
-      spffl::polynomials::prime_subfield_element(0, im), om);
-  spffl::polynomials::fpn_polymod_t one(
-      spffl::polynomials::prime_subfield_element(1, im), om);
+  spffl::polynomials::fpn_polymod_t zero(spffl::polynomials::prime_subfield_element(0, im), om);
+  spffl::polynomials::fpn_polymod_t one(spffl::polynomials::prime_subfield_element(1, im), om);
   spffl::cli_parser::cmd_line_mat_parse<spffl::polynomials::fpn_polymod_t>(
-      argc - 4, argv + 4, zero, one);
+    argc - 4, argv + 4, zero, one);
   return 0;
 }

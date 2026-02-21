@@ -14,7 +14,7 @@ namespace spffl::intmath {
 
 // Euclidean quotient and remainder: a = b*q + r with 0 <= r < |b| (b != 0).
 // Truncation semantics: q = a/b (C++ integer division), r = a - b*q.
-inline void quot_and_rem(int a, int b, int& q, int& r) {
+inline void quot_and_rem(int a, int b, int &q, int &r) {
   if (b == 0) {
     throw std::invalid_argument("euclidean_int: division by zero");
   }
@@ -26,12 +26,11 @@ inline void quot_and_rem(int a, int b, int& q, int& r) {
 inline int gcd(int a, int b) {
   a = a < 0 ? -a : a;
   b = b < 0 ? -b : b;
-  return static_cast<int>(std::gcd(static_cast<unsigned>(a),
-                                   static_cast<unsigned>(b)));
+  return static_cast<int>(std::gcd(static_cast<unsigned>(a), static_cast<unsigned>(b)));
 }
 
 // Extended GCD: returns g = gcd(a,b) and sets m, n such that a*m + b*n = g.
-inline int ext_gcd(int a, int b, int& m, int& n) {
+inline int ext_gcd(int a, int b, int &m, int &n) {
   if (b == 0) {
     m = (a < 0) ? -1 : 1;
     n = 0;
@@ -61,6 +60,6 @@ inline int ext_gcd(int a, int b, int& m, int& n) {
   return c;
 }
 
-}  // namespace spffl::intmath
+} // namespace spffl::intmath
 
-#endif  // SPFFL_INTMATH_EUCLIDEAN_INT_H
+#endif // SPFFL_INTMATH_EUCLIDEAN_INT_H

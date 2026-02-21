@@ -14,38 +14,38 @@ namespace spffl::polynomials {
 
 // ----------------------------------------------------------------
 // Parts are 64-bit unsigned integers.
-static const uint64_t F2_POLY_PART_MASK        = 63;
-static const uint64_t F2_POLY_PART_LOG         = 6;
+static const uint64_t F2_POLY_PART_MASK = 63;
+static const uint64_t F2_POLY_PART_LOG = 6;
 static const uint64_t F2_POLY_NYBBLES_PER_PART = 16;
-static const uint64_t F2_POLY_BITS_PER_PART    = 64;
-static const uint64_t F2_POLY_MSB              = 0x8000000000000000LL;
-static const uint64_t F2_POLY_LSB              = 1LL;
-static const uint64_t F2_POLY_FOUR_MSBS        = 0xf000000000000000LL;
-static const uint64_t F2_POLY_01_MASK          = 0x5555555555555555LL;
+static const uint64_t F2_POLY_BITS_PER_PART = 64;
+static const uint64_t F2_POLY_MSB = 0x8000000000000000LL;
+static const uint64_t F2_POLY_LSB = 1LL;
+static const uint64_t F2_POLY_FOUR_MSBS = 0xf000000000000000LL;
+static const uint64_t F2_POLY_01_MASK = 0x5555555555555555LL;
 
 // ----------------------------------------------------------------
 f2_poly_t::f2_poly_t(void) {
   uint64_t bits = 0;
-  this->parts   = std::vector<uint64_t>(1, bits);
+  this->parts = std::vector<uint64_t>(1, bits);
 }
 
 // ----------------------------------------------------------------
 f2_poly_t::f2_poly_t(int c0) {
   uint64_t bits = c0 & 1;
-  this->parts   = std::vector<uint64_t>(1, bits);
+  this->parts = std::vector<uint64_t>(1, bits);
 }
 f2_poly_t::f2_poly_t(int c1, int c0) {
   uint64_t bits = ((c1 & 1) << 1) | (c0 & 1);
-  this->parts   = std::vector<uint64_t>(1, bits);
+  this->parts = std::vector<uint64_t>(1, bits);
 }
 f2_poly_t::f2_poly_t(int c2, int c1, int c0) {
   uint64_t bits = ((c2 & 1) << 2) | ((c1 & 1) << 1) | (c0 & 1);
-  this->parts   = std::vector<uint64_t>(1, bits);
+  this->parts = std::vector<uint64_t>(1, bits);
 }
 
 f2_poly_t::f2_poly_t(const std::string &s) {
   uint64_t bits = 0;
-  this->parts   = std::vector<uint64_t>(1, bits);
+  this->parts = std::vector<uint64_t>(1, bits);
 
   std::istringstream iss(s, std::ios_base::in);
   iss >> *this;
@@ -79,9 +79,7 @@ f2_poly_t::f2_poly_t(const f2_poly_t &that) { this->parts = that.parts; }
 f2_poly_t::~f2_poly_t(void) {}
 
 // ----------------------------------------------------------------
-f2_poly_t f2_poly_t::prime_subfield_element(int v) const {
-  return f2_poly_t(v & 1);
-}
+f2_poly_t f2_poly_t::prime_subfield_element(int v) const { return f2_poly_t(v & 1); }
 
 // ----------------------------------------------------------------
 int f2_poly_t::get_characteristic(void) { return 2; }
@@ -126,9 +124,7 @@ f2_poly_t f2_poly_t::operator+(const f2_poly_t &that) const {
 }
 
 // ----------------------------------------------------------------
-f2_poly_t f2_poly_t::operator-(const f2_poly_t &that) const {
-  return *this + that;
-}
+f2_poly_t f2_poly_t::operator-(const f2_poly_t &that) const { return *this + that; }
 
 // ----------------------------------------------------------------
 f2_poly_t f2_poly_t::operator-(void) const { return *this; }
@@ -219,8 +215,7 @@ f2_poly_t &f2_poly_t::operator%=(const f2_poly_t &that) {
 // ----------------------------------------------------------------
 // dividend = *this
 // divisor  =  that
-void f2_poly_t::quot_and_rem(
-    const f2_poly_t &that, f2_poly_t &rquot, f2_poly_t &rrem) const {
+void f2_poly_t::quot_and_rem(const f2_poly_t &that, f2_poly_t &rquot, f2_poly_t &rrem) const {
   int dividend_l1_pos;
   int divisor_l1_pos;
   int l1_diff;
@@ -237,22 +232,22 @@ void f2_poly_t::quot_and_rem(
   if ((dividend_l1_pos == 0) && (this->parts[0] == 0)) {
     // Dividend is zero.
     rquot = f2_poly_t(0);
-    rrem  = f2_poly_t(0);
+    rrem = f2_poly_t(0);
     return;
   }
   l1_diff = dividend_l1_pos - divisor_l1_pos;
   if (l1_diff < 0) {
     // Dividend has lower degree than divisor.
     rquot = f2_poly_t(0);
-    rrem  = *this;
+    rrem = *this;
     return;
   }
   f2_poly_t quot = f2_poly_t(0);
-  f2_poly_t rem  = *this;
-  shift_divisor  = that;
+  f2_poly_t rem = *this;
+  shift_divisor = that;
   shift_divisor._promote_n(l1_diff);
-  for (check_pos = dividend_l1_pos, quot_pos = l1_diff;
-       check_pos >= divisor_l1_pos; check_pos--, quot_pos--) {
+  for (check_pos = dividend_l1_pos, quot_pos = l1_diff; check_pos >= divisor_l1_pos;
+    check_pos--, quot_pos--) {
     if (rem.bit_at(check_pos)) {
       rem -= shift_divisor;
       quot.set_bit(quot_pos);
@@ -260,7 +255,7 @@ void f2_poly_t::quot_and_rem(
     shift_divisor._demote_1();
   }
   rquot = quot;
-  rrem  = rem;
+  rrem = rem;
 }
 // ----------------------------------------------------------------
 f2_poly_t f2_poly_t::gcd(const f2_poly_t &that) const {
@@ -286,8 +281,7 @@ f2_poly_t f2_poly_t::gcd(const f2_poly_t &that) const {
 }
 // ----------------------------------------------------------------
 // Blankinship's algorithm.
-f2_poly_t f2_poly_t::ext_gcd(
-    const f2_poly_t &that, f2_poly_t &rm, f2_poly_t &rn) const {
+f2_poly_t f2_poly_t::ext_gcd(const f2_poly_t &that, f2_poly_t &rm, f2_poly_t &rn) const {
   f2_poly_t mprime, nprime, c, q, r, t, qm, qn;
   f2_poly_t d; // Return value.
   if (*this == 0) {
@@ -301,32 +295,32 @@ f2_poly_t f2_poly_t::ext_gcd(
     return *this;
   }
   mprime = 1;
-  rn     = 1;
-  rm     = 0;
+  rn = 1;
+  rm = 0;
   nprime = 0;
-  c      = *this;
-  d      = that;
+  c = *this;
+  d = that;
   while (1) {
     c.quot_and_rem(d, q, r);
     if (r == 0) {
       break;
     }
-    c      = d;
-    d      = r;
-    t      = mprime;
+    c = d;
+    d = r;
+    t = mprime;
     mprime = rm;
-    qm     = q * rm;
-    rm     = t - qm;
-    t      = nprime;
+    qm = q * rm;
+    rm = t - qm;
+    t = nprime;
     nprime = rn;
-    qn     = q * rn;
-    rn     = t - qn;
+    qn = q * rn;
+    rn = t - qn;
   }
   return d;
 }
 // ----------------------------------------------------------------
 f2_poly_t f2_poly_t::exp(int e) const {
-  int deg      = this->find_degree();
+  int deg = this->find_degree();
   f2_poly_t xp = *this;
   f2_poly_t zero(0);
   f2_poly_t one(1);
@@ -412,8 +406,7 @@ int f2_poly_t::zcount_one_bits(void) const {
   // TODO: use an iterator
   for (int i = 0; i < this->parts.size(); i++) {
     uint64_t part = this->parts[i];
-    num_one_bits +=
-        spffl::bits::count_one_bits((unsigned char *)&part, sizeof(part));
+    num_one_bits += spffl::bits::count_one_bits((unsigned char *)&part, sizeof(part));
   }
   return 1 & num_one_bits;
 }
@@ -421,8 +414,7 @@ int f2_poly_t::zcount_one_bits(void) const {
 int f2_poly_t::find_degree(void) const {
   for (int i = this->parts.size() - 1; i >= 0; i--) {
     if (this->parts[i]) {
-      return spffl::intmath::find_msb_64(this->parts[i]) +
-             ((uint64_t)i << F2_POLY_PART_LOG);
+      return spffl::intmath::find_msb_64(this->parts[i]) + ((uint64_t)i << F2_POLY_PART_LOG);
     }
   }
   return 0; // Zero polynomial.
@@ -437,24 +429,12 @@ bool f2_poly_t::operator==(int v) const {
   return this->parts[0] == (uint64_t)(v & 1);
 }
 bool f2_poly_t::operator!=(int v) const { return !(*this == v); }
-bool f2_poly_t::operator==(const f2_poly_t &that) const {
-  return this->cmp(CMP_EQ, that);
-}
-bool f2_poly_t::operator!=(const f2_poly_t &that) const {
-  return this->cmp(CMP_NE, that);
-}
-bool f2_poly_t::operator<(const f2_poly_t &that) const {
-  return this->cmp(CMP_LT, that);
-}
-bool f2_poly_t::operator>(const f2_poly_t &that) const {
-  return this->cmp(CMP_GT, that);
-}
-bool f2_poly_t::operator<=(const f2_poly_t &that) const {
-  return this->cmp(CMP_LE, that);
-}
-bool f2_poly_t::operator>=(const f2_poly_t &that) const {
-  return this->cmp(CMP_GE, that);
-}
+bool f2_poly_t::operator==(const f2_poly_t &that) const { return this->cmp(CMP_EQ, that); }
+bool f2_poly_t::operator!=(const f2_poly_t &that) const { return this->cmp(CMP_NE, that); }
+bool f2_poly_t::operator<(const f2_poly_t &that) const { return this->cmp(CMP_LT, that); }
+bool f2_poly_t::operator>(const f2_poly_t &that) const { return this->cmp(CMP_GT, that); }
+bool f2_poly_t::operator<=(const f2_poly_t &that) const { return this->cmp(CMP_LE, that); }
+bool f2_poly_t::operator>=(const f2_poly_t &that) const { return this->cmp(CMP_GE, that); }
 bool f2_poly_t::cmp(int op, const f2_poly_t &that) const {
   int direction = 0; // -1 = less, 0 = equal, +1 = greater;
   int i;
@@ -561,7 +541,7 @@ void f2_poly_t::debug_print(std::ostream &os) {
 // ----------------------------------------------------------------
 std::istream &operator>>(std::istream &is, f2_poly_t &poly) {
   int c;
-  poly            = f2_poly_t(0);
+  poly = f2_poly_t(0);
   int num_nybbles = 0;
   // Skip over whitespace.
   c = is.peek();
@@ -601,7 +581,7 @@ std::istream &operator>>(std::istream &is, f2_poly_t &poly) {
 // ----------------------------------------------------------------
 std::istringstream &operator>>(std::istringstream &iss, f2_poly_t &poly) {
   int c;
-  poly            = f2_poly_t(0);
+  poly = f2_poly_t(0);
   int num_nybbles = 0;
   // Skip over whitespace.
   c = iss.peek();
@@ -645,12 +625,12 @@ void f2_poly_t::_promote_n(uint64_t shamt) {
   //	for (uint64_t ii = 0; ii < shamt; ii++)
   //		this->_promote_1();
   uint64_t num_parts_shift = shamt >> F2_POLY_PART_LOG;
-  uint64_t num_bits_shift  = shamt & F2_POLY_PART_MASK;
+  uint64_t num_bits_shift = shamt & F2_POLY_PART_MASK;
   uint64_t cmpl_bits_shift = F2_POLY_BITS_PER_PART - num_bits_shift;
-  int odeg                 = this->find_degree();
-  int ndeg                 = odeg + shamt;
-  int onum_parts           = (odeg >> F2_POLY_PART_LOG) + 1;
-  int nnum_parts           = (ndeg >> F2_POLY_PART_LOG) + 1;
+  int odeg = this->find_degree();
+  int ndeg = odeg + shamt;
+  int onum_parts = (odeg >> F2_POLY_PART_LOG) + 1;
+  int nnum_parts = (ndeg >> F2_POLY_PART_LOG) + 1;
   int parts_diff;
   int i;
   this->extend_parts(nnum_parts);
@@ -673,8 +653,8 @@ void f2_poly_t::_promote_n(uint64_t shamt) {
       si--;
     }
     for (; si >= 0; si--, di--) {
-      this->parts[di] = (this->parts[si] >> cmpl_bits_shift) |
-                        (this->parts[si + 1] << num_bits_shift);
+      this->parts[di] =
+        (this->parts[si] >> cmpl_bits_shift) | (this->parts[si + 1] << num_bits_shift);
     }
     this->parts[di] = this->parts[si + 1] << num_bits_shift;
     di--;
@@ -712,16 +692,14 @@ void f2_poly_t::_promote_1(void) {
     this->extend_parts(this->parts.size() + 1);
   }
   for (int i = this->parts.size() - 1; i > 0; i--) {
-    this->parts[i] = (this->parts[i] << 1) |
-                     (this->parts[i - 1] >> (F2_POLY_BITS_PER_PART - 1));
+    this->parts[i] = (this->parts[i] << 1) | (this->parts[i - 1] >> (F2_POLY_BITS_PER_PART - 1));
   }
   this->parts[0] <<= 1;
 }
 
 void f2_poly_t::_demote_1(void) {
   for (int i = 0; i < this->parts.size() - 1; i++) {
-    this->parts[i] = (this->parts[i] >> 1) |
-                     (this->parts[i + 1] << (F2_POLY_BITS_PER_PART - 1));
+    this->parts[i] = (this->parts[i] >> 1) | (this->parts[i + 1] << (F2_POLY_BITS_PER_PART - 1));
   }
   this->parts[this->parts.size() - 1] >>= 1;
   if (this->parts[this->parts.size() - 1] == 0) {
@@ -734,7 +712,7 @@ void f2_poly_t::_demote_1(void) {
 // ----------------------------------------------------------------
 int f2_poly_t::bit_at(int pos) const {
   int which_part = pos >> F2_POLY_PART_LOG;
-  int which_bit  = pos & F2_POLY_PART_MASK;
+  int which_bit = pos & F2_POLY_PART_MASK;
   if (which_part >= this->parts.size()) {
     return 0;
   }
@@ -746,10 +724,10 @@ int f2_poly_t::bit_at(int pos) const {
 // req deg 37   req   print 10 chars
 // this deg 4   would print  1 char
 void f2_poly_t::dprint(std::ostream &os, int reqdeg) const {
-  int thisdeg    = this->find_degree();
-  int reqnchars  = (reqdeg + 4) >> 2;
+  int thisdeg = this->find_degree();
+  int reqnchars = (reqdeg + 4) >> 2;
   int thisnchars = (thisdeg + 4) >> 2;
-  int morechars  = reqnchars - thisnchars;
+  int morechars = reqnchars - thisnchars;
   for (int i = 0; i < morechars; i++) {
     os << '0';
   }
@@ -759,7 +737,7 @@ void f2_poly_t::dprint(std::ostream &os, int reqdeg) const {
 // ----------------------------------------------------------------
 void f2_poly_t::set_bit(int pos) {
   int which_part = pos >> F2_POLY_PART_LOG;
-  int which_bit  = pos & F2_POLY_PART_MASK;
+  int which_bit = pos & F2_POLY_PART_MASK;
   if (which_part >= this->parts.size()) {
     this->extend_parts(which_part + 1);
   }
@@ -768,7 +746,7 @@ void f2_poly_t::set_bit(int pos) {
 }
 void f2_poly_t::set_coeff(int pos, spffl::bits::bit_t b) {
   int which_part = pos >> F2_POLY_PART_LOG;
-  int which_bit  = pos & F2_POLY_PART_MASK;
+  int which_bit = pos & F2_POLY_PART_MASK;
   if (which_part >= this->parts.size()) {
     if (b.get_residue()) {
       this->extend_parts(which_part + 1);
@@ -784,11 +762,9 @@ void f2_poly_t::set_coeff(int pos, spffl::bits::bit_t b) {
     this->trim_parts();
   }
 }
-void f2_poly_t::extend_parts(int new_num_parts) {
-  this->parts.resize(new_num_parts);
-}
+void f2_poly_t::extend_parts(int new_num_parts) { this->parts.resize(new_num_parts); }
 void f2_poly_t::trim_parts(void) {
-  int d             = this->find_degree();
+  int d = this->find_degree();
   int new_num_parts = (d >> F2_POLY_PART_LOG) + 1;
   if (new_num_parts < this->parts.size()) {
     this->parts.resize(new_num_parts);
@@ -803,7 +779,7 @@ void f2_poly_t::check_neg_pos(int pos) const {
 }
 } // namespace spffl::polynomials
 // ----------------------------------------------------------------
-spffl::polynomials::f2_poly_t gcd(const spffl::polynomials::f2_poly_t &a,
-    const spffl::polynomials::f2_poly_t &b) {
+spffl::polynomials::f2_poly_t gcd(
+  const spffl::polynomials::f2_poly_t &a, const spffl::polynomials::f2_poly_t &b) {
   return a.gcd(b);
 }

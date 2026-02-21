@@ -15,9 +15,9 @@
 namespace spffl::rationals {
 
 class f2_polyrat_t {
-public:
+  public:
   f2_polyrat_t(const spffl::polynomials::f2_poly_t &numerator,
-      const spffl::polynomials::f2_poly_t &denominator);
+    const spffl::polynomials::f2_poly_t &denominator);
   f2_polyrat_t(const spffl::polynomials::f2_poly_t &numerator);
   f2_polyrat_t(int inumer);
   f2_polyrat_t(void);
@@ -38,8 +38,7 @@ public:
   f2_polyrat_t exp(int e) const;
   friend std::ostream &operator<<(std::ostream &os, const f2_polyrat_t &a);
   friend std::istream &operator>>(std::istream &is, f2_polyrat_t &a);
-  friend std::istringstream &operator>>(
-      std::istringstream &iss, f2_polyrat_t &a);
+  friend std::istringstream &operator>>(std::istringstream &iss, f2_polyrat_t &a);
   bool from_string(const std::string &string);
 
   f2_polyrat_t &operator+=(const f2_polyrat_t &that);
@@ -61,7 +60,7 @@ public:
   spffl::polynomials::f2_poly_t get_numerator(void) const;
   spffl::polynomials::f2_poly_t get_denominator(void) const;
 
-private:
+  private:
   spffl::polynomials::f2_poly_t numer;
   spffl::polynomials::f2_poly_t denom;
 

@@ -14,7 +14,7 @@
 namespace spffl::polynomials {
 
 class f2_polymod_t {
-public:
+  public:
   f2_polymod_t(const f2_poly_t &residue, const f2_poly_t &modulus);
   /// Scalar in prime subfield (v mod 2); for use in polynomial_of::deriv etc.
   f2_polymod_t(int v, const f2_poly_t &modulus);
@@ -39,8 +39,7 @@ public:
   friend std::ostream &operator<<(std::ostream &os, const f2_polymod_t &a);
   // Modulus must have already been set:  this sets only the residue.
   friend std::istream &operator>>(std::istream &is, f2_polymod_t &a);
-  friend std::istringstream &operator>>(
-      std::istringstream &iss, f2_polymod_t &a);
+  friend std::istringstream &operator>>(std::istringstream &iss, f2_polymod_t &a);
   bool from_string(const std::string &string, const f2_poly_t &m);
 
   f2_polymod_t &operator+=(const f2_polymod_t &that);
@@ -65,7 +64,7 @@ public:
   f2_poly_t get_modulus(void) const;
   void change_modulus(const f2_poly_t &new_modulus);
 
-private:
+  private:
   f2_poly_t residue;
   f2_poly_t modulus;
 

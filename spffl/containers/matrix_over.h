@@ -28,14 +28,13 @@ namespace spffl::containers {
 template <typename T>
   requires spffl::concepts::Ring_element<T>
 class matrix_over {
-public:
+  public:
   using element_type = T;
   using row_type = vector_over<T>;
 
   matrix_over() : rows_(0), cols_(0) {}
 
-  matrix_over(int num_rows, int num_cols)
-      : cols_(num_cols) {
+  matrix_over(int num_rows, int num_cols) : cols_(num_cols) {
     if (num_rows < 0 || num_cols < 0) {
       throw std::invalid_argument("matrix_over: negative dimensions");
     }
@@ -45,8 +44,7 @@ public:
     }
   }
 
-  matrix_over(int num_rows, int num_cols, const T& fill)
-      : cols_(num_cols) {
+  matrix_over(int num_rows, int num_cols, const T &fill) : cols_(num_cols) {
     if (num_rows < 0 || num_cols < 0) {
       throw std::invalid_argument("matrix_over: negative dimensions");
     }
@@ -56,14 +54,14 @@ public:
     }
   }
 
-  row_type& operator[](std::size_t i) {
+  row_type &operator[](std::size_t i) {
     if (i >= static_cast<std::size_t>(get_num_rows())) {
       throw std::out_of_range("matrix_over: row index out of range");
     }
     return rows_[i];
   }
 
-  const row_type& operator[](std::size_t i) const {
+  const row_type &operator[](std::size_t i) const {
     if (i >= static_cast<std::size_t>(get_num_rows())) {
       throw std::out_of_range("matrix_over: row index out of range");
     }
@@ -73,22 +71,22 @@ public:
   int get_num_rows() const { return static_cast<int>(rows_.size()); }
   int get_num_cols() const { return cols_; }
 
-  matrix_over operator+(const matrix_over& B) const {
+  matrix_over operator+(const matrix_over &B) const {
     check_same_shape(B);
     matrix_over out(get_num_rows(), get_num_cols());
     for (int i = 0; i < get_num_rows(); ++i) {
       out.rows_[static_cast<std::size_t>(i)] =
-          (*this)[static_cast<std::size_t>(i)] + B[static_cast<std::size_t>(i)];
+        (*this)[static_cast<std::size_t>(i)] + B[static_cast<std::size_t>(i)];
     }
     return out;
   }
 
-  matrix_over operator-(const matrix_over& B) const {
+  matrix_over operator-(const matrix_over &B) const {
     check_same_shape(B);
     matrix_over out(get_num_rows(), get_num_cols());
     for (int i = 0; i < get_num_rows(); ++i) {
       out.rows_[static_cast<std::size_t>(i)] =
-          (*this)[static_cast<std::size_t>(i)] - B[static_cast<std::size_t>(i)];
+        (*this)[static_cast<std::size_t>(i)] - B[static_cast<std::size_t>(i)];
     }
     return out;
   }
@@ -96,13 +94,12 @@ public:
   matrix_over operator-() const {
     matrix_over out(get_num_rows(), get_num_cols());
     for (int i = 0; i < get_num_rows(); ++i) {
-      out.rows_[static_cast<std::size_t>(i)] =
-          -(*this)[static_cast<std::size_t>(i)];
+      out.rows_[static_cast<std::size_t>(i)] = -(*this)[static_cast<std::size_t>(i)];
     }
     return out;
   }
 
-  matrix_over operator*(const matrix_over& B) const {
+  matrix_over operator*(const matrix_over &B) const {
     if (get_num_cols() != B.get_num_rows()) {
       throw std::invalid_argument("matrix_over: incompatible dimensions for multiply");
     }
@@ -112,7 +109,8 @@ public:
     matrix_over out(n, p);
     for (int i = 0; i < n; ++i) {
       for (int j = 0; j < p; ++j) {
-        T sum = (*this)[static_cast<std::size_t>(i)][0] - (*this)[static_cast<std::size_t>(i)][0];  // zero
+        T sum =
+          (*this)[static_cast<std::size_t>(i)][0] - (*this)[static_cast<std::size_t>(i)][0]; // zero
         for (int k = 0; k < m; ++k) {
           sum = sum + (*this)[static_cast<std::size_t>(i)][k] * B[static_cast<std::size_t>(k)][j];
         }
@@ -122,7 +120,7 @@ public:
     return out;
   }
 
-  row_type operator*(const row_type& x) const {
+  row_type operator*(const row_type &x) const {
     if (x.get_num_elements() != get_num_cols()) {
       throw std::invalid_argument("matrix_over: vector length must match num_cols");
     }
@@ -133,7 +131,7 @@ public:
     return out;
   }
 
-  bool operator==(const matrix_over& B) const {
+  bool operator==(const matrix_over &B) const {
     if (get_num_rows() != B.get_num_rows() || get_num_cols() != B.get_num_cols()) {
       return false;
     }
@@ -145,16 +143,15 @@ public:
     return true;
   }
 
-  bool operator!=(const matrix_over& B) const { return !(*this == B); }
+  bool operator!=(const matrix_over &B) const { return !(*this == B); }
 
-  bool is_square() const {
-    return get_num_rows() == get_num_cols();
-  }
+  bool is_square() const { return get_num_rows() == get_num_cols(); }
 
-  bool find_one(T& rone) const {
+  bool find_one(T &rone) const {
     const int nr = get_num_rows();
     const int nc = get_num_cols();
-    if (nr == 0 || nc == 0) return false;
+    if (nr == 0 || nc == 0)
+      return false;
     T zero = (*this)[0][0] - (*this)[0][0];
     for (int i = 0; i < nr; ++i) {
       for (int j = 0; j < nc; ++j) {
@@ -168,7 +165,7 @@ public:
     return false;
   }
 
-  matrix_over make_I(const T& zero, const T& one) const {
+  matrix_over make_I(const T &zero, const T &one) const {
     if (!is_square()) {
       throw std::invalid_argument("matrix_over::make_I: non-square matrix");
     }
@@ -183,17 +180,21 @@ public:
   }
 
   bool is_I() const {
-    if (!is_square()) return false;
+    if (!is_square())
+      return false;
     T zero, one;
     zero = (*this)[0][0] - (*this)[0][0];
-    if (!find_one(one)) return false;
+    if (!find_one(one))
+      return false;
     const int n = get_num_rows();
     for (int i = 0; i < n; ++i) {
-      if ((*this)[static_cast<std::size_t>(i)][i] != one) return false;
+      if ((*this)[static_cast<std::size_t>(i)][i] != one)
+        return false;
     }
     for (int i = 0; i < n; ++i) {
       for (int j = 0; j < n; ++j) {
-        if (i != j && (*this)[static_cast<std::size_t>(i)][j] != zero) return false;
+        if (i != j && (*this)[static_cast<std::size_t>(i)][j] != zero)
+          return false;
       }
     }
     return true;
@@ -209,7 +210,8 @@ public:
   void row_reduce_below() {
     T zero = (*this)[0][0] - (*this)[0][0];
     T one;
-    if (!find_one(one)) return;
+    if (!find_one(one))
+      return;
     const int nr = get_num_rows();
     const int nc = get_num_cols();
     int top_row = 0, left_column = 0;
@@ -232,7 +234,8 @@ public:
         for (int cur_row = top_row + 1; cur_row < nr; ++cur_row) {
           T cur_lead = (*this)[static_cast<std::size_t>(cur_row)][left_column];
           if (cur_lead != zero) {
-            (*this)[static_cast<std::size_t>(cur_row)].accum_row_mul(top_row_lead, cur_lead, (*this)[static_cast<std::size_t>(top_row)]);
+            (*this)[static_cast<std::size_t>(cur_row)].accum_row_mul(
+              top_row_lead, cur_lead, (*this)[static_cast<std::size_t>(top_row)]);
           }
         }
       }
@@ -245,17 +248,21 @@ public:
     row_reduce_below();
     T zero = (*this)[0][0] - (*this)[0][0];
     T one;
-    if (!find_one(one)) return;
+    if (!find_one(one))
+      return;
     const int nr = get_num_rows();
     for (int row = 0; row < nr; ++row) {
       for (int row2 = row + 1; row2 < nr; ++row2) {
         int row2_leader_pos;
-        if (!(*this)[static_cast<std::size_t>(row2)].find_leader_pos(zero, row2_leader_pos)) break;
+        if (!(*this)[static_cast<std::size_t>(row2)].find_leader_pos(zero, row2_leader_pos))
+          break;
         T row2_leader_val = (*this)[static_cast<std::size_t>(row2)][row2_leader_pos];
         T row_clear_val = (*this)[static_cast<std::size_t>(row)][row2_leader_pos];
-        if (row_clear_val == zero) continue;
+        if (row_clear_val == zero)
+          continue;
         T mul = row_clear_val / row2_leader_val;
-        (*this)[static_cast<std::size_t>(row)].accum_row_mul(one, mul, (*this)[static_cast<std::size_t>(row2)]);
+        (*this)[static_cast<std::size_t>(row)].accum_row_mul(
+          one, mul, (*this)[static_cast<std::size_t>(row2)]);
       }
     }
   }
@@ -271,7 +278,8 @@ public:
           break;
         }
       }
-      if (!row_is_zero) ++rank;
+      if (!row_is_zero)
+        ++rank;
     }
     return rank;
   }
@@ -282,12 +290,13 @@ public:
     return copy.get_rank_rr();
   }
 
-  bool get_kernel_basis(matrix_over& rbas, const T& zero, const T& one) const {
+  bool get_kernel_basis(matrix_over &rbas, const T &zero, const T &one) const {
     matrix_over rr(*this);
     rr.row_echelon_form();
     int rank = rr.get_rank_rr();
     int dimker = get_num_cols() - rank;
-    if (dimker == 0) return false;
+    if (dimker == 0)
+      return false;
     rbas = matrix_over(dimker, get_num_cols());
     std::vector<int> free_indices;
     std::vector<bool> free_flags(static_cast<std::size_t>(get_num_cols()), true);
@@ -298,12 +307,14 @@ public:
       }
     }
     for (int i = 0; i < get_num_cols(); ++i) {
-      if (free_flags[static_cast<std::size_t>(i)]) free_indices.push_back(i);
+      if (free_flags[static_cast<std::size_t>(i)])
+        free_indices.push_back(i);
     }
     for (int i = 0; i < dimker; ++i) {
       rbas[static_cast<std::size_t>(i)][free_indices[static_cast<std::size_t>(i)]] = one;
       for (int j = 0; j < rank; ++j) {
-        if (rr[static_cast<std::size_t>(j)][free_indices[static_cast<std::size_t>(i)]] == zero) continue;
+        if (rr[static_cast<std::size_t>(j)][free_indices[static_cast<std::size_t>(i)]] == zero)
+          continue;
         int dep_pos;
         (void)rr[static_cast<std::size_t>(j)].find_leader_pos(zero, dep_pos);
         T val = rr[static_cast<std::size_t>(j)][free_indices[static_cast<std::size_t>(i)]];
@@ -313,7 +324,7 @@ public:
     return true;
   }
 
-  matrix_over paste(const matrix_over& B) const {
+  matrix_over paste(const matrix_over &B) const {
     if (get_num_rows() != B.get_num_rows()) {
       throw std::invalid_argument("matrix_over::paste: row count mismatch");
     }
@@ -323,13 +334,14 @@ public:
         rv.rows_[static_cast<std::size_t>(i)][j] = (*this)[static_cast<std::size_t>(i)][j];
       }
       for (int j = 0; j < B.get_num_cols(); ++j) {
-        rv.rows_[static_cast<std::size_t>(i)][get_num_cols() + j] = B[static_cast<std::size_t>(i)][j];
+        rv.rows_[static_cast<std::size_t>(i)][get_num_cols() + j] =
+          B[static_cast<std::size_t>(i)][j];
       }
     }
     return rv;
   }
 
-  matrix_over paste_vector(const row_type& v) const {
+  matrix_over paste_vector(const row_type &v) const {
     if (get_num_rows() != v.get_num_elements()) {
       throw std::invalid_argument("matrix_over::paste_vector: row count mismatch");
     }
@@ -343,7 +355,7 @@ public:
     return rv;
   }
 
-  void split(matrix_over& rleft, matrix_over& rright, int split_column) const {
+  void split(matrix_over &rleft, matrix_over &rright, int split_column) const {
     if (split_column < 0 || split_column >= get_num_cols()) {
       throw std::out_of_range("matrix_over::split: split column out of range");
     }
@@ -354,18 +366,20 @@ public:
         rleft.rows_[static_cast<std::size_t>(i)][j] = (*this)[static_cast<std::size_t>(i)][j];
       }
       for (int j = split_column; j < get_num_cols(); ++j) {
-        rright.rows_[static_cast<std::size_t>(i)][j - split_column] = (*this)[static_cast<std::size_t>(i)][j];
+        rright.rows_[static_cast<std::size_t>(i)][j - split_column] =
+          (*this)[static_cast<std::size_t>(i)][j];
       }
     }
   }
 
-  bool inverse(matrix_over& rinv) const {
+  bool inverse(matrix_over &rinv) const {
     if (!is_square()) {
       throw std::invalid_argument("matrix_over::inverse: non-square matrix");
     }
     T zero = (*this)[0][0] - (*this)[0][0];
     T one;
-    if (!find_one(one)) return false;
+    if (!find_one(one))
+      return false;
     matrix_over I = make_I(zero, one);
     matrix_over pair = paste(I);
     pair.row_echelon_form();
@@ -375,7 +389,7 @@ public:
     return I_out.is_I();
   }
 
-  int exp(int power, matrix_over& rout) const {
+  int exp(int power, matrix_over &rout) const {
     if (!is_square()) {
       throw std::invalid_argument("matrix_over::exp: non-square matrix");
     }
@@ -393,7 +407,8 @@ public:
       matrix_over apower = I;
       matrix_over a2 = *this;
       while (power != 0) {
-        if (power & 1) apower = apower * a2;
+        if (power & 1)
+          apower = apower * a2;
         power = (unsigned)power >> 1;
         a2 = a2 * a2;
       }
@@ -401,17 +416,20 @@ public:
       return 1;
     }
     matrix_over ai;
-    if (!inverse(ai)) return 0;
+    if (!inverse(ai))
+      return 0;
     if (power == 0) {
       rout = I;
       return 1;
     }
-    if (power == -power) throw std::invalid_argument("matrix_over::exp: can't handle INT_MIN");
+    if (power == -power)
+      throw std::invalid_argument("matrix_over::exp: can't handle INT_MIN");
     matrix_over apower = I;
     matrix_over a2 = ai;
     int p = -power;
     while (p != 0) {
-      if (p & 1) apower = apower * a2;
+      if (p & 1)
+        apower = apower * a2;
       p = (unsigned)p >> 1;
       a2 = a2 * a2;
     }
@@ -419,7 +437,7 @@ public:
     return 1;
   }
 
-  bool solve_unique_full_rank(row_type& x, const row_type& b, const T& zero, const T& one) const {
+  bool solve_unique_full_rank(row_type &x, const row_type &b, const T &zero, const T &one) const {
     int indim = get_num_cols();
     if (get_num_rows() != b.get_num_elements()) {
       return false;
@@ -427,7 +445,8 @@ public:
     matrix_over Ab = paste_vector(b);
     Ab.row_echelon_form();
     int Ab_rank = Ab.get_rank_rr();
-    if (Ab_rank != indim) return false;
+    if (Ab_rank != indim)
+      return false;
     x = row_type(indim);
     for (int i = 0; i < indim; ++i) {
       x[i] = Ab[static_cast<std::size_t>(i)][indim];
@@ -435,11 +454,13 @@ public:
     return true;
   }
 
-  bool solve_unique(row_type& x, const row_type& b, const T& zero, const T& one) const {
+  bool solve_unique(row_type &x, const row_type &b, const T &zero, const T &one) const {
     int indim = get_num_cols();
     int outdim = get_num_rows();
-    if (indim > outdim) return false;
-    if (get_rank() != indim) return false;
+    if (indim > outdim)
+      return false;
+    if (get_rank() != indim)
+      return false;
     return solve_unique_full_rank(x, b, zero, one);
   }
 
@@ -454,7 +475,7 @@ public:
   }
 
   /// Construct from tmatrix (e.g. companion matrix from linalg).
-  matrix_over(const tmatrix<T>& other) : cols_(other.get_num_cols()) {
+  matrix_over(const tmatrix<T> &other) : cols_(other.get_num_cols()) {
     int nr = other.get_num_rows();
     rows_.reserve(static_cast<std::size_t>(nr));
     for (int i = 0; i < nr; ++i) {
@@ -467,7 +488,7 @@ public:
   }
 
   /// Assign from tmatrix.
-  matrix_over& operator=(const tmatrix<T>& other) {
+  matrix_over &operator=(const tmatrix<T> &other) {
     cols_ = other.get_num_cols();
     rows_.clear();
     int nr = other.get_num_rows();
@@ -483,7 +504,7 @@ public:
   }
 
   /// Fill with scalar (e.g. set modulus). Sets to 1x1 matrix.
-  matrix_over& operator=(const T& scalar) {
+  matrix_over &operator=(const T &scalar) {
     rows_.clear();
     rows_.emplace_back(1, scalar);
     cols_ = 1;
@@ -497,7 +518,8 @@ public:
     }
     T zero = (*this)[0][0] - (*this)[0][0];
     T one;
-    if (!find_one(one)) return zero;
+    if (!find_one(one))
+      return zero;
     matrix_over rr(*this);
     T d = one;
     const int nr = rr.get_num_rows();
@@ -505,8 +527,12 @@ public:
     int top_row = 0, left_col = 0;
     while (top_row < nr && left_col < nc) {
       int pivot_row = top_row;
-      while (pivot_row < nr && rr[static_cast<std::size_t>(pivot_row)][left_col] == zero) ++pivot_row;
-      if (pivot_row >= nr) { ++left_col; continue; }
+      while (pivot_row < nr && rr[static_cast<std::size_t>(pivot_row)][left_col] == zero)
+        ++pivot_row;
+      if (pivot_row >= nr) {
+        ++left_col;
+        continue;
+      }
       if (pivot_row != top_row) {
         rr.swap_rows(top_row, pivot_row);
         d = zero - d;
@@ -519,7 +545,8 @@ public:
         for (int r = top_row + 1; r < nr; ++r) {
           T cur = rr[static_cast<std::size_t>(r)][left_col];
           if (cur != zero) {
-            rr[static_cast<std::size_t>(r)].accum_row_mul(pivot, cur, rr[static_cast<std::size_t>(top_row)]);
+            rr[static_cast<std::size_t>(r)].accum_row_mul(
+              pivot, cur, rr[static_cast<std::size_t>(top_row)]);
           }
         }
       }
@@ -530,7 +557,7 @@ public:
   }
 
   /// Scalar operations: add/subtract scalar to diagonal (square matrices only).
-  matrix_over operator+(const T& e) const {
+  matrix_over operator+(const T &e) const {
     if (!is_square()) {
       throw std::invalid_argument("matrix_over plus scalar: non-square matrix");
     }
@@ -541,7 +568,7 @@ public:
     return rv;
   }
 
-  matrix_over operator-(const T& e) const {
+  matrix_over operator-(const T &e) const {
     if (!is_square()) {
       throw std::invalid_argument("matrix_over minus scalar: non-square matrix");
     }
@@ -553,7 +580,7 @@ public:
   }
 
   /// Scalar multiplication: multiply all elements by scalar.
-  matrix_over operator*(const T& e) const {
+  matrix_over operator*(const T &e) const {
     matrix_over rv(get_num_rows(), get_num_cols());
     for (int i = 0; i < get_num_rows(); ++i) {
       for (int j = 0; j < get_num_cols(); ++j) {
@@ -563,24 +590,24 @@ public:
     return rv;
   }
 
-  matrix_over& operator+=(const T& e) {
+  matrix_over &operator+=(const T &e) {
     *this = *this + e;
     return *this;
   }
 
-  matrix_over& operator-=(const T& e) {
+  matrix_over &operator-=(const T &e) {
     *this = *this - e;
     return *this;
   }
 
-  matrix_over& operator*=(const T& e) {
+  matrix_over &operator*=(const T &e) {
     *this = *this * e;
     return *this;
   }
 
   /// Euclidean-domain row reduction below diagonal; updates scalar numerator/denominator.
   /// For use with element types satisfying Euclidean_domain (e.g. polynomial rings).
-  void ed_row_reduce_below_with_scalar(T& snumer, T& sdenom) {
+  void ed_row_reduce_below_with_scalar(T &snumer, T &sdenom) {
     T zero = (*this)[0][0] - (*this)[0][0];
     T one;
     if (!find_one(one)) {
@@ -610,7 +637,7 @@ public:
         ++left_column;
         continue;
       }
-      row_type& top_row_vec = rows_[static_cast<std::size_t>(top_row)];
+      row_type &top_row_vec = rows_[static_cast<std::size_t>(top_row)];
       T g = top_row_vec.vgcd();
       if (g != zero) {
         top_row_vec.div_by(g);
@@ -619,7 +646,7 @@ public:
       T top_row_lead = top_row_vec[left_column];
       if (top_row_lead != zero) {
         for (int cur_row = top_row + 1; cur_row < nr; ++cur_row) {
-          row_type& cur_row_vec = rows_[static_cast<std::size_t>(cur_row)];
+          row_type &cur_row_vec = rows_[static_cast<std::size_t>(cur_row)];
           g = cur_row_vec.vgcd();
           if (g != zero) {
             cur_row_vec.div_by(g);
@@ -665,46 +692,71 @@ public:
     T quot = dn / dd;
     if (rem != zero) {
       std::stringstream ss;
-      ss << "matrix_over::ed_det: coding error: dd must divide dn. Got " << dn << " % " << dd << " = " << rem;
+      ss << "matrix_over::ed_det: coding error: dd must divide dn. Got " << dn << " % " << dd
+         << " = " << rem;
       throw std::runtime_error(ss.str());
     }
     return quot;
   }
 
   /// Parse "[[r1] [r2] ...]" or "[c1 c2 ...]". *this must already have one element.
-  bool bracket_in(char* string) {
-    if (rows_.empty() || cols_ < 1) return false;
+  bool bracket_in(char *string) {
+    if (rows_.empty() || cols_ < 1)
+      return false;
     T zero = rows_[0][0] - rows_[0][0];
-    char* copy = strdup(string);
-    char* pouterleft = strchr(copy, '[');
-    if (!pouterleft) { free(copy); return false; }
-    char* pinner = pouterleft + 1;
-    while (*pinner == ' ' || *pinner == '\t') ++pinner;
-    char* pouterright = strrchr(pouterleft, ']');
-    if (!pouterright) { free(copy); return false; }
+    char *copy = strdup(string);
+    char *pouterleft = strchr(copy, '[');
+    if (!pouterleft) {
+      free(copy);
+      return false;
+    }
+    char *pinner = pouterleft + 1;
+    while (*pinner == ' ' || *pinner == '\t')
+      ++pinner;
+    char *pouterright = strrchr(pouterleft, ']');
+    if (!pouterright) {
+      free(copy);
+      return false;
+    }
     *pouterright = '\0';
 
     if (strchr(pinner, '[')) {
       int num_rows = spffl::base::count_tokens(pinner, "[");
-      if (num_rows <= 0) { free(copy); return false; }
-      std::vector<char*> row_strs(static_cast<std::size_t>(num_rows), nullptr);
-      if (spffl::base::tokenize(pinner, "[", row_strs.data(), num_rows) != num_rows) { free(copy); return false; }
+      if (num_rows <= 0) {
+        free(copy);
+        return false;
+      }
+      std::vector<char *> row_strs(static_cast<std::size_t>(num_rows), nullptr);
+      if (spffl::base::tokenize(pinner, "[", row_strs.data(), num_rows) != num_rows) {
+        free(copy);
+        return false;
+      }
       rows_.clear();
       cols_ = 0;
       for (int i = 0; i < num_rows; ++i) {
         char rowcopy[2048];
         std::snprintf(rowcopy, sizeof(rowcopy), "[%s]", row_strs[static_cast<std::size_t>(i)]);
         row_type row(1, zero);
-        if (!row.bracket_in(rowcopy)) { free(copy); return false; }
-        if (i == 0) cols_ = row.get_num_elements();
-        else if (row.get_num_elements() != cols_) { free(copy); return false; }
+        if (!row.bracket_in(rowcopy)) {
+          free(copy);
+          return false;
+        }
+        if (i == 0)
+          cols_ = row.get_num_elements();
+        else if (row.get_num_elements() != cols_) {
+          free(copy);
+          return false;
+        }
         rows_.push_back(std::move(row));
       }
     } else {
       row_type col(1, zero);
       std::istringstream iss(pinner, std::ios_base::in);
       iss >> col;
-      if (iss.fail() || col.get_num_elements() == 0) { free(copy); return false; }
+      if (iss.fail() || col.get_num_elements() == 0) {
+        free(copy);
+        return false;
+      }
       rows_.clear();
       cols_ = 1;
       for (int i = 0; i < col.get_num_elements(); ++i) {
@@ -716,50 +768,64 @@ public:
     return true;
   }
 
-  bool load_from_file(char* file_name) {
+  bool load_from_file(char *file_name) {
     if (strcmp(file_name, "-") == 0 || strcmp(file_name, "@") == 0) {
-      if (rows_.empty()) return false;
+      if (rows_.empty())
+        return false;
       std::cin >> *this;
       return !std::cin.fail();
     }
     std::ifstream ifs(file_name);
-    if (!ifs) return false;
-    if (rows_.empty()) return false;
+    if (!ifs)
+      return false;
+    if (rows_.empty())
+      return false;
     T zero = rows_[0][0] - rows_[0][0];
     rows_.clear();
     cols_ = 0;
     std::string line;
     while (std::getline(ifs, line)) {
-      char* phash = strchr(const_cast<char*>(line.c_str()), '#');
-      if (phash) *phash = '\0';
-      while (!line.empty() && (line.back() == ' ' || line.back() == '\t')) line.pop_back();
+      char *phash = strchr(const_cast<char *>(line.c_str()), '#');
+      if (phash)
+        *phash = '\0';
+      while (!line.empty() && (line.back() == ' ' || line.back() == '\t'))
+        line.pop_back();
       size_t start = line.find_first_not_of(" \t");
       if (start == std::string::npos) {
-        if (rows_.empty()) continue;
+        if (rows_.empty())
+          continue;
         break;
       }
       line = line.substr(start);
-      if (line.empty() && !rows_.empty()) break;
+      if (line.empty() && !rows_.empty())
+        break;
       row_type row(1, zero);
       std::istringstream iss(line, std::ios_base::in);
       iss >> row;
-      if (iss.fail()) { ifs.close(); return false; }
-      if (cols_ == 0) cols_ = row.get_num_elements();
-      else if (row.get_num_elements() != cols_) { ifs.close(); return false; }
+      if (iss.fail()) {
+        ifs.close();
+        return false;
+      }
+      if (cols_ == 0)
+        cols_ = row.get_num_elements();
+      else if (row.get_num_elements() != cols_) {
+        ifs.close();
+        return false;
+      }
       rows_.push_back(std::move(row));
     }
     ifs.close();
     return !rows_.empty();
   }
 
-  bool load_from_file(char* file_name, const T& zero) {
+  bool load_from_file(char *file_name, const T &zero) {
     rows_.clear();
     rows_.emplace_back(1, zero);
     cols_ = 1;
     return load_from_file(file_name);
   }
 
-  void check_inverse(matrix_over& rinv) const {
+  void check_inverse(matrix_over &rinv) const {
     matrix_over AB = *this * rinv;
     matrix_over BA = rinv * *this;
     if (!AB.is_I() || !BA.is_I()) {
@@ -767,7 +833,7 @@ public:
     }
   }
 
-  void check_kernel_basis(const matrix_over& kerbas) const {
+  void check_kernel_basis(const matrix_over &kerbas) const {
     T zero = (*this)[0][0] - (*this)[0][0];
     row_type zerov(get_num_rows(), zero);
     for (int i = 0; i < kerbas.get_num_rows(); ++i) {
@@ -795,17 +861,19 @@ public:
     int nc = get_num_cols();
     for (int i = 0; i < nr; ++i) {
       for (int j = 0; j < nc; ++j) {
-        rv.rows_[static_cast<std::size_t>(i)][j] = (*this)[static_cast<std::size_t>(nr - 1 - i)][nc - 1 - j];
+        rv.rows_[static_cast<std::size_t>(i)][j] =
+          (*this)[static_cast<std::size_t>(nr - 1 - i)][nc - 1 - j];
       }
     }
     return rv;
   }
 
-  bool get_rr_non_zero_rows(matrix_over& rrnz) const {
+  bool get_rr_non_zero_rows(matrix_over &rrnz) const {
     matrix_over rr(*this);
     rr.row_reduce_below();
     int rank = rr.get_rank_rr();
-    if (rank == 0) return false;
+    if (rank == 0)
+      return false;
     rrnz = matrix_over(rank, get_num_cols());
     for (int i = 0; i < rank; ++i) {
       rrnz.rows_[static_cast<std::size_t>(i)] = rr.rows_[static_cast<std::size_t>(i)];
@@ -813,11 +881,12 @@ public:
     return true;
   }
 
-  bool get_rech_non_zero_rows(matrix_over& rechnz) const {
+  bool get_rech_non_zero_rows(matrix_over &rechnz) const {
     matrix_over rech(*this);
     rech.row_echelon_form();
     int rank = rech.get_rank_rr();
-    if (rank == 0) return false;
+    if (rank == 0)
+      return false;
     rechnz = matrix_over(rank, get_num_cols());
     for (int i = 0; i < rank; ++i) {
       rechnz.rows_[static_cast<std::size_t>(i)] = rech.rows_[static_cast<std::size_t>(i)];
@@ -825,56 +894,72 @@ public:
     return true;
   }
 
-  friend std::ostream& operator<<(std::ostream& os, const matrix_over& A) {
+  friend std::ostream &operator<<(std::ostream &os, const matrix_over &A) {
     for (int i = 0; i < A.get_num_rows(); ++i) {
       for (int j = 0; j < A.get_num_cols(); ++j) {
-        if (j > 0) os << " ";
+        if (j > 0)
+          os << " ";
         os << A[static_cast<std::size_t>(i)][j];
       }
-      if (i + 1 < A.get_num_rows()) os << "\n";
+      if (i + 1 < A.get_num_rows())
+        os << "\n";
     }
     return os;
   }
 
-  friend std::istream& operator>>(std::istream& is, matrix_over& A) {
-    if (A.rows_.empty() || A.cols_ < 1) { is.setstate(std::ios::failbit); return is; }
+  friend std::istream &operator>>(std::istream &is, matrix_over &A) {
+    if (A.rows_.empty() || A.cols_ < 1) {
+      is.setstate(std::ios::failbit);
+      return is;
+    }
     T zero = A.rows_[0][0] - A.rows_[0][0];
     A.rows_.clear();
     A.cols_ = 0;
     std::string line;
     while (std::getline(is, line)) {
-      char* phash = strchr(const_cast<char*>(line.c_str()), '#');
-      if (phash) *phash = '\0';
-      while (!line.empty() && (line.back() == ' ' || line.back() == '\t')) line.pop_back();
+      char *phash = strchr(const_cast<char *>(line.c_str()), '#');
+      if (phash)
+        *phash = '\0';
+      while (!line.empty() && (line.back() == ' ' || line.back() == '\t'))
+        line.pop_back();
       size_t start = line.find_first_not_of(" \t");
       if (start == std::string::npos) {
-        if (A.rows_.empty()) continue;
+        if (A.rows_.empty())
+          continue;
         break;
       }
       line = line.substr(start);
-      if (line.empty() && !A.rows_.empty()) break;
+      if (line.empty() && !A.rows_.empty())
+        break;
       row_type row(1, zero);
       std::istringstream iss(line, std::ios_base::in);
       iss >> row;
-      if (iss.fail()) { is.setstate(std::ios::failbit); return is; }
-      if (A.cols_ == 0) A.cols_ = row.get_num_elements();
-      else if (row.get_num_elements() != A.cols_) { is.setstate(std::ios::failbit); return is; }
+      if (iss.fail()) {
+        is.setstate(std::ios::failbit);
+        return is;
+      }
+      if (A.cols_ == 0)
+        A.cols_ = row.get_num_elements();
+      else if (row.get_num_elements() != A.cols_) {
+        is.setstate(std::ios::failbit);
+        return is;
+      }
       A.rows_.push_back(std::move(row));
     }
     return is;
   }
 
-private:
+  private:
   std::vector<row_type> rows_;
   int cols_;
 
-  void check_same_shape(const matrix_over& B) const {
+  void check_same_shape(const matrix_over &B) const {
     if (get_num_rows() != B.get_num_rows() || get_num_cols() != B.get_num_cols()) {
       throw std::invalid_argument("matrix_over: shape mismatch");
     }
   }
 };
 
-}  // namespace spffl::containers
+} // namespace spffl::containers
 
-#endif  // SPFFL_CONTAINERS_MATRIX_OVER_H
+#endif // SPFFL_CONTAINERS_MATRIX_OVER_H

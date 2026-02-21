@@ -74,8 +74,8 @@ int fp_op_main(int argc, char **argv, usage_t *pusage) {
   if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
   }
-  spffl::cli_parser::cmd_line_parse<spffl::intmath::intmod_t>(argc - 2,
-      argv + 2, spffl::intmath::intmod_t(0, p), spffl::intmath::intmod_t(1, p));
+  spffl::cli_parser::cmd_line_parse<spffl::intmath::intmod_t>(
+    argc - 2, argv + 2, spffl::intmath::intmod_t(0, p), spffl::intmath::intmod_t(1, p));
   return 0;
 }
 
@@ -241,8 +241,8 @@ int fp_max_ord_main(int argc, char **argv, usage_t *pusage) {
     pusage(argv[0]);
   }
   spffl::containers::vector_over<spffl::intmath::intmod_t> elts =
-      intmod_list(p, spffl::list::SP_LIST_UNITS);
-  int n   = elts.get_num_elements();
+    intmod_list(p, spffl::list::SP_LIST_UNITS);
+  int n = elts.get_num_elements();
   int max = 0;
   for (int i = 0; i < n; i++) {
     int cur = spffl::units::fp_order(elts[i]);
@@ -295,8 +295,7 @@ int fp_orbit_main(int argc, char **argv, usage_t *pusage) {
 
     counter++;
     if (counter > p) {
-      std::cerr << "Internal error finding orbit of " << a0 << " mod " << p
-                << "\n";
+      std::cerr << "Internal error finding orbit of " << a0 << " mod " << p << "\n";
       exit(1);
     }
 
@@ -404,8 +403,8 @@ int fp_mat_op_main(int argc, char **argv, usage_t *pusage) {
   if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
   }
-  spffl::cli_parser::cmd_line_mat_parse<spffl::intmath::intmod_t>(argc - 2,
-      argv + 2, spffl::intmath::intmod_t(0, p), spffl::intmath::intmod_t(1, p));
+  spffl::cli_parser::cmd_line_mat_parse<spffl::intmath::intmod_t>(
+    argc - 2, argv + 2, spffl::intmath::intmod_t(0, p), spffl::intmath::intmod_t(1, p));
   return 0;
 }
 
@@ -422,8 +421,8 @@ int fp_vec_op_main(int argc, char **argv, usage_t *pusage) {
   if (sscanf(argv[1], "%d", &p) != 1) {
     pusage(argv[0]);
   }
-  spffl::cli_parser::cmd_line_vec_parse<spffl::intmath::intmod_t>(argc - 2,
-      argv + 2, spffl::intmath::intmod_t(0, p), spffl::intmath::intmod_t(1, p));
+  spffl::cli_parser::cmd_line_vec_parse<spffl::intmath::intmod_t>(
+    argc - 2, argv + 2, spffl::intmath::intmod_t(0, p), spffl::intmath::intmod_t(1, p));
   return 0;
 }
 

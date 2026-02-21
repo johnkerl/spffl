@@ -18,16 +18,15 @@
 namespace spffl::polynomials {
 
 class q_poly_t {
-public:
+  public:
   q_poly_t(void);
 
   q_poly_t(const spffl::intmath::intrat_t &c0);
-  q_poly_t(
-      const spffl::intmath::intrat_t &c1, const spffl::intmath::intrat_t &c0);
-  q_poly_t(const spffl::intmath::intrat_t &c2,
-      const spffl::intmath::intrat_t &c1, const spffl::intmath::intrat_t &c0);
-  static q_poly_t binomial(const spffl::intmath::intrat_t &ci, int i,
-      const spffl::intmath::intrat_t &cj, int j);
+  q_poly_t(const spffl::intmath::intrat_t &c1, const spffl::intmath::intrat_t &c0);
+  q_poly_t(const spffl::intmath::intrat_t &c2, const spffl::intmath::intrat_t &c1,
+    const spffl::intmath::intrat_t &c0);
+  static q_poly_t binomial(
+    const spffl::intmath::intrat_t &ci, int i, const spffl::intmath::intrat_t &cj, int j);
 
   q_poly_t(const q_poly_t &that);
   ~q_poly_t(void);
@@ -54,8 +53,7 @@ public:
   q_poly_t &operator%=(const q_poly_t &that);
   q_poly_t &operator/=(const spffl::intmath::intrat_t &a);
 
-  void quot_and_rem(
-      const q_poly_t &that, q_poly_t &rquot, q_poly_t &rrem) const;
+  void quot_and_rem(const q_poly_t &that, q_poly_t &rquot, q_poly_t &rrem) const;
   q_poly_t gcd(const q_poly_t &that) const;
   q_poly_t ext_gcd(const q_poly_t &that, q_poly_t &rm, q_poly_t &rn) const;
   q_poly_t exp(int power) const;
@@ -84,7 +82,7 @@ public:
   void promote(void);
   void promote_and_add(spffl::intmath::intrat_t c0);
 
-private:
+  private:
   spffl::intmath::intrat_t *coeffs;
   int degree;
 

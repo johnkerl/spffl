@@ -29,16 +29,15 @@ int f2n_polymod_order(const spffl::polynomials::f2n_polymod_t &a) {
 
   if (g != pol1) {
     std::stringstream ss;
-    ss << "f2n_polymod_order:  zero or zero divisor " << r << " mod " << m
-       << ".\n";
+    ss << "f2n_polymod_order:  zero or zero divisor " << r << " mod " << m << ".\n";
     ss << "gcd(" << r << ", " << m << ") = " << g << "\n";
     throw spffl::exception_t(ss.str());
   }
 
-  int phi                   = spffl::factorization::f2n_poly_totient(m);
-  tfacinfo<int> finfo       = spffl::factorization::int_factor(phi);
+  int phi = spffl::factorization::f2n_poly_totient(m);
+  tfacinfo<int> finfo = spffl::factorization::int_factor(phi);
   spffl::containers::vector_over<int> phi_divisors = finfo.get_all_divisors(1);
-  int nd                    = phi_divisors.get_num_elements();
+  int nd = phi_divisors.get_num_elements();
   spffl::polynomials::f2n_polymod_t one(pol1, m);
 
   // The output from get_all_divisors is guaranteed to be sorted up.
@@ -59,9 +58,9 @@ int f2n_polymod_order(const spffl::polynomials::f2n_polymod_t &a) {
 }
 
 // ----------------------------------------------------------------
-bool f2n_polymod_find_generator(const spffl::polynomials::f2n_poly_t &m,
-    spffl::polynomials::f2n_polymod_t &rg) {
-  int mdeg                            = m.find_degree();
+bool f2n_polymod_find_generator(
+  const spffl::polynomials::f2n_poly_t &m, spffl::polynomials::f2n_polymod_t &rg) {
+  int mdeg = m.find_degree();
   spffl::polynomials::f2n_poly_t gres = m.prime_subfield_element(1);
 
   if (mdeg < 1) {
@@ -116,12 +115,11 @@ static int poly_and_index_qcmp(const void *pv1, const void *pv2) {
 }
 
 int f2n_polymod_log( // Log base g of a.
-    const spffl::polynomials::f2n_polymod_t &g,
-    const spffl::polynomials::f2n_polymod_t &a) {
+  const spffl::polynomials::f2n_polymod_t &g, const spffl::polynomials::f2n_polymod_t &a) {
   std::cout << "\n";
   std::cout << "g = " << g << "\n";
   std::cout << "a = " << a << "\n";
-  int rv                           = -1;
+  int rv = -1;
   spffl::polynomials::f2n_poly_t m = g.get_modulus();
   std::cout << "m = " << m << "\n";
   int n = 1 << m.find_degree();
@@ -133,7 +131,7 @@ int f2n_polymod_log( // Log base g of a.
   // xxx check gcd(g, a)
 
   poly_and_index_t *agni = new poly_and_index_t[k];
-  poly_and_index_t *gkj  = new poly_and_index_t[k];
+  poly_and_index_t *gkj = new poly_and_index_t[k];
 
   spffl::polynomials::f2n_polymod_t ginv;
   if (!g.recip(ginv)) {
@@ -149,8 +147,8 @@ int f2n_polymod_log( // Log base g of a.
 
   agni[0].elt = a;
   agni[0].idx = 0;
-  gkj[0].elt  = g / g;
-  gkj[0].idx  = 0;
+  gkj[0].elt = g / g;
+  gkj[0].idx = 0;
 
   std::cout << "agni[" << 0 << "] = " << agni[0].elt << "\n";
   for (i = 1; i < k; i++) {
@@ -168,13 +166,13 @@ int f2n_polymod_log( // Log base g of a.
   qsort(agni, k, sizeof(poly_and_index_t), poly_and_index_qcmp);
   qsort(gkj, k, sizeof(poly_and_index_t), poly_and_index_qcmp);
   for (j = 0; j < k; j++) {
-    std::cout << "-- agni[" << j << "] = " << agni[j].elt << " gk[" << j
-              << "] = " << gkj[j].elt << "\n";
+    std::cout << "-- agni[" << j << "] = " << agni[j].elt << " gk[" << j << "] = " << gkj[j].elt
+              << "\n";
   }
 
   for (i = 0, j = 0; i < k && j < k;) {
-    std::cout << "agni[" << i << "] = " << agni[i].elt << " gk[" << j
-              << "] = " << gkj[j].elt << "\n";
+    std::cout << "agni[" << i << "] = " << agni[i].elt << " gk[" << j << "] = " << gkj[j].elt
+              << "\n";
     if (agni[i].elt == gkj[j].elt) {
       // xxx could overflow 32-bit int; fix me.
       std::cout << "found at i=" << i << " j=" << j << "\n";
@@ -189,8 +187,7 @@ int f2n_polymod_log( // Log base g of a.
 
   if (rv == -1) {
     std::stringstream ss;
-    ss << "f2n_polymod_log:  couldn't find log base " << g << " of " << a
-       << " mod " << m << ".\n";
+    ss << "f2n_polymod_log:  couldn't find log base " << g << " of " << a << " mod " << m << ".\n";
     throw spffl::exception_t(ss.str());
   }
 

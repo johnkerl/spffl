@@ -7,4 +7,4 @@
 
 #include "spffl/polynomials/fpn_f2n_aliases.h"
 
-#endif  // F2NPOLYMOD_T_H
+#endif // F2NPOLYMOD_T_H

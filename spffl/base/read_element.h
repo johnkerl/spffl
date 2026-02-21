@@ -9,10 +9,9 @@
 
 #include <sstream>
 
-template <class T>
-void read_element(std::istringstream& iss, const T& zero, T& out) {
+template <class T> void read_element(std::istringstream &iss, const T &zero, T &out) {
   (void)zero;
   iss >> out;
 }
 
-#endif  // SPFFL_BASE_READ_ELEMENT_H
+#endif // SPFFL_BASE_READ_ELEMENT_H
