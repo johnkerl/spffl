@@ -48,8 +48,7 @@ static int check_balance(int argc, char **argv) {
 }
 
 // ----------------------------------------------------------------
-static void find_matching_right_bracket(
-    int argc, char **argv, int lefti, int &righti) {
+static void find_matching_right_bracket(int argc, char **argv, int lefti, int &righti) {
   int depth = 1;
   for (righti = lefti + 1; righti < argc; righti++) {
     if (strcmp(argv[righti], RBRK) == 0) {
@@ -84,8 +83,7 @@ static char *flatten(char *exename, int argc, char **argv) {
 }
 
 // ----------------------------------------------------------------
-static void replace(
-    char *exename, int argcin, char **argvin, int &argcout, char **&argvout) {
+static void replace(char *exename, int argcin, char **argvin, int &argcout, char **&argvout) {
   char *flat_cmd = flatten(exename, argcin, argvin);
 
   FILE *pipe = popen(flat_cmd, "r");
@@ -97,7 +95,7 @@ static void replace(
 
   char line[4096];
   int totlen = 0;
-  char *buf  = 0;
+  char *buf = 0;
   while (fgets(line, sizeof(line), pipe)) {
     int curlen = strlen(line);
     if (line[curlen - 1] == '\n') {
@@ -118,7 +116,7 @@ static void replace(
   pclose(pipe);
 
   if (buf == 0) {
-      buf = strdup("");
+    buf = strdup("");
   }
 
   argcout = spffl::base::count_tokens(buf, " \t");
@@ -134,8 +132,7 @@ static void replace(
 }
 
 // ----------------------------------------------------------------
-static void cmd_interpolate_once(
-    char *exename, int &argc, char **&argv, int &interpolated) {
+static void cmd_interpolate_once(char *exename, int &argc, char **&argv, int &interpolated) {
   interpolated = 0;
   int lefti, righti;
   if (!find_first_bracket(argc, argv, (char *)LBRK, lefti)) {
@@ -169,7 +166,7 @@ static void cmd_interpolate_once(
 
   replace(exename, righti - lefti - 1, &argv[lefti + 1], argcout, argvout);
 
-  int newargc    = lefti + argcout + argc - righti - 1;
+  int newargc = lefti + argcout + argc - righti - 1;
   char **newargv = (char **)malloc(newargc * sizeof(char *));
   int si, di = 0;
   for (si = 0; si < lefti; si++, di++) {
@@ -182,8 +179,8 @@ static void cmd_interpolate_once(
     newargv[di] = argv[si];
   }
 
-  argc         = newargc;
-  argv         = newargv;
+  argc = newargc;
+  argv = newargv;
   interpolated = 1;
 }
 

@@ -26,7 +26,7 @@ namespace spffl::base {
 int tokenize(char *line, const char *seps, char **argv, int max_arguments) {
   char *readp;
   bool inside_token = false;
-  int argc          = 0;
+  int argc = 0;
   const char *psep;
   bool is_sep;
 
@@ -43,7 +43,7 @@ int tokenize(char *line, const char *seps, char **argv, int max_arguments) {
     if (is_sep) { // Is a separator
       if (inside_token) {
         inside_token = false;
-        *readp       = 0;
+        *readp = 0;
       }
       // else, whitespace is not copied.
     } else {               // Not a separator
@@ -70,7 +70,7 @@ int tokenize(char *line, const char *seps, char **argv, int max_arguments) {
 int count_tokens(char *line, const char *seps) {
   char *readp;
   bool inside_token = false;
-  int argc          = 0;
+  int argc = 0;
   const char *psep;
   bool is_sep;
 

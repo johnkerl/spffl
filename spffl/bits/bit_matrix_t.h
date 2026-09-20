@@ -13,7 +13,7 @@
 namespace spffl::bits {
 
 class bit_matrix_t {
-public:
+  public:
   bit_matrix_t(int init_num_rows, int init_num_cols);
   bit_matrix_t(bit_t e, int init_num_rows, int init_num_cols);
   bit_matrix_t(int e, int init_num_rows, int init_num_cols);
@@ -102,7 +102,7 @@ public:
   int get_num_cols(void) const;
 
   // ----------------------------------------------------------------
-private:
+  private:
   bit_vector_t *rows;
   int num_rows;
   int num_cols;

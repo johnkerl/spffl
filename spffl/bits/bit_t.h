@@ -25,7 +25,7 @@ namespace spffl::bits {
 // operator, which is time-expensive at the instruction level.
 
 class bit_t {
-public:
+  public:
   bit_t(int arg_residue) { this->residue = arg_residue & 1; }
 
   bit_t(const bit_t &that) { this->residue = that.residue; }
@@ -140,7 +140,7 @@ public:
   friend std::istream &operator>>(std::istream &is, bit_t &a);
   bool from_string(const std::string &string);
 
-private:
+  private:
   uint8_t residue;
 };
 

@@ -19,15 +19,14 @@
 template <typename element_type> class tmatrix;
 
 template <typename element_type>
-static std::ostream &operator<<(
-    std::ostream &os, const tmatrix<element_type> &);
+static std::ostream &operator<<(std::ostream &os, const tmatrix<element_type> &);
 
 template <typename element_type>
 static std::istream &operator>>(std::istream &is, tmatrix<element_type> &);
 
 // ================================================================
 template <typename element_type> class tmatrix {
-public:
+  public:
   // ================================================================
   // Constructors
 
@@ -35,15 +34,14 @@ public:
   tmatrix(int init_num_rows, int init_num_cols) {
     if ((init_num_rows <= 0) || (init_num_cols <= 0)) {
       std::stringstream ss;
-      ss << "tmatrix::tmatrix():  Matrix dimensions must be >= 0; got "
-         << init_num_rows << " x " << init_num_cols << ".  Exiting."
-         << std::endl;
+      ss << "tmatrix::tmatrix():  Matrix dimensions must be >= 0; got " << init_num_rows << " x "
+         << init_num_cols << ".  Exiting." << std::endl;
       throw spffl::exception_t(ss.str());
     }
 
     this->num_rows = init_num_rows;
     this->num_cols = init_num_cols;
-    this->rows     = new tvector<element_type>[init_num_rows];
+    this->rows = new tvector<element_type>[init_num_rows];
     for (int i = 0; i < init_num_rows; i++) {
       this->rows[i] = tvector<element_type>(init_num_cols);
     }
@@ -54,13 +52,13 @@ public:
     if ((init_num_rows <= 0) || (init_num_cols <= 0)) {
       std::stringstream ss;
       ss << "tmatrix::tmatrix():  Matrix dimensions "
-         << "must be > 0; got " << init_num_rows << " x " << init_num_cols
-         << ".  Exiting." << std::endl;
+         << "must be > 0; got " << init_num_rows << " x " << init_num_cols << ".  Exiting."
+         << std::endl;
       throw spffl::exception_t(ss.str());
     }
     this->num_rows = init_num_rows;
     this->num_cols = init_num_cols;
-    this->rows     = new tvector<element_type>[init_num_rows];
+    this->rows = new tvector<element_type>[init_num_rows];
     for (int i = 0; i < init_num_rows; i++) {
       this->rows[i] = tvector<element_type>(e, init_num_cols);
     }
@@ -73,7 +71,7 @@ public:
   tmatrix(const tmatrix<element_type> &that) {
     this->num_rows = that.num_rows;
     this->num_cols = that.num_cols;
-    this->rows     = new tvector<element_type>[that.num_rows];
+    this->rows = new tvector<element_type>[that.num_rows];
     for (int i = 0; i < that.num_rows; i++) {
       this->rows[i] = that.rows[i];
     }
@@ -101,9 +99,8 @@ public:
     }
     if (min_cols != max_cols) {
       std::stringstream ss;
-      ss << "tmatrix:  ragged input.  # rows = " << this->num_rows
-         << " min # cols = " << min_cols << " max # cols = " << max_cols
-         << ".\n";
+      ss << "tmatrix:  ragged input.  # rows = " << this->num_rows << " min # cols = " << min_cols
+         << " max # cols = " << max_cols << ".\n";
       return false;
     }
     this->num_cols = max_cols;
@@ -136,8 +133,7 @@ public:
 
     if (ifs.fail()) {
       std::stringstream ss;
-      ss << "tmatrix::load_from_file:  scan failure reading \"" << file_name
-         << "\"\n";
+      ss << "tmatrix::load_from_file:  scan failure reading \"" << file_name << "\"\n";
       ifs.close();
       return false;
     }
@@ -151,10 +147,10 @@ public:
   bool load_from_file(char *file_name, element_type zero) {
     this->mfree();
 
-    this->num_rows   = 1;
-    this->num_cols   = 1;
-    this->rows       = new tvector<element_type>[1];
-    this->rows[0]    = tvector<element_type>(1);
+    this->num_rows = 1;
+    this->num_cols = 1;
+    this->rows = new tvector<element_type>[1];
+    this->rows[0] = tvector<element_type>(1);
     this->rows[0][0] = zero;
 
     return this->load_from_file(file_name);
@@ -192,7 +188,7 @@ public:
     element_type zero = this->rows[0][0] - this->rows[0][0];
     this->mfree();
 
-    char *copy       = strdup(string);
+    char *copy = strdup(string);
     char *pouterleft = strchr(copy, '[');
     if (pouterleft == 0) {
       std::stringstream ss;
@@ -217,7 +213,7 @@ public:
     if (strchr(pinnerstart, '[')) {
       // There are nested brackets.
       this->num_rows = spffl::base::count_tokens(pinnerstart, "[");
-      this->rows     = new tvector<element_type>[this->num_rows];
+      this->rows = new tvector<element_type>[this->num_rows];
       char **stringv = new char *[this->num_rows];
       (void)spffl::base::tokenize(pinnerstart, "[", stringv, this->num_rows);
 
@@ -325,10 +321,10 @@ public:
         }
       }
     } else {
-      this->num_rows   = 1;
-      this->num_cols   = 1;
-      this->rows       = new tvector<element_type>[1];
-      this->rows[0]    = tvector<element_type>(1);
+      this->num_rows = 1;
+      this->num_cols = 1;
+      this->rows = new tvector<element_type>[1];
+      this->rows[0] = tvector<element_type>(1);
       this->rows[0][0] = scalar;
     }
     return *this;
@@ -338,14 +334,13 @@ public:
   tmatrix<element_type> &operator=(const tmatrix<element_type> &that) {
     int i;
 
-    if ((this->num_rows == that.num_rows) &&
-        (this->num_cols == that.num_cols)) {
+    if ((this->num_rows == that.num_rows) && (this->num_cols == that.num_cols)) {
       // Storage is fine as is.
     } else {
       this->mfree();
       this->num_rows = that.num_rows;
       this->num_cols = that.num_cols;
-      this->rows     = new tvector<element_type>[that.num_rows];
+      this->rows = new tvector<element_type>[that.num_rows];
       for (i = 0; i < that.num_rows; i++) {
         this->rows[i] = tvector<element_type>(that.num_cols);
       }
@@ -379,9 +374,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  bool operator!=(const tmatrix<element_type> &that) const {
-    return !(*this == that);
-  }
+  bool operator!=(const tmatrix<element_type> &that) const { return !(*this == that); }
 
   // ----------------------------------------------------------------
   bool operator!=(const element_type &e) const { return !(*this == e); }
@@ -390,8 +383,8 @@ public:
   tvector<element_type> &operator[](int row_index) const {
     if ((row_index < 0) || (row_index >= this->num_rows)) {
       std::stringstream ss;
-      ss << "tmatrix array operator: row index " << row_index
-         << " out of bounds " << 0 << ":" << (this->num_rows - 1) << std::endl;
+      ss << "tmatrix array operator: row index " << row_index << " out of bounds " << 0 << ":"
+         << (this->num_rows - 1) << std::endl;
       throw spffl::exception_t(ss.str());
     }
     return this->rows[row_index];
@@ -402,8 +395,8 @@ public:
   tvector<element_type> get_column(int col_index) const {
     if ((col_index < 0) || (col_index >= this->num_cols)) {
       std::stringstream ss;
-      ss << "tmatrix get_column: col index " << col_index << " out of bounds "
-         << 0 << ":" << (this->num_cols - 1) << std::endl;
+      ss << "tmatrix get_column: col index " << col_index << " out of bounds " << 0 << ":"
+         << (this->num_cols - 1) << std::endl;
       throw spffl::exception_t(ss.str());
     }
     tvector<element_type> rv(this->num_rows);
@@ -417,15 +410,14 @@ public:
   void put_column(int col_index, tvector<element_type> &v) {
     if ((col_index < 0) || (col_index >= this->num_cols)) {
       std::stringstream ss;
-      ss << "tmatrix put_column: col index " << col_index << " out of bounds "
-         << 0 << ":" << (this->num_cols - 1) << std::endl;
+      ss << "tmatrix put_column: col index " << col_index << " out of bounds " << 0 << ":"
+         << (this->num_cols - 1) << std::endl;
       throw spffl::exception_t(ss.str());
     }
     if (v.get_num_elements() != this->num_rows) {
       std::stringstream ss;
-      ss << "tmatrix::put_column:  matrix is " << this->num_rows << " x "
-         << this->num_cols << ", but the vector has height "
-         << v.get_num_elements() << ".\n";
+      ss << "tmatrix::put_column:  matrix is " << this->num_rows << " x " << this->num_cols
+         << ", but the vector has height " << v.get_num_elements() << ".\n";
       throw spffl::exception_t(ss.str());
     }
     for (int i = 0; i < this->num_rows; i++) {
@@ -447,12 +439,11 @@ public:
 
   // ----------------------------------------------------------------
   tmatrix<element_type> operator-(const tmatrix<element_type> &that) const {
-    if ((this->num_rows != that.num_rows) ||
-        (this->num_cols != that.num_cols)) {
+    if ((this->num_rows != that.num_rows) || (this->num_cols != that.num_cols)) {
       std::stringstream ss;
       ss << "tmatrix operator-():  Incompatibly sized "
-         << "arguments (" << this->num_rows << "x" << this->num_cols << ", "
-         << that.num_rows << "x" << that.num_cols << ")." << std::endl;
+         << "arguments (" << this->num_rows << "x" << this->num_cols << ", " << that.num_rows << "x"
+         << that.num_cols << ")." << std::endl;
       throw spffl::exception_t(ss.str());
     }
 
@@ -514,13 +505,13 @@ public:
     if (this->num_cols != v_num_elements) {
       std::stringstream ss;
       ss << "tmatrix operator*(): Incompatibly dimensioned "
-         << "operands (" << this->num_rows << "x" << this->num_cols << ","
-         << v_num_elements << ")." << std::endl;
+         << "operands (" << this->num_rows << "x" << this->num_cols << "," << v_num_elements << ")."
+         << std::endl;
       throw spffl::exception_t(ss.str());
     }
 
     tvector<element_type> rv(this->num_rows);
-    element_type t00  = this->rows[0][0];
+    element_type t00 = this->rows[0][0];
     element_type zero = t00 - t00;
     for (i = 0; i < this->num_rows; i++) {
       rv[i] = zero;
@@ -535,12 +526,11 @@ public:
     return rv;
   }
 
-private:
+  private:
   // ----------------------------------------------------------------
   // This is a private auxiliary function for the exp() method.
 
-  tmatrix<element_type> posexp(
-      int power, const tmatrix<element_type> &I) const {
+  tmatrix<element_type> posexp(int power, const tmatrix<element_type> &I) const {
     tmatrix<element_type> a2(*this);
     tmatrix<element_type> apower = I;
 
@@ -554,7 +544,7 @@ private:
     return apower;
   }
 
-public:
+  public:
   // ----------------------------------------------------------------
   // * power >=  1:  repeated squaring
   // * power ==  0:
@@ -613,13 +603,13 @@ public:
     if (this->num_cols != that.num_rows) {
       std::stringstream ss;
       ss << "tmatrix operator*(): Incompatibly dimensioned "
-         << "operands (" << this->num_rows << "x" << this->num_cols << ","
-         << that.num_rows << "x" << that.num_cols << ")." << std::endl;
+         << "operands (" << this->num_rows << "x" << this->num_cols << "," << that.num_rows << "x"
+         << that.num_cols << ")." << std::endl;
       throw spffl::exception_t(ss.str());
     }
 
     tmatrix<element_type> rv(this->num_rows, that.num_cols);
-    element_type t00  = this->rows[0][0];
+    element_type t00 = this->rows[0][0];
     element_type zero = t00 - t00;
     for (i = 0; i < this->num_rows; i++) {
       for (j = 0; j < that.num_cols; j++) {
@@ -690,7 +680,7 @@ public:
 
   // ----------------------------------------------------------------
   static tmatrix<element_type> outer(
-      const tvector<element_type> &u, const tvector<element_type> &v) {
+    const tvector<element_type> &u, const tvector<element_type> &v) {
     int m = u.get_num_elements();
     int n = v.get_num_elements();
     tmatrix<element_type> rv(m, n);
@@ -772,12 +762,12 @@ public:
   // 1 is that element divided by itself.
 
   bool find_one(element_type &rone) const {
-    element_type a    = this->rows[0][0];
+    element_type a = this->rows[0][0];
     element_type zero = a - a;
     for (int i = 0; i < this->num_rows; i++) {
       for (int j = 0; j < this->num_cols; j++) {
         if (this->rows[i][j] != zero) {
-          a    = this->rows[i][j];
+          a = this->rows[i][j];
           rone = a / a;
           return true;
         }
@@ -836,7 +826,7 @@ public:
       return false;
     }
 
-    element_type a    = this->rows[0][0];
+    element_type a = this->rows[0][0];
     element_type zero = a - a;
     element_type one;
     if (!this->find_one(one)) {
@@ -916,21 +906,20 @@ public:
     element_type *temp;
 
     minus_one = zero - one;
-    s         = one;
-    for (top_row = 0, left_column = 0;
-         (top_row < this->num_rows) && (left_column < this->num_cols);
-        /* increment in loop body */) {
+    s = one;
+    for (top_row = 0, left_column = 0; (top_row < this->num_rows) && (left_column < this->num_cols);
+      /* increment in loop body */) {
       // Find the nearest row with a non-zero value in this column;
       // exchange that row with this one.
-      int pivot_row        = top_row;
+      int pivot_row = top_row;
       int pivot_successful = 0;
       while (!pivot_successful && (pivot_row < this->num_rows)) {
         // if (this->rows[pivot_row][left_column] != zero)
         if (ptrs[pivot_row][left_column] != zero) {
           if (top_row != pivot_row) {
             this->swap(top_row, pivot_row);
-            temp            = ptrs[top_row];
-            ptrs[top_row]   = ptrs[pivot_row];
+            temp = ptrs[top_row];
+            ptrs[top_row] = ptrs[pivot_row];
             ptrs[pivot_row] = temp;
             s *= minus_one;
           }
@@ -962,8 +951,7 @@ public:
           // this->rows[cur_row] =
           //	this->rows[cur_row] * top_row_lead -
           //	this->rows[top_row] * current_row_lead;
-          this->rows[cur_row].accum_row_mul(
-              top_row_lead, current_row_lead, this->rows[top_row]);
+          this->rows[cur_row].accum_row_mul(top_row_lead, current_row_lead, this->rows[top_row]);
 
           s /= top_row_lead;
         }
@@ -998,7 +986,7 @@ public:
           break;
         }
         row2_leader_val = this->rows[row2][row2_leader_pos];
-        row_clear_val   = this->rows[row][row2_leader_pos];
+        row_clear_val = this->rows[row][row2_leader_pos];
         if (row_clear_val == zero) {
           continue;
         }
@@ -1017,7 +1005,7 @@ public:
       // I don't support zero-row matrices.
       return false;
     } else {
-      rrnz          = rr;
+      rrnz = rr;
       rrnz.num_rows = rank;
       return true;
     }
@@ -1031,7 +1019,7 @@ public:
       // I don't support zero-row matrices.
       return false;
     } else {
-      rechnz          = rech;
+      rechnz = rech;
       rechnz.num_rows = rank;
       return true;
     }
@@ -1049,7 +1037,7 @@ public:
   // This method assumes the matrix is already row-reduced.  If not,
   // use get_rank() instead.
   int get_rank_rr(void) const {
-    int rank          = 0;
+    int rank = 0;
     element_type zero = this->rows[0][0] - this->rows[0][0];
 
     for (int i = 0; i < this->num_rows; i++) {
@@ -1068,12 +1056,12 @@ public:
   }
 
   // ----------------------------------------------------------------
-  bool get_kernel_basis(tmatrix<element_type> &rbas, const element_type &zero,
-      const element_type &one) const {
+  bool get_kernel_basis(
+    tmatrix<element_type> &rbas, const element_type &zero, const element_type &one) const {
     int i, j;
     tmatrix<element_type> rr(*this);
     rr.row_echelon_form();
-    int rank   = rr.get_rank_rr();
+    int rank = rr.get_rank_rr();
     int dimker = rr.num_cols - rank;
     if (dimker == 0) {
       return false;
@@ -1088,9 +1076,9 @@ public:
     }
 
     unsigned char *free_flags = new unsigned char[this->num_cols];
-    int *free_indices         = new int[this->num_cols];
-    int nfree                 = 0; // == dimker but I'll compute it anyway
-    int dep_pos               = 0;
+    int *free_indices = new int[this->num_cols];
+    int nfree = 0; // == dimker but I'll compute it anyway
+    int dep_pos = 0;
 
     for (i = 0; i < this->num_cols; i++) {
       free_flags[i] = 1;
@@ -1237,9 +1225,9 @@ public:
   // For efficiency, if the matrix is already known to have full rank, invoke
   // solve_unique_full_rank.
   bool solve_unique(tvector<element_type> &x, // Output
-      const tvector<element_type> &b,         // Input
-      const element_type &zero, const element_type &one) const {
-    int indim  = this->get_num_cols();
+    const tvector<element_type> &b,           // Input
+    const element_type &zero, const element_type &one) const {
+    int indim = this->get_num_cols();
     int outdim = this->get_num_rows();
     //  A linear transformation from a higher-dimensional space to a
     //  lower-dimensional space cannot be injective, hence there can be no
@@ -1263,9 +1251,9 @@ public:
   // have full rank (rank=n).  If this is not known, please invoke solve_unique
   // instead.
   bool solve_unique_full_rank(tvector<element_type> &x, // Output
-      const tvector<element_type> &b,                   // Input
-      const element_type &zero, const element_type &one) const {
-    int indim                   = this->get_num_cols();
+    const tvector<element_type> &b,                     // Input
+    const element_type &zero, const element_type &one) const {
+    int indim = this->get_num_cols();
     tmatrix<element_type> Ab_rr = this->paste_vector(b);
     Ab_rr.row_echelon_form();
     int Ab_rank = Ab_rr.get_rank_rr();
@@ -1301,8 +1289,8 @@ public:
   tmatrix<element_type> paste(const tmatrix<element_type> &that) const {
     if (this->num_rows != that.num_rows) {
       std::stringstream ss;
-      ss << "tmatrix::paste:  differing number of rows (" << this->num_rows
-         << " vs. " << that.num_rows << ")\n";
+      ss << "tmatrix::paste:  differing number of rows (" << this->num_rows << " vs. "
+         << that.num_rows << ")\n";
       throw spffl::exception_t(ss.str());
     }
 
@@ -1328,8 +1316,8 @@ public:
     int vne = v.get_num_elements();
     if (this->num_rows != vne) {
       std::stringstream ss;
-      ss << "tmatrix::paste_vector:  differing number of rows ("
-         << this->num_rows << " vs. " << vne << ")\n";
+      ss << "tmatrix::paste_vector:  differing number of rows (" << this->num_rows << " vs. " << vne
+         << ")\n";
       throw spffl::exception_t(ss.str());
     }
 
@@ -1348,8 +1336,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  void split(tmatrix<element_type> &rleft, tmatrix<element_type> &rright,
-      int split_column) const {
+  void split(tmatrix<element_type> &rleft, tmatrix<element_type> &rright, int split_column) const {
     if ((split_column < 0) || (split_column >= this->num_cols)) {
       std::stringstream ss;
       ss << "tmatrix::split:  split column " << split_column
@@ -1358,8 +1345,7 @@ public:
     }
 
     rleft = tmatrix<element_type>(this->num_rows, split_column);
-    rright =
-        tmatrix<element_type>(this->num_rows, this->num_cols - split_column);
+    rright = tmatrix<element_type>(this->num_rows, this->num_cols - split_column);
 
     int i, j;
 
@@ -1391,7 +1377,7 @@ public:
       return false;
     }
 
-    tmatrix<element_type> I    = this->make_I(zero, one);
+    tmatrix<element_type> I = this->make_I(zero, one);
     tmatrix<element_type> pair = this->paste(I);
     pair.row_echelon_form();
 
@@ -1427,8 +1413,7 @@ public:
   }
 
   // ----------------------------------------------------------------
-  void ed_row_reduce_below_with_scalar(
-      element_type &snumer, element_type &sdenom) {
+  void ed_row_reduce_below_with_scalar(element_type &snumer, element_type &sdenom) {
     int top_row, left_column, cur_row;
     element_type zero = this->rows[0][0] - this->rows[0][0];
     element_type one;
@@ -1440,12 +1425,11 @@ public:
     snumer = one;
     sdenom = one;
 
-    for (top_row = 0, left_column = 0;
-         (top_row < this->num_rows) && (left_column < this->num_cols);
-        /* increment in loop body */) {
+    for (top_row = 0, left_column = 0; (top_row < this->num_rows) && (left_column < this->num_cols);
+      /* increment in loop body */) {
       // Find the nearest row with a non-zero value in this column; exchange
       // that row with this one.
-      int pivot_row        = top_row;
+      int pivot_row = top_row;
       int pivot_successful = 0;
       while (!pivot_successful && (pivot_row < this->num_rows)) {
         if (this->rows[pivot_row][left_column] != zero) {
@@ -1486,10 +1470,9 @@ public:
           element_type current_row_lead = this->rows[cur_row][left_column];
 
           element_type lead_gcd = gcd(top_row_lead, current_row_lead);
-          element_type top_mul  = current_row_lead / lead_gcd;
-          element_type cur_mul  = top_row_lead / lead_gcd;
-          this->rows[cur_row].accum_row_mul(
-              cur_mul, top_mul, this->rows[top_row]);
+          element_type top_mul = current_row_lead / lead_gcd;
+          element_type cur_mul = top_row_lead / lead_gcd;
+          this->rows[cur_row].accum_row_mul(cur_mul, top_mul, this->rows[top_row]);
           sdenom *= cur_mul;
 
           g = this->rows[cur_row].vgcd();
@@ -1532,7 +1515,7 @@ public:
 
     // Sanity check: dd must divide dn.
     element_type zero = dn - dn;
-    element_type rem  = dn % dd;
+    element_type rem = dn % dd;
     element_type quot = dn / dd;
     if (rem != zero) {
       std::stringstream ss;
@@ -1564,13 +1547,12 @@ public:
           break;
         }
         row2_leader_val = this->rows[row2][row2_leader_pos];
-        row_clear_val   = this->rows[row][row2_leader_pos];
+        row_clear_val = this->rows[row][row2_leader_pos];
         if (row_clear_val == zero) {
           continue;
         }
 
-        this->rows[row].accum_row_mul(
-            row2_leader_val, row_clear_val, this->rows[row2]);
+        this->rows[row].accum_row_mul(row2_leader_val, row_clear_val, this->rows[row2]);
 
         element_type g = this->rows[row].vgcd();
         if (g != zero) {
@@ -1595,7 +1577,7 @@ public:
       return false;
     }
 
-    tmatrix<element_type> I    = this->make_I(zero, one);
+    tmatrix<element_type> I = this->make_I(zero, one);
     tmatrix<element_type> pair = this->paste(I);
     pair.ed_row_echelon_form();
 
@@ -1607,8 +1589,8 @@ public:
   void trim_num_rows(int new_num_rows) {
     if ((new_num_rows < 1) || (new_num_rows > this->num_rows)) {
       std::stringstream ss;
-      ss << "tmatrix trim_num_rows: new count " << new_num_rows
-         << " out of bounds " << 1 << ":" << this->num_rows << std::endl;
+      ss << "tmatrix trim_num_rows: new count " << new_num_rows << " out of bounds " << 1 << ":"
+         << this->num_rows << std::endl;
       throw spffl::exception_t(ss.str());
     }
     this->num_rows = new_num_rows;
@@ -1631,7 +1613,7 @@ public:
   int get_num_cols(void) const { return this->num_cols; }
 
   // ================================================================
-private:
+  private:
   tvector<element_type> *rows;
   int num_rows;
   int num_cols;
@@ -1646,35 +1628,30 @@ private:
 
   // ----------------------------------------------------------------
   void nullify(void) {
-    this->rows     = 0;
+    this->rows = 0;
     this->num_rows = 0;
     this->num_cols = 0;
   }
 
   // ----------------------------------------------------------------
-  void check_dims(
-      const tmatrix<element_type> &that, const std::string &msg) const {
-    if ((this->num_rows != that.num_rows) ||
-        (this->num_cols != that.num_cols)) {
+  void check_dims(const tmatrix<element_type> &that, const std::string &msg) const {
+    if ((this->num_rows != that.num_rows) || (this->num_cols != that.num_cols)) {
       std::stringstream ss;
-      ss << "tmatrix " << msg << ":  Incompatibly sized arguments ("
-         << this->num_rows << "x" << this->num_cols << ", " << that.num_rows
-         << "x" << that.num_cols << ")." << std::endl;
+      ss << "tmatrix " << msg << ":  Incompatibly sized arguments (" << this->num_rows << "x"
+         << this->num_cols << ", " << that.num_rows << "x" << that.num_cols << ")." << std::endl;
       throw spffl::exception_t(ss.str());
     }
   }
 
   // ----------------------------------------------------------------
-  friend std::ostream &operator<< <>(
-      std::ostream &os, const tmatrix<element_type> &m);
+  friend std::ostream &operator<< <>(std::ostream &os, const tmatrix<element_type> &m);
 
-  friend std::istream &operator>><>(std::istream &is, tmatrix<element_type> &m);
+  friend std::istream &operator>> <>(std::istream &is, tmatrix<element_type> &m);
 };
 
 // ================================================================
 template <typename element_type>
-static std::ostream &operator<<(
-    std::ostream &os, const tmatrix<element_type> &m) {
+static std::ostream &operator<<(std::ostream &os, const tmatrix<element_type> &m) {
   for (int i = 0; i < m.num_rows; i++) {
     os << m.rows[i] << std::endl;
   }
@@ -1689,8 +1666,8 @@ static std::ostream &operator<<(
 template <typename element_type>
 static std::istream &operator>>(std::istream &is, tmatrix<element_type> &m) {
   const int tmx_buf_size = 65536;
-  char *line             = new char[tmx_buf_size];
-  char *pline            = line;
+  char *line = new char[tmx_buf_size];
+  char *pline = line;
 
   // Make sure the matrix already contains an element.  Remember it,
   // then free the old matrix contents.
@@ -1706,8 +1683,8 @@ static std::istream &operator>>(std::istream &is, tmatrix<element_type> &m) {
 
   const int init_num_rows = 10;
   const int more_num_rows = 10;
-  int alloc_num_rows      = init_num_rows;
-  m.rows                  = new tvector<element_type>[init_num_rows];
+  int alloc_num_rows = init_num_rows;
+  m.rows = new tvector<element_type>[init_num_rows];
 
   while (1) {
     if (is.eof()) {

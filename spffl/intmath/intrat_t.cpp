@@ -92,7 +92,7 @@ intrat_t intrat_t::operator-(void) const {
 }
 
 // ----------------------------------------------------------------
-intrat_t intrat_t::operator*(const intrat_t &that) {
+intrat_t intrat_t::operator*(const intrat_t &that) const {
   intrat_t rv;
   rv.numer = this->numer * that.numer;
   rv.denom = this->denom * that.denom;
@@ -148,7 +148,7 @@ intrat_t intrat_t::exp(int e) {
       throw spffl::exception_t(ss.str());
     }
     xp = one / xp;
-    e  = -e;
+    e = -e;
   }
 
   while (e != 0) {
@@ -287,9 +287,7 @@ bool intrat_t::operator==(const intrat_t &that) const {
 }
 
 // ----------------------------------------------------------------
-bool intrat_t::operator!=(const intrat_t &that) const {
-  return !(*this == that);
-}
+bool intrat_t::operator!=(const intrat_t &that) const { return !(*this == that); }
 
 // ----------------------------------------------------------------
 bool intrat_t::operator==(int that) const {

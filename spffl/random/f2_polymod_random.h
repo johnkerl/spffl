@@ -8,7 +8,6 @@
 #define F2POLYMOD_RANDOM_H
 #include "spffl/polynomials/f2_polymod_t.h"
 namespace spffl::random {
-spffl::polynomials::f2_polymod_t f2_polymod_random(
-    const spffl::polynomials::f2_poly_t &m);
+spffl::polynomials::f2_polymod_t f2_polymod_random(const spffl::polynomials::f2_poly_t &m);
 } // namespace spffl::random
 #endif // F2POLYMOD_RANDOM_H

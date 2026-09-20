@@ -17,14 +17,14 @@ bit_matrix_t::bit_matrix_t(int init_num_rows, int init_num_cols) {
   if ((init_num_rows <= 0) || (init_num_cols <= 0)) {
     std::stringstream ss;
     ss << "bit_matrix_t::bit_matrix_t():  Matrix dimensions "
-       << "must be >= 0; got " << init_num_rows << " x " << init_num_cols
-       << ".  Exiting." << std::endl;
+       << "must be >= 0; got " << init_num_rows << " x " << init_num_cols << ".  Exiting."
+       << std::endl;
     throw spffl::exception_t(ss.str());
   }
 
   this->num_rows = init_num_rows;
   this->num_cols = init_num_cols;
-  this->rows     = new bit_vector_t[init_num_rows];
+  this->rows = new bit_vector_t[init_num_rows];
   for (int i = 0; i < init_num_rows; i++) {
     this->rows[i] = bit_vector_t(init_num_cols);
   }
@@ -35,13 +35,13 @@ bit_matrix_t::bit_matrix_t(bit_t e, int init_num_rows, int init_num_cols) {
   if ((init_num_rows <= 0) || (init_num_cols <= 0)) {
     std::stringstream ss;
     ss << "bit_matrix_t::bit_matrix_t():  Matrix dimensions "
-       << "must be > 0; got " << init_num_rows << " x " << init_num_cols
-       << ".  Exiting." << std::endl;
+       << "must be > 0; got " << init_num_rows << " x " << init_num_cols << ".  Exiting."
+       << std::endl;
     throw spffl::exception_t(ss.str());
   }
   this->num_rows = init_num_rows;
   this->num_cols = init_num_cols;
-  this->rows     = new bit_vector_t[init_num_rows];
+  this->rows = new bit_vector_t[init_num_rows];
   for (int i = 0; i < init_num_rows; i++) {
     this->rows[i] = bit_vector_t(e, init_num_cols);
   }
@@ -52,13 +52,13 @@ bit_matrix_t::bit_matrix_t(int e, int init_num_rows, int init_num_cols) {
   if ((init_num_rows <= 0) || (init_num_cols <= 0)) {
     std::stringstream ss;
     ss << "bit_matrix_t::bit_matrix_t():  Matrix dimensions "
-       << "must be > 0; got " << init_num_rows << " x " << init_num_cols
-       << ".  Exiting." << std::endl;
+       << "must be > 0; got " << init_num_rows << " x " << init_num_cols << ".  Exiting."
+       << std::endl;
     throw spffl::exception_t(ss.str());
   }
   this->num_rows = init_num_rows;
   this->num_cols = init_num_cols;
-  this->rows     = new bit_vector_t[init_num_rows];
+  this->rows = new bit_vector_t[init_num_rows];
   for (int i = 0; i < init_num_rows; i++) {
     this->rows[i] = bit_vector_t(e, init_num_cols);
   }
@@ -72,7 +72,7 @@ bit_matrix_t::bit_matrix_t(const bit_matrix_t &that) {
 
   this->num_rows = that.num_rows;
   this->num_cols = that.num_cols;
-  this->rows     = new bit_vector_t[that.num_rows];
+  this->rows = new bit_vector_t[that.num_rows];
   for (i = 0; i < that.num_rows; i++) {
     this->rows[i] = that.rows[i];
   }
@@ -97,8 +97,7 @@ bool bit_matrix_t::load_from_file(char *file_name) {
 
   if (ifs.fail()) {
     std::stringstream ss;
-    ss << "bit_matrix_t::load_from_file:  couldn't open \"" << file_name
-       << "\"\n";
+    ss << "bit_matrix_t::load_from_file:  couldn't open \"" << file_name << "\"\n";
     return false;
   }
 
@@ -127,8 +126,8 @@ bit_matrix_t &bit_matrix_t::operator=(const bit_t &scalar) {
   } else {
     this->num_rows = 1;
     this->num_cols = 1;
-    this->rows     = new bit_vector_t[1];
-    this->rows[0]  = bit_vector_t(1);
+    this->rows = new bit_vector_t[1];
+    this->rows[0] = bit_vector_t(1);
     this->rows[0].set(0, scalar);
   }
   return *this;
@@ -144,7 +143,7 @@ bit_matrix_t &bit_matrix_t::operator=(const bit_matrix_t &that) {
     this->mfree();
     this->num_rows = that.num_rows;
     this->num_cols = that.num_cols;
-    this->rows     = new bit_vector_t[that.num_rows];
+    this->rows = new bit_vector_t[that.num_rows];
     for (i = 0; i < that.num_rows; i++) {
       this->rows[i] = bit_vector_t(that.num_cols);
     }
@@ -178,9 +177,7 @@ bool bit_matrix_t::operator==(const bit_t &e) const {
 }
 
 // ----------------------------------------------------------------
-bool bit_matrix_t::operator!=(const bit_matrix_t &that) const {
-  return !(*this == that);
-}
+bool bit_matrix_t::operator!=(const bit_matrix_t &that) const { return !(*this == that); }
 
 // ----------------------------------------------------------------
 bool bit_matrix_t::operator!=(const bit_t &e) const { return !(*this == e); }
@@ -198,8 +195,8 @@ std::istream &operator>>(std::istream &is, bit_matrix_t &m) {
   char line[8192];
   const int init_num_rows = 40;
   const int more_num_rows = 40;
-  int alloc_num_rows      = init_num_rows;
-  m.rows                  = new bit_vector_t[init_num_rows];
+  int alloc_num_rows = init_num_rows;
+  m.rows = new bit_vector_t[init_num_rows];
 
   while (1) {
     if (is.eof()) {
@@ -280,8 +277,8 @@ std::istream &operator>>(std::istream &is, bit_matrix_t &m) {
   if (min_cols != max_cols) {
     is.setstate(std::ios::badbit);
     std::stringstream ss;
-    ss << "bit_matrix_t >>:  ragged input.  # rows = " << m.num_rows
-       << " min # cols = " << min_cols << " max # cols = " << max_cols << ".\n";
+    ss << "bit_matrix_t >>:  ragged input.  # rows = " << m.num_rows << " min # cols = " << min_cols
+       << " max # cols = " << max_cols << ".\n";
     return is;
   }
   m.num_cols = max_cols;
@@ -293,8 +290,8 @@ std::istream &operator>>(std::istream &is, bit_matrix_t &m) {
 bit_vector_t &bit_matrix_t::operator[](int row_index) {
   if ((row_index < 0) || (row_index >= this->num_rows)) {
     std::stringstream ss;
-    ss << "bit_matrix_t array operator: row index " << row_index
-       << " out of bounds " << 0 << ":" << (this->num_rows - 1) << std::endl;
+    ss << "bit_matrix_t array operator: row index " << row_index << " out of bounds " << 0 << ":"
+       << (this->num_rows - 1) << std::endl;
     throw spffl::exception_t(ss.str());
   }
   return this->rows[row_index];
@@ -315,8 +312,8 @@ bit_matrix_t bit_matrix_t::operator-(const bit_matrix_t &that) const {
   if ((this->num_rows != that.num_rows) || (this->num_cols != that.num_cols)) {
     std::stringstream ss;
     ss << "bit_matrix_t operator-():  Incompatibly sized "
-       << "arguments (" << this->num_rows << "x" << this->num_cols << ", "
-       << that.num_rows << "x" << that.num_cols << ")." << std::endl;
+       << "arguments (" << this->num_rows << "x" << this->num_cols << ", " << that.num_rows << "x"
+       << that.num_cols << ")." << std::endl;
     throw spffl::exception_t(ss.str());
   }
 
@@ -372,8 +369,8 @@ bit_vector_t bit_matrix_t::operator*(const bit_vector_t &v) const {
   if (this->num_cols != v_num_elements) {
     std::stringstream ss;
     ss << "bit_matrix_t operator*(): Incompatibly dimensioned "
-       << "operands (" << this->num_rows << "x" << this->num_cols << ","
-       << v_num_elements << ")." << std::endl;
+       << "operands (" << this->num_rows << "x" << this->num_cols << "," << v_num_elements << ")."
+       << std::endl;
     throw spffl::exception_t(ss.str());
   }
 
@@ -447,8 +444,8 @@ bit_matrix_t bit_matrix_t::operator*(const bit_matrix_t &that) const {
   if (this->num_cols != that.num_rows) {
     std::stringstream ss;
     ss << "bit_matrix_t operator*(): Incompatibly "
-       << "dimensioned operands (" << this->num_rows << "x" << this->num_cols
-       << "," << that.num_rows << "x" << that.num_cols << ")." << std::endl;
+       << "dimensioned operands (" << this->num_rows << "x" << this->num_cols << ","
+       << that.num_rows << "x" << that.num_cols << ")." << std::endl;
     throw spffl::exception_t(ss.str());
   }
 
@@ -599,9 +596,7 @@ uint64_t **bit_matrix_t::expose(void) const {
 }
 
 // ----------------------------------------------------------------
-void bit_matrix_t::swap(int arow, int brow) {
-  this->rows[arow].ptrswap(this->rows[brow]);
-}
+void bit_matrix_t::swap(int arow, int brow) { this->rows[arow].ptrswap(this->rows[brow]); }
 
 // ----------------------------------------------------------------
 // This is a general row-reduction method.  It operates on the matrix in-place.
@@ -647,23 +642,22 @@ void bit_matrix_t::row_reduce_below_with_scalar(bit_t &s) {
   uint64_t *temp;
 
   s = 1;
-  for (top_row = 0, left_column = 0;
-       (top_row < this->num_rows) && (left_column < this->num_cols);
-      /* increment in loop body */) {
+  for (top_row = 0, left_column = 0; (top_row < this->num_rows) && (left_column < this->num_cols);
+    /* increment in loop body */) {
     // Find the nearest row with a non-zero value in this column;
     // exchange that row with this one.  If this is the last row,
     // there are no rows below to pivot into place, so don't
     // bother.
     if (top_row < this->num_rows - 1) {
-      int pivot_row        = top_row;
+      int pivot_row = top_row;
       int pivot_successful = 0;
       while (!pivot_successful && (pivot_row < this->num_rows)) {
         // if (this->rows[pivot_row].get_bit(left_column) != 0) {
         if (GET_BIT(ptrs[pivot_row], left_column)) {
           if (top_row != pivot_row) {
             this->swap(top_row, pivot_row);
-            temp            = ptrs[top_row];
-            ptrs[top_row]   = ptrs[pivot_row];
+            temp = ptrs[top_row];
+            ptrs[top_row] = ptrs[pivot_row];
             ptrs[pivot_row] = temp;
           }
           pivot_successful = 1;
@@ -720,7 +714,7 @@ void bit_matrix_t::row_echelon_form(void) {
         break;
       }
       row2_leader_val = this->rows[row2].get(row2_leader_pos);
-      row_leader_val  = this->rows[row].get(row2_leader_pos);
+      row_leader_val = this->rows[row].get(row2_leader_pos);
       if (row_leader_val == 0) {
         continue;
       }
@@ -759,7 +753,7 @@ bool bit_matrix_t::get_kernel_basis(bit_matrix_t &rbas) const {
   int i, j;
   bit_matrix_t rr(*this);
   rr.row_echelon_form();
-  int rank   = rr.get_rank_rr();
+  int rank = rr.get_rank_rr();
   int dimker = rr.num_cols - rank;
   if (dimker == 0) {
     return false;
@@ -768,8 +762,8 @@ bool bit_matrix_t::get_kernel_basis(bit_matrix_t &rbas) const {
   bit_matrix_t basis(bit_t(0), dimker, rr.num_cols);
 
   unsigned char *free_flags = new unsigned char[this->num_cols];
-  int *free_indices         = new int[this->num_cols];
-  int nfree                 = 0; // == dimker but I'll compute it anyway
+  int *free_indices = new int[this->num_cols];
+  int nfree = 0; // == dimker but I'll compute it anyway
   int dep_pos;
 
   for (i = 0; i < this->num_cols; i++) {
@@ -859,8 +853,8 @@ void bit_matrix_t::check_kernel_basis(bit_matrix_t &kerbas) const {
 bit_matrix_t bit_matrix_t::paste(bit_matrix_t &that) const {
   if (this->num_rows != that.num_rows) {
     std::stringstream ss;
-    ss << "bit_matrix_t::paste:  differing number of rows (" << this->num_rows
-       << " vs. " << that.num_rows << ")\n";
+    ss << "bit_matrix_t::paste:  differing number of rows (" << this->num_rows << " vs. "
+       << that.num_rows << ")\n";
     throw spffl::exception_t(ss.str());
   }
 
@@ -880,8 +874,7 @@ bit_matrix_t bit_matrix_t::paste(bit_matrix_t &that) const {
 }
 
 // ----------------------------------------------------------------
-void bit_matrix_t::split(
-    bit_matrix_t &rleft, bit_matrix_t &rright, int split_column) const {
+void bit_matrix_t::split(bit_matrix_t &rleft, bit_matrix_t &rright, int split_column) const {
   if ((split_column < 0) || (split_column >= this->num_cols)) {
     std::stringstream ss;
     ss << "bit_matrix_t::split:  split column " << split_column
@@ -889,7 +882,7 @@ void bit_matrix_t::split(
     throw spffl::exception_t(ss.str());
   }
 
-  rleft  = bit_matrix_t(this->num_rows, split_column);
+  rleft = bit_matrix_t(this->num_rows, split_column);
   rright = bit_matrix_t(this->num_rows, this->num_cols - split_column);
 
   int i, j;
@@ -915,7 +908,7 @@ bool bit_matrix_t::inverse(bit_matrix_t &rinv) const {
     throw spffl::exception_t(ss.str());
   }
 
-  bit_matrix_t I    = this->make_I();
+  bit_matrix_t I = this->make_I();
   bit_matrix_t pair = this->paste(I);
   pair.row_echelon_form();
 
@@ -969,19 +962,17 @@ void bit_matrix_t::mfree(void) {
 
 // ----------------------------------------------------------------
 void bit_matrix_t::nullify(void) {
-  this->rows     = 0;
+  this->rows = 0;
   this->num_rows = 0;
   this->num_cols = 0;
 }
 
 // ----------------------------------------------------------------
-void bit_matrix_t::check_dims(
-    const bit_matrix_t that, const std::string &msg) const {
+void bit_matrix_t::check_dims(const bit_matrix_t that, const std::string &msg) const {
   if ((this->num_rows != that.num_rows) || (this->num_cols != that.num_cols)) {
     std::stringstream ss;
-    ss << "bit_matrix_t " << msg << ":  Incompatibly sized arguments ("
-       << this->num_rows << "x" << this->num_cols << ", " << that.num_rows
-       << "x" << that.num_cols << ")." << std::endl;
+    ss << "bit_matrix_t " << msg << ":  Incompatibly sized arguments (" << this->num_rows << "x"
+       << this->num_cols << ", " << that.num_rows << "x" << that.num_cols << ")." << std::endl;
     throw spffl::exception_t(ss.str());
   }
 }

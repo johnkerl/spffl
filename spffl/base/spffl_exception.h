@@ -8,11 +8,11 @@
 namespace spffl {
 
 class exception_t : public std::exception {
-public:
+  public:
   exception_t(const std::string &msg);
   virtual const char *what() const noexcept;
 
-private:
+  private:
   std::string msg;
 };
 

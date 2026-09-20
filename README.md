@@ -2,7 +2,7 @@
 
 SPFFL (pronounced _spiffle_) is a small-prime finite-field library, where small means 32 bits or less. Polynomials may have arbitrary degree, as limited by machine resources. Residue field and quotient fields are supported. In addition to the C++ library, there is a command-line tool, named `spiff`, for convenient interactive use.
 
-See also my expository paper [_Computation in Finite Fields_](doc/ffcomp.pdf) for background
+See also my expository paper [_Computation in Finite Fields_](./ffcomp.pdf) for background
 and narrative on the data structures and algorithms implemented by SPFFL.
 
 See also my master's thesis, [_Curves and Codes_](https://johnkerl.org/doc/kerl-ma-thesis.pdf).
@@ -233,6 +233,10 @@ done
 0  5  3  1  6  4  2
 0  6  5  4  3  2  1
 ```
+# C++20 migration
+
+A plan to migrate the entire codebase to a single C++20 tree (concepts, `polynomial_of<>`, `residue_of<>`, `vector_over`/`matrix_over`, no legacy code left) is in **[cpp20/MIGRATION_PATH.md](cpp20/MIGRATION_PATH.md)**. The `cpp20/` directory contains the target design and a working subset; the migration path describes how to merge it into the root tree and remove the old implementations.
+
 # Build status
 
 [![CMake](https://github.com/johnkerl/spffl/actions/workflows/cmake.yml/badge.svg)](https://github.com/johnkerl/spffl/actions/workflows/cmake.yml)

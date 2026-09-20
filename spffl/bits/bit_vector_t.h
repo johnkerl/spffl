@@ -16,37 +16,28 @@
 namespace spffl::bits {
 
 const uint64_t BITS_PER_WORD = 64;
-const uint64_t BITS_SHIFT    = 6;
-const uint64_t WORD_MASK     = BITS_PER_WORD - 1;
-const uint64_t UONE          = 1;
+const uint64_t BITS_SHIFT = 6;
+const uint64_t WORD_MASK = BITS_PER_WORD - 1;
+const uint64_t UONE = 1;
 
-static inline uint64_t WORD_INDEX_FROM_BIT_INDEX(uint64_t bi) {
-  return bi >> BITS_SHIFT;
-}
+static inline uint64_t WORD_INDEX_FROM_BIT_INDEX(uint64_t bi) { return bi >> BITS_SHIFT; }
 
-static inline uint64_t WORD_POS_FROM_BIT_INDEX(uint64_t bi) {
-  return 63 - (bi & WORD_MASK);
-}
+static inline uint64_t WORD_POS_FROM_BIT_INDEX(uint64_t bi) { return 63 - (bi & WORD_MASK); }
 
 static uint64_t GET_BIT(uint64_t *wordptr, uint64_t bi) {
-  return (wordptr[WORD_INDEX_FROM_BIT_INDEX(bi)] >>
-             WORD_POS_FROM_BIT_INDEX(bi)) &
-         UONE;
+  return (wordptr[WORD_INDEX_FROM_BIT_INDEX(bi)] >> WORD_POS_FROM_BIT_INDEX(bi)) & UONE;
 }
 
 static void SET_BIT(uint64_t *wordptr, uint64_t bi) {
-  wordptr[WORD_INDEX_FROM_BIT_INDEX(bi)] |=
-      (UONE << WORD_POS_FROM_BIT_INDEX(bi));
+  wordptr[WORD_INDEX_FROM_BIT_INDEX(bi)] |= (UONE << WORD_POS_FROM_BIT_INDEX(bi));
 }
 
 static void CLEAR_BIT(uint64_t *wordptr, uint64_t bi) {
-  wordptr[WORD_INDEX_FROM_BIT_INDEX(bi)] &=
-      ~(UONE << WORD_POS_FROM_BIT_INDEX(bi));
+  wordptr[WORD_INDEX_FROM_BIT_INDEX(bi)] &= ~(UONE << WORD_POS_FROM_BIT_INDEX(bi));
 }
 
 static void TOGGLE_BIT(uint64_t *wordptr, uint64_t bi) {
-  wordptr[WORD_INDEX_FROM_BIT_INDEX(bi)] ^=
-      (UONE << WORD_POS_FROM_BIT_INDEX(bi));
+  wordptr[WORD_INDEX_FROM_BIT_INDEX(bi)] ^= (UONE << WORD_POS_FROM_BIT_INDEX(bi));
 }
 
 static uint64_t NWORDS_FROM_NBITS(uint64_t nb) {
@@ -54,7 +45,7 @@ static uint64_t NWORDS_FROM_NBITS(uint64_t nb) {
 }
 
 class bit_vector_t {
-public:
+  public:
   bit_vector_t(void);
   bit_vector_t(int init_num_elements);
   bit_vector_t(const bit_t &scalar, int init_num_elements);
@@ -70,8 +61,7 @@ public:
 
   friend std::istream &operator>>(std::istream &is, bit_vector_t &v);
 
-  friend std::istringstream &operator>>(
-      std::istringstream &is, bit_vector_t &v);
+  friend std::istringstream &operator>>(std::istringstream &is, bit_vector_t &v);
 
   // No spaces between elements.  (Instead, perhaps I could implement a
   // derived iomanip, and then just use ostream <<.)
@@ -155,7 +145,7 @@ public:
   uint64_t *expose() { return this->words; }
 
   // ----------------------------------------------------------------
-private:
+  private:
   uint64_t *words;
   int num_words;
   int num_bits;

@@ -1,74 +1,64 @@
 #include "spffl/libspffl.h"
 
 // ----------------------------------------------------------------
-static void usage(char * argv0)
-{
-	std::cout << "Usage: " << argv0 << " {m} {a1,a2,a3,a4,a6}\n";
-	std::cout << "Where y^2 + a1 x y + a3 y = x^3 + a2 x^2 + a4 x + a6\n";
-	exit(1);
+static void usage(char *argv0) {
+  std::cout << "Usage: " << argv0 << " {m} {a1,a2,a3,a4,a6}\n";
+  std::cout << "Where y^2 + a1 x y + a3 y = x^3 + a2 x^2 + a4 x + a6\n";
+  exit(1);
 }
 
 // ----------------------------------------------------------------
-void checkf(
-	f2_polymod_t a1,
-	f2_polymod_t a2,
-	f2_polymod_t a3,
-	f2_polymod_t a4,
-	f2_polymod_t a6,
-	f2_polymod_t x,
-	f2_polymod_t y,
-	f2_polymod_t z)
-{
-	f2_polymod_t lhs = y*y*z + a1*x*y*z + a3*y*z*z;
-	f2_polymod_t rhs = x*x*x + a2*x*x*z + a4*x*z*z + a6*z*z*z;
-	if (lhs == rhs) {
-		std::cout << x << "," << y << "," << z << "\n";
-	}
+void checkf(f2_polymod_t a1, f2_polymod_t a2, f2_polymod_t a3, f2_polymod_t a4, f2_polymod_t a6,
+  f2_polymod_t x, f2_polymod_t y, f2_polymod_t z) {
+  f2_polymod_t lhs = y * y * z + a1 * x * y * z + a3 * y * z * z;
+  f2_polymod_t rhs = x * x * x + a2 * x * x * z + a4 * x * z * z + a6 * z * z * z;
+  if (lhs == rhs) {
+    std::cout << x << "," << y << "," << z << "\n";
+  }
 }
 
 // ----------------------------------------------------------------
-int main(int argc, char ** argv)
-{
-	f2_poly_t m;
-	f2_polymod_t a1, a2, a3, a4, a6;
-	f2_polymod_t x, y, z;
+int main(int argc, char **argv) {
+  f2_poly_t m;
+  f2_polymod_t a1, a2, a3, a4, a6;
+  f2_polymod_t x, y, z;
 
-	if (argc != 3)
-		usage(argv[0]);
-	if (!m.from_string(argv[1]))
-		usage(argv[0]);
-	if (!ft_scan_quintuple(argv[2], m, a1, a2, a3, a4, a6))
-		usage(argv[0]);
+  if (argc != 3)
+    usage(argv[0]);
+  if (!m.from_string(argv[1]))
+    usage(argv[0]);
+  if (!ft_scan_quintuple(argv[2], m, a1, a2, a3, a4, a6))
+    usage(argv[0]);
 
-	tvector<f2_polymod_t> Fq = f2_polymod_list(m, SP_LIST_ALL);
-	int q = Fq.get_num_elements();
+  tvector<f2_polymod_t> Fq = f2_polymod_list(m, SP_LIST_ALL);
+  int q = Fq.get_num_elements();
 
-	// x=* y=1 z=0
-	// x=1 y=0 z=0
-	// x=* y=* z=1
+  // x=* y=1 z=0
+  // x=1 y=0 z=0
+  // x=* y=* z=1
 
-	f2_polymod_t zero = f2_polymod_t::prime_subfield_element(0, m);
-	f2_polymod_t one  = f2_polymod_t::prime_subfield_element(1, m);
+  f2_polymod_t zero = f2_polymod_t::prime_subfield_element(0, m);
+  f2_polymod_t one = f2_polymod_t::prime_subfield_element(1, m);
 
-	y = one;
-	z = zero;
-	for (int i = 0; i < q; i++) {
-		checkf(a1, a2, a3, a4, a6, Fq[i], y, z);
-	}
+  y = one;
+  z = zero;
+  for (int i = 0; i < q; i++) {
+    checkf(a1, a2, a3, a4, a6, Fq[i], y, z);
+  }
 
-	x = one;
-	y = zero;
-	z = zero;
-	checkf(a1, a2, a3, a4, a6, x, y, z);
+  x = one;
+  y = zero;
+  z = zero;
+  checkf(a1, a2, a3, a4, a6, x, y, z);
 
-	z = one;
-	for (int i = 0; i < q; i++) {
-		for (int j = 0; j < q; j++) {
-			checkf(a1, a2, a3, a4, a6, Fq[i], Fq[j], z);
-		}
-	}
+  z = one;
+  for (int i = 0; i < q; i++) {
+    for (int j = 0; j < q; j++) {
+      checkf(a1, a2, a3, a4, a6, Fq[i], Fq[j], z);
+    }
+  }
 
-	return 0;
+  return 0;
 }
 
 //	check_point("input", a1, a2, a3, a4, a6, x1, y1, z1);

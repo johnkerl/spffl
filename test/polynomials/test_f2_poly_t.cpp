@@ -162,9 +162,7 @@ TEST_CASE("spffl::polynomials::f2_poly_t_arithmetic_big") {
                            "e68c440da6b7dbd8"));
   CHECK(a * 0 == f2_poly_t("0"));
   CHECK(a * 1 == a);
-  CHECK(a.exp(2) ==
-        f2_poly_t(
-            "1040441055401511010144110514441405504504150145154114511015440"));
+  CHECK(a.exp(2) == f2_poly_t("1040441055401511010144110514441405504504150145154114511015440"));
   CHECK(a / b == f2_poly_t("0"));
   CHECK(b / a == f2_poly_t("3cd491e"));
   CHECK(a % a == f2_poly_t("0"));

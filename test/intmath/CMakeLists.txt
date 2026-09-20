@@ -49,6 +49,8 @@ add_executable(test_intmath
   test_primes.cpp
   test_log2.cpp
   test_log10.cpp
+  test_intmod_t.cpp
+  test_euclidean_int.cpp
 )
 target_include_directories(${PROJECT_NAME}
   PRIVATE

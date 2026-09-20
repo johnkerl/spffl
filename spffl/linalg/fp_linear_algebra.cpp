@@ -5,15 +5,14 @@
 // ================================================================
 
 #include "spffl/base/spffl_exception.h"
+#include "spffl/containers/matrix_over.h"
 #include "spffl/polynomials/fp_poly_t.h"
-
 #include "spffl/linalg/fp_linear_algebra.h"
 
 namespace spffl::linalg {
 
 // ----------------------------------------------------------------
-tvector<spffl::intmath::intmod_t> fp_vector_from_base_rep(
-    int base_rep, int p, int len) {
+tvector<spffl::intmath::intmod_t> fp_vector_from_base_rep(int base_rep, int p, int len) {
   tvector<spffl::intmath::intmod_t> v(len);
   int i;
 
@@ -25,8 +24,7 @@ tvector<spffl::intmath::intmod_t> fp_vector_from_base_rep(
 }
 
 // ----------------------------------------------------------------
-spffl::polynomials::fp_poly_t fp_char_poly(
-    tmatrix<spffl::intmath::intmod_t> &A) {
+spffl::polynomials::fp_poly_t fp_char_poly(tmatrix<spffl::intmath::intmod_t> &A) {
   if (!A.is_square()) {
     std::stringstream ss;
     ss << "fp_char_poly():  non-square input.\n";
@@ -35,7 +33,7 @@ spffl::polynomials::fp_poly_t fp_char_poly(
 
   int i, j;
   int n = A.get_num_rows();
-  tmatrix<spffl::polynomials::fp_poly_t> tI_A(n, n);
+  spffl::containers::matrix_over<spffl::polynomials::fp_poly_t> tI_A(n, n);
   int p = A[0][0].get_modulus();
   spffl::intmath::intmod_t c1(1, p);
   spffl::intmath::intmod_t c0(0, p);
@@ -44,9 +42,9 @@ spffl::polynomials::fp_poly_t fp_char_poly(
 
   for (i = 0; i < n; i++) {
     for (j = 0; j < n; j++) {
-      tI_A[i][j] = -spffl::polynomials::fp_poly_t(A[i][j]);
+      tI_A[static_cast<std::size_t>(i)][j] = -spffl::polynomials::fp_poly_t(A[i][j]);
       if (i == j) {
-        tI_A[i][j] += t;
+        tI_A[static_cast<std::size_t>(i)][j] = tI_A[static_cast<std::size_t>(i)][j] + t;
       }
     }
   }
@@ -56,8 +54,7 @@ spffl::polynomials::fp_poly_t fp_char_poly(
 }
 
 // ----------------------------------------------------------------
-tmatrix<spffl::intmath::intmod_t> fp_companion_matrix(
-    spffl::polynomials::fp_poly_t chpol) {
+tmatrix<spffl::intmath::intmod_t> fp_companion_matrix(spffl::polynomials::fp_poly_t chpol) {
   int n = chpol.find_degree();
   int p = chpol.get_characteristic();
   tmatrix<spffl::intmath::intmod_t> rv(n, n);

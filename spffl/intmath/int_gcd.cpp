@@ -45,11 +45,11 @@ int int_ext_gcd(int a, int b, int &m, int &n) {
 
   // Initialize
   mprime = 1;
-  n      = 1;
-  m      = 0;
+  n = 1;
+  m = 0;
   nprime = 0;
-  c      = a;
-  d      = b;
+  c = a;
+  d = b;
 
   while (1) {
 
@@ -67,15 +67,15 @@ int int_ext_gcd(int a, int b, int &m, int &n) {
     c = d;
     d = r;
 
-    t      = mprime;
+    t = mprime;
     mprime = m;
-    qm     = q * m;
-    m      = t - qm;
+    qm = q * m;
+    m = t - qm;
 
-    t      = nprime;
+    t = nprime;
     nprime = n;
-    qn     = q * n;
-    n      = t - qn;
+    qn = q * n;
+    n = t - qn;
   }
   return d;
 }

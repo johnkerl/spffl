@@ -12,11 +12,16 @@
 namespace spffl::polynomials {
 
 // ----------------------------------------------------------------
-f2_polymod_t::f2_polymod_t(
-    const f2_poly_t &arg_residue, const f2_poly_t &arg_modulus) {
+f2_polymod_t::f2_polymod_t(const f2_poly_t &arg_residue, const f2_poly_t &arg_modulus) {
   this->residue = arg_residue;
   this->modulus = arg_modulus;
   this->residue = this->residue % this->modulus;
+}
+
+// ----------------------------------------------------------------
+f2_polymod_t::f2_polymod_t(int v, const f2_poly_t &arg_modulus) {
+  this->modulus = arg_modulus;
+  this->residue = f2_poly_t(v & 1);
 }
 
 // ----------------------------------------------------------------
@@ -94,8 +99,8 @@ f2_polymod_t f2_polymod_t::operator/(const f2_polymod_t &that) const {
   f2_polymod_t bi;
   if (!that.recip(bi)) {
     std::stringstream ss;
-    ss << "f2_polymod_t::operator/:  zero or zero divisor: " << that.residue
-       << " mod " << that.modulus << ".\n";
+    ss << "f2_polymod_t::operator/:  zero or zero divisor: " << that.residue << " mod "
+       << that.modulus << ".\n";
     throw spffl::exception_t(ss.str());
   }
 
@@ -109,8 +114,8 @@ f2_polymod_t f2_polymod_t::operator%(const f2_polymod_t &that) const {
   f2_polymod_t bi;
   if (!that.recip(bi)) {
     std::stringstream ss;
-    ss << "f2_polymod_t::operator%:  zero or zero divisor: " << that.residue
-       << " mod " << that.modulus << ".\n";
+    ss << "f2_polymod_t::operator%:  zero or zero divisor: " << that.residue << " mod "
+       << that.modulus << ".\n";
     throw spffl::exception_t(ss.str());
   }
 
@@ -158,15 +163,15 @@ f2_polymod_t f2_polymod_t::exp(int e) const {
       throw spffl::exception_t(ss.str());
     }
     f2_polymod_t inv = one / *this;
-    xp               = inv.residue;
-    e                = -e;
+    xp = inv.residue;
+    e = -e;
   }
 
   while (e != 0) {
     if (e & 1) {
       rv.residue = (rv.residue * xp) % this->modulus;
     }
-    e  = (unsigned)e >> 1;
+    e = (unsigned)e >> 1;
     xp = (xp * xp) % this->modulus;
   }
   return rv;
@@ -254,9 +259,7 @@ bool f2_polymod_t::operator==(const f2_polymod_t &that) const {
 }
 
 // ----------------------------------------------------------------
-bool f2_polymod_t::operator!=(const f2_polymod_t &that) const {
-  return !(*this == that);
-}
+bool f2_polymod_t::operator!=(const f2_polymod_t &that) const { return !(*this == that); }
 
 // ----------------------------------------------------------------
 bool f2_polymod_t::operator==(int that) const { return this->residue == that; }
@@ -304,8 +307,7 @@ void f2_polymod_t::change_modulus(const f2_poly_t &new_modulus) {
 void f2_polymod_t::check_moduli(const f2_polymod_t &that) const {
   if (this->modulus != that.modulus) {
     std::stringstream ss;
-    ss << "f2_polymod_t: mixed moduli " << this->modulus << ", " << that.modulus
-       << ".";
+    ss << "f2_polymod_t: mixed moduli " << this->modulus << ", " << that.modulus << ".";
     ss << std::endl;
     throw spffl::exception_t(ss.str());
   }

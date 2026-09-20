@@ -22,7 +22,7 @@ namespace spffl::polynomials {
 
 // ================================================================
 class f2_poly_t {
-public:
+  public:
   f2_poly_t(void);
 
   f2_poly_t(int c0);
@@ -57,8 +57,7 @@ public:
   f2_poly_t &operator/=(const f2_poly_t &that);
   f2_poly_t &operator%=(const f2_poly_t &that);
 
-  void quot_and_rem(
-      const f2_poly_t &that, f2_poly_t &rquot, f2_poly_t &rrem) const;
+  void quot_and_rem(const f2_poly_t &that, f2_poly_t &rquot, f2_poly_t &rrem) const;
   f2_poly_t gcd(const f2_poly_t &that) const;
   f2_poly_t ext_gcd(const f2_poly_t &that, f2_poly_t &rm, f2_poly_t &rn) const;
   f2_poly_t exp(int power) const;
@@ -84,8 +83,7 @@ public:
 
   friend std::ostream &operator<<(std::ostream &os, const f2_poly_t &poly);
   friend std::istream &operator>>(std::istream &is, f2_poly_t &poly);
-  friend std::istringstream &operator>>(
-      std::istringstream &iss, f2_poly_t &poly);
+  friend std::istringstream &operator>>(std::istringstream &iss, f2_poly_t &poly);
 
   // If the polynomial's degree is less than deg, zero-padding is done.
   // This facilitates nice tabular output in certain situations.
@@ -101,7 +99,7 @@ public:
   void _promote_1(void);
   void _demote_1(void);
 
-private:
+  private:
   std::vector<uint64_t> parts;
 
   bool cmp(int op, const f2_poly_t &that) const;
@@ -114,8 +112,8 @@ private:
 } // namespace spffl::polynomials
 
 // Same as the gcd method, but overloaded.  This is important for template use.
-spffl::polynomials::f2_poly_t gcd(const spffl::polynomials::f2_poly_t &a,
-    const spffl::polynomials::f2_poly_t &b);
+spffl::polynomials::f2_poly_t gcd(
+  const spffl::polynomials::f2_poly_t &a, const spffl::polynomials::f2_poly_t &b);
 
 // ================================================================
 #endif // F2POLY_T_H

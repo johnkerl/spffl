@@ -11,6 +11,13 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O2")
 set(CMAKE_CXX_STANDARD 20 CACHE STRING "C++ Standard")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Some libstdc++ configurations (notably in CI) require an explicit
+# include of <cstdint> before std::uint64_t is available. Ensure this
+# header is pre-included for all translation units, including Catch2's.
+if (NOT MSVC)
+  add_compile_options(-include cstdint)
+endif()
+
 add_subdirectory(spffl)
 add_subdirectory(lib)
 add_subdirectory(cli)

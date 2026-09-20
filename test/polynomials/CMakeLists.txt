@@ -45,6 +45,7 @@ endif()
 # ----------------------------------------------------------------
 add_executable(test_polynomials
   test_f2_poly_t.cpp
+  test_polynomial_of.cpp
   # TODO:
   # test_f2_polymod_t.cpp
   # test_f2n_poly_t.cpp

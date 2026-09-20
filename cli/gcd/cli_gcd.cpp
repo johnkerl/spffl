@@ -4,8 +4,7 @@
 #include "spffl/intmath/int_gcd.h"
 
 static void usage(char *argv0) {
-  fprintf(
-      stderr, "Usage: %s {a} {b} where a and b are decimal integers.\n", argv0);
+  fprintf(stderr, "Usage: %s {a} {b} where a and b are decimal integers.\n", argv0);
   exit(1);
 }
 

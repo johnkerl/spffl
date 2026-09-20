@@ -7,7 +7,6 @@ add_library(${PROJECT_NAME}
   int_sqrt.cpp
   int_gcd.cpp
   int_totient.cpp
-  intmod_t.cpp
   intrat_t.cpp
   primes_16.cpp
   is_prime.cpp

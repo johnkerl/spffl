@@ -14,7 +14,7 @@
 namespace spffl::intmath {
 
 class intrat_t {
-public:
+  public:
   intrat_t(int numerator, int denominator);
   intrat_t(int numerator);
   intrat_t(void);
@@ -26,7 +26,7 @@ public:
   intrat_t operator+(const intrat_t &that) const;
   intrat_t operator-(const intrat_t &that) const;
   intrat_t operator-(void) const;
-  intrat_t operator*(const intrat_t &that);
+  intrat_t operator*(const intrat_t &that) const;
   intrat_t operator/(const intrat_t &that);
   intrat_t operator%(const intrat_t &that);
   intrat_t exp(int e);
@@ -54,7 +54,7 @@ public:
   int get_numerator(void) const;
   int get_denominator(void) const;
 
-private:
+  private:
   int numer;
   int denom;
 

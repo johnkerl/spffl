@@ -6,7 +6,6 @@
 
 #include "spffl/factorization/int_factor.h"
 #include "spffl/containers/tfacinfo.h"
-#include "spffl/containers/tmatrix.h"
 #include "spffl/intmath/primes_16.h"
 
 namespace spffl::factorization {

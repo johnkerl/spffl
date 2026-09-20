@@ -7,7 +7,6 @@
 #ifndef MOEBIUS_H
 #define MOEBIUS_H
 
-int calc_moebius(
-	int n);
+int calc_moebius(int n);
 
 #endif // MOEBIUS_H

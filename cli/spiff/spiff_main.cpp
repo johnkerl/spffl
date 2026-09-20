@@ -266,8 +266,7 @@ std::vector<lookup_group_t> lookup_groups {
 
 // ----------------------------------------------------------------
 void main_usage(char *argv0) {
-  std::cerr << "Usage: " << argv0
-            << " {command} {command-specific arguments ...}\n";
+  std::cerr << "Usage: " << argv0 << " {command} {command-specific arguments ...}\n";
   std::cerr << "Use " << argv0 << " -l to list available commands.\n";
   exit(1);
 }

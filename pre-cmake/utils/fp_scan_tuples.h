@@ -3,11 +3,6 @@
 
 #include "spffl/intmod_t.h"
 
-int fp_scan_triple(
-	char     * input,
-	int        p,
-	intmod_t & a,
-	intmod_t & b,
-	intmod_t & c);
+int fp_scan_triple(char *input, int p, intmod_t &a, intmod_t &b, intmod_t &c);
 
 #endif // FP_SCAN_TUPLES_H
